@@ -9,10 +9,10 @@
     
     <style>
         /* ============================================
-           ROOT VARIABLES - The soul of the color palette
+           ROOT VARIABLES
            ============================================ */
         :root {
-            --bg-dark: #3A2A1A;           /* Earthy foundation. To evoke deeper trust and mystery, consider warming it slightly toward #4A3828 */
+            --bg-dark: #3A2A1A;
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
@@ -20,13 +20,10 @@
         }
 
         /* ============================================
-           GLOBAL RESET - Clean canvas for the design
+           GLOBAL RESET
            ============================================ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ============================================
-           BODY & TYPOGRAPHY - Setting the stage
-           ============================================ */
         body {
             font-family: 'Lato', sans-serif;
             background-color: var(--bg-dark);
@@ -36,13 +33,12 @@
             min-height: 100vh;
         }
 
-        /* Dynamic background container */
         #dynamic-bg-container {
             position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark);
         }
 
         /* ============================================
-           HEADER - First impression, bold & welcoming
+           HEADER
            ============================================ */
         header { text-align: center; padding: 80px 20px 40px; }
 
@@ -67,7 +63,6 @@
             min-height: 1.2em;
         }
 
-        /* Typing animation for the name - personal touch */
         .name-title {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
@@ -77,13 +72,11 @@
             animation: typing 2s steps(15, end) forwards;
         }
 
-        /* To heighten drama, lengthen the typing duration (e.g., 3s) for a more contemplative reveal */
         @keyframes typing {
             from { width: 0 }
             to { width: 100% }
         }
 
-        /* Phone link styling */
         .phone-link {
             display: inline-block;
             color: var(--text-white);
@@ -97,7 +90,7 @@
         .phone-link:hover { transform: scale(1.05); opacity: 0.9; }
 
         /* ============================================
-           CONTAINER & FORM - The heart of interaction
+           CONTAINER & FORM
            ============================================ */
         .container { max-width: 650px; margin: 0 auto; padding: 20px; }
 
@@ -136,7 +129,6 @@
 
         .char-counter { font-size: 0.75rem; opacity: 0.5; }
 
-        /* Input and textarea styling */
         input, textarea {
             width: 100%;
             padding: 16px;
@@ -159,7 +151,6 @@
             text-align: left;
             resize: none;
             overflow: hidden;
-            /* To give the brief area a more generous breathing room, consider increasing min-height further (e.g., calc(140px + 0.8rem)) */
             min-height: calc(120px + 0.8rem);
         }
 
@@ -170,7 +161,6 @@
             font-size: 0.8rem;
         }
 
-        /* Consent checkbox styling */
         .consent-wrapper {
             display: flex;
             align-items: center;
@@ -214,7 +204,7 @@
         .consent-text { font-size: 0.85rem; opacity: 0.9; line-height: 1.2; user-select: none; }
 
         /* ============================================
-           FAQ SECTION - Interactive knowledge base
+           FAQ SECTION
            ============================================ */
         .faq-section { margin-top: 60px; }
         .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
@@ -227,6 +217,8 @@
             align-items: center;
             gap: 15px;
         }
+
+        /* ZONE: FAQ Bullet Fix */
         .faq-q::before {
             content: "";
             display: inline-block;
@@ -234,12 +226,14 @@
             border-radius: 50%;
             border: 2px solid var(--text-white);
             transition: all 0.3s ease;
+            flex-shrink: 0; /* Prevents bullet from shrinking on narrow screens */
         }
+        /* END ZONE */
+
         .faq-item.active .faq-q::before { background-color: var(--text-white); }
         .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
         .faq-item.active .faq-a { display: block; }
 
-        /* Map styling */
         .map-wrapper {
             width: 100%;
             height: 350px;
@@ -250,7 +244,6 @@
         }
         .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
 
-        /* Submit button */
         .submit-btn {
             width: 100%;
             padding: 20px;
@@ -265,7 +258,6 @@
         }
         .submit-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* Footer */
         footer { text-align: center; padding: 80px 20px; }
         
         .call-me-label {
@@ -289,7 +281,6 @@
         </defs>
         <rect width="528" height="816" fill="url(#g)"/>
         <g style="mix-blend-mode:overlay" fill-opacity=".15">
-            <!-- These gentle stripes give the background life. To quicken their hypnotic dance, raise the speed multiplier in JS -->
             <path class="s-stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
             <path class="s-stripe" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
             <path class="s-stripe" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
@@ -303,7 +294,7 @@
         <div class="name-title">Hanna Dunchenko</div>
     </div><br>
     <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
-</header>
+    </header>
 
 <div class="container">
     <div class="glass-form">
@@ -357,7 +348,7 @@
                 <strong>Advertising & Cookies:</strong> We use this information for advertising purposes on <strong>Facebook, Google Ads, and YouTube</strong>. Our website uses essential cookies for functionality and may use analytics cookies.<br><br>
                 <strong>How we use your information:</strong> To provide legal/paralegal services, respond to inquiries, and (if you consent) send communications.<br><br>
                 <strong>Your rights:</strong> You have the right to access or delete your data. Contact us at <a href="tel:+14372396833" style="color:#fff;">+1 (437) 239-6833</a> or <a href="mailto:paralegal@hannadunchenko.com" style="color:#fff; text-decoration: underline;">paralegal@hannadunchenko.com</a>.<br><br>
-            </div>
+                </div>
         </div>
         <div class="faq-item active">
             <div class="faq-q">Where is your office today?</div>
@@ -365,10 +356,10 @@
                 146 Thirtieth Street, OFFICE 29, Toronto, ON
                 <div class="map-wrapper">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.310439160533!2d-79.5293!3d43.593!2m3!1f0!2f39.31!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x882b49b068962001%3A0xc3924e27f9175d7!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca!4v1710000000000!5m2!1sen!2sca" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.3822294109314!2d-79.5284358!3d43.5985871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b480795d3362d%3A0x6d90d8677732a10!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4%2C%20Canada!5e0!3m2!1sen!2sua!4v1700000000000!5m2!1sen!2sua" 
                         allowfullscreen="" loading="lazy">
                     </iframe>
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -385,9 +376,6 @@
 </footer>
 
 <script>
-    /* ============================================
-       FORM FUNCTIONALITY - Interactive elements
-       ============================================ */
     const briefArea = document.getElementById('brief');
     const counterDisplay = document.getElementById('current-chars');
     const phoneInput = document.getElementById('phone');
@@ -395,34 +383,27 @@
     const submitBtn = document.getElementById('submitBtn');
     const stripes = document.querySelectorAll('.s-stripe');
 
-    /* Character counter for brief textarea */
     briefArea.addEventListener('input', function() {
         counterDisplay.textContent = this.value.length;
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
 
-    /* FAQ accordion toggle */
     document.querySelectorAll('.faq-item').forEach(item => {
         item.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'IFRAME') item.classList.toggle('active');
+            if (e.target.tagName !== 'IFRAME' && e.target.tagName !== 'A') item.classList.toggle('active');
         });
     });
 
-    /* Phone number formatter (US/Canada style) */
     phoneInput.addEventListener('input', (e) => {
         let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 
-    /* Submit button enable/disable based on consent */
     consent.addEventListener('change', () => {
         submitBtn.disabled = !consent.checked;
     });
 
-    /* ============================================
-       DYNAMIC BACKGROUND ANIMATION - Living backdrop
-       ============================================ */
     (function() {
         const data = Array.from(stripes).map(() => ({ 
             seed: Math.random() * 1000, 
@@ -441,5 +422,4 @@
     })();
 </script>
 </body>
-
 </html>
