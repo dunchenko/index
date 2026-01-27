@@ -116,8 +116,8 @@
            FAQ ITEMS & ACCORDION
            ══════════════════════════════════════════════════════════════════════ */
         .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
-        .faq-q { font-weight: 900; margin-bottom: 10px; font-size: 1.4rem; text-transform: uppercase; display: flex; align-items: flex-start; gap: 15px; }
-        .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-white); transition: all 0.3s ease; flex-shrink: 0; margin-top: 10px; }
+        .faq-q { font-weight: 900; margin-bottom: 10px; font-size: 1.4rem; text-transform: uppercase; display: flex; align-items: center; gap: 15px; }
+        .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-white); transition: all 0.3s ease; flex-shrink: 0; }
         .faq-item.active .faq-q::before { background-color: var(--text-white); }
         .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
         .faq-item.active .faq-a { display: block; }
@@ -147,7 +147,7 @@
         .seo-section h3 { font-size: 1.6rem; margin: 40px 0 15px; text-transform: uppercase; font-weight: 900; color: var(--seo-h-sub); }
         .seo-section p { margin-bottom: 15px; opacity: 0.9; }
         .seo-section ul, .seo-section ol { margin: 15px 0 25px 0; padding-left: 30px; text-align: left; }
-        .seo-section li { margin-bottom: 10px; opacity: 0.9; padding-left: 0; line-height: 1.6; }
+        .seo-section li { margin-bottom: 10px; opacity: 0.9; padding-left: 0; }
         
         /* ══════════════════════════════════════════════════════════════════════
            FOOTER & RESPONSIVE DESIGN
@@ -184,7 +184,7 @@
     
     <h1 class="seo-h1">
         <span>Protect Your Rights in GTA: Paralegal & Notary</span>
-        <span>Toronto, Mississauga, Richmond Hill & London</span>
+        <span>Toronto, Mississauga, Richmond Hill, London</span>
         <span>Book Your One-to-One Appointment Here</span>
         <span>Traffic Ticket Defense, LTB, WSIB & More</span>
     </h1>
@@ -230,20 +230,20 @@
         <div class="faq-item active">
             <div class="faq-q">What is the estimated cost for my case?</div>
             <div class="faq-a">
-                <p>Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Please note these are general estimates for reference only:</p>
+                <p>Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:</p>
                 <table class="price-table">
-                    <tr><td>Small Claims Court</td><td>$200 – $500</td></tr>
-                    <tr><td>Traffic Ticket Defense</td><td>$400 – $700</td></tr>
-                    <tr><td>Employment & Labour Law</td><td>$300 – $600</td></tr>
-                    <tr><td>Insurance & Benefits Claims</td><td>$250 – $500</td></tr>
-                    <tr><td>Tax Compliance Matters</td><td>$200 – $450</td></tr>
-                    <tr><td>Business Contract Review</td><td>$350 – $650</td></tr>
-                    <tr><td>Immigration Advisory</td><td>$400 – $800</td></tr>
-                    <tr><td>Landlord & Tenant (LTB)</td><td>$300 – $700</td></tr>
-                    <tr><td>WSIB & Workplace Injuries</td><td>$350 – $750</td></tr>
+                    <tr><td>Small Claims Court</td><td>$200–$500</td></tr>
+                    <tr><td>Traffic Ticket Defense</td><td>$400–$700</td></tr>
+                    <tr><td>Employment & Labour Law</td><td>$300–$600</td></tr>
+                    <tr><td>Insurance & Benefits Claims</td><td>$250–$500</td></tr>
+                    <tr><td>Tax Compliance Matters</td><td>$200–$450</td></tr>
+                    <tr><td>Business Contract Review</td><td>$350–$650</td></tr>
+                    <tr><td>Immigration Advisory</td><td>$400–$800</td></tr>
+                    <tr><td>Landlord & Tenant (LTB)</td><td>$300–$700</td></tr>
+                    <tr><td>WSIB & Workplace Injuries</td><td>$350–$750</td></tr>
                 </table>
                 <span class="price-note">
-                    *Listed prices are for informational purposes only. Final quotes follow the assessment total.
+                    *Listed prices are for reference only. Final quotes follow the assessment total.
                 </span>
             </div>
         </div>
@@ -268,7 +268,7 @@
             <div class="faq-q">Where is your office today?</div>
             <div class="faq-a">
                 <div class="map-block">
-                    146 Thirtieth Street, Office 29, Toronto, ON
+                    146 Thirtieth St., Suite 29, Toronto, ON
                     <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184633!2d-79.5281514!3d43.5992982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f10.5!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4%2C%20Canada!5e0!3m2!1sen!2sua!4v1700000000000!5m2!1sen!2sua" allowfullscreen="" loading="lazy"></iframe></div>
                 </div>
             </div>
@@ -278,10 +278,10 @@
     <div class="faq-item active">
             <div class="faq-q">What is the privacy policy?</div>
             <div class="faq-a">
-                <p><strong>Information we collect:</strong> We collect personal information you provide to us, including your name, telephone number, email address, and details about your legal matter.</p>
-                <p><strong>Advertising & Cookies:</strong> We use your information for advertising on Facebook, Google, and YouTube. Our website uses necessary cookies for functionality and may use analytics cookies to improve your experience.</p>
-                <p><strong>How we use your information:</strong> We use it to deliver paralegal and legal services, respond to your inquiries, and (with your consent) send you communications about your case.</p>
-                <p><strong>Your rights:</strong> You have the right to request access to or deletion of your personal data. Please contact us at +1 (437) 239-6833 or <u>paralegal@hannadunchenko.com</u>.</p>
+                <p><strong>Information we collect:</strong> We collect personal information you voluntarily provide (name, phone number, email, case description).</p>
+                <p><strong>Advertising & Cookies:</strong> We use this information for advertising purposes on Facebook, Google, and YouTube. Our website uses essential cookies for functionality and may use analytics cookies.</p>
+                <p><strong>How we use your information:</strong> To provide legal/paralegal services, respond to inquiries, and (if you consent) send communications.</p>
+                <p><strong>Your rights:</strong> You have the right to access or delete your data. Contact us at +1 (437) 239-6833 or <u>paralegal@hannadunchenko.com</u>.</p>
             </div>
     </div>
 
@@ -308,8 +308,8 @@
         <p>For those dealing with <strong>Small Claims Court help Ontario</strong>, we offer expert paralegal court representation. Whether it is debt collection or contract disputes, we answer the question: <strong>can a paralegal help me sue someone?</strong> Yes, we handle these cases every day with focus and precision.</p>
 
         <h3>Fast & Reliable Notary Public Services</h3>
-        <p>Need a notary public near you? We are a premier <strong>notary near me Toronto</strong> provider. Our services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letter. We also handle notary for passport application, dual citizenship documents Ontario, and <strong>immigration notary Toronto</strong>.</p>
-        <p>Every case starts with a confidential one-on-one appointment. Whether you’re looking for <strong>affordable paralegal Toronto</strong> or <strong>legal advice Ontario cheap</strong>, we provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward.</p>
+        <p>Need a notary public near you? We are a premier <strong>notary near you in Toronto</strong> provider. Our services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letter. We also handle notary for passport application, dual citizenship documents Ontario, and <strong>immigration notary Toronto</strong>.</p>
+        <p>Every case starts with a confidential one-on-one appointment. Whether you’re looking for <strong>affordable paralegal Toronto</strong> or <strong>legal advice Ontario cost-effective</strong>, we provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward <strong>with us</strong> or <strong>independently</strong> the choice is yours.</p>
     </section>
 </div>
 
@@ -330,7 +330,7 @@
         <div class="schedule-details">EVERYDAY: 9 AM – 9 PM EST</div>
         <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
         <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
-                © 2026 Hanna Dunchenko<br>Licensed Paralegal Services
+                © 2026 Hanna Dunchenko<br>Licensed Paralegal Services by the Law Society of Ontario
         </p>
 </footer>
 
