@@ -2,7 +2,7 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
 ║          MADE BY 3DSITER@GMAIL.COM                                        ║
-║         Odesa (Ukraine) with love → Toronto Canada                          ║
+║         Odesa (Ukraine) with love to Toronto Canada                        ║
 ║                                                                              ║
 ║         © 2026 Hanna Dunchenko | Paralegal Services GTA                     ║
 ║                                                                              ║
@@ -21,114 +21,218 @@
            ROOT VARIABLES & THEMING
            ══════════════════════════════════════════════════════════════════════ */
         :root {
-            --bg-dark: #3A2A1A;
+            --bg-dark: #bfa792;
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
-            --placeholder-color: rgba(255, 255, 255, 0.7);
-            --seo-h-main: #F5E6D3;
-            --seo-h-sub: #E8D5C0;
-            --accent-gold: #D4B89A;
+            --placeholder-color: rgba(255, 255, 255, 0.6);
+            --seo-h-main: #ffffff;
+            --seo-h-sub: #f5f5f5;
+            --accent-gold: #6B5B4A;
             --price-highlight: #ffffff;
         }
 
         /* ══════════════════════════════════════════════════════════════════════
+           ANIMATIONS
+           ══════════════════════════════════════════════════════════════════════ */
+        @keyframes revealAnimation {
+            from { opacity: 0; filter: blur(12px); -webkit-filter: blur(12px); transform: translateY(6px); }
+            to { opacity: 1; filter: blur(0); -webkit-filter: blur(0); transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
+        }
+        @keyframes flashBorder {
+            0% { border-color: #FFFFFF; box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+            100% { border-color: var(--glass-border); box-shadow: none; }
+        }
+        @keyframes flashBorderCheckbox {
+            0% { border-color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+            100% { border-color: var(--glass-border); box-shadow: none; }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 1; }
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
            GLOBAL STYLES & LAYOUT
            ══════════════════════════════════════════════════════════════════════ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Lato', sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; }
+        html { scrollbar-width: none; }
+        html::-webkit-scrollbar { display: none; }
+        body { font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; max-width: 1400px; margin: 0 auto; }
+        
+        /* Loading Indicator */
+        .loader { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(58, 42, 26, 0.95); justify-content: center; align-items: center; }
+        .loader.active { display: flex; }
+        .loader-spinner { width: 50px; height: 50px; border: 4px solid rgba(255, 255, 255, 0.2); border-top: 4px solid #D4B89A; border-radius: 50%; animation: spin 1s linear infinite; }
+
         #dynamic-bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
         
         /* ══════════════════════════════════════════════════════════════════════
            HEADER & HERO SECTION
            ══════════════════════════════════════════════════════════════════════ */
-        header { text-align: center; padding: 80px 20px 40px; display: flex; flex-direction: column; align-items: center; }
-        .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; }
+        header { text-align: center; padding: 80px 20px 40px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .services-title { font-size: clamp(1.4rem, 8vw, 5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
         
-        .seo-h1 {
-            display: block;
-            font-size: clamp(0.95rem, 2.5vw, 1.4rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            max-width: 900px;
-            margin: 10px auto 25px;
-            line-height: 1.5;
-            color: var(--text-white);
-        }
-        .seo-h1 span { display: block; }
+        .seo-h1 { display: block; font-size: clamp(0.95rem, 2.5vw, 1.4rem); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; max-width: 900px; margin: 10px auto 25px; line-height: 1.5; color: var(--text-white); }
+        .seo-h1 span { display: block; white-space: normal; word-break: break-word; }
 
         .phone-container { display: inline-flex; justify-content: center; min-height: 1.2em; }
-        .phone-link { display: inline-block; color: var(--text-white); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; animation: typing 1s steps(15, end) forwards; }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes flashBorder { 0% { border-color: #FFFFFF; box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); } 100% { border-color: var(--glass-border); box-shadow: none; } }
-        @keyframes flashBorderCheckbox { 0% { border-color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); } 100% { border-color: var(--glass-border); box-shadow: none; } }
+        .phone-link { display: inline-block; color: var(--text-white); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; }
         
         /* ══════════════════════════════════════════════════════════════════════
            FORM STYLES
            ══════════════════════════════════════════════════════════════════════ */
-        .flash { animation: flashBorder 0.6s ease-in-out; }
-        .container { max-width: 650px; margin: 0 auto; padding: 20px; }
-        .glass-form { background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px; }
-        .form-title { font-size: 1.8rem; margin-bottom: 30px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
-        .input-group { margin-bottom: 25px; position: relative; }
+        .container { max-width: 650px; margin: 0 auto; padding: 20px; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        .glass-form { 
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
+            backdrop-filter: blur(50px) brightness(1.1);
+            -webkit-backdrop-filter: blur(50px) brightness(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 24px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+            position: relative;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        
+        .glass-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .glass-form::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(600px at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 80%);
+            pointer-events: none;
+        }
+        .form-title { font-size: 1.8rem; margin-bottom: 30px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 1; }
+        .input-group { margin-bottom: 25px; position: relative; z-index: 1; }
+        .input-group:has(textarea#brief) {
+            position: relative;
+        }
         .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         label { font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
         .char-counter { font-size: 0.75rem; opacity: 0.5; }
         input, textarea { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: 1.1rem; outline: none; text-align: center; transition: all 0.3s ease; font-family: 'Lato', sans-serif; animation: glow 4s ease-in-out infinite; }
-        input:focus, textarea:focus { animation: none; }
+        input.has-content, textarea.has-content,
+        input:focus, textarea:focus {
+            background: #ffffff;
+            color: #6B5B4A;
+            animation: none;
+        }
+        input:focus, textarea:focus {
+             border-color: rgba(255, 255, 255, 0.5);
+        }
+        input.blur-non-focus, textarea.blur-non-focus { animation: none; opacity: 0.6; }
         input::placeholder, textarea::placeholder { color: var(--placeholder-color); font-size: 0.9rem; opacity: 1; }
         input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
-        #name { caret-color: var(--text-white); }
+        input, textarea { caret-color: #6B5B4A; }
         
-        /* ══════════════════════════════════════════════════════════════════════
-           ANIMATIONS & EFFECTS
-           ══════════════════════════════════════════════════════════════════════ */
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 35px rgba(255, 255, 255, 0.8);
-            }
-        }
         textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; animation: glow 4s ease-in-out infinite; }
-        textarea#brief:focus { animation: none; }
+        textarea#brief:focus { animation: none; background: rgba(255, 255, 255, 0.85); color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); }
         
         /* ══════════════════════════════════════════════════════════════════════
            CHECKBOX & CONSENT
            ══════════════════════════════════════════════════════════════════════ */
-        .consent-wrapper { display: flex; align-items: center; gap: 15px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; }
-        .consent-wrapper input[type="checkbox"] { appearance: none; width: 28px; height: 28px; background: rgba(255, 255, 255, 0.1); border: 2px solid var(--glass-border); border-radius: 6px; cursor: pointer; position: relative; animation: glow 4s ease-in-out infinite; transition: all 0.3s ease; }
+        .consent-wrapper { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; flex-wrap: nowrap; position: relative; z-index: 1; }
+        .consent-wrapper input[type="checkbox"] { appearance: none; width: 24px; height: 24px; min-width: 24px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; animation: glow 4s ease-in-out infinite; transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; }
         .consent-wrapper input[type="checkbox"]:checked { background: #ffffff; border-color: #ffffff; animation: none; }
         .consent-wrapper input[type="checkbox"].flash { animation: flashBorderCheckbox 0.6s ease-in-out; }
-        .consent-wrapper input[type="checkbox"]:checked::after { content: ""; position: absolute; left: 9px; top: 4px; width: 8px; height: 14px; border: solid var(--bg-dark); border-width: 0 4px 4px 0; transform: rotate(45deg); }
-        .consent-text { font-size: 0.85rem; opacity: 0.9; line-height: 1.2; user-select: none; }
+        .consent-wrapper input[type="checkbox"]:checked::after { content: "✓"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -60%); color: #6B5B4A; font-size: 48px; font-weight: 900; line-height: 1; }
+        .consent-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
         
         /* ══════════════════════════════════════════════════════════════════════
            SUBMIT BUTTON
            ══════════════════════════════════════════════════════════════════════ */
-        .submit-btn { width: 100%; padding: 20px; background: var(--text-white); color: var(--bg-dark); border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; }
-        .faq-section { margin-top: 60px; }
+        .submit-btn { width: 100%; padding: 20px; background: #ffffff; color: #9e8066; border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; }
+        .submit-btn:hover { transform: translateY(-2px); }
+        
+        .attach-icon {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 3;
+            padding: 5px;
+        }
+        .attach-icon:hover {
+            background: none;
+            transform: scale(1.15);
+        }
+        .attach-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            display: block;
+        }
+        .attach-icon:hover svg {
+            fill: var(--text-white);
+            color: var(--text-white);
+        }
+        
+        .flash { animation: flashBorder 0.6s ease-in-out; }
         
         /* ══════════════════════════════════════════════════════════════════════
-           FAQ ITEMS & ACCORDION
+           FAQ ACCORDION
            ══════════════════════════════════════════════════════════════════════ */
-        .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
-        .faq-q { font-weight: 900; margin-bottom: 10px; font-size: 1.4rem; text-transform: uppercase; display: flex; align-items: center; gap: 15px; }
-        .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-white); transition: all 0.3s ease; flex-shrink: 0; }
-        .faq-item.active .faq-q::before { background-color: var(--text-white); }
-        .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
-        .faq-item.active .faq-a { display: block; }
+        .faq-section { margin-top: 60px; }
+        .faq-section h3 { font-size: 1.3rem; font-weight: 900; margin: 30px 0 15px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; transition: all 0.3s ease; opacity: 1; }
+        .faq-section h3.visible { }
+        
+        .faq-section h3::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-white); transition: all 0.3s ease; margin-right: 12px; flex-shrink: 0; }
+        .faq-section h3.active::before { background-color: var(--text-white); }
+        .faq-section > p { margin-bottom: 20px; opacity: 0.9; display: none; }
+        .faq-section > ul { display: none; margin: 15px 0 25px 0; padding-left: 0; }
+        .faq-section > ul li { margin-bottom: 12px; display: flex; align-items: baseline; margin-left: 0; }
+        .faq-section > ul li::before { content: "●"; color: var(--text-white); margin-right: 12px; font-size: 0.8rem; flex-shrink: 0; }
+        .faq-section > table { display: none; margin: 20px 0; }
+        .faq-section > .map-block { display: none; margin-top: 15px; }
+        .faq-section > .price-note { display: none; }
+        .faq-section h3.active ~ p { display: block; }
+        .faq-section h3.active ~ ul { display: block; }
+        .faq-section h3.active ~ table { display: table; }
+        .faq-section h3.active ~ .map-block { display: block; }
+        .faq-section h3.active ~ .price-note { display: block; }
         
         /* ══════════════════════════════════════════════════════════════════════
            PRICING TABLE & COSTS
            ══════════════════════════════════════════════════════════════════════ */
-        .price-table { width: 100%; border-collapse: collapse; margin: 20px 0 10px; background: rgba(255,255,255,0.05); border-radius: 14px; border: 1px solid var(--glass-border); }
-        .price-table tr { border-bottom: 1px solid var(--glass-border); }
-        .price-table td { padding: 16px 20px; font-size: 1rem; color: #fff; }
-        .price-table td:last-child { text-align: right; font-weight: 700; color: var(--price-highlight); font-size: 1.1rem; }
+        .price-table { width: 100%; border-collapse: collapse; margin: 20px 0 10px; background: transparent; border-radius: 0; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .price-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .price-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+        .price-table td { padding: 16px 20px; font-size: 1rem; color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease; }
+        .price-table td:first-child { font-weight: 600; }
+        .price-table td:last-child { text-align: right; font-weight: 700; color: rgba(255, 255, 255, 0.95); font-size: 1.1rem; }
         .price-table tr:last-child { border-bottom: none; }
         .price-note { font-size: 0.85rem; opacity: 0.7; display: block; margin-top: 15px; line-height: 1.4; text-align: center; }
         
@@ -142,7 +246,7 @@
         /* ══════════════════════════════════════════════════════════════════════
            SEO SECTION & CONTENT BLOCKS
            ══════════════════════════════════════════════════════════════════════ */
-        .seo-section { margin-top: 80px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 40px; }
+        .seo-section { margin-top: 80px; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 40px; opacity: 0; animation: fadeInUp 0.8s ease-out 0.5s both; }
         .seo-h2 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 900; line-height: 1.2; margin-bottom: 30px; text-transform: uppercase; border-left: 5px solid #fff; padding-left: 20px; color: var(--seo-h-main); }
         .seo-section h3 { font-size: 1.6rem; margin: 40px 0 15px; text-transform: uppercase; font-weight: 900; color: var(--seo-h-sub); }
         .seo-section p { margin-bottom: 15px; opacity: 0.9; }
@@ -153,22 +257,203 @@
            FOOTER & RESPONSIVE DESIGN
            ══════════════════════════════════════════════════════════════════════ */
         footer { text-align: center; padding: 80px 20px; }
-        
-        .schedule-details { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; margin: 10px 0 20px; text-transform: uppercase; }
+        footer .phone-link { font-size: clamp(1.2rem, 3vw, 2rem); }
+        .schedule-details { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin: 10px 0 20px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .faq-q {
-                align-items: baseline;
-            }
+            .faq-q { align-items: baseline; }
             .seo-section { text-align: left; }
+        }
+
+        @media (max-width: 720px) {
+            * { font-size: clamp(0.8rem, 2.2vw, 1rem); }
+            header { padding: 60px 15px 30px; }
+            .name-title { font-size: clamp(1.8rem, 7vw, 2.8rem); letter-spacing: -1px; }
+            .services-title { font-size: clamp(1.1rem, 5vw, 1.8rem); letter-spacing: 1px; }
+            .seo-h1 { font-size: clamp(0.75rem, 2vw, 0.95rem); margin: 6px auto 15px; }
+            .phone-link { font-size: clamp(1.4rem, 4vw, 2rem); }
+            .container { max-width: 100%; padding: 12px; }
+            .glass-form { padding: 25px 15px; }
+            .form-title { font-size: clamp(1.1rem, 3vw, 1.3rem); }
+            label { font-size: clamp(0.65rem, 1.8vw, 0.8rem); }
+            .char-counter { font-size: clamp(0.6rem, 1.5vw, 0.7rem); }
+            input, textarea { padding: 12px; font-size: clamp(0.9rem, 2.2vw, 1rem); }
+            textarea#brief { min-height: 160px; }
+            .consent-wrapper { gap: 8px; }
+            .consent-wrapper input[type="checkbox"] { width: 22px; height: 22px; margin-top: 3px; }
+            .consent-text { font-size: clamp(0.7rem, 1.9vw, 0.8rem); }
+            .faq-section h3 { font-size: clamp(1rem, 2.8vw, 1.2rem); gap: 10px; }
+            .faq-section h3::before { width: 10px; height: 10px; }
+            .price-table td { padding: 10px 8px; font-size: clamp(0.8rem, 2vw, 0.95rem); }
+            .price-note { font-size: clamp(0.7rem, 1.8vw, 0.8rem); }
+            .schedule-details { font-size: clamp(1.2rem, 3.5vw, 1.8rem); }
+            .seo-section { max-width: 100%; padding: 0 10px; }
+            .seo-h2 { font-size: clamp(1.1rem, 3vw, 1.5rem); padding-left: 12px; }
+            .seo-section h3 { font-size: clamp(1rem, 2.5vw, 1.2rem); }
+            .map-wrapper { height: 350px; }
+            .submit-btn { padding: 14px; font-size: clamp(0.9rem, 2.2vw, 1rem); }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 50px 15px 30px; }
+            .name-title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+            .services-title { font-size: clamp(1.1rem, 4vw, 2rem); }
+            .seo-h1 { font-size: clamp(0.8rem, 2vw, 1rem); margin: 8px auto 15px; }
+            .phone-link { font-size: clamp(1.2rem, 4vw, 1.8rem); }
+            .container { padding: 15px; }
+            .glass-form { padding: 25px 15px; border-radius: 16px; }
+            .form-title { font-size: 1.3rem; margin-bottom: 20px; }
+            .input-group { margin-bottom: 18px; }
+            label { font-size: 0.75rem; }
+            .char-counter { font-size: 0.65rem; }
+            input, textarea { padding: 12px; font-size: 0.95rem; }
+            textarea#brief { min-height: 180px; }
+            .submit-btn { padding: 15px; font-size: 0.95rem; }
+            .faq-section h3 { font-size: 1.1rem; gap: 10px; }
+            .price-table td { padding: 12px 10px; font-size: 0.85rem; }
+            .price-note { font-size: 0.75rem; }
+            .schedule-details { font-size: clamp(1rem, 2.5vw, 1.5rem); }
+            .seo-section { max-width: 100%; }
+            .seo-h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); padding-left: 15px; }
+            .seo-section h3 { font-size: 1.2rem; margin: 25px 0 10px; }
+            .map-wrapper { height: 400px; }
+        }
+
+        @media (max-width: 320px) {
+            header { padding: 40px 12px 20px; }
+            .name-title { font-size: 1.3rem; margin-bottom: 2px; letter-spacing: -0.5px; }
+            .services-title { font-size: 0.9rem; letter-spacing: 0.5px; }
+            .seo-h1 { font-size: 0.65rem; margin: 4px auto 8px; line-height: 1.2; }
+            .phone-link { font-size: 0.9rem; }
+            .container { padding: 8px; }
+            .glass-form { padding: 12px 10px; border-radius: 12px; }
+            .form-title { font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 0px; }
+            .input-group { margin-bottom: 12px; }
+            label { font-size: 0.65rem; }
+            .char-counter { font-size: 0.6rem; }
+            input, textarea { padding: 10px; font-size: 0.85rem; border-radius: 8px; }
+            .submit-btn { padding: 10px; font-size: 0.75rem; border-radius: 8px; }
+            .consent-wrapper { gap: 6px; }
+            .consent-wrapper input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; }
+            .consent-text { font-size: 0.65rem; line-height: 1.2; }
+            textarea#brief { min-height: 120px; }
+            .map-wrapper { height: 250px; }
+            .faq-section h3 { font-size: 0.95rem; gap: 8px; }
+            .faq-section h3::before { width: 8px; height: 8px; }
+            .price-table td { padding: 8px 6px; font-size: 0.75rem; }
+            .schedule-details { font-size: 1rem; }
+            .seo-h2 { font-size: 0.95rem; padding-left: 10px; }
+            .seo-section h3 { font-size: 0.9rem; }
+            .seo-section p { font-size: 0.8rem; }
+        }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           iPhone SPECIFIC STYLES
+           ══════════════════════════════════════════════════════════════════════ */
+        /* iPhone SE / iPhone 6 / 7 / 8 (375px) */
+        @media only screen and (device-width: 375px) {
+            * { font-size: clamp(0.75rem, 2vw, 0.95rem); }
+            header { padding: 45px 12px 25px; }
+            .name-title { font-size: 1.5rem; }
+            .services-title { font-size: 1rem; }
+            .glass-form { padding: 20px 12px; }
+            input, textarea { padding: 12px; font-size: 16px; }
+            .faq-section h3 { font-size: 1rem; }
+            .price-table td { padding: 10px 6px; font-size: 0.8rem; }
+        }
+
+        /* iPhone 12 / 13 / 14 / 15 (390px) */
+        @media only screen and (device-width: 390px) {
+            * { font-size: clamp(0.75rem, 2.1vw, 0.96rem); }
+            header { padding: 48px 13px 26px; }
+            .name-title { font-size: 1.6rem; }
+            .services-title { font-size: 1.05rem; }
+            .glass-form { padding: 22px 13px; }
+            input, textarea { padding: 12px; font-size: 16px; }
+            .faq-section h3 { font-size: 1.05rem; }
+            .price-table td { padding: 10px 7px; font-size: 0.82rem; }
+        }
+
+        /* iPhone 12 Pro / 13 Pro / 14 Pro / 15 Pro (393px) */
+        @media only screen and (device-width: 393px) {
+            * { font-size: clamp(0.76rem, 2.12vw, 0.97rem); }
+            header { padding: 50px 14px 27px; }
+            .name-title { font-size: 1.65rem; }
+            .services-title { font-size: 1.08rem; }
+            .glass-form { padding: 23px 14px; }
+            input, textarea { padding: 12px; font-size: 16px; }
+            .faq-section h3 { font-size: 1.08rem; }
+            .price-table td { padding: 10px 7px; font-size: 0.83rem; }
+        }
+
+        /* iPhone XS / X (375px) */
+        @media only screen and (device-width: 375px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.75rem, 2vw, 0.95rem); }
+            header { padding: 45px 12px 25px; }
+            .name-title { font-size: 1.5rem; }
+            .services-title { font-size: 1rem; }
+            .glass-form { padding: 20px 12px; }
+            textarea { min-height: 140px; }
+        }
+
+        /* iPhone XR / 11 (414px) */
+        @media only screen and (device-width: 414px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            header { padding: 52px 15px 28px; }
+            .name-title { font-size: 1.75rem; }
+            .services-title { font-size: 1.12rem; }
+            .glass-form { padding: 25px 15px; }
+            input, textarea { padding: 13px; font-size: 16px; }
+            .faq-section h3 { font-size: 1.12rem; }
+        }
+
+        /* iPhone 11 Pro / XS Max (414px) */
+        @media only screen and (device-width: 414px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            header { padding: 52px 15px 28px; }
+            .name-title { font-size: 1.75rem; }
+            .services-title { font-size: 1.12rem; }
+            .glass-form { padding: 25px 15px; }
+            input, textarea { padding: 13px; font-size: 16px; }
+            .faq-section h3 { font-size: 1.12rem; }
+        }
+
+        /* iPhone 12 Pro Max / 13 Pro Max / 14 Pro Max / 15 Pro Max (430px) */
+        @media only screen and (device-width: 430px) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            header { padding: 55px 16px 30px; }
+            .name-title { font-size: 1.85rem; }
+            .services-title { font-size: 1.18rem; }
+            .glass-form { padding: 28px 16px; }
+            input, textarea { padding: 14px; font-size: 16px; }
+            .faq-section h3 { font-size: 1.15rem; }
+            .price-table td { padding: 11px 8px; font-size: 0.85rem; }
+        }
+
+        /* iPhone 6 Plus / 7 Plus / 8 Plus (414px) */
+        @media only screen and (device-width: 414px) and (-webkit-device-pixel-ratio: 3) and (-webkit-min-device-pixel-ratio: 2.5) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            header { padding: 52px 15px 28px; }
+            .name-title { font-size: 1.75rem; }
+            .glass-form { padding: 25px 15px; }
+            input, textarea { padding: 13px; font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Loading Indicator -->
+<div class="loader active">
+    <div class="loader-spinner"></div>
+</div>
+
 <div id="dynamic-bg-container">
     <svg id="dynamic-bg-svg" viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:-15%; width:130%; height:130%; pointer-events:none;">
-        <defs><radialGradient id="g" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/></radialGradient></defs>
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
         <rect width="528" height="816" fill="url(#g)"/>
         <g style="mix-blend-mode:overlay" fill-opacity=".15">
             <path class="s-stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
@@ -186,7 +471,7 @@
         <span>Protect Your Rights in GTA: Paralegal & Notary</span>
         <span>Toronto, Mississauga, Richmond Hill, London</span>
         <span>Book Your One-to-One Appointment Here</span>
-        <span>Traffic Ticket Defense, LTB, WSIB & More</span>
+        <span>Traffic Ticket Defense, LTB, WSIB and more</span>
     </h1>
     <div class="phone-container">
         <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
@@ -196,142 +481,123 @@
 <div class="container">
     <div class="glass-form">
         <form id="appointmentForm">
-            <h3 class="form-title">BOOK APPOINTMENT:</h3>
+            <h3 class="form-title">FILL OUT</h3>
             <div class="input-group">
-                <div class="label-wrapper"><label>Your Name</label></div>
-                <input type="text" id="name" name="client_name" placeholder="First and Last Name" autofocus>
+                <div class="label-wrapper"><label>Name</label></div>
+                <input type="text" id="name" name="client_name" placeholder="Tell me your name to get started...">
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
-                    <label>Private Message</label>
+                    <label>Message</label>
                     <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
                 </div>
                 <textarea id="brief" name="description" maxlength="1024" 
-                    placeholder="e.g. Hello, please call me when you are available regarding traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary public services, taxes, dual citizenship, divorce or marriage, need a face-to-face appointment..."></textarea>
+                    placeholder="e.g. hello, please call me when you are available regarding traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, taxes, citizenship, divorce/marriage, or need a face-to-face appointment..."></textarea>
+                <div class="attach-icon" title="Upload file">
+                    <svg viewBox="0 0 1280 613" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5539 4840 l-1576 -5 -48 -30 c-92 -57 -131 -182 -86 -280 24 -53 90 -111 142 -125 30 -8 877 -11 3188 -8 2935 3 3152 2 3241 -14 285 -51 478 -145 631 -304 77 -81 113 -132 163 -232 110 -218 173 -573 146 -820 -58 -541 -315 -861 -788 -982 -230 -58 84 -54 -4267 -57 -2549 -3 -4022 0 -4097 6 -294 25 -499 169 -633 446 -152 312 -146 642 15 888 94 142 234 248 410 309 l95 33 3090 3 c2692 2 3101 0 3176 -13 178 -30 272 -88 329 -199 l35 -69 0 -166 c-1 -149 -3 -172 -23 -223 -45 -112 -134 -183 -282 -225 -62 -17 -154 -18 -2110 -18 -1949 0 -2047 -1 -2085 -18 -86 -39 -138 -117 -138 -207 0 -89 55 -171 138 -205 46 -20 4097 -25 4210 -7 457 77 721 380 742 852 12 287 -62 498 -236 670 -131 130 -290 208 -521 257 -81 17 -236 18 -3215 18 -3024 0 -3133 -1 -3210 -19 -314 -73 -560 -230 -744 -473 -75 -99 -166 -289 -196 -405 -80 -320 -35 -691 123 -1004 90 -179 262 -379 410 -477 101 -67 239 -131 357 -164 l100 -28 4100 -3 c2929 -2 4131 0 4210 8 265 26 538 109 729 221 396 232 629 600 712 1124 42 267 3 640 -96 930 -209 606 -676 951 -1375 1015 -112 10 -1617 10 -4766 0z" transform="rotate(90 640 306.5)"/>
+                    </svg>
+                </div>
             </div>
             <div class="input-group">
-                <div class="label-wrapper"><label>Your Way to Connect</label></div>
-                <input type="text" id="contact" name="contact" required placeholder="Just one: Email, iMessage, or Phone">
+                <div class="label-wrapper"><label>CALL / Email / WhatsApp</label></div>
+                <input type="text" id="contact" name="contact" required placeholder="Tell me your phone number or email address...">
             </div>
             <label class="consent-wrapper">
                 <input type="checkbox" id="consent">
-                <span class="consent-text">I AGREE TO SHARE MY INFO. RELATIONSHIP AFTER SIGNING.</span>
+                <span class="consent-text">I AGREE TO SHARE MY INFO. RELATIONSHIP AFTER SIGNING ONLY.</span>
             </label>
-            <button type="submit" id="submitBtn" class="submit-btn">BOOK NOW</button>
+            <button type="submit" id="submitBtn" class="submit-btn">BOOK APPOINTMENT</button>
         </form>
     </div>
+    <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 40px;">I respond within 5 to 30 minutes</p>
 
     <div class="faq-section">
-        <div class="faq-item active">
-            <div class="faq-q">What are the fees?</div>
-            <div class="faq-a">Consultation fees range from $50 to $150 per hour, depending on the complexity of your specific matter.</div>
-        </div>
+        <h3>What are your paralegal fees?</h3>
+        <p>The <strong>rate range</strong> for paralegal services in Ontario is <strong>$50 to $350 per hour</strong>, depending on case complexity:</p>
+        <ul style="margin-top: 15px;">
+            <li><strong>$50 to $100:</strong> Simple administrative tasks and basic filings.</li>
+            <li><strong>$150 to $250:</strong> Standard market rate for legal matters.</li>
+            <li><strong>$300 to $350:</strong> Professional representation for large legal cases.</li>
+        </ul>
+        <p style="margin-top: 20px;"><strong>Not sure which range fits your situation?</strong> Contact me through the form above, and I'll calculate your individual rate range based on your specific needs. Every case is unique, and I'm here to provide a transparent quote tailored to you.</p>
 
-        <div class="faq-item active">
-            <div class="faq-q">What is the estimated cost for my case?</div>
-            <div class="faq-a">
-                <p>Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:</p>
-                <table class="price-table">
-                    <tr><td>Small Claims Court</td><td>$200–$500</td></tr>
-                    <tr><td>Traffic Ticket Defense</td><td>$400–$700</td></tr>
-                    <tr><td>Employment & Labour Law</td><td>$300–$600</td></tr>
-                    <tr><td>Insurance & Benefits Claims</td><td>$250–$500</td></tr>
-                    <tr><td>Tax Compliance Matters</td><td>$200–$450</td></tr>
-                    <tr><td>Business Contract Review</td><td>$350–$650</td></tr>
-                    <tr><td>Immigration Advisory</td><td>$400–$800</td></tr>
-                    <tr><td>Landlord & Tenant (LTB)</td><td>$300–$700</td></tr>
-                    <tr><td>WSIB & Workplace Injuries</td><td>$350–$750</td></tr>
-                </table>
-                <span class="price-note">
-                    *Listed prices are for reference only. Final quotes follow the assessment total.
-                </span>
-            </div>
-        </div>
+        <h3>So, what is the estimated cost?</h3>
+        <p>Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:</p>
+        <table class="price-table">
+            <tr><td>Small Claims Court</td><td>$200 – 500</td></tr>
+            <tr><td>Traffic Ticket Defense</td><td>$400 – 700</td></tr>
+            <tr><td>Employment & Labour Law</td><td>$300 – 600</td></tr>
+            <tr><td>Insurance & Benefits Claims</td><td>$250 – 500</td></tr>
+            <tr><td>Tax Compliance Matters</td><td>$200 – 450</td></tr>
+            <tr><td>Business Contract Review</td><td>$350 – 650</td></tr>
+            <tr><td>Immigration Advisory</td><td>$400 – 800</td></tr>
+            <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700</td></tr>
+            <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750</td></tr>
+        </table>
+        <span class="price-note">
+            *Listed prices are for reference only. Final quotes follow the assessment total.
+        </span>
 
-        <div class="faq-item active">
-            <div class="faq-q">What if I'm on a tight budget? Can we work something out?</div>
-            <div class="faq-a">No problem. I can utilize <strong>"Unbundled Legal Services"</strong> to keep your costs down. Instead of a full-service retainer, <strong>you can hire me for specific tasks</strong>. This approach typically <strong>saves you 40% to 60%</strong> on total legal expenditures.</div>
-        </div>
+        <h3>Can I afford this? What if I'm on a tight budget?</h3>
+        <p>No problem. I utilize <strong>Unbundled Legal Services</strong> to keep your costs down. Instead of a full-service retainer, you hire me for specific tasks. This approach typically saves you <strong>40 to 60% of your legal costs</strong>. <br>
+If you have a <strong>4 digit coupon code</strong> from advertising, or if you were <strong>referred by others</strong>, please indicate this at the end of the message in the form above. <br>
+If you're truly in need, for example, a <strong>displaced person</strong>, <strong>refugee</strong>, someone <strong>affected by war</strong>, or a person with <strong>disabilities</strong>, I also arrange access to legal services on a <strong>pro bono basis</strong> or offer significantly reduced fees.</p>
 
-        <div class="faq-item active">
-            <div class="faq-q">OK! What happens after booking?</div>
-            <div class="faq-a">I’ll reach out promptly. Details can be finalized in-office or via video call.</div>
-        </div>
+        <h3>OK what happens after booking?</h3>
+        <p>I reach out promptly. I finalize details in-office or via video call, and you'll receive a written summary of next steps and any required documents.</p>
 
         
-        <div class="faq-item active">
-            <div class="faq-q">What's the difference between a paralegal and a lawyer?</div>
-            <div class="faq-a">In Ontario, <strong>I operate on a whole different level</strong>. While lawyers handle the heavy-duty litigation, as a licensed practitioner here <strong>I provide direct, independent representation</strong> in Small Claims and Tribunals.</div>
+        <h3>What's the difference between a paralegal and a lawyer?</h3>
+        <p>I operate on a different level. While lawyers typically handle complex litigation, I provide direct, independent representation in <strong>Small Claims Court</strong> and before many <strong>administrative tribunals</strong>. As a licensed paralegal, I offer more affordable, focused services for matters within my provincial scope. I can represent you where it matters most without the lawyer's overhead costs.</p>
+
+        <h3>Where is your office today?</h3>
+        <div class="map-block">
+            146 Thirtieth St., Suite 29, Toronto, ON
+            <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
 
-        <div class="faq-item active">
-            <div class="faq-q">Where is your office today?</div>
-            <div class="faq-a">
-                <div class="map-block">
-                    146 Thirtieth St., Suite 29, Toronto, ON
-                    <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184633!2d-79.5281514!3d43.5992982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f10.5!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4%2C%20Canada!5e0!3m2!1sen!2sua!4v1700000000000!5m2!1sen!2sua" allowfullscreen="" loading="lazy"></iframe></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq-item active">
-            <div class="faq-q">What is the privacy policy?</div>
-            <div class="faq-a">
-                <p><strong>Information we collect:</strong> We collect personal information you voluntarily provide (name, phone number, email, case description).</p>
-                <p><strong>Advertising & Cookies:</strong> We use this information for advertising purposes on Facebook, Google, and YouTube. Our website uses essential cookies for functionality and may use analytics cookies.</p>
-                <p><strong>How we use your information:</strong> To provide legal/paralegal services, respond to inquiries, and (if you consent) send communications.</p>
-                <p><strong>Your rights:</strong> You have the right to access or delete your data. Contact us at +1 (437) 239-6833 or <u>paralegal@hannadunchenko.com</u>.</p>
-            </div>
+        <h3>What about the privacy policy?</h3>
+        <p><strong>Information I collect:</strong> I collect personal information you voluntarily provide (name, phone number, email, case description).</p>
+        <p><strong>Advertising & Cookies:</strong> I use this information for advertising purposes on <strong>Facebook, Google, and YouTube</strong>. My website uses essential cookies for functionality and may use analytics cookies.</p>
+        <p><strong>How I use your information:</strong> To provide legal and paralegal services, respond to inquiries, and (if you consent) send communications.</p>
+        <p><strong>Your rights:</strong> You have the right to access or delete your data.<br>Contact me at +1 (437) 239-6833 or paralegal@hannadunchenko.com.</p>
     </div>
 
     <section class="seo-section">
-        <h2 class="seo-h2">Stop Struggling Alone: Get Expert Legal Representation in Toronto, Mississauga & London, ON</h2>
-        <p>If you're searching for a <strong>trusted paralegal near you</strong> to help with a legal problem in <strong>Toronto</strong>, the <strong>GTA</strong>, or anywhere in <strong>Ontario</strong>, you're in the right place. Many people type <strong>“paralegal near me”</strong> when they’re stressed about a <strong>traffic ticket</strong>, facing <strong>eviction with kids</strong>, or wondering how to get their deposit back after a landlord refuses to return it.</p>
+        <h2 class="seo-h2">Stop Struggling Alone: Get Expert Paralegal Representation in Toronto, Mississauga & London, ON</h2>
+        <p>If you're searching for a <strong>trusted paralegal near you</strong> to help with a legal problem in <strong>Toronto</strong>, the <strong>GTA</strong>, or anywhere in <strong>Ontario</strong>, you're in the right place. I'm here to help when you're stressed about a <strong>traffic ticket</strong>, facing <strong>eviction</strong>, or trying to get your deposit back after a landlord refuses to return it.</p>
         
         <h3>Professional Traffic Ticket Defense Ontario</h3>
-        <p>If you have received a <strong>speeding ticket Ontario</strong> or need to <strong>fight parking ticket Toronto</strong>, we can explain how to fight speeding fine effectively to protect your driving record. We cover major courts including <strong>Mississauga, Richmond Hill, and London, ON</strong>.</p>
+        <p>If you've received a <strong>speeding ticket Ontario</strong> or need to <strong>fight parking ticket Toronto</strong>, I explain how to fight speeding fines effectively and protect your driving record. I represent you in major courts including <strong>Mississauga, Richmond Hill, and London, ON</strong>. Your record matters let me help you defend it.</p>
         
         <h3>Landlord and Tenant Board (LTB) Help</h3>
-        <p>We understand how overwhelming it feels when your landlord wants to evict me or serves an N12 notice. If you’ve received an <strong>eviction notice Ontario</strong> or are facing a <strong>rent increase Ontario</strong> legal issue, we provide expert <strong>landlord tenant board help</strong> and <strong>tenant dispute help Ontario</strong>. Whether you’re searching <strong>how to fight eviction in Ontario</strong> or <strong>paralegal for eviction Ontario</strong>, we are here to defend <strong>tenant rights Ontario</strong>.</p>
-
+        <p>I understand how overwhelming it feels when your landlord wants to <strong>evict you</strong> or serves an <strong>N12 notice</strong>. If you've received an <strong>eviction notice Ontario</strong> or are facing a <strong>rent increase Ontario</strong> legal issue, I provide expert <strong>landlord tenant board help</strong> and <strong>tenant dispute help Ontario</strong>. Whether you're searching <strong>how to fight eviction in Ontario</strong> or need a <strong>paralegal for eviction Ontario</strong>, I'm here to defend your <strong>tenant rights Ontario</strong>.</p>
+        
         <h3>B2B Services: Business-to-Business Legal Solutions</h3>
         <p>Navigating the Ontario business landscape requires precise documentation and dispute resolution. My <strong>B2B paralegal services GTA</strong> are designed for small to medium enterprises (SMEs) looking for cost-effective legal support. I assist with <strong>business contract review Ontario</strong>, <strong>debt collection for businesses</strong>, and <strong>commercial lease disputes</strong>. If your company needs a notary for business contracts or help with partnership agreement notarization, I provide fast and reliable service to keep your operations running smoothly.</p>
 
         <h3>B2G Services: Business-to-Government Legal Compliance</h3>
-        <p>Winning and maintaining government contracts involves strict <strong>regulatory compliance Ontario</strong>. My <strong>B2G legal support services</strong> help businesses handle the complexities of government procurement documentation and administrative tribunal representation. Whether you are dealing with municipality licensing issues, <strong>CRA dispute help</strong>, or <strong>WSIB employer compliance</strong>, I act as your bridge to government agencies. I provide <strong>notary for government forms</strong> and assist with the notarization of tender documents and RFP affidavits to ensure your bids meet all legal standards in Toronto and across Ontario.</p>
+        <p>Winning and maintaining government contracts involves strict <strong>regulatory compliance Ontario</strong>. My <strong>B2G legal support services</strong> help your business handle the complexities of government procurement documentation and administrative tribunal representation. Whether you're dealing with municipality licensing issues, <strong>CRA dispute help</strong>, or <strong>WSIB employer compliance</strong>, I act as your bridge to government agencies. I provide <strong>notary for government forms</strong> and assist with the notarization of tender documents and RFP affidavits to ensure your bids meet all legal standards in Toronto and across Ontario.</p>
 
         <h3>Workplace Injuries & WSIB Claims</h3>
-        <p>If you’ve been injured at work and don’t know how to file a WSIB claim, our <strong>WSIB claim help Ontario</strong> and <strong>workers compensation help Ontario</strong> services will guide you. We also provide workplace harassment legal help and represent clients at the <strong>employment tribunal Ontario</strong>.</p>
+        <p>If you've been injured at work and don't know how to file a WSIB claim, my <strong>WSIB claim help Ontario</strong> and <strong>workers compensation help Ontario</strong> services guide you through the process. I also provide workplace harassment legal help and represent you at the <strong>employment tribunal Ontario</strong>.</p>
 
         <h3>Small Claims Court & Civil Litigation</h3>
-        <p>For those dealing with <strong>Small Claims Court help Ontario</strong>, we offer expert paralegal court representation. Whether it is debt collection or contract disputes, we answer the question: <strong>can a paralegal help me sue someone?</strong> Yes, we handle these cases every day with focus and precision.</p>
+        <p>For those dealing with <strong>Small Claims Court help Ontario</strong>, I offer expert paralegal court representation. Whether it is debt collection or contract disputes, I answer the question: <strong>can a paralegal help me sue someone?</strong> Yes I handle these cases every day with focus and precision.</p>
 
         <h3>Fast & Reliable Notary Public Services</h3>
-        <p>Need a notary public near you? We are a premier <strong>notary near you in Toronto</strong> provider. Our services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letter. We also handle notary for passport application, dual citizenship documents Ontario, and <strong>immigration notary Toronto</strong>.</p>
-        <p>Every case starts with a confidential one-on-one appointment. Whether you’re looking for <strong>affordable paralegal Toronto</strong> or <strong>legal advice Ontario cost-effective</strong>, we provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward <strong>with us</strong> or <strong>independently</strong> the choice is yours.</p>
+        <p>Need a notary public near you? I'm a premier <strong>notary near you in Toronto</strong> provider. My services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letters. I also handle notary for passport applications, dual citizenship documents Ontario, and <strong>immigration notary Toronto</strong>.</p>
+        <p>Every case starts with a confidential one-on-one appointment. Whether you're looking for <strong>affordable paralegal Toronto</strong> or <strong>cost-effective legal advice Ontario</strong>, I provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward with me or independently, the choice is yours.</p>
     </section>
 </div>
 
-<style>
-.reveal {
-    opacity: 0;
-    filter: blur(12px);
-    -webkit-filter: blur(12px);
-    animation: revealAnimation 3s cubic-bezier(.22,.9,.3,1) forwards;
-    will-change: filter, opacity, transform;
-}
-@keyframes revealAnimation {
-    from { opacity: 0; filter: blur(12px); -webkit-filter: blur(12px); transform: translateY(6px); }
-    to   { opacity: 1; filter: blur(0); -webkit-filter: blur(0); transform: translateY(0); }
-}
-</style>
 <footer>
-        <div class="schedule-details">EVERYDAY: 9 AM – 9 PM EST</div>
-        <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
-        <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
-                © 2026 Hanna Dunchenko<br>Licensed Paralegal Services by the Law Society of Ontario
-        </p>
+    <div class="schedule-details">EVERYDAY: 9 AM to 9 PM EST</div>
+    <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
+        © 2026 Hanna Dunchenko<br>Licensed Paralegal Services<br>Licensed only by the Law Society of Ontario
+    </p>
 </footer>
 
 <!-- ══════════════════════════════════════════════════════════════════════════════
@@ -348,40 +614,90 @@
     const stripes = document.querySelectorAll('.s-stripe');
     const nameInput = document.getElementById('name');
     const contactInput = document.getElementById('contact');
+    const loader = document.querySelector('.loader');
+    const formInputs = [nameInput, briefArea, contactInput];
 
-    nameInput.focus();
-
-    /* ════════════════════════════════════════════════════════════════════════
-       VALIDATION & ERROR HIGHLIGHTING
-       ════════════════════════════════════════════════════════════════════════ */
-    submitBtn.addEventListener('click', (e) => {
-        if (submitBtn.disabled) {
-            const fieldsToFlash = [nameInput, contactInput, consent];
-            fieldsToFlash.forEach(field => {
-                field.classList.add('flash');
-                setTimeout(() => field.classList.remove('flash'), 600);
-            });
-        }
+    // Hide loader when page loads
+    window.addEventListener('load', () => {
+        loader.classList.remove('active');
     });
+
+    // Inject a style rule for textarea flash with higher specificity
+    const styleEl = document.createElement('style');
+    document.head.appendChild(styleEl);
+    styleEl.sheet.insertRule('textarea#brief.flash { animation: flashBorder 0.6s ease-in-out; }', 0);
+
+    // Monitor form input focus to blur non-focused inputs
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            formInputs.forEach(other => {
+                if (other !== input) {
+                    other.classList.add('blur-non-focus');
+                }
+            });
+        });
+        
+        input.addEventListener('blur', () => {
+            formInputs.forEach(other => {
+                other.classList.remove('blur-non-focus');
+            });
+        });
+    });
+
 
     /* ════════════════════════════════════════════════════════════════════════
        CHARACTER COUNTER FOR TEXTAREA
        ════════════════════════════════════════════════════════════════════════ */
     briefArea.addEventListener('input', function() {
         counterDisplay.textContent = this.value.length;
-        this.style.height = 'auto'; 
+        this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
     });
 
     /* ════════════════════════════════════════════════════════════════════════
        FAQ ACCORDION TOGGLE
        ════════════════════════════════════════════════════════════════════════ */
-    document.querySelectorAll('.faq-item').forEach(item => {
-        item.addEventListener('click', (e) => { 
-            if (e.target.closest('iframe') || e.target.closest('table') || e.target.closest('.price-note')) return;
-            item.classList.toggle('active'); 
+    const initializeFAQ = () => {
+        const faqHeadings = document.querySelectorAll('.faq-section > h3');
+        
+        faqHeadings.forEach(heading => {
+            // Add active class to make them open by default
+            heading.classList.add('active');
+            
+            heading.addEventListener('click', () => {
+                heading.classList.toggle('active');
+            });
         });
-    });
+    };
+    initializeFAQ();
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FILE ATTACHMENT ICON - DROPBOX API
+       ════════════════════════════════════════════════════════════════════════ */
+    const attachIcon = document.querySelector('.attach-icon');
+    if (attachIcon) {
+        attachIcon.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '*/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    console.log('File selected:', file.name);
+                    const svg = attachIcon.querySelector('svg');
+                    if (svg) {
+                        svg.style.fill = 'var(--text-white)';
+                        svg.style.color = 'var(--text-white)';
+                        setTimeout(() => {
+                            svg.style.fill = 'rgba(255, 255, 255, 0.6)';
+                            svg.style.color = 'rgba(255, 255, 255, 0.6)';
+                        }, 600);
+                    }
+                }
+            };
+            input.click();
+        });
+    }
 
     /* ════════════════════════════════════════════════════════════════════════
        SUBMIT VALIDATION & REQUIRED FIELDS CHECK
@@ -390,7 +706,21 @@
         const isValid = nameInput.value.trim() && briefArea.value.trim() && contactInput.value.trim() && consent.checked;
         if (!isValid) {
             e.preventDefault();
-            const fieldsToFlash = [nameInput, briefArea, contactInput, consent];
+            const fieldsToFlash = [];
+
+            if (!nameInput.value.trim()) {
+                fieldsToFlash.push(nameInput);
+            }
+            if (!briefArea.value.trim()) {
+                fieldsToFlash.push(briefArea);
+            }
+            if (!contactInput.value.trim()) {
+                fieldsToFlash.push(contactInput);
+            }
+            if (!consent.checked) {
+                fieldsToFlash.push(consent);
+            }
+
             fieldsToFlash.forEach(field => {
                 field.classList.add('flash');
                 setTimeout(() => field.classList.remove('flash'), 600);
@@ -401,29 +731,44 @@
     /* ════════════════════════════════════════════════════════════════════════
        FORM STATE MONITORING
        ════════════════════════════════════════════════════════════════════════ */
-    function updateSubmitBtnVisuals() {
-        const isValid = nameInput.value.trim() && briefArea.value.trim() && contactInput.value.trim() && consent.checked;
-        // Just keep the button always clickable - no visual changes based on validity
-    }
+    formInputs.forEach(input => {
+        const updateVisuals = () => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-content');
+            } else {
+                input.classList.remove('has-content');
+            }
+        };
+        input.addEventListener('input', updateVisuals);
+        updateVisuals(); // Initial check for autocomplete
+    });
 
-    nameInput.addEventListener('input', updateSubmitBtnVisuals);
-    briefArea.addEventListener('input', updateSubmitBtnVisuals);
-    contactInput.addEventListener('input', updateSubmitBtnVisuals);
-    consent.addEventListener('change', updateSubmitBtnVisuals);
+    // Listener for consent checkbox (doesn't need content check but might be used for other things)
+    consent.addEventListener('change', () => {
+        const isValid = nameInput.value.trim() && briefArea.value.trim() && contactInput.value.trim() && consent.checked;
+    });
 
     /* ════════════════════════════════════════════════════════════════════════
-       ANIMATED BACKGROUND STRIPES
+       ANIMATED BACKGROUND STRIPES (OPTIMIZED)
        ════════════════════════════════════════════════════════════════════════ */
     (function() {
-        const data = Array.from(stripes).map(() => ({ seed: Math.random() * 1000, speed: 0.00003 + Math.random() * 0.00002 }));
+        const data = Array.from(stripes).map(() => ({ seed: Math.random() * 1000, speed: 0.00006 + Math.random() * 0.00004 }));
+        let rafId = null;
+        
         function step(time) {
             stripes.forEach((el, i) => {
                 const t = (time * data[i].speed) + data[i].seed;
                 el.style.transform = `translate(${Math.sin(t * 0.7) * 5}%, ${Math.cos(t * 0.5) * 4}%) scaleX(${1 + Math.sin(t * 1.5) * 0.15}) rotate(${Math.sin(t * 0.4) * 2}deg)`;
             });
-            requestAnimationFrame(step);
+            rafId = requestAnimationFrame(step);
         }
-        requestAnimationFrame(step);
+        
+        // Use requestIdleCallback to start animation after page is idle
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => rafId = requestAnimationFrame(step));
+        } else {
+            setTimeout(() => rafId = requestAnimationFrame(step), 500);
+        }
     })();
 </script>
 
@@ -431,7 +776,7 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
 ║          MADE BY 3DSITER@GMAIL.COM                                       ║
-║         Odesa (Ukraine) with love → Toronto Canada                          ║
+║         Odesa (Ukraine) with love to Toronto Canada                        ║
 ║                                                                              ║
 ║         © 2026 Hanna Dunchenko | Paralegal Services GTA                     ║
 ║                                                                              ║
