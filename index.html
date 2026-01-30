@@ -117,7 +117,7 @@
         /* ══════════════════════════════════════════════════════════════════════
            HEADER & HERO SECTION
            ══════════════════════════════════════════════════════════════════════ */
-        header { text-align: center; padding: 180px 20px 80px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        header { text-align: center; padding: 15px 20px 30px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
         .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .services-title { font-size: clamp(1.4rem, 8vw, 5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
         
@@ -630,7 +630,7 @@
                 BOOK APPOINTMENT
                 <span class="btn-star"></span>
             </button>
-            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 0;">Respond estimates within 5 to 30 minutes</p>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 0;">Expect your estimate within 5–30 minutes</p>
         </form>
     </div>
     <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 20px; margin-bottom: 40px;">If you need an expanded form, or you're a long-term client, click <a href="#" onclick="toggleFullForm(event)" style="color: var(--text-white); text-decoration: underline; cursor: pointer;">Full Form</a></p>
@@ -745,8 +745,8 @@
 </div>
 
 <!-- FULL FORM MODAL (initially hidden) -->
-<div id="fullFormModal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9998; overflow-y: auto; padding: 20px;">
-    <div style="max-width: 700px; margin: 40px auto; background: #000000; border: 2px solid #ffffff; padding: 40px; border-radius: 24px; position: relative;">
+<div id="fullFormModal" style="display: none; position: fixed; inset: 0; background: rgba(20, 20, 25, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9998; overflow-y: auto; padding: 20px;">
+    <div style="max-width: 700px; margin: 40px auto; background: #1a1a1f; border: 2px solid #ffffff; padding: 40px; border-radius: 24px; position: relative;">
         <button onclick="closeFullForm()" style="position: absolute; top: 20px; left: 20px; background: none; border: none; color: var(--text-white); font-size: 28px; cursor: pointer; padding: 0; width: 30px; height: 30px; font-weight: 300;">✕</button>
         
         <h3 class="form-title" style="margin-bottom: 20px;">Full Inquiry Form</h3>
@@ -1049,27 +1049,19 @@
     });
 
     /* ════════════════════════════════════════════════════════════════════════
-       SPARK ANIMATION WITH RANDOM ROTATION & SCALE
+       SPARK ANIMATION - RARE (2-20 MINUTES)
        ════════════════════════════════════════════════════════════════════════ */
     const btnStar = document.querySelector('.btn-star');
     if (btnStar) {
-        // !!! ИНТЕРВАЛ между спарками в миллисекундах (сейчас 5000ms = 5 сек)
-        const SPARK_INTERVAL = 5000;
-        // !!! ДЛИТЕЛЬНОСТЬ АНИМАЦИИ в секундах (сейчас 0.3s - очень быстро)
-        const SPARK_DURATION = '0.2s';
-        // !!! ЗАДЕРЖКА первого спарка после загрузки в миллисекундах (сейчас 2000ms)
-        const FIRST_SPARK_DELAY = 2000;
-        // !!! МИНИМАЛЬНЫЙ размер спарка (сейчас 0.6 = 60%)
+        const MIN_SPARK_INTERVAL = 2 * 60 * 1000;    // 2 minutes minimum
+        const MAX_SPARK_INTERVAL = 20 * 60 * 1000;   // 20 minutes maximum
+        const SPARK_DURATION = '0.6s';
         const MIN_SCALE = 0.6;
-        // !!! МАКСИМАЛЬНЫЙ размер спарка (сейчас 1.2 = 120%)
-        const MAX_SCALE = 6.2;
+        const MAX_SCALE = 1.5;
         
         function triggerSpark() {
-            // Generate random rotation between 400-2000 degrees
             const randomRotation = 400 + Math.random() * 1600;
-            // Random direction (1 or -1)
             const randomDirection = Math.random() > 0.5 ? 1 : -1;
-            // Generate random scale between MIN_SCALE and MAX_SCALE
             const randomScale = MIN_SCALE + Math.random() * (MAX_SCALE - MIN_SCALE);
             btnStar.style.setProperty('--spark-rotation-deg', `${randomRotation}deg`);
             btnStar.style.setProperty('--spark-rotation-dir', randomDirection);
@@ -1080,31 +1072,40 @@
             }, 10);
         }
         
-        // Повторяющиеся спарки
-        setInterval(() => {
-            triggerSpark();
-        }, SPARK_INTERVAL);
+        function scheduleNextSpark() {
+            const randomInterval = MIN_SPARK_INTERVAL + Math.random() * (MAX_SPARK_INTERVAL - MIN_SPARK_INTERVAL);
+            setTimeout(() => {
+                triggerSpark();
+                scheduleNextSpark();
+            }, randomInterval);
+        }
+        
+        // Start after 3-5 seconds
+        setTimeout(() => {
+            scheduleNextSpark();
+        }, 3000 + Math.random() * 2000);
     }
 
     /* ════════════════════════════════════════════════════════════════════════
-       ANIMATED BACKGROUND STRIPES (OPTIMIZED)
+       ANIMATED BACKGROUND STRIPES (SMOOTH - NO JITTER)
        ════════════════════════════════════════════════════════════════════════ */
     (function() {
-        const data = Array.from(stripes).map(() => ({ seed: Math.random() * 1000, speed: 0.00006 + Math.random() * 0.00004 }));
+        const data = Array.from(stripes).map(() => ({ seed: Math.random() * 1000, speed: 0.00003 + Math.random() * 0.00002 }));
         let rafId = null;
+        stripes.forEach(el => el.style.willChange = 'transform');
         
         function step(time) {
             stripes.forEach((el, i) => {
                 const t = (time * data[i].speed) + data[i].seed;
-                // Плавные замедления и ускорения для избежания видимых переходов
-                const easeT = Math.sin(t * 0.3);
-                const smoothT = t + Math.sin(t * 0.05) * 20;
-                el.style.transform = `translate(${Math.sin(smoothT * 0.7) * 5}%, ${Math.cos(smoothT * 0.5) * 4}%) scaleX(${1 + Math.sin(smoothT * 1.5) * 0.15}) rotate(${Math.sin(smoothT * 0.4) * 2}deg)`;
+                const smoothT = t + Math.sin(t * 0.03) * 10;
+                const tx = Math.sin(smoothT * 0.5) * 2.5;
+                const ty = Math.cos(smoothT * 0.4) * 1.5;
+                const sx = 1 + Math.sin(smoothT * 1.2) * 0.06;
+                el.style.transform = `translate(${tx}%, ${ty}%) scaleX(${sx})`;
             });
             rafId = requestAnimationFrame(step);
         }
         
-        // Use requestIdleCallback to start animation after page is idle
         if ('requestIdleCallback' in window) {
             requestIdleCallback(() => rafId = requestAnimationFrame(step));
         } else {
