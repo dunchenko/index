@@ -152,6 +152,9 @@
             pointer-events: none;
             /* Отключаем на iOS/iPad */
             -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         /* Отключаем радиальный градиент эффект на Apple устройствах */
@@ -229,8 +232,11 @@
         input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
         input, textarea { caret-color: #6B5B4A; }
         input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-outer-spin-button,
         input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
             margin: 0;
         }
         input[type="number"] {
@@ -244,12 +250,93 @@
            CHECKBOX & CONSENT
            ══════════════════════════════════════════════════════════════════════ */
         .consent-wrapper { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; flex-wrap: nowrap; position: relative; z-index: 1; }
-        .consent-wrapper input[type="checkbox"] { appearance: none; width: 28px; height: 28px; min-width: 28px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
+        .consent-wrapper input[type="checkbox"] { -webkit-appearance: none; -moz-appearance: none; appearance: none; width: 28px; height: 28px; min-width: 28px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; transition: all 0.3s ease; -webkit-transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
         .consent-wrapper input[type="checkbox"]:focus { box-shadow: 0 0 15px rgba(107, 91, 74, 0.4); }
         .consent-wrapper input[type="checkbox"]:checked { background: #ffffff; border-color: #ffffff; animation: none; }
         .consent-wrapper input[type="checkbox"].flash { animation: flashBorderCheckbox 0.6s ease-in-out; }
-        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #6B5B4A; font-size: 54px; font-weight: 900; line-height: 1; display: flex; align-items: center; justify-content: center; }
-        .consent-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
+        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); color: #6B5B4A; font-size: 54px; font-weight: 900; line-height: 1; display: flex; align-items: center; justify-content: center; }
+        .consent-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           RADIO BUTTONS - iOS/iPad COMPATIBLE STYLING
+           ══════════════════════════════════════════════════════════════════════ */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            background: transparent;
+            position: relative;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        input[type="radio"]::-webkit-outer-spin-button,
+        input[type="radio"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type="radio"]:active,
+        input[type="radio"]:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: none;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #000000;
+            background: #000000;
+        }
+
+        input[type="radio"]:checked::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            display: block;
+        }
+
+        /* iOS Safari specific fix */
+        @supports (-webkit-touch-callout: none) {
+            input[type="radio"] {
+                width: 26px;
+                height: 26px;
+                min-width: 26px;
+                min-height: 26px;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                -webkit-appearance: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            input[type="radio"]:checked {
+                border-color: #000000;
+                background: #000000;
+                box-shadow: none;
+            }
+
+            input[type="radio"]:checked::before {
+                width: 11px;
+                height: 11px;
+            }
+        }
         
         /* ══════════════════════════════════════════════════════════════════════
            SUBMIT BUTTON
@@ -397,6 +484,7 @@
         /* Group FAQ into items for robust show/hide */
         .faq-section .faq-item { margin-bottom: 12px; }
         .faq-section .faq-item h3 { cursor: pointer; display: flex; align-items: center; gap: 12px; }
+        .faq-section .faq-item h3::before { content: ""; display: inline-block; width: 10px; height: 10px; min-width: 10px; flex-shrink: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.6); background: transparent; margin-top: 0; }
         .faq-section .faq-item .faq-content { display: none; margin-bottom: 20px; opacity: 1; }
         .faq-section .faq-item.active .faq-content { display: block; }
         /* Keep the indicator filled when the item is active */
@@ -1320,17 +1408,15 @@
     </div>
 </div>
 
-<!-- WhatsApp Button - COMMENTED OUT FOR NOW -->
-<!--
-<a href="https://wa.me/14372396833" target="_blank" class="whatsapp-btn-container" title="Contact us on WhatsApp" style="position: static; display: flex; justify-content: center; margin-top: 20px;">
-    <div class="whatsapp-text-label">WhatsApp!</div>
-    <svg width="37.5" height="37.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; overflow: visible;" class="whatsapp-icon-only" preserveAspectRatio="xMidYMid meet">
-        <g class="whatsapp-icon-spin">
+<!-- WhatsApp Button -->
+<div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin: 30px auto; max-width: 300px;">
+    <span style="font-size: 1.1rem; font-weight: 600; color: #ffffff; text-align: right;">Contact us on<br>WhatsApp</span>
+    <a href="https://wa.me/14372396833" target="_blank" class="whatsapp-btn-container" title="Contact us on WhatsApp" style="position: static; display: flex; justify-content: center; align-items: center; margin: 0;">
+        <svg width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; overflow: visible;" preserveAspectRatio="xMidYMid meet">
             <path fill="#FFFFFF" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </g>
-    </svg>
-</a>
--->
+        </svg>
+    </a>
+</div>
 
 <footer>
     <div class="schedule-details">EVERYDAY: 9 AM to 9 PM EST</div>
@@ -1825,7 +1911,19 @@
         });
     }
     
+    // WhatsApp icon scroll-synchronized rotation (based on total page scroll position)
+    let scrollRotation = 0;
     window.addEventListener('scroll', () => {
+        const whatsappSvg = document.querySelector('a[href="https://wa.me/14372396833"] svg');
+        if (whatsappSvg) {
+            // Calculate rotation based on total scroll progress (3600 degrees = 10x faster, 10x larger rotation angle)
+            // 0deg at top, 3600deg (10 full rotations) at bottom
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            scrollRotation = (scrollTop / scrollHeight) * 3600;
+            whatsappSvg.style.transform = `rotate(${scrollRotation}deg)`;
+        }
+        
         const now = Date.now();
         if (whatsappIcon && whatsappLabel && !isWhatsappAnimating && (now - lastWhatsappAnimationTime) >= WHATSAPP_ANIMATION_COOLDOWN) {
             isWhatsappAnimating = true;
