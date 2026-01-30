@@ -43,6 +43,11 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes shine {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
         @keyframes glow {
             0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
             50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
@@ -55,6 +60,11 @@
             0% { border-color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
             100% { border-color: var(--glass-border); box-shadow: none; }
         }
+        @keyframes formBorderGlow {
+            0% { border-color: #1a1a1a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05); }
+            50% { border-color: #2a2a2a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.1); }
+            100% { border-color: #1a1a1a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05); }
+        }
         @keyframes spin {
             0% { transform: rotate(0deg); opacity: 1; }
             100% { transform: rotate(360deg); opacity: 1; }
@@ -64,21 +74,50 @@
            GLOBAL STYLES & LAYOUT
            ══════════════════════════════════════════════════════════════════════ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scrollbar-width: none; }
-        html::-webkit-scrollbar { display: none; }
+        html, body {
+            scroll-behavior: auto;
+        }
+        
+        body {
+            scroll-padding-top: 80px;
+        }
         body { font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; max-width: 1400px; margin: 0 auto; }
         
         /* Loading Indicator */
-        .loader { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(58, 42, 26, 0.95); justify-content: center; align-items: center; }
-        .loader.active { display: flex; }
-        .loader-spinner { width: 50px; height: 50px; border: 4px solid rgba(255, 255, 255, 0.2); border-top: 4px solid #D4B89A; border-radius: 50%; animation: spin 1s linear infinite; }
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(58, 42, 26, 0.6); /* Lighter background for preload */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 350ms ease, visibility 350ms ease, background 350ms ease;
+        }
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .loader.hidden { display: none; }
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #D4B89A;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
         #dynamic-bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
         
         /* ══════════════════════════════════════════════════════════════════════
            HEADER & HERO SECTION
            ══════════════════════════════════════════════════════════════════════ */
-        header { text-align: center; padding: 80px 20px 40px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        header { text-align: center; padding: 180px 20px 80px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
         .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .services-title { font-size: clamp(1.4rem, 8vw, 5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
         
@@ -86,23 +125,19 @@
         .seo-h1 span { display: block; white-space: normal; word-break: break-word; }
 
         .phone-container { display: inline-flex; justify-content: center; min-height: 1.2em; }
-        .phone-link { display: inline-block; color: var(--text-white); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; }
+        .phone-link { display: inline-block; color: var(--text-white); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         /* ══════════════════════════════════════════════════════════════════════
            FORM STYLES
            ══════════════════════════════════════════════════════════════════════ */
         .container { max-width: 650px; margin: 0 auto; padding: 20px; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
-        .glass-form { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
-            backdrop-filter: blur(50px) brightness(1.1);
-            -webkit-backdrop-filter: blur(50px) brightness(1.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .glass-form {
+            background: var(--glass-bg); /* Полупрозрачный фон */
+            backdrop-filter: blur(20px); /* Тот самый эффект мутности */
+            -webkit-backdrop-filter: blur(20px); /* Поддержка для Safari */
+            border: 1px solid var(--glass-border);
             padding: 40px;
             border-radius: 24px;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
-            position: relative;
-            overflow: hidden;
-            box-shadow: none;
         }
         
         .glass-form::before {
@@ -124,6 +159,30 @@
             background: radial-gradient(600px at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 80%);
             pointer-events: none;
         }
+        
+        .btn-star {
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            width: 75px;
+            height: 76px;
+            pointer-events: none;
+            animation: starFlash 0.6s ease-in-out forwards;
+            z-index: 100;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.22 75.65'><path fill='%23fff' d='M39.31,40.11c-.16-.6-.32-1.2-.48-1.8,5.94-1.65,11.88-3.33,17.79-5.11,6.23-1.85,12.43-3.82,18.6-5.92-6.37,1.35-12.71,2.82-19.01,4.41-5.99,1.49-11.95,3.08-17.9,4.69-1.65-5.94-3.33-11.88-5.11-17.79-1.85-6.23-3.82-12.43-5.91-18.6,1.35,6.37,2.82,12.71,4.41,19.01,1.49,5.99,3.08,11.95,4.69,17.9-.9.25-1.79.51-2.69.76-1.12-3.97-2.25-7.93-3.45-11.87-1.64-5.48-3.41-10.93-5.29-16.34,1.14,5.62,2.41,11.2,3.79,16.75.98,4.01,2.03,8,3.09,11.98-4.42,1.24-8.84,2.5-13.24,3.83-6.23,1.85-12.43,3.82-18.6,5.91,6.37-1.35,12.71-2.82,19.01-4.41,4.45-1.11,8.89-2.28,13.32-3.46.16.6.32,1.2.48,1.8-5.19,1.45-10.38,2.92-15.53,4.49-5.48,1.64-10.93,3.41-16.34,5.29,5.62-1.14,11.2-2.41,16.75-3.79,5.24-1.28,10.44-2.67,15.65-4.07,1.45,5.19,2.91,10.38,4.48,15.53,1.64,5.48,3.41,10.93,5.3,16.34-1.14-5.62-2.4-11.2-3.79-16.75-1.28-5.24-2.67-10.44-4.07-15.65.9-.25,1.79-.51,2.69-.76,1.32,4.72,2.66,9.43,4.08,14.13,1.85,6.23,3.82,12.43,5.91,18.6-1.35-6.37-2.82-12.71-4.41-19.01-1.18-4.76-2.44-9.5-3.71-14.24,3.67-1.04,7.33-2.09,10.97-3.2,5.48-1.64,10.93-3.41,16.34-5.3-5.62,1.14-11.2,2.4-16.75,3.79-3.7.91-7.38,1.87-11.06,2.85ZM34.73,41.33c-.17-.6-.34-1.19-.5-1.78.9-.24,1.79-.48,2.69-.72.17.6.34,1.19.5,1.79-.9.24-1.79.48-2.69.72Z'/></svg>") no-repeat center;
+            background-size: contain;
+            /* Barely visible opacity for spark */
+            opacity: 0.05;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+        }
+        @keyframes starFlash {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            10% { opacity: 0.15; transform: scale(var(--spark-scale, 1) * 0.6) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+            20% { opacity: 0.3; transform: scale(var(--spark-scale, 1)) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg) * 0.5)); }
+            40% { opacity: 0.3; transform: scale(var(--spark-scale, 1)) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg) * 0.75)); }
+            70% { opacity: 0.15; transform: scale(var(--spark-scale, 1) * 0.7) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+            100% { opacity: 0; transform: scale(0) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+        }
         .form-title { font-size: 1.8rem; margin-bottom: 30px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 1; }
         .input-group { margin-bottom: 25px; position: relative; z-index: 1; }
         .input-group:has(textarea#brief) {
@@ -132,39 +191,58 @@
         .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         label { font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
         .char-counter { font-size: 0.75rem; opacity: 0.5; }
-        input, textarea { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: 1.1rem; outline: none; text-align: center; transition: all 0.3s ease; font-family: 'Lato', sans-serif; animation: glow 4s ease-in-out infinite; }
+        input, textarea, select { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: 1.1rem; outline: none; transition: all 0.3s ease; font-family: 'Lato', sans-serif; }
+        select { text-align: center; }
         input.has-content, textarea.has-content,
-        input:focus, textarea:focus {
+        input:focus, textarea:focus, select:focus {
             background: #ffffff;
             color: #6B5B4A;
-            animation: none;
+            box-shadow: 0 0 20px rgba(107, 91, 74, 0.4);
         }
         input:focus, textarea:focus {
              border-color: rgba(255, 255, 255, 0.5);
         }
+        select:focus {
+            background: #1a1a1a;
+            color: var(--text-white);
+            border-color: #2a2a2a;
+            box-shadow: none;
+        }
         input.blur-non-focus, textarea.blur-non-focus { animation: none; opacity: 0.6; }
-        input::placeholder, textarea::placeholder { color: var(--placeholder-color); font-size: 0.9rem; opacity: 1; }
+        input::placeholder, textarea::placeholder {
+            text-align: left; /* Align placeholders to the left */
+            color: var(--placeholder-color);
+        }
         input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
         input, textarea { caret-color: #6B5B4A; }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
         
-        textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; animation: glow 4s ease-in-out infinite; }
-        textarea#brief:focus { animation: none; background: rgba(255, 255, 255, 0.85); color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); }
+        textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; }
+        textarea#brief:focus { background: rgba(255, 255, 255, 0.85); color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
         
         /* ══════════════════════════════════════════════════════════════════════
            CHECKBOX & CONSENT
            ══════════════════════════════════════════════════════════════════════ */
         .consent-wrapper { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; flex-wrap: nowrap; position: relative; z-index: 1; }
-        .consent-wrapper input[type="checkbox"] { appearance: none; width: 24px; height: 24px; min-width: 24px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; animation: glow 4s ease-in-out infinite; transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; }
+        .consent-wrapper input[type="checkbox"] { appearance: none; width: 28px; height: 28px; min-width: 28px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
+        .consent-wrapper input[type="checkbox"]:focus { box-shadow: 0 0 15px rgba(107, 91, 74, 0.4); }
         .consent-wrapper input[type="checkbox"]:checked { background: #ffffff; border-color: #ffffff; animation: none; }
         .consent-wrapper input[type="checkbox"].flash { animation: flashBorderCheckbox 0.6s ease-in-out; }
-        .consent-wrapper input[type="checkbox"]:checked::after { content: "✓"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -60%); color: #6B5B4A; font-size: 48px; font-weight: 900; line-height: 1; }
+        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #6B5B4A; font-size: 54px; font-weight: 900; line-height: 1; display: flex; align-items: center; justify-content: center; }
         .consent-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
         
         /* ══════════════════════════════════════════════════════════════════════
            SUBMIT BUTTON
            ══════════════════════════════════════════════════════════════════════ */
-        .submit-btn { width: 100%; padding: 20px; background: #ffffff; color: #9e8066; border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; }
-        .submit-btn:hover { transform: translateY(-2px); }
+        .submit-btn { width: 100%; padding: 20px; background: #8B6F5A; color: #ffffff; border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible; }
+        .submit-btn:hover { transform: translateY(-2px); background: #6B5B4A; }
         
         .attach-icon {
             position: absolute;
@@ -203,18 +281,28 @@
         .flash { animation: flashBorder 0.6s ease-in-out; }
         
         /* ══════════════════════════════════════════════════════════════════════
-           FAQ ACCORDION
+           FAQ SECTION - ACCORDION WITH SPOILERS
            ══════════════════════════════════════════════════════════════════════ */
-        .faq-section { margin-top: 60px; }
-        .faq-section h3 { font-size: 1.3rem; font-weight: 900; margin: 30px 0 15px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; transition: all 0.3s ease; opacity: 1; }
-        .faq-section h3.visible { }
-        
-        .faq-section h3::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-white); transition: all 0.3s ease; margin-right: 12px; flex-shrink: 0; }
-        .faq-section h3.active::before { background-color: var(--text-white); }
+        .faq-section { margin-top: 20px; }
+        .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
+        .faq-q { font-weight: 900; margin-bottom: 10px; font-size: 1.4rem; text-transform: uppercase; display: flex; align-items: flex-start; gap: 15px; }
+        .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; min-width: 12px; flex-shrink: 0; border-radius: 50%; border: 2px solid #ffffff; transition: all 0.3s ease; margin-top: 12px; }
+        .faq-item.active .faq-q::before { background-color: #ffffff; }
+        .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
+        .faq-item.active .faq-a { display: block; }
         .faq-section > p { margin-bottom: 20px; opacity: 0.9; display: none; }
-        .faq-section > ul { display: none; margin: 15px 0 25px 0; padding-left: 0; }
-        .faq-section > ul li { margin-bottom: 12px; display: flex; align-items: baseline; margin-left: 0; }
-        .faq-section > ul li::before { content: "●"; color: var(--text-white); margin-right: 12px; font-size: 0.8rem; flex-shrink: 0; }
+        .faq-section > ul { 
+            display: none; 
+            margin: 15px 0 25px 0; 
+            padding-left: 20px; /* Ensure proper alignment */
+        }
+        .faq-section > ul li { 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: baseline; 
+            margin-left: 0; /* Reset margin */
+            padding-left: 10px; /* Add padding for alignment */
+        }
         .faq-section > table { display: none; margin: 20px 0; }
         .faq-section > .map-block { display: none; margin-top: 15px; }
         .faq-section > .price-note { display: none; }
@@ -223,6 +311,14 @@
         .faq-section h3.active ~ table { display: table; }
         .faq-section h3.active ~ .map-block { display: block; }
         .faq-section h3.active ~ .price-note { display: block; }
+
+        /* Group FAQ into items for robust show/hide */
+        .faq-section .faq-item { margin-bottom: 12px; }
+        .faq-section .faq-item h3 { cursor: pointer; display: flex; align-items: center; gap: 12px; }
+        .faq-section .faq-item .faq-content { display: none; margin-bottom: 20px; opacity: 1; }
+        .faq-section .faq-item.active .faq-content { display: block; }
+        /* Keep the indicator filled when the item is active */
+        .faq-section .faq-item.active h3::before { background-color: var(--text-white); }
         
         /* ══════════════════════════════════════════════════════════════════════
            PRICING TABLE & COSTS
@@ -438,8 +534,31 @@
             .glass-form { padding: 25px 15px; }
             input, textarea { padding: 13px; font-size: 16px; }
         }
-    </style>
-</head>
+
+        /* New Select Styles */
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '▼';
+            font-size: 1.2rem;
+            color: var(--text-white);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        #subject-value {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 50px; /* Make space for the arrow */
+        }
+        #subject-value option {
+            font-size: 1.2rem;
+        }
+    </style></head>
 <body>
 
 <!-- Loading Indicator -->
@@ -468,10 +587,10 @@
     <div class="services-title">Paralegal Services</div>
     
     <h1 class="seo-h1">
-        <span>Protect Your Rights in GTA: Paralegal & Notary</span>
-        <span>Toronto, Mississauga, Richmond Hill, London</span>
-        <span>Book Your One-to-One Appointment Here</span>
-        <span>Traffic Ticket Defense, LTB, WSIB and more</span>
+        <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
+        <span>Traffic Ticket Defense, LTB, WSIB, Taxes, and More</span>
+        <span>Serving Toronto, Mississauga, Richmond Hill, London</span>
+        <span>Book Your Appointment with Our Team</span>
     </h1>
     <div class="phone-container">
         <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
@@ -481,10 +600,10 @@
 <div class="container">
     <div class="glass-form">
         <form id="appointmentForm">
-            <h3 class="form-title">FILL OUT</h3>
+            <h3 class="form-title">Short Form</h3>
             <div class="input-group">
                 <div class="label-wrapper"><label>Name</label></div>
-                <input type="text" id="name" name="client_name" placeholder="Tell me your name to get started...">
+                <input type="text" id="name" name="client_name" placeholder="Jane Doe...">
             </div>
             <div class="input-group">
                 <div class="label-wrapper">
@@ -492,7 +611,7 @@
                     <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
                 </div>
                 <textarea id="brief" name="description" maxlength="1024" 
-                    placeholder="e.g. hello, please call me when you are available regarding traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, taxes, citizenship, divorce/marriage, or need a face-to-face appointment..."></textarea>
+                    placeholder="hello, please contact me regarding my traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, taxes, citizenship, divorce/marriage, need a face-to-face meeting asap..."></textarea>
                 <div class="attach-icon" title="Upload file">
                     <svg viewBox="0 0 1280 613" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5539 4840 l-1576 -5 -48 -30 c-92 -57 -131 -182 -86 -280 24 -53 90 -111 142 -125 30 -8 877 -11 3188 -8 2935 3 3152 2 3241 -14 285 -51 478 -145 631 -304 77 -81 113 -132 163 -232 110 -218 173 -573 146 -820 -58 -541 -315 -861 -788 -982 -230 -58 84 -54 -4267 -57 -2549 -3 -4022 0 -4097 6 -294 25 -499 169 -633 446 -152 312 -146 642 15 888 94 142 234 248 410 309 l95 33 3090 3 c2692 2 3101 0 3176 -13 178 -30 272 -88 329 -199 l35 -69 0 -166 c-1 -149 -3 -172 -23 -223 -45 -112 -134 -183 -282 -225 -62 -17 -154 -18 -2110 -18 -1949 0 -2047 -1 -2085 -18 -86 -39 -138 -117 -138 -207 0 -89 55 -171 138 -205 46 -20 4097 -25 4210 -7 457 77 721 380 742 852 12 287 -62 498 -236 670 -131 130 -290 208 -521 257 -81 17 -236 18 -3215 18 -3024 0 -3133 -1 -3210 -19 -314 -73 -560 -230 -744 -473 -75 -99 -166 -289 -196 -405 -80 -320 -35 -691 123 -1004 90 -179 262 -379 410 -477 101 -67 239 -131 357 -164 l100 -28 4100 -3 c2929 -2 4131 0 4210 8 265 26 538 109 729 221 396 232 629 600 712 1124 42 267 3 640 -96 930 -209 606 -676 951 -1375 1015 -112 10 -1617 10 -4766 0z" transform="rotate(90 640 306.5)"/>
@@ -501,67 +620,92 @@
             </div>
             <div class="input-group">
                 <div class="label-wrapper"><label>CALL / Email / WhatsApp</label></div>
-                <input type="text" id="contact" name="contact" required placeholder="Tell me your phone number or email address...">
+                <input type="text" id="contact" name="contact" required placeholder="Phone number or email address">
             </div>
             <label class="consent-wrapper">
                 <input type="checkbox" id="consent">
-                <span class="consent-text">I AGREE TO SHARE MY INFO. RELATIONSHIP AFTER SIGNING ONLY.</span>
+                <span class="consent-text">I AGREE TO SHARE INFO. RELATIONSHIP AFTER SIGNING ONLY.</span>
             </label>
-            <button type="submit" id="submitBtn" class="submit-btn">BOOK APPOINTMENT</button>
+            <button type="submit" id="submitBtn" class="submit-btn">
+                BOOK APPOINTMENT
+                <span class="btn-star"></span>
+            </button>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 0;">Respond estimates within 5 to 30 minutes</p>
         </form>
     </div>
-    <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 40px;">I respond within 5 to 30 minutes</p>
+    <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 20px; margin-bottom: 40px;">If you need an expanded form, or you're a long-term client, click <a href="#" onclick="toggleFullForm(event)" style="color: var(--text-white); text-decoration: underline; cursor: pointer;">Full Form</a></p>
+
+    <h2 style="font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 30px; margin-top: 50px;">FAQ</h2>
 
     <div class="faq-section">
-        <h3>What are your paralegal fees?</h3>
-        <p>The <strong>rate range</strong> for paralegal services in Ontario is <strong>$50 to $350 per hour</strong>, depending on case complexity:</p>
-        <ul style="margin-top: 15px;">
-            <li><strong>$50 to $100:</strong> Simple administrative tasks and basic filings.</li>
-            <li><strong>$150 to $250:</strong> Standard market rate for legal matters.</li>
-            <li><strong>$300 to $350:</strong> Professional representation for large legal cases.</li>
-        </ul>
-        <p style="margin-top: 20px;"><strong>Not sure which range fits your situation?</strong> Contact me through the form above, and I'll calculate your individual rate range based on your specific needs. Every case is unique, and I'm here to provide a transparent quote tailored to you.</p>
-
-        <h3>So, what is the estimated cost?</h3>
-        <p>Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:</p>
-        <table class="price-table">
-            <tr><td>Small Claims Court</td><td>$200 – 500</td></tr>
-            <tr><td>Traffic Ticket Defense</td><td>$400 – 700</td></tr>
-            <tr><td>Employment & Labour Law</td><td>$300 – 600</td></tr>
-            <tr><td>Insurance & Benefits Claims</td><td>$250 – 500</td></tr>
-            <tr><td>Tax Compliance Matters</td><td>$200 – 450</td></tr>
-            <tr><td>Business Contract Review</td><td>$350 – 650</td></tr>
-            <tr><td>Immigration Advisory</td><td>$400 – 800</td></tr>
-            <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700</td></tr>
-            <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750</td></tr>
-        </table>
-        <span class="price-note">
-            *Listed prices are for reference only. Final quotes follow the assessment total.
-        </span>
-
-        <h3>Can I afford this? What if I'm on a tight budget?</h3>
-        <p>No problem. I utilize <strong>Unbundled Legal Services</strong> to keep your costs down. Instead of a full-service retainer, you hire me for specific tasks. This approach typically saves you <strong>40 to 60% of your legal costs</strong>. <br>
-If you have a <strong>4 digit coupon code</strong> from advertising, or if you were <strong>referred by others</strong>, please indicate this at the end of the message in the form above. <br>
-If you're truly in need, for example, a <strong>displaced person</strong>, <strong>refugee</strong>, someone <strong>affected by war</strong>, or a person with <strong>disabilities</strong>, I also arrange access to legal services on a <strong>pro bono basis</strong> or offer significantly reduced fees.</p>
-
-        <h3>OK what happens after booking?</h3>
-        <p>I reach out promptly. I finalize details in-office or via video call, and you'll receive a written summary of next steps and any required documents.</p>
-
-        
-        <h3>What's the difference between a paralegal and a lawyer?</h3>
-        <p>I operate on a different level. While lawyers typically handle complex litigation, I provide direct, independent representation in <strong>Small Claims Court</strong> and before many <strong>administrative tribunals</strong>. As a licensed paralegal, I offer more affordable, focused services for matters within my provincial scope. I can represent you where it matters most without the lawyer's overhead costs.</p>
-
-        <h3>Where is your office today?</h3>
-        <div class="map-block">
-            146 Thirtieth St., Suite 29, Toronto, ON
-            <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" allowfullscreen="" loading="lazy"></iframe></div>
-        </div>
-
-        <h3>What about the privacy policy?</h3>
-        <p><strong>Information I collect:</strong> I collect personal information you voluntarily provide (name, phone number, email, case description).</p>
-        <p><strong>Advertising & Cookies:</strong> I use this information for advertising purposes on <strong>Facebook, Google, and YouTube</strong>. My website uses essential cookies for functionality and may use analytics cookies.</p>
-        <p><strong>How I use your information:</strong> To provide legal and paralegal services, respond to inquiries, and (if you consent) send communications.</p>
-        <p><strong>Your rights:</strong> You have the right to access or delete your data.<br>Contact me at +1 (437) 239-6833 or paralegal@hannadunchenko.com.</p>
+        <div class="faq-item">
+            <div class="faq-q">What are your paralegal fees?</div>
+            <div class="faq-a">
+              The <strong>rate range</strong> for paralegal services in Ontario is <strong>$50 to $350 per hour</strong>, depending on case complexity:
+              <ul style="margin-top: 15px;">
+                <li><strong>$50 to $100:</strong> Basic administrative tasks and standart filings</li>
+                <li><strong>$150 to $250:</strong> Standard market rate for legal matters</li>
+                <li><strong>$300 to $350:</strong> Professional representation for large legal cases</li>
+              </ul>
+              <p style="margin-top: 20px;"><strong>Not sure which range fits your situation?</strong> Contact me through the form above, and I'll calculate your individual rate range based on your specific needs. Every case is unique, and I'm here to provide a transparent quote tailored to you.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">So, what is the estimated cost?</div>
+            <div class="faq-a">
+              Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:
+              <table class="price-table">
+                <tr><td>Small Claims Court</td><td>$200 – 500 CAD</td></tr>
+                <tr><td>Traffic Ticket Defense</td><td>$400 – 700 CAD</td></tr>
+                <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
+                <tr><td>Insurance & Benefits Claims</td><td>$250 – 500 CAD</td></tr>
+                <tr><td>Tax Compliance Matters</td><td>$200 – 450 CAD</td></tr>
+                <tr><td>Business Contract Review</td><td>$350 – 650 CAD</td></tr>
+                <tr><td>Immigration Advisory</td><td>$400 – 800 CAD</td></tr>
+                <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
+                <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
+              </table>
+              <span class="price-note">*Listed prices are for reference only. Final quotes follow the assessment total.</span>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Can I afford this? What if I'm on a tight budget?</div>
+            <div class="faq-a">
+              <p>No problem. I utilize <strong>Unbundled Legal Services</strong> to keep your costs down. Instead of a full-service retainer, you hire me for specific tasks. This approach typically saves you <strong>40 to 60% of your legal costs</strong>.</p><br>
+              <p>For those who have <strong>a 4 digit coupon code from advertising</strong>, or <strong>if you were referred by others</strong>, please indicate this at the end of the message in the form above.</p><br>
+              <p>If you're truly in need, for example, a <strong>displaced person</strong>, <strong>refugee</strong>, someone <strong>affected by war</strong>, or a person with <strong>disabilities</strong>, I also arrange access to legal services on a <strong>pro bono basis</strong> or offer significantly reduced fees.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">OK what happens after booking?</div>
+            <div class="faq-a">
+              I reach out promptly. I finalize details in-office or via video call, and you'll receive a written summary of next steps and any required documents.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What's the difference between a paralegal and a lawyer?</div>
+            <div class="faq-a">
+              I operate on a different level. While lawyers typically handle complex litigation, I provide direct, independent representation in <strong>Small Claims Court</strong> and before many <strong>administrative tribunals</strong>. As a licensed paralegal, I offer more affordable, focused services for matters within my provincial scope. I can represent you where it matters most without the lawyer's overhead costs.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Where is your office today?</div>
+            <div class="faq-a">
+              <div class="map-block">
+                146 Thirtieth St., Suite 29, Toronto, ON
+                <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" allowfullscreen="" loading="lazy"></iframe></div>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">What about the privacy policy?</div>
+            <div class="faq-a">
+              <p><strong>Information I collect:</strong> I collect personal information you voluntarily provide (name, phone number, email, case description).</p>
+              <p><strong>Advertising & Cookies:</strong> I use this information for advertising purposes on <strong>Facebook, Google, and YouTube</strong>. My website uses essential cookies for functionality and may use analytics cookies.</p>
+              <p><strong>How I use your information:</strong> To provide legal and paralegal services, respond to inquiries, and (if you consent) send communications.</p>
+              <p><strong>Your rights:</strong> You have the right to access or delete your data.<br>Contact me at +1 (437) 239-6833 or paralegal@hannadunchenko.com.</p>
+            </div>
+          </div>
     </div>
 
     <section class="seo-section">
@@ -569,7 +713,10 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
         <p>If you're searching for a <strong>trusted paralegal near you</strong> to help with a legal problem in <strong>Toronto</strong>, the <strong>GTA</strong>, or anywhere in <strong>Ontario</strong>, you're in the right place. I'm here to help when you're stressed about a <strong>traffic ticket</strong>, facing <strong>eviction</strong>, or trying to get your deposit back after a landlord refuses to return it.</p>
         
         <h3>Professional Traffic Ticket Defense Ontario</h3>
-        <p>If you've received a <strong>speeding ticket Ontario</strong> or need to <strong>fight parking ticket Toronto</strong>, I explain how to fight speeding fines effectively and protect your driving record. I represent you in major courts including <strong>Mississauga, Richmond Hill, and London, ON</strong>. Your record matters let me help you defend it.</p>
+        <p>If you've received a <strong>speeding ticket Ontario</strong> or need to <strong>fight parking ticket Toronto</strong>, I explain how to fight speeding fines effectively and protect your driving record. I represent you in major courts including <strong>Mississauga, Richmond Hill, London, and across Ontario</strong>. Your record matters let me help you defend it.</p>
+        
+        <h3>Service Areas: Peel Region, York Region & Beyond</h3>
+        <p><strong>Peel Region:</strong> Mississauga, Brampton, Caledon | <strong>York Region:</strong> Markham, Vaughan, Richmond Hill, Newmarket, Aurora, King, Whitchurch-Stouffville, East Gwillimbury, Georgina | <strong>Halton Region:</strong> Oakville, Burlington, Milton, Halton Hills | and beyond across Ontario and the Greater Toronto Area.</p>
         
         <h3>Landlord and Tenant Board (LTB) Help</h3>
         <p>I understand how overwhelming it feels when your landlord wants to <strong>evict you</strong> or serves an <strong>N12 notice</strong>. If you've received an <strong>eviction notice Ontario</strong> or are facing a <strong>rent increase Ontario</strong> legal issue, I provide expert <strong>landlord tenant board help</strong> and <strong>tenant dispute help Ontario</strong>. Whether you're searching <strong>how to fight eviction in Ontario</strong> or need a <strong>paralegal for eviction Ontario</strong>, I'm here to defend your <strong>tenant rights Ontario</strong>.</p>
@@ -587,16 +734,138 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
         <p>For those dealing with <strong>Small Claims Court help Ontario</strong>, I offer expert paralegal court representation. Whether it is debt collection or contract disputes, I answer the question: <strong>can a paralegal help me sue someone?</strong> Yes I handle these cases every day with focus and precision.</p>
 
         <h3>Fast & Reliable Notary Public Services</h3>
-        <p>Need a notary public near you? I'm a premier <strong>notary near you in Toronto</strong> provider. My services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letters. I also handle notary for passport applications, dual citizenship documents Ontario, and <strong>immigration notary Toronto</strong>.</p>
+        <p>Need a notary public near you? I'm a premier <strong>notary near you in Toronto</strong> provider. My services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letters. In addition, I am also able to provide assistance with obtaining Ukrainian citizenship for Canadians of Ukrainian descent.</p>
         <p>Every case starts with a confidential one-on-one appointment. Whether you're looking for <strong>affordable paralegal Toronto</strong> or <strong>cost-effective legal advice Ontario</strong>, I provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward with me or independently, the choice is yours.</p>
+
+        <h3>Our Team Friendly, Professional & Dedicated</h3>
+        <p>
+        <strong>Our Team:</strong> We are proud to have a group of talented professionals based in Toronto who combine expertise with a welcoming attitude. <strong>Friendly & Smiling:</strong> Every member of our team is approachable, positive, and ready to greet clients with a smile. <strong>Professional Excellence:</strong> With diverse backgrounds and strong experience, our team delivers reliable, high‑quality service. <strong>Collaborative Spirit:</strong> We work together seamlessly, supporting each other and ensuring the best outcomes for our clients. <strong>Client‑Focused:</strong> Our priority is to make every interaction pleasant, helpful, and tailored to your needs.
+        </p>
     </section>
 </div>
+
+<!-- FULL FORM MODAL (initially hidden) -->
+<div id="fullFormModal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9998; overflow-y: auto; padding: 20px;">
+    <div style="max-width: 700px; margin: 40px auto; background: #000000; border: 2px solid #ffffff; padding: 40px; border-radius: 24px; position: relative;">
+        <button onclick="closeFullForm()" style="position: absolute; top: 20px; left: 20px; background: none; border: none; color: var(--text-white); font-size: 28px; cursor: pointer; padding: 0; width: 30px; height: 30px; font-weight: 300;">✕</button>
+        
+        <h3 class="form-title" style="margin-bottom: 20px;">Full Inquiry Form</h3>
+        
+        <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; line-height: 1.6;">Please complete this form accurately and in full to request legal consultancy services from<br/><strong>HANNA DUNCHENKO PARALEGAL SERVICES</strong><br/>The information you provide will help us assess your inquiry, determine how we can assist you, and contact you efficiently. Incomplete or inaccurate information may delay our ability to respond.</p>
+        
+        <form id="fullAppointmentForm">
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Email *</label></div>
+                <input type="email" name="email" placeholder="your.email@example.com" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Full name *</label></div>
+                <input type="text" name="full_name" placeholder="John Doe" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Date of birth *</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Phone *</label></div>
+                <input type="tel" name="phone" placeholder="+1 (437) 239-6833" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Address *</label></div>
+                <input type="text" name="address" placeholder="Street address, city, province, postal code" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Preferred contact method</label></div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="phone" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Phone</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="email" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Email</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="other" onchange="toggleOtherContactField()" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Other</span>
+                    </label>
+                </div>
+                <div id="otherContactField" style="display: none; margin-top: 12px;">
+                    <input type="text" name="contact_other" placeholder="Please specify your preferred method" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid #ffffff; border-radius: 10px; color: var(--text-white); font-size: 1rem; font-family: 'Lato', sans-serif;">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Subject *</label></div>
+                <div class="select-wrapper">
+                    <select name="subject" id="subject-value" required>
+                        <option value="" disabled selected>Select a subject...</option>
+                        <option value="other">Other</option>
+                        <option value="public-notary">Public Notary services</option>
+                        <option value="employment-law">Employment Law</option>
+                        <option value="civil-matter">Civil matter</option>
+                        <option value="wsib">WSIB related issue</option>
+                        <option value="ltb">LTB related issue</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper">
+                    <label>Details *</label>
+                    <span class="char-counter"><span id="full-form-chars">0</span> / 5000</span>
+                </div>
+                <textarea name="details" maxlength="5000" placeholder="Please describe your legal matter in detail" required style="min-height: 200px; resize: none; overflow: hidden; border: 1px solid #ffffff;"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Attachments</label></div>
+                <input type="file" name="documents" multiple style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 2px dashed #ffffff; border-radius: 10px; color: var(--text-white); font-size: 1rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.12)';" onmouseout="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.08)';">
+                <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 10px;"><a href="https://www.dropbox.com/request/placeholder" target="_blank" style="color: var(--text-white); text-decoration: underline;">Or Use Our DropBox API</a></p>
+            </div>
+            
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; margin: 25px 0;">
+                <div style="font-size: 1.1rem; opacity: 0.9; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;"><strong>Information Accuracy:</strong> I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.</p>
+                </div>
+                
+                <div style="font-size: 1.1rem; opacity: 0.9; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;"><strong>Data Authorization:</strong> I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.</p>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); justify-content: flex-start;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0;">
+                        <input type="radio" name="form_consent" value="yes" required style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Yes</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0;">
+                        <input type="radio" name="form_consent" value="no" required style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" style="width: 100%; padding: 20px; background: #ffffff; color: #000000; border: 1px solid #ffffff; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible;" onmouseover="this.style.background='#f0f0f0'; this.style.boxShadow='0 0 20px rgba(255, 255, 255, 0.5)';" onmouseout="this.style.background='#ffffff'; this.style.boxShadow='none';">DONE</button>
+        </form>
+    </div>
+</div>
+
 
 <footer>
     <div class="schedule-details">EVERYDAY: 9 AM to 9 PM EST</div>
     <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
     <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
-        © 2026 Hanna Dunchenko<br>Licensed Paralegal Services<br>Licensed only by the Law Society of Ontario
+        © 2026 Hanna Dunchenko<br>Licensed Paralegal Services<br>Licensed by Law Society of Ontario
     </p>
 </footer>
 
@@ -617,10 +886,36 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
     const loader = document.querySelector('.loader');
     const formInputs = [nameInput, briefArea, contactInput];
 
-    // Hide loader when page loads
+    // Fade out loader when page loads and scroll to top
     window.addEventListener('load', () => {
-        loader.classList.remove('active');
+        if (loader) {
+            // Start fade out by removing `active` (triggers opacity transition)
+            loader.classList.remove('active');
+
+            // After the opacity transition ends, hide the loader to remove it from layout
+            const onTransitionEnd = (e) => {
+                if (e.propertyName === 'opacity' && !loader.classList.contains('active')) {
+                    loader.classList.add('hidden');
+                    loader.removeEventListener('transitionend', onTransitionEnd);
+                }
+            };
+            loader.addEventListener('transitionend', onTransitionEnd);
+
+            // Fallback: ensure loader is hidden if transitionend doesn't fire
+            setTimeout(() => {
+                if (!loader.classList.contains('active')) loader.classList.add('hidden');
+            }, 700);
+        }
+
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
     });
+
+    // Scroll to top on page start (for iPad and mobile devices)
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
 
     // Inject a style rule for textarea flash with higher specificity
     const styleEl = document.createElement('style');
@@ -657,19 +952,24 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
     /* ════════════════════════════════════════════════════════════════════════
        FAQ ACCORDION TOGGLE
        ════════════════════════════════════════════════════════════════════════ */
-    const initializeFAQ = () => {
-        const faqHeadings = document.querySelectorAll('.faq-section > h3');
-        
-        faqHeadings.forEach(heading => {
-            // Add active class to make them open by default
-            heading.classList.add('active');
-            
-            heading.addEventListener('click', () => {
-                heading.classList.toggle('active');
-            });
+    // Open all FAQ items by default
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.add('active');
+    });
+    
+    // Add click toggle functionality
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'IFRAME' && e.target.tagName !== 'A') {
+                item.classList.toggle('active');
+            }
         });
-    };
-    initializeFAQ();
+    });
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FAQ - PLAIN TEXT (NO ACCORDION LOGIC)
+       ════════════════════════════════════════════════════════════════════════ */
+    // FAQ is now plain text without any spoiler/accordion functionality
 
     /* ════════════════════════════════════════════════════════════════════════
        FILE ATTACHMENT ICON - DROPBOX API
@@ -749,6 +1049,44 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
     });
 
     /* ════════════════════════════════════════════════════════════════════════
+       SPARK ANIMATION WITH RANDOM ROTATION & SCALE
+       ════════════════════════════════════════════════════════════════════════ */
+    const btnStar = document.querySelector('.btn-star');
+    if (btnStar) {
+        // !!! ИНТЕРВАЛ между спарками в миллисекундах (сейчас 5000ms = 5 сек)
+        const SPARK_INTERVAL = 5000;
+        // !!! ДЛИТЕЛЬНОСТЬ АНИМАЦИИ в секундах (сейчас 0.3s - очень быстро)
+        const SPARK_DURATION = '0.2s';
+        // !!! ЗАДЕРЖКА первого спарка после загрузки в миллисекундах (сейчас 2000ms)
+        const FIRST_SPARK_DELAY = 2000;
+        // !!! МИНИМАЛЬНЫЙ размер спарка (сейчас 0.6 = 60%)
+        const MIN_SCALE = 0.6;
+        // !!! МАКСИМАЛЬНЫЙ размер спарка (сейчас 1.2 = 120%)
+        const MAX_SCALE = 6.2;
+        
+        function triggerSpark() {
+            // Generate random rotation between 400-2000 degrees
+            const randomRotation = 400 + Math.random() * 1600;
+            // Random direction (1 or -1)
+            const randomDirection = Math.random() > 0.5 ? 1 : -1;
+            // Generate random scale between MIN_SCALE and MAX_SCALE
+            const randomScale = MIN_SCALE + Math.random() * (MAX_SCALE - MIN_SCALE);
+            btnStar.style.setProperty('--spark-rotation-deg', `${randomRotation}deg`);
+            btnStar.style.setProperty('--spark-rotation-dir', randomDirection);
+            btnStar.style.setProperty('--spark-scale', randomScale);
+            btnStar.style.animation = 'none';
+            setTimeout(() => {
+                btnStar.style.animation = `starFlash ${SPARK_DURATION} ease-in-out forwards`;
+            }, 10);
+        }
+        
+        // Повторяющиеся спарки
+        setInterval(() => {
+            triggerSpark();
+        }, SPARK_INTERVAL);
+    }
+
+    /* ════════════════════════════════════════════════════════════════════════
        ANIMATED BACKGROUND STRIPES (OPTIMIZED)
        ════════════════════════════════════════════════════════════════════════ */
     (function() {
@@ -758,7 +1096,10 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
         function step(time) {
             stripes.forEach((el, i) => {
                 const t = (time * data[i].speed) + data[i].seed;
-                el.style.transform = `translate(${Math.sin(t * 0.7) * 5}%, ${Math.cos(t * 0.5) * 4}%) scaleX(${1 + Math.sin(t * 1.5) * 0.15}) rotate(${Math.sin(t * 0.4) * 2}deg)`;
+                // Плавные замедления и ускорения для избежания видимых переходов
+                const easeT = Math.sin(t * 0.3);
+                const smoothT = t + Math.sin(t * 0.05) * 20;
+                el.style.transform = `translate(${Math.sin(smoothT * 0.7) * 5}%, ${Math.cos(smoothT * 0.5) * 4}%) scaleX(${1 + Math.sin(smoothT * 1.5) * 0.15}) rotate(${Math.sin(smoothT * 0.4) * 2}deg)`;
             });
             rafId = requestAnimationFrame(step);
         }
@@ -770,6 +1111,71 @@ If you're truly in need, for example, a <strong>displaced person</strong>, <stro
             setTimeout(() => rafId = requestAnimationFrame(step), 500);
         }
     })();
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FULL FORM MODAL TOGGLE
+       ════════════════════════════════════════════════════════════════════════ */
+    function toggleFullForm(event) {
+        if (event) event.preventDefault();
+        const modal = document.getElementById('fullFormModal');
+        if (modal) {
+            modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+            document.body.style.overflow = modal.style.display === 'block' ? 'hidden' : 'auto';
+        }
+    }
+
+    function closeFullForm() {
+        const modal = document.getElementById('fullFormModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function toggleOtherContactField() {
+        const otherField = document.getElementById('otherContactField');
+        const contactRadios = document.querySelectorAll('input[name="contact_method"]');
+        const isOtherSelected = Array.from(contactRadios).find(r => r.checked)?.value === 'other';
+        if (otherField) {
+            otherField.style.display = isOtherSelected ? 'block' : 'none';
+        }
+    }
+
+    // Handle full form submission
+    const fullForm = document.getElementById('fullAppointmentForm');
+    if (fullForm) {
+        fullForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(fullForm);
+            const data = Object.fromEntries(formData);
+            console.log('Full Form Submission:', data);
+            alert('Thank you for your submission! I will contact you within 5 to 30 minutes.');
+            closeFullForm();
+            fullForm.reset();
+        });
+        
+        // Character counter for textarea in full form
+        const fullFormTextarea = fullForm.querySelector('textarea[name="details"]');
+        if (fullFormTextarea) {
+            fullFormTextarea.addEventListener('input', function() {
+                const counter = document.getElementById('full-form-chars');
+                if (counter) counter.textContent = this.value.length;
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+    }
+
+    // Close modal when clicking outside (on the overlay)
+    const modalEl = document.getElementById('fullFormModal');
+    if (modalEl) {
+        modalEl.addEventListener('click', (e) => {
+            if (e.target === modalEl) {
+                closeFullForm();
+            }
+        });
+    }
+
 </script>
 
 <!--
