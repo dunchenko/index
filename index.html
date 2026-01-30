@@ -138,6 +138,7 @@
             border: 1px solid var(--glass-border);
             padding: 40px;
             border-radius: 24px;
+            position: relative;
         }
         
         .glass-form::before {
@@ -149,6 +150,18 @@
             height: 1px;
             background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
             pointer-events: none;
+            /* Отключаем на iOS/iPad */
+            -webkit-user-select: none;
+        }
+        
+        /* Отключаем радиальный градиент эффект на Apple устройствах */
+        @supports (-webkit-touch-callout: none) {
+            .glass-form::before {
+                display: none;
+            }
+            .glass-form::after {
+                display: none;
+            }
         }
         
         .glass-form::after {
@@ -1176,6 +1189,130 @@
             }
         });
     }
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SYSTEM STARTUP SOUND - COOKIES & AUDIO CONTEXT
+       ════════════════════════════════════════════════════════════════════════ */
+    class SoundManager {
+        constructor() {
+            this.audioContext = null;
+            this.lastSoundTime = this.getLastSoundTime();
+            this.soundEnabled = this.getSoundEnabled();
+            this.SOUND_COOLDOWN = 10 * 60 * 1000; // 10 minutes
+            this.COOKIE_LAST_SOUND = 'lastSoundTime';
+            this.COOKIE_SOUND_ENABLED = 'soundEnabled';
+            this.init();
+        }
+
+        init() {
+            // Initialize audio context on first user interaction
+            document.addEventListener('click', () => this.initAudioContext(), { once: true });
+            document.addEventListener('touchstart', () => this.initAudioContext(), { once: true });
+            
+            // Try to play sound after short delay to ensure user interaction
+            setTimeout(() => this.playStartupSound(), 1200);
+        }
+
+        initAudioContext() {
+            if (!this.audioContext) {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        getLastSoundTime() {
+            const cookie = this.getCookie(this.COOKIE_LAST_SOUND);
+            return cookie ? parseInt(cookie) : 0;
+        }
+
+        getSoundEnabled() {
+            const cookie = this.getCookie(this.COOKIE_SOUND_ENABLED);
+            return cookie !== 'false'; // Default: true
+        }
+
+        setSoundEnabled(enabled) {
+            this.soundEnabled = enabled;
+            this.setCookie(this.COOKIE_SOUND_ENABLED, enabled.toString(), 365);
+        }
+
+        setCookie(name, value, days = 1) {
+            const date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            const expires = 'expires=' + date.toUTCString();
+            document.cookie = `${name}=${value};${expires};path=/;SameSite=Strict`;
+        }
+
+        getCookie(name) {
+            const nameEQ = name + '=';
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.indexOf(nameEQ) === 0) {
+                    return cookie.substring(nameEQ.length);
+                }
+            }
+            return null;
+        }
+
+        canPlaySound() {
+            const now = Date.now();
+            const timeSinceLastSound = now - this.lastSoundTime;
+            return this.soundEnabled && timeSinceLastSound >= this.SOUND_COOLDOWN;
+        }
+
+        playStartupSound() {
+            if (!this.canPlaySound() || !this.audioContext) return;
+
+            try {
+                // Create startup chime sound (3 notes like macOS)
+                const now = this.audioContext.currentTime;
+                const baseFreq = 523.25; // C5 note
+                
+                // Create 3 ascending notes
+                const notes = [
+                    { freq: baseFreq, time: 0, duration: 0.15 },           // C5
+                    { freq: baseFreq * 1.2599, time: 0.12, duration: 0.15 }, // D5
+                    { freq: baseFreq * 1.5874, time: 0.24, duration: 0.2 }   // E5
+                ];
+
+                notes.forEach(note => {
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(note.freq, now + note.time);
+                    
+                    // Smooth fade in and out
+                    gainNode.gain.setValueAtTime(0, now + note.time);
+                    gainNode.gain.linearRampToValueAtTime(0.15, now + note.time + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + note.time + note.duration - 0.01);
+                    gainNode.gain.linearRampToValueAtTime(0, now + note.time + note.duration);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    
+                    oscillator.start(now + note.time);
+                    oscillator.stop(now + note.time + note.duration);
+                });
+
+                // Update cookie with current time
+                this.setCookie(this.COOKIE_LAST_SOUND, Date.now().toString(), 1);
+                this.lastSoundTime = Date.now();
+            } catch (e) {
+                console.log('Sound playback not available');
+            }
+        }
+
+        toggleSound() {
+            this.setSoundEnabled(!this.soundEnabled);
+            return this.soundEnabled;
+        }
+    }
+
+    // Initialize sound manager
+    const soundManager = new SoundManager();
+
+    // Add sound toggle button to header (optional)
+    window.toggleSound = () => soundManager.toggleSound();
 
 </script>
 
