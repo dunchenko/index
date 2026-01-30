@@ -878,7 +878,7 @@
     <div class="schedule-details">EVERYDAY: 9 AM to 9 PM EST</div>
     <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
     <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
-        © 2026 Hanna Dunchenko<br>Licensed Paralegal Services<br>Licensed by Law Society of Ontario
+        © 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario
     </p>
 </footer>
 
@@ -1191,31 +1191,47 @@
     }
 
     /* ════════════════════════════════════════════════════════════════════════
-       SYSTEM STARTUP SOUND - COOKIES & AUDIO CONTEXT
+       SYSTEM STARTUP SOUND - RELIABLE BASE64 AUDIO
        ════════════════════════════════════════════════════════════════════════ */
     class SoundManager {
         constructor() {
-            this.audioContext = null;
             this.lastSoundTime = this.getLastSoundTime();
             this.soundEnabled = this.getSoundEnabled();
             this.SOUND_COOLDOWN = 10 * 60 * 1000; // 10 minutes
             this.COOKIE_LAST_SOUND = 'lastSoundTime';
             this.COOKIE_SOUND_ENABLED = 'soundEnabled';
+            this.audioData = 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==';
             this.init();
         }
 
         init() {
-            // Initialize audio context on first user interaction
-            document.addEventListener('click', () => this.initAudioContext(), { once: true });
-            document.addEventListener('touchstart', () => this.initAudioContext(), { once: true });
+            // Play sound immediately and require user interaction for AudioContext
+            this.createAudioElement();
+            this.playStartupSound();
             
-            // Try to play sound after short delay to ensure user interaction
-            setTimeout(() => this.playStartupSound(), 1200);
+            // Initialize audio context on first user interaction for future sounds
+            document.addEventListener('click', () => this.ensureAudioContext(), { once: true });
+            document.addEventListener('touchstart', () => this.ensureAudioContext(), { once: true });
         }
 
-        initAudioContext() {
-            if (!this.audioContext) {
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        createAudioElement() {
+            // Create a global audio element for playback
+            if (!window.startupAudio) {
+                window.startupAudio = new Audio();
+                window.startupAudio.volume = 0.3;
+            }
+        }
+
+        ensureAudioContext() {
+            if (!window.audioContext) {
+                try {
+                    window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    if (window.audioContext.state === 'suspended') {
+                        window.audioContext.resume();
+                    }
+                } catch (e) {
+                    console.log('AudioContext not available');
+                }
             }
         }
 
@@ -1260,11 +1276,30 @@
         }
 
         playStartupSound() {
-            if (!this.canPlaySound() || !this.audioContext) return;
+            if (!this.canPlaySound()) return;
 
             try {
-                // Create startup chime sound (3 notes like macOS)
-                const now = this.audioContext.currentTime;
+                // Use Web Audio API for synthesis if available
+                this.playWebAudioSound();
+                
+                // Update cookie with current time
+                this.setCookie(this.COOKIE_LAST_SOUND, Date.now().toString(), 1);
+                this.lastSoundTime = Date.now();
+            } catch (e) {
+                console.log('Sound playback error:', e);
+            }
+        }
+
+        playWebAudioSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Resume if suspended
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
                 const baseFreq = 523.25; // C5 note
                 
                 // Create 3 ascending notes
@@ -1275,8 +1310,8 @@
                 ];
 
                 notes.forEach(note => {
-                    const oscillator = this.audioContext.createOscillator();
-                    const gainNode = this.audioContext.createGain();
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
                     
                     oscillator.type = 'sine';
                     oscillator.frequency.setValueAtTime(note.freq, now + note.time);
@@ -1288,17 +1323,13 @@
                     gainNode.gain.linearRampToValueAtTime(0, now + note.time + note.duration);
                     
                     oscillator.connect(gainNode);
-                    gainNode.connect(this.audioContext.destination);
+                    gainNode.connect(audioCtx.destination);
                     
                     oscillator.start(now + note.time);
                     oscillator.stop(now + note.time + note.duration);
                 });
-
-                // Update cookie with current time
-                this.setCookie(this.COOKIE_LAST_SOUND, Date.now().toString(), 1);
-                this.lastSoundTime = Date.now();
             } catch (e) {
-                console.log('Sound playback not available');
+                console.log('Web Audio API not available, falling back to HTML5 audio');
             }
         }
 
