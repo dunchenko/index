@@ -56,6 +56,13 @@
             0% { border-color: #FFFFFF; box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
             100% { border-color: var(--glass-border); box-shadow: none; }
         }
+        @keyframes brightFlash {
+            0% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.25) !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1), inset 0 0 15px rgba(255, 0, 0, 0.5) !important; transform: scale(1); }
+            25% { border-color: #FF5555 !important; background-color: rgba(255, 85, 85, 0.3) !important; box-shadow: 0 0 35px rgba(255, 50, 50, 1), inset 0 0 20px rgba(255, 50, 50, 0.6) !important; transform: scale(1.02); }
+            50% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.35) !important; box-shadow: 0 0 45px rgba(255, 0, 0, 1), inset 0 0 25px rgba(255, 0, 0, 0.7) !important; transform: scale(1.03); }
+            75% { border-color: #FF5555 !important; background-color: rgba(255, 85, 85, 0.3) !important; box-shadow: 0 0 35px rgba(255, 50, 50, 1), inset 0 0 20px rgba(255, 50, 50, 0.6) !important; transform: scale(1.02); }
+            100% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.25) !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1), inset 0 0 15px rgba(255, 0, 0, 0.5) !important; transform: scale(1); }
+        }
         @keyframes flashBorderCheckbox {
             0% { border-color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
             100% { border-color: var(--glass-border); box-shadow: none; }
@@ -68,6 +75,13 @@
         @keyframes spin {
             0% { transform: rotate(0deg); opacity: 1; }
             100% { transform: rotate(360deg); opacity: 1; }
+        }
+        @keyframes animated-stripes {
+            0% { transform: translate(0, 0) scaleX(1); }
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            50% { transform: translate(0, 0) scaleX(1); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+            100% { transform: translate(0, 0) scaleX(1); }
         }
         
         /* ══════════════════════════════════════════════════════════════════════
@@ -82,6 +96,7 @@
             scroll-padding-top: 80px;
         }
         body { font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; max-width: 1400px; margin: 0 auto; }
+        strong { font-weight: 700; }
         
         /* Loading Indicator */
         .loader {
@@ -95,7 +110,7 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 350ms ease, visibility 350ms ease, background 350ms ease;
+            transition: opacity 2s ease, visibility 2s ease, background 2s ease;
         }
         .loader.active {
             opacity: 1;
@@ -113,6 +128,21 @@
         }
 
         #dynamic-bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
+        .s-stripe {
+          animation: animated-stripes 30s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .s-stripe:nth-child(2) {
+          animation-duration: 40s;
+          animation-delay: -10s;
+        }
+
+        .s-stripe:nth-child(3) {
+          animation-duration: 50s;
+          animation-delay: -20s;
+        }
+
         
         /* ══════════════════════════════════════════════════════════════════════
            HEADER & HERO SECTION
@@ -206,8 +236,14 @@
         }
         .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         label { font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-        .char-counter { font-size: 0.75rem; opacity: 0.5; }
+        .char-counter { font-size: 0.75rem; opacity: 0.5; position: absolute; top: 12px; right: 12px; transition: all 0.3s ease; }
+        textarea#brief.has-content ~ .textarea-accessories .char-counter,
+        .input-group:has(textarea#brief.has-content) .char-counter { color: #6B5B4A; opacity: 0.8; }
+        
         input, textarea, select { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: 1.1rem; outline: none; transition: all 0.3s ease; font-family: 'Lato', sans-serif; }
+        #otherContactField input { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: 1.1rem; outline: none; transition: all 0.3s ease; font-family: 'Lato', sans-serif; }
+        #otherContactField input.has-content { background: #ffffff; color: #6B5B4A; box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
+        #otherContactField input:focus { background: #ffffff; color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
         select { text-align: center; }
         input.has-content, textarea.has-content,
         input:focus, textarea:focus, select:focus {
@@ -243,7 +279,7 @@
             -moz-appearance: textfield;
         }
         
-        textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; }
+        textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; padding-right: 120px; padding-bottom: 40px; }
         textarea#brief:focus { background: rgba(255, 255, 255, 0.85); color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
         
         /* ══════════════════════════════════════════════════════════════════════
@@ -252,9 +288,9 @@
         .consent-wrapper { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; flex-wrap: nowrap; position: relative; z-index: 1; }
         .consent-wrapper input[type="checkbox"] { -webkit-appearance: none; -moz-appearance: none; appearance: none; width: 28px; height: 28px; min-width: 28px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; transition: all 0.3s ease; -webkit-transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
         .consent-wrapper input[type="checkbox"]:focus { box-shadow: 0 0 15px rgba(107, 91, 74, 0.4); }
-        .consent-wrapper input[type="checkbox"]:checked { background: #ffffff; border-color: #ffffff; animation: none; }
+        .consent-wrapper input[type="checkbox"]:checked { background: #8B6F5A; border-color: #8B6F5A; animation: none; }
         .consent-wrapper input[type="checkbox"].flash { animation: flashBorderCheckbox 0.6s ease-in-out; }
-        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); color: #6B5B4A; font-size: 54px; font-weight: 900; line-height: 1; display: flex; align-items: center; justify-content: center; }
+        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -60%); transform: translate(-50%, -60%); color: #6B5B4A; font-size: 64px; font-weight: 900; line-height: 0.8; display: flex; align-items: center; justify-content: center; padding: 0; }
         .consent-text { font-size: 0.8rem; opacity: 0.9; line-height: 1.4; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
 
         /* ══════════════════════════════════════════════════════════════════════
@@ -293,8 +329,8 @@
         }
 
         input[type="radio"]:checked {
-            border-color: #000000;
-            background: #000000;
+            border-color: #8B6F5A;
+            background: #8B6F5A;
         }
 
         input[type="radio"]:checked::before {
@@ -327,8 +363,8 @@
             }
 
             input[type="radio"]:checked {
-                border-color: #000000;
-                background: #000000;
+                border-color: #8B6F5A;
+                background: #8B6F5A;
                 box-shadow: none;
             }
 
@@ -344,110 +380,71 @@
         .submit-btn { width: 100%; padding: 20px; background: #8B6F5A; color: #ffffff; border: none; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible; }
         .submit-btn:hover { transform: translateY(-2px); background: #6B5B4A; }
         
+        .char-counter {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            z-index: 2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-4px) rotate(5deg); }
+        }
+        
+
+        
         .attach-icon {
             position: absolute;
             bottom: 15px;
             right: 15px;
-            width: 24px;
-            height: 24px;
-            background: none;
-            border: none;
-            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 3;
-            padding: 5px;
-        }
-        .attach-icon:hover {
-            background: none;
-            transform: scale(1.15);
+            z-index: 2;
         }
         .attach-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: rgba(255, 255, 255, 0.6);
-            color: rgba(255, 255, 255, 0.6);
+            width: 24px;
+            height: 24px;
+            color: rgba(255, 255, 255, 0.3);
+            stroke: currentColor;
+            fill: none;
             transition: all 0.3s ease;
             display: block;
+            stroke-width: 1.5;
+            opacity: 0.5;
+        }
+        .attach-icon:hover {
+            transform: scale(1.1);
+        }
+
+        #brief:focus ~ .textarea-accessories .attach-icon svg,
+        .input-group:has(textarea#brief:focus) .attach-icon svg {
+            stroke: #8B6F5A;
+        }
+
+        textarea#brief:focus ~ .textarea-accessories .char-counter,
+        .input-group:has(textarea#brief:focus) .char-counter {
+            color: #8B6F5A;
+            opacity: 1;
+        }
+
+        #brief.has-content ~ .textarea-accessories .attach-icon svg,
+        .input-group:has(textarea#brief.has-content) .attach-icon svg {
+            stroke: #6B5B4A;
         }
         .attach-icon:hover svg {
-            fill: var(--text-white);
-            color: var(--text-white);
+            stroke: var(--text-white);
         }
         
         .flash { animation: flashBorder 0.6s ease-in-out; }
+        .bright-flash { animation: brightFlash 0.8s ease-in-out !important; }
+        .bright-flash[type="checkbox"] { animation: brightFlash 0.8s ease-in-out !important; border-color: #FF0000 !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1) !important; }
 
-        /* ══════════════════════════════════════════════════════════════════════
-           WHATSAPP BUTTON - FLOATING FIXED POSITION
-           ══════════════════════════════════════════════════════════════════════ */
-        .whatsapp-btn-container {
-            position: fixed;
-            bottom: -10px;
-            left: 20px;
-            z-index: 9999999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            pointer-events: auto;
-        }
-
-        .whatsapp-btn-container:hover {
-            transform: scale(1.15);
-            filter: drop-shadow(0 8px 20px rgba(212, 184, 154, 0.6));
-        }
-
-        .whatsapp-btn-container:active {
-            transform: scale(0.9);
-        }
-
-        .whatsapp-icon-only {
-            display: block;
-            filter: drop-shadow(0 4px 12px rgba(139, 111, 90, 0.4));
-            opacity: 0.85;
-        }
-
-        .whatsapp-icon-spin {
-            transform-origin: center;
-        }
-
-        .whatsapp-icon-spin.animate {
-            animation: spinIconFast 1s ease-in-out;
-        }
-
-        @keyframes spinIconFast {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .whatsapp-text-label {
-            position: absolute;
-            top: 2px;
-            left: 50%;
-            transform: translateX(-50%) translateY(0);
-            font-size: 14px;
-            font-weight: 400;
-            color: #ffffff;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .whatsapp-text-label.animate {
-            animation: showLabelZoom 1s ease-in-out;
-        }
-
-        @keyframes showLabelZoom {
-            0% { opacity: 0; transform: translateX(-50%) translateY(0) scale(0); }
-            15% { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(0.8); }
-            50% { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(0.8); }
-            85% { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(0.8); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0); }
-        }
         
         /* ══════════════════════════════════════════════════════════════════════
            FAQ SECTION - ACCORDION WITH SPOILERS
@@ -1213,7 +1210,7 @@
 <body>
 
 <!-- Loading Indicator -->
-<div class="loader active">
+<div class="loader">
     <div class="loader-spinner"></div>
 </div>
 
@@ -1239,8 +1236,8 @@
     
     <h1 class="seo-h1">
         <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
-        <span>Traffic Ticket Defense, LTB, WSIB, Taxes, and More</span>
-        <span>Serving Toronto, Mississauga, Richmond Hill, London</span>
+        <span>Traffic Ticket Defense, LTB, WSIB, and More</span>
+        <span>Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, Oshawa, London, Hamilton, Windsor</span>
         <span>Book Your Appointment with Our Team</span>
     </h1>
     <div class="phone-container">
@@ -1251,32 +1248,86 @@
 <div class="container">
     <div class="glass-form">
         <form id="appointmentForm">
-            <h3 class="form-title">Short Form</h3>
+            <h3 class="form-title">Quick Form:</h3>
             <div class="input-group">
                 <div class="label-wrapper"><label>Name</label></div>
-                <input type="text" id="name" name="client_name" placeholder="Jane Doe...">
+                <input type="text" id="name" name="client_name" placeholder="Jane Doe..." required>
             </div>
             <div class="input-group">
-                <div class="label-wrapper">
-                    <label>Message</label>
-                    <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
-                </div>
-                <textarea id="brief" name="description" maxlength="1024" 
-                    placeholder="hello, please contact me regarding my traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, taxes, citizenship, divorce/marriage, need a face-to-face meeting asap..."></textarea>
-                <div class="attach-icon" title="Upload file">
-                    <svg viewBox="0 0 1280 613" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5539 4840 l-1576 -5 -48 -30 c-92 -57 -131 -182 -86 -280 24 -53 90 -111 142 -125 30 -8 877 -11 3188 -8 2935 3 3152 2 3241 -14 285 -51 478 -145 631 -304 77 -81 113 -132 163 -232 110 -218 173 -573 146 -820 -58 -541 -315 -861 -788 -982 -230 -58 84 -54 -4267 -57 -2549 -3 -4022 0 -4097 6 -294 25 -499 169 -633 446 -152 312 -146 642 15 888 94 142 234 248 410 309 l95 33 3090 3 c2692 2 3101 0 3176 -13 178 -30 272 -88 329 -199 l35 -69 0 -166 c-1 -149 -3 -172 -23 -223 -45 -112 -134 -183 -282 -225 -62 -17 -154 -18 -2110 -18 -1949 0 -2047 -1 -2085 -18 -86 -39 -138 -117 -138 -207 0 -89 55 -171 138 -205 46 -20 4097 -25 4210 -7 457 77 721 380 742 852 12 287 -62 498 -236 670 -131 130 -290 208 -521 257 -81 17 -236 18 -3215 18 -3024 0 -3133 -1 -3210 -19 -314 -73 -560 -230 -744 -473 -75 -99 -166 -289 -196 -405 -80 -320 -35 -691 123 -1004 90 -179 262 -379 410 -477 101 -67 239 -131 357 -164 l100 -28 4100 -3 c2929 -2 4131 0 4210 8 265 26 538 109 729 221 396 232 629 600 712 1124 42 267 3 640 -96 930 -209 606 -676 951 -1375 1015 -112 10 -1617 10 -4766 0z" transform="rotate(90 640 306.5)"/>
-                    </svg>
+                <div class="label-wrapper"><label for="brief">Message</label></div>
+                <div style="position: relative;">
+                    <textarea id="brief" name="description" maxlength="1024" 
+                        placeholder="hello, please contact me regarding my traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, need a face-to-face meeting asap..." aria-required="true" required></textarea>
+                    <div class="textarea-accessories">
+                        <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
+                        <a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" class="attach-icon" title="Upload file to Dropbox">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="input-group">
-                <div class="label-wrapper"><label>CALL / Email / WhatsApp</label></div>
-                <input type="text" id="contact" name="contact" required placeholder="Phone number or email address">
+                <div class="label-wrapper"><label>Phone</label></div>
+                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number">
             </div>
-            <label class="consent-wrapper">
-                <input type="checkbox" id="consent">
-                <span class="consent-text">I AGREE TO SHARE INFO. RELATIONSHIP AFTER SIGNING ONLY.</span>
-            </label>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Date of birth</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required>
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required>
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Address</label></div>
+                <input type="text" id="address" name="address" placeholder="Street address, city, province, postal code" required>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Email</label></div>
+                <input type="email" id="email" name="contact_email" required placeholder="Email address">
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Preferred contact method</label></div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="phone" style="width: auto; margin: 0;">
+                        <span>Phone</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="email" style="width: auto; margin: 0;">
+                        <span>Email</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="whatsapp" style="width: auto; margin: 0;">
+                        <span>WhatsApp</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="other" onchange="toggleOtherContactField(this)" style="width: auto; margin: 0;">
+                        <span>Other</span>
+                    </label>
+                </div>
+                <div id="otherContactField" style="display: none; margin-top: 12px;">
+                    <input type="text" name="contact_other" placeholder="Please specify your preferred method">
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="disclaimer-text" style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.</p>
+                    <p>I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px; justify-content: center;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="yes" required class="consent-radio">
+                        <span>Yes</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="no" required class="consent-radio">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
             <button type="submit" id="submitBtn" class="submit-btn">
                 BOOK APPOINTMENT
                 <span class="btn-star"></span>
@@ -1284,7 +1335,7 @@
             <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 0;">Expect your estimate within 5–30 minutes</p>
         </form>
     </div>
-    <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 20px; margin-bottom: 40px;">If you need an expanded form, or you're a long-term client, click <a href="#" onclick="toggleFullForm(event)" style="color: var(--text-white); text-decoration: underline; cursor: pointer;">Full Form</a></p>
+
 
     <h2 style="font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 30px; margin-top: 50px;">FAQ</h2>
 
@@ -1293,26 +1344,21 @@
             <div class="faq-q">What are your paralegal fees?</div>
             <div class="faq-a">
               The <strong>rate range</strong> for paralegal services in Ontario is <strong>$50 to $350 per hour</strong>, depending on case complexity:
-              <ul style="margin-top: 15px;">
-                <li><strong>$50 to $100:</strong> Basic administrative tasks and standart filings</li>
-                <li><strong>$150 to $250:</strong> Standard market rate for legal matters</li>
-                <li><strong>$300 to $350:</strong> Professional representation for large legal cases</li>
-              </ul>
+              <p style="margin-top: 15px;">$50 to $100: Basic administrative tasks and standard filings<br>
+              $150 to $250: Standard market rate for legal matters<br>
+              $300 to $350: Professional representation for large legal cases</p>
               <p style="margin-top: 20px;"><strong>Not sure which range fits your situation?</strong> Contact me through the form above, and I'll calculate your individual rate range based on your specific needs. Every case is unique, and I'm here to provide a transparent quote tailored to you.</p>
             </div>
           </div>
           <div class="faq-item">
             <div class="faq-q">So, what is the estimated cost?</div>
             <div class="faq-a">
-              Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees, taxes, case complexity, and time spent. Please note these are general estimates for reference only:
+              Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees and case complexity. Please note these are general estimates for reference only:
               <table class="price-table">
-                <tr><td>Small Claims Court</td><td>$200 – 500 CAD</td></tr>
                 <tr><td>Traffic Ticket Defense</td><td>$400 – 700 CAD</td></tr>
                 <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
                 <tr><td>Insurance & Benefits Claims</td><td>$250 – 500 CAD</td></tr>
-                <tr><td>Tax Compliance Matters</td><td>$200 – 450 CAD</td></tr>
                 <tr><td>Business Contract Review</td><td>$350 – 650 CAD</td></tr>
-                <tr><td>Immigration Advisory</td><td>$400 – 800 CAD</td></tr>
                 <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
                 <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
               </table>
@@ -1336,7 +1382,7 @@
           <div class="faq-item">
             <div class="faq-q">What's the difference between a paralegal and a lawyer?</div>
             <div class="faq-a">
-              I operate on a different level. While lawyers typically handle complex litigation, I provide direct, independent representation in <strong>Small Claims Court</strong> and before many <strong>administrative tribunals</strong>. As a licensed paralegal, I offer more affordable, focused services for matters within my provincial scope. I can represent you where it matters most without the lawyer's overhead costs.
+              I operate on a different level. While lawyers typically handle complex litigation, I provide direct, independent representation before many <strong>administrative tribunals</strong>. As a licensed paralegal, I offer more affordable, focused services for matters within my provincial scope. I can represent you where it matters most without the lawyer's overhead costs.
             </div>
           </div>
           <div class="faq-item">
@@ -1366,8 +1412,18 @@
         <h3>Professional Traffic Ticket Defense Ontario</h3>
         <p>If you've received a <strong>speeding ticket Ontario</strong> or need to <strong>fight parking ticket Toronto</strong>, I explain how to fight speeding fines effectively and protect your driving record. I represent you in major courts including <strong>Mississauga, Richmond Hill, London, and across Ontario</strong>. Your record matters let me help you defend it.</p>
         
-        <h3>Service Areas: Peel Region, York Region & Beyond</h3>
-        <p><strong>Peel Region:</strong> Mississauga, Brampton, Caledon | <strong>York Region:</strong> Markham, Vaughan, Richmond Hill, Newmarket, Aurora, King, Whitchurch-Stouffville, East Gwillimbury, Georgina | <strong>Halton Region:</strong> Oakville, Burlington, Milton, Halton Hills | and beyond across Ontario and the Greater Toronto Area.</p>
+        <h3>Service Areas: Greater Toronto Area (GTA) and Beyond</h3>
+        <p>I provide legal representation across the <strong>Greater Toronto Area (GTA)</strong> and throughout <strong>Ontario</strong>. I work both <strong>in-person and online</strong>, making my services accessible no matter where you are. Here's where I serve:</p>
+        
+        <p><strong>GTA Regions & Cities:</strong><br>
+        <strong>Toronto:</strong> Downtown Toronto, Scarborough, Etobicoke, North York, Yorkville, and all districts<br>
+        <strong>Peel Region:</strong> Mississauga, Brampton, Caledon<br>
+        <strong>York Region:</strong> Markham, Vaughan, Richmond Hill, Newmarket, Aurora, King, Whitchurch-Stouffville, East Gwillimbury, Georgina<br>
+        <strong>Halton Region:</strong> Oakville, Burlington, Milton, Halton Hills<br>
+        <strong>Durham Region:</strong> Oshawa, Ajax, Pickering, Whitby, Courtice, Bowmanville<br>
+        <strong>Other GTA Areas:</strong> Surrounding regions and growing communities</p>
+        
+        <p><strong>Major Ontario Cities:</strong> Toronto, Hamilton, London, Kitchener, Mississauga, Brampton, Windsor, Oshawa, Barrie, Markham, Kingston, Guelph, Waterloo, Ottawa, Thunder Bay, Sudbury, and all Ontario regions.</p>
         
         <h3>Landlord and Tenant Board (LTB) Help</h3>
         <p>I understand how overwhelming it feels when your landlord wants to <strong>evict you</strong> or serves an <strong>N12 notice</strong>. If you've received an <strong>eviction notice Ontario</strong> or are facing a <strong>rent increase Ontario</strong> legal issue, I provide <strong>landlord tenant board help</strong> and <strong>tenant dispute help Ontario</strong>. Whether you're searching <strong>how to fight eviction in Ontario</strong> or need a <strong>paralegal for eviction Ontario</strong>, I'm here to defend your <strong>tenant rights Ontario</strong>.</p>
@@ -1381,11 +1437,8 @@
         <h3>Workplace Injuries & WSIB Claims</h3>
         <p>If you've been injured at work and don't know how to file a WSIB claim, my <strong>WSIB claim help Ontario</strong> and <strong>workers compensation help Ontario</strong> services guide you through the process. I also provide workplace harassment legal help and represent you at the <strong>Ontario Labour Board</strong>.</p>
 
-        <h3>Small Claims Court & Civil Litigation</h3>
-        <p>For those dealing with <strong>Small Claims Court help Ontario</strong>, I offer paralegal court representation. Whether it is debt collection or contract disputes, I answer the question: <strong>can a paralegal help me sue someone?</strong> Yes I handle these cases every day with focus and precision.</p>
-
         <h3>Fast & Reliable Notary Public Services</h3>
-        <p>Need a notary public near you? I'm a premier <strong>notary near you in Toronto</strong> provider. My services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letters. In addition, I am also able to provide assistance with obtaining Ukrainian citizenship for Canadians of Ukrainian descent.</p>
+        <p>Need a notary public near you? I'm a premier <strong>notary near you in Toronto</strong> provider. My services include <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as a notary for travel consent letters.</p>
         <p>Every case starts with a confidential one-on-one appointment. Whether you're looking for <strong>affordable paralegal Toronto</strong> or <strong>cost-effective legal advice Ontario</strong>, I provide the <strong>how to get legal advice without a lawyer</strong> solution you need to move forward with me or independently, the choice is yours.</p>
 
         <h3>Our Team Friendly, Professional & Dedicated</h3>
@@ -1447,12 +1500,12 @@
                         <span>Email</span>
                     </label>
                     <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
-                        <input type="radio" name="contact_method" value="other" onchange="toggleOtherContactField()" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <input type="radio" name="contact_method" value="other" onchange="toggleOtherContactField(this)" style="width: auto; margin: 0; accent-color: #ffffff;">
                         <span>Other</span>
                     </label>
                 </div>
                 <div id="otherContactField" style="display: none; margin-top: 12px;">
-                    <input type="text" name="contact_other" placeholder="Please specify your preferred method" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid #ffffff; border-radius: 10px; color: var(--text-white); font-size: 1rem; font-family: 'Lato', sans-serif;">
+                    <input type="text" name="contact_other" placeholder="Please specify your preferred method">
                 </div>
             </div>
             
@@ -1482,7 +1535,7 @@
             <div class="input-group">
                 <div class="label-wrapper"><label>Attachments</label></div>
                 <input type="file" name="documents" multiple style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 2px dashed #ffffff; border-radius: 10px; color: var(--text-white); font-size: 1rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.12)';" onmouseout="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.08)';">
-                <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 10px;"><a href="https://www.dropbox.com/request/placeholder" target="_blank" style="color: var(--text-white); text-decoration: underline;">Or Use Our DropBox API</a></p>
+                <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 10px;"><a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" style="color: var(--text-white); text-decoration: underline;">Or Use Our DropBox API</a></p>
             </div>
             
             <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; margin: 25px 0;">
@@ -1508,16 +1561,6 @@
             
             <button type="submit" style="width: 100%; padding: 20px; background: #ffffff; color: #000000; border: 1px solid #ffffff; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible;" onmouseover="this.style.background='#f0f0f0'; this.style.boxShadow='0 0 20px rgba(255, 255, 255, 0.5)';" onmouseout="this.style.background='#ffffff'; this.style.boxShadow='none';">DONE</button>
     </div>
-</div>
-
-<!-- WhatsApp Button -->
-<div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin: 30px auto; max-width: 350px;">
-    <span style="font-size: 1.1rem; font-weight: 600; color: #ffffff; text-align: right;">Contact us on<br>WhatsApp</span>
-    <a href="https://wa.me/14372396833" target="_blank" class="whatsapp-btn-container" title="Contact us on WhatsApp" style="position: static; display: flex; justify-content: center; align-items: center; margin: 0;">
-        <svg width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; overflow: visible;" preserveAspectRatio="xMidYMid meet">
-            <path fill="#FFFFFF" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-    </a>
 </div>
 
 <footer>
@@ -1563,7 +1606,7 @@
             // Fallback: ensure loader is hidden if transitionend doesn't fire
             setTimeout(() => {
                 if (!loader.classList.contains('active')) loader.classList.add('hidden');
-            }, 700);
+            }, 2200);
         }
 
         window.scrollTo(0, 0);
@@ -1580,6 +1623,7 @@
     const styleEl = document.createElement('style');
     document.head.appendChild(styleEl);
     styleEl.sheet.insertRule('textarea#brief.flash { animation: flashBorder 0.6s ease-in-out; }', 0);
+    styleEl.sheet.insertRule('textarea#brief.bright-flash { animation: brightFlash 0.8s ease-in-out !important; background-color: rgba(255, 0, 0, 0.25) !important; border-color: #FF0000 !important; }', 0);
 
     // Monitor form input focus to blur non-focused inputs
     formInputs.forEach(input => {
@@ -1608,61 +1652,45 @@
         this.style.height = (this.scrollHeight) + 'px';
     });
 
+
+
     /* ════════════════════════════════════════════════════════════════════════
        FAQ ACCORDION TOGGLE
        ════════════════════════════════════════════════════════════════════════ */
-    // Open all FAQ items by default
     document.querySelectorAll('.faq-item').forEach(item => {
+        // Open all FAQ items by default
         item.classList.add('active');
-    });
     
-    // Add click toggle functionality
-    document.querySelectorAll('.faq-item').forEach(item => {
+        // Add click toggle functionality
         item.addEventListener('click', (e) => {
-            if (e.target.tagName !== 'IFRAME' && e.target.tagName !== 'A') {
+            if (!e.target.closest('a, iframe')) {
                 item.classList.toggle('active');
             }
         });
     });
 
     /* ════════════════════════════════════════════════════════════════════════
-       FAQ - PLAIN TEXT (NO ACCORDION LOGIC)
-       ════════════════════════════════════════════════════════════════════════ */
-    // FAQ is now plain text without any spoiler/accordion functionality
-
-    /* ════════════════════════════════════════════════════════════════════════
-       FILE ATTACHMENT ICON - DROPBOX API
-       ════════════════════════════════════════════════════════════════════════ */
-    const attachIcon = document.querySelector('.attach-icon');
-    if (attachIcon) {
-        attachIcon.addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '*/*';
-            input.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    console.log('File selected:', file.name);
-                    const svg = attachIcon.querySelector('svg');
-                    if (svg) {
-                        svg.style.fill = 'var(--text-white)';
-                        svg.style.color = 'var(--text-white)';
-                        setTimeout(() => {
-                            svg.style.fill = 'rgba(255, 255, 255, 0.6)';
-                            svg.style.color = 'rgba(255, 255, 255, 0.6)';
-                        }, 600);
-                    }
-                }
-            };
-            input.click();
-        });
-    }
-
-    /* ════════════════════════════════════════════════════════════════════════
        SUBMIT VALIDATION & REQUIRED FIELDS CHECK
        ════════════════════════════════════════════════════════════════════════ */
     submitBtn.addEventListener('click', (e) => {
-        const isValid = nameInput.value.trim() && briefArea.value.trim() && contactInput.value.trim() && consent.checked;
+        const birthYear = document.querySelector('input[name="birth_year"]');
+        const birthMonth = document.querySelector('input[name="birth_month"]');
+        const birthDay = document.querySelector('input[name="birth_day"]');
+        const addressInput = document.querySelector('input[name="address"]');
+        const emailInput = document.querySelector('input[name="contact_email"]');
+        const contactMethodChecked = document.querySelector('input[name="contact_method"]:checked');
+        
+        const isValid = nameInput.value.trim() && 
+                       briefArea.value.trim() && 
+                       contactInput.value.trim() && 
+                       emailInput.value.trim() &&
+                       birthYear.value.trim() &&
+                       birthMonth.value.trim() &&
+                       birthDay.value.trim() &&
+                       addressInput.value.trim() &&
+                       contactMethodChecked &&
+                       consent.checked;
+        
         if (!isValid) {
             e.preventDefault();
             const fieldsToFlash = [];
@@ -1673,16 +1701,43 @@
             if (!briefArea.value.trim()) {
                 fieldsToFlash.push(briefArea);
             }
+            if (!birthYear.value.trim()) {
+                fieldsToFlash.push(birthYear);
+            }
+            if (!birthMonth.value.trim()) {
+                fieldsToFlash.push(birthMonth);
+            }
+            if (!birthDay.value.trim()) {
+                fieldsToFlash.push(birthDay);
+            }
+            if (!addressInput.value.trim()) {
+                fieldsToFlash.push(addressInput);
+            }
             if (!contactInput.value.trim()) {
                 fieldsToFlash.push(contactInput);
+            }
+            if (!emailInput.value.trim()) {
+                fieldsToFlash.push(emailInput);
+            }
+            if (!contactMethodChecked) {
+                // Добавляем контейнер с радиокнопками
+                const contactMethodContainer = document.querySelector('div[style*="flex-direction: column"]');
+                if (contactMethodContainer) {
+                    fieldsToFlash.push(contactMethodContainer);
+                }
             }
             if (!consent.checked) {
                 fieldsToFlash.push(consent);
             }
 
+            // Применяем вспышку со задержкой для более надежного срабатывания
             fieldsToFlash.forEach(field => {
-                field.classList.add('flash');
-                setTimeout(() => field.classList.remove('flash'), 600);
+                field.classList.remove('bright-flash'); // Сбрасываем предыдущую анимацию
+                void field.offsetWidth; // Trigger reflow для перезапуска анимации
+                field.classList.add('bright-flash');
+                setTimeout(() => {
+                    field.classList.remove('bright-flash');
+                }, 800);
             });
         }
     });
@@ -1691,6 +1746,20 @@
        FORM STATE MONITORING
        ════════════════════════════════════════════════════════════════════════ */
     formInputs.forEach(input => {
+        const updateVisuals = () => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-content');
+            } else {
+                input.classList.remove('has-content');
+            }
+        };
+        input.addEventListener('input', updateVisuals);
+        updateVisuals(); // Initial check for autocomplete
+    });
+
+    // Handle Other contact field styling
+    const otherContactInputs = document.querySelectorAll('#otherContactField input');
+    otherContactInputs.forEach(input => {
         const updateVisuals = () => {
             if (input.value.trim() !== '') {
                 input.classList.add('has-content');
@@ -1745,32 +1814,12 @@
         }, 3000 + Math.random() * 2000);
     }
 
-    /* ════════════════════════════════════════════════════════════════════════
-       ANIMATED BACKGROUND STRIPES (SMOOTH - NO JITTER)
-       ════════════════════════════════════════════════════════════════════════ */
-    (function() {
-        const data = Array.from(stripes).map(() => ({ seed: Math.random() * 1000, speed: 0.0002 + Math.random() * 0.0001 }));
-        let rafId = null;
-        stripes.forEach(el => el.style.willChange = 'transform');
-        
-        function step(time) {
-            stripes.forEach((el, i) => {
-                const t = (time * data[i].speed) + data[i].seed;
-                const smoothT = t + Math.sin(t * 0.03) * 10;
-                const tx = Math.sin(smoothT * 0.5) * 2.5;
-                const ty = Math.cos(smoothT * 0.4) * 1.5;
-                const sx = 1 + Math.sin(smoothT * 1.2) * 0.06;
-                el.style.transform = `translate(${tx}%, ${ty}%) scaleX(${sx})`;
-            });
-            rafId = requestAnimationFrame(step);
+    function toggleOtherContactField(radio) {
+        const otherField = radio.closest('.input-group').querySelector('#otherContactField');
+        if (otherField) {
+            otherField.style.display = radio.checked && radio.value === 'other' ? 'block' : 'none';
         }
-        
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => rafId = requestAnimationFrame(step));
-        } else {
-            setTimeout(() => rafId = requestAnimationFrame(step), 500);
-        }
-    })();
+    }
 
     /* ════════════════════════════════════════════════════════════════════════
        FULL FORM MODAL TOGGLE
@@ -1789,15 +1838,6 @@
         if (modal) {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-        }
-    }
-
-    function toggleOtherContactField() {
-        const otherField = document.getElementById('otherContactField');
-        const contactRadios = document.querySelectorAll('input[name="contact_method"]');
-        const isOtherSelected = Array.from(contactRadios).find(r => r.checked)?.value === 'other';
-        if (otherField) {
-            otherField.style.display = isOtherSelected ? 'block' : 'none';
         }
     }
 
@@ -2012,38 +2052,6 @@
             isWhatsappAnimating = false;
         });
     }
-    
-    // WhatsApp icon scroll-synchronized rotation (based on total page scroll position)
-    let scrollRotation = 0;
-    window.addEventListener('scroll', () => {
-        const whatsappSvg = document.querySelector('a[href="https://wa.me/14372396833"] svg');
-        if (whatsappSvg) {
-            // Calculate rotation based on total scroll progress (3600 degrees = 10x faster, 10x larger rotation angle)
-            // 0deg at top, 3600deg (10 full rotations) at bottom
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollTop = window.pageYOffset;
-            scrollRotation = (scrollTop / scrollHeight) * 3600;
-            whatsappSvg.style.transform = `rotate(${scrollRotation}deg)`;
-        }
-        
-        const now = Date.now();
-        if (whatsappIcon && whatsappLabel && !isWhatsappAnimating && (now - lastWhatsappAnimationTime) >= WHATSAPP_ANIMATION_COOLDOWN) {
-            isWhatsappAnimating = true;
-            lastWhatsappAnimationTime = now;
-            
-            // Remove animate class if it exists
-            whatsappIcon.classList.remove('animate');
-            whatsappLabel.classList.remove('animate');
-            
-            // Trigger reflow to restart animation
-            void whatsappIcon.offsetWidth;
-            void whatsappLabel.offsetWidth;
-            
-            // Add animate class to trigger animation
-            whatsappIcon.classList.add('animate');
-            whatsappLabel.classList.add('animate');
-        }
-    });
 
 </script>
 
