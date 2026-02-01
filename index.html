@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanna Dunchenko | Paralegal Services GTA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
+    <style>
+        /* ------------------- CORE STYLES ------------------- */
+        :root {
+            --bg-dark: #bfa792;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --placeholder-color: rgba(255, 255, 255, 0.6);
+            --accent-gold: #6B5B4A;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-white); 
+            line-height: 1.6; 
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* ------------------- BACKGROUND ------------------- */
+        #bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
+        .stripe { animation: anim-stripes 30s ease-in-out infinite; will-change: transform; }
+        .stripe:nth-child(2) { animation-duration: 40s; animation-delay: -10s; }
+        .stripe:nth-child(3) { animation-duration: 50s; animation-delay: -20s; }
+        
+        @keyframes anim-stripes {
+            0%, 50%, 100% { transform: translate(0, 0) scaleX(1); }
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+        }
+
+        /* ------------------- HEADER ------------------- */
+        header { 
+            text-align: center; 
+            padding: 60px 20px 30px; 
+            animation: slideDown 0.8s ease forwards;
+        }
+
+        .name-title { 
+            font-size: clamp(2rem, 5vw, 3rem); 
+            font-weight: 900; 
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .services-title { 
+            font-size: clamp(1.2rem, 4vw, 2rem); 
+            font-weight: 700; 
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .phone-link { 
+            font-size: clamp(1.5rem, 4.5vw, 2.3rem); 
+            font-weight: 900; 
+            color: var(--text-white);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .phone-link:hover { opacity: 0.8; }
+
+        .seo-h1 {
+            font-size: clamp(0.7rem, 2.2vw, 1rem);
+            font-weight: 700;
+            opacity: 0.85;
+            margin: 15px auto;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .seo-h1 span {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ------------------- CONTAINER & FORM ------------------- */
+        .main-container { max-width: 650px; margin: 20px auto 0; padding: 20px; }
+        
+        .glass-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .form-title { 
+            font-size: clamp(1.3rem, 4vw, 1.8rem); 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
+
+        .input-wrapper { margin-bottom: 25px; position: relative; }
+        .label-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        label { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        input, textarea, select { 
+            width: 100%; 
+            padding: 16px; 
+            background: rgba(255, 255, 255, 0.08); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 10px; 
+            color: var(--text-white); 
+            font-size: 1rem; 
+            outline: none; 
+            transition: all 0.3s ease; 
+            font-family: inherit; 
+        }
+
+        input:focus, textarea:focus, .has-content {
+            background: #ffffff;
+            color: #6B5B4A;
+            box-shadow: 0 0 20px rgba(107, 91, 74, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        input::placeholder, textarea::placeholder { color: var(--placeholder-color); }
+        input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
+
+        textarea { resize: none; min-height: 180px; }
+        
+        .char-count { 
+            position: absolute; 
+            bottom: 12px; 
+            right: 15px; 
+            font-size: 0.75rem; 
+            opacity: 0.5; 
+        }
+        
+        .char-counter {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        textarea#brief:focus ~ .textarea-accessories .attach-icon svg,
+        .input-wrapper:has(textarea#brief:focus) .attach-icon svg {
+            stroke: #8B6F5A;
+        }
+
+        .input-wrapper:has(textarea#brief:focus) .char-counter {
+            color: #8B6F5A;
+            opacity: 0.9;
+        }
+
+        .attach-icon {
+            position: absolute;
+            bottom: 22px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .attach-icon svg {
+            width: 24px;
+            height: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            stroke: currentColor;
+            fill: none;
+            transition: all 0.3s ease;
+            display: block;
+            stroke-width: 1.5;
+            opacity: 0.7;
+        }
+
+        .attach-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .attach-icon:hover svg {
+            stroke: var(--text-white);
+        }
+
+        /* ------------------- RADIO & CHECKBOX ------------------- */
+        .radio-group { display: flex; align-items: center; gap: 20px; justify-content: center; margin-top: 20px; }
+        
+        .radio-label { 
+            display: flex; align-items: center; gap: 8px; 
+            font-weight: 400; text-transform: none; font-size: 1.1rem; 
+            cursor: pointer; 
+        }
+
+        input[type="radio"] {
+            appearance: none; -webkit-appearance: none;
+            width: 24px; height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            background: transparent;
+            margin: 0; padding: 0;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #8B6F5A;
+            background: #8B6F5A;
+            box-shadow: inset 0 0 0 4px #ffffff; 
+        }
+
+        /* ------------------- BUTTON ------------------- */
+        .btn-submit { 
+            width: 100%; 
+            padding: 20px; 
+            background: #8B6F5A; 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .btn-submit:hover { transform: translateY(-2px); background: #6B5B4A; }
+
+        /* ------------------- FAQ SECTION ------------------- */
+        .faq-container { margin-top: 60px; }
+        
+        .section-title { 
+            font-size: 1.8rem; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 2px; 
+            text-align: center; margin-bottom: 30px; 
+            margin-top: 50px;
+        }
+        
+        .faq-item { margin-bottom: 15px; padding: 5px; }
+        
+        .faq-question { 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 15px; 
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .faq-question::before { 
+            content: ""; display: inline-block; 
+            width: 12px; height: 12px; min-width: 12px; 
+            border-radius: 50%; border: 2px solid #ffffff; 
+            margin-top: 5px; transition: background 0.3s;
+        }
+        
+        .faq-item.active .faq-question::before { background-color: #ffffff; }
+
+        .faq-answer { 
+            display: none; 
+            font-size: 0.95rem; opacity: 0.9; 
+            padding-left: 29px; 
+            padding-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer { display: block; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid rgba(255,255,255,0.3); }
+        .price-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .price-table td:last-child { text-align: right; font-weight: 700; }
+
+        /* ------------------- SEO SECTION ------------------- */
+        .seo-section { 
+            max-width: 750px; 
+            margin: 60px auto; 
+            padding: 0 20px;
+        }
+
+        .seo-section h2,
+        .seo-section h3 { 
+            margin: 30px 0 15px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .seo-section h2 { 
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+        }
+
+        .seo-section h3 { 
+            font-size: clamp(1.1rem, 2.8vw, 1.4rem);
+        }
+
+        .seo-section p { 
+            margin-bottom: 15px;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .seo-section strong { 
+            font-weight: 700;
+        }
+
+        .seo-section a {
+            color: #D4B89A;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .seo-section a:hover {
+            color: #ffffff;
+        }
+        
+        /* ------------------- RESPONSIVE ------------------- */
+        @media (max-width: 768px) {
+            .main-container { padding: 15px; width: 100%; margin-top: 10px; }
+            .glass-box { padding: 25px 15px; }
+            .form-title { font-size: 1.4rem; }
+            input, textarea { font-size: 16px; /* Prevents zoom on iOS */ }
+            header { padding: 40px 15px 20px; }
+            .name-title { font-size: 1.8rem; }
+            .services-title { font-size: 1.2rem; }
+            .seo-h1 { font-size: 0.8rem; }
+            .seo-section { margin: 40px auto; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 30px 12px 15px; }
+            .name-title { font-size: 1.5rem; }
+            .services-title { font-size: 1rem; }
+            .glass-box { padding: 20px 12px; }
+            .form-title { font-size: 1.2rem; }
+            .faq-question { font-size: 1rem; }
+            .price-table td { padding: 10px 8px; font-size: 0.85rem; }
+            .seo-section { padding: 0 15px; }
+            .seo-section h2 { font-size: 1.3rem; }
+            .seo-section h3 { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="bg-container">
+    <svg viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%;">
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#g)"/>
+        <g style="mix-blend-mode:overlay" fill-opacity=".15">
+            <path class="stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
+            <path class="stripe" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="stripe" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
+        </g>
+    </svg>
+</div>
+
+<header>
+    <div class="name-title">Hanna Dunchenko</div>
+    <div class="services-title">Paralegal Services</div>
+    <div class="phone-container" style="margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 12px;">
+        <span style="font-size: clamp(1.3rem, 4vw, 1.8rem); font-weight: 900; color: var(--text-white);">Free Call:</span>
+        <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    </div>
+    <h1 class="seo-h1">
+        <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
+        <span>Traffic Ticket Defense, LTB, WSIB</span>
+        <span>Toronto, Mississauga, Richmond Hill, and Beyond</span>
+    </h1>
+</header>
+
+<div class="main-container">
+    <div class="glass-box">
+        <form id="appointmentForm">
+            <h3 class="form-title">INQUIRY FORM</h3>
+            
+            <div class="input-wrapper">
+                <div class="label-row"><label>Name</label></div>
+                <input type="text" id="name" name="client_name" placeholder="Jane Doe..." required>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row">
+                    <label for="brief">Message</label>
+                    <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
+                </div>
+                <div style="position: relative;">
+                    <textarea id="brief" name="description" maxlength="1024" placeholder="hello, please contact me regarding my traffic ticket, landlord-tenant issues, workers' compensation, or notary services..." required></textarea>
+                    <div class="textarea-accessories">
+                        <a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" class="attach-icon" title="Upload file to Dropbox">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Phone</label></div>
+                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number">
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Address</label></div>
+                <input type="text" id="address" name="address" placeholder="Street address, city..." required>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Email</label></div>
+                <input type="email" id="email" name="contact_email" required placeholder="Email address">
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Date of birth</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required>
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required>
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;">I completed this form with accurate information to help Hanna respond to my inquiry quickly and effectively. I understand she needs this information to understand my legal situation and provide appropriate guidance.</p>
+                    <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge.</p>
+                    <p>I hereby authorize the recipient to collect, use, and disclose the provided information for responding to my inquiry and communicating with me.</p>
+                </div>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="form_consent" value="yes" required>
+                        <span>Yes</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="form_consent" value="no" required>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">BOOK APPOINTMENT</button>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px;">Expect your response within 5 minutes</p>
+        </form>
+    </div>
+
+    <div style="text-align: center; font-size: 1.1rem; opacity: 0.85; margin-top: 30px; margin-bottom: 40px; line-height: 1.6;">
+        <strong style="font-size: 1.3rem; display: block; margin-bottom: 15px;">Ready to Protect Your Rights?</strong>
+        Complete the form for legal help from<br>
+        <strong style="font-size: 1.2rem;">Hanna Dunchenko Paralegal Services</strong><br>
+        Share your situation and contact will be established.
+    </div>
+
+    <h2 class="section-title">Questions & Answers</h2>
+    <div class="faq-container">
+        <div class="faq-item active">
+            <div class="faq-question">Paralegal Fees in Ontario?</div>
+            <div class="faq-answer" style="display: block;">
+                <strong>Rate Range for Paralegal Services in Ontario:</strong> <strong>$50 to $350 per hour</strong>, depending on case complexity:
+                <p style="margin-top: 10px;">$50 to $100: Basic administrative tasks and standard filings<br>
+                $150 to $250: Standard market rate for legal matters<br>
+                $300 to $350: Professional representation for large legal cases</p>
+                <p style="margin-top: 15px;"><strong>Need a custom quote?</strong> Fill out the inquiry form above. Each case is unique — personalized estimates prepared based on your specific needs.</p>
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Estimated Cost for Services?</div>
+            <div class="faq-answer" style="display: block;">
+                Legal fees in Toronto vary by service. Typical rates for common matters:
+                <table class="price-table">
+                    <tr><td>Defending Traffic Tickets</td><td>$400 – 700 CAD</td></tr>
+                    <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
+                    <tr><td>Insurance & Benefits Claims</td><td>$250 – 500 CAD</td></tr>
+                    <tr><td>Business Contract Review</td><td>$350 – 650 CAD</td></tr>
+                    <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
+                    <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
+                </table>
+                <span style="font-size: 0.8rem; opacity: 0.7; display: block; margin-top: 10px;">*Reference prices only. Final quotes based on assessment.</span>
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Affording Services on Budget?</div>
+            <div class="faq-answer" style="display: block;">
+                <p><strong>Unbundled Legal Services:</strong> Pay for specific tasks only instead of full retainer to reduce costs by 40-60%.</p>
+                <p style="margin-top: 10px;">If <strong>referred by existing clients</strong> or holding a <strong>promotional code</strong>, note this in your inquiry message to claim eligible discounts.</p>
+                <p style="margin-top: 10px;">For vulnerable populations — <strong>displaced persons, refugees, war-affected individuals</strong>, or those with <strong>disabilities</strong> — <strong>pro bono representation</strong> or substantially reduced rates can be arranged.</p>
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Happening After Booking?</div>
+            <div class="faq-answer" style="display: block;">
+                Upon booking, Hanna reaches out promptly. Details are finalized in-office or via video call, followed by a written summary of next steps and any required documents.
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Difference: Paralegal vs. Lawyer?</div>
+            <div class="faq-answer" style="display: block;">
+                Lawyers typically manage complex litigation, while licensed paralegals deliver <strong>direct, independent advocacy</strong> before <strong>administrative tribunals</strong> and specialized provincial bodies. This approach means <strong>lower overhead costs</strong>, making legal support more <strong>affordable and accessible</strong> for your specific matter. You receive expert representation without the expense of a full law firm.
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Privacy & Data Protection?</div>
+            <div class="faq-answer" style="display: block;">
+                <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p>
+                <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p>
+                <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong>+1 (437) 239-6833</strong> or emailing <strong>paralegal@hannadunchenko.com</strong>.</p>
+            </div>
+        </div>
+
+        <div class="faq-item active">
+            <div class="faq-question">Office Location & Hours?</div>
+            <div class="faq-answer" style="display: block;">
+                <strong>Address:</strong> 146 Thirtieth St., Suite 29, Toronto, ON<br><br>
+                <strong>Hours of Operation:</strong> Every day 9:00 AM – 9:00 PM<br><br>
+                <strong>Service Areas:</strong> In-person consultations available in <strong>Toronto, Mississauga, Brampton, Richmond Hill, London</strong>. Online services available throughout Ontario.
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="seo-section">
+    <h2>Paralegal & Legal Services: Greater Toronto Area & Provincial Coverage</h2>
+    <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Brampton, Mississauga, Richmond Hill, and London. Virtual services extend access province-wide for clients requiring remote assistance.</p>
+    
+    <h3>Traffic Offence Representation: Provincial Court Defence</h3>
+    <p>Received a speeding citation or parking ticket in Toronto, Mississauga, Richmond Hill, London, or elsewhere? Professional courtroom advocacy protects your driving record at major court facilities across Ontario.</p>
+    
+    <h3>Residential Tenancy Matters: LTB Representation</h3>
+    <p>Confronting eviction proceedings, N12 notices, or rent disputes? Strategic representation before the Landlord & Tenant Board safeguards housing security under Ontario law through evidence-based advocacy.</p>
+    
+    <h3>Corporate & Commercial Legal Support</h3>
+    <p>Ontario enterprises benefit from sound documentation practices and effective dispute resolution. Services encompass contract analysis, receivables collection, commercial lease review, and notarization of business agreements. B2G (Government) contracting assistance available for businesses pursuing municipal and provincial procurement opportunities.</p>
+
+    <h3>Occupational Injury Claims & WSIB Proceedings</h3>
+    <p>Workplace injuries require skilled navigation of Workplace Safety & Insurance Board processes. We assist claimants through benefit applications, appeals, and Ontario Labour Board hearings addressing occupational health matters.</p>
+
+    <h3>Notary & Document Authentication Services</h3>
+    <p>Professional notarization in Toronto covers statutory declaration witnessing, affidavit certification, and official document authentication for provincial and federal requirements.</p>
+
+    <h3>Accessible Representation for Greater Toronto Residents</h3>
+    <p>Those throughout GTA and Ontario seeking qualified support benefit from both in-person and virtual appointment options. Immediate assistance available by telephone or message — connect today for case evaluation and strategic guidance.</p>
+</section>
+
+</div>
+
+<script>
+    // FAQ Toggle Logic
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            q.parentElement.classList.toggle('active');
+        });
+    });
+
+    // Textarea Char Counter
+    const brief = document.getElementById('brief');
+    const counter = document.getElementById('current-chars');
+    if(brief && counter) {
+        brief.addEventListener('input', function() {
+            counter.textContent = this.value.length;
+        });
+    }
+
+    // Input Visual State (keep white background if has text)
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if(input.value.trim() !== '') input.classList.add('has-content');
+            else input.classList.remove('has-content');
+        });
+    });
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     END JAVASCRIPT
+     ══════════════════════════════════════════════════════════════════════════════ -->
+
+<footer style="text-align: center; padding: 30px 20px; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.8;">
+    <p>&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
+</footer>
+
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║          MADE BY 3DSITER@GMAIL.COM                                       ║
+║         Odesa (Ukraine) with love to Toronto Canada                        ║
+║                                                                              ║
+║         © 2026 Hanna Dunchenko | Paralegal Services GTA                     ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+
+</body>
+</html>

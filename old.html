@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanna Dunchenko | Paralegal Services GTA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
+</head>
+<body>
+<style>
+        /* ══════════════════════════════════════════════════════════════════════
+           ROOT VARIABLES & THEMING
+           ══════════════════════════════════════════════════════════════════════ */
+        :root {
+            --bg-dark: #bfa792;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --placeholder-color: rgba(255, 255, 255, 0.6);
+            --accent-gold: #6B5B4A;
+            --price-highlight: #ffffff;
+            --seo-h-main: #ffffff;
+            --seo-h-sub: #f5f5f5;
+        }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           ANIMATIONS
+           ══════════════════════════════════════════════════════════════════════ */
+        @keyframes revealAnimation {
+            from { opacity: 0; filter: blur(12px); -webkit-filter: blur(12px); transform: translateY(6px); }
+            to { opacity: 1; filter: blur(0); -webkit-filter: blur(0); transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shine {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); }
+        }
+        @keyframes flashBorder {
+            0% { border-color: #FFFFFF; box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+            100% { border-color: var(--glass-border); box-shadow: none; }
+        }
+        @keyframes brightFlash {
+            0% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.25) !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1), inset 0 0 15px rgba(255, 0, 0, 0.5) !important; transform: scale(1); }
+            25% { border-color: #FF5555 !important; background-color: rgba(255, 85, 85, 0.3) !important; box-shadow: 0 0 35px rgba(255, 50, 50, 1), inset 0 0 20px rgba(255, 50, 50, 0.6) !important; transform: scale(1.02); }
+            50% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.35) !important; box-shadow: 0 0 45px rgba(255, 0, 0, 1), inset 0 0 25px rgba(255, 0, 0, 0.7) !important; transform: scale(1.03); }
+            75% { border-color: #FF5555 !important; background-color: rgba(255, 85, 85, 0.3) !important; box-shadow: 0 0 35px rgba(255, 50, 50, 1), inset 0 0 20px rgba(255, 50, 50, 0.6) !important; transform: scale(1.02); }
+            100% { border-color: #FF0000 !important; background-color: rgba(255, 0, 0, 0.25) !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1), inset 0 0 15px rgba(255, 0, 0, 0.5) !important; transform: scale(1); }
+        }
+        @keyframes flashBorderCheckbox {
+            0% { border-color: #FFFFFF; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+            100% { border-color: var(--glass-border); box-shadow: none; }
+        }
+        @keyframes formBorderGlow {
+            0% { border-color: #1a1a1a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05); }
+            50% { border-color: #2a2a2a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.1); }
+            100% { border-color: #1a1a1a; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 1; }
+        }
+        @keyframes animated-stripes {
+            0% { transform: translate(0, 0) scaleX(1); }
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            50% { transform: translate(0, 0) scaleX(1); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+            100% { transform: translate(0, 0) scaleX(1); }
+        }
+        @keyframes faqReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bulletMorph {
+            0% { border-radius: 50%; width: 8px; height: 8px; background-color: transparent; }
+            50% { border-radius: 40%; width: 10px; height: 8px; background-color: rgba(255, 255, 255, 0.3); }
+            100% { border-radius: 50%; width: 8px; height: 8px; background-color: var(--text-white); }
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            50% { transform: translate(0, 0) scaleX(1); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+            100% { transform: translate(0, 0) scaleX(1); }
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           GLOBAL STYLES & LAYOUT
+           ══════════════════════════════════════════════════════════════════════ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body {
+            scroll-behavior: auto;
+        }
+        
+        body {
+            scroll-padding-top: 80px;
+        }
+        body { font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; overflow-x: hidden; min-height: 100vh; max-width: 1400px; margin: 0 auto; }
+        strong { font-weight: 700; }
+        
+        /* Loading Indicator */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(58, 42, 26, 0.6); /* Lighter background for preload */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 2s ease, visibility 2s ease, background 2s ease;
+        }
+        .loader.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .loader.hidden { display: none; }
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #D4B89A;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        #dynamic-bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
+        .s-stripe {
+          animation: animated-stripes 30s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .s-stripe:nth-child(2) {
+          animation-duration: 40s;
+          animation-delay: -10s;
+        }
+
+        .s-stripe:nth-child(3) {
+          animation-duration: 50s;
+          animation-delay: -20s;
+        }
+
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           HEADER & HERO SECTION
+           ══════════════════════════════════════════════════════════════════════ */
+        header { text-align: center; padding: 15px 20px 30px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .services-title { font-size: clamp(1.4rem, 8vw, 5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
+        
+        .seo-h1 { display: block; font-size: clamp(0.95rem, 2.5vw, 1.4rem); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; max-width: 900px; margin: 10px auto 25px; line-height: 1.5; color: var(--text-white); }
+        .seo-h1 span { display: block; white-space: normal; word-break: break-word; }
+
+        .phone-container { display: inline-flex; justify-content: center; min-height: 1.2em; }
+        .phone-link { display: inline-block; color: var(--text-white); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           FORM STYLES
+           ══════════════════════════════════════════════════════════════════════ */
+        .container { max-width: 650px; margin: -20px auto 0; padding: 20px; opacity: 0; filter: blur(12px); animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        .glass-form {
+            background: var(--glass-bg); /* Полупрозрачный фон */
+            backdrop-filter: blur(20px); /* Тот самый эффект мутности */
+            -webkit-backdrop-filter: blur(20px); /* Поддержка для Safari */
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            position: relative;
+        }
+        
+        .glass-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+            pointer-events: none;
+            /* Отключаем на iOS/iPad */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Отключаем радиальный градиент эффект на Apple устройствах */
+        @supports (-webkit-touch-callout: none) {
+            .glass-form::before {
+                display: none;
+            }
+            .glass-form::after {
+                display: none;
+            }
+        }
+        
+        .glass-form::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(600px at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 80%);
+            pointer-events: none;
+        }
+        
+        .btn-star {
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            width: 75px;
+            height: 76px;
+            pointer-events: none;
+            animation: starFlash 0.6s ease-in-out forwards;
+            z-index: 100;
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.22 75.65'><path fill='%23fff' d='M39.31,40.11c-.16-.6-.32-1.2-.48-1.8,5.94-1.65,11.88-3.33,17.79-5.11,6.23-1.85,12.43-3.82,18.6-5.92-6.37,1.35-12.71,2.82-19.01,4.41-5.99,1.49-11.95,3.08-17.9,4.69-1.65-5.94-3.33-11.88-5.11-17.79-1.85-6.23-3.82-12.43-5.91-18.6,1.35,6.37,2.82,12.71,4.41,19.01,1.49,5.99,3.08,11.95,4.69,17.9-.9.25-1.79.51-2.69.76-1.12-3.97-2.25-7.93-3.45-11.87-1.64-5.48-3.41-10.93-5.29-16.34,1.14,5.62,2.41,11.2,3.79,16.75.98,4.01,2.03,8,3.09,11.98-4.42,1.24-8.84,2.5-13.24,3.83-6.23,1.85-12.43,3.82-18.6,5.91,6.37-1.35,12.71-2.82,19.01-4.41,4.45-1.11,8.89-2.28,13.32-3.46.16.6.32,1.2.48,1.8-5.19,1.45-10.38,2.92-15.53,4.49-5.48,1.64-10.93,3.41-16.34,5.29,5.62-1.14,11.2-2.41,16.75-3.79,5.24-1.28,10.44-2.67,15.65-4.07,1.45,5.19,2.91,10.38,4.48,15.53,1.64,5.48,3.41,10.93,5.3,16.34-1.14-5.62-2.4-11.2-3.79-16.75-1.28-5.24-2.67-10.44-4.07-15.65.9-.25,1.79-.51,2.69-.76,1.32,4.72,2.66,9.43,4.08,14.13,1.85,6.23,3.82,12.43,5.91,18.6-1.35-6.37-2.82-12.71-4.41-19.01-1.18-4.76-2.44-9.5-3.71-14.24,3.67-1.04,7.33-2.09,10.97-3.2,5.48-1.64,10.93-3.41,16.34-5.3-5.62,1.14-11.2,2.4-16.75,3.79-3.7.91-7.38,1.87-11.06,2.85ZM34.73,41.33c-.17-.6-.34-1.19-.5-1.78.9-.24,1.79-.48,2.69-.72.17.6.34,1.19.5,1.79-.9.24-1.79.48-2.69.72Z'/></svg>") no-repeat center;
+            background-size: contain;
+            /* Barely visible opacity for spark */
+            opacity: 0.05;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+        }
+        @keyframes starFlash {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            10% { opacity: 0.15; transform: scale(var(--spark-scale, 1) * 0.6) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+            20% { opacity: 0.3; transform: scale(var(--spark-scale, 1)) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg) * 0.5)); }
+            40% { opacity: 0.3; transform: scale(var(--spark-scale, 1)) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg) * 0.75)); }
+            70% { opacity: 0.15; transform: scale(var(--spark-scale, 1) * 0.7) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+            100% { opacity: 0; transform: scale(0) rotate(calc(var(--spark-rotation-dir, 1) * var(--spark-rotation-deg, 400deg))); }
+        }
+        .form-title { font-size: clamp(1.3rem, 4vw, 1.8rem); margin-bottom: 30px; text-align: center; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; position: relative; z-index: 1; }
+        .input-group { margin-bottom: 25px; position: relative; z-index: 1; }
+        .input-group:has(textarea#brief) {
+            position: relative;
+        }
+        .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        label { font-weight: 700; text-transform: uppercase; font-size: clamp(0.75rem, 2vw, 0.9rem); letter-spacing: 1px; }
+        .char-counter { font-size: clamp(0.6rem, 1.5vw, 0.75rem); opacity: 0.7; color: rgba(255, 255, 255, 0.5); position: absolute; bottom: 12px; right: 45px; transition: all 0.3s ease; }
+        textarea#brief.has-content ~ .textarea-accessories .char-counter,
+        .input-group:has(textarea#brief.has-content) .char-counter { color: #6B5B4A; opacity: 0.8; }
+        
+        input, textarea, select { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: clamp(0.95rem, 2.2vw, 1.1rem); outline: none; transition: all 0.3s ease; font-family: 'Lato', sans-serif; }
+        #otherContactField input { width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-white); font-size: clamp(0.95rem, 2.2vw, 1.1rem); outline: none; transition: all 0.3s ease; font-family: 'Lato', sans-serif; }
+        #otherContactField input.has-content { background: #ffffff; color: #6B5B4A; box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
+        #otherContactField input:focus { background: #ffffff; color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
+        select { text-align: center; }
+        input.has-content, textarea.has-content,
+        input:focus, textarea:focus, select:focus {
+            background: #ffffff;
+            color: #6B5B4A;
+            box-shadow: 0 0 20px rgba(107, 91, 74, 0.4);
+        }
+        input:focus, textarea:focus {
+             border-color: rgba(255, 255, 255, 0.5);
+        }
+        select:focus {
+            background: #1a1a1a;
+            color: var(--text-white);
+            border-color: #2a2a2a;
+            box-shadow: none;
+        }
+        input.blur-non-focus, textarea.blur-non-focus { animation: none; opacity: 0.6; }
+        input::placeholder, textarea::placeholder {
+            text-align: left; /* Align placeholders to the left */
+            color: var(--placeholder-color);
+        }
+        input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
+        input, textarea { caret-color: #6B5B4A; }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        textarea#brief { text-align: left; resize: none; overflow: hidden; min-height: 180px; padding-right: 120px; padding-bottom: 40px; }
+        textarea#brief:focus { background: rgba(255, 255, 255, 0.85); color: #6B5B4A; border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 20px rgba(107, 91, 74, 0.4); }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           CHECKBOX & CONSENT
+           ══════════════════════════════════════════════════════════════════════ */
+        .consent-wrapper { display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 25px; padding: 5px 0; justify-content: flex-start; flex-wrap: nowrap; position: relative; z-index: 1; }
+        .consent-wrapper input[type="checkbox"] { -webkit-appearance: none; -moz-appearance: none; appearance: none; width: 28px; height: 28px; min-width: 28px; background: transparent; border: 2px solid var(--glass-border); border-radius: 5px; cursor: pointer; position: relative; transition: all 0.3s ease; -webkit-transition: all 0.3s ease; flex-shrink: 0; margin-top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
+        .consent-wrapper input[type="checkbox"]:focus { box-shadow: 0 0 15px rgba(107, 91, 74, 0.4); }
+        .consent-wrapper input[type="checkbox"]:checked { background: #8B6F5A; border-color: #8B6F5A; animation: none; }
+        .consent-wrapper input[type="checkbox"].flash { animation: flashBorderCheckbox 0.6s ease-in-out; }
+        .consent-wrapper input[type="checkbox"]:checked::after { content: "\2713"; position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -60%); transform: translate(-50%, -60%); color: #6B5B4A; font-size: 64px; font-weight: 900; line-height: 0.8; display: flex; align-items: center; justify-content: center; padding: 0; }
+        .consent-text { font-size: clamp(0.7rem, 1.9vw, 0.8rem); opacity: 0.9; line-height: 1.4; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; word-break: break-word; flex: 1; text-align: left; position: relative; z-index: 1; }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           RADIO BUTTONS - iOS/iPad COMPATIBLE STYLING
+           ══════════════════════════════════════════════════════════════════════ */
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            background: transparent;
+            position: relative;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            flex-shrink: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        input[type="radio"]::-webkit-outer-spin-button,
+        input[type="radio"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type="radio"]:active,
+        input[type="radio"]:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: none;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #8B6F5A;
+            background: #8B6F5A;
+        }
+
+        input[type="radio"]:checked::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            display: block;
+        }
+
+        /* iOS Safari specific fix */
+        @supports (-webkit-touch-callout: none) {
+            input[type="radio"] {
+                width: 26px;
+                height: 26px;
+                min-width: 26px;
+                min-height: 26px;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                -webkit-appearance: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            input[type="radio"]:checked {
+                border-color: #8B6F5A;
+                background: #8B6F5A;
+                box-shadow: none;
+            }
+
+            input[type="radio"]:checked::before {
+                width: 11px;
+                height: 11px;
+            }
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           SUBMIT BUTTON
+           ══════════════════════════════════════════════════════════════════════ */
+        .submit-btn { width: 100%; padding: 20px; background: #8B6F5A; color: #ffffff; border: none; border-radius: 10px; font-weight: 900; font-size: clamp(1rem, 2.5vw, 1.2rem); text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible; }
+        .submit-btn:hover { transform: translateY(-2px); background: #6B5B4A; }
+        
+        .char-counter {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 0.75rem;
+            opacity: 0.3;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: 2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-4px) rotate(5deg); }
+        }
+        
+
+        
+        .attach-icon {
+            position: absolute;
+            bottom: 50px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .attach-icon svg {
+            width: 24px;
+            height: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            stroke: currentColor;
+            fill: none;
+            transition: all 0.3s ease;
+            display: block;
+            stroke-width: 1.5;
+            opacity: 0.7;
+        }
+        .attach-icon:hover {
+            transform: scale(1.1);
+        }
+
+        #brief:focus ~ .textarea-accessories .attach-icon svg,
+        .input-group:has(textarea#brief:focus) .attach-icon svg {
+            stroke: #8B6F5A;
+        }
+
+        textarea#brief:focus ~ .textarea-accessories .char-counter,
+        .input-group:has(textarea#brief:focus) .char-counter {
+            color: #8B6F5A;
+            opacity: 1;
+        }
+
+        #brief.has-content ~ .textarea-accessories .attach-icon svg,
+        .input-group:has(textarea#brief.has-content) .attach-icon svg {
+            stroke: #6B5B4A;
+        }
+        .attach-icon:hover svg {
+            stroke: var(--text-white);
+        }
+        
+        .flash { animation: flashBorder 0.6s ease-in-out; }
+        .bright-flash { animation: brightFlash 0.8s ease-in-out !important; }
+        .bright-flash[type="checkbox"] { animation: brightFlash 0.8s ease-in-out !important; border-color: #FF0000 !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1) !important; }
+        .bright-flash > [type="radio"] { box-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important; }
+        .bright-flash { border: 1px solid #FF0000 !important; box-shadow: 0 0 20px rgba(255, 0, 0, 0.6) !important; }
+
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           FAQ SECTION - ACCORDION WITH SPOILERS
+           ══════════════════════════════════════════════════════════════════════ */
+        .faq-section { margin-top: 80px; }
+        .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
+        .faq-q { font-weight: 900; margin-bottom: 10px; font-size: clamp(1.1rem, 2.8vw, 1.4rem); text-transform: uppercase; display: flex; align-items: flex-start; gap: 15px; }
+        .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; min-width: 12px; flex-shrink: 0; border-radius: 50%; border: 2px solid #ffffff; transition: all 0.3s ease; margin-top: 12px; }
+        .faq-item.active .faq-q::before { background-color: #ffffff; border-radius: 50%; }
+        /* FAQ Answer Animation Duration - Change '2s' to adjust speed (e.g., 0.5s for fast, 3s for slower) */
+        .faq-a { font-size: clamp(0.95rem, 2.2vw, 1.1rem); opacity: 0.9; padding-left: 29px; display: none; animation: faqReveal 2s ease-out forwards; }
+        .faq-item.active .faq-a { display: block; }
+        .faq-section > p { margin-bottom: 20px; opacity: 0.9; display: none; }
+        .faq-section > ul { 
+            display: none; 
+            margin: 15px 0 25px 0; 
+            padding-left: 20px; /* Ensure proper alignment */
+        }
+        .faq-section > ul li { 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: baseline; 
+            margin-left: 0; /* Reset margin */
+            padding-left: 10px; /* Add padding for alignment */
+        }
+        .faq-section > table { display: none; margin: 20px 0; }
+        .faq-section > .map-block { display: none; margin-top: 15px; }
+        .faq-section > .price-note { display: none; }
+        .faq-section h3.active ~ p { display: block; }
+        .faq-section h3.active ~ ul { display: block; }
+
+        /* SEO Section styles */
+        .seo-section h3 {
+            font-size: 1.6rem;
+            margin: 40px 0px 15px;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: var(--seo-h-sub);
+        }
+
+
+
+        .faq-section h3.active ~ table { display: table; }
+        .faq-section h3.active ~ .map-block { display: block; }
+        .faq-section h3.active ~ .price-note { display: block; }
+
+        /* Group FAQ into items for robust show/hide */
+        .faq-section .faq-item { margin-bottom: 12px; }
+        .faq-section .faq-item h3 { cursor: pointer; display: flex; align-items: flex-start; gap: 12px; margin-top: 2px; }
+        .faq-section .faq-item h3::before { content: ""; display: inline-block; width: 10px; height: 10px; min-width: 10px; flex-shrink: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.6); background: transparent; margin-top: 3px; }
+        .faq-section .faq-item .faq-content { display: none; margin-bottom: 20px; opacity: 1; }
+        .faq-section .faq-item.active .faq-content { display: block; }
+        /* Keep the indicator filled when the item is active */
+        .faq-section .faq-item.active h3::before { background-color: var(--text-white); }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           PRICING TABLE & COSTS
+           ══════════════════════════════════════════════════════════════════════ */
+        .price-table { width: 100%; border-collapse: collapse; margin: 20px 0 10px 20px; background: transparent; border-radius: 0; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .price-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .price-table tr:hover { background: rgba(255, 255, 255, 0.02); }
+        .price-table td { padding: 16px 20px; font-size: clamp(0.9rem, 2vw, 1rem); color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease; }
+        .price-table td:first-child { font-weight: 600; }
+        .price-table td:last-child { text-align: right; font-weight: 700; color: rgba(255, 255, 255, 0.95); font-size: clamp(0.95rem, 2.2vw, 1.1rem); }
+        .price-table tr:last-child { border-bottom: none; }
+        .price-note { font-size: clamp(0.75rem, 1.8vw, 0.85rem); opacity: 0.7; display: block; margin-top: 15px; line-height: 1.4; text-align: center; }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           MAP & LOCATION DISPLAY
+           ══════════════════════════════════════════════════════════════════════ */
+        .map-block { text-align: left; width: 100%; }
+        .map-wrapper { width: 100%; height: 450px; margin: 20px 0 0; border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           SEO SECTION & CONTENT BLOCKS
+           ══════════════════════════════════════════════════════════════════════ */
+        .seo-section {
+            margin-top: 80px;
+            text-align: left;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 40px;
+            opacity: 0;
+            animation: 0.8s ease-out 0.5s 1 normal both running fadeInUp;
+        }
+
+        .seo-h2 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            border-left: 5px solid rgb(255, 255, 255);
+            padding-left: 20px;
+            color: var(--seo-h-main);
+        }
+
+        .seo-section p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .seo-section ul, .seo-section ol {
+            margin: 15px 0px 25px;
+            padding-left: 30px;
+            text-align: left;
+        }
+
+        .seo-section li {
+            margin-bottom: 10px;
+            opacity: 0.9;
+            padding-left: 0px;
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+           FOOTER & RESPONSIVE DESIGN
+           ══════════════════════════════════════════════════════════════════════ */
+        footer { text-align: center; padding: 80px 20px; }
+        footer .phone-link { font-size: clamp(1.2rem, 3vw, 2rem); }
+        .schedule-details { font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin: 10px 0 20px; text-transform: uppercase; }
+
+        @media (max-width: 720px) {
+            * { font-size: clamp(0.8rem, 2.2vw, 1rem); }
+            header { padding: 60px 15px 30px; }
+            .name-title { font-size: clamp(1.8rem, 7vw, 2.8rem); letter-spacing: -1px; }
+            .services-title { font-size: clamp(1.1rem, 5vw, 1.8rem); letter-spacing: 1px; }
+            .seo-h1 { font-size: clamp(0.75rem, 2vw, 0.95rem); margin: 6px auto 15px; }
+            .phone-link { font-size: clamp(1.4rem, 4vw, 2rem); }
+            .container { max-width: 100%; padding: 12px; }
+            .glass-form { padding: 25px 15px; }
+            .form-title { font-size: clamp(1.1rem, 3vw, 1.3rem); }
+            label { font-size: clamp(0.65rem, 1.8vw, 0.8rem); }
+            .char-counter { font-size: clamp(0.6rem, 1.5vw, 0.7rem); }
+            input, textarea { padding: 12px; font-size: clamp(0.9rem, 2.2vw, 1rem); }
+            textarea#brief { min-height: 160px; }
+            .consent-wrapper { gap: 8px; }
+            .consent-wrapper input[type="checkbox"] { width: 22px; height: 22px; margin-top: 3px; }
+            .consent-text { font-size: clamp(0.7rem, 1.9vw, 0.8rem); }
+            .faq-section h3 { font-size: clamp(1rem, 2.8vw, 1.2rem); gap: 10px; }
+            .faq-section h3::before { width: 10px; height: 10px; }
+            .price-table td { padding: 10px 8px; font-size: clamp(0.8rem, 2vw, 0.95rem); }
+            .price-note { font-size: clamp(0.7rem, 1.8vw, 0.8rem); }
+            .schedule-details { font-size: clamp(1.2rem, 3.5vw, 1.8rem); }
+            .map-wrapper { height: 350px; }
+            .seo-section { max-width: 100%; padding: 0px 10px; }
+            .seo-h2 { font-size: clamp(1.1rem, 3vw, 1.5rem); padding-left: 12px; }
+            .seo-section h3 { font-size: clamp(1rem, 2.5vw, 1.2rem); }
+            .submit-btn { padding: 14px; font-size: clamp(0.9rem, 2.2vw, 1rem); }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 50px 15px 30px; }
+            .name-title { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+            .services-title { font-size: clamp(1.1rem, 4vw, 2rem); }
+            .seo-h1 { font-size: clamp(0.8rem, 2vw, 1rem); margin: 8px auto 15px; }
+            .phone-link { font-size: clamp(1.2rem, 4vw, 1.8rem); }
+            .container { padding: 15px; }
+            .glass-form { padding: 25px 15px; border-radius: 16px; }
+            .form-title { font-size: 1.3rem; margin-bottom: 20px; }
+            .input-group { margin-bottom: 18px; }
+            label { font-size: 0.75rem; }
+            .char-counter { font-size: 0.65rem; }
+            input, textarea { padding: 12px; font-size: 0.95rem; }
+            textarea#brief { min-height: 180px; }
+            .submit-btn { padding: 15px; font-size: 0.95rem; }
+            .faq-section h3 { font-size: 1.1rem; gap: 10px; }
+            .price-table td { padding: 12px 10px; font-size: 0.85rem; }
+            .price-note { font-size: 0.75rem; }
+            .schedule-details { font-size: clamp(1rem, 2.5vw, 1.5rem); }
+            .map-wrapper { height: 400px; }
+            .seo-section { max-width: 100%; }
+            .seo-h2 { font-size: clamp(1.3rem, 3vw, 1.8rem); padding-left: 15px; }
+            .seo-section h3 { font-size: 1.2rem; margin: 25px 0px 10px; }
+        }
+            
+
+        @media (max-width: 320px) {
+            header { padding: 40px 12px 20px; }
+            .name-title { font-size: 1.3rem; margin-bottom: 2px; letter-spacing: -0.5px; }
+            .services-title { font-size: 0.9rem; letter-spacing: 0.5px; }
+            .seo-h1 { font-size: 0.65rem; margin: 4px auto 8px; line-height: 1.2; }
+            .phone-link { font-size: 0.9rem; }
+            .container { padding: 8px; }
+            .glass-form { padding: 12px 10px; border-radius: 12px; }
+            .form-title { font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 0px; }
+            .input-group { margin-bottom: 12px; }
+            label { font-size: 0.65rem; }
+            .char-counter { font-size: 0.6rem; }
+            input, textarea { padding: 10px; font-size: 0.85rem; border-radius: 8px; }
+            .submit-btn { padding: 10px; font-size: 0.75rem; border-radius: 8px; }
+            .consent-wrapper { gap: 6px; }
+            .consent-wrapper input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; }
+            .consent-text { font-size: 0.65rem; line-height: 1.2; }
+            textarea#brief { min-height: 120px; }
+            .map-wrapper { height: 250px; }
+            .faq-section h3 { font-size: 0.95rem; gap: 8px; }
+            .faq-section h3::before { width: 8px; height: 8px; }
+            .price-table td { padding: 8px 6px; font-size: 0.75rem; }
+            .schedule-details { font-size: 1rem; }
+            .seo-h2 { font-size: 0.95rem; padding-left: 10px; }
+            .seo-section h3 { font-size: 0.9rem; }
+            .seo-section p { font-size: 0.8rem; }
+        }
+
+        /* Safari iOS: Make phone numbers white in privacy policy */
+        @supports (-webkit-touch-callout: none) {
+            .faq-a a[href^="tel:"] {
+                color: #ffffff !important;
+                text-decoration: none;
+            }
+        }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           IPHONE & IPAD COMPREHENSIVE OPTIMIZATION (2012-2026)
+           ══════════════════════════════════════════════════════════════════════ */
+
+        /* iPhone 4S/5/5S (2011-2013) - 320px */
+        @media only screen and (device-width: 320px) {
+            * { font-size: clamp(0.7rem, 2.2vw, 0.85rem); }
+            input[type="radio"], input[type="checkbox"] { width: 20px; height: 20px; }
+        }
+
+        /* iPhone 6/6S/7/8 (2014-2017) - 375px */
+        @media only screen and (device-width: 375px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone SE (1st gen) (2016) - 375px */
+        @media only screen and (device-width: 375px) and (device-height: 667px) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+        }
+
+        /* iPhone 6 Plus/7 Plus/8 Plus (2014-2017) - 414px */
+        @media only screen and (device-width: 414px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            input[type="radio"], input[type="checkbox"] { width: 24px; height: 24px; }
+        }
+
+        /* iPhone X/XS (2017-2018) - 375px */
+        @media only screen and (device-width: 375px) and (-webkit-device-pixel-ratio: 3) and (device-height: 812px) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone XR (2018) - 414px */
+        @media only screen and (device-width: 414px) and (device-height: 896px) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            input[type="radio"], input[type="checkbox"] { width: 24px; height: 24px; }
+        }
+
+        /* iPhone XS Max (2018) - 414px */
+        @media only screen and (device-width: 414px) and (-webkit-device-pixel-ratio: 3) and (device-height: 896px) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            input[type="radio"], input[type="checkbox"] { width: 24px; height: 24px; }
+        }
+
+        /* iPhone 11 (2019) - 414px */
+        @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            input[type="radio"], input[type="checkbox"] { width: 24px; height: 24px; }
+        }
+
+        /* iPhone 11 Pro (2019) - 375px */
+        @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 11 Pro Max (2019) - 414px */
+        @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.78rem, 2.2vw, 0.98rem); }
+            input[type="radio"], input[type="checkbox"] { width: 24px; height: 24px; }
+        }
+
+        /* iPhone SE (2nd gen) (2020) - 375px */
+        @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+        }
+
+        /* iPhone 12 mini (2020) - 375px */
+        @media only screen and (device-width: 375px) and (device-height: 812px) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 12/12 Pro (2020) - 390px */
+        @media only screen and (device-width: 390px) and (device-height: 844px) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 12 Pro Max (2020) - 428px */
+        @media only screen and (device-width: 428px) and (device-height: 926px) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPhone 13/13 Pro (2021) - 390px */
+        @media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 13 Pro Max (2021) - 428px */
+        @media only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPhone 14/14 Pro (2022) - 393px */
+        @media only screen and (device-width: 393px) and (device-height: 852px) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 14 Plus (2022) - 430px */
+        @media only screen and (device-width: 430px) and (device-height: 932px) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPhone 14 Pro (2022) - 393px */
+        @media only screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+        }
+
+        /* iPhone 14 Pro Max (2022) - 430px */
+        @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPhone SE (3rd gen) (2022) - 375px */
+        @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+            * { font-size: clamp(0.75rem, 2vw, 0.9rem); }
+        }
+
+        /* iPhone 15/15 Pro (2023) - 393px */
+        @media only screen and (device-width: 393px) and (device-height: 852px) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+            input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; }
+        }
+
+        /* iPhone 15 Plus (2023) - 430px */
+        @media only screen and (device-width: 430px) and (device-height: 932px) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPhone 15 Pro (2023) - 393px */
+        @media only screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.76rem, 2.1vw, 0.92rem); }
+        }
+
+        /* iPhone 15 Pro Max (2023) - 430px */
+        @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+            * { font-size: clamp(0.8rem, 2.3vw, 1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPad Mini (2012+) - 768px */
+        @media only screen and (device-width: 768px) and (orientation: portrait) {
+            * { font-size: clamp(0.8rem, 1.8vw, 1rem); }
+            header { padding: 50px 20px 30px; }
+            .name-title { font-size: 1.8rem; }
+            .services-title { font-size: 1.1rem; }
+            .glass-form { padding: 24px 20px; }
+            input, textarea { padding: 14px; font-size: 17px; }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* iPad Air (2013+) - 834px */
+        @media only screen and (device-width: 834px) and (orientation: portrait) {
+            * { font-size: clamp(0.85rem, 1.9vw, 1.1rem); }
+            header { padding: 55px 22px 32px; }
+            .name-title { font-size: 2rem; }
+            .services-title { font-size: 1.25rem; }
+            .glass-form { padding: 28px 22px; }
+            input, textarea { padding: 16px; font-size: 18px; }
+            input[type="radio"], input[type="checkbox"] { width: 30px; height: 30px; }
+        }
+
+        /* iPad Pro 11" (2018+) - 834px */
+        @media only screen and (device-width: 834px) and (device-height: 1194px) and (orientation: portrait) {
+            * { font-size: clamp(0.85rem, 1.9vw, 1.1rem); }
+            input[type="radio"], input[type="checkbox"] { width: 30px; height: 30px; }
+        }
+
+        /* iPad Pro 12.9" (2015+) - 1024px */
+        @media only screen and (device-width: 1024px) and (orientation: portrait) {
+            * { font-size: clamp(0.9rem, 2vw, 1.2rem); }
+            header { padding: 60px 24px 35px; }
+            .name-title { font-size: 2.2rem; }
+            .services-title { font-size: 1.4rem; }
+            .glass-form { padding: 32px 24px; }
+            input, textarea { padding: 18px; font-size: 20px; }
+            input[type="radio"], input[type="checkbox"] { width: 32px; height: 32px; }
+        }
+
+        /* iPad Landscape orientation optimizations */
+        @media only screen and (device-width: 768px) and (orientation: landscape) {
+            * { font-size: clamp(0.75rem, 1.6vw, 0.95rem); }
+            header { padding: 30px 20px; }
+            .glass-form { padding: 20px 20px; }
+        }
+
+        @media only screen and (device-width: 834px) and (orientation: landscape) {
+            * { font-size: clamp(0.8rem, 1.7vw, 1rem); }
+            header { padding: 35px 22px; }
+            .glass-form { padding: 24px 22px; }
+        }
+
+        @media only screen and (device-width: 1024px) and (orientation: landscape) {
+            * { font-size: clamp(0.85rem, 1.8vw, 1.05rem); }
+            header { padding: 40px 24px; }
+            .glass-form { padding: 28px 24px; }
+        }
+
+        /* ══════════════════════════════════════════════════════════════════════
+           MACOS - MacBook & iMac OPTIMIZATION (2012+)
+           ══════════════════════════════════════════════════════════════════════ */
+
+        /* MacBook Air 11" (2012-2015) - 1366×768 */
+        @media only screen and (min-width: 1360px) and (max-width: 1375px) and (min-height: 760px) and (max-height: 775px) {
+            * { font-size: clamp(0.9rem, 1.2vw, 1rem); }
+            header { padding: 50px 20px 30px; }
+            .name-title { font-size: 1.8rem; }
+            .services-title { font-size: 1.1rem; }
+            .glass-form { padding: 24px 20px; }
+            input, textarea { padding: 14px; font-size: 16px; }
+            input[type="radio"], input[type="checkbox"] { width: 26px; height: 26px; }
+        }
+
+        /* MacBook Air 13" (2012+) - 1440×900 */
+        @media only screen and (min-width: 1435px) and (max-width: 1450px) and (min-height: 890px) and (max-height: 910px) {
+            * { font-size: clamp(0.95rem, 1.3vw, 1.05rem); }
+            header { padding: 55px 22px 32px; }
+            .name-title { font-size: 1.95rem; }
+            .services-title { font-size: 1.2rem; }
+            .glass-form { padding: 26px 22px; }
+            input, textarea { padding: 15px; font-size: 16px; }
+            input[type="radio"], input[type="checkbox"] { width: 28px; height: 28px; }
+        }
+
+        /* MacBook Pro 13" (2012-2015) - 1280×800 */
+        @media only screen and (min-width: 1275px) and (max-width: 1290px) and (min-height: 790px) and (max-height: 810px) {
+            * { font-size: clamp(0.88rem, 1.1vw, 0.98rem); }
+            header { padding: 48px 20px 28px; }
+            .name-title { font-size: 1.75rem; }
+            .services-title { font-size: 1.05rem; }
+            .glass-form { padding: 23px 20px; }
+            input, textarea { padding: 13px; font-size: 15px; }
+        }
+
+        /* MacBook Pro 15" (2012+) - 1440×900 */
+        @media only screen and (min-width: 1435px) and (max-width: 1450px) and (min-height: 890px) and (max-height: 910px) {
+            * { font-size: clamp(0.95rem, 1.3vw, 1.05rem); }
+            header { padding: 55px 22px 32px; }
+            .name-title { font-size: 1.95rem; }
+            .services-title { font-size: 1.2rem; }
+            .glass-form { padding: 26px 22px; }
+            input, textarea { padding: 15px; font-size: 16px; }
+            input[type="radio"], input[type="checkbox"] { width: 28px; height: 28px; }
+        }
+
+        /* iMac 21.5" (2012+) - 1920×1080 */
+        @media only screen and (min-width: 1915px) and (max-width: 1930px) and (min-height: 1070px) and (max-height: 1090px) {
+            * { font-size: clamp(1.05rem, 1.5vw, 1.15rem); }
+            header { padding: 65px 30px 38px; }
+            .name-title { font-size: 2.3rem; }
+            .services-title { font-size: 1.35rem; }
+            .glass-form { padding: 32px 30px; }
+            input, textarea { padding: 16px; font-size: 17px; }
+            input[type="radio"], input[type="checkbox"] { width: 30px; height: 30px; }
+        }
+
+        /* iMac 27" (2012+) - 2560×1440 */
+        @media only screen and (min-width: 2555px) and (max-width: 2570px) and (min-height: 1430px) and (max-height: 1450px) {
+            * { font-size: clamp(1.2rem, 1.8vw, 1.3rem); }
+            header { padding: 75px 35px 42px; }
+            .name-title { font-size: 2.6rem; }
+            .services-title { font-size: 1.5rem; }
+            .glass-form { padding: 36px 35px; }
+            input, textarea { padding: 18px; font-size: 18px; }
+            input[type="radio"], input[type="checkbox"] { width: 32px; height: 32px; }
+        }
+
+        /* MacBook Air M1/M2 13" (2020+) - 2560×1600 */
+        @media only screen and (min-width: 2555px) and (max-width: 2570px) and (min-height: 1590px) and (max-height: 1610px) {
+            * { font-size: clamp(1.15rem, 1.7vw, 1.25rem); }
+            header { padding: 72px 35px 40px; }
+            .name-title { font-size: 2.5rem; }
+            .services-title { font-size: 1.45rem; }
+            .glass-form { padding: 35px 35px; }
+            input, textarea { padding: 17px; font-size: 18px; }
+            input[type="radio"], input[type="checkbox"] { width: 32px; height: 32px; }
+        }
+
+        /* MacBook Air M1/M2 15" (2023+) - 2880×1864 */
+        @media only screen and (min-width: 2875px) and (max-width: 2890px) and (min-height: 1854px) and (max-height: 1874px) {
+            * { font-size: clamp(1.25rem, 1.9vw, 1.35rem); }
+            header { padding: 78px 40px 45px; }
+            .name-title { font-size: 2.8rem; }
+            .services-title { font-size: 1.6rem; }
+            .glass-form { padding: 38px 40px; }
+            input, textarea { padding: 19px; font-size: 19px; }
+            input[type="radio"], input[type="checkbox"] { width: 34px; height: 34px; }
+        }
+
+        /* MacBook Pro 16" (2021+) - 3456×2234 */
+        @media only screen and (min-width: 3450px) and (max-width: 3470px) and (min-height: 2224px) and (max-height: 2244px) {
+            * { font-size: clamp(1.35rem, 2vw, 1.45rem); }
+            header { padding: 85px 45px 50px; }
+            .name-title { font-size: 3rem; }
+            .services-title { font-size: 1.75rem; }
+            .glass-form { padding: 42px 45px; }
+            input, textarea { padding: 20px; font-size: 20px; }
+            input[type="radio"], input[type="checkbox"] { width: 36px; height: 36px; }
+        }
+    </style></head>
+<body>
+
+<!-- Loading Indicator -->
+<div class="loader">
+    <div class="loader-spinner"></div>
+</div>
+
+<div id="dynamic-bg-container">
+    <svg id="dynamic-bg-svg" viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:-15%; width:130%; height:130%; pointer-events:none;">
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
+        <rect width="528" height="816" fill="url(#g)"/>
+        <g style="mix-blend-mode:overlay" fill-opacity=".15">
+            <path class="s-stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
+            <path class="s-stripe" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="s-stripe" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
+        </g>
+    </svg>
+</div>
+
+<header class="reveal">
+    <div class="name-title">Hanna Dunchenko</div>
+    <div class="services-title">Paralegal Services</div>
+    <div class="phone-container" style="margin: 15px 0; display: flex; align-items: center; justify-content: center; gap: 12px;">
+        <span style="font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: var(--text-white);">Free Call:</span>
+        <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    </div>
+    <h1 class="seo-h1">
+        <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
+        <span>Traffic Ticket Defense, LTB, WSIB</span>
+        <span>Toronto, Mississauga, Richmond Hill, London, and Beyond</span>
+        <span>Book Your Appointment via this site:</span>
+    </h1>
+</header>
+
+<div class="container">
+    <div class="glass-form">
+        <form id="appointmentForm">
+            <h3 class="form-title">INQUIRY FORM</h3>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Name</label></div>
+                <input type="text" id="name" name="client_name" placeholder="Jane Doe..." required>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label for="brief">Message</label></div>
+                <div style="position: relative;">
+                    <textarea id="brief" name="description" maxlength="1024" 
+                        placeholder="hello, please contact me regarding my traffic ticket, landlord-tenant issues, workers' compensation, court matters, notary services, need a face-to-face meeting asap..." aria-required="true" required></textarea>
+                    <div class="textarea-accessories">
+                        <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
+                        <a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" class="attach-icon" title="Upload file to Dropbox">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Phone</label></div>
+                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number">
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Address</label></div>
+                <input type="text" id="address" name="address" placeholder="Street address, city, province, postal code" required>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Email</label></div>
+                <input type="email" id="email" name="contact_email" required placeholder="Email address">
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Date of birth</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required>
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required>
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="disclaimer-text" style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;">I completed this form with accurate information to help Hanna respond to my inquiry quickly and effectively. I understand she needs this information to understand my legal situation and provide appropriate guidance. Incomplete or inaccurate information may delay her ability to provide timely assistance.</p>
+                    <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.</p>
+                    <p>I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px; justify-content: center;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="yes" required class="consent-radio">
+                        <span>Yes</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="no" required class="consent-radio">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn" class="submit-btn">
+                BOOK APPOINTMENT
+                <span class="btn-star"></span>
+            </button>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px; font-weight: 300; margin-bottom: 0;">Expect your response within 5 minutes</p>
+        </form>
+    </div>
+
+    <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 30px; margin-bottom: 30px; line-height: 1.5;">If you need a form on Google Forms platform then click here: <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" style="color: #8B6F5A; text-decoration: underline; transition: color 0.3s ease;">Google Forms</a></p>
+
+<div style="font-size: 1.35rem; font-weight: 700; opacity: 0; filter: blur(12px); line-height: 1.8; margin-top: 40px; margin-bottom: 50px; padding: 35px 30px; text-align: center; max-width: 850px; margin-left: auto; margin-right: auto; animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; color: rgba(255, 255, 255, 0.95);"><strong style="font-size: 1.8rem; display: block; margin-bottom: 20px; font-weight: 900;">Ready to Protect Your Rights?</strong>Complete the form for legal help from<br><strong style="font-size: 1.4rem;">HANNA DUNCHENKO PARALEGAL SERVICES</strong><br>Share your situation and contact may be established.</div>
+
+
+        <h2 style="font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 30px; margin-top: 50px;">Questions & Answers</h2>
+
+    <div class="faq-section">
+        <div class="faq-item">
+            <div class="faq-q">Paralegal Fees in Ontario?</div>
+            <div class="faq-a">
+              <strong>Rate Range for Paralegal Services in Ontario:</strong> <strong>$50 to $350 per hour</strong>, depending on case complexity:
+              <p style="margin-top: 15px;">• $50 to $100: Handling basic administrative tasks and standard filings<br>
+              • $150 to $250: Providing standard market rate for legal matters<br>
+              • $300 to $350: Delivering professional representation for large legal cases</p>
+              <p style="margin-top: 20px;"><strong>Determining appropriate rate range?</strong> Submitting inquiry through the form above enables calculating individual rate range based on specific needs. Every case is unique—transparent quotes tailored to situation available.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Estimated Cost for Services?</div>
+            <div class="faq-a">
+              Legal fees in Toronto vary by service. Viewing typical rates below for common matters. Prices are for reference only:
+              <table class="price-table">
+                <tr><td>Defending Traffic Tickets</td><td>$400 – 700 CAD</td></tr>
+                <tr><td>Handling Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
+                <tr><td>Managing Insurance & Benefits Claims</td><td>$250 – 500 CAD</td></tr>
+                <tr><td>Reviewing Business Contracts</td><td>$350 – 650 CAD</td></tr>
+                <tr><td>Resolving Landlord & Tenant (LTB) Issues</td><td>$300 – 700 CAD</td></tr>
+                <tr><td>Supporting WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
+              </table>
+              <span class="price-note">*Listed prices are for reference only. Final quotes based on assessment total.</span>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Affording Services on Limited Budget?</div>
+            <div class="faq-a">
+              <p>Options available. <strong>Utilizing Unbundled Legal Services</strong> reduces costs. Instead of full-service retainer, engaging for specific tasks only. This approach typically saves <strong>40 to 60% of legal costs</strong>.</p><br>
+              <p>For those holding <strong>4-digit coupon codes from advertising</strong>, or being <strong>referred by existing clients</strong>, noting this at the end of form message ensures proper discount application.</p><br>
+              <p>For those genuinely in need—<strong>displaced persons</strong>, <strong>refugees</strong>, those <strong>affected by war</strong>, or individuals with <strong>disabilities</strong>—accessing legal services on <strong>pro bono basis</strong> or receiving significantly reduced fees is available.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Happening After Booking?</div>
+            <div class="faq-a">
+              Reaching out promptly follows booking. Finalizing details in-office or via video call occurs next, followed by receiving written summary of next steps and any required documents.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Difference: Paralegal vs. Lawyer?</div>
+            <div class="faq-a">
+              Operating on different levels characterizes the distinction. While lawyers typically handle complex litigation, paralegals provide direct, independent representation before many <strong>administrative tribunals</strong>. As licensed paralegals, offering more affordable, focused services for matters within provincial scope remains standard. Representing at <strong>administrative tribunals</strong> without lawyer's overhead costs remains possible.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Privacy Policy Details?</div>
+            <div class="faq-a">
+              <p><strong>Information Collection:</strong> Collecting personal information voluntarily provided (name, phone number, email, case description) occurs regularly.</p>
+              <p><strong>Advertising & Cookies:</strong> Using this information for advertising purposes on <strong>Facebook, Google, and YouTube</strong> applies. Website uses essential cookies for functionality and may use analytics cookies.</p>
+              <p><strong>Information Usage:</strong> Providing legal and paralegal services, responding to inquiries, and (with consent) sending communications represents primary uses.</p>
+              <p><strong>Data Rights:</strong> Accessing or deleting data remains available as right.<br>Contacting via +1 (437) 239-6833 or paralegal@hannadunchenko.com enables exercise of rights.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Office Location?</div>
+            <div class="faq-a">
+              <div class="map-block">
+                Locating office at: 146 Thirtieth St., Suite 29, Toronto, ON
+                <div class="map-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" allowfullscreen="" loading="lazy"></iframe></div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <section class="seo-section">
+        <h3>Service Areas: Providing Greater Toronto Area (GTA) Coverage and Beyond</h3>
+        <p>Providing legal representation across <strong>Ontario</strong> remains primary focus. Operating both <strong>in-person and online</strong> ensures accessibility regardless of location.</p>
+        
+        <div style="margin-left: 20px;">
+          <h4 style="margin-top: 40px; margin-bottom: 15px; font-size: clamp(1.2rem, 3vw, 1.5rem);">In-Person Consultations: Offering Face-to-Face Meetings</h4>
+          <p>Offering face-to-face meetings in following cities:</p>
+          <p><strong>Toronto, Mississauga, Brampton, Richmond Hill, London</strong></p>
+        </div>
+        
+        <div style="margin-left: 20px;">
+          <h4 style="margin-top: 40px; margin-bottom: 15px; font-size: clamp(1.2rem, 3vw, 1.5rem);">Online Services: Serving All of Ontario</h4>
+          <p>For clients throughout Ontario, providing comprehensive online consultations and representation applies. Operating in <strong>Hamilton, Kitchener, Windsor, Oshawa, Barrie, Markham, Kingston, Guelph, Waterloo, Ottawa, Thunder Bay, Sudbury, Peterborough, Belleville, North Bay, Timmins, Sault Ste. Marie, Niagara Falls, St. Catharines, Brantford, Cambridge, Stratford, Sarnia, Chatham-Kent</strong>, or any other Ontario region enables accessing professional paralegal services remotely.</p>
+        </div>
+
+        <h2 class="seo-h2" style="margin-top: 50px;">Stopping Struggle Alone: Accessing Professional Paralegal Representation <strong>Regionally</strong></h2>
+        <p>Providing trusted paralegal services across <strong>all of Ontario</strong>—primarily serving <strong>Toronto, Brampton, Mississauga, Richmond Hill, and London</strong> for in-person consultations. For clients throughout Ontario, offering comprehensive <strong>online services</strong> ensures accessibility regardless of location. Stress about <strong>traffic tickets</strong>, facing <strong>eviction</strong>, or trying recovering deposit after landlord refusal to return it—professional support available.</p>
+        
+        <h3>Defending Traffic Tickets: Professional Ontario Traffic Ticket Defense</h3>
+        <p>Receiving <strong>speeding ticket Ontario</strong> or needing <strong>fighting parking ticket Toronto</strong>? Explaining how fighting speeding fines effectively protects driving record. Representing at major courts including <strong>Mississauga, Richmond Hill, London, and across Ontario</strong> remains available. Protecting driving record through professional representation matters.</p>
+        
+        <h3>Landlord and Tenant Board (LTB): Providing Help & Support</h3>
+        <p>Understanding overwhelming feelings when landlord initiates <strong>eviction</strong> or serves <strong>N12 notice</strong>. Receiving <strong>eviction notice Ontario</strong> or facing <strong>rent increase Ontario</strong> legal issue? Providing <strong>landlord tenant board help</strong> and <strong>tenant dispute help Ontario</strong> remains focus. Whether searching <strong>fighting eviction in Ontario</strong> or needing <strong>paralegal for eviction Ontario</strong>, defending <strong>tenant rights Ontario</strong> is primary mission.</p>
+        
+        <h3>B2B Services: Offering Business-to-Business Legal Solutions</h3>
+        <p>Navigating Ontario business landscape requires precise documentation and dispute resolution. Designing <strong>B2B paralegal services GTA</strong> for small to medium enterprises (SMEs) seeking cost-effective legal support. Assisting with <strong>business contract review Ontario</strong>, <strong>debt collection for businesses</strong>, and <strong>commercial lease disputes</strong> applies. Needing notary for business contracts or help with partnership agreement notarization? Providing fast and reliable service keeps operations running smoothly.</p>
+
+        <h3>B2G Services: Supporting Business-to-Government Legal Compliance</h3>
+        <p>Winning and maintaining government contracts involves strict <strong>regulatory compliance Ontario</strong>. Offering <strong>B2G legal support services</strong> helps businesses handle complexities of government procurement documentation and administrative tribunal representation. Dealing with municipality licensing issues, <strong>CRA dispute help</strong>, or <strong>WSIB employer compliance</strong>? Acting as bridge to government agencies applies. Providing <strong>notary for government forms</strong> and assisting with notarization of tender documents and RFP affidavits ensures bids meet all legal standards in Toronto and across Ontario.</p>
+
+        <h3>Workplace Injuries & WSIB Claims: Supporting Workers' Compensation</h3>
+        <p>Experiencing workplace injury without knowing how filing WSIB claim works? Offering <strong>WSIB claim help Ontario</strong> and <strong>workers compensation help Ontario</strong> services guide through the process. Providing workplace harassment legal help and representing at <strong>Ontario Labour Board</strong> remains available.</p>
+
+        <h3>Notary Public Services: Fast & Reliable Notarization</h3>
+        <p>Needing notary public available? Providing premier <strong>notary near you in Toronto</strong> services. Offering <strong>affidavit notarization Toronto</strong>, <strong>certified true copy notary Ontario</strong>, and acting as notary for travel consent letters applies.</p>
+        <p>Every case starts with confidential one-on-one appointment. Whether seeking <strong>affordable paralegal Toronto</strong> or <strong>cost-effective legal advice Ontario</strong>, providing <strong>how to get legal advice without a lawyer</strong> solution enables moving forward—independently or with professional support, choice remains with client.</p>
+    </section>
+</div>
+
+<!-- FULL FORM MODAL (initially hidden) -->
+<div id="fullFormModal" style="display: none; position: fixed; inset: 0; background: rgba(20, 20, 25, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9998; overflow-y: auto; padding: 20px;">
+    <div style="max-width: 700px; margin: 40px auto; background: #1a1a1f; border: 2px solid #ffffff; padding: 40px; border-radius: 24px; position: relative;">
+        <button onclick="closeFullForm()" style="position: absolute; top: 20px; left: 20px; background: none; border: none; color: var(--text-white); font-size: 28px; cursor: pointer; padding: 0; width: 30px; height: 30px; font-weight: 300;">✕</button>
+        
+        <h3 class="form-title" style="margin-bottom: 20px;">INQUIRY FORM</h3>
+        
+        <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; line-height: 1.6;">Please complete this form accurately and in full to request legal consultancy services from<br/><strong>HANNA DUNCHENKO PARALEGAL SERVICES</strong><br/>The information you provide will help us assess your inquiry, determine how we can assist you, and contact you efficiently. Incomplete or inaccurate information may delay our ability to respond.</p>
+        
+        <form id="fullAppointmentForm">
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Email *</label></div>
+                <input type="email" name="email" placeholder="your.email@example.com" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Full name *</label></div>
+                <input type="text" name="full_name" placeholder="John Doe" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Date of birth *</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required style="flex: 1; padding: 16px; border: 1px solid #ffffff;">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Phone *</label></div>
+                <input type="tel" name="phone" placeholder="+1 (437) 239-6833" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Address *</label></div>
+                <input type="text" name="address" placeholder="Street address, city, province, postal code" required style="border: 1px solid #ffffff;">
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Preferred contact method</label></div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="phone" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Phone</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="email" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Email</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1rem;">
+                        <input type="radio" name="contact_method" value="other" onchange="toggleOtherContactField(this)" style="width: auto; margin: 0; accent-color: #ffffff;">
+                        <span>Other</span>
+                    </label>
+                </div>
+                <div id="otherContactField" style="display: none; margin-top: 12px;">
+                    <input type="text" name="contact_other" placeholder="Please specify your preferred method">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Subject *</label></div>
+                <div class="select-wrapper">
+                    <select name="subject" id="subject-value" required>
+                        <option value="" disabled selected>Select a subject...</option>
+                        <option value="other">Other</option>
+                        <option value="public-notary">Public Notary services</option>
+                        <option value="employment-law">Employment Law</option>
+                        <option value="civil-matter">Civil matter</option>
+                        <option value="wsib">WSIB related issue</option>
+                        <option value="ltb">LTB related issue</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper">
+                    <label>Details *</label>
+                    <span class="char-counter"><span id="full-form-chars">0</span> / 5000</span>
+                </div>
+                <textarea name="details" maxlength="5000" placeholder="Please describe your legal matter in detail" required style="min-height: 200px; resize: none; overflow: hidden; border: 1px solid #ffffff;"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <div class="label-wrapper"><label>Attachments</label></div>
+                <input type="file" name="documents" multiple style="width: 100%; padding: 16px; background: rgba(255, 255, 255, 0.08); border: 2px dashed #ffffff; border-radius: 10px; color: var(--text-white); font-size: 1rem; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.12)';" onmouseout="this.style.borderColor='#ffffff'; this.style.background='rgba(255, 255, 255, 0.08)';">
+                <p style="text-align: center; font-size: 0.8rem; opacity: 0.65; margin-top: 10px;"><a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" style="color: var(--text-white); text-decoration: underline;">Or Use Our DropBox API</a></p>
+            </div>
+            
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; margin: 25px 0;">
+                <div style="font-size: 1.1rem; opacity: 0.9; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;"><strong>Information Accuracy:</strong> I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.</p>
+                </div>
+                
+                <div style="font-size: 1.1rem; opacity: 0.9; line-height: 1.6; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;"><strong>Data Authorization:</strong> I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.</p>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); justify-content: flex-start;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="yes" required style="width: 20px; height: 20px; margin: 0; accent-color: #ffffff; cursor: pointer;">
+                        <span>Yes</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 400; text-transform: none; font-size: 1.1rem; margin: 0; cursor: pointer;">
+                        <input type="radio" name="form_consent" value="no" required style="width: 20px; height: 20px; margin: 0; accent-color: #ffffff; cursor: pointer;">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" style="width: 100%; padding: 20px; background: #ffffff; color: #000000; border: 1px solid #ffffff; border-radius: 10px; font-weight: 900; font-size: 1.2rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1; overflow: visible;" onmouseover="this.style.background='#f0f0f0'; this.style.boxShadow='0 0 20px rgba(255, 255, 255, 0.5)';" onmouseout="this.style.background='#ffffff'; this.style.boxShadow='none';">DONE</button>
+    </div>
+</div>
+
+<footer>
+    <div class="schedule-details">EVERYDAY: 9 AM to 9 PM EST</div>
+    <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
+        © 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario
+    </p>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     JAVASCRIPT & CLIENT-SIDE INTERACTIVITY
+     ══════════════════════════════════════════════════════════════════════════════ -->
+<script>
+    /* ════════════════════════════════════════════════════════════════════════
+       FORM INITIALIZATION & DOM ELEMENTS
+       ════════════════════════════════════════════════════════════════════════ */
+    const briefArea = document.getElementById('brief');
+    const counterDisplay = document.getElementById('current-chars');
+    const consent = document.getElementById('consent');
+    const submitBtn = document.getElementById('submitBtn');
+    const stripes = document.querySelectorAll('.s-stripe');
+    const nameInput = document.getElementById('name');
+    const contactInput = document.getElementById('contact');
+    const loader = document.querySelector('.loader');
+    const formInputs = [nameInput, briefArea, contactInput];
+
+    // Fade out loader when page loads and scroll to top
+    window.addEventListener('load', () => {
+        if (loader) {
+            // Start fade out by removing `active` (triggers opacity transition)
+            loader.classList.remove('active');
+
+            // After the opacity transition ends, hide the loader to remove it from layout
+            const onTransitionEnd = (e) => {
+                if (e.propertyName === 'opacity' && !loader.classList.contains('active')) {
+                    loader.classList.add('hidden');
+                    loader.removeEventListener('transitionend', onTransitionEnd);
+                }
+            };
+            loader.addEventListener('transitionend', onTransitionEnd);
+
+            // Fallback: ensure loader is hidden if transitionend doesn't fire
+            setTimeout(() => {
+                if (!loader.classList.contains('active')) loader.classList.add('hidden');
+            }, 2200);
+        }
+
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    });
+
+    // Scroll to top on page start (for iPad and mobile devices)
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
+
+    // Inject a style rule for textarea flash with higher specificity
+    const styleEl = document.createElement('style');
+    document.head.appendChild(styleEl);
+    styleEl.sheet.insertRule('textarea#brief.flash { animation: flashBorder 0.6s ease-in-out; }', 0);
+    styleEl.sheet.insertRule('textarea#brief.bright-flash { animation: brightFlash 0.8s ease-in-out !important; background-color: rgba(255, 0, 0, 0.25) !important; border-color: #FF0000 !important; }', 0);
+
+    // Monitor form input focus to blur non-focused inputs
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            formInputs.forEach(other => {
+                if (other !== input) {
+                    other.classList.add('blur-non-focus');
+                }
+            });
+        });
+        
+        input.addEventListener('blur', () => {
+            formInputs.forEach(other => {
+                other.classList.remove('blur-non-focus');
+            });
+        });
+    });
+
+
+    /* ════════════════════════════════════════════════════════════════════════
+       CHARACTER COUNTER FOR TEXTAREA
+       ════════════════════════════════════════════════════════════════════════ */
+    briefArea.addEventListener('input', function() {
+        counterDisplay.textContent = this.value.length;
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FAQ ACCORDION TOGGLE
+       ════════════════════════════════════════════════════════════════════════ */
+    document.querySelectorAll('.faq-item').forEach(item => {
+        // FAQ items closed by default
+        item.classList.remove('active');
+    
+        // Add click toggle functionality
+        item.addEventListener('click', (e) => {
+            if (!e.target.closest('a, iframe')) {
+                item.classList.toggle('active');
+            }
+        });
+    });
+
+    // Intersection Observer for opening FAQ items when they come into view
+    const faqObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                faqObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+        faqObserver.observe(item);
+    });
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SUBMIT VALIDATION & REQUIRED FIELDS CHECK
+       ════════════════════════════════════════════════════════════════════════ */
+    submitBtn.addEventListener('click', (e) => {
+        const birthYear = document.querySelector('input[name="birth_year"]');
+        const birthMonth = document.querySelector('input[name="birth_month"]');
+        const birthDay = document.querySelector('input[name="birth_day"]');
+        const addressInput = document.querySelector('input[name="address"]');
+        const emailInput = document.querySelector('input[name="contact_email"]');
+        const contactMethodChecked = document.querySelector('input[name="contact_method"]:checked');
+        
+        const isValid = nameInput.value.trim() && 
+                       briefArea.value.trim() && 
+                       contactInput.value.trim() && 
+                       emailInput.value.trim() &&
+                       birthYear.value.trim() &&
+                       birthMonth.value.trim() &&
+                       birthDay.value.trim() &&
+                       addressInput.value.trim() &&
+                       contactMethodChecked &&
+                       consent.checked;
+        
+        if (!isValid) {
+            e.preventDefault();
+            const fieldsToFlash = [];
+
+            if (!nameInput.value.trim()) {
+                fieldsToFlash.push(nameInput);
+            }
+            if (!briefArea.value.trim()) {
+                fieldsToFlash.push(briefArea);
+            }
+            if (!birthYear.value.trim()) {
+                fieldsToFlash.push(birthYear);
+            }
+            if (!birthMonth.value.trim()) {
+                fieldsToFlash.push(birthMonth);
+            }
+            if (!birthDay.value.trim()) {
+                fieldsToFlash.push(birthDay);
+            }
+            if (!addressInput.value.trim()) {
+                fieldsToFlash.push(addressInput);
+            }
+            if (!contactInput.value.trim()) {
+                fieldsToFlash.push(contactInput);
+            }
+            if (!emailInput.value.trim()) {
+                fieldsToFlash.push(emailInput);
+            }
+            if (!contactMethodChecked) {
+                // Добавляем контейнер с радиокнопками
+                const contactMethodContainer = document.querySelector('div[style*="flex-direction: column"]');
+                if (contactMethodContainer) {
+                    fieldsToFlash.push(contactMethodContainer);
+                }
+            }
+            if (!consent.checked) {
+                fieldsToFlash.push(consent);
+            }
+
+            // Применяем вспышку со задержкой для более надежного срабатывания
+            fieldsToFlash.forEach(field => {
+                field.classList.remove('bright-flash'); // Сбрасываем предыдущую анимацию
+                void field.offsetWidth; // Trigger reflow для перезапуска анимации
+                field.classList.add('bright-flash');
+                setTimeout(() => {
+                    field.classList.remove('bright-flash');
+                }, 800);
+            });
+        }
+    });
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FORM STATE MONITORING
+       ════════════════════════════════════════════════════════════════════════ */
+    formInputs.forEach(input => {
+        const updateVisuals = () => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-content');
+            } else {
+                input.classList.remove('has-content');
+            }
+        };
+        input.addEventListener('input', updateVisuals);
+        updateVisuals(); // Initial check for autocomplete
+    });
+
+    // Handle Other contact field styling
+    const otherContactInputs = document.querySelectorAll('#otherContactField input');
+    otherContactInputs.forEach(input => {
+        const updateVisuals = () => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-content');
+            } else {
+                input.classList.remove('has-content');
+            }
+        };
+        input.addEventListener('input', updateVisuals);
+        updateVisuals(); // Initial check for autocomplete
+    });
+
+    // Listener for consent checkbox (doesn't need content check but might be used for other things)
+    consent.addEventListener('change', () => {
+        const isValid = nameInput.value.trim() && briefArea.value.trim() && contactInput.value.trim() && consent.checked;
+    });
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SPARK ANIMATION - RARE (2-20 MINUTES)
+       ════════════════════════════════════════════════════════════════════════ */
+    const btnStar = document.querySelector('.btn-star');
+    if (btnStar) {
+        const MIN_SPARK_INTERVAL = 2 * 60 * 1000;    // 2 minutes minimum
+        const MAX_SPARK_INTERVAL = 20 * 60 * 1000;   // 20 minutes maximum
+        const SPARK_DURATION = '0.6s';
+        const MIN_SCALE = 0.6;
+        const MAX_SCALE = 1.5;
+        
+        function triggerSpark() {
+            const randomRotation = 400 + Math.random() * 1600;
+            const randomDirection = Math.random() > 0.5 ? 1 : -1;
+            const randomScale = MIN_SCALE + Math.random() * (MAX_SCALE - MIN_SCALE);
+            btnStar.style.setProperty('--spark-rotation-deg', `${randomRotation}deg`);
+            btnStar.style.setProperty('--spark-rotation-dir', randomDirection);
+            btnStar.style.setProperty('--spark-scale', randomScale);
+            btnStar.style.animation = 'none';
+            setTimeout(() => {
+                btnStar.style.animation = `starFlash ${SPARK_DURATION} ease-in-out forwards`;
+            }, 10);
+        }
+        
+        function scheduleNextSpark() {
+            const randomInterval = MIN_SPARK_INTERVAL + Math.random() * (MAX_SPARK_INTERVAL - MIN_SPARK_INTERVAL);
+            setTimeout(() => {
+                triggerSpark();
+                scheduleNextSpark();
+            }, randomInterval);
+        }
+        
+        // Start after 3-5 seconds
+        setTimeout(() => {
+            scheduleNextSpark();
+        }, 3000 + Math.random() * 2000);
+    }
+
+    function toggleOtherContactField(radio) {
+        const otherField = radio.closest('.input-group').querySelector('#otherContactField');
+        if (otherField) {
+            otherField.style.display = radio.checked && radio.value === 'other' ? 'block' : 'none';
+        }
+    }
+
+    /* ════════════════════════════════════════════════════════════════════════
+       FULL FORM MODAL TOGGLE
+       ════════════════════════════════════════════════════════════════════════ */
+    function toggleFullForm(event) {
+        if (event) event.preventDefault();
+        const modal = document.getElementById('fullFormModal');
+        if (modal) {
+            modal.style.display = modal.style.display === 'none' ? 'block' : 'none';
+            document.body.style.overflow = modal.style.display === 'block' ? 'hidden' : 'auto';
+        }
+    }
+
+    function closeFullForm() {
+        const modal = document.getElementById('fullFormModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Handle full form submission
+    const fullForm = document.getElementById('fullAppointmentForm');
+    if (fullForm) {
+        fullForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(fullForm);
+            const data = Object.fromEntries(formData);
+            console.log('Full Form Submission:', data);
+            alert('Thank you for your submission! I will contact you within 5 to 30 minutes.');
+            closeFullForm();
+            fullForm.reset();
+        });
+        
+        // Character counter for textarea in full form
+        const fullFormTextarea = fullForm.querySelector('textarea[name="details"]');
+        if (fullFormTextarea) {
+            fullFormTextarea.addEventListener('input', function() {
+                const counter = document.getElementById('full-form-chars');
+                if (counter) counter.textContent = this.value.length;
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+    }
+
+    // Close modal when clicking outside (on the overlay)
+    const modalEl = document.getElementById('fullFormModal');
+    if (modalEl) {
+        modalEl.addEventListener('click', (e) => {
+            if (e.target === modalEl) {
+                closeFullForm();
+            }
+        });
+    }
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SYSTEM STARTUP SOUND - RELIABLE BASE64 AUDIO
+       ════════════════════════════════════════════════════════════════════════ */
+    class SoundManager {
+        constructor() {
+            this.lastSoundTime = this.getLastSoundTime();
+            this.soundEnabled = this.getSoundEnabled();
+            this.SOUND_COOLDOWN = 10 * 60 * 1000; // 10 minutes
+            this.COOKIE_LAST_SOUND = 'lastSoundTime';
+            this.COOKIE_SOUND_ENABLED = 'soundEnabled';
+            this.audioData = 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==';
+            this.init();
+        }
+
+        init() {
+            // Play sound immediately and require user interaction for AudioContext
+            this.createAudioElement();
+            this.playStartupSound();
+            
+            // Initialize audio context on first user interaction for future sounds
+            document.addEventListener('click', () => this.ensureAudioContext(), { once: true });
+            document.addEventListener('touchstart', () => this.ensureAudioContext(), { once: true });
+        }
+
+        createAudioElement() {
+            // Create a global audio element for playback
+            if (!window.startupAudio) {
+                window.startupAudio = new Audio();
+                window.startupAudio.volume = 0.3;
+            }
+        }
+
+        ensureAudioContext() {
+            if (!window.audioContext) {
+                try {
+                    window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    if (window.audioContext.state === 'suspended') {
+                        window.audioContext.resume();
+                    }
+                } catch (e) {
+                    console.log('AudioContext not available');
+                }
+            }
+        }
+
+        getLastSoundTime() {
+            const cookie = this.getCookie(this.COOKIE_LAST_SOUND);
+            return cookie ? parseInt(cookie) : 0;
+        }
+
+        getSoundEnabled() {
+            const cookie = this.getCookie(this.COOKIE_SOUND_ENABLED);
+            return cookie !== 'false'; // Default: true
+        }
+
+        setSoundEnabled(enabled) {
+            this.soundEnabled = enabled;
+            this.setCookie(this.COOKIE_SOUND_ENABLED, enabled.toString(), 365);
+        }
+
+        setCookie(name, value, days = 1) {
+            const date = new Date();
+            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+            const expires = 'expires=' + date.toUTCString();
+            document.cookie = `${name}=${value};${expires};path=/;SameSite=Strict`;
+        }
+
+        getCookie(name) {
+            const nameEQ = name + '=';
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.indexOf(nameEQ) === 0) {
+                    return cookie.substring(nameEQ.length);
+                }
+            }
+            return null;
+        }
+
+        canPlaySound() {
+            const now = Date.now();
+            const timeSinceLastSound = now - this.lastSoundTime;
+            return this.soundEnabled && timeSinceLastSound >= this.SOUND_COOLDOWN;
+        }
+
+        playStartupSound() {
+            if (!this.canPlaySound()) return;
+
+            try {
+                // Use Web Audio API for synthesis if available
+                this.playWebAudioSound();
+                
+                // Update cookie with current time
+                this.setCookie(this.COOKIE_LAST_SOUND, Date.now().toString(), 1);
+                this.lastSoundTime = Date.now();
+            } catch (e) {
+                console.log('Sound playback error:', e);
+            }
+        }
+
+        playWebAudioSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Resume if suspended
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+                const baseFreq = 523.25; // C5 note
+                
+                // Create 3 ascending notes
+                const notes = [
+                    { freq: baseFreq, time: 0, duration: 0.15 },           // C5
+                    { freq: baseFreq * 1.2599, time: 0.12, duration: 0.15 }, // D5
+                    { freq: baseFreq * 1.5874, time: 0.24, duration: 0.2 }   // E5
+                ];
+
+                notes.forEach(note => {
+                    const oscillator = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(note.freq, now + note.time);
+                    
+                    // Smooth fade in and out
+                    gainNode.gain.setValueAtTime(0, now + note.time);
+                    gainNode.gain.linearRampToValueAtTime(0.15, now + note.time + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + note.time + note.duration - 0.01);
+                    gainNode.gain.linearRampToValueAtTime(0, now + note.time + note.duration);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    oscillator.start(now + note.time);
+                    oscillator.stop(now + note.time + note.duration);
+                });
+            } catch (e) {
+                console.log('Web Audio API not available, falling back to HTML5 audio');
+            }
+        }
+
+        toggleSound() {
+            this.setSoundEnabled(!this.soundEnabled);
+            return this.soundEnabled;
+        }
+    }
+
+    // Initialize sound manager
+    const soundManager = new SoundManager();
+
+    // Add sound toggle button to header (optional)
+    window.toggleSound = () => soundManager.toggleSound();
+
+    /* ════════════════════════════════════════════════════════════════════════
+       WHATSAPP BUTTON SCROLL ANIMATION
+       ════════════════════════════════════════════════════════════════════════ */
+    const whatsappIcon = document.querySelector('.whatsapp-icon-spin');
+    const whatsappLabel = document.querySelector('.whatsapp-text-label');
+    let isWhatsappAnimating = false;
+    let lastWhatsappAnimationTime = 0;
+    const WHATSAPP_ANIMATION_COOLDOWN = 5000; // 5 seconds
+    
+    // Mark animation as complete when it finishes
+    if (whatsappIcon) {
+        whatsappIcon.addEventListener('animationend', () => {
+            isWhatsappAnimating = false;
+        });
+    }
+    
+    if (whatsappLabel) {
+        whatsappLabel.addEventListener('animationend', () => {
+            isWhatsappAnimating = false;
+        });
+    }
+
+</script>
+
+<!-- ══════════════════════════════════════════════════════════════════════════════
+     END JAVASCRIPT
+     ══════════════════════════════════════════════════════════════════════════════ -->
+
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║          MADE BY 3DSITER@GMAIL.COM                                       ║
+║         Odesa (Ukraine) with love to Toronto Canada                        ║
+║                                                                              ║
+║         © 2026 Hanna Dunchenko | Paralegal Services GTA                     ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+</body>
+</html>
