@@ -83,13 +83,36 @@
             75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
             100% { transform: translate(0, 0) scaleX(1); }
         }
+        @keyframes faqReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bulletMorph {
+            0% { border-radius: 50%; width: 8px; height: 8px; background-color: transparent; }
+            50% { border-radius: 40%; width: 10px; height: 8px; background-color: rgba(255, 255, 255, 0.3); }
+            100% { border-radius: 50%; width: 8px; height: 8px; background-color: var(--text-white); }
+        }
+        
+        /* ══════════════════════════════════════════════════════════════════════
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            50% { transform: translate(0, 0) scaleX(1); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+            100% { transform: translate(0, 0) scaleX(1); }
+        }
         
         /* ══════════════════════════════════════════════════════════════════════
            GLOBAL STYLES & LAYOUT
            ══════════════════════════════════════════════════════════════════════ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* Remove scrollbar */
+        ::-webkit-scrollbar { display: none; }
+        ::-webkit-scrollbar-track { display: none; }
+        ::-webkit-scrollbar-thumb { display: none; }
         html, body {
             scroll-behavior: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
         
         body {
@@ -450,12 +473,13 @@
         /* ══════════════════════════════════════════════════════════════════════
            FAQ SECTION - ACCORDION WITH SPOILERS
            ══════════════════════════════════════════════════════════════════════ */
-        .faq-section { margin-top: 20px; }
+        .faq-section { margin-top: 80px; }
         .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
         .faq-q { font-weight: 900; margin-bottom: 10px; font-size: 1.4rem; text-transform: uppercase; display: flex; align-items: flex-start; gap: 15px; }
         .faq-q::before { content: ""; display: inline-block; width: 12px; height: 12px; min-width: 12px; flex-shrink: 0; border-radius: 50%; border: 2px solid #ffffff; transition: all 0.3s ease; margin-top: 12px; }
-        .faq-item.active .faq-q::before { background-color: #ffffff; }
-        .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
+        .faq-item.active .faq-q::before { background-color: #ffffff; border-radius: 50%; }
+        /* FAQ Answer Animation Duration - Change '2s' to adjust speed (e.g., 0.5s for fast, 3s for slower) */
+        .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; animation: faqReveal 2s ease-out forwards; }
         .faq-item.active .faq-a { display: block; }
         .faq-section > p { margin-bottom: 20px; opacity: 0.9; display: none; }
         .faq-section > ul { 
@@ -1234,19 +1258,16 @@
 <header class="reveal">
     <div class="name-title">Hanna Dunchenko</div>
     <div class="services-title">Paralegal Services</div>
-    
+    <div class="phone-container" style="margin: 15px 0;">
+        <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    </div>
     <h1 class="seo-h1">
         <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
         <span>Traffic Ticket Defense, LTB, WSIB, and More</span>
         <span>Toronto, Mississauga, Brampton, Richmond Hill, London</span>
-        <span>Book Your Appointment with Our Team</span>
+        <span>Book Your Appointment with this Form</span>
     </h1>
-    <div class="phone-container">
-        <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
-    </div>
 </header>
-
-<p style="font-size: 0.8rem; opacity: 0; filter: blur(12px); line-height: 1.4; margin-top: 20px; margin-bottom: 20px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto; animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; color: rgba(255, 255, 255, 0.65);">Please complete this form accurately and in full to request legal consultancy services from<br><strong>HANNA DUNCHENKO PARALEGAL SERVICES</strong>.<br>The information you provide will help us assess your inquiry, determine how we can assist you, and contact you efficiently. Incomplete or inaccurate information may delay our ability to respond.</p>
 
 <div class="container">
     <div class="glass-form">
@@ -1317,6 +1338,7 @@
             </div>
             <div class="input-group">
                 <div class="disclaimer-text" style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;">I completed this form with accurate information to help Hanna respond to my inquiry quickly and effectively. I understand she needs this information to understand my legal situation and provide appropriate guidance. Incomplete or inaccurate information may delay her ability to provide timely assistance.</p>
                     <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.</p>
                     <p>I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.</p>
                 </div>
@@ -1339,6 +1361,8 @@
         </form>
     </div>
 
+<div style="font-size: 1.35rem; font-weight: 700; opacity: 0; filter: blur(12px); line-height: 1.8; margin-top: 40px; margin-bottom: 50px; padding: 35px 30px; text-align: center; max-width: 850px; margin-left: auto; margin-right: auto; animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; color: rgba(255, 255, 255, 0.95);"><strong style="font-size: 1.8rem; display: block; margin-bottom: 20px; font-weight: 900;">Ready to Protect Your Rights?</strong>Fill out the form above to get professional legal help from<br><strong style="font-size: 1.4rem;">HANNA DUNCHENKO PARALEGAL SERVICES</strong>.<br>Share your situation and I'll contact you right away.</div>
+
 
     <h2 style="font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-align: center; margin-bottom: 30px; margin-top: 50px;">FAQ</h2>
 
@@ -1356,7 +1380,7 @@
           <div class="faq-item">
             <div class="faq-q">So, what is the estimated cost?</div>
             <div class="faq-a">
-              Legal fees in the GTA vary based on the specific complexity and volume of the file. To provide you with a baseline, here are the typical market ranges for standard matters in Toronto. Final quotes depend on applicable filing fees and case complexity. Please note these are general estimates for reference only:
+              Legal fees in Toronto vary by service. See typical rates below for common matters. Prices are for reference only:
               <table class="price-table">
                 <tr><td>Traffic Ticket Defense</td><td>$400 – 700 CAD</td></tr>
                 <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
@@ -1657,8 +1681,8 @@
        FAQ ACCORDION TOGGLE
        ════════════════════════════════════════════════════════════════════════ */
     document.querySelectorAll('.faq-item').forEach(item => {
-        // Open all FAQ items by default
-        item.classList.add('active');
+        // FAQ items closed by default
+        item.classList.remove('active');
     
         // Add click toggle functionality
         item.addEventListener('click', (e) => {
@@ -1666,6 +1690,20 @@
                 item.classList.toggle('active');
             }
         });
+    });
+
+    // Intersection Observer for opening FAQ items when they come into view
+    const faqObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                faqObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+        faqObserver.observe(item);
     });
 
     /* ════════════════════════════════════════════════════════════════════════
