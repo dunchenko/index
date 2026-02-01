@@ -147,7 +147,7 @@
         /* ══════════════════════════════════════════════════════════════════════
            HEADER & HERO SECTION
            ══════════════════════════════════════════════════════════════════════ */
-        header { text-align: center; padding: 15px 20px 30px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        header { text-align: center; padding: 15px 20px 30px; display: flex; flex-direction: column; align-items: center; opacity: 0; filter: blur(12px); animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
         .name-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; margin-bottom: 5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .services-title { font-size: clamp(1.4rem, 8vw, 5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; line-height: 1.1; margin-bottom: 20px; }
         
@@ -160,7 +160,7 @@
         /* ══════════════════════════════════════════════════════════════════════
            FORM STYLES
            ══════════════════════════════════════════════════════════════════════ */
-        .container { max-width: 650px; margin: 0 auto; padding: 20px; opacity: 0; filter: blur(12px); animation: revealAnimation 3s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
+        .container { max-width: 650px; margin: 0 auto; padding: 20px; opacity: 0; filter: blur(12px); animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; }
         .glass-form {
             background: var(--glass-bg); /* Полупрозрачный фон */
             backdrop-filter: blur(20px); /* Тот самый эффект мутности */
@@ -1246,10 +1246,12 @@
     </div>
 </header>
 
+<p style="font-size: 0.8rem; opacity: 0; filter: blur(12px); line-height: 1.4; margin-top: 20px; margin-bottom: 20px; text-align: center; max-width: 600px; margin-left: auto; margin-right: auto; animation: revealAnimation 1.8s cubic-bezier(0.22, 0.9, 0.3, 1) forwards 0s; color: rgba(255, 255, 255, 0.65);">Please complete this form accurately and in full to request legal consultancy services from<br><strong>HANNA DUNCHENKO PARALEGAL SERVICES</strong>.<br>The information you provide will help us assess your inquiry, determine how we can assist you, and contact you efficiently. Incomplete or inaccurate information may delay our ability to respond.</p>
+
 <div class="container">
     <div class="glass-form">
         <form id="appointmentForm">
-            <h3 class="form-title">Quick Form:</h3>
+            <h3 class="form-title">Quick Form</h3>
             <div class="input-group">
                 <div class="label-wrapper"><label>Name</label></div>
                 <input type="text" id="name" name="client_name" placeholder="Jane Doe..." required>
