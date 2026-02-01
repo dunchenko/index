@@ -259,7 +259,7 @@
         }
         .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         label { font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-        .char-counter { font-size: 0.75rem; opacity: 0.3; color: rgba(255, 255, 255, 0.3); position: absolute; top: 12px; right: 12px; transition: all 0.3s ease; }
+        .char-counter { font-size: 0.75rem; opacity: 0.5; color: rgba(255, 255, 255, 0.6); position: absolute; top: 12px; right: 12px; transition: all 0.3s ease; }
         textarea#brief.has-content ~ .textarea-accessories .char-counter,
         .input-group:has(textarea#brief.has-content) .char-counter { color: #6B5B4A; opacity: 0.8; }
         
@@ -434,13 +434,13 @@
         .attach-icon svg {
             width: 24px;
             height: 24px;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.5);
             stroke: currentColor;
             fill: none;
             transition: all 0.3s ease;
             display: block;
             stroke-width: 1.5;
-            opacity: 0.5;
+            opacity: 0.7;
         }
         .attach-icon:hover {
             transform: scale(1.1);
@@ -468,6 +468,8 @@
         .flash { animation: flashBorder 0.6s ease-in-out; }
         .bright-flash { animation: brightFlash 0.8s ease-in-out !important; }
         .bright-flash[type="checkbox"] { animation: brightFlash 0.8s ease-in-out !important; border-color: #FF0000 !important; box-shadow: 0 0 25px rgba(255, 0, 0, 1) !important; }
+        .bright-flash > [type="radio"] { box-shadow: 0 0 15px rgba(255, 0, 0, 0.8) !important; }
+        .bright-flash { border: 1px solid #FF0000 !important; box-shadow: 0 0 20px rgba(255, 0, 0, 0.6) !important; }
 
         
         /* ══════════════════════════════════════════════════════════════════════
@@ -1260,6 +1262,7 @@
     <div class="services-title">Paralegal Services</div>
     <div class="phone-container" style="margin: 15px 0;">
         <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+        <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 8px;">Free Call</div>
     </div>
     <h1 class="seo-h1">
         <span>Protect Your Rights in GTA: Paralegal & Notary Services</span>
