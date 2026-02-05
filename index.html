@@ -429,7 +429,7 @@
                     <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
                 </div>
                 <div style="position: relative;">
-                    <textarea id="brief" name="description" maxlength="1024" placeholder="Hello, please contact me regarding my traffic ticket, landlord tenant issues, workers' compensation, or notary services, we need to meet face to face asap" required></textarea>
+                    <textarea id="brief" name="description" maxlength="1024" placeholder="Hello, please contact me regarding my traffic ticket, landlord tenant issues, workers' compensation, or notary services, we need to meet face to face asap..." required></textarea>
                     <div class="textarea-accessories">
                         <a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" class="attach-icon" title="Upload file to Dropbox">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -442,25 +442,25 @@
 
             <div class="input-wrapper">
                 <div class="label-row"><label>Phone</label></div>
-                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number">
+                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number...">
             </div>
 
             <div class="input-wrapper">
                 <div class="label-row"><label>Address</label></div>
-                <input type="text" id="address" name="address" placeholder="Street address, city, zip" required>
+                <input type="text" id="address" name="address" placeholder="Street address, city, zip..." required>
             </div>
 
             <div class="input-wrapper">
                 <div class="label-row"><label>Email</label></div>
-                <input type="email" id="email" name="contact_email" required placeholder="Email address">
+                <input type="email" id="email" name="contact_email" required placeholder="Email address...">
             </div>
 
             <div class="input-wrapper">
                 <div class="label-row"><label>Date of birth</label></div>
                 <div style="display: flex; gap: 10px;">
-                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required>
-                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required>
-                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required>
+                    <input type="number" name="birth_year" placeholder="YYYY..." min="1900" required>
+                    <input type="number" name="birth_month" placeholder="MM..." min="1" max="12" required>
+                    <input type="number" name="birth_day" placeholder="DD..." min="1" max="31" required>
                 </div>
             </div>
 
@@ -634,6 +634,11 @@
      ══════════════════════════════════════════════════════════════════════════════ -->
 
 <footer style="text-align: center; padding: 30px 20px; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.8;">
+    <div style="margin-bottom: 40px;">
+        <a href="tel:+14372396833" style="display: block; color: #ffffff; font-size: 1.8rem; font-weight: 900; text-decoration: none; margin-bottom: 8px;">+1 (437) 239-6833</a>
+        <a href="mailto:paralegal@hannadunchenko.com" style="display: block; color: #ffffff; font-size: 1.1rem; text-decoration: none; opacity: 0.9; margin-bottom: 25px;">paralegal@hannadunchenko.com</a>
+        <button onclick="document.getElementById('appointmentForm').scrollIntoView({behavior: 'smooth'})" class="btn-submit" style="max-width: 320px; margin: 0 auto;">BOOK APPOINTMENT NOW</button>
+    </div>
     <p>&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
 </footer>
 
