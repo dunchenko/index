@@ -294,7 +294,7 @@
         }
 
         details[open] .faq-answer {
-            animation: slideDownFade 0.5s ease forwards;
+            animation: slideDownFade 1.2s ease forwards;
         }
 
         @keyframes slideDownFade {
@@ -512,7 +512,7 @@
                     <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
                     <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
                 </table>
-                <span style="font-size: 0.8rem; opacity: 0.7; display: block; margin-top: 10px; text-align: right;">*Pricing varies your final estimate reflects the complete total.</span>
+                <span style="font-size: 0.8rem; opacity: 0.7; display: block; margin-top: 10px; text-align: right;">*Pricing varies, your final estimate reflects the complete total.</span>
             </div>
         </details>
 
@@ -564,7 +564,7 @@
 
 <section class="seo-section">
     <h2>Paralegal Services: Greater Toronto Area & Provincial Coverage</h2>
-    <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Mississauga, Brampton, Hamilton, Cambridge, Kitchener, London, Waterloo, Guelph, Woodstock, Stratford, Brantford, St. Catharines, Niagara Falls, Burlington, Oakville, and Richmond Hill. Virtual services extend access province-wide for clients requiring remote assistance.</p>
+    <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Mississauga, Brampton, Hamilton, Cambridge, Kitchener, London, Waterloo, Guelph, Woodstock, Stratford, Brantford, St. Catharines, Niagara Falls, Burlington, Oakville, Richmond Hill, Chatham, Sarnia, Windsor among others. Virtual services extend access province-wide for clients requiring remote assistance.</p>
     <p><em>**Please note that online services are available to clients throughout the entire province, including areas beyond the cities listed.</em></p>
     
     <h3>Traffic Offence Representation: Provincial Court Defence</h3>
@@ -607,26 +607,21 @@
         });
     });
 
-    // FAQ auto-open on scroll
-    const faqItems = document.querySelectorAll('.faq-item');
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
+    // FAQ Auto-open on scroll
+    const faqItems = Array.from(document.querySelectorAll('details'));
+    const observer = new IntersectionObserver((entries) => {
+        const intersecting = entries.filter(entry => entry.isIntersecting);
+        intersecting.sort((a, b) => faqItems.indexOf(a.target) - faqItems.indexOf(b.target));
+        
+        intersecting.forEach((entry, index) => {
+            setTimeout(() => {
                 entry.target.open = true;
-                observer.unobserve(entry.target);
-            }
+            }, index * 600);
+            observer.unobserve(entry.target);
         });
-    }, observerOptions);
+    }, { threshold: 0.15 });
 
-    faqItems.forEach(item => {
-        observer.observe(item);
-    });
+    faqItems.forEach(item => observer.observe(item));
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════════
