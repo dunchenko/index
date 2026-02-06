@@ -47,14 +47,14 @@
         }
 
         .name-title { 
-            font-size: clamp(2rem, 5vw, 3rem); 
+            font-size: clamp(3rem, 6vw, 4.5rem); 
             font-weight: 900; 
             margin-bottom: 8px;
             letter-spacing: 1px;
         }
 
         .services-title { 
-            font-size: clamp(3.5rem, 12vw, 7rem); 
+            font-size: clamp(4.5rem, 14vw, 9rem); 
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
@@ -86,7 +86,7 @@
         }
 
         /* ------------------- CONTAINER & FORM ------------------- */
-        .main-container { max-width: 650px; margin: 20px auto 0; padding: 20px; }
+        .main-container { max-width: 650px; margin: 0 auto 0; padding: 20px; }
         
         .glass-box {
             background: rgba(255, 255, 255, 0.05);
@@ -355,6 +355,114 @@
         .seo-section a:hover {
             color: #ffffff;
         }
+
+        /* ------------------- MODAL / POPUP ------------------- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--text-white);
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #D4B89A;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-white);
+        }
+
+        .modal-body h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .modal-body p {
+            margin-bottom: 12px;
+            opacity: 0.95;
+        }
+
+        .modal-body strong {
+            font-weight: 700;
+            color: #D4B89A;
+        }
+
+        .terms-link {
+            color: #ffffff;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 700;
+        }
+
+        .terms-link:hover {
+            color: #D4B89A;
+        }
         
         /* ------------------- RESPONSIVE ------------------- */
         @media (max-width: 768px) {
@@ -416,7 +524,7 @@
 </header>
 
 <div class="main-container">
-    <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 25px; line-height: 1.5;">If you have a Google Account you can use <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" style="color: #ffffff; text-decoration: underline; transition: color 0.3s ease;">Google Forms</a></p>
+    <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; margin-top: 0; line-height: 1.5;">If you have a Google Account you can use <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" style="color: #ffffff; text-decoration: underline; transition: color 0.3s ease;">Google Forms</a></p>
     <div class="glass-box">
         <form id="appointmentForm">
             <h3 class="form-title">INQUIRY FORM</h3>
@@ -452,7 +560,7 @@
                 <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;">
                     <input type="checkbox" id="consent" name="form_consent" required>
                     <label for="consent" style="font-size: 0.9rem; font-weight: 700; cursor: pointer;">
-                        I AGREE TO SHARE MY INFO. RELATIONSHIP AFTER SIGNING.
+                        I have read and agree to the <span class="terms-link" id="openTermsBtn" onclick="openTermsModal()">Terms of Service</span>.
                     </label>
                 </div>
             </div>
@@ -531,9 +639,50 @@ For complex matters involving <strong>multiple hearings</strong> fees may increa
                 <div style="width: 100%; height: 350px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNUzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); background-size: cover; border-radius: 10px; overflow: hidden;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <p style="margin-top: 15px; text-align: right;"><strong>Hours of Operation:</strong> Every day 9:00 AM – 9:00 PM</p>
+                <p style="margin-top: 15px; text-align: right;"><strong>Hours of Operation:</strong> Hours of Operation:
+Monday – Saturday: 10:00 AM – 4:00 PM
+Sunday: Closed
+</p>
             </div>
         </details>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TERMS OF SERVICE MODAL -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="termsModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeTermsModal()">&times;</button>
+        <h2 class="modal-title">Terms of Service</h2>
+        <div class="modal-body">
+            <h3>Paralegal Representation (Ontario)</h3>
+            
+            <h3>1. IRREVOCABLE CLIENT OBLIGATIONS</h3>
+            <p>The Client acknowledges and agrees that all fees paid to the Paralegal are fully earned upon receipt and are strictly non-refundable under any circumstances, regardless of the outcome, early termination, or withdrawal of services. The Client assumes full financial responsibility for all costs, disbursements, and legal fees incurred.</p>
+            
+            <h3>2. NO WARRANTIES & ABSOLUTE INDEMNITY</h3>
+            <p>The Paralegal makes absolutely no representations, warranties, or guarantees regarding the success or outcome of any legal matter. The Client hereby agrees to indemnify, defend, and hold harmless the Paralegal from any and all claims, liabilities, damages, or losses arising from the representation, including those resulting from the Paralegal's own actions or advice.</p>
+            
+            <h3>3. UNILATERAL RIGHT TO WITHDRAW</h3>
+            <p>The Paralegal reserves the absolute, unrestricted right to withdraw from representation at any time, for any reason whatsoever, without prior notice or justification. Upon such withdrawal, the Client remains liable for all outstanding fees and shall have no claim against the Paralegal for any alleged damages resulting from said withdrawal.</p>
+            
+            <h3>4. CLIENT'S SOLE RESPONSIBILITY</h3>
+            <p>The Client bears sole and exclusive responsibility for the accuracy, completeness, and timeliness of all information and evidence provided. The Client acknowledges that any failure to provide truthful or complete information constitutes a material breach, immediately voiding any obligations of the Paralegal while retaining the Client's financial liabilities.</p>
+            
+            <h3>5. LIMITATION OF LIABILITY</h3>
+            <p>To the maximum extent permitted by law, the Paralegal's liability is strictly limited to $1.00 (one Canadian dollar). The Client explicitly waives any right to pursue the Paralegal for negligence, malpractice, or breach of contract beyond this nominal amount.</p>
+
+            <ul style="margin-left: 20px; margin-bottom: 15px;">
+                <li style="margin-bottom: 8px;">Client waives all rights to dispute fees.</li>
+                <li style="margin-bottom: 8px;">Client accepts full risk of legal proceedings.</li>
+                <li style="margin-bottom: 8px;">Paralegal owes no duty of care beyond regulatory minimums.</li>
+            </ul>
+            
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 1.15rem; color: #ffffff; font-weight: 700;">
+                By checking the consent box, you irrevocably acknowledge that you have read, understood, and agree to be bound by these Terms of Service, surrendering significant legal rights.
+            </p>
+        </div>
     </div>
 </div>
 
@@ -582,6 +731,37 @@ For complex matters involving <strong>multiple hearings</strong> fees may increa
             else input.classList.remove('has-content');
         });
     });
+
+    // Terms of Service Modal
+    function openTermsModal() {
+        const modal = document.getElementById('termsModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeTermsModal() {
+        const modal = document.getElementById('termsModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Close modal when clicking outside the modal content
+    document.getElementById('termsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeTermsModal();
+        }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTermsModal();
+        }
+    });
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════════
@@ -590,9 +770,13 @@ For complex matters involving <strong>multiple hearings</strong> fees may increa
 
 <footer style="text-align: center; padding: 30px 20px; color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; line-height: 1.8;">
     <div style="margin-bottom: 40px;">
-        <a href="tel:+14372396833" style="display: block; color: #ffffff; font-size: 1.8rem; font-weight: 900; text-decoration: none; margin-bottom: 8px;">+1 (437) 239-6833</a>
-        <a href="mailto:paralegal@hannadunchenko.com" style="display: block; color: #ffffff; font-size: 1.1rem; text-decoration: none; opacity: 0.9; margin-bottom: 25px;">paralegal@hannadunchenko.com</a>
         <button onclick="document.getElementById('appointmentForm').scrollIntoView({behavior: 'smooth'})" class="btn-submit" style="max-width: 320px; margin: 0 auto;">BOOK APPOINTMENT NOW</button>
+        <a href="tel:+14372396833" style="display: block; color: #ffffff; font-size: 1.8rem; font-weight: 900; text-decoration: none; margin-bottom: 25px; margin-top: 25px;">+1 (437) 239-6833</a>
+        <div style="font-size: 0.95rem; color: #ffffff; margin-bottom: 20px;">
+            <strong>Hours of Operation:</strong><br>
+            Monday – Saturday: 10:00 AM – 4:00 PM<br>
+            Sunday: Closed
+        </div>
     </div>
     <p>&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
 </footer>
