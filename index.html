@@ -382,6 +382,9 @@
             max-width: 700px;
             max-height: 85vh;
             overflow-y: auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
             position: relative;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             animation: modalSlideIn 0.3s ease;
@@ -414,6 +417,7 @@
             align-items: center;
             justify-content: center;
             transition: color 0.3s ease;
+            z-index: 10;
         }
 
         .modal-close:hover {
@@ -426,12 +430,29 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            flex-shrink: 0;
         }
 
         .modal-body {
             font-size: 0.95rem;
             line-height: 1.7;
             color: var(--text-white);
+            overflow-y: auto;
+            padding-right: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #D4B89A rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #D4B89A;
+            border-radius: 3px;
         }
 
         .modal-body h3 {
@@ -524,7 +545,6 @@
 </header>
 
 <div class="main-container">
-    <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; margin-top: 0; line-height: 1.5;">If you have a Google Account you can use <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" style="color: #ffffff; text-decoration: underline; transition: color 0.3s ease;">Google Forms</a></p>
     <div class="glass-box">
         <form id="appointmentForm">
             <h3 class="form-title">INQUIRY FORM</h3>
@@ -595,8 +615,8 @@
                     <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
                     <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
                 </table>
-                <span style="font-size: 1rem; opacity: 0.9; display: block; margin-top: 10px; text-align: left;">*Pricing varies. Your final estimate reflects the complete total.<br>
-For complex matters involving <strong>multiple hearings</strong> fees may increase and reach up to 2,500 CAD or higher.</span>
+                <span style="font-size: 1rem; opacity: 0.9; display: block; margin-top: 10px; text-align: left;">*PRICING VARIES. YOUR FINAL ESTIMATE REFLECTS THE COMPLETE TOTAL.<br>
+FOR COMPLEX MATTERS INVOLVING <strong>MULTIPLE HEARINGS</strong> FEES MAY INCREASE AND REACH UP TO 2,500 CAD OR HIGHER.</span>
             </div>
         </details>
 
@@ -639,9 +659,9 @@ For complex matters involving <strong>multiple hearings</strong> fees may increa
                 <div style="width: 100%; height: 350px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNUzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); background-size: cover; border-radius: 10px; overflow: hidden;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <p style="margin-top: 15px; text-align: right;"><strong>Hours of Operation:</strong> Hours of Operation:
+                <p style="margin-top: 15px; text-align: right;"><strong>Hours of Operation:</strong><br>
+Sunday: Closed<br>
 Monday – Saturday: 10:00 AM – 4:00 PM
-Sunday: Closed
 </p>
             </div>
         </details>
@@ -673,6 +693,9 @@ Sunday: Closed
             <h3>5. LIMITATION OF LIABILITY</h3>
             <p>To the maximum extent permitted by law, the Paralegal's liability is strictly limited to $1.00 (one Canadian dollar). The Client explicitly waives any right to pursue the Paralegal for negligence, malpractice, or breach of contract beyond this nominal amount.</p>
 
+            <h3>6. NO RELATIONSHIP UNTIL SIGNED AGREEMENT</h3>
+            <p>The Client acknowledges that submitting this form does not create a paralegal-client relationship. A professional relationship is established strictly and exclusively only after a formal written Retainer Agreement is signed by both parties.</p>
+
             <ul style="margin-left: 20px; margin-bottom: 15px;">
                 <li style="margin-bottom: 8px;">Client waives all rights to dispute fees.</li>
                 <li style="margin-bottom: 8px;">Client accepts full risk of legal proceedings.</li>
@@ -689,7 +712,7 @@ Sunday: Closed
 <section class="seo-section">
     <h2>Paralegal Services: Greater Toronto Area & Provincial Coverage</h2>
     <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Richmond Hill, Mississauga, Brampton, Niagara Falls, Hamilton, Cambridge, Kitchener, London, Waterloo, Guelph, Woodstock, Stratford, Brantford, St. Catharines, Burlington, Oakville, Chatham, Sarnia, Windsor among others. Virtual services extend access province-wide for clients requiring remote assistance.</p>
-    <p><em>**Please note that online services are available to clients throughout the entire province, including areas beyond the cities listed.</em></p>
+    <p>**PLEASE NOTE THAT ONLINE SERVICES ARE AVAILABLE TO CLIENTS THROUGHOUT THE ENTIRE PROVINCE, INCLUDING AREAS BEYOND THE CITIES LISTED.</p>
     
     <h3>Traffic Offence Representation: Provincial Court Defence</h3>
     <p>Protecting your record, preserving your rates, challenging traffic citations, negotiating favourable outcomes, appearing on your behalf, and defending against multiple offences.</p>
@@ -774,8 +797,8 @@ Sunday: Closed
         <a href="tel:+14372396833" style="display: block; color: #ffffff; font-size: 1.8rem; font-weight: 900; text-decoration: none; margin-bottom: 25px; margin-top: 25px;">+1 (437) 239-6833</a>
         <div style="font-size: 0.95rem; color: #ffffff; margin-bottom: 20px;">
             <strong>Hours of Operation:</strong><br>
-            Monday – Saturday: 10:00 AM – 4:00 PM<br>
-            Sunday: Closed
+            Sunday: Closed<br>
+            Monday – Saturday: 10:00 AM – 4:00 PM
         </div>
     </div>
     <p>&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
