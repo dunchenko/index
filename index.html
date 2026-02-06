@@ -44,7 +44,6 @@
         header { 
             text-align: center; 
             padding: 60px 20px 30px; 
-            animation: slideDown 0.8s ease forwards;
         }
 
         .name-title { 
@@ -55,7 +54,7 @@
         }
 
         .services-title { 
-            font-size: clamp(4.5rem, 15vw, 9rem); 
+            font-size: clamp(3.5rem, 12vw, 7rem); 
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
@@ -90,7 +89,7 @@
         .main-container { max-width: 650px; margin: 20px auto 0; padding: 20px; }
         
         .glass-box {
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
@@ -230,6 +229,23 @@
             box-shadow: inset 0 0 0 4px #ffffff; 
         }
 
+        /* ------------------- CHECKBOX ------------------- */
+        input[type="checkbox"] {
+            width: 28px; height: 28px;
+            padding: 0;
+            appearance: none; -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid; place-content: center;
+            flex-shrink: 0;
+        }
+        input[type="checkbox"]:checked { background: #8B6F5A; border-color: #8B6F5A; }
+        input[type="checkbox"]:checked::before {
+            content: ""; width: 6px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-top: -2px;
+        }
+
         /* ------------------- BUTTON ------------------- */
         .btn-submit { 
             width: 100%; 
@@ -245,9 +261,10 @@
             transition: all 0.3s ease; 
             margin-top: 10px;
             position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .btn-submit:hover { transform: translateY(-2px); background: #6B5B4A; }
+        .btn-submit:hover { transform: translateY(-2px); background: #6B5B4A; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); }
 
         /* ------------------- FAQ SECTION ------------------- */
         .faq-container { margin-top: 60px; }
@@ -291,20 +308,6 @@
             padding-left: 29px; 
             padding-bottom: 20px;
             line-height: 1.6;
-        }
-
-        details[open] .faq-answer {
-            animation: slideDownFade 1.2s ease forwards;
-        }
-
-        @keyframes slideDownFade {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 0.9; transform: translateY(0); }
-        }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid rgba(255,255,255,0.3); }
@@ -429,7 +432,7 @@
                     <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
                 </div>
                 <div style="position: relative;">
-                    <textarea id="brief" name="description" maxlength="1024" placeholder="Hello, please contact me regarding my traffic ticket, landlord tenant issues, workers' compensation, or notary services, we need to meet face to face asap..." required></textarea>
+                    <textarea id="brief" name="description" maxlength="1024" placeholder="Hello, I got a ticket, landlord problems, workers compensation for injuries, need notary services, let's meet face to face asap..." required></textarea>
                     <div class="textarea-accessories">
                         <a href="https://www.dropbox.com/request/hhn7SEgFiZuLJ7tryPy8" target="_blank" class="attach-icon" title="Upload file to Dropbox">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -441,43 +444,15 @@
             </div>
 
             <div class="input-wrapper">
-                <div class="label-row"><label>Phone</label></div>
-                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number...">
+                <div class="label-row"><label>Email / Phone / WhatsApp</label></div>
+                <input type="text" id="contact" name="contact_details" required placeholder="Email or Phone number...">
             </div>
 
             <div class="input-wrapper">
-                <div class="label-row"><label>Address</label></div>
-                <input type="text" id="address" name="address" placeholder="Street address, city, zip..." required>
-            </div>
-
-            <div class="input-wrapper">
-                <div class="label-row"><label>Email</label></div>
-                <input type="email" id="email" name="contact_email" required placeholder="Email address...">
-            </div>
-
-            <div class="input-wrapper">
-                <div class="label-row"><label>Date of birth</label></div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" name="birth_year" placeholder="YYYY..." min="1900" required>
-                    <input type="number" name="birth_month" placeholder="MM..." min="1" max="12" required>
-                    <input type="number" name="birth_day" placeholder="DD..." min="1" max="31" required>
-                </div>
-            </div>
-
-            <div class="input-wrapper">
-                <div style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
-                    <p style="margin-bottom: 10px;">I completed this form with accurate information to help Hanna respond to my inquiry quickly and effectively. I acknowledge that she needs this information to assess my situation and provide appropriate paralegal guidance.</p>
-                    <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge.</p>
-                    <p>I hereby authorize the recipient to collect, use, and disclose the provided information for responding to my inquiry and communicating with me.</p>
-                </div>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="form_consent" value="yes" required>
-                        <span>Yes</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="form_consent" value="no" required>
-                        <span>No</span>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;">
+                    <input type="checkbox" id="consent" name="form_consent" required>
+                    <label for="consent" style="font-size: 0.9rem; font-weight: 700; cursor: pointer;">
+                        I AGREE TO SHARE MY INFO. RELATIONSHIP AFTER SIGNING.
                     </label>
                 </div>
             </div>
@@ -489,18 +464,18 @@
 
     <h2 class="section-title">Questions & Answers</h2>
     <div class="faq-container">
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Paralegal Rates in Ontario?</summary>
             <div class="faq-answer">
                 <strong>Rates:</strong> <strong>$50 to $350 per hour</strong>, varying by case scope:
-                <p style="margin-top: 10px;">$50 to $100: Basic administrative tasks and standard filings<br>
-                $150 to $250: Paralegal representation and consultation<br>
-                $300 to $350: Professional representation for large legal cases</p>
+                <p style="margin-top: 10px;">$50 to $150: Basic administrative tasks and standard filings<br>
+                $150 to $500: Paralegal representation and consultation<br>
+                $500 to $1000: Professional representation for large legal cases</p>
                 <p style="margin-top: 15px;"><strong>Need a custom quote?</strong> Fill out the inquiry form above. Each case is unique. Personalized estimates prepared based on your specific needs.</p>
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Estimated Cost for Services?</summary>
             <div class="faq-answer">
                 Legal fees in Toronto vary by service. Typical rates for common matters:
@@ -512,11 +487,12 @@
                     <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
                     <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
                 </table>
-                <span style="font-size: 0.8rem; opacity: 0.7; display: block; margin-top: 10px; text-align: right;">*Pricing varies, your final estimate reflects the complete total.</span>
+                <span style="font-size: 1rem; opacity: 0.9; display: block; margin-top: 10px; text-align: left;">*Pricing varies. Your final estimate reflects the complete total.<br>
+For complex matters involving <strong>multiple hearings</strong> fees may increase and reach up to 2,500 CAD or higher.</span>
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Affording Services on Budget?</summary>
             <div class="faq-answer">
                 <p><strong>Unbundled Paralegal Services:</strong> Pay for specific tasks only instead of full retainer to reduce costs by 40-60%.</p>
@@ -525,21 +501,21 @@
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Happening After Booking?</summary>
             <div class="faq-answer">
-                Upon booking, Hanna reaches out promptly. Details are finalized in-office or via video call, followed by a written summary of next steps and any required documents.
+                Reaching out promptly follows booking. Finalizing details occurs in-office or via video call. Providing a written summary of next steps and required documents concludes the process.
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Difference: Paralegal vs. Lawyer?</summary>
             <div class="faq-answer">
                 Licensed paralegals in Ontario are regulated by the Law Society of Ontario and hold the authority to represent clients <strong>only in defined courts and tribunals</strong>. Paralegals represent clients independently in <strong>Ontario Court of Justice for provincial offences</strong> and <strong>administrative tribunals</strong>. This specialized focus delivers <strong>lower costs</strong> and <strong>expert representation</strong> for matters within our jurisdiction. You receive qualified advocacy with clear scope of authority and transparent limitations.
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Privacy Policy?</summary>
             <div class="faq-answer">
                 <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p>
@@ -548,15 +524,14 @@
             </div>
         </details>
 
-        <details class="faq-item">
+        <details class="faq-item" open>
             <summary class="faq-question">Office Location & Hours?</summary>
             <div class="faq-answer">
                 <strong>Address:</strong> 146 Thirtieth St., Suite 29, Toronto, ON<br><br>
-                <strong>Hours of Operation:</strong> Every day 9:00 AM – 9:00 PM<br><br>
                 <div style="width: 100%; height: 350px; background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNUzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); background-size: cover; border-radius: 10px; overflow: hidden;">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" class="btn-submit" style="display: block; text-align: center; text-decoration: none; margin-top: 15px;">Get Directions</a>
+                <p style="margin-top: 15px; text-align: right;"><strong>Hours of Operation:</strong> Every day 9:00 AM – 9:00 PM</p>
             </div>
         </details>
     </div>
@@ -564,7 +539,7 @@
 
 <section class="seo-section">
     <h2>Paralegal Services: Greater Toronto Area & Provincial Coverage</h2>
-    <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Mississauga, Brampton, Hamilton, Cambridge, Kitchener, London, Waterloo, Guelph, Woodstock, Stratford, Brantford, St. Catharines, Niagara Falls, Burlington, Oakville, Richmond Hill, Chatham, Sarnia, Windsor among others. Virtual services extend access province-wide for clients requiring remote assistance.</p>
+    <p>Comprehensive representation throughout Ontario, with in-person consultations available in Toronto, Richmond Hill, Mississauga, Brampton, Niagara Falls, Hamilton, Cambridge, Kitchener, London, Waterloo, Guelph, Woodstock, Stratford, Brantford, St. Catharines, Burlington, Oakville, Chatham, Sarnia, Windsor among others. Virtual services extend access province-wide for clients requiring remote assistance.</p>
     <p><em>**Please note that online services are available to clients throughout the entire province, including areas beyond the cities listed.</em></p>
     
     <h3>Traffic Offence Representation: Provincial Court Defence</h3>
@@ -592,6 +567,7 @@
     // Textarea Char Counter
     const brief = document.getElementById('brief');
     const counter = document.getElementById('current-chars');
+    const consent = document.getElementById('consent');
     if(brief && counter) {
         brief.addEventListener('input', function() {
             counter.textContent = this.value.length;
@@ -599,29 +575,13 @@
     }
 
     // Input Visual State (keep white background if has text)
-    const inputs = document.querySelectorAll('input, textarea');
+    const inputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             if(input.value.trim() !== '') input.classList.add('has-content');
             else input.classList.remove('has-content');
         });
     });
-
-    // FAQ Auto-open on scroll
-    const faqItems = Array.from(document.querySelectorAll('details'));
-    const observer = new IntersectionObserver((entries) => {
-        const intersecting = entries.filter(entry => entry.isIntersecting);
-        intersecting.sort((a, b) => faqItems.indexOf(a.target) - faqItems.indexOf(b.target));
-        
-        intersecting.forEach((entry, index) => {
-            setTimeout(() => {
-                entry.target.open = true;
-            }, index * 600);
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.15 });
-
-    faqItems.forEach(item => observer.observe(item));
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════════════════
