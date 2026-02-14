@@ -1775,7 +1775,8 @@
 
         for (let d of availableDays) {
             const checkDate = new Date(year, month, d);
-            if (checkDate >= today) {
+            // Skip Saturdays (6) for auto-selection, even if they have slots
+            if (checkDate >= today && checkDate.getDay() !== 6) {
                 nearestDay = d;
                 absoluteNearestDate = checkDate; // Set global
                 break; 
@@ -2142,8 +2143,8 @@
                         <div style="font-size: 3rem; margin-bottom: 20px;">&#10003;</div>
                         <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you for your request.</p>
                         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
-                        <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">To expedite the process:</p>
-                        <p style="opacity: 0.9; margin-bottom: 20px;">Please call us immediately and mention you just submitted a request online.</p>
+                        <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">Want to speed up the process?</p>
+                        <p style="opacity: 0.9; margin-bottom: 20px;">Call now to verify we received your data.</p>
                         <a href="tel:+14372396833" class="contact-form__submit-button" style="display: block; text-decoration: none; text-align: center; line-height: 1.2; margin-top: 15px;">
                             Call +1 (437) 239-6833
                         </a>
