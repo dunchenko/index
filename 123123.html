@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanna Dunchenko | Paralegal Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
+    
+    <style>
+        /* ============================================
+           ROOT VARIABLES - The soul of the color palette
+           ============================================ */
+        :root {
+            --bg-dark: #3A2A1A;           /* Earthy foundation. To evoke deeper trust and mystery, consider warming it slightly toward #4A3828 */
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --placeholder-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ============================================
+           GLOBAL RESET - Clean canvas for the design
+           ============================================ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* ============================================
+           BODY & TYPOGRAPHY - Setting the stage
+           ============================================ */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Dynamic background container */
+        #dynamic-bg-container {
+            position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark);
+        }
+
+        /* ============================================
+           HEADER - First impression, bold & welcoming
+           ============================================ */
+        header { text-align: center; padding: 80px 20px 40px; }
+
+        .services-title {
+            font-size: clamp(2.8rem, 10vw, 6.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .services-title {
+                line-height: 1.4;
+                margin-bottom: 30px;
+            }
+        }
+
+        .name-title-container {
+            display: inline-flex;
+            justify-content: center;
+            min-height: 1.2em;
+        }
+
+        /* Typing animation for the name - personal touch */
+        .name-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 2s steps(15, end) forwards;
+        }
+
+        /* To heighten drama, lengthen the typing duration (e.g., 3s) for a more contemplative reveal */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Phone link styling */
+        .phone-link {
+            display: inline-block;
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-top: 20px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .phone-link:hover { transform: scale(1.05); opacity: 0.9; }
+
+        /* ============================================
+           CONTAINER & FORM - The heart of interaction
+           ============================================ */
+        .container { max-width: 650px; margin: 0 auto; padding: 20px; }
+
+        .glass-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+        }
+
+        .form-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .input-group { margin-bottom: 25px; position: relative; }
+        
+        .label-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        label { 
+            font-weight: 700; 
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .char-counter { font-size: 0.75rem; opacity: 0.5; }
+
+        /* Input and textarea styling */
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-white);
+            font-size: 1.1rem;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        input:focus::placeholder, textarea:focus::placeholder {
+            color: transparent;
+        }
+
+        textarea#brief {
+            text-align: left;
+            resize: none;
+            overflow: hidden;
+            /* To give the brief area a more generous breathing room, consider increasing min-height further (e.g., calc(140px + 0.8rem)) */
+            min-height: calc(120px + 0.8rem);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--placeholder-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        /* Consent checkbox styling */
+        .consent-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            padding: 5px 10px;
+        }
+
+        .consent-wrapper input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--glass-border);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            margin: 0;
+        }
+
+        .consent-wrapper input[type="checkbox"]:checked {
+            background: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .consent-wrapper input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            left: 9px;
+            top: 4px;
+            width: 8px;
+            height: 14px;
+            border: solid var(--bg-dark);
+            border-width: 0 4px 4px 0;
+            transform: rotate(45deg);
+        }
+
+        .consent-text { font-size: 0.85rem; opacity: 0.9; line-height: 1.2; user-select: none; }
+
+        /* ============================================
+           FAQ SECTION - Interactive knowledge base
+           ============================================ */
+        .faq-section { margin-top: 60px; }
+        .faq-item { margin-bottom: 40px; padding: 10px; cursor: pointer; }
+        .faq-q { 
+            font-weight: 900; 
+            margin-bottom: 10px; 
+            font-size: 1.4rem; 
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .faq-q::before {
+            content: "";
+            display: inline-block;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--text-white);
+            transition: all 0.3s ease;
+        }
+        .faq-item.active .faq-q::before { background-color: var(--text-white); }
+        .faq-a { font-size: 1.1rem; opacity: 0.9; padding-left: 29px; display: none; }
+        .faq-item.active .faq-a { display: block; }
+
+        /* Map styling */
+        .map-wrapper {
+            width: 100%;
+            height: 350px;
+            margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+        .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--text-white);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .submit-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* Footer */
+        footer { text-align: center; padding: 80px 20px; }
+        
+        .call-me-label {
+            display: block;
+            font-weight: 900;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            margin-top: 40px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dynamic-bg-container">
+    <svg id="dynamic-bg-svg" viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice" style="position:absolute; inset:-15%; width:130%; height:130%; pointer-events:none;">
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
+        <rect width="528" height="816" fill="url(#g)"/>
+        <g style="mix-blend-mode:overlay" fill-opacity=".15">
+            <!-- These gentle stripes give the background life. To quicken their hypnotic dance, raise the speed multiplier in JS -->
+            <path class="s-stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
+            <path class="s-stripe" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="s-stripe" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
+        </g>
+    </svg>
+</div>
+
+<header>
+    <div class="services-title">Paralegal Services</div>
+    <div class="name-title-container">
+        <div class="name-title">Hanna Dunchenko</div>
+    </div><br>
+    <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+</header>
+
+<div class="container">
+    <div class="glass-form">
+        <form id="appointmentForm">
+            <h3 class="form-title">Appointment</h3>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Phone / WhatsApp *</label></div>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter Phone Number">
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Name</label></div>
+                <input type="text" id="name" name="client_name" placeholder="Preferred" autofocus>
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper"><label>Email <span class="optional-text">(optional)</span></label></div>
+                <input type="email" name="client_email" placeholder="example@mail.com">
+            </div>
+            <div class="input-group">
+                <div class="label-wrapper">
+                    <label>Brief</label>
+                    <span class="char-counter"><span id="current-chars">0</span> / 1024</span>
+                </div>
+                <textarea id="brief" name="description" maxlength="1024" 
+                    placeholder="e.g. TRAFFIC TICKET / COURT MATTERS / NOTARY PUBLIC / WORKERS' COMPENSATION / LANDLORD-TENANT ISSUES / DUAL CITIZENSHIP / DIVORCE AND MARRIAGE / CONFIDENTIAL ONE-ON-ONE APPOINTMENT / AND MORE..."></textarea>
+            </div>
+            <label class="consent-wrapper">
+                <input type="checkbox" id="consent">
+                <span class="consent-text">I agree to share my info. Relationship after signing.</span>
+            </label>
+            <button type="submit" id="submitBtn" class="submit-btn" disabled>Book Appointment</button>
+        </form>
+    </div>
+
+    <div class="faq-section">
+        <div class="faq-item active">
+            <div class="faq-q">What are the fees?</div>
+            <div class="faq-a">$50 per hour plus filing and hearings separate.</div>
+        </div>
+        <div class="faq-item active">
+            <div class="faq-q">Handle Small Claims?</div>
+            <div class="faq-a">Up to $35,000. I prepare documents and guide.</div>
+        </div>
+        <div class="faq-item active">
+            <div class="faq-q">What happens after booking?</div>
+            <div class="faq-a">I’ll reach out promptly. Details can be finalized in-office or via video call.</div>
+        </div>
+        <div class="faq-item active">
+            <div class="faq-q">What is the privacy policy?</div>
+            <div class="faq-a">
+                <strong>Information we collect:</strong> We collect personal information you voluntarily provide (name, phone number, email, case description).<br><br>
+                <strong>Advertising & Cookies:</strong> We use this information for advertising purposes on <strong>Facebook, Google Ads, and YouTube</strong>. Our website uses essential cookies for functionality and may use analytics cookies.<br><br>
+                <strong>How we use your information:</strong> To provide legal/paralegal services, respond to inquiries, and (if you consent) send communications.<br><br>
+                <strong>Your rights:</strong> You have the right to access or delete your data. Contact us at <a href="tel:+14372396833" style="color:#fff;">+1 (437) 239-6833</a> or <a href="mailto:paralegal@hannadunchenko.com" style="color:#fff; text-decoration: underline;">paralegal@hannadunchenko.com</a>.<br><br>
+            </div>
+        </div>
+        <div class="faq-item active">
+            <div class="faq-q">Where is your office today?</div>
+            <div class="faq-a">
+                146 Thirtieth Street, OFFICE 29, Toronto, ON
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.310439160533!2d-79.5293!3d43.593!2m3!1f0!2f39.31!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x882b49b068962001%3A0xc3924e27f9175d7!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca!4v1710000000000!5m2!1sen!2sca" 
+                        allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <span class="call-me-label">CALL ME ANYTIME:</span>
+    <a href="tel:+14372396833" class="phone-link">+1 (437) 239-6833</a>
+    <p style="opacity: 0.8; font-weight: 300; margin-top: 20px;">
+        © <script>document.write(new Date().getFullYear());</script>
+		Hanna Dunchenko<br>
+		Licensed Paralegal Services
+    </p>
+</footer>
+
+<script>
+    /* ============================================
+       FORM FUNCTIONALITY - Interactive elements
+       ============================================ */
+    const briefArea = document.getElementById('brief');
+    const counterDisplay = document.getElementById('current-chars');
+    const phoneInput = document.getElementById('phone');
+    const consent = document.getElementById('consent');
+    const submitBtn = document.getElementById('submitBtn');
+    const stripes = document.querySelectorAll('.s-stripe');
+
+    /* Character counter for brief textarea */
+    briefArea.addEventListener('input', function() {
+        counterDisplay.textContent = this.value.length;
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    /* FAQ accordion toggle */
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'IFRAME') item.classList.toggle('active');
+        });
+    });
+
+    /* Phone number formatter (US/Canada style) */
+    phoneInput.addEventListener('input', (e) => {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
+
+    /* Submit button enable/disable based on consent */
+    consent.addEventListener('change', () => {
+        submitBtn.disabled = !consent.checked;
+    });
+
+    /* ============================================
+       DYNAMIC BACKGROUND ANIMATION - Living backdrop
+       ============================================ */
+    (function() {
+        const data = Array.from(stripes).map(() => ({ 
+            seed: Math.random() * 1000, 
+            speed: 0.0003 + Math.random() * 0.0002 
+        }));
+        function step(time) {
+            stripes.forEach((el, i) => {
+                const t = (time * data[i].speed) + data[i].seed;
+                const x = Math.sin(t * 0.7) * 5;
+                const y = Math.cos(t * 0.5) * 4;
+                el.style.transform = `translate(${x}%, ${y}%)`;
+            });
+            requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    })();
+</script>
+</body>
+</html>

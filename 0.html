@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Form & FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ------------------- CORE STYLES ------------------- */
+        :root {
+            --bg-dark: #bfa792;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --placeholder-color: rgba(255, 255, 255, 0.6);
+            --accent-gold: #6B5B4A;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: var(--text-white); 
+            line-height: 1.6; 
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* ------------------- BACKGROUND ------------------- */
+        #bg-container { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--bg-dark); }
+        .stripe { animation: anim-stripes 30s ease-in-out infinite; will-change: transform; }
+        .stripe:nth-child(2) { animation-duration: 40s; animation-delay: -10s; }
+        .stripe:nth-child(3) { animation-duration: 50s; animation-delay: -20s; }
+        
+        @keyframes anim-stripes {
+            0%, 50%, 100% { transform: translate(0, 0) scaleX(1); }
+            25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
+            75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
+        }
+
+        /* ------------------- CONTAINER & FORM ------------------- */
+        .main-container { max-width: 650px; margin: 40px auto 0; padding: 20px; }
+        
+        .glass-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .form-title { 
+            font-size: clamp(1.3rem, 4vw, 1.8rem); 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
+
+        .input-wrapper { margin-bottom: 25px; position: relative; }
+        .label-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        label { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        input, textarea, select { 
+            width: 100%; 
+            padding: 16px; 
+            background: rgba(255, 255, 255, 0.08); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 10px; 
+            color: var(--text-white); 
+            font-size: 1rem; 
+            outline: none; 
+            transition: all 0.3s ease; 
+            font-family: inherit; 
+        }
+
+        input:focus, textarea:focus, .has-content {
+            background: #ffffff;
+            color: #6B5B4A;
+            box-shadow: 0 0 20px rgba(107, 91, 74, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        input::placeholder, textarea::placeholder { color: var(--placeholder-color); }
+        input:focus::placeholder, textarea:focus::placeholder { color: transparent; }
+
+        textarea { resize: none; min-height: 180px; }
+        
+        .char-count { 
+            position: absolute; 
+            bottom: 12px; 
+            right: 15px; 
+            font-size: 0.75rem; 
+            opacity: 0.5; 
+        }
+        
+        /* ------------------- RADIO & CHECKBOX ------------------- */
+        .radio-group { display: flex; align-items: center; gap: 20px; justify-content: center; margin-top: 20px; }
+        
+        .radio-label { 
+            display: flex; align-items: center; gap: 8px; 
+            font-weight: 400; text-transform: none; font-size: 1.1rem; 
+            cursor: pointer; 
+        }
+
+        input[type="radio"] {
+            appearance: none; -webkit-appearance: none;
+            width: 24px; height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            background: transparent;
+            margin: 0; padding: 0;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked {
+            border-color: #8B6F5A;
+            background: #8B6F5A;
+            box-shadow: inset 0 0 0 4px #ffffff; 
+        }
+
+        /* ------------------- BUTTON ------------------- */
+        .btn-submit { 
+            width: 100%; 
+            padding: 20px; 
+            background: #8B6F5A; 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .btn-submit:hover { transform: translateY(-2px); background: #6B5B4A; }
+
+        /* ------------------- FAQ SECTION ------------------- */
+        .faq-container { margin-top: 60px; }
+        .section-title { 
+            font-size: 1.8rem; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 2px; 
+            text-align: center; margin-bottom: 30px; 
+        }
+        
+        .faq-item { margin-bottom: 12px; padding: 5px; }
+        
+        .faq-question { 
+            font-weight: 900; 
+            font-size: 1.2rem; 
+            text-transform: uppercase; 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 15px; 
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .faq-question::before { 
+            content: ""; display: inline-block; 
+            width: 12px; height: 12px; min-width: 12px; 
+            border-radius: 50%; border: 2px solid #ffffff; 
+            margin-top: 8px; transition: background 0.3s;
+        }
+        
+        .faq-item.active .faq-question::before { background-color: #ffffff; }
+
+        .faq-answer { 
+            display: none; 
+            font-size: 1rem; opacity: 0.9; 
+            padding-left: 29px; 
+            padding-bottom: 20px;
+            animation: slideDown 0.5s ease forwards;
+        }
+        
+        .faq-item.active .faq-answer { display: block; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; border: 1px solid rgba(255,255,255,0.3); }
+        .price-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .price-table td:last-child { text-align: right; font-weight: 700; }
+        
+        /* ------------------- RESPONSIVE ------------------- */
+        @media (max-width: 768px) {
+            .main-container { padding: 15px; width: 100%; margin-top: 10px; }
+            .glass-box { padding: 25px 15px; }
+            .form-title { font-size: 1.4rem; }
+            input, textarea { font-size: 16px; /* Prevents zoom on iOS */ }
+        }
+    </style>
+</head>
+<body>
+
+<div id="bg-container">
+    <svg viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%;">
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#g)"/>
+        <g style="mix-blend-mode:overlay" fill-opacity=".15">
+            <path class="stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
+            <path class="stripe" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="stripe" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
+        </g>
+    </svg>
+</div>
+
+<div class="main-container">
+    <div class="glass-box">
+        <form id="appointmentForm">
+            <h3 class="form-title">INQUIRY FORM</h3>
+            
+            <div class="input-wrapper">
+                <div class="label-row"><label>Name</label></div>
+                <input type="text" id="name" name="client_name" placeholder="Jane Doe..." required>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Message</label></div>
+                <textarea id="brief" name="description" maxlength="1024" placeholder="hello, please contact me regarding..." required></textarea>
+                <div class="char-count"><span id="current-chars">0</span> / 1024</div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Phone</label></div>
+                <input type="tel" id="contact" name="contact_phone" required placeholder="Phone number">
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Address</label></div>
+                <input type="text" id="address" name="address" placeholder="Street address, city..." required>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Email</label></div>
+                <input type="email" id="email" name="contact_email" required placeholder="Email address">
+            </div>
+
+            <div class="input-wrapper">
+                <div class="label-row"><label>Date of birth</label></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="birth_year" placeholder="YYYY" min="1900" required>
+                    <input type="number" name="birth_month" placeholder="MM" min="1" max="12" required>
+                    <input type="number" name="birth_day" placeholder="DD" min="1" max="31" required>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div style="font-size: 0.8rem; opacity: 0.9; line-height: 1.4; margin-bottom: 15px;">
+                    <p style="margin-bottom: 10px;">I confirm that all information provided in this form is true, accurate, and complete. I hereby authorize the recipient to collect, use, and disclose the provided information for responding to my inquiry.</p>
+                </div>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="form_consent" value="yes" required>
+                        <span>Yes</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="form_consent" value="no" required>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">BOOK APPOINTMENT</button>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.75; margin-top: 15px;">Expect your response within 5 minutes</p>
+        </form>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 50px;">Questions & Answers</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">Paralegal Fees in Ontario?</div>
+            <div class="faq-answer">
+                <strong>Rate Range:</strong> $50 to $350 per hour depending on complexity.
+                <p style="margin-top: 10px;">Specific quotes available upon inquiry.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Estimated Cost for Services?</div>
+            <div class="faq-answer">
+                <table class="price-table">
+                    <tr><td>Defending Traffic Tickets</td><td>$400 – 700 CAD</td></tr>
+                    <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
+                    <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
+                    <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
+                </table>
+                <span style="font-size: 0.8rem; opacity: 0.7; display: block; margin-top: 10px;">*Reference prices only.</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Affording Services on Budget?</div>
+            <div class="faq-answer">
+                Options available for Unbundled Legal Services (specific tasks only) to save costs. Pro bono or reduced fees available for displaced persons or those in need.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Difference: Paralegal vs. Lawyer?</div>
+            <div class="faq-answer">
+                Paralegals provide direct representation for administrative tribunals and specific provincial matters often at more affordable rates than lawyers.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Office Location?</div>
+            <div class="faq-answer">
+                146 Thirtieth St., Suite 29, Toronto, ON
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FAQ Toggle Logic
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            q.parentElement.classList.toggle('active');
+        });
+    });
+
+    // Textarea Char Counter
+    const brief = document.getElementById('brief');
+    const counter = document.getElementById('current-chars');
+    if(brief && counter) {
+        brief.addEventListener('input', function() {
+            counter.textContent = this.value.length;
+        });
+    }
+
+    // Input Visual State (keep white background if has text)
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if(input.value.trim() !== '') input.classList.add('has-content');
+            else input.classList.remove('has-content');
+        });
+    });
+</script>
+
+</body>
+</html>

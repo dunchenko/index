@@ -1,0 +1,301 @@
+            letter-spacing: 1.5px;
+            animation: breathingGlow 2s infinite ease-in-out;
+        }
+        /* Modal Specific Input Styles */
+        .modal .contact-form__input::placeholder,
+        .modal .contact-form__textarea::placeholder {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Next Available Message */
+        .next-available-msg {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .next-available-msg--visible { opacity: 1; }
+
+        /* File Attachment Styles */
+        .file-attach {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .file-attach__btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .file-attach__btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        .file-attach__icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .file-attach__list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .file-attach__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .file-attach__name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 80%;
+        }
+
+        .file-attach__remove {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 4px;
+            transition: color 0.3s;
+        }
+
+        .file-attach__remove:hover {
+            color: #ff6b6b;
+        }
+    </style>
+    <script>
+        // Pre-load logic if needed or just styling
+    </script>
+</head>
+
+<body id="top">
+
+
+<div class="background">
+    <svg class="background__svg" viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <radialGradient id="g" cx="50%" cy="100%" r="100%">
+                <stop offset="0" stop-color="#D4B89A"/><stop offset="1" stop-color="#8B6F5A"/>
+            </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#g)"/>
+        <g style="mix-blend-mode:overlay" fill-opacity=".15">
+            <path class="background__stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
+            <path class="background__stripe background__stripe--delay-1" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="background__stripe background__stripe--delay-2" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
+        </g>
+    </svg>
+</div>
+
+<header class="header">
+    <div class="header__title">Hanna Dunchenko</div>
+    <div class="header__subtitle">Paralegal Services</div>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link">+1 (437) 239-6833</a>
+    </div>
+    <h1 class="header__seo-text">
+        <span class="header__seo-line">Licensed Paralegal &amp; Notary Public Services</span>
+        <span class="header__seo-line">Traffic Ticket Defense, LTB, WSIB Matters</span>
+        <span class="header__seo-line">Toronto, Richmond Hill, Mississauga, London</span>
+        <span class="header__seo-line">All online consultations are available province-wide</span>
+    </h1>
+</header>
+
+<div class="layout-container">
+  <h3 class="contact-form__outside-title" id="calendarHeaderTitle">Pick a time</h3>
+    <div class="contact-form">
+        <!-- Custom Booking Calendar -->
+        <div class="calendar-wrapper" id="bookingCalendar">
+            <div class="calendar-header">
+                <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
+                <div class="calendar-title" id="monthDisplay">Month Year</div>
+                <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
+            </div>
+            
+            <div id="calendarLoader" class="calendar-loader">Loading availability...</div>
+
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Days will be injected here -->
+            </div>
+            
+            <div id="nextAvailableMsg" class="next-available-msg"></div>
+
+            <div class="slots-container" id="slotsContainer">
+                <div id="loadingSeparator" class="loading-separator"></div>
+                <h3 class="slots-title">Tap on time you need</h3>
+                <div class="slots-grid" id="slotsGrid">
+                    <p style="grid-column: 1 / -1; text-align: center; color: rgba(255,255,255,0.6); margin-top: 10px;">Select a date to view available times</p>
+                </div>
+            </div>
+        </div>
+        <!-- End Custom Booking Calendar -->
+    </div>
+
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq">
+        <details class="faq__item" open>
+            <summary class="faq__question">Paralegal Rates in Ontario?</summary>
+            <div class="faq__answer">
+                Fees depends on scope and cross-examination hearings:
+                <p style="margin-top: 10px;">$50–$100 — Basic filings & administration.<br>
+                $100–$250 — Consultations & minor cases.<br>
+                $250–$500 — Hearings & case management.</p>
+                <p style="margin-top: 15px;">If you need a custom quote: fill out the inquiry form above. Each case is unique. Personalized estimates prepared based on your specific needs.</p>
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Estimated Cost for Services?</summary>
+            <div class="faq__answer">
+                For informational purposes only:
+                <table class="price-table">
+                    <tr><td>Defending Traffic Tickets</td><td>$400 – 700 CAD</td></tr>
+                    <tr><td>Employment & Labour Law</td><td>$300 – 600 CAD</td></tr>
+                    <tr><td>Insurance & Benefits Claims</td><td>$250 – 500 CAD</td></tr>
+                    <tr><td>Business Contract Review</td><td>$350 – 650 CAD</td></tr>
+                    <tr><td>Landlord & Tenant (LTB)</td><td>$300 – 700 CAD</td></tr>
+                    <tr><td>WSIB & Workplace Injuries</td><td>$350 – 750 CAD</td></tr>
+                </table>
+                <p class="price-note">Pricing varies. Your final estimate reflects the complete total.</p>
+                <p class="price-note">For complex matters involving <strong>multiple hearings</strong> fees may increase and reach up to 2,500 CAD or higher.</p>
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Can I Afford This on a Tight Budget?</summary>
+            <div class="faq__answer">
+                <p>Absolutely. <strong>Unbundled legal services</strong>, often called limited scope retainers, let you pay only for specific tasks rather than full representation. This approach can reduce costs by 40–60%. You handle portions of your matter independently while receiving professional assistance only where needed. To explore this option, mention it in your inquiry form, by phone, or during your consultation.</p>
+                <p style="margin-top: 10px;"><strong>Referral discounts</strong> are available for clients referred by existing customers.</p>
+                <p style="margin-top: 10px;"><strong>Pro bono representation</strong> or reduced-fee arrangements may be offered to qualifying individuals, including refugees, displaced persons, those affected by war, and those facing financial hardship, on a case-by-case basis.</p>
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Happening After Booking?</summary>
+            <div class="faq__answer">
+                Contact typically occurs within 48 business hours via <strong>video call</strong>, <strong>phone</strong>, or <strong>email</strong>. Details are finalized in-office or via video call. A written summary of next steps and required documents will be provided upon completion.
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Are you a lawyer?</summary>
+            <div class="faq__answer">
+                A licensed paralegal in Ontario means holding authority to act in defined legal matters without being a lawyer. Providing qualified representation at lower cost, offering practical alternatives to lawyers, and delivering accessible advocacy are the hallmarks of paralegal work. In many everyday disputes, paralegals function as the primary representative, ensuring efficiency, affordability, and professional service.
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Privacy Policy?</summary>
+            <div class="faq__answer">
+                <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p>
+                <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p>
+                <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none;">+1 (437) 239-6833</a></strong> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+            </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">Where is your Office?</summary>
+            <div class="faq__answer">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
+                </div>
+                <p style="margin-top: 15px; text-align: left;"><strong>Address:</strong> 146 Thirtieth St., Suite 29, Toronto, ON</p>
+            </div>
+        </details>
+    </div>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<!-- TERMS OF SERVICE MODAL -->
+<!-- ----------------------------------------------------------- -->
+<div id="termsModal" class="modal">
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeTermsModal()">&times;</button>
+        <h2 class="modal__title">Terms of Service</h2>
+        <div class="modal__body">
+            <h3 class="modal__section-title" style="text-align: center; font-size: 2.2rem; border-bottom: none; padding-bottom: 0;">Paralegal Representation (Ontario)</h3>
+            
+            <h3 class="modal__section-title">1. IRREVOCABLE CLIENT OBLIGATIONS</h3>
+            <p class="modal__text">The Client acknowledges and agrees that all fees paid to the Paralegal are fully earned upon receipt and are strictly non-refundable under any circumstances, regardless of the outcome, early termination, or withdrawal of services. The Client assumes full financial responsibility for all costs, disbursements, and legal fees incurred.</p>
+            
+            <h3 class="modal__section-title">2. NO WARRANTIES & ABSOLUTE INDEMNITY</h3>
+            <p class="modal__text">The Paralegal makes absolutely no representations, warranties, or guarantees regarding the success or outcome of any legal matter. The Client hereby agrees to indemnify, defend, and hold harmless the Paralegal from any and all claims, liabilities, damages, or losses arising from the representation, including those resulting from the Paralegal's own actions or advice.</p>
+            
+            <h3 class="modal__section-title">3. UNILATERAL RIGHT TO WITHDRAW</h3>
+            <p class="modal__text">The Paralegal reserves the absolute, unrestricted right to withdraw from representation at any time, for any reason whatsoever, without prior notice or justification. Upon such withdrawal, the Client remains liable for all outstanding fees and shall have no claim against the Paralegal for any alleged damages resulting from said withdrawal.</p>
+            
+            <h3 class="modal__section-title">4. CLIENT'S SOLE RESPONSIBILITY</h3>
+            <p class="modal__text">The Client bears sole and exclusive responsibility for the accuracy, completeness, and timeliness of all information and evidence provided. The Client acknowledges that any failure to provide truthful or complete information constitutes a material breach, immediately voiding any obligations of the Paralegal while retaining the Client's financial liabilities.</p>
+            
+            <h3 class="modal__section-title">5. LIMITATION OF LIABILITY</h3>
+            <p class="modal__text">To the maximum extent permitted by law, the Paralegal's liability is strictly limited to $1.00 (one Canadian dollar). The Client explicitly waives any right to pursue the Paralegal for negligence, malpractice, or breach of contract beyond this nominal amount.</p>
+
+            <h3 class="modal__section-title">6. NO RELATIONSHIP UNTIL SIGNED AGREEMENT</h3>
+            <p class="modal__text">The Client acknowledges that submitting this form does not create a paralegal-client relationship. A professional relationship is established strictly and exclusively only after a formal written Retainer Agreement is signed by both parties.</p>
+
+            <h3 class="modal__section-title">7. CONSENT TO COMMUNICATION</h3>
+            <p class="modal__text">The Client hereby grants full and unrestricted consent to receive communications from the Paralegal via email, telephone calls, and voicemail at any time, including outside of standard business hours. The Client acknowledges that response times to inquiries, emails, or messages may take up to two (2) business days.</p>
+
+            <h3 class="modal__section-title">8. WAIVER OF FEE DISPUTES</h3>
+            <p class="modal__text">The Client hereby irrevocably waives any and all rights to dispute, challenge, or seek assessment of fees paid or payable to the Paralegal. The Client agrees that all fees charged are fair, reasonable, and agreed upon in advance, and surrenders any right to chargebacks or refund requests.</p>
+
+            <h3 class="modal__section-title">9. ASSUMPTION OF LEGAL RISK</h3>
+            <p class="modal__text">The Client acknowledges the inherent uncertainty of legal proceedings and accepts full and sole responsibility for all risks associated with their matter, including adverse judgments, costs awards against them, and the potential for unsuccessful outcomes.</p>
+
+            <h3 class="modal__section-title">10. LIMITATION OF DUTY OF CARE</h3>
+            <p class="modal__text">The Paralegal's duty of care is strictly limited to the mandatory minimum standards required by the Law Society of Ontario. The Client agrees that no higher standard of care, fiduciary duty, or special obligation exists or shall be implied beyond these regulatory minimums.</p>
+
+            <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;">Privacy Policy</h2>
+
+            <h3 class="modal__section-title">1. Information Collection</h3>
+            <p class="modal__text">We collect personal information you voluntarily provide, including your name, email address, phone number, and case details, solely for the purpose of assessing your legal needs and contacting you.</p>
+
+            <h3 class="modal__section-title">2. Use of Information</h3>
+            <p class="modal__text">Your data is used to facilitate paralegal services, communicate with you regarding your inquiry, and comply with Law Society of Ontario regulations. We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
+
+            <h3 class="modal__section-title">3. Analytics & Advertising</h3>
+            <p class="modal__text">This website uses services like Google Analytics and Google Ads. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
+
+            <h3 class="modal__section-title">4. Data Protection</h3>
+            <p class="modal__text">We implement a variety of security measures to maintain the safety of your personal information. However, please be aware that no method of transmission over the Internet is 100% secure.</p>
+
+            <h3 class="modal__section-title">5. Contacting Us</h3>
+            <p class="modal__text">If there are any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
+
+            <p class="modal__footer-text">
+                By checking the consent box, you irrevocably acknowledge that you have read, understood, and agree to be bound by these Terms of Service, surrendering significant legal rights.
+            </p>

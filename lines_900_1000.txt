@@ -1,0 +1,101 @@
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            font-size: 1rem;
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
+
+        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
+            background: rgba(255, 255, 255, 0.25); /* Increased from 0.15 */
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            /* box-shadow removed */
+        }
+
+        .cal-day--disabled {
+            opacity: 0.15;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .cal-day--selected {
+            background: #ffffff !important;
+            color: #1a1a1a !important;
+            font-weight: 900;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: scale(1.05);
+        }
+
+        /* .cal-day--nearest-free removed */
+        
+        .cal-day--today {
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        /* Removed .cal-day--has-slots::after (dots) */
+
+        /* Slots Section */
+        .slots-container {
+            margin-top: 35px;
+            padding-top: 25px;
+            /* border-top removed */
+            display: block; /* Always visible */
+            position: relative;
+        }
+
+        /* Loading Progress Bar Separator */
+        .loading-separator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1); 
+            overflow: hidden;
+            
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.5s ease;
+            
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .loading-separator--active {
+            opacity: 1;
+        }
+
+        /* Animated bar */
+        .loading-separator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            /* Bright white with glow */
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.8s ease-out; /* Smooth fade out */
+            
+            animation: loadingScan 1.5s infinite linear;
+        }
+
+        .loading-separator--active::after {
+            opacity: 1; /* Fade in */
+        }
+
+        @keyframes loadingScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        .modal__subtitle {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }

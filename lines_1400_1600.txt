@@ -1,0 +1,201 @@
+            </p>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<script>
+    // Textarea Char Counter
+    const brief = document.getElementById('brief');
+    const counter = document.getElementById('current-chars');
+    if(brief && counter) {
+        brief.addEventListener('input', function() {
+            counter.textContent = this.value.length;
+        });
+    }
+
+    // Input Visual State (keep white background if has text)
+    const inputs = document.querySelectorAll('.contact-form__input, .contact-form__textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if(input.value.trim() !== '') input.classList.add('contact-form__input--has-content');
+            else input.classList.remove('contact-form__input--has-content');
+        });
+    });
+
+    // Terms of Service Modal
+    function openTermsModal() {
+        const modal = document.getElementById('termsModal');
+        if (modal) {
+            modal.classList.add('modal--active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeTermsModal() {
+        const modal = document.getElementById('termsModal');
+        if (modal) {
+            modal.classList.remove('modal--active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Close modal when clicking outside the modal content
+    document.getElementById('termsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeTermsModal();
+        }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTermsModal();
+        }
+    });
+</script>
+
+<footer class="footer">
+    <div class="footer__container">
+        
+        <div class="footer__hours">
+            <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday – Saturday: 10:00 AM – 4:00 PM
+        </div>
+        <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
+    </div>
+    <p class="footer__copyright">&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
+</footer>
+</div> <!-- End blurContainer -->
+
+<!--
++------------------------------------------------------------------------------+
+¦                                                                              ¦
+¦          MADE WITH LOVE                                       ¦
+¦         Odesa (Ukraine) with love to Toronto Canada                        ¦
+¦                                                                              ¦
+¦         © 2026 Hanna Dunchenko | Paralegal Services GTA                     ¦
+¦                                                                              ¦
++------------------------------------------------------------------------------+
+-->
+
+<!-- ----------------------------------------------------------- -->
+<!-- BOOKING CONFIRMATION MODAL -->
+<!-- ----------------------------------------------------------- -->
+<div id="bookingModal" class="modal">
+    <div class="modal__content" style="max-width: 600px;">
+        <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
+        <h2 class="modal__title" style="text-align: center; margin-top: 10px;">Your Appointment At:</h2>
+        <div class="modal__body" style="padding-top: 20px;">
+            <p class="modal__highlight" id="bookingTimeDisplay" style="font-size: 1.2rem; margin-bottom: 25px; text-align: center; color: #fff;"></p>
+            
+            <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+                <!-- Honeypot: hidden from humans, visible to bots -->
+                <div style="position: absolute; left: -9999px; top: -9999px;" aria-hidden="true">
+                    <input type="text" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <input type="hidden" name="_timestamp" id="formTimestamp">
+                <div class="contact-form__group">
+                    <input type="text" class="contact-form__input" placeholder="Your Name" name="name" required>
+                </div>
+                
+                <!-- DOB moved below -->
+
+                <div class="contact-form__group">
+                    <input type="email" class="contact-form__input" placeholder="Your Email" name="email" required>
+                </div>
+                <div class="contact-form__group">
+                    <input type="tel" class="contact-form__input" placeholder="Phone Number" name="phone" required>
+                </div>
+                
+                <div class="contact-form__group">
+                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, Postal Code" name="address_full" required>
+                </div>
+
+                <div class="contact-form__group">
+                    <textarea class="contact-form__textarea" placeholder="Brief details about your case area..." name="notes" style="min-height: 100px;"></textarea>
+                </div>
+
+                <div class="contact-form__group">
+                    <div class="contact-form__label-row" style="justify-content: center;">
+                        <span class="contact-form__label">Date of Birth</span>
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <input type="text" class="contact-form__input" placeholder="YYYY" name="dob_year" required style="width: 80px; text-align: center;" maxlength="4">
+                        <input type="text" class="contact-form__input" placeholder="MM" name="dob_month" required style="width: 60px; text-align: center;" maxlength="2">
+                        <input type="text" class="contact-form__input" placeholder="DD" name="dob_day" required style="width: 60px; text-align: center;" maxlength="2">
+                    </div>
+                </div>
+
+                <div class="contact-form__group">
+                    <div class="file-attach">
+                        <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
+                        <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
+                            <span class="file-attach__icon">??</span>
+                            Attach files
+                        </button>
+                        <div class="file-attach__list" id="fileAttachList"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-form__checkbox-wrapper" style="margin-bottom: 20px;">
+                    <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
+                    <label for="agreeTerms" class="contact-form__checkbox-label">
+                        I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
+            </form>
+            <p id="bookingStatus" style="text-align: center; margin-top: 15px; font-weight: 700;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // CONFIGURATION
+    // ------------------------------------------------------------------
+    // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzibAgw6Z_EjKn77srv35Mln2t8KdCxObzFynlZFuDD3Xj4gtfgKUo5B1QDdJ8iYJUPw/exec"; 
+    // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
+    // ------------------------------------------------------------------
+
+    let currentDate = new Date();
+    let selectedDate = null;
+    let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    // elements
+    const monthDisplay = document.getElementById('monthDisplay');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slotsContainer = document.getElementById('slotsContainer');
+    const slotsGrid = document.getElementById('slotsGrid');
+    // const selectedDateDisplay = document.getElementById('selectedDateDisplay'); // Removed
+    const loader = document.getElementById('calendarLoader');
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+        // Set today as selected by default
+        // Set selectedDate to Toronto's "Today"
+        // 1. Get current time in Toronto
+        const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
+        const torontoNow = new Date(torontoNowStr);
+        
+        // 2. Set selectedDate
+        selectedDate = torontoNow; 
+        
+        renderCalendar();
+        setupEventListeners();
+    });
+
+    function setupEventListeners() {
+        prevBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+        nextBtn.addEventListener('click', () => {
