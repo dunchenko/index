@@ -1060,24 +1060,8 @@
             }
         }
 
-        /* Stronger Glow for Absolute Nearest Slot */
-        @keyframes absoluteNearestGlow {
-            0%, 100% { 
-                background: rgba(255, 255, 255, 0.15); 
-                box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-            }
-            50% { 
-                background: rgba(255, 255, 255, 0.35); 
-                box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-            }
-        }
-
-        .slot-btn--absolute-nearest {
-            animation: 
-                slideUpFade 0.8s ease backwards,
-                absoluteNearestGlow 2s infinite ease-in-out !important;
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        }
+        /* Stronger Glow for Absolute Nearest Slot - REMOVED per user request */
+        /* .slot-btn--absolute-nearest removed */
 
         .slot-btn--hypnotic {
             animation: 
@@ -1287,6 +1271,10 @@
                 <div class="calendar-title" id="monthDisplay">Month Year</div>
                 <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
             </div>
+            
+            <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 15px; margin-bottom: 5px; font-style: italic;">
+                Just click on the available time above.
+            </p>
         </div>
         <!-- End Custom Booking Calendar -->
     </div>
@@ -1833,7 +1821,7 @@
                 // However, API returns *available* slots. If a day is missing from slotsMap, it means 0 slots.
                 // We only want to disable if it's a valid day (not already disabled by past/Sunday check).
                 
-                if (!el.classList.contains('cal-day--disabled')) { // Only if not already disabled
+                if (!el.classList.contains('cal-day--disabled') && !el.classList.contains('cal-day--saturday-available')) { // Protect KEYS (Saturdays)
                      el.classList.add('cal-day--disabled');
                      el.style.opacity = '0.3'; // Visual cue
                      el.onclick = null; // Remove click
@@ -2142,15 +2130,29 @@
             if (result.success) {
                 logEvent("Booking Success", selectedSlotData.iso);
                 lastBookingTime = Date.now();
-                bookingStatus.style.color = 'var(--text-white)';
-                bookingStatus.textContent = "Booking Confirmed! Check your email.";
-                attachedFiles = [];
-                renderFileList();
-                setTimeout(() => {
-                    closeBookingModal();
-                    renderCalendar();
-                    e.target.reset();
-                }, 2000);
+                
+                playSuccessSound(); // Play Sound
+                
+                // Modal Success Message
+                const modalContent = modal.querySelector('.modal__content');
+                modalContent.innerHTML = `
+                    <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
+                    <h2 class="modal__title" style="text-align: center; color: var(--accent-gold); margin-top: 20px;">Booking Request Sent!</h2>
+                    <div class="modal__body" style="text-align: center; padding: 20px 10px;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">&#10003;</div>
+                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you for your request.</p>
+                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+                        <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">To expedite the process:</p>
+                        <p style="opacity: 0.9; margin-bottom: 20px;">Please call us immediately and mention you just submitted a request online.</p>
+                        <a href="tel:+14372396833" class="contact-form__submit-button" style="display: block; text-decoration: none; text-align: center; line-height: 1.2; margin-top: 15px;">
+                            Call +1 (437) 239-6833
+                        </a>
+                    </div>
+                `;
+                
+                // attachedFiles = []; // No need to clear if we replaced content
+                // renderFileList();
+                // setTimeout(() => { ... }, 2000); // Removed auto-close to let user read
             } else {
                 throw new Error(result.error || "Unknown error");
             }
@@ -2162,6 +2164,48 @@
             confirmBtn.disabled = false;
         }
     }
+
+    // ------------------------------------------------------------------
+    // AUDIO SYSTEM (Glassy Chimes)
+    // ------------------------------------------------------------------
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playTone(freq, type, duration, delay = 0) {
+        if(audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration);
+    }
+
+    function playSuccessSound() {
+        // Magical success chord
+        playTone(523.25, 'sine', 1.5, 0);   // C5
+        playTone(659.25, 'sine', 1.5, 0.1); // E5
+        playTone(783.99, 'sine', 1.5, 0.2); // G5
+        playTone(1046.50, 'sine', 2.5, 0.3); // C6
+    }
+    
+    // Audio Context Resume on Interaction (Silent)
+    document.addEventListener('click', function initAudio() {
+        if(audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        document.removeEventListener('click', initAudio);
+    }, { once: true });
+    
+    // Also try on load (usually blocked, but harmless)
+    /* window.addEventListener('load', () => { setTimeout(playWelcomeSound, 500); }); */
+
+    // Modify HandleBookingSubmit Success Block inline override
+    // We already defined handleBookingSubmit, let's inject the new success logic by replacing the success block in the function via this tool.
+
     
     function getEndTime(startTime) {
         // Helper to add 50 minutes to start time
