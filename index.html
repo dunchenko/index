@@ -43,6 +43,17 @@
             font-family: 'Lato', sans-serif !important;
         }
         
+        @keyframes pulseText {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.4; }
+        }
+
+        .pulseText {
+            animation: pulseText 2s infinite ease-in-out;
+            font-weight: 500;
+        }
+        
         @keyframes blurReveal {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -372,6 +383,12 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); 
         }
 
+        /* Shadow Removal for Buttons inside Modals */
+        .modal .contact-form__submit-button,
+        .modal .contact-form__submit-button:hover {
+            box-shadow: none !important;
+        }
+
         .contact-form__note {
             text-align: center;
             font-size: 0.85rem;
@@ -509,14 +526,15 @@
             padding: 40px;
             width: 100%;
             max-width: 600px;
-            max-height: 90vh; /* Allow slightly more height */
-            
+            max-height: 90vh;
+            text-align: center; /* Symmetrically center content */
+            box-sizing: border-box;            
             display: flex;
             flex-direction: column;
             
             position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.05);
+            animation: modalSlideIn 0.3s cubic-bezier(0.19, 1, 0.22, 1);
             
             /* Ensure it centers if flex alignment fails for some reason */
             margin: auto; 
@@ -821,8 +839,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 50px;
-            margin-bottom: 10px;
+            margin-bottom: 20px; /* Moved to top, added margin bottom */
             text-align: center;
             padding: 0 10px;
         }
@@ -832,17 +849,25 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            color: #ffffff;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
             line-height: 1.2;
             display: flex;
             flex-direction: column;
             gap: 2px;
             align-items: center;
-            justify-content: center;
+        }
+
+        /* "Wait..." Animation */
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            animation: pulseText 1.5s infinite ease-in-out;
         }
         
-        .calendar-title span { display: block; }
+        
         .calendar-title span { display: block; }
         .calendar-title .cal-month { font-size: 1.6rem; font-weight: 900; }
         .calendar-title .cal-year { font-size: 1.6rem; opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -5px; }
@@ -851,7 +876,7 @@
         .calendar-nav-btn {
             background: rgba(255, 255, 255, 0);
             border: none;
-            color: var(--text-white);
+            color: #ffffff; 
             border-radius: 50%;
             width: 50px; height: 50px;
             cursor: pointer;
@@ -878,7 +903,7 @@
 
         .cal-day-name {
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -891,13 +916,14 @@
             align-items: center;
             justify-content: center;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.1); /* Increased from 0.03 */
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.1); 
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             font-size: 1rem;
             border: 1px solid transparent;
-            font-weight: 500;
+            font-weight: 400; /* Normal weight */
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
@@ -908,23 +934,34 @@
         }
 
         .cal-day--disabled {
-            opacity: 0.15;
+            opacity: 0.4; /* Increased from 0.15 for better visibility while remaining inactive */
             cursor: default;
             pointer-events: none;
         }
 
         .cal-day--selected {
             background: #ffffff !important;
-            color: #1a1a1a !important;
+            color: rgba(0, 0, 0, 0.8) !important; /* Dark on white */
+            mix-blend-mode: normal !important; /* Ensure visible */
             font-weight: 900;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transform: scale(1.05);
         }
 
+        @keyframes pulseActive {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(224, 112, 32, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0); }
+        }
+
         .cal-day--nearest {
-            background: rgba(255, 255, 255, 0.85) !important;
-            opacity: 0.9;
+            /* Same as available days — no special color or animation */
+            opacity: 1;
+            border: none !important;
+            font-weight: 700 !important;
+            position: relative;
+            z-index: 2;
         }
 
         .cal-day--saturday-available {
@@ -935,7 +972,8 @@
         /* .cal-day--nearest-free removed */
         
         .cal-day--today {
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 8px solid #ff0000 !important; /* Heart-red, extra thick */
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.4); /* Reduced glow */
         }
 
         /* Removed .cal-day--has-slots::after (dots) */
@@ -946,11 +984,10 @@
 
         /* Slots Section */
         .slots-container {
-            margin-top: 10px;
-            margin-bottom: 35px; /* Added margin to push calendar grid down */
+            margin-top: 0;
+            margin-bottom: 5px;
             padding-top: 0;
-            /* border-top removed */
-            display: block; /* Always visible */
+            display: block;
             position: relative;
         }
 
@@ -999,7 +1036,13 @@
 
         @keyframes loadingScan {
             0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
+            15% { transform: translateX(200%); } /* Quick scan */
+            100% { transform: translateX(200%); } /* Wait */
+        }
+
+        .loading-separator::after {
+            /* ... existing styles ... */
+            animation: loadingScan 10s infinite linear; /* Run every 10s */
         }
 
         .slots-title {
@@ -1029,8 +1072,9 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            transition: all 0.3s ease;
             font-family: inherit;
-            font-weight: 600;
+            font-weight: 400; /* Normal weight */
             font-size: 1.1rem;
             text-align: center;
             backdrop-filter: blur(4px);
@@ -1038,9 +1082,43 @@
 
         .slot-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            color: var(--accent-gold);
+            color: #fff; /* Keep white on hover */
             transform: translateY(-2px);
-            /* box-shadow removed */
+        }
+
+        .slot-btn--busy {
+            opacity: 0.7; /* Increased opacity slightly for readability of watermark */
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                -45deg, /* Reversed direction */
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.15); /* Faint text */
+            text-decoration: line-through;
+            position: relative;
+            overflow: hidden; /* visual contain */
+        }
+        
+        /* Watermark "ALREADY BOOKED" - Red Stamp Style */
+        .slot-btn--busy::after {
+            content: 'ALREADY BOOKED';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(var(--rot, -10deg));
+            font-size: 0.9rem; /* Smaller font */
+            font-weight: 900;
+            color: #ff4d4d; /* Red like heart */
+            border: 3px solid #ff4d4d; /* Thicker border */
+            padding: 2px 6px;
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0.9;
         }
 
         @keyframes slideUpFade {
@@ -1060,14 +1138,12 @@
             }
         }
 
-        /* Stronger Glow for Absolute Nearest Slot - REMOVED per user request */
-        /* .slot-btn--absolute-nearest removed */
-
         .slot-btn--hypnotic {
             animation: 
                 slideUpFade 0.8s ease backwards calc(var(--i) * 0.1s),
-                sequentialGlow 6s infinite ease-in-out calc(var(--i) * 0.2s);
+                sequentialGlow 10s infinite ease-in-out calc(var(--i) * 0.2s); /* Increased to 10s */
         }
+
 
         /* Breathing Glow Animation */
         @keyframes breathingGlow {
@@ -1099,10 +1175,29 @@
             animation: breathingGlow 2s infinite ease-in-out;
         }
         /* Modal Specific Input Styles */
+        .modal .contact-form__input,
+        .modal .contact-form__textarea {
+            text-align: center; /* Center text on all devices */
+        }
         .modal .contact-form__input::placeholder,
         .modal .contact-form__textarea::placeholder {
             font-size: 0.8rem;
             opacity: 0.7;
+            text-align: center;
+        }
+
+        /* FAQ Slow Reveal Styles */
+        .faq__item[open] > .faq__answer {
+            animation: none; /* Disable default if any */
+        }
+        .faq__answer {
+            overflow: hidden;
+            transition: height linear;
+            height: 0;
+            display: block; /* Ensure it can have height */
+        }
+        .faq__item[open] > .faq__answer {
+            height: auto;
         }
 
         /* Next Available Message */
@@ -1130,7 +1225,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px; /* Shift text further right, effectively moving icon left */
             width: 100%;
             padding: 16px;
             background: rgba(255, 255, 255, 0.08);
@@ -1150,19 +1245,18 @@
             color: #fff;
         }
 
-        /* Periodic Paperclip Animation */
-        @keyframes paperclipSwing {
-            0%, 75%, 100% { transform: rotate(0deg); }
-            80% { transform: rotate(-20deg); }
-            85% { transform: rotate(15deg); }
-            90% { transform: rotate(-10deg); }
-            95% { transform: rotate(5deg); }
+        /* Paperclip Unrolling Animation with Pulsing */
+        @keyframes paperclipUnrollPulse {
+            0% { transform: rotate(0deg) scale(0.9); }
+            45% { transform: rotate(360deg) scale(1.3); }
+            55% { transform: rotate(360deg) scale(1.3); }
+            100% { transform: rotate(720deg) scale(0.9); }
         }
 
         .file-attach__icon-svg {
             display: inline-block;
-            animation: paperclipSwing 4s infinite ease-in-out;
-            transform-origin: center;
+            animation: paperclipUnrollPulse 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center center;
         }
 
         .file-attach__icon {
@@ -1208,6 +1302,169 @@
         .file-attach__remove:hover {
             color: #ff6b6b;
         }
+        /* Custom Dropdown (Select Replacement) */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .custom-select {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-select__trigger {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 25px;
+            padding-right: 45px; /* Space for arrow */
+            font-size: 1rem;
+            color: rgba(80, 60, 40, 0.9);
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* Arrow indicator */
+        .custom-select__trigger::after {
+            content: '';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px; height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238B6F5A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select.open .custom-select__trigger::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-select.open .custom-select__trigger {
+            background: rgba(139, 111, 90, 0.8);
+        }
+
+        .custom-select__trigger span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .custom-options {
+            position: absolute;
+            display: block;
+            top: 100%;
+            left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: none;
+            border-radius: 25px; /* All corners rounded */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            max-height: none;
+            overflow: visible;
+            padding: 8px 0;
+        }
+
+        .custom-select.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            position: relative;
+            display: block;
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: rgba(80, 60, 40, 0.85);
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: left;
+        }
+
+        .custom-option:hover, 
+        .custom-option.selected {
+            background-color: rgba(139, 111, 90, 0.12);
+            color: #3a2a1a;
+        }
+
+        .custom-option.selected::after {
+            content: '\2713';
+            position: absolute;
+            right: 18px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-gold);
+        }
+
+        /* Sparks Animation for Footer Booking Button */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) translate(0, 0); }
+            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); }
+        }
+
+        .footer-book-btn {
+            position: relative;
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #E07020, #FFD700);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            margin: 15px auto;
+            overflow: visible;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(224, 112, 32, 0.4);
+        }
+        .footer-book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 28px rgba(224, 112, 32, 0.6);
+        }
+        .spark {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #FFD700;
+            pointer-events: none;
+            opacity: 0;
+            animation: sparkle 1.2s ease-in-out infinite;
+        }
+
+        /* Paperclip Unrolling Animation */
+        @keyframes paperclipUnroll {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(360deg) scale(1.2); }
+            100% { transform: rotate(720deg) scale(1); }
+        }
+
+        .file-attach__icon-svg {
+            display: inline-block;
+            animation: paperclipUnroll 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center center;
+        }
     </style>
 </head>
 
@@ -1244,19 +1501,65 @@
     </h1>
 </header>
 
+<!-- Services Section (Ontario-Specific Paralegal Scope) -->
+<div class="layout-container" style="margin-top: -20px; margin-bottom: 40px; text-align: center;" itemscope itemtype="https://schema.org/LegalService">
+    <meta itemprop="name" content="Hanna Dunchenko Paralegal Services">
+    <meta itemprop="areaServed" content="Ontario, Canada">
+    <h2 class="section-title" style="margin-top: 20px; font-size: 2rem;">SERVICES</h2>
+    
+    <div style="margin-bottom: 40px;" itemprop="hasOfferCatalog" itemscope itemtype="https://schema.org/OfferCatalog">
+        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;" itemprop="name">Traffic Ticket Defense &amp; Provincial Offences</h3>
+        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
+            In Ontario, licensed paralegals are authorized by the <em>Law Society of Ontario</em> to represent clients in **Provincial Offences Court** for matters under the <strong>Highway Traffic Act (HTA)</strong> and other provincial statutes. Assisting those searching for <strong>how to fight a speeding ticket in Ontario</strong>, or wondering <strong>can I beat a traffic ticket without a lawyer</strong>. Handling <strong>speeding tickets</strong>, <strong>red light camera tickets</strong>, <strong>stunt driving charges Ontario</strong>, <strong>careless driving charges</strong>, <strong>driving with no insurance</strong>, and <strong>fail to stop for police</strong>. Addressing the common question — <strong>"do I need a lawyer for a traffic ticket in Ontario?"</strong> — with expert defense in traffic court. Analyzing the <strong>officer's disclosure</strong>, challenging evidence, negotiating with prosecutors, and fighting to <strong>reduce demerit points</strong>, <strong>lower fines</strong>, and <strong>protect your insurance rates</strong>.
+        </p>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Landlord &amp; Tenant Board (LTB)</h3>
+        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
+            Ontario paralegals are licensed to represent both landlords and tenants before the <strong>Landlord and Tenant Board</strong>. Providing professional advocacy for those searching for <strong>paralegal near me for eviction</strong> or <strong>how to fight an N4 notice in Ontario</strong>. Handling <strong>N4 notices for non-payment of rent</strong>, <strong>L1 applications to evict a tenant</strong>, <strong>N12 notices for landlord's own use</strong>, <strong>T2 applications for tenant rights</strong>, and <strong>T6 applications for maintenance issues</strong>. Responding to the frequent search — <strong>"can a paralegal represent me at the LTB?"</strong> — with qualified representation. Navigating <strong>rent arrears</strong>, an <strong>illegal lockout</strong>, <strong>above-guideline rent increases</strong>, or an <strong>Ontario Standard Lease dispute</strong> through strategic advocacy under the <em>Residential Tenancies Act</em>.
+        </p>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Small Claims Court (up to $35,000)</h3>
+        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
+            In Ontario, paralegals represent clients in the <strong>Superior Court of Justice (Small Claims Court)</strong> for claims up to <strong>$35,000</strong>. Offering a cost-effective alternative for those asking <strong>"how to sue someone in Ontario small claims court"</strong> or <strong>"do I need a lawyer for small claims court Ontario"</strong>. Handling <strong>unpaid invoices</strong>, <strong>property damage claims</strong>, <strong>breach of contract disputes</strong>, <strong>consumer complaints</strong>, and <strong>return of personal property</strong>. Clarifying the question — <strong>"can a paralegal represent me in small claims court?"</strong> — through full licensing to appear before the Ontario Superior Court of Justice, Small Claims branch.
+        </p>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">WSIB &amp; Workplace Injury Claims</h3>
+        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
+            Guiding clients injured at work and searching for <strong>WSIB paralegal near me</strong> or <strong>how to appeal a WSIB decision in Ontario</strong>. Representing injured workers before the <strong>Workplace Safety and Insurance Board</strong> and the <strong>WSIAT (Workplace Safety and Insurance Appeals Tribunal)</strong>. Assisting with <strong>Form 6 Worker's Report of Injury</strong>, <strong>Loss of Earnings (LOE) benefits</strong>, <strong>Return to Work (RTW) disputes</strong>, <strong>Non-Economic Loss (NEL) claims</strong>, and <strong>chronic pain recognition</strong>. Answering — <strong>"can a paralegal help with my WSIB claim?"</strong> — by fighting to ensure recovery is fully supported under the <strong>Workplace Safety and Insurance Act</strong>.
+        </p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Notary Public &amp; Commissioner of Oaths</h3>
+        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
+            Serving as a <strong>Commissioner of Oaths</strong> in Ontario. Helping those in need of a <strong>notary public near me in Toronto</strong> or <strong>commissioner of oaths near me</strong>. Commissioning <strong>affidavits</strong>, <strong>statutory declarations</strong>, and <strong>certified true copies</strong>. Preparing <strong>consent letter for a child travelling abroad</strong>, an <strong>invitation letter for visa applications</strong>, or an <strong>affidavit of service</strong>, ensuring documents are legally valid for use in Ontario and internationally. Addressing the search — <strong>"where to get documents notarized near me Ontario"</strong> — with flexible appointment-based commissioning services.
+        </p>
+    </div>
+</div>
+
 <div class="layout-container">
-  <h3 class="contact-form__outside-title" id="calendarHeaderTitle">Pick a time</h3>
     <div class="contact-form">
         <!-- Custom Booking Calendar -->
         <div class="calendar-wrapper" id="bookingCalendar">
-            <!-- Progress bar and Time selection moved to the top -->
-            <div id="loadingSeparator" class="loading-separator"></div>
-            <div class="slots-container" id="slotsContainer">
-                <h3 class="slots-title">Tap on time you need</h3>
-                <div class="slots-grid" id="slotsGrid">
-                    <p style="grid-column: 1 / -1; text-align: center; color: rgba(255,255,255,0.6); margin-top: 10px;">Select a date to view available times</p>
-                </div>
+            
+            <!-- Header Moved to Top -->
+            <div class="calendar-header">
+                <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
+                <div class="calendar-title" id="monthDisplay">Month Year</div>
+                <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
             </div>
+
+            <!-- Progress bar -->
+            <div id="loadingSeparator" class="loading-separator"></div>
+
+            <!-- Slots Container moved BELOW -->
+            <!-- <div class="slots-container" id="slotsContainer">...</div> (Moved down) -->
 
             <div id="calendarLoader" class="calendar-loader">Loading availability...</div>
 
@@ -1266,73 +1569,160 @@
             
             <div id="nextAvailableMsg" class="next-available-msg"></div>
 
-            <div class="calendar-header">
-                <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
-                <div class="calendar-title" id="monthDisplay">Month Year</div>
-                <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
+            <!-- Slots moved here -->
+             <div class="slots-container" id="slotsContainer">
+                <!-- Title removed per request -->
+                <!-- <h3 class="slots-title">Tap on time you need</h3> -->
+                <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
+                    <!-- Removed Connecting text -->
+                </div>
             </div>
             
-            <p style="text-align: center; font-size: 0.9rem; opacity: 0.8; margin-top: 15px; margin-bottom: 5px; font-style: italic;">
-                Just click on the available time above.
-            </p>
+            <!-- Instruction below slots -->
+            <!-- Removed Instruction 'Please select a time slot now.' -->
+
+            <!-- Removed instruction text per "Убери надпись Just click..." request -->
+            
         </div>
         <!-- End Custom Booking Calendar -->
     </div>
 
     <h2 class="section-title">Frequently Asked Questions</h2>
     <div class="faq">
-        <details class="faq__item" open>
-            <summary class="faq__question">Paralegal Rates in Ontario?</summary>
+        <details class="faq__item">
+             <summary class="faq__question">What do the Key Icons mean on the calendar?</summary>
+             <div class="faq__answer">
+                 The key symbols indicate that the office doors are closed on those days. However, meetings can still be arranged by appointment. Think of them as quiet days off, but we can unlock the office, enjoy some coffee 
+                 <!-- Coffee SVG 1 (Minimalist Curved Design) -->
+                 <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
+                    <!-- Steam -->
+                    <path d="M12 2c0 1 1 1 1 2M16 1c0 1 1 1 1 2" />
+                    <!-- Cup Body: Smooth curved bowl -->
+                    <path d="M4 7c0 7 4 10 10 10s10-3 10-10H4z" />
+                    <!-- Handle -->
+                    <path d="M24 8c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
+                 </svg>
+                 <!-- Coffee SVG 2 (Minimalist Curved Design) -->
+                 <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
+                    <!-- Steam -->
+                    <path d="M12 2c0 1 1 1 1 2M16 1c0 1 1 1 1 2" />
+                    <!-- Cup Body: Smooth curved bowl -->
+                    <path d="M4 7c0 7 4 10 10 10s10-3 10-10H4z" />
+                    <!-- Handle -->
+                    <path d="M24 8c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
+                 </svg>
+
+                 together, and take time to outline strategy or discuss action plans in a relaxed, informal atmosphere.
+             </div>
+        </details>
+
+        <details class="faq__item">
+            <summary class="faq__question">May I see some estimated fees?</summary>
             <div class="faq__answer">
-                Fees depends on scope and cross-examination hearings:
-                <p style="margin-top: 10px;">$50-$100 - Basic filings & administration.<br>
-                $100-$250 - Consultations & minor cases.<br>
-                $250-$500 - Hearings & case management.</p>
-                <p style="margin-top: 15px;">If you need a custom quote: fill out the inquiry form above. Each case is unique. Personalized estimates prepared based on your specific needs.</p>
+                We believe in transparency. Here is an overview of costs involved.
+
+                <!-- Nested Questions -->
+                <div style="margin-top: 20px; border-left: 2px solid rgba(255,255,255,0.2); padding-left: 15px;">
+                     <details class="faq__item" style="margin-bottom: 10px;">
+                        <summary class="faq__question" style="font-size: 0.95rem; opacity: 0.9;">Paralegal Rates in Ontario?</summary>
+                        <div class="faq__answer">
+                            Fees depends on scope and cross-examination hearings:
+                            <p style="margin-top: 10px;">$50-$100 - Basic filings & administration.<br>
+                            $100-$250 - Consultations & minor cases.<br>
+                            $250-$500 - Hearings & case management.</p>
+                            <p style="margin-top: 15px;">If you need a custom quote: fill out the inquiry form above. Each case is unique. Personalized estimates prepared based on your specific needs.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item" style="margin-bottom: 10px;">
+                        <summary class="faq__question" style="font-size: 0.95rem; opacity: 0.9;">Estimated Cost for Services?</summary>
+                        <div class="faq__answer">
+                            For informational purposes only:
+                            <table class="price-table">
+                                <tr><td>Defending Traffic Tickets</td><td>$400 - 700 CAD</td></tr>
+                                <tr><td>Employment & Labour Law</td><td>$300 - 600 CAD</td></tr>
+                                <tr><td>Insurance & Benefits Claims</td><td>$250 - 500 CAD</td></tr>
+                                <tr><td>Business Contract Review</td><td>$350 - 650 CAD</td></tr>
+                                <tr><td>Landlord & Tenant (LTB)</td><td>$300 - 700 CAD</td></tr>
+                                <tr><td>WSIB & Workplace Injuries</td><td>$350 - 750 CAD</td></tr>
+                            </table>
+                            <p class="price-note">Pricing varies. Your final estimate reflects the complete total.</p>
+                            <p class="price-note">For complex matters involving <strong>multiple hearings</strong> fees may increase and reach up to 2,500 CAD or higher.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item" style="margin-bottom: 0;">
+                        <summary class="faq__question" style="font-size: 0.95rem; opacity: 0.9;">Can I Afford This on a Tight Budget?</summary>
+                        <div class="faq__answer">
+                            <p>Absolutely. <strong>Unbundled legal services</strong> let you pay only for specific tasks rather than full representation. This approach can reduce costs by 40-60%. You handle portions of your matter independently while receiving professional assistance only where needed. To explore this option, mention it in your inquiry form, by phone, or during your consultation.</p>
+                            <p style="margin-top: 10px;"><strong>Referral discounts</strong> are available for clients referred by existing customers.</p>
+                            <p style="margin-top: 10px;"><strong>Pro bono representation</strong> or reduced-fee arrangements may be offered to qualifying individuals, including refugees, displaced persons, those affected by war, and those facing financial hardship, on a case-by-case basis.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq__item" style="margin-bottom: 0;">
+                        <summary class="faq__question" style="font-size: 0.95rem; opacity: 0.9;">Can I See a Detailed Limited Scope Retainer Breakdown?</summary>
+                        <div class="faq__answer">
+                            <p>Below is an <strong>approximate limited scope retainer</strong> breakdown. With unbundled services, you only pay for the stages you need. All prices are <strong>for reference only</strong> and reflect typical Ontario (GTA) market rates.</p>
+
+                            <p style="margin-top: 18px; font-weight: 700; font-size: 1.05rem; color: #ffffff;">Traffic Ticket Defense — Limited Scope Stages</p>
+                            <table class="price-table">
+                                <tr><td>Stage 1: Initial Consultation & Case Review</td><td>$75 - $150</td></tr>
+                                <tr><td>Stage 2: Disclosure Request & Analysis</td><td>$150 - $300</td></tr>
+                                <tr><td>Stage 3: Legal Research & Strategy Memo</td><td>$100 - $200</td></tr>
+                                <tr><td>Stage 4: Negotiation with Prosecutor</td><td>$150 - $350</td></tr>
+                                <tr><td>Stage 5: Trial Preparation (documents, witnesses)</td><td>$200 - $400</td></tr>
+                                <tr><td>Stage 6: Court Representation (half day)</td><td>$300 - $500</td></tr>
+                                <tr><td>Stage 7: Court Representation (full day)</td><td>$500 - $800</td></tr>
+                                <tr><td>Stage 8: Post-Trial Submissions & Sentencing</td><td>$100 - $250</td></tr>
+                            </table>
+
+                            <p style="margin-top: 18px; font-weight: 700; font-size: 1.05rem; color: #ffffff;">Landlord & Tenant Board — Limited Scope Stages</p>
+                            <table class="price-table">
+                                <tr><td>Stage 1: Initial Assessment & Advice</td><td>$75 - $150</td></tr>
+                                <tr><td>Stage 2: Document Drafting (N4, N12, T2, T6, L1)</td><td>$150 - $350</td></tr>
+                                <tr><td>Stage 3: Filing Application with LTB</td><td>$100 - $200</td></tr>
+                                <tr><td>Stage 4: Disclosure & Evidence Organization</td><td>$150 - $300</td></tr>
+                                <tr><td>Stage 5: Mediation Preparation & Attendance</td><td>$200 - $400</td></tr>
+                                <tr><td>Stage 6: Hearing Preparation (submissions, witnesses)</td><td>$250 - $450</td></tr>
+                                <tr><td>Stage 7: LTB Hearing Representation</td><td>$400 - $700</td></tr>
+                                <tr><td>Stage 8: Review Order & Enforcement Advice</td><td>$100 - $200</td></tr>
+                            </table>
+
+                            <p style="margin-top: 18px; font-weight: 700; font-size: 1.05rem; color: #ffffff;">WSIB Claims — Limited Scope Stages</p>
+                            <table class="price-table">
+                                <tr><td>Stage 1: Initial Consultation & Claim Assessment</td><td>$75 - $150</td></tr>
+                                <tr><td>Stage 2: Form 6 Preparation & Filing</td><td>$150 - $300</td></tr>
+                                <tr><td>Stage 3: Medical Evidence Review & Request</td><td>$200 - $400</td></tr>
+                                <tr><td>Stage 4: LOE / NEL Benefit Calculation & Submission</td><td>$200 - $400</td></tr>
+                                <tr><td>Stage 5: Objection Letter Drafting</td><td>$150 - $300</td></tr>
+                                <tr><td>Stage 6: Internal Review / Reconsideration</td><td>$300 - $500</td></tr>
+                                <tr><td>Stage 7: WSIAT Appeal Preparation</td><td>$400 - $700</td></tr>
+                                <tr><td>Stage 8: WSIAT Hearing Representation</td><td>$600 - $1,200</td></tr>
+                            </table>
+
+                            <p class="price-note" style="margin-top: 15px;">All prices in <strong>CAD</strong>. You choose which stages to retain us for — pay only for what you need. Complex or multi-hearing matters may exceed these ranges. Request a personalized quote via the booking form.</p>
+                        </div>
+                    </details>
+                </div>
             </div>
         </details>
 
-        <details class="faq__item" open>
-            <summary class="faq__question">Estimated Cost for Services?</summary>
-            <div class="faq__answer">
-                For informational purposes only:
-                <table class="price-table">
-                    <tr><td>Defending Traffic Tickets</td><td>$400 - 700 CAD</td></tr>
-                    <tr><td>Employment & Labour Law</td><td>$300 - 600 CAD</td></tr>
-                    <tr><td>Insurance & Benefits Claims</td><td>$250 - 500 CAD</td></tr>
-                    <tr><td>Business Contract Review</td><td>$350 - 650 CAD</td></tr>
-                    <tr><td>Landlord & Tenant (LTB)</td><td>$300 - 700 CAD</td></tr>
-                    <tr><td>WSIB & Workplace Injuries</td><td>$350 - 750 CAD</td></tr>
-                </table>
-                <p class="price-note">Pricing varies. Your final estimate reflects the complete total.</p>
-                <p class="price-note">For complex matters involving <strong>multiple hearings</strong> fees may increase and reach up to 2,500 CAD or higher.</p>
-            </div>
-        </details>
-
-        <details class="faq__item" open>
-            <summary class="faq__question">Can I Afford This on a Tight Budget?</summary>
-            <div class="faq__answer">
-                <p>Absolutely. <strong>Unbundled legal services</strong>, often called limited scope retainers, let you pay only for specific tasks rather than full representation. This approach can reduce costs by 40-60%. You handle portions of your matter independently while receiving professional assistance only where needed. To explore this option, mention it in your inquiry form, by phone, or during your consultation.</p>
-                <p style="margin-top: 10px;"><strong>Referral discounts</strong> are available for clients referred by existing customers.</p>
-                <p style="margin-top: 10px;"><strong>Pro bono representation</strong> or reduced-fee arrangements may be offered to qualifying individuals, including refugees, displaced persons, those affected by war, and those facing financial hardship, on a case-by-case basis.</p>
-            </div>
-        </details>
-
-        <details class="faq__item" open>
-            <summary class="faq__question">Happening After Booking?</summary>
+        <details class="faq__item">
+            <summary class="faq__question">What Happening After Booking?</summary>
             <div class="faq__answer">
                 Contact typically occurs within 48 business hours via <strong>video call</strong>, <strong>phone</strong>, or <strong>email</strong>. Details are finalized in-office or via video call. A written summary of next steps and required documents will be provided upon completion.
             </div>
         </details>
 
-        <details class="faq__item" open>
+        <details class="faq__item">
             <summary class="faq__question">Are you a lawyer?</summary>
             <div class="faq__answer">
                 A licensed paralegal in Ontario means holding authority to act in defined legal matters without being a lawyer. Providing qualified representation at lower cost, offering practical alternatives to lawyers, and delivering accessible advocacy are the hallmarks of paralegal work. In many everyday disputes, paralegals function as the primary representative, ensuring efficiency, affordability, and professional service.
             </div>
         </details>
 
-        <details class="faq__item" open>
+        <details class="faq__item">
             <summary class="faq__question">Privacy Policy?</summary>
             <div class="faq__answer">
                 <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p>
@@ -1341,9 +1731,14 @@
             </div>
         </details>
 
-        <details class="faq__item" open>
-            <summary class="faq__question">Where is your Office?</summary>
+        <details class="faq__item">
+            <summary class="faq__question">OK WHERE IS YOUR OFFICE?</summary>
             <div class="faq__answer">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
+                    <span style="opacity: 0.9; font-size: 0.95rem;">Just tap</span>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; background: linear-gradient(135deg, #E07020, #FFD700); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.75rem; white-space: nowrap;">Drive <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    <span style="opacity: 0.9; font-size: 0.95rem;">to start driving</span>
+                </div>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
@@ -1422,6 +1817,14 @@
         <div class="footer__hours">
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
+
+        <!-- Nearest Available Day Booking Button -->
+        <div style="text-align: center; margin: 10px 0;">
+            <button class="footer-book-btn" id="footerBookBtn" onclick="scrollToCalendar()" style="display: none;">
+                <span id="footerBookBtnText">Book Nearest Slot</span>
+            </button>
+        </div>
+
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
     <p class="footer__copyright">&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
@@ -1433,7 +1836,7 @@
     <div class="modal__content" style="max-width: 600px;">
         <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
         <h2 class="modal__title" style="text-align: center; margin-top: 10px;">Your Appointment At:</h2>
-        <div class="modal__body" style="padding-top: 20px;">
+        <div class="modal__body" style="padding-top: 20px; text-align: center;">
             <p class="modal__highlight" id="bookingTimeDisplay" style="font-size: 1.2rem; margin-bottom: 25px; text-align: center; color: #fff;"></p>
             
             <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
@@ -1442,6 +1845,7 @@
                     <input type="text" name="website" tabindex="-1" autocomplete="off">
                 </div>
                 <input type="hidden" name="_timestamp" id="formTimestamp">
+                
                 <div class="contact-form__group">
                     <input type="text" class="contact-form__input" placeholder="Your Name" name="name" required>
                 </div>
@@ -1451,13 +1855,40 @@
                 <div class="contact-form__group">
                     <input type="tel" class="contact-form__input" placeholder="Phone Number" name="phone" required>
                 </div>
+
+                <!-- Budget field moved below Book Now button -->
                 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, Postal Code" name="address_full" required>
+                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, Zip Code" name="address_full" required>
                 </div>
 
                 <div class="contact-form__group">
-                    <textarea class="contact-form__textarea" placeholder="Brief details about your case area..." name="notes" style="min-height: 100px;"></textarea>
+                <div class="contact-form__group">
+                    <!-- Custom Select Markup -->
+                    <div class="custom-select-wrapper">
+                        <select name="subject" id="subjectNative" style="display: none;">
+                            <option value="" disabled selected>Select Topic</option>
+                            <option value="Traffic Ticket">Traffic Ticket</option>
+                            <option value="Landlord Tenant">Landlord Tenant</option>
+                            <option value="Small Claims">Small Claims</option>
+                            <option value="Notary Services">Notary Services</option>
+                            <option value="WSIB">WSIB</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                        </select>
+                        <div class="custom-select" id="subjectCustomSelect">
+                            <div class="custom-select__trigger"><span>Select Topic</span></div>
+                            <div class="custom-options">
+                                <span class="custom-option" data-value="Traffic Ticket">Traffic Ticket</span>
+                                <span class="custom-option" data-value="Landlord Tenant">Landlord & Tenant Board</span>
+                                <span class="custom-option" data-value="Small Claims">Small Claims Court</span>
+                                <span class="custom-option" data-value="Notary Services">Notary Services</span>
+                                <span class="custom-option" data-value="WSIB">WSIB & Injury Claims</span>
+                                <span class="custom-option" data-value="General Inquiry">General Inquiry</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <textarea class="contact-form__textarea" placeholder="Brief details about your case area..." name="notes" style="min-height: 100px; text-align: left;"></textarea>
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px;">
@@ -1484,6 +1915,10 @@
                 </div>
 
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
+
+                <div class="contact-form__group" style="margin-top: 15px;">
+                    <input type="text" class="contact-form__input" placeholder="Desired Budget (Optional)" name="budget" style="text-align: left;">
+                </div>
             </form>
             <p id="bookingStatus" style="text-align: center; margin-top: 15px; font-weight: 700;"></p>
         </div>
@@ -1495,7 +1930,7 @@
     // CONFIGURATION
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKWidSl0B_wPsPLLbBiCbmjbJatZRkKNsAZJ-93R_K3kLMj59hn_4Bgw3UXNKxdFyDBQ/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPIykdvM4HCWytcg6LwIPARzvKbd3LvsMXjT1cSDxsSWUYiHgxjCpZRerhmDSVTgMMrw/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -1631,12 +2066,10 @@
         // selectedDateDisplay.textContent = "";  // Removed usage in HTML but keeping JS safe -> Actually removed element so must remove this line
         slotsGrid.innerHTML = ''; // Empty by default
         const headerTitle = document.getElementById('calendarHeaderTitle');
-        // Reset only if not overridden by nearest day logic yet? 
-        // Actually renderCalendar clears grid, then async fetch happens, then nearest day is found. 
-        // So resetting here "Pick a time" might flash. 
-        // Let's leave it, or set to "Checking..."
-        // If we want to persist "Pick a time" as default:
-        if(headerTitle) headerTitle.textContent = "Pick a time";
+        // Initial state
+        // if(headerTitle) headerTitle.innerHTML = `<span style="font-size: 1.5rem;">Wait</span> <span class="loading-text" style="font-size: 1.5rem;">...</span>`;
+        // Removed initial Wait text from header to just show target header
+        if(headerTitle) headerTitle.innerHTML = ""; // Empty or specific text if needed, user requested removal
 
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
@@ -1683,24 +2116,49 @@
             const isPast = checkDate < torontoNow;
             const isSaturday = checkDate.getDay() === 6;
             const isSunday = checkDate.getDay() === 0;
+            const isToday = checkDate.getTime() === torontoNow.getTime();
+            const isFeb14 = (month === 1 && day === 14);
 
-            if (isSaturday && !isPast) {
-                div.innerHTML = KEY_SVG;
-                div.classList.add('cal-day--saturday-available');
-                div.onclick = () => selectDate(day, div);
-                if (checkDate.getTime() === torontoNow.getTime()) {
-                    div.classList.add('cal-day--today');
-                }
+            // Determine Content
+            if (isFeb14) {
+                 // SVG Heart - Red with Shadow
+                 const HEART_SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="#ff0000" stroke="#cc0000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+                 div.innerHTML = HEART_SVG;
+            } else if (isSaturday) {
+                 // Saturday Key (Gold) on ALL Saturdays except Feb 14
+                 div.innerHTML = KEY_SVG;
+                 div.classList.add('cal-day--saturday-available');
+                 // Past Saturdays: match disabled day opacity
+                 if (isPast) div.style.opacity = '0.3';
             } else {
-                div.textContent = day;
-                if (isPast || isSunday) {
-                    div.classList.add('cal-day--disabled');
-                } else {
-                    div.onclick = () => selectDate(day, div);
-                    if (checkDate.getTime() === torontoNow.getTime()) {
-                        div.classList.add('cal-day--today');
-                    }
-                }
+                 // Standard Day Number
+                 div.textContent = day;
+            }
+
+            // Determine Status (Disabled / Clickable) - Fix precedence
+            if (isPast) {
+                div.classList.add('cal-day--disabled');
+            } else if (isSunday) {
+                 // Sunday is disabled BUT if it's today, we want to show red border
+                 // So we add disabled class for opacity/clicks but today class will override border
+                 div.classList.add('cal-day--disabled');
+            }
+            
+            if (!isPast) {
+                 div.onclick = () => selectDate(day, div);
+            }
+            // Remove click for disabled
+            if(div.classList.contains('cal-day--disabled')) div.onclick = null;
+
+            // Highlight Today - Apply LAST to ensure border visibility
+            if (isToday) {
+                div.classList.add('cal-day--today');
+                // Ensure opacity is high enough to see border if it was disabled (e.g. Sunday)
+                if(isSunday) div.style.opacity = '1'; 
+                // But keep pointer events none if we want to disable clicks? 
+                // User said "Sunday unclickable". So keep disabled class or pointer-events:none
+                // But opacity 1 to show red border clearly? Or just the border?
+                // .cal-day--disabled sets opacity 0.15. We need to override it for TODAY.
             }
 
             calendarGrid.appendChild(div);
@@ -1786,34 +2244,25 @@
         availableDaysCount = 0;
         dayElements.forEach(el => {
             const dayFn = parseInt(el.dataset.day);
-            if (slotsMap[dayFn] && slotsMap[dayFn].length > 0) {
+            if (slotsMap[dayFn]) {
                 el.classList.add('cal-day--has-slots');
                 el.style.setProperty('--i', availableDaysCount++);
                 el.dataset.slots = JSON.stringify(slotsMap[dayFn]);
                 
-                // Highlight closest free day
-                if (nearestDay && dayFn === nearestDay) {
+                // Highlight closest free day - MODIFIED for busy logic
+                // Check if ALL slots are busy?
+                const allBusy = slotsMap[dayFn].every(s => s.status === 'busy');
+                
+                if (!allBusy && nearestDay && dayFn === nearestDay) {
                      el.classList.add('cal-day--nearest');
                      // Instead of just highlighting, we SELECT it (open it)
                      // Using timeout to ensure DOM is ready and transitions look okay
                      setTimeout(() => {
-                        selectDate(dayFn, el);
+                        selectDate(dayFn, el, true); // Added true for isAutoSelection
                      }, 10);
                      
-                     // Show message (update header)
-                     const slots = slotsMap[dayFn];
-                     if(slots && slots.length > 0) {
-                        const firstTime = slots[0].text.split(' - ')[0]; 
-                        const dateObj = new Date(year, month, nearestDay);
-                        const dateStr = dateObj.toLocaleDateString('en-CA', {month: 'long', day: 'numeric', year: 'numeric'}); // Added year? No user just said date.
-                        // User example: "Sat Feb 14 2026"
-                        const dateStrFull = dateObj.toDateString(); 
-                        
-                        const headerTitle = document.getElementById('calendarHeaderTitle');
-                        if(headerTitle) {
-                             headerTitle.innerHTML = `Next available appointment: <div style="font-size: 0.9em; opacity: 0.9; margin-top:5px;">${sanitize(dateStrFull)} at ${sanitize(firstTime)}</div>`;
-                        }
-                     }
+                     // Show message (update header) - "Available Appointments: ..."
+                     // Handled in selectDate now
                 }
 
             } else {
@@ -1831,11 +2280,13 @@
         });
     }
 
-    function selectDate(day, element) {
+    function selectDate(day, element, isAutoSelection = false) {
         // UI
         document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
-        element.classList.add('cal-day--selected');
-        // Remove white highlight if selected
+        if (!isAutoSelection) {
+            element.classList.add('cal-day--selected');
+        }
+        // Remove specific highlights if any
         element.classList.remove('cal-day--nearest-free');
 
         selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
@@ -1853,21 +2304,70 @@
         
         const headerTitle = document.getElementById('calendarHeaderTitle');
         if(headerTitle) {
-            headerTitle.innerHTML = `Next available appointment: <div style="font-size: 0.9em; opacity: 0.9; margin-top:5px;">${selectedDate.toDateString()}</div>`;
+            headerTitle.innerHTML = "";
         }
+
+        // Initialize Custom Select Logic
+        const customSelect = document.querySelector('.custom-select');
+        const customSelectTrigger = customSelect.querySelector('.custom-select__trigger');
+        const customOptions = customSelect.querySelectorAll('.custom-option');
+        const nativeSelect = document.getElementById('subjectNative');
+        const triggerSpan = customSelectTrigger.querySelector('span');
+
+        customSelectTrigger.addEventListener('click', function(e) {
+            customSelect.classList.toggle('open');
+            e.stopPropagation(); // Prevent document click from closing immediately
+        });
+
+        customOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const text = this.textContent;
+                
+                // Update Native Select
+                nativeSelect.value = value;
+                
+                // Update Trigger Text
+                triggerSpan.textContent = text;
+                triggerSpan.style.color = "#ffffff"; // Make selected text white
+                
+                // Update Selected Visual State
+                customOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Close
+                customSelect.classList.remove('open');
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!customSelect.contains(e.target)) {
+                customSelect.classList.remove('open');
+            }
+        });
 
         // Render Slots
         slotsGrid.innerHTML = '';
         const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
 
+        if (selectedDate.getMonth() !== currentDate.getMonth()) {
+            slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: rgba(0,0,0,0.5); mix-blend-mode: overlay; margin-top: 10px;">Select a date in the current month to check availability.</p>`;
+            return;
+        }
+
+        // Show Loading
+        slotsGrid.classList.add('loading-pulse');
+        slotsGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 20px;">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 20px;">
+                <!-- Removed Connecting text message -->
+            </div>
+        `;
         if (slotsData.length === 0) {
             // Check if selected date is TODAY (Toronto)
             const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
             const torontoNow = new Date(torontoNowStr);
-            
-            const isToday = selectedDate.getDate() === torontoNow.getDate() &&
-                            selectedDate.getMonth() === torontoNow.getMonth() &&
-                            selectedDate.getFullYear() === torontoNow.getFullYear();
             
             const datePhrase = isToday ? "anymore for Today" : "for this date";
 
@@ -1891,25 +2391,31 @@
                 const btn = document.createElement('button');
                 btn.className = 'slot-btn slot-btn--hypnotic'; 
                 
-                // If this is the first slot of the absolute nearest day, give it extra glow
-                if (isThisNearestDay && index === 0) {
-                    btn.classList.add('slot-btn--absolute-nearest');
+                // Show Busy Status
+                if (slot.status === 'busy') {
+                    btn.className = 'slot-btn slot-btn--busy';
+                    // Random rotation for stamp
+                    const rot = Math.floor(Math.random() * 20) - 10; // -10 to 10 deg
+                    btn.style.setProperty('--rot', rot + 'deg');
                 }
 
-                // Show only start time (e.g. "10:00 AM")
-                btn.textContent = slot.text.split(' - ')[0];
+                // Format: DayName Month Day Year - Time
+                // e.g. Mon Feb 16 2026 - 10:00 AM
+                const dateStrFull = selectedDate.toDateString(); // "Mon Feb 16 2026"
+                const timeStr = slot.text.split(' - ')[0]; // "10:00 AM"
+
+                btn.textContent = `Book ${dateStrFull} - ${timeStr} (50 min)`;
+                
                 // Use CSS variable for index to control both animations independently
                 // Offset by availableDaysCount to continue sequence from calendar
                 btn.style.setProperty('--i', availableDaysCount + index);
-                btn.onclick = () => openBookingModal(slot);
+                
+                if (slot.status !== 'busy') {
+                    btn.onclick = () => openBookingModal(slot);
+                }
                 slotsGrid.appendChild(btn);
             });
         }
-        
-        // slotsContainer.classList.add('slots-container--active'); // Removed: Always visible
-        
-        // Scroll to slots -> REMOVED
-        // slotsContainer.scrollIntoView({ behavior: 'smooth' });
     }
 
     // Modal & Form Handling
@@ -2233,6 +2739,164 @@
     }
     // Initial Load Log
     window.addEventListener('load', () => logEvent("Page Load", window.location.href));
+
+    // FAQ Scroll Reveal with 2-second delay
+    (function() {
+        const faqItems = document.querySelectorAll('.faq__item');
+        const revealedSet = new Set();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !revealedSet.has(entry.target)) {
+                    revealedSet.add(entry.target);
+                    setTimeout(() => {
+                        entry.target.setAttribute('open', '');
+                    }, 2000);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        faqItems.forEach(item => observer.observe(item));
+    })();
+
+    // Footer Booking Button - show nearest available day
+    function scrollToCalendar() {
+        const cal = document.getElementById('bookingCalendar');
+        if (cal) cal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Click on nearest day if available
+        setTimeout(() => {
+            const nearestEl = document.querySelector('.cal-day--nearest');
+            if (nearestEl) nearestEl.click();
+        }, 600);
+    }
+
+    // Update footer booking button text when absoluteNearestDate is set
+    function updateFooterBookBtn() {
+        const btn = document.getElementById('footerBookBtn');
+        const btnText = document.getElementById('footerBookBtnText');
+        if (btn && absoluteNearestDate) {
+            const dayName = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+            // Find first available (non-busy) slot time for the nearest day
+            let timeStr = '';
+            const nearestEl = document.querySelector('.cal-day--nearest');
+            if (nearestEl && nearestEl.dataset.slots) {
+                try {
+                    const slots = JSON.parse(nearestEl.dataset.slots);
+                    const freeSlot = slots.find(s => s.status !== 'busy');
+                    if (freeSlot && freeSlot.text) {
+                        timeStr = freeSlot.text.split(' - ')[0];
+                    }
+                } catch(e) {}
+            }
+            btnText.textContent = timeStr 
+                ? `Press now to book for ${dayName} at ${timeStr}` 
+                : `Press now to book for ${dayName}`;
+            btn.style.display = 'inline-block';
+            // Create sparks
+            createSparks(btn);
+        }
+    }
+
+    function createSparks(container) {
+        // Continuous non-interrupting sparks
+        if (container.dataset.sparkTimer) return; // Only start one interval
+
+        const spawnSpark = () => {
+            const spark = document.createElement('span');
+            spark.className = 'spark';
+            const angle = Math.random() * 360;
+            const dist = 20 + Math.random() * 30;
+            spark.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
+            spark.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
+            spark.style.left = `${Math.random() * 100}%`;
+            spark.style.top = `${Math.random() * 100}%`;
+            
+            // Random colors
+            spark.style.background = ['#FFD700', '#FFA500', '#ffffff', '#FF6347'][Math.floor(Math.random() * 4)];
+            
+            container.appendChild(spark);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                spark.style.transition = 'opacity 0.2s';
+                spark.style.opacity = '0';
+                setTimeout(() => spark.remove(), 200);
+            }, 1000); 
+        };
+
+        // Initial burst
+        for (let i = 0; i < 6; i++) spawnSpark();
+
+        // Continuous trickle
+        const timer = setInterval(() => {
+            if (container.offsetParent === null) { // If hidden
+                clearInterval(timer);
+                container.dataset.sparkTimer = "";
+                return;
+            }
+            spawnSpark();
+        }, 400);
+        
+        container.dataset.sparkTimer = timer;
+    }
+
+    // Slow FAQ Expansion Logic
+    document.querySelectorAll('.faq__item').forEach(item => {
+        const summary = item.querySelector('.faq__question');
+        const answer = item.querySelector('.faq__answer');
+        
+        summary.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isOpen = item.hasAttribute('open');
+            
+            if (!isOpen) {
+                // Opening
+                item.setAttribute('open', '');
+                answer.style.height = '0px';
+                // Trigger reflow
+                answer.offsetHeight;
+                
+                const fullHeight = answer.scrollHeight;
+                const lineUnits = Math.ceil(fullHeight / 24);
+                const duration = lineUnits * 2000; // Hypnotic: 2s per line
+                
+                answer.style.transition = `height ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                answer.style.height = fullHeight + 'px';
+            } else {
+                // Closing
+                const currentHeight = answer.offsetHeight;
+                const lineUnits = Math.ceil(currentHeight / 24);
+                const duration = lineUnits * 2000;
+                
+                answer.style.transition = `height ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                answer.style.height = '0px';
+                
+                setTimeout(() => {
+                    if (answer.style.height === '0px') {
+                        item.removeAttribute('open');
+                    }
+                }, duration);
+            }
+        });
+    });
+
+    // Periodic Progress Bar Scan
+    setInterval(() => {
+        const separator = document.getElementById('loadingSeparator');
+        if (separator && !separator.classList.contains('loading-separator--active')) {
+            separator.classList.add('loading-separator--active');
+            setTimeout(() => {
+                separator.classList.remove('loading-separator--active');
+            }, 3000); // Pulse for 3 seconds
+        }
+    }, 18000); // Every ~18 seconds
+
+    // Hook into updateCalendarWithAvailability to update footer button
+    const _origUpdateCal = updateCalendarWithAvailability;
+    updateCalendarWithAvailability = function(slots) {
+        _origUpdateCal(slots);
+        updateFooterBookBtn();
+    };
 </script>
 </body>
 </html>
