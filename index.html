@@ -1952,7 +1952,7 @@
     // CONFIGURATION
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPIykdvM4HCWytcg6LwIPARzvKbd3LvsMXjT1cSDxsSWUYiHgxjCpZRerhmDSVTgMMrw/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkmGLNFsKGS9llt8ZtWBabkGvXR98leTmZrmLJNhoysm2PTICguG8_Hsx4bt4n1P7WZg/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -2243,7 +2243,7 @@
             // If checking availability for a different month than currently viewed, ignore (UI handling)
             // But here we rely on cache or fetch
             if (!availableSlotsCache[cacheKey]) {
-                const response = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}`);
+                const response = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}&_t=${Date.now()}`);
                 const data = await response.json();
                 if (data.success) {
                     availableSlotsCache[cacheKey] = data.slots; // Expecting [{date: 12, text: "9:00", iso: "..."}]
