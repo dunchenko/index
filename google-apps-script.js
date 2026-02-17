@@ -107,43 +107,38 @@ function getFreeSlots(year, month) {
   const calendar = CalendarApp.getCalendarById(CALENDAR_ID);
   const endDate = new Date(year, month + 1, 0);
   
-  const startHour = 10;
-  const endHour = 16;
+  const startHours = [10, 12, 14, 16];
   const availableSlots = [];
-  
-  // Get current time in Toronto as an absolute point in time
   const now = new Date(); 
   
   for (let d = 1; d <= endDate.getDate(); d++) {
-    const currentDayEnum = getTorontoDate(year, month, d, 0, 0).getDay();
-    if (currentDayEnum === 0) continue; // Skip Sundays
+    const checkDate = getTorontoDate(year, month, d, 0, 0);
+    const dayOfWeek = checkDate.getDay();
+    if (dayOfWeek === 0) continue; // Skip Sundays (0)
     
-    for (let h = startHour; h < endHour; h++) {
+    startHours.forEach(h => {
       const slotStart = getTorontoDate(year, month, d, h, 0);
-      const slotEnd = getTorontoDate(year, month, d, h + 1, 0);
+      const slotEnd = getTorontoDate(year, month, d, h, 50); // 50 minutes duration
       
-      // Skip if slot is in the past
-      if (slotStart < now) continue;
+      if (slotStart < now) return; // Skip past slots
       
       const events = calendar.getEvents(slotStart, slotEnd).filter(e => {
         const title = e.getTitle();
         return title !== 'Bookable Appointment' && title !== 'Appointment Schedule';
       });
-      // isoLocal is a "wall time" string without TZ, used for round-trip
+
       const isoLocal = year + '-' +
         String(month + 1).padStart(2, '0') + '-' +
         String(d).padStart(2, '0') + 'T' +
         String(h).padStart(2, '0') + ':00:00';
 
-      const slotObj = {
+      availableSlots.push({
         date: d,
-        text: `${formatTime(h)} - ${formatTime(h, 50)}`,
+        text: `${formatTime(h, 0)} – ${formatTime(h, 50)}`, // En dash
         iso: isoLocal,
         status: events.length === 0 ? 'free' : 'busy'
-      };
-      
-      availableSlots.push(slotObj);
-    }
+      });
+    });
   }
   
   return { success: true, slots: availableSlots };
