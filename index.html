@@ -917,12 +917,14 @@
             justify-content: center;
             border-radius: 14px;
             color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.1); 
+            background: rgba(255, 255, 255, 0.05); /* Reduced opacity */
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             font-size: 1rem;
-            border: 1px solid transparent;
+            border: none !important; /* Force no border */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             font-weight: 400; /* Normal weight */
         }
 
@@ -972,14 +974,16 @@
         /* .cal-day--nearest-free removed */
         
         .cal-day--today {
-            border: 8px solid #ff0000 !important; /* Heart-red, extra thick */
-            box-shadow: 0 0 8px rgba(255, 0, 0, 0.4); /* Reduced glow */
+            border: 5px solid #ffffff !important; 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+            opacity: 1 !important;
         }
 
         /* Removed .cal-day--has-slots::after (dots) */
         .cal-day--has-slots {
-            animation: sequentialGlow 6s infinite ease-in-out calc(var(--i) * 0.2s);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 1 !important;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* Slots Section */
@@ -1066,15 +1070,14 @@
 
         .slot-btn {
             padding: 18px 15px;
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
+            background: rgba(255, 255, 255, 0.05); /* Increased transparency */
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-weight: 400; /* Normal weight */
+            transition: background 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+            font-family: 'Lato', sans-serif !important;
+            font-weight: 400; 
             font-size: 1.1rem;
             text-align: center;
             backdrop-filter: blur(4px);
@@ -1082,25 +1085,26 @@
 
         .slot-btn:hover {
             background: rgba(255, 255, 255, 0.2);
-            color: #fff; /* Keep white on hover */
+            color: #fff; 
             transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .slot-btn--busy {
-            opacity: 0.7; /* Increased opacity slightly for readability of watermark */
+            opacity: 0.8; 
             pointer-events: none;
             background: repeating-linear-gradient(
-                -45deg, /* Reversed direction */
+                -45deg, 
                 rgba(255, 255, 255, 0.05),
                 rgba(255, 255, 255, 0.05) 10px,
                 rgba(255, 255, 255, 0.1) 10px,
                 rgba(255, 255, 255, 0.1) 20px
             );
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.15); /* Faint text */
-            text-decoration: line-through;
+            border: none;
+            color: rgba(255, 255, 255, 0.3); 
+            text-decoration: none;
             position: relative;
-            overflow: hidden; /* visual contain */
+            overflow: hidden; 
         }
         
         /* Watermark "ALREADY BOOKED" - Red Stamp Style */
@@ -1109,16 +1113,16 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(var(--rot, -10deg));
-            font-size: 0.9rem; /* Smaller font */
+            font-size: 0.9rem; 
             font-weight: 900;
-            color: #ff4d4d; /* Red like heart */
-            border: 3px solid #ff4d4d; /* Thicker border */
+            color: #ffffff; 
+            border: 2px solid #ffffff; 
             padding: 2px 6px;
             white-space: nowrap;
             pointer-events: none;
             letter-spacing: 1px;
             text-align: center;
-            opacity: 0.9;
+            opacity: 1;
         }
 
         @keyframes slideUpFade {
@@ -1127,14 +1131,15 @@
         }
 
         /* Sequential Glow Animation - modified for a unified cyclic wave */
+        /* Sequential Glow Animation - brighter */
         @keyframes sequentialGlow {
             0%, 30%, 100% { 
-                background: rgba(255, 255, 255, 0.08); 
+                background: rgba(255, 255, 255, 0.05); 
                 box-shadow: 0 0 0 rgba(255, 255, 255, 0);
             }
             15% { 
-                background: rgba(255, 255, 255, 0.22);
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.35); /* Brighter pulse */
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
             }
         }
 
@@ -1186,19 +1191,7 @@
             text-align: center;
         }
 
-        /* FAQ Slow Reveal Styles */
-        .faq__item[open] > .faq__answer {
-            animation: none; /* Disable default if any */
-        }
-        .faq__answer {
-            overflow: hidden;
-            transition: height linear;
-            height: 0;
-            display: block; /* Ensure it can have height */
-        }
-        .faq__item[open] > .faq__answer {
-            height: auto;
-        }
+
 
         /* Next Available Message */
         .next-available-msg {
@@ -1255,7 +1248,6 @@
 
         .file-attach__icon-svg {
             display: inline-block;
-            animation: paperclipUnrollPulse 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: center center;
         }
 
@@ -1462,8 +1454,65 @@
 
         .file-attach__icon-svg {
             display: inline-block;
-            animation: paperclipUnroll 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: center center;
+        }
+        @keyframes hypnoticPulse {
+            0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); opacity: 0.6; }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.7); opacity: 1; color: #fff; }
+            100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); opacity: 0.6; }
+        }
+
+        .hypnotic-text {
+            animation: hypnoticPulse 1.5s infinite ease-in-out;
+        }
+
+        /* Day Navigation in Slots Section */
+        .slots-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px; /* Reduced from 25px per user request */
+            padding: 0 10px;
+            width: 100%;
+        }
+
+        .slots-nav-arrow {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.8rem; /* Consistent with calendar nav */
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+            user-select: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .slots-nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .slots-nav-arrow:active {
+            transform: scale(0.95);
+        }
+
+        #slotsDayDisplay {
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-align: center;
+            flex-grow: 1;
         }
     </style>
 </head>
@@ -1494,54 +1543,14 @@
         <a href="tel:+14372396833" class="header__phone-link">+1 (437) 239-6833</a>
     </div>
     <h1 class="header__seo-text">
-        <span class="header__seo-line">Licensed Paralegal &amp; Notary Public Services</span>
-        <span class="header__seo-line">Traffic Ticket Defense, LTB, WSIB Matters</span>
-        <span class="header__seo-line">Toronto, Richmond Hill, Mississauga, London</span>
-        <span class="header__seo-line">All online consultations are available province-wide</span>
+        <span class="header__seo-line">Licensed Paralegal &amp; Notary Public Services </span>
+        <span class="header__seo-line">Traffic Ticket Defense, LTB, WSIB Matters </span>
+        <span class="header__seo-line">Toronto, Richmond Hill, Mississauga, London </span>
+        <span class="header__seo-line">All online consultations are available province-wide </span>
     </h1>
 </header>
 
-<!-- Services Section (Ontario-Specific Paralegal Scope) -->
-<div class="layout-container" style="margin-top: -20px; margin-bottom: 40px; text-align: center;" itemscope itemtype="https://schema.org/LegalService">
-    <meta itemprop="name" content="Hanna Dunchenko Paralegal Services">
-    <meta itemprop="areaServed" content="Ontario, Canada">
-    <h2 class="section-title" style="margin-top: 20px; font-size: 2rem;">SERVICES</h2>
-    
-    <div style="margin-bottom: 40px;" itemprop="hasOfferCatalog" itemscope itemtype="https://schema.org/OfferCatalog">
-        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;" itemprop="name">Traffic Ticket Defense &amp; Provincial Offences</h3>
-        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
-            In Ontario, licensed paralegals are authorized by the <em>Law Society of Ontario</em> to represent clients in **Provincial Offences Court** for matters under the <strong>Highway Traffic Act (HTA)</strong> and other provincial statutes. Assisting those searching for <strong>how to fight a speeding ticket in Ontario</strong>, or wondering <strong>can I beat a traffic ticket without a lawyer</strong>. Handling <strong>speeding tickets</strong>, <strong>red light camera tickets</strong>, <strong>stunt driving charges Ontario</strong>, <strong>careless driving charges</strong>, <strong>driving with no insurance</strong>, and <strong>fail to stop for police</strong>. Addressing the common question — <strong>"do I need a lawyer for a traffic ticket in Ontario?"</strong> — with expert defense in traffic court. Analyzing the <strong>officer's disclosure</strong>, challenging evidence, negotiating with prosecutors, and fighting to <strong>reduce demerit points</strong>, <strong>lower fines</strong>, and <strong>protect your insurance rates</strong>.
-        </p>
-    </div>
 
-    <div style="margin-bottom: 40px;">
-        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Landlord &amp; Tenant Board (LTB)</h3>
-        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
-            Ontario paralegals are licensed to represent both landlords and tenants before the <strong>Landlord and Tenant Board</strong>. Providing professional advocacy for those searching for <strong>paralegal near me for eviction</strong> or <strong>how to fight an N4 notice in Ontario</strong>. Handling <strong>N4 notices for non-payment of rent</strong>, <strong>L1 applications to evict a tenant</strong>, <strong>N12 notices for landlord's own use</strong>, <strong>T2 applications for tenant rights</strong>, and <strong>T6 applications for maintenance issues</strong>. Responding to the frequent search — <strong>"can a paralegal represent me at the LTB?"</strong> — with qualified representation. Navigating <strong>rent arrears</strong>, an <strong>illegal lockout</strong>, <strong>above-guideline rent increases</strong>, or an <strong>Ontario Standard Lease dispute</strong> through strategic advocacy under the <em>Residential Tenancies Act</em>.
-        </p>
-    </div>
-
-    <div style="margin-bottom: 40px;">
-        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Small Claims Court (up to $35,000)</h3>
-        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
-            In Ontario, paralegals represent clients in the <strong>Superior Court of Justice (Small Claims Court)</strong> for claims up to <strong>$35,000</strong>. Offering a cost-effective alternative for those asking <strong>"how to sue someone in Ontario small claims court"</strong> or <strong>"do I need a lawyer for small claims court Ontario"</strong>. Handling <strong>unpaid invoices</strong>, <strong>property damage claims</strong>, <strong>breach of contract disputes</strong>, <strong>consumer complaints</strong>, and <strong>return of personal property</strong>. Clarifying the question — <strong>"can a paralegal represent me in small claims court?"</strong> — through full licensing to appear before the Ontario Superior Court of Justice, Small Claims branch.
-        </p>
-    </div>
-
-    <div style="margin-bottom: 40px;">
-        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">WSIB &amp; Workplace Injury Claims</h3>
-        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
-            Guiding clients injured at work and searching for <strong>WSIB paralegal near me</strong> or <strong>how to appeal a WSIB decision in Ontario</strong>. Representing injured workers before the <strong>Workplace Safety and Insurance Board</strong> and the <strong>WSIAT (Workplace Safety and Insurance Appeals Tribunal)</strong>. Assisting with <strong>Form 6 Worker's Report of Injury</strong>, <strong>Loss of Earnings (LOE) benefits</strong>, <strong>Return to Work (RTW) disputes</strong>, <strong>Non-Economic Loss (NEL) claims</strong>, and <strong>chronic pain recognition</strong>. Answering — <strong>"can a paralegal help with my WSIB claim?"</strong> — by fighting to ensure recovery is fully supported under the <strong>Workplace Safety and Insurance Act</strong>.
-        </p>
-    </div>
-
-    <div style="margin-bottom: 20px;">
-        <h3 style="font-size: 1.4rem; font-weight: 900; text-transform: uppercase; color: #ffffff; margin-bottom: 15px; text-align: left; text-indent: 20px;">Notary Public &amp; Commissioner of Oaths</h3>
-        <p style="font-size: 1rem; line-height: 1.8; opacity: 0.95; max-width: 650px; text-align: left; padding: 0 20px; font-weight: 400; color: #eee;">
-            Serving as a <strong>Commissioner of Oaths</strong> in Ontario. Helping those in need of a <strong>notary public near me in Toronto</strong> or <strong>commissioner of oaths near me</strong>. Commissioning <strong>affidavits</strong>, <strong>statutory declarations</strong>, and <strong>certified true copies</strong>. Preparing <strong>consent letter for a child travelling abroad</strong>, an <strong>invitation letter for visa applications</strong>, or an <strong>affidavit of service</strong>, ensuring documents are legally valid for use in Ontario and internationally. Addressing the search — <strong>"where to get documents notarized near me Ontario"</strong> — with flexible appointment-based commissioning services.
-        </p>
-    </div>
-</div>
 
 <div class="layout-container">
     <div class="contact-form">
@@ -1570,11 +1579,20 @@
             <div id="nextAvailableMsg" class="next-available-msg"></div>
 
             <!-- Slots moved here -->
+             <!-- Slots moved here -->
              <div class="slots-container" id="slotsContainer">
+                
+                <!-- Day Navigation Header -->
+                <div class="slots-nav">
+                    <button class="slots-nav-arrow" id="prevDayBtn">&#10094;</button>
+                    <span id="slotsDayDisplay" class="hypnotic-text">Free Slots: Connecting to server...</span>
+                    <button class="slots-nav-arrow" id="nextDayBtn">&#10095;</button>
+                </div>
+
                 <!-- Title removed per request -->
                 <!-- <h3 class="slots-title">Tap on time you need</h3> -->
                 <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
-                    <!-- Removed Connecting text -->
+                    <!-- Removing Connecting text -->
                 </div>
             </div>
             
@@ -1587,30 +1605,34 @@
         <!-- End Custom Booking Calendar -->
     </div>
 
-    <h2 class="section-title">Frequently Asked Questions</h2>
+    <h2 class="section-title">FAQ</h2>
     <div class="faq">
         <details class="faq__item">
              <summary class="faq__question">What do the Key Icons mean on the calendar?</summary>
              <div class="faq__answer">
                  The key symbols indicate that the office doors are closed on those days. However, meetings can still be arranged by appointment. Think of them as quiet days off, but we can unlock the office, enjoy some coffee 
-                 <!-- Coffee SVG 1 (Minimalist Curved Design) -->
-                 <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
-                    <!-- Steam -->
-                    <path d="M12 2c0 1 1 1 1 2M16 1c0 1 1 1 1 2" />
-                    <!-- Cup Body: Smooth curved bowl -->
-                    <path d="M4 7c0 7 4 10 10 10s10-3 10-10H4z" />
-                    <!-- Handle -->
-                    <path d="M24 8c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
-                 </svg>
-                 <!-- Coffee SVG 2 (Minimalist Curved Design) -->
-                 <svg width="28" height="20" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
-                    <!-- Steam -->
-                    <path d="M12 2c0 1 1 1 1 2M16 1c0 1 1 1 1 2" />
-                    <!-- Cup Body: Smooth curved bowl -->
-                    <path d="M4 7c0 7 4 10 10 10s10-3 10-10H4z" />
-                    <!-- Handle -->
-                    <path d="M24 8c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
-                 </svg>
+                  <!-- Coffee SVG 1 (Minimalist Curved Design) -->
+                  <svg width="24" height="18" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
+                     <!-- Steam -->
+                     <path d="M11 2c0 1 1 1 1 2M15 1c0 1 1 1 1 2" />
+                     <!-- Cup Body: Smooth curved bowl -->
+                     <path d="M4 6c0 6 4 9 10 9s10-3 10-9H4z" fill="#ffffff" />
+                     <!-- Handle -->
+                     <path d="M24 7c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
+                     <!-- Saucer -->
+                     <path d="M2 17c0-1.1 5.4-2 12-2s12 0.9 12 2S20.6 19 14 19s-12-0.9-12-2z" stroke="#ffffff" fill="none" />
+                  </svg>
+                  <!-- Coffee SVG 2 (Minimalist Curved Design) -->
+                  <svg width="24" height="18" viewBox="0 0 28 20" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 3px;">
+                     <!-- Steam -->
+                     <path d="M11 2c0 1 1 1 1 2M15 1c0 1 1 1 1 2" />
+                     <!-- Cup Body: Smooth curved bowl -->
+                     <path d="M4 6c0 6 4 9 10 9s10-3 10-9H4z" fill="#ffffff" />
+                     <!-- Handle -->
+                     <path d="M24 7c2 0 3 1 3 2.5s-1 2.5-3 2.5" />
+                     <!-- Saucer -->
+                     <path d="M2 17c0-1.1 5.4-2 12-2s12 0.9 12 2S20.6 19 14 19s-12-0.9-12-2z" stroke="#ffffff" fill="none" />
+                  </svg>
 
                  together, and take time to outline strategy or discuss action plans in a relaxed, informal atmosphere.
              </div>
@@ -2049,6 +2071,10 @@
     });
 
     function setupEventListeners() {
+        const nextDayBtn = document.getElementById('nextDayBtn');
+        const prevDayBtn = document.getElementById('prevDayBtn');
+        const slotsDayDisplay = document.getElementById('slotsDayDisplay');
+
         prevBtn.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar();
@@ -2057,6 +2083,41 @@
             currentDate.setMonth(currentDate.getMonth() + 1);
             renderCalendar();
         });
+
+        // Day Navigation Logic
+        if(prevDayBtn && nextDayBtn) {
+            prevDayBtn.addEventListener('click', () => changeDay(-1));
+            nextDayBtn.addEventListener('click', () => changeDay(1));
+        }
+
+        function changeDay(offset) {
+            if(!selectedDate) return;
+            // Create new date instance to avoid mutations
+            const newDate = new Date(selectedDate);
+            newDate.setDate(selectedDate.getDate() + offset);
+            
+            // If month changes, we need to update currentDate and re-render calendar grid
+            if(newDate.getMonth() !== currentDate.getMonth()) {
+                currentDate = new Date(newDate); // Update view to new month
+                renderCalendar().then(() => {
+                    // After render, find the new day element and click it
+                    setTimeout(() => {
+                        clickDayElement(newDate.getDate());
+                    }, 100);
+                });
+            } else {
+                 // Same month, just find the day element and click it
+                 clickDayElement(newDate.getDate());
+            }
+        }
+
+        function clickDayElement(day) {
+            const el = document.querySelector(`.cal-day[data-day='${day}']`);
+            if(el) {
+                // Manually trigger selection, ensuring visual update
+                selectDate(day, el, false); 
+            }
+        }
     }
 
     async function renderCalendar() {
@@ -2076,8 +2137,8 @@
 
         logEvent("Calendar Render", `${monthNames[month]} ${year}`);
 
-        // Modified Display: Month on one line, Year on next
-        monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span><span class="cal-year">${year}</span>`;
+        // Modified Display: Month only, no year
+        monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span>`;
 
         // Render Day Headers
         const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -2293,18 +2354,17 @@
         logEvent("Date Selected", selectedDate.toDateString());
         // selectedDateDisplay.textContent = selectedDate.toDateString(); // Removed from UI
         
-        // Update header on manual selection too?
-        // User didn't explicitly say. But "Next available" implies automated. 
-        // If user manually clicks, maybe we change header to "Selected: Date"?
-        // Or keep "Pick a time"? 
-        // User request: "?????? pick a time ???????? ??????? ???? Next available appointment: ? ????????? ?????"
-        // It says "Next available... with NEAREST date". 
-        // If I click another date, is it "Next available"? No.
-        // Let's update it to "Selected Date: ..." for consistency if they click manually.
-        
-        const headerTitle = document.getElementById('calendarHeaderTitle');
-        if(headerTitle) {
-            headerTitle.innerHTML = "";
+        // Update header on manual selection
+        const headerTitle = document.getElementById('calendarHeaderTitle'); // Legacy
+        if(headerTitle) headerTitle.innerHTML = "";
+
+        // Update New Slots Header with [Weekday, Month Day]
+        const slotsDisplay = document.getElementById('slotsDayDisplay');
+        if(slotsDisplay) {
+            slotsDisplay.classList.remove('hypnotic-text'); // Remove animation on date selection
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            slotsDisplay.textContent = "Free Slots: " + selectedDate.toLocaleDateString('en-US', options);
+            slotsDisplay.style.opacity = '1';
         }
 
         // Initialize Custom Select Logic
@@ -2356,14 +2416,7 @@
             return;
         }
 
-        // Show Loading
-        slotsGrid.classList.add('loading-pulse');
-        slotsGrid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 20px;">
-            <div style="grid-column: 1 / -1; text-align: center; padding: 20px;">
-                <!-- Removed Connecting text message -->
-            </div>
-        `;
+        // Show Loading (UI feedback already in header)
         if (slotsData.length === 0) {
             // Check if selected date is TODAY (Toronto)
             const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
@@ -2740,24 +2793,7 @@
     // Initial Load Log
     window.addEventListener('load', () => logEvent("Page Load", window.location.href));
 
-    // FAQ Scroll Reveal with 2-second delay
-    (function() {
-        const faqItems = document.querySelectorAll('.faq__item');
-        const revealedSet = new Set();
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !revealedSet.has(entry.target)) {
-                    revealedSet.add(entry.target);
-                    setTimeout(() => {
-                        entry.target.setAttribute('open', '');
-                    }, 2000);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        faqItems.forEach(item => observer.observe(item));
-    })();
 
     // Footer Booking Button - show nearest available day
     function scrollToCalendar() {
@@ -2840,45 +2876,7 @@
         container.dataset.sparkTimer = timer;
     }
 
-    // Slow FAQ Expansion Logic
-    document.querySelectorAll('.faq__item').forEach(item => {
-        const summary = item.querySelector('.faq__question');
-        const answer = item.querySelector('.faq__answer');
-        
-        summary.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isOpen = item.hasAttribute('open');
-            
-            if (!isOpen) {
-                // Opening
-                item.setAttribute('open', '');
-                answer.style.height = '0px';
-                // Trigger reflow
-                answer.offsetHeight;
-                
-                const fullHeight = answer.scrollHeight;
-                const lineUnits = Math.ceil(fullHeight / 24);
-                const duration = lineUnits * 2000; // Hypnotic: 2s per line
-                
-                answer.style.transition = `height ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-                answer.style.height = fullHeight + 'px';
-            } else {
-                // Closing
-                const currentHeight = answer.offsetHeight;
-                const lineUnits = Math.ceil(currentHeight / 24);
-                const duration = lineUnits * 2000;
-                
-                answer.style.transition = `height ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-                answer.style.height = '0px';
-                
-                setTimeout(() => {
-                    if (answer.style.height === '0px') {
-                        item.removeAttribute('open');
-                    }
-                }, duration);
-            }
-        });
-    });
+
 
     // Periodic Progress Bar Scan
     setInterval(() => {
