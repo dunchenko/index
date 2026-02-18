@@ -907,7 +907,19 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 5px; /* Reduced from 15px */
+        }
+
+        .cal-cta {
+            grid-column: 1 / span 7;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 15px;
+            opacity: 0.8;
+            text-align: center;
         }
 
         .cal-day {
@@ -2033,9 +2045,9 @@
         // 50 minutes on hour face is 25 degrees, so always small arc (0)
         const largeArc = 0;
         
-        // Draw sector
-        // M cx cy (center) -> L start.x start.y (line to start) -> A r r 0 1 1 end.x end.y (arc to end) -> Z (close)
-        const d = `M ${cx} ${cy} L ${start.x} ${start.y} A ${rInner} ${rInner} 0 ${largeArc} 1 ${end.x} ${end.y} Z`;
+        // Draw complement sector (filling free time)
+        // M cx cy -> L end.x end.y -> A r r 0 1 1 start.x start.y -> Z
+        const d = `M ${cx} ${cy} L ${end.x} ${end.y} A ${rInner} ${rInner} 0 1 1 ${start.x} ${start.y} Z`;
         
         // Outer ring (stroke only), and Inner sector (fill only)
         return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2129,6 +2141,12 @@
             div.textContent = day;
             calendarGrid.appendChild(div);
         });
+
+        // Canadian Slang CTA
+        const ctaDiv = document.createElement('div');
+        ctaDiv.className = 'cal-cta';
+        ctaDiv.textContent = "Give 'er a tap on a slot, bud!";
+        calendarGrid.appendChild(ctaDiv);
 
         // Calculate padding days
         const firstDay = new Date(year, month, 1);
