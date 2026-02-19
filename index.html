@@ -1111,26 +1111,15 @@
         }
 
         .slot-btn--busy {
-            opacity: 0.15;
-            opacity: 0.01;
+            opacity: 0.45;
             pointer-events: none;
-            background-image: linear-gradient(
-                45deg, 
-                rgba(90, 61, 42, 0.1) 25%, 
-                rgba(90, 61, 42, 0.2) 25%, 
-                rgba(90, 61, 42, 0.2) 50%, 
-                rgba(90, 61, 42, 0.1) 50%, 
-                rgba(90, 61, 42, 0.1) 75%, 
-                rgba(90, 61, 42, 0.2) 75%, 
-                rgba(90, 61, 42, 0.2) 100%
-            );
-            background-size: 40px 40px;
+            background-image: none;
             border: none;
-            color: rgba(255, 255, 255, 0.3); 
+            color: rgba(255, 255, 255, 0.2); 
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            animation: slantStripes 120s linear infinite, busyPulse 4s ease-in-out infinite; 
+            animation: none; 
         }
         
         @keyframes slantStripes {
@@ -1151,14 +1140,14 @@
             transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
             font-size: 1.2rem; 
             font-weight: 900;
-            color: #ffffff; 
-            border: 2.5px solid #ffffff; 
+            color: rgba(255, 255, 255, 0.8); 
+            border: 2.5px solid rgba(255, 255, 255, 0.8); 
             padding: 5px 12px;
             white-space: nowrap;
             pointer-events: none;
             letter-spacing: 1px;
             text-align: center;
-            opacity: 1;
+            opacity: 0.85;
         }
 
         @keyframes slideUpFade {
@@ -1685,7 +1674,7 @@
                 <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
                     <!-- Removing Connecting text -->
                 </div>
-                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Confirm the time if available.</div>
+                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Confirm slot for the chosen day.</div>
             </div>
             
             <!-- Instruction below slots -->
@@ -1723,8 +1712,7 @@
         <details class="faq__item" open>
             <summary class="faq__question">What forms are worked with?</summary>
             <div class="faq__answer">
-                Forms Part I, Part II, Part III (Traffic Ticket Defense), N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8 (Landlord and Tenant Board), Direction of Authorization and WSIB Claims/Appeals forms; Enumeration provided strictly as examples and does not limit scope of practice, files to be reviewed at appointment for determination of applicable documents.
-                Enumeration provided strictly as examples and does not limit scope of practice. <strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB Matters:</strong> Direction of Authorization, WSIB Claims and Appeals forms. Files to be reviewed at appointment for determination of applicable documents — please attach your files now for assessment.
+                <p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>
             </div>
         </details>
 
@@ -1936,7 +1924,7 @@
     // CONFIGURATION (СONF URL)
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-BoYBouyBxq5jAVccimkb8BuOfHgpnuMC3edziOcSJbxQtZfgOPQeKNp1QdszBHx1pg/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzzjN_ZhMKIzt4VIm8YuOlqIigihBa-3c_upjEgMpEANBygQeXt22uwqDXBezlqVKc-1A/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -2546,7 +2534,7 @@
                 if (allBusy) {
                     ctaMsg.innerHTML = 'No available slots for this date.';
                 } else {
-                    ctaMsg.innerHTML = 'Confirm the time if available.';
+                    ctaMsg.innerHTML = 'Confirm slot for the chosen day.';
                 }
             }
 
@@ -2570,15 +2558,16 @@
                 // Generate Dynamic Clock Icon
                 const svgIcon = getClockIcon(slot.text);
                 
-                // Format: DDDD YYYY.MM.DD HH:MM
+                // Format: YYYY MMMM DDDD, DD H MM AMPM
                 const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+                const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
                 const yyyy = selectedDate.getFullYear();
-                const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
-                const dd = String(selectedDate.getDate()).padStart(2, '0');
+                const dd = selectedDate.getDate();
                 
                 // Parse time to 24h
                 let rawTime = slot.text.split(/[-–]/)[0].trim(); // "9:00 AM"
                 let time24 = rawTime;
+                let timeAmPm = rawTime; // Store original for fallback
                 try {
                     let [tPart, modPart] = rawTime.split(' ');
                     if (modPart) {
@@ -2592,17 +2581,13 @@
                     }
                 } catch (e) { console.error("Time parse error", e); }
 
-                // Calculate end time (50 minutes later)
-                let [hPart, mPart] = time24.split(':');
-                let d = new Date();
-                d.setHours(parseInt(hPart));
-                d.setMinutes(parseInt(mPart));
-                d.setMinutes(d.getMinutes() + 50);
-                const endH = String(d.getHours()).padStart(2, '0');
-                const endM = String(d.getMinutes()).padStart(2, '0');
-                const endTime24 = `${endH}:${endM}`;
-
-                const fullLabel = `${weekday} ${yyyy}.${mm}.${dd} ${time24} - ${endTime24}`;
+                // Convert time24 back to 12h format with AMPM
+                let [h24Str, minStr] = time24.split(':');
+                let h24Num = parseInt(h24Str);
+                let ampm = h24Num >= 12 ? 'PM' : 'AM';
+                let h12 = h24Num % 12 || 12;
+                
+                const fullLabel = `${weekday}, ${monthName} ${dd}, ${yyyy}, ${h12}:${minStr} ${ampm}`;
 
                 // Animation logic: Last slot + every 2nd slot (more frequent teasing)
                 // Huge font for available slots, keep small for busy
@@ -2688,6 +2673,9 @@
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = 'Book Now';
             }
+            
+            // Load saved form data from localStorage
+            loadFormData();
         } catch (error) {
             console.error("Error opening booking modal:", error);
             alert("Sorry, could not open the booking form. " + error.message);
@@ -2796,6 +2784,114 @@
     // Rate limiting: track last submission time
     let lastBookingTime = 0;
 
+    // localStorage Form Data Management
+    const FORM_STORAGE_KEY = 'bookingFormData';
+
+    function saveFormData() {
+        try {
+            const form = document.getElementById('bookingForm');
+            if (!form) return;
+            
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name') || '',
+                email: formData.get('email') || '',
+                phone: formData.get('phone') || '',
+                service: formData.get('service') || '',
+                address_full: formData.get('address_full') || '',
+                notes: formData.get('notes') || '',
+                dob_year: formData.get('dob_year') || '',
+                dob_month: formData.get('dob_month') || '',
+                dob_day: formData.get('dob_day') || '',
+                agreeTerms: document.getElementById('agreeTerms')?.checked || false
+            };
+            
+            localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
+        } catch (err) {
+            console.warn('Could not save form data:', err);
+        }
+    }
+
+    function loadFormData() {
+        try {
+            const savedData = localStorage.getItem(FORM_STORAGE_KEY);
+            if (!savedData) return;
+            
+            const data = JSON.parse(savedData);
+            const form = document.getElementById('bookingForm');
+            if (!form) return;
+            
+            // Populate form fields
+            if (data.name) form.name.value = data.name;
+            if (data.email) form.email.value = data.email;
+            if (data.phone) form.phone.value = data.phone;
+            if (data.address_full) form.address_full.value = data.address_full;
+            if (data.notes) form.notes.value = data.notes;
+            if (data.dob_year) form.dob_year.value = data.dob_year;
+            if (data.dob_month) form.dob_month.value = data.dob_month;
+            if (data.dob_day) form.dob_day.value = data.dob_day;
+            
+            // Restore checkbox state
+            if (data.agreeTerms) {
+                document.getElementById('agreeTerms').checked = true;
+            }
+            
+            // Restore service selection
+            if (data.service) {
+                const serviceInput = document.getElementById('serviceInput');
+                if (serviceInput) serviceInput.value = data.service;
+                
+                const trigger = document.querySelector('.custom-select__trigger span');
+                if (trigger) trigger.textContent = data.service;
+                
+                // Mark the selected option
+                const options = document.querySelectorAll('.custom-option');
+                options.forEach(opt => {
+                    if (opt.textContent.trim() === data.service) {
+                        opt.classList.add('selected');
+                    } else {
+                        opt.classList.remove('selected');
+                    }
+                });
+            }
+        } catch (err) {
+            console.warn('Could not load form data:', err);
+        }
+    }
+
+    function clearFormData() {
+        try {
+            localStorage.removeItem(FORM_STORAGE_KEY);
+        } catch (err) {
+            console.warn('Could not clear form data:', err);
+        }
+    }
+
+    // Attach save listeners to form fields
+    function attachFormAutoSave() {
+        const inputs = document.querySelectorAll('#bookingForm input, #bookingForm textarea, #bookingForm select');
+        inputs.forEach(input => {
+            input.addEventListener('change', saveFormData);
+            input.addEventListener('input', saveFormData);
+        });
+        
+        // Also save when custom select changes
+        const customOptions = document.querySelectorAll('.custom-option');
+        customOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                setTimeout(saveFormData, 100);
+            });
+        });
+    }
+
+    // Initialize auto-save on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        attachFormAutoSave();
+    });
+
+    // Also try to attach if DOM is already loaded
+    attachFormAutoSave();
+
     async function handleBookingSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -2880,6 +2976,7 @@
             if (result.success) {
                 logEvent("Booking Success", selectedSlotData.iso);
                 lastBookingTime = Date.now();
+                clearFormData(); // Clear saved form data after successful booking
                 
                 playSuccessSound(); // Play Sound
                 
