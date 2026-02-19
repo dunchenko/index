@@ -1637,14 +1637,10 @@
 
 
 <div class="layout-container">
-    <!-- Header Available Slot Button with prominent date -->
-    <div style="text-align: center; margin: 20px auto; padding: 20px 0;">
-        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none; margin: 0 auto; padding: 20px 30px; font-size: 0.9rem;">
-            <div id="headerBookBtnText" style="text-align: center;">
-                <div style="font-size: 0.85rem; font-weight: 400; opacity: 0.9; margin-bottom: 8px;">Available Slot</div>
-                <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; margin-bottom: 8px;" id="headerBookBtnNumber">--</div>
-                <div style="font-size: 1rem; font-weight: 600; opacity: 0.95;" id="headerBookBtnTime"></div>
-            </div>
+    <!-- Header Available Slot Button -->
+    <div style="text-align: center; margin-bottom: 15px;">
+        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none; margin: 0 auto; padding: 12px 25px; font-size: 0.9rem;">
+            <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
         </button>
     </div>
     <div class="header__contact">
@@ -1940,7 +1936,7 @@
     // CONFIGURATION (СONF URL)
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyperQm8Q9QBgbKFxr7mt3_ybhlMgYQimu_EjGhr5KpfMEVmj9aqCJiPBaVEMv0GqGdcw/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-BoYBouyBxq5jAVccimkb8BuOfHgpnuMC3edziOcSJbxQtZfgOPQeKNp1QdszBHx1pg/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -2574,9 +2570,39 @@
                 // Generate Dynamic Clock Icon
                 const svgIcon = getClockIcon(slot.text);
                 
-                // Show only time with AM/PM (no end time, no date)
+                // Format: DDDD YYYY.MM.DD HH:MM
+                const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+                const yyyy = selectedDate.getFullYear();
+                const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(selectedDate.getDate()).padStart(2, '0');
+                
+                // Parse time to 24h
                 let rawTime = slot.text.split(/[-–]/)[0].trim(); // "9:00 AM"
-                const timeDisplay = rawTime;
+                let time24 = rawTime;
+                try {
+                    let [tPart, modPart] = rawTime.split(' ');
+                    if (modPart) {
+                        let [hPart, mPart] = tPart.split(':');
+                        let hNum = parseInt(hPart);
+                        if (modPart === 'PM' && hNum !== 12) hNum += 12;
+                        if (modPart === 'AM' && hNum === 12) hNum = 0;
+                        time24 = `${String(hNum).padStart(2, '0')}:${mPart}`;
+                    } else {
+                         time24 = rawTime.replace(/\b\d{1}:/g, (match) => '0' + match);
+                    }
+                } catch (e) { console.error("Time parse error", e); }
+
+                // Calculate end time (50 minutes later)
+                let [hPart, mPart] = time24.split(':');
+                let d = new Date();
+                d.setHours(parseInt(hPart));
+                d.setMinutes(parseInt(mPart));
+                d.setMinutes(d.getMinutes() + 50);
+                const endH = String(d.getHours()).padStart(2, '0');
+                const endM = String(d.getMinutes()).padStart(2, '0');
+                const endTime24 = `${endH}:${endM}`;
+
+                const fullLabel = `${weekday} ${yyyy}.${mm}.${dd} ${time24} - ${endTime24}`;
 
                 // Animation logic: Last slot + every 2nd slot (more frequent teasing)
                 // Huge font for available slots, keep small for busy
@@ -2587,7 +2613,7 @@
                     textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s);`;
                 }
 
-                btn.innerHTML = `${svgIcon} <span style="${textStyle}">${timeDisplay}</span>`;
+                btn.innerHTML = `${svgIcon} <span style="${textStyle}">${fullLabel}</span>`;
                 
                 // Use CSS variable for index to control both animations independently
                 // Offset by availableDaysCount to continue sequence from calendar
@@ -2981,16 +3007,14 @@
 
     // Update footer booking button text when absoluteNearestDate is set
     function updateFooterBookBtn() {
-        const headerBtn = document.getElementById('headerBookBtn');
-        const headerNumber = document.getElementById('headerBookBtnNumber');
-        const headerTime = document.getElementById('headerBookBtnTime');
-        const footerBtn = document.getElementById('footerBookBtn');
-        const footerText = document.getElementById('footerBookBtnText');
+        const targets = [
+            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText') },
+            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText') }
+        ];
 
         if (absoluteNearestDate) {
-            // Get day of week (e.g., "Monday") and day number (e.g., "19")
+            // Get day of week (e.g., "Monday")
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
-            const dayNumber = absoluteNearestDate.getDate();
             
             // Find first available (non-busy) slot time for the nearest day
             let timeStr = '';
@@ -3006,27 +3030,18 @@
                 } catch(e) {}
             }
             
-            // Update header button with huge number
-            if (headerBtn && headerNumber && headerTime) {
-                headerNumber.textContent = dayNumber;
-                headerTime.textContent = timeStr ? `${dayOfWeek}, ${timeStr}` : dayOfWeek;
-                headerBtn.style.display = 'inline-block';
-                createSparks(headerBtn);
-            }
-            
-            // Keep footer button for compatibility
+            // Display in two lines: "Available Slot!" on first line, day + time on second
             const htmlContent = timeStr 
                 ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek}, ${timeStr}</span>` 
                 : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
             
-            if (footerBtn && footerText) {
-                footerText.innerHTML = htmlContent;
-                footerBtn.style.display = 'inline-block';
-                createSparks(footerBtn);
-            }
-        } else {
-            if (headerBtn) headerBtn.style.display = 'none';
-            if (footerBtn) footerBtn.style.display = 'none';
+            targets.forEach(t => {
+                if(t.btn && t.txt) {
+                    t.txt.innerHTML = htmlContent;
+                    t.btn.style.display = 'inline-block';
+                    createSparks(t.btn);
+                }
+            });
         }
     }
 
