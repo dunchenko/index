@@ -69,6 +69,26 @@
             animation: blurReveal 4s ease-out forwards;
         }
 
+        /* Custom Scrollbar */
+        html {
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: #5a3d2a transparent; /* thumb track */
+        }
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #5a3d2a;
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #6B5B4A;
+        }
+        ::-webkit-scrollbar-button { display: none; }
+
         /* ------------------- BLOCKS ------------------- */
 
         /* Block: background */
@@ -595,30 +615,6 @@
             -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS moved here */
         }
 
-        /* Custom Scrollbar for Modal Overlay (Outside) */
-        .modal {
-            scrollbar-width: thin; /* For Firefox */
-            scrollbar-color: rgba(255, 255, 255, 0.4) rgba(0, 0, 0, 0.2); /* thumb track */
-        }
-        .modal::-webkit-scrollbar {
-            width: 10px;
-            display: block;
-        }
-        ::-webkit-scrollbar-button {
-            display: none;
-        }
-        .modal::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-        }
-        .modal::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 10px;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-        }
-        .modal::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-        }
-
         .modal__section-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -723,7 +719,7 @@
             .contact-form__outside-title { font-size: 1.4rem; margin-bottom: 15px; }
             .contact-form__input, .contact-form__textarea { padding: 14px; }
             
-            .section-title { margin-top: 60px; font-size: 1.5rem; margin-bottom: 60px; }
+            .section-title { margin-top: 30px; font-size: 1.5rem; margin-bottom: 20px; }
             
             .modal__content { padding: 25px 20px; max-width: 95vw; }
             .modal__title { font-size: 1.2rem; }
@@ -833,28 +829,6 @@
             transition: transform 0.3s ease;
         }
         
-        @media (max-width: 600px) {
-            .calendar-wrapper {
-                padding: 15px;
-                width: 100%;
-                /* Pure scaling approach to keep layout intact */
-                zoom: 0.85; 
-                /* specific fallback for firefox who doesnt support zoom well might need transform */
-                transform: scale(0.9);
-                width: 111%; /* 100/0.9 */
-                margin-left: -5.5%;
-                margin-top: 10px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-             .calendar-wrapper {
-                transform: scale(0.8);
-                width: 125%;
-                margin-left: -12.5%;
-             }
-        }
-
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -990,10 +964,12 @@
         }
 
         .cal-day--nearest {
-            /* Same as available days — no special color or animation */
-            opacity: 1;
-            border: none !important;
-            font-weight: 700 !important;
+            background-color: #ffffff !important;
+            color: #5a3d2a !important;
+            transform: scale(1.1);
+            font-weight: 900 !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             position: relative;
             z-index: 2;
         }
@@ -1135,17 +1111,18 @@
         }
 
         .slot-btn--busy {
-            opacity: 0.5; 
+            opacity: 0.15;
+            opacity: 0.01;
             pointer-events: none;
             background-image: linear-gradient(
                 45deg, 
-                rgba(255, 255, 255, 0.05) 25%, 
-                rgba(255, 255, 255, 0.1) 25%, 
-                rgba(255, 255, 255, 0.1) 50%, 
-                rgba(255, 255, 255, 0.05) 50%, 
-                rgba(255, 255, 255, 0.05) 75%, 
-                rgba(255, 255, 255, 0.1) 75%, 
-                rgba(255, 255, 255, 0.1) 100%
+                rgba(90, 61, 42, 0.1) 25%, 
+                rgba(90, 61, 42, 0.2) 25%, 
+                rgba(90, 61, 42, 0.2) 50%, 
+                rgba(90, 61, 42, 0.1) 50%, 
+                rgba(90, 61, 42, 0.1) 75%, 
+                rgba(90, 61, 42, 0.2) 75%, 
+                rgba(90, 61, 42, 0.2) 100%
             );
             background-size: 40px 40px;
             border: none;
@@ -1171,7 +1148,7 @@
             content: 'ALREADY BOOKED';
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(var(--rot, -10deg));
+            transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
             font-size: 1.2rem; 
             font-weight: 900;
             color: #ffffff; 
@@ -1649,15 +1626,6 @@
 <header class="header">
     <div class="header__title dynamic-text">Hanna Dunchenko</div>
     <div class="header__subtitle dynamic-text">Paralegal Services</div>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-    </div>
-    <!-- Header Available Slot Button -->
-    <div style="text-align: center; margin-bottom: 15px;">
-        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none; margin: 0 auto; padding: 12px 25px; font-size: 0.9rem;">
-            <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
-        </button>
-    </div>
     <h1 class="header__seo-text">
         <span class="header__seo-line dynamic-text">Licensed Paralegal &amp; Notary Public Services </span>
         <span class="header__seo-line dynamic-text">Traffic Ticket Defense, LTB, WSIB Matters </span>
@@ -1669,6 +1637,19 @@
 
 
 <div class="layout-container">
+    <!-- Header Available Slot Button with prominent date -->
+    <div style="text-align: center; margin: 20px auto; padding: 20px 0;">
+        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none; margin: 0 auto; padding: 20px 30px; font-size: 0.9rem;">
+            <div id="headerBookBtnText" style="text-align: center;">
+                <div style="font-size: 0.85rem; font-weight: 400; opacity: 0.9; margin-bottom: 8px;">Available Slot</div>
+                <div style="font-size: 3.5rem; font-weight: 900; line-height: 1; margin-bottom: 8px;" id="headerBookBtnNumber">--</div>
+                <div style="font-size: 1rem; font-weight: 600; opacity: 0.95;" id="headerBookBtnTime"></div>
+            </div>
+        </button>
+    </div>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
     <div class="contact-form">
         <!-- Custom Booking Calendar -->
         <div class="calendar-wrapper" id="bookingCalendar">
@@ -1708,7 +1689,7 @@
                 <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
                     <!-- Removing Connecting text -->
                 </div>
-                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Please select a time slot to proceed.</div>
+                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Confirm the time if available.</div>
             </div>
             
             <!-- Instruction below slots -->
@@ -1723,7 +1704,7 @@
     <h2 class="section-title">FAQ</h2>
     <div class="faq">
         <details class="faq__item" open>
-             <summary class="faq__question">What do the keys mean?</summary>
+             <summary class="faq__question">What are the keys on the calendar?</summary>
              <div class="faq__answer">
                  The symbols indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with coffee
                  <!-- Coffee SVG 1 (Dark Coffee) -->
@@ -1743,6 +1724,13 @@
              </div>
         </details>
 
+        <details class="faq__item" open>
+            <summary class="faq__question">What forms are worked with?</summary>
+            <div class="faq__answer">
+                Forms Part I, Part II, Part III (Traffic Ticket Defense), N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8 (Landlord and Tenant Board), Direction of Authorization and WSIB Claims/Appeals forms; Enumeration provided strictly as examples and does not limit scope of practice, files to be reviewed at appointment for determination of applicable documents.
+                Enumeration provided strictly as examples and does not limit scope of practice. <strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB Matters:</strong> Direction of Authorization, WSIB Claims and Appeals forms. Files to be reviewed at appointment for determination of applicable documents — please attach your files now for assessment.
+            </div>
+        </details>
 
 
 
@@ -1848,7 +1836,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <p class="footer__copyright">&copy; 2026 Hanna Dunchenko Paralegal Services<br>Licensed by Law Society of Ontario</p>
+    <p class="footer__copyright">&copy; 2026 Hanna Dunchenko Paralegal Services</p>
 </footer>
 </div> <!-- End blurContainer -->
 
@@ -2072,6 +2060,13 @@
         
         renderCalendar();
         setupEventListeners();
+
+        // Randomize paperclip animation
+        const paperclip = document.querySelector('.file-attach__icon-svg');
+        if (paperclip) {
+            const randomDuration = Math.random() * (115) + 5; // Random between 5 and 120
+            paperclip.style.animation = `paperclipUnroll ${randomDuration}s infinite linear`;
+        }
     });
 
     function getClockIcon(timeRangeStr) {
@@ -2494,7 +2489,7 @@
             
             // Per request, replace date with a static legal-sounding title
             weekdayText = (slotsData.length > 0)
-                ? 'Available Appointment Slots:'
+                ? 'Appointment Slots:'
                 : 'No slots available for this date.';
             
             // Smooth transition for text update
@@ -2553,9 +2548,9 @@
             if(ctaMsg) {
                 ctaMsg.style.display = 'block';
                 if (allBusy) {
-                    ctaMsg.textContent = 'No available slots for this date.';
+                    ctaMsg.innerHTML = 'No available slots for this date.';
                 } else {
-                    ctaMsg.textContent = 'Please select a time slot to proceed.';
+                    ctaMsg.innerHTML = 'Confirm the time if available.';
                 }
             }
 
@@ -2572,46 +2567,16 @@
                 if (slot.status === 'busy') {
                     btn.className = 'slot-btn slot-btn--busy';
                     // Random rotation for stamp
-                    const rot = Math.floor(Math.random() * 20) - 10; // -10 to 10 deg
+                    const rot = Math.floor(Math.random() * 8) - 4; // -4 to 3 deg
                     btn.style.setProperty('--rot', rot + 'deg');
                 }
 
                 // Generate Dynamic Clock Icon
                 const svgIcon = getClockIcon(slot.text);
                 
-                // Format: DDDD YYYY.MM.DD HH:MM
-                const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-                const yyyy = selectedDate.getFullYear();
-                const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
-                const dd = String(selectedDate.getDate()).padStart(2, '0');
-                
-                // Parse time to 24h
+                // Show only time with AM/PM (no end time, no date)
                 let rawTime = slot.text.split(/[-–]/)[0].trim(); // "9:00 AM"
-                let time24 = rawTime;
-                try {
-                    let [tPart, modPart] = rawTime.split(' ');
-                    if (modPart) {
-                        let [hPart, mPart] = tPart.split(':');
-                        let hNum = parseInt(hPart);
-                        if (modPart === 'PM' && hNum !== 12) hNum += 12;
-                        if (modPart === 'AM' && hNum === 12) hNum = 0;
-                        time24 = `${String(hNum).padStart(2, '0')}:${mPart}`;
-                    } else {
-                         time24 = rawTime.replace(/\b\d{1}:/g, (match) => '0' + match);
-                    }
-                } catch (e) { console.error("Time parse error", e); }
-
-                // Calculate end time (50 minutes later)
-                let [hPart, mPart] = time24.split(':');
-                let d = new Date();
-                d.setHours(parseInt(hPart));
-                d.setMinutes(parseInt(mPart));
-                d.setMinutes(d.getMinutes() + 50);
-                const endH = String(d.getHours()).padStart(2, '0');
-                const endM = String(d.getMinutes()).padStart(2, '0');
-                const endTime24 = `${endH}:${endM}`;
-
-                const fullLabel = `${weekday} ${yyyy}.${mm}.${dd} ${time24} - ${endTime24}`;
+                const timeDisplay = rawTime;
 
                 // Animation logic: Last slot + every 2nd slot (more frequent teasing)
                 // Huge font for available slots, keep small for busy
@@ -2622,7 +2587,7 @@
                     textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s);`;
                 }
 
-                btn.innerHTML = `${svgIcon} <span style="${textStyle}">${fullLabel}</span>`;
+                btn.innerHTML = `${svgIcon} <span style="${textStyle}">${timeDisplay}</span>`;
                 
                 // Use CSS variable for index to control both animations independently
                 // Offset by availableDaysCount to continue sequence from calendar
@@ -2707,9 +2672,7 @@
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
         // Reload page after closing the success notification
-        setTimeout(() => {
-            location.reload();
-        }, 500);
+        location.reload();
     }
 
     function closeTermsModal() {
@@ -3018,14 +2981,16 @@
 
     // Update footer booking button text when absoluteNearestDate is set
     function updateFooterBookBtn() {
-        const targets = [
-            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText') },
-            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText') }
-        ];
+        const headerBtn = document.getElementById('headerBookBtn');
+        const headerNumber = document.getElementById('headerBookBtnNumber');
+        const headerTime = document.getElementById('headerBookBtnTime');
+        const footerBtn = document.getElementById('footerBookBtn');
+        const footerText = document.getElementById('footerBookBtnText');
 
         if (absoluteNearestDate) {
-            // Get day of week (e.g., "Monday")
+            // Get day of week (e.g., "Monday") and day number (e.g., "19")
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+            const dayNumber = absoluteNearestDate.getDate();
             
             // Find first available (non-busy) slot time for the nearest day
             let timeStr = '';
@@ -3041,18 +3006,27 @@
                 } catch(e) {}
             }
             
-            // Display in two lines: "Available Slot!" on first line, day + time on second
+            // Update header button with huge number
+            if (headerBtn && headerNumber && headerTime) {
+                headerNumber.textContent = dayNumber;
+                headerTime.textContent = timeStr ? `${dayOfWeek}, ${timeStr}` : dayOfWeek;
+                headerBtn.style.display = 'inline-block';
+                createSparks(headerBtn);
+            }
+            
+            // Keep footer button for compatibility
             const htmlContent = timeStr 
                 ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek}, ${timeStr}</span>` 
                 : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
             
-            targets.forEach(t => {
-                if(t.btn && t.txt) {
-                    t.txt.innerHTML = htmlContent;
-                    t.btn.style.display = 'inline-block';
-                    createSparks(t.btn);
-                }
-            });
+            if (footerBtn && footerText) {
+                footerText.innerHTML = htmlContent;
+                footerBtn.style.display = 'inline-block';
+                createSparks(footerBtn);
+            }
+        } else {
+            if (headerBtn) headerBtn.style.display = 'none';
+            if (footerBtn) footerBtn.style.display = 'none';
         }
     }
 
