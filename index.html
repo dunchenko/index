@@ -483,17 +483,17 @@
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            z-index: 1000;
+            z-index: 20000; /* Increased to be above top-bar */
             align-items: center;
             justify-content: center;
             padding: 10px;
             /* Ensure it covers screen */
             inset: 0;
-            overflow-y: scroll; /* Scroll on overlay, always visible */
+            overflow-y: auto; /* Changed to auto to prevent unnecessary scrollbar */
         }
 
         #termsModal {
-            z-index: 2000;
+            z-index: 20001;
         }
 
         #termsModal .modal__content {
@@ -538,7 +538,7 @@
         /* When active, use Flexbox to center */
         .modal--active { 
             display: flex !important; 
-            align-items: flex-start !important;
+            align-items: center !important; /* Changed to center vertically */
             justify-content: center !important;
         }
 
@@ -549,7 +549,7 @@
             padding: 40px;
             width: 100%;
             max-width: 600px;
-            max-height: none;
+            max-height: 90vh; /* Added max-height to prevent overflow */
             text-align: center; /* Symmetrically center content */
             box-sizing: border-box;            
             display: flex;
@@ -560,7 +560,7 @@
             animation: modalSlideIn 0.3s cubic-bezier(0.19, 1, 0.22, 1);
             
             /* Ensure it centers if flex alignment fails for some reason */
-            margin: 40px auto;
+            margin: auto; /* Let flexbox handle centering perfectly */
         }
 
         @keyframes modalSlideIn {
@@ -763,7 +763,8 @@
             }
             
             /* Fallback backgrounds since blur is gone */
-            .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; border: 1px solid rgba(255,255,255,0.15); }
+            .calendar-wrapper { background: rgba(255, 255, 255, 0.08) !important; border: 1px solid rgba(255,255,255,0.15); } /* Light fallback */
+            [data-theme="black"] .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; } /* Dark fallback for dark theme */
             .slot-btn { background: rgba(255, 255, 255, 0.1) !important; }
             
             /* Disable expensive shadow/glow animations */
@@ -962,30 +963,20 @@
         }
 
         .cal-day--selected {
-            background: #ffffff !important;
-            color: rgba(0, 0, 0, 0.8) !important; /* Dark on white */
-            mix-blend-mode: normal !important; /* Ensure visible */
-            font-weight: 900;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transform: scale(1.05);
+            background-color: #ffffff !important;
+            color: #a18570 !important; /* Coffee with milk color */
+            transform: scale(1.2) !important; /* Made bigger */
+            font-weight: 900 !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes pulseActive {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0.4); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(224, 112, 32, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0); }
-        }
-
-        .cal-day--nearest {
-            background-color: #ffffff !important;
-            color: #5a3d2a !important;
-            transform: scale(1.1);
-            font-weight: 900 !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 2;
         }
 
         .cal-day--saturday-available {
@@ -996,7 +987,7 @@
         /* .cal-day--nearest-free removed */
         
         .cal-day--today {
-            border: 5px solid #ffffff !important; 
+            border: 2.5px solid #ffffff !important; 
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
         }
@@ -1148,14 +1139,14 @@
             transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
             font-size: 1.2rem; 
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.8); 
-            border: 2.5px solid rgba(255, 255, 255, 0.8); 
+            color: rgba(255, 255, 255, 1); 
+            border: 2.5px solid rgba(255, 255, 255, 1); 
             padding: 5px 12px;
             white-space: nowrap;
             pointer-events: none;
             letter-spacing: 1px;
             text-align: center;
-            opacity: 0.85;
+            opacity: 1;
         }
 
         @keyframes slideUpFade {
@@ -1461,12 +1452,8 @@
 
         /* Sparks Animation for Footer Booking Button */
         @keyframes sparkle {
-            0% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #ffffff; }
-            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); background: #a18570; }
-            100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #a18570; }
-            0% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #a18570; }
-            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); background: #ffffff; }
-            100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #ffffff; }
+            0%, 100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); }
+            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); }
         }
 
         .footer-book-btn {
@@ -1477,7 +1464,7 @@
             color: #fff;
             font-size: 1.05rem;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: none;
             border-radius: 50px;
             cursor: pointer;
             text-decoration: none;
@@ -1487,12 +1474,12 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
         }
         .footer-book-btn:hover {
             transform: scale(1.05);
             background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: none;
         }
         .spark {
             position: absolute;
@@ -1501,6 +1488,7 @@
             pointer-events: none;
             opacity: 0;
             animation: sparkle 1.2s ease-in-out infinite;
+            background: #ffffff;
         }
 
         @keyframes hypnoticPulse {
@@ -1606,11 +1594,222 @@
             0%, 30%, 100% { transform: scale(1); }
             15% { transform: scale(1.02); }
         }
+
+        /* ------------------- TOP BAR & NAVIGATION (Auto-hiding) ------------------- */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .top-bar--visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* ------------------- THEME SWITCH (Inside Top Bar) ------------------- */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 30px;
+            position: relative;
+            width: 52px;
+        }
+        .theme-switch input { display: none; }
+        .slider {
+            background-color: rgba(0, 0, 0, 0.2);
+            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
+            transition: .4s; border-radius: 34px; backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .slider:before {
+            background-color: #fff; bottom: 3px; content: ""; height: 22px; left: 3px;
+            position: absolute; transition: .4s; width: 22px; border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        input:checked + .slider {
+            background-color: #8e8e93;
+        }
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        .theme-wrapper-icon {
+            width: 20px;
+            height: 20px;
+            stroke: #fff;
+            opacity: 0.7;
+        }
+
+        /* ------------------- LANGUAGE SWITCHER ------------------- */
+        .lang-switcher {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ------------------- BLACK THEME OVERRIDES ------------------- */
+        [data-theme="black"] {
+            --bg-dark: #000000;
+            --text-white: #f0f0f0;
+            --glass-bg: rgba(30, 30, 30, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --accent-gold: #bbbbbb; /* Was #D4B89A */
+            --accent-hover: #999999;
+            --placeholder-color: #777777;
+            scrollbar-color: #444 transparent;
+        }
+        [data-theme="black"] .background__svg rect {
+            fill: #000000 !important;
+        }
+        [data-theme="black"] body::-webkit-scrollbar-thumb { background-color: #444; }
+        [data-theme="black"] body::-webkit-scrollbar-thumb:hover { background-color: #666; }
+        [data-theme="black"] .background__stripe {
+            opacity: 0.1;
+            fill: #ffffff;
+        }
+        [data-theme="black"] .calendar-wrapper {
+            background: rgba(20, 20, 20, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="black"] .cal-day {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ddd;
+        }
+        [data-theme="black"] .cal-day--selected {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+        [data-theme="black"] .slot-btn {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="black"] .modal__content {
+            background: #121212;
+        }
+        [data-theme="black"] .map-container__iframe {
+            filter: grayscale(1) invert(1);
+        }
+        [data-theme="black"] .contact-form__input::placeholder,
+        [data-theme="black"] .contact-form__textarea::placeholder {
+            color: var(--placeholder-color);
+        }
+        [data-theme="black"] .contact-form__input:focus,
+        [data-theme="black"] .contact-form__textarea:focus,
+        [data-theme="black"] .contact-form__input--has-content {
+            color: #000000;
+        }
+        [data-theme="black"] .contact-form__submit-button,
+        [data-theme="black"] .footer__button,
+        [data-theme="black"] .contact-form__booking-wrapper button {
+            background: #333333 !important;
+        }
+        [data-theme="black"] .contact-form__submit-button:hover,
+        [data-theme="black"] .footer__button:hover,
+        [data-theme="black"] .contact-form__booking-wrapper button:hover {
+            background: #555555 !important;
+        }
+        [data-theme="black"] .contact-form__terms-link:hover {
+            color: #cccccc;
+        }
+        [data-theme="black"] .faq__answer svg path[fill="#5a3d2a"] {
+            fill: #555555;
+        }
+        [data-theme="black"] .custom-select__trigger {
+            background: #222;
+            color: #eee;
+        }
+        [data-theme="black"] .custom-select__trigger::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23eeeeee' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+        [data-theme="black"] .custom-select.open .custom-select__trigger {
+            background: #444;
+            color: #fff;
+        }
+        [data-theme="black"] .custom-select.open .custom-select__trigger::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        }
+        [data-theme="black"] .custom-options {
+            background: #222;
+        }
+        [data-theme="black"] .custom-option {
+            color: #ddd;
+        }
+        [data-theme="black"] .custom-option:hover,
+        [data-theme="black"] .custom-option.selected {
+            background-color: #444;
+            color: #fff;
+        }
+        [data-theme="black"] .custom-option.selected::after {
+            color: #fff;
+        }
+        [data-theme="black"] .top-bar {
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
     </style>
 </head>
 
 <body id="top">
 
+<!-- TOP BAR -->
+<div class="top-bar">
+    <!-- Theme Switch (Left) -->
+    <div class="theme-switch-wrapper">
+        <!-- Sun icon -->
+        <svg class="theme-wrapper-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox">
+            <div class="slider round"></div>
+        </label>
+        <!-- Moon icon -->
+        <svg class="theme-wrapper-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </div>
+
+    <!-- Language Switcher (Right) -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
+        <button class="lang-btn" onclick="setLanguage('ua')">UA</button>
+        <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+        <button class="lang-btn" onclick="setLanguage('ch')">CH</button>
+    </div>
+</div>
 
 <div class="background">
     <svg class="background__svg" viewBox="0 0 528 816" preserveAspectRatio="xMidYMid slice">
@@ -1629,13 +1828,13 @@
 </div>
 
 <header class="header">
-    <div class="header__title dynamic-text">Hanna Dunchenko</div>
-    <div class="header__subtitle dynamic-text">Paralegal Services</div>
+    <div class="header__title dynamic-text" data-i18n="name">Hanna Dunchenko</div>
+    <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__seo-text">
-        <span class="header__seo-line dynamic-text">Licensed Paralegal &amp; Notary Public Services </span>
-        <span class="header__seo-line dynamic-text">Traffic Ticket Defense, LTB, WSIB Matters </span>
-        <span class="header__seo-line dynamic-text">Toronto, Richmond Hill, Mississauga, London </span>
-        <span class="header__seo-line dynamic-text">All online consultations are available province-wide </span>
+        <span class="header__seo-line dynamic-text" data-i18n="seo1">Licensed Paralegal &amp; Notary Public Services </span>
+        <span class="header__seo-line dynamic-text" data-i18n="seo2">Traffic Ticket Defense, LTB, WSIB Matters </span>
+        <span class="header__seo-line dynamic-text" data-i18n="seo3">Toronto, Richmond Hill, Mississauga, London </span>
+        <span class="header__seo-line dynamic-text" data-i18n="seo4">All online consultations are available province-wide </span>
     </h1>
 </header>
 
@@ -1644,8 +1843,8 @@
 <div class="layout-container">
     <!-- Header Available Slot Button -->
     <div style="text-align: center; margin-bottom: 15px;">
-        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none; margin: 0 auto; padding: 12px 25px; font-size: 0.9rem;">
-            <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
+        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none;">
+            <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
         </button>
     </div>
     <div class="header__contact">
@@ -1702,7 +1901,7 @@
         <!-- End Custom Booking Calendar -->
     </div>
 
-    <h2 class="section-title">FAQ</h2>
+    <h2 class="section-title" data-i18n="faqTitle">FAQ</h2>
     <div class="faq">
         <details class="faq__item" open>
              <summary class="faq__question">What are the keys on the calendar?</summary>
@@ -1835,7 +2034,7 @@
         <!-- Nearest Available Day Booking Button -->
         <div style="text-align: center; margin: 10px 0;">
             <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="display: none;">
-                <span id="footerBookBtnText">Book Your First<br>Available Appointment</span>
+                <span id="footerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
             </button>
         </div>
 
@@ -1893,7 +2092,7 @@
                 <!-- Budget field moved below Book Now button -->
                 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, Zip Code" name="address_full" required>
+                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, ZIP" name="address_full" required>
                 </div>
 
                 <div class="contact-form__group">
@@ -2119,11 +2318,9 @@
         // Outer ring (stroke only), and Inner sector (fill only)
         return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <!-- Outer Ring -->
-            <circle cx="${cx}" cy="${cy}" r="${rOuter}" stroke="white" stroke-opacity="0.8" fill="none" stroke-width="2.5"></circle>
-            <!-- Center Dot -->
-            <circle cx="${cx}" cy="${cy}" r="1.5" fill="white"></circle>
+            <circle cx="${cx}" cy="${cy}" r="${rOuter}" stroke="currentColor" stroke-opacity="0.8" fill="none" stroke-width="2.5"></circle>
             <!-- Schedule Sector (Time Map) -->
-            <path d="${d}" fill="white" stroke="none" fill-opacity="1"></path>
+            <path d="${d}" fill="currentColor" stroke="none" fill-opacity="1"></path>
             <!-- Optional: Hour Markers for reference? -> Cleaner without for now -->
         </svg>`;
     }
@@ -2431,7 +2628,6 @@
                 
                 if (!allBusy && nearestDay && dayFn === nearestDay) {
                      autoSelectedDay = true; // Set flag BEFORE setTimeout
-                     el.classList.add('cal-day--nearest');
                      // Instead of just highlighting, we SELECT it (open it)
                      // Using timeout to ensure DOM is ready and transitions look okay
                      setTimeout(() => {
@@ -2462,10 +2658,10 @@
             const slotsDisplay = document.getElementById('slotsDayDisplay');
             if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
                 slotsDisplay.classList.remove('hypnotic-text');
-                if (availableDaysCount === 0) {
-                    slotsDisplay.textContent = 'Success! Select a date\nto see available times';
+                if (availableDaysCount > 0) {
+                    slotsDisplay.textContent = 'Select an available day to see times.';
                 } else {
-                    slotsDisplay.textContent = 'Success! Select a date\nto see available times';
+                    slotsDisplay.textContent = 'No available slots this month.';
                 }
             }
         }
@@ -3320,6 +3516,143 @@
     window.addEventListener('load', adjustDynamicText);
     window.addEventListener('resize', () => requestAnimationFrame(adjustDynamicText));
 
+    // ------------------------------------------------------------------
+    // THEME SWITCH LOGIC
+    // ------------------------------------------------------------------
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'black') {
+            toggleSwitch.checked = true;
+        }
+    }
+
+    function switchTheme(e) {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'black');
+            localStorage.setItem('theme', 'black');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    toggleSwitch.addEventListener('change', switchTheme);
+
+    // ------------------------------------------------------------------
+    // LANGUAGE SWITCHER LOGIC
+    // ------------------------------------------------------------------
+    const translations = {
+        en: {
+            name: "Hanna Dunchenko",
+            subtitle: "Paralegal Services",
+            seo1: "Licensed Paralegal & Notary Public Services",
+            seo2: "Traffic Ticket Defense, LTB, WSIB Matters",
+            seo3: "Toronto, Richmond Hill, Mississauga, London",
+            seo4: "All online consultations are available province-wide",
+            bookBtn: "Book Your First<br>Available Appointment",
+            faqTitle: "FAQ"
+        },
+        fr: {
+            name: "Hanna Dunchenko",
+            subtitle: "Services Parajuridiques",
+            seo1: "Parajuriste agréé et services de notaire public",
+            seo2: "Défense des contraventions, LTB, dossiers WSIB",
+            seo3: "Toronto, Richmond Hill, Mississauga, London",
+            seo4: "Toutes les consultations en ligne sont disponibles dans toute la province",
+            bookBtn: "Réservez votre premier<br>rendez-vous disponible",
+            faqTitle: "FAQ"
+        },
+        ua: {
+            name: "Ганна Дунченко",
+            subtitle: "Юридичні Послуги",
+            seo1: "Ліцензований паралігал та нотаріальні послуги",
+            seo2: "Захист від штрафів, LTB, справи WSIB",
+            seo3: "Торонто, Річмонд-Гілл, Міссісага, Лондон",
+            seo4: "Онлайн-консультації доступні по всій провінції",
+            bookBtn: "Забронюйте свій перший<br>доступний час",
+            faqTitle: "Часті запитання"
+        },
+        ru: {
+            name: "Анна Дунченко",
+            subtitle: "Юридические Услуги",
+            seo1: "Лицензированный паралигал и услуги нотариуса",
+            seo2: "Защита от штрафов, LTB, дела WSIB",
+            seo3: "Торонто, Ричмонд-Хилл, Миссиссога, Лондон",
+            seo4: "Онлайн-консультации доступны по всей провинции",
+            bookBtn: "Забронируйте свое первое<br>доступное время",
+            faqTitle: "Частые вопросы"
+        },
+        ch: {
+            name: "汉娜·邓琴科",
+            subtitle: "法律助理服务",
+            seo1: "持牌法律助理及公证服务",
+            seo2: "交通罚单抗辩, LTB, WSIB 事务",
+            seo3: "多伦多, 列治文山, 密西沙加, 伦敦",
+            seo4: "全省范围内均可提供在线咨询",
+            bookBtn: "预订您的第一个<br>可用预约",
+            faqTitle: "常见问题"
+        }
+    };
+
+    function setLanguage(lang) {
+        // Update active button state
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.textContent.toLowerCase() === lang) btn.classList.add('active');
+        });
+
+        // Update text content
+        const t = translations[lang];
+        if (!t) return;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                el.innerHTML = t[key];
+            }
+        });
+
+        // Save preference
+        localStorage.setItem('site_lang', lang);
+    }
+
+    // Load saved language
+    const savedLang = localStorage.getItem('site_lang');
+    if (savedLang) setLanguage(savedLang);
+
+    // ------------------------------------------------------------------
+    // AUTO-HIDING TOP BAR
+    // ------------------------------------------------------------------
+    const topBar = document.querySelector('.top-bar');
+    let lastScrollTop = 0;
+    let scrollTimeout;
+
+    function hideTopBar() {
+        // Don't hide if a modal is open
+        if (!document.querySelector('.modal--active')) {
+            topBar.classList.remove('top-bar--visible');
+        }
+    }
+
+    function startHideTimer() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(hideTopBar, 5000); // Hide after 5 seconds of idle
+    }
+
+    window.addEventListener('scroll', () => {
+        if (topBar) {
+            topBar.classList.add('top-bar--visible');
+            startHideTimer();
+        }
+    }, { passive: true });
+
+    if (topBar) {
+        topBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
+        topBar.addEventListener('mouseleave', startHideTimer);
+    }
 </script>
 </body>
 </html>
