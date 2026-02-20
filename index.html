@@ -756,10 +756,40 @@
             transform-origin: top center;
             transition: transform 0.3s ease;
         }
-        /* Keep calendar layout intact but prevent mobile from forcing page width
-           Allow horizontal scrolling if viewport too small to display 7 columns */
-        .calendar-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .calendar-grid { min-width: 560px; box-sizing: border-box; }
+        /* Keep calendar visually consistent across devices.
+           Remove forced min-width/scroll and apply responsive scaling so the
+           calendar keeps its desktop proportions but fits smaller viewports. */
+        .calendar-wrapper {
+            overflow: visible;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            max-width: 760px; /* keep a sensible max that matches desktop look */
+            margin: 0 auto;
+            transform-origin: top center;
+            transition: transform 0.2s ease;
+        }
+
+        /* Remove hard min-width so grid can scale. */
+        .calendar-grid { box-sizing: border-box; }
+
+        /* Progressive scaling for smaller screens so the calendar retains
+           desktop appearance without forcing horizontal scroll. Adjust values
+           if you want larger/smaller render on specific devices. */
+        @media (max-width: 1024px) {
+            .calendar-wrapper { transform: scale(0.98); }
+        }
+        @media (max-width: 768px) {
+            .calendar-wrapper { transform: scale(0.92); }
+        }
+        @media (max-width: 600px) {
+            .calendar-wrapper { transform: scale(0.85); }
+        }
+        @media (max-width: 420px) {
+            .calendar-wrapper { transform: scale(0.78); }
+        }
+        @media (max-width: 360px) {
+            .calendar-wrapper { transform: scale(0.72); }
+        }
 
         /* FAQ and header wrapping fixes */
         .faq__question { white-space: normal; }
