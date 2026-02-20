@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -65,7 +65,7 @@
             color: var(--text-white); 
             line-height: 1.6; 
             min-height: 100vh;
-            padding-bottom: calc(50px + env(safe-area-inset-bottom));
+            padding-bottom: 50px;
             animation: blurReveal 4s ease-out forwards;
         }
 
@@ -127,12 +127,11 @@
         /* Block: header */
         .header { 
             text-align: center; 
-            padding: calc(30px + env(safe-area-inset-top)) 20px 10px; 
-            padding: calc(50px + env(safe-area-inset-top)) 20px 10px; 
+            padding: 50px 20px 10px;
         }
 
         .header__title { 
-            font-size: clamp(3rem, 6vw, 4.5rem); 
+            font-size: 4.5rem; 
             font-weight: 900; 
             margin-bottom: 8px;
             letter-spacing: 1px;
@@ -141,7 +140,7 @@
         }
 
         .header__subtitle { 
-            font-size: clamp(1.8rem, 6vw, 3.5rem); 
+            font-size: 3.5rem; 
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
@@ -158,13 +157,13 @@
         }
 
         .header__contact-label {
-            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-size: 1.8rem;
             font-weight: 900;
             color: var(--text-white);
         }
 
         .header__phone-link { 
-            font-size: clamp(1.5rem, 4.5vw, 2.3rem); 
+            font-size: 2.3rem; 
             font-weight: 900; 
             color: var(--text-white);
             text-decoration: none;
@@ -174,7 +173,7 @@
         .header__phone-link:hover { opacity: 0.8; }
 
         .header__seo-text {
-            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            font-size: 1.3rem;
             font-weight: 700;
             opacity: 0.85;
             margin: 15px auto;
@@ -192,7 +191,7 @@
         .layout-container { 
             max-width: 650px; 
             margin: 0 auto 0; 
-            padding: 10px clamp(15px, 4vw, 20px) 20px; 
+            padding: 10px 20px 20px; 
         }
         
         /* Block: contact-form */
@@ -219,7 +218,7 @@
         }
 
         .contact-form__outside-title { 
-            font-size: clamp(1.3rem, 4vw, 1.8rem); 
+            font-size: 1.8rem; 
             margin-bottom: 20px; 
             text-align: center; 
             font-weight: 900; 
@@ -230,7 +229,7 @@
 
         .contact-form__title { 
             display: none; /* Hide original if still referenced or kept for structure, but I removed it from HTML so this block is essentially being replaced/added to */
-            font-size: clamp(1.3rem, 4vw, 1.8rem); 
+            font-size: 1.8rem; 
             margin-bottom: 30px; 
             text-align: center; 
             font-weight: 900; 
@@ -252,7 +251,7 @@
         .contact-form__label { 
             font-weight: 700; 
             text-transform: uppercase; 
-            font-size: clamp(0.75rem, 2.2vw, 0.85rem); 
+            font-size: 0.85rem; 
             letter-spacing: 1px; 
         }
 
@@ -265,7 +264,7 @@
             border: 1px solid var(--glass-border); 
             border-radius: 10px; 
             color: var(--text-white);
-            font-size: clamp(0.9rem, 2.5vw, 1rem); 
+            font-size: 1rem; 
             outline: none; 
             transition: all 0.3s ease; 
             font-family: inherit; 
@@ -399,7 +398,7 @@
             border: none; 
             border-radius: 10px; 
             font-weight: 900; 
-            font-size: clamp(1rem, 3vw, 1.1rem); 
+            font-size: 1.1rem; 
             text-transform: uppercase; 
             cursor: pointer; 
             transition: all 0.3s ease; 
@@ -429,7 +428,7 @@
 
         /* Block: section-title */
         .section-title { 
-            font-size: clamp(1.5rem, 5vw, 1.8rem); font-weight: 900; 
+            font-size: 1.8rem; font-weight: 900; 
             text-transform: uppercase; letter-spacing: 2px; 
             text-align: center; margin-bottom: 30px; 
             margin-top: 30px;
@@ -446,7 +445,7 @@
         
         .faq__question { 
             font-weight: 900; 
-            font-size: clamp(1rem, 3vw, 1.1rem); 
+            font-size: 1.1rem; 
             text-transform: uppercase; 
             display: flex; 
             align-items: flex-start; 
@@ -468,7 +467,7 @@
         details[open] > .faq__question::before { background-color: #ffffff; }
 
         .faq__answer { 
-            font-size: clamp(0.9rem, 2.5vw, 0.95rem); opacity: 0.9; 
+            font-size: 0.95rem; opacity: 0.9; 
             padding-left: 29px; 
             padding-bottom: 20px;
             line-height: 1.6;
@@ -558,7 +557,7 @@
             background: var(--bg-dark);
             border: 1px solid var(--glass-border);
             border-radius: 15px;
-            padding: clamp(25px, 6vw, 40px);
+            padding: 40px;
             width: 100%;
             max-width: 600px;
             max-height: 90vh; /* Added max-height to prevent overflow */
@@ -603,7 +602,7 @@
         .modal__close:hover { color: #D4B89A; }
 
         .modal__title {
-            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            font-size: 1.4rem;
             font-weight: 900;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -612,12 +611,11 @@
         }
 
         .modal__body {
-            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+            font-size: 0.95rem;
             line-height: 1.7;
             color: var(--text-white);
             overflow-y: auto;
             padding-right: 15px;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS moved here */
         }
 
         .modal__section-title {
@@ -660,7 +658,7 @@
             border: none;
             border-radius: 10px; 
             font-weight: 900;
-            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-size: 1.1rem;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -679,7 +677,7 @@
         .footer__contact-link {
             display: block;
             color: #ffffff; 
-            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            font-size: 1.8rem;
             font-weight: 900;
             text-decoration: none;
             margin-bottom: 5px;
@@ -687,7 +685,7 @@
         }
 
         .footer__hours {
-            font-size: clamp(0.85rem, 2.5vw, 0.95rem); 
+            font-size: 0.95rem; 
             color: #ffffff; 
             margin-bottom: 20px;
             white-space: pre-line;
@@ -743,100 +741,6 @@
         }
 
         /* ------------------- RESPONSIVE ------------------- */
-        @media (max-width: 768px) {
-            .header { padding: 40px 15px 20px; }
-            .header { padding: 60px 15px 20px; }
-            .header__title { font-size: clamp(2.5rem, 8vw, 3.5rem); }
-            .header__subtitle { font-size: clamp(2rem, 10vw, 3rem); }
-            .header__contact { flex-direction: column; gap: 5px; }
-            .header__phone-link { font-size: 1.8rem; }
-            
-            .layout-container { padding: 15px; }
-            .contact-form { padding: 25px 20px; border-radius: 16px; }
-            .contact-form__outside-title { font-size: 1.4rem; margin-bottom: 15px; }
-            .contact-form__input, .contact-form__textarea { padding: 14px; }
-            
-            .section-title { margin-top: 30px; font-size: 1.5rem; margin-bottom: 20px; }
-            
-            .modal__content { padding: 25px 20px; max-width: 95vw; }
-            .modal__title { font-size: 1.2rem; }
-            .modal__body { font-size: 0.9rem; }
-            
-            .footer__contact-link { font-size: 1.5rem; }
-            .footer__button { padding: 16px; font-size: 1rem; }
-
-            /* --- MOBILE PERFORMANCE OPTIMIZATIONS --- */
-            /* Disable backdrop-filter (very heavy on mobile GPUs) */
-            .calendar-wrapper, .modal, .slot-btn, .footer-book-btn, .custom-options, .contact-form__input, .contact-form__textarea {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            
-            /* Fallback backgrounds since blur is gone */
-            .calendar-wrapper { background: rgba(255, 255, 255, 0.08) !important; border: 1px solid rgba(255,255,255,0.15); } /* Light fallback */
-            [data-theme="black"] .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; } /* Dark fallback for dark theme */
-            .slot-btn { background: rgba(255, 255, 255, 0.1) !important; }
-            
-            /* Remove focus shadows */
-            .contact-form__input:focus, .contact-form__textarea:focus { box-shadow: none !important; }
-            .footer-book-btn:hover, .contact-form__submit-button:hover { transform: none !important; box-shadow: none !important; }
-        }
-
-        @media (max-width: 480px) {
-            .header__title { font-size: 2.2rem; }
-            .header__subtitle { font-size: 2.5rem; }
-            .header__phone-link { font-size: 1.6rem; }
-            .header__seo-text { font-size: 0.95rem; }
-            
-            .contact-form { padding: 20px 15px; }
-            .contact-form__checkbox-label { font-size: 0.8rem; }
-            
-            .price-table td { padding: 8px 5px; font-size: 0.85rem; }
-            
-            .map-container { height: 300px; }
-            
-            /* Enhanced modal for iPhone */
-            .modal { padding: 15px; }
-            .modal__content { 
-                padding: 20px 15px; 
-                max-width: 100%; 
-                max-height: 92vh;
-                border-radius: 12px;
-            }
-            .modal__title { 
-                font-size: 1.1rem; 
-                margin-bottom: 10px;
-                letter-spacing: 0.5px;
-            }
-            .modal__body { font-size: 0.85rem; }
-            .modal__close { 
-                font-size: 24px; 
-                width: 35px; 
-                height: 35px;
-                top: 15px;
-                left: 15px;
-            }
-            
-            /* Booking modal specific */
-            #bookingModal .modal__title {
-                font-size: 1rem;
-                margin-top: 5px;
-            }
-            
-            #termsModal .modal__title {
-                font-size: 1.3rem !important;
-            }
-            
-            #termsModal .modal__section-title {
-                font-size: 1rem !important;
-            }
-            #bookingCalendar, .calendar-wrapper {
-                transform: scale(0.9);
-                margin-bottom: -40px; /* Compensate for scaling */
-            }
-        }
-
-
 
 
         /* ------------------- CUSTOM CALENDAR (Liquid Glass Design) ------------------- */
@@ -846,7 +750,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px; 
-            padding: clamp(20px, 5vw, 30px);
+            padding: 30px;
             margin-top: 5px;
             /* Responsive Scaling */
             transform-origin: top center;
@@ -863,7 +767,7 @@
         }
 
         .calendar-title {
-            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            font-size: 1.4rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -887,8 +791,8 @@
         
         
         .calendar-title span { display: block; }
-        .calendar-title .cal-month { font-size: clamp(1.3rem, 4.5vw, 1.6rem); font-weight: 900; }
-        .calendar-title .cal-year { font-size: clamp(1.3rem, 4.5vw, 1.6rem); opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -5px; }
+        .calendar-title .cal-month { font-size: 1.6rem; font-weight: 900; }
+        .calendar-title .cal-year { font-size: 1.6rem; opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -5px; }
 
 
         .calendar-nav-btn {
@@ -922,7 +826,7 @@
         .cal-day-name {
             font-weight: 800;
             color: rgba(255, 255, 255, 0.6);
-            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px; /* Reduced from 15px */
@@ -1076,7 +980,7 @@
         }
 
         .slots-title {
-            font-size: clamp(1.2rem, 4vw, 1.4rem); /* Increased from 1.1rem */
+            font-size: 1.4rem; /* Increased from 1.1rem */
             font-weight: 700; /* Increased from 600 */
             margin-bottom: 25px;
             text-align: center;
@@ -1602,7 +1506,7 @@
         }
 
         #slotsDayDisplay {
-            font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+            font-size: 1.6rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -2043,7 +1947,7 @@
              <summary class="faq__question" data-i18n="faq1q">What are the keys on the calendar?</summary>
              <div class="faq__answer" data-i18n="faq1a">
               <div id="coffeeCups" style="position: relative; display: inline-block; cursor: pointer;">
-                 The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk.
+                 The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA2MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+LnN7YW5pbWF0aW9uOnIgM3MgaW5maW5pdGUgZWFzZS1vdXQ7b3BhY2l0eTowO3N0cm9rZTojZmZmO2ZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS41O3N0cm9rZS1saW5lY2FwOnJvdW5kfUBrZXlmcmFtZXMgcnswJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjB9MjAle29wYWNpdHk6LjZ9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtMTVweCk7b3BhY2l0eTowfX08L3N0eWxlPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUsMTgpIj48cGF0aCBkPSJNMCAwaDE0djVhNyA3IDAgMCAxLTE0IDBWMHoiIGZpbGw9IiNhMTg1NzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cGF0aCBkPSJNMTQgMmgzYTIgMiAwIDAgMSAwIDRoLTMiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBjbGFzcz0icyIgZD0iTTQgLTJxMyAtNSAwIC04IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjBzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MS41cyIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNSwxOCkiPjxwYXRoIGQ9Ik0wIDBoMTR2NWE3IDcgMCAwIDEtMTQgMFYweiIgZmlsbD0iI2ExODU3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xNCAyaDNhMiAyIDAgMCAxIDAgNGgtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNNCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6LjVzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MnMiLz48L2c+PC9zdmc+" alt="Coffee Cups" style="vertical-align: middle; margin-left: 5px;">
                   <svg id="heartAnimation" width="30" height="30" viewBox="0 0 24 24" fill="white" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;">
                     <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -2265,8 +2169,15 @@
                     </label>
                 </div>
 
+                <script>
+                    document.getElementById('agreeTerms').addEventListener('change', function() {
+                        const modalBody = document.querySelector('#bookingModal .modal__body');
+                        modalBody.scrollTop = modalBody.scrollHeight;
+                    });
+                </script>
+
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Press "Book Now" to schedule an appointment</p>
+                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Press Book Now to schedule an appointment</p>
             </form>
             <p id="bookingStatus" style="text-align: center; margin-top: 15px; font-weight: 700;"></p>
         </div>
@@ -2960,7 +2871,7 @@
                     let textStyle = `font-size: ${fontSize}; font-weight: 600; letter-spacing: 0.5px; display: block;`;
                     if ((index === slotsData.length - 1 || index % 2 === 0) && slot.status !== 'busy') {
                         // Add delay based on index to desync
-                        textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s);`;
+                        textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s); font-size: 2rem;`;
                     }
 
                     btn.innerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px;">
@@ -3739,14 +3650,14 @@
             hours: "<strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM",
             copyright: "&copy; 2026 Hanna Dunchenko Paralegal Services",
             faq1q: "What are the keys on the calendar?",
-            faq1a: "The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk",
+            faq1a: "The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, some coffee & milk with",
             faq2q: "ARE FEES THE SAME ON SATURDAYS?",
             faq2a: "Yes. Service fees remain unchanged. The only difference is that weekend appointments must be confirmed in advance by phone. This confirmation ensures that there are no conflicting appointments in the calendar regarding other scopes of practice.",
             faq3q: "What forms are worked with?",
             faq3a: "<p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>",
             faq4q: "Privacy Policy?",
             faq4a: "<p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p><p style=\"margin-top: 10px;\"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p><p style=\"margin-top: 10px;\"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> or emailing <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
-            faq5q: "OK ! WHERE IS YOUR OFFICE?",
+            faq5q: "OK ! WHERE IS YOUR OFFICE TODAY?",
             faq5directions: "Directions",
             faq5_tap: "Just tap",
             faq5_driving: "to start driving",
