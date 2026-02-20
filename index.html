@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -1813,6 +1813,496 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* ================= MOBILE RESPONSIVE STYLES ================= */
+        @media (max-width: 768px) {
+            /* Header */
+            .header { 
+                padding: 30px 15px 5px; 
+            }
+
+            .header__title { 
+                font-size: 2.5rem; 
+                margin-bottom: 5px;
+            }
+
+            .header__subtitle { 
+                font-size: 1.8rem; 
+                margin-bottom: 3px;
+            }
+
+            .header__contact {
+                margin: 10px 0;
+                gap: 8px;
+            }
+
+            .header__contact-label {
+                font-size: 1rem;
+            }
+
+            .header__phone-link { 
+                font-size: 1.4rem; 
+            }
+
+            .header__seo-text {
+                font-size: 0.9rem;
+                margin: 10px auto;
+                max-width: 95%;
+            }
+
+            /* Layout Container */
+            .layout-container { 
+                max-width: 100%;
+                padding: 8px 15px 15px; 
+            }
+
+            /* Form Styling */
+            .contact-form__outside-title { 
+                font-size: 1.2rem; 
+                margin-bottom: 15px; 
+            }
+
+            .contact-form__group { 
+                margin-bottom: 18px; 
+            }
+
+            .contact-form__label { 
+                font-size: 0.75rem; 
+            }
+
+            .contact-form__input, 
+            .contact-form__textarea, 
+            .contact-form__select { 
+                padding: 12px; 
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .contact-form__textarea { 
+                min-height: 140px; 
+            }
+
+            .contact-form__submit-button { 
+                padding: 16px; 
+                font-size: 0.95rem; 
+            }
+
+            /* Section Title */
+            .section-title { 
+                font-size: 1.3rem;
+                margin-bottom: 20px; 
+                margin-top: 20px;
+            }
+
+            /* FAQ */
+            .faq__question { 
+                font-size: 0.95rem; 
+                gap: 12px; 
+            }
+
+            .faq__answer { 
+                font-size: 0.85rem;
+                padding-left: 24px; 
+            }
+
+            /* Calendar */
+            .calendar-wrapper {
+                padding: 20px;
+                margin-top: 3px;
+            }
+
+            .calendar-title {
+                font-size: 1rem;
+            }
+
+            .calendar-title .cal-month { 
+                font-size: 1.2rem; 
+            }
+            
+            .calendar-title .cal-year { 
+                font-size: 1.2rem; 
+                margin-top: -3px; 
+            }
+
+            .calendar-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.4rem;
+            }
+
+            .calendar-grid {
+                gap: 8px;
+            }
+
+            .cal-day-name {
+                font-size: 0.65rem;
+                margin-bottom: 3px;
+            }
+
+            .cal-day {
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+
+            /* Slots */
+            .slots-title {
+                font-size: 1rem;
+                margin-bottom: 18px;
+            }
+
+            .slots-grid {
+                gap: 10px;
+            }
+
+            .slot-btn {
+                padding: 14px 12px;
+                font-size: 0.8rem;
+                gap: 8px;
+            }
+
+            .slot-btn--busy::after {
+                font-size: 0.9rem;
+                padding: 4px 10px;
+            }
+
+            .slots-nav {
+                margin: 30px 0;
+            }
+
+            .slots-nav-arrow {
+                font-size: 1.4rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            #slotsDayDisplay {
+                font-size: 1.2rem;
+            }
+
+            /* Footer */
+            .footer {
+                padding: 20px 15px;
+                font-size: 0.8rem;
+            }
+
+            .footer__button {
+                padding: 16px;
+                font-size: 0.95rem;
+                max-width: 90%;
+            }
+
+            .footer__contact-link {
+                font-size: 1.4rem;
+                margin-bottom: 3px;
+                margin-top: 15px;
+            }
+
+            .footer__hours {
+                font-size: 0.8rem;
+            }
+
+            /* Modal */
+            .modal {
+                padding: 5px;
+            }
+
+            .modal__content {
+                padding: 25px;
+                max-width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal__title {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+
+            .modal__body {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+
+            .modal__section-title {
+                font-size: 1rem;
+                margin-top: 15px;
+                margin-bottom: 8px;
+            }
+
+            .modal__footer-text {
+                font-size: 0.9rem;
+                margin-top: 20px;
+                padding-top: 15px;
+            }
+
+            #termsModal .modal__title {
+                font-size: 1.6rem;
+            }
+
+            #termsModal .modal__section-title {
+                font-size: 1rem;
+            }
+
+            /* Custom Select */
+            .custom-select__trigger {
+                padding: 12px 20px;
+                padding-right: 40px;
+                font-size: 0.95rem;
+            }
+
+            .custom-option {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+
+            /* File Attach */
+            .file-attach__btn {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .file-attach__icon {
+                font-size: 1.2rem;
+            }
+
+            .file-attach__item {
+                padding: 8px 10px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Small Mobile Phones (max-width: 480px) */
+        @media (max-width: 480px) {
+            .header { 
+                padding: 20px 10px 5px; 
+            }
+
+            .header__title { 
+                font-size: 1.8rem; 
+            }
+
+            .header__subtitle { 
+                font-size: 1.3rem; 
+            }
+
+            .header__contact {
+                margin: 8px 0;
+                gap: 6px;
+            }
+
+            .header__contact-label {
+                font-size: 0.85rem;
+            }
+
+            .header__phone-link { 
+                font-size: 1.1rem; 
+            }
+
+            .header__seo-text {
+                font-size: 0.8rem;
+                margin: 8px auto;
+            }
+
+            .layout-container { 
+                padding: 6px 10px 12px; 
+            }
+
+            .contact-form__outside-title { 
+                font-size: 1rem; 
+                margin-bottom: 12px; 
+            }
+
+            .contact-form__group { 
+                margin-bottom: 15px; 
+            }
+
+            .contact-form__label { 
+                font-size: 0.7rem; 
+            }
+
+            .contact-form__input, 
+            .contact-form__textarea, 
+            .contact-form__select { 
+                padding: 10px; 
+            }
+
+            .contact-form__textarea { 
+                min-height: 120px; 
+            }
+
+            .contact-form__submit-button { 
+                padding: 14px; 
+                font-size: 0.85rem; 
+            }
+
+            .section-title { 
+                font-size: 1.1rem;
+                margin-bottom: 15px; 
+                margin-top: 15px;
+            }
+
+            .faq__question { 
+                font-size: 0.85rem; 
+                gap: 10px; 
+            }
+
+            .faq__answer { 
+                font-size: 0.75rem;
+                padding-left: 20px; 
+                padding-bottom: 15px;
+            }
+
+            .calendar-wrapper {
+                padding: 15px;
+            }
+
+            .calendar-title {
+                font-size: 0.9rem;
+            }
+
+            .calendar-title .cal-month { 
+                font-size: 1rem; 
+            }
+            
+            .calendar-title .cal-year { 
+                font-size: 1rem; 
+                margin-top: -2px; 
+            }
+
+            .calendar-nav-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+
+            .calendar-grid {
+                gap: 6px;
+            }
+
+            .cal-day-name {
+                font-size: 0.6rem;
+                margin-bottom: 2px;
+            }
+
+            .cal-day {
+                font-size: 0.75rem;
+                border-radius: 8px;
+            }
+
+            .slots-title {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+
+            .slots-grid {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+                gap: 8px;
+            }
+
+            .slot-btn {
+                padding: 12px 10px;
+                font-size: 0.75rem;
+                gap: 6px;
+            }
+
+            .slot-btn--busy::after {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
+
+            .slots-nav {
+                margin: 25px 0;
+            }
+
+            .slots-nav-arrow {
+                font-size: 1.2rem;
+                width: 35px;
+                height: 35px;
+            }
+
+            #slotsDayDisplay {
+                font-size: 1rem;
+            }
+
+            .footer {
+                padding: 15px 10px;
+                font-size: 0.7rem;
+            }
+
+            .footer__button {
+                padding: 14px;
+                font-size: 0.85rem;
+                max-width: 95%;
+            }
+
+            .footer__contact-link {
+                font-size: 1.2rem;
+                margin-bottom: 2px;
+                margin-top: 12px;
+            }
+
+            .footer__hours {
+                font-size: 0.75rem;
+            }
+
+            .modal__content {
+                padding: 20px;
+                max-width: 98%;
+            }
+
+            .modal__title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .modal__body {
+                font-size: 0.8rem;
+                line-height: 1.5;
+            }
+
+            .modal__section-title {
+                font-size: 0.9rem;
+                margin-top: 12px;
+                margin-bottom: 6px;
+            }
+
+            .modal__footer-text {
+                font-size: 0.8rem;
+                margin-top: 15px;
+                padding-top: 12px;
+            }
+
+            #termsModal .modal__title {
+                font-size: 1.4rem;
+            }
+
+            #termsModal .modal__section-title {
+                font-size: 0.9rem;
+            }
+
+            .custom-select__trigger {
+                padding: 10px 18px;
+                padding-right: 35px;
+                font-size: 0.9rem;
+            }
+
+            .custom-option {
+                padding: 9px 18px;
+                font-size: 0.9rem;
+            }
+
+            .file-attach__btn {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+
+            .file-attach__icon {
+                font-size: 1rem;
+            }
+
+            .file-attach__item {
+                padding: 6px 8px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
