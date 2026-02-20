@@ -727,6 +727,29 @@
             
             .footer__contact-link { font-size: 1.5rem; }
             .footer__button { padding: 16px; font-size: 1rem; }
+
+            /* --- MOBILE PERFORMANCE OPTIMIZATIONS --- */
+            /* Disable heavy SVG background animation */
+            .background__stripe { animation: none !important; } 
+            
+            /* Disable backdrop-filter (very heavy on mobile GPUs) */
+            .calendar-wrapper, .modal, .slot-btn, .footer-book-btn, .custom-options, .contact-form__input, .contact-form__textarea {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* Fallback backgrounds since blur is gone */
+            .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; border: 1px solid rgba(255,255,255,0.15); }
+            .slot-btn { background: rgba(255, 255, 255, 0.1) !important; }
+            
+            /* Disable expensive shadow/glow animations */
+            .slot-btn--hypnotic { animation: none !important; }
+            .hypnotic-text { animation: none !important; text-shadow: none !important; }
+            .calendar-loader { animation: none !important; text-shadow: none !important; }
+            
+            /* Remove focus shadows */
+            .contact-form__input:focus, .contact-form__textarea:focus { box-shadow: none !important; }
+            .footer-book-btn:hover, .contact-form__submit-button:hover { transform: none !important; box-shadow: none !important; }
         }
 
         @media (max-width: 480px) {
@@ -1134,7 +1157,7 @@
         
         /* Watermark "ALREADY BOOKED" - Red Stamp Style */
         .slot-btn--busy::after {
-            content: 'ALREADY BOOKED';
+            content: 'BOOKED';
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
@@ -1263,17 +1286,20 @@
             color: #fff;
         }
 
-        /* Paperclip Unrolling Animation with Pulsing */
-        @keyframes paperclipUnrollPulse {
-            0% { transform: rotate(0deg) scale(0.9); }
-            45% { transform: rotate(360deg) scale(1.3); }
-            55% { transform: rotate(360deg) scale(1.3); }
-            100% { transform: rotate(720deg) scale(0.9); }
+        /* Paperclip Attention Animation */
+        @keyframes paperclipAttention {
+            0%, 90% { transform: rotate(0deg); }
+            92% { transform: rotate(-25deg); }
+            94% { transform: rotate(20deg); }
+            96% { transform: rotate(-15deg); }
+            98% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .file-attach__icon-svg {
             display: inline-block;
             transform-origin: center center;
+            animation: paperclipAttention 10s infinite ease-in-out;
         }
 
         .file-attach__icon {
@@ -1298,6 +1324,8 @@
             border-radius: 8px;
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
         }
 
         .file-attach__name {
@@ -1320,6 +1348,17 @@
         .file-attach__remove:hover {
             color: #ff6b6b;
         }
+
+        .file-attach__progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+
         /* Custom Dropdown (Select Replacement) */
         .custom-select-wrapper {
             position: relative;
@@ -1437,8 +1476,12 @@
 
         /* Sparks Animation for Footer Booking Button */
         @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0) translate(0, 0); }
-            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); }
+            0% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #ffffff; }
+            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); background: #a18570; }
+            100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #a18570; }
+            0% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #a18570; }
+            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); background: #ffffff; }
+            100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); background: #ffffff; }
         }
 
         .footer-book-btn {
@@ -1470,23 +1513,11 @@
             position: absolute;
             width: 6px; height: 6px;
             border-radius: 50%;
-            background: #ffffff;
             pointer-events: none;
             opacity: 0;
             animation: sparkle 1.2s ease-in-out infinite;
         }
 
-        /* Paperclip Unrolling Animation */
-        @keyframes paperclipUnroll {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(360deg) scale(1.2); }
-            100% { transform: rotate(720deg) scale(1); }
-        }
-
-        .file-attach__icon-svg {
-            display: inline-block;
-            transform-origin: center center;
-        }
         @keyframes hypnoticPulse {
             0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); opacity: 0.6; }
             50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.7); opacity: 1; color: #fff; }
@@ -1674,7 +1705,7 @@
                 <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
                     <!-- Removing Connecting text -->
                 </div>
-                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Confirm slot for the chosen day.</div>
+                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Choose your day and slot</div>
             </div>
             
             <!-- Instruction below slots -->
@@ -1691,7 +1722,7 @@
         <details class="faq__item" open>
              <summary class="faq__question">What are the keys on the calendar?</summary>
              <div class="faq__answer">
-                 The symbols indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with coffee
+                 The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
                  <!-- Coffee SVG 1 (Dark Coffee) -->
                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 5px; margin-left: 5px;">
                     <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
@@ -1707,6 +1738,13 @@
                     <path d="M4 13h12v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3z" fill="#5a3d2a" stroke="none"></path>
                  </svg>
              </div>
+        </details>
+
+        <details class="faq__item" open>
+            <summary class="faq__question">ARE FEES THE SAME ON SATURDAYS?</summary>
+            <div class="faq__answer">
+                Yes. Service fees remain unchanged. The only difference is that weekend appointments must be confirmed in advance by phone. This confirmation ensures that there are no conflicting appointments in the calendar regarding other scopes of practice.
+            </div>
         </details>
 
         <details class="faq__item" open>
@@ -1755,8 +1793,6 @@
         <button class="modal__close" onclick="closeTermsModal()">&times;</button>
         <h2 class="modal__title">Terms of Service</h2>
         <div class="modal__body">
-            <h3 class="modal__section-title" style="text-align: center; font-size: 2.2rem; border-bottom: none; padding-bottom: 0;">Terms of Use</h3>
-            
             <h3 class="modal__section-title">1. No Legal Advice</h3>
             <p class="modal__text">The information provided on this website is for general informational purposes only and does not constitute legal advice. You should not rely on, or take or fail to take any action, based upon this information. Always seek the advice of a qualified legal professional licensed in your jurisdiction regarding your specific legal situation.</p>
             
@@ -1894,7 +1930,7 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: left;">Date of Birth</label>
+                    <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Date of Birth</label>
                     <div style="display: flex; gap: 10px; justify-content: center;">
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="width: 30%;" required>
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="width: 30%;" required>
@@ -1912,7 +1948,7 @@
                 </div>
 
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Press 'Book Now' to schedule an appointment.</p>
+                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Press "Book Now" to schedule an appointment</p>
             </form>
             <p id="bookingStatus" style="text-align: center; margin-top: 15px; font-weight: 700;"></p>
         </div>
@@ -2044,13 +2080,6 @@
         
         renderCalendar();
         setupEventListeners();
-
-        // Randomize paperclip animation
-        const paperclip = document.querySelector('.file-attach__icon-svg');
-        if (paperclip) {
-            const randomDuration = Math.random() * (115) + 5; // Random between 5 and 120
-            paperclip.style.animation = `paperclipUnroll ${randomDuration}s infinite linear`;
-        }
     });
 
     function getClockIcon(timeRangeStr) {
@@ -2177,6 +2206,19 @@
         // if(headerTitle) headerTitle.innerHTML = `<span style="font-size: 1.5rem;">Wait</span> <span class="loading-text" style="font-size: 1.5rem;">...</span>`;
         // Removed initial Wait text from header to just show target header
         if(headerTitle) headerTitle.innerHTML = ""; // Empty or specific text if needed, user requested removal
+
+        // Hide CTA message during loading - it will be shown after slots load
+        const ctaMsg = document.getElementById('calCtaMsg');
+        if(ctaMsg) ctaMsg.style.display = 'none';
+
+        // Show loading state when switching months
+        const slotsDisplay = document.getElementById('slotsDayDisplay');
+        if(slotsDisplay) {
+            slotsDisplay.innerHTML = 'Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span>';
+            slotsDisplay.classList.add('hypnotic-text');
+        }
+        const slotsNav = document.querySelector('.slots-nav');
+        if(slotsNav) slotsNav.classList.add('slots-nav--loading');
 
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
@@ -2376,9 +2418,15 @@
             const checkDate = new Date(year, month, d);
             // Skip Saturdays (6) for auto-selection, even if they have slots
             if (checkDate >= today && checkDate.getDay() !== 6) {
-                nearestDay = d;
-                absoluteNearestDate = checkDate; // Set global
-                break; 
+                // Check if this day has at least one available (not busy) slot
+                const hasAvailableSlot = slotsMap[d].some(s => s.status !== 'busy');
+                if (hasAvailableSlot) {
+                    nearestDay = d;
+                    absoluteNearestDate = checkDate; // Set global
+                    // Store the first available (non-busy) slot data
+                    nearestSlotData = slotsMap[d].find(s => s.status !== 'busy') || null;
+                    break;
+                }
             }
         }
 
@@ -2461,155 +2509,158 @@
         // Update New Slots Header with [Weekday]
         const slotsDisplay = document.getElementById('slotsDayDisplay');
         const slotsNav = document.querySelector('.slots-nav');
-        if(slotsNav) slotsNav.classList.remove('slots-nav--loading');
-
-        if(slotsDisplay) {
-            slotsDisplay.classList.remove('hypnotic-text'); // Remove animation on date selection
-            const options = { weekday: 'long' };
-            
-            // Check if there are slots
-            const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
-            let weekdayText;
-            
-            // Per request, replace date with a static legal-sounding title
-            weekdayText = (slotsData.length > 0)
-                ? 'Appointment Slots:'
-                : 'No slots available for this date.';
-            
-            // Smooth transition for text update
-            slotsDisplay.classList.add('fade-out');
-            setTimeout(() => {
-                slotsDisplay.textContent = weekdayText;
-                slotsDisplay.classList.remove('fade-out');
-                slotsDisplay.classList.add('fade-in');
-                setTimeout(() => slotsDisplay.classList.remove('fade-in'), 500);
-            }, 500);
-            slotsDisplay.style.opacity = '1';
+        
+        // Determine if we need to show loading state and delay
+        // Manual selections (user clicks date) show loading for 600ms
+        // Auto-selections (month switch) loading already shown, process immediately
+        const needsLoadingDelay = !isAutoSelection;
+        
+        // Show loading state only for manual date selections
+        if (needsLoadingDelay && slotsDisplay) {
+            slotsDisplay.textContent = '';
+            slotsDisplay.innerHTML = 'Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span>';
+            slotsDisplay.classList.add('hypnotic-text');
+            if(slotsNav) slotsNav.classList.add('slots-nav--loading');
         }
 
+        // Process slots after delay (or immediately for auto-selection)
+        setTimeout(() => {
+            if(slotsNav) slotsNav.classList.remove('slots-nav--loading');
 
-
-        // Render Slots
-        slotsGrid.innerHTML = '';
-        const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
-
-        if (selectedDate.getMonth() !== currentDate.getMonth()) {
-            slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: rgba(0,0,0,0.5); mix-blend-mode: overlay; margin-top: 10px;">Select a date in the current month to check availability.</p>`;
-            return;
-        }
-
-        // Show Loading (UI feedback already in header)
-        if (slotsData.length === 0) {
-            // Check if selected date is TODAY (Toronto)
-            const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
-            const torontoNow = new Date(torontoNowStr);
-            
-            const datePhrase = isToday ? "anymore for Today" : "for this date";
-
-            slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #ffffff; font-weight: 700; font-size: 1.2rem; margin-top: 20px; line-height: 1.5;">No available slots ${datePhrase}.<br>Please select another day.</p>`;
-            
-            // Hide title if no slots
-            const titleEl = document.querySelector('.slots-title');
-            if(titleEl) titleEl.style.display = 'none';
-            
-            // Hide CTA when no slots
-            const ctaMsg = document.getElementById('calCtaMsg');
-            if(ctaMsg) {
-                ctaMsg.style.display = 'none';
-                ctaMsg.textContent = 'Please select a time slot to proceed.';
-            }
-
-        } else {
-            // Show title if slots exist
-            const titleEl = document.querySelector('.slots-title');
-            if(titleEl) titleEl.style.display = 'block';
-            
-            // Check if all slots are busy
-            const allBusy = slotsData.every(s => s.status === 'busy');
-            
-            // Show CTA with appropriate message
-            const ctaMsg = document.getElementById('calCtaMsg');
-            if(ctaMsg) {
-                ctaMsg.style.display = 'block';
-                if (allBusy) {
-                    ctaMsg.innerHTML = 'No available slots for this date.';
+            if(slotsDisplay) {
+                slotsDisplay.classList.remove('hypnotic-text'); // Remove animation
+                const options = { weekday: 'long' };
+                
+                // Check if there are slots
+                const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
+                let weekdayText;
+                
+                // Per request, replace date with a static legal-sounding title
+                weekdayText = (slotsData.length > 0)
+                    ? 'Slots:'
+                    : 'No slots available for this date.';
+                
+                // Smooth transition for text update (skip for auto-selection to avoid double-animation)
+                if (needsLoadingDelay) {
+                    slotsDisplay.classList.add('fade-out');
+                    setTimeout(() => {
+                        slotsDisplay.textContent = weekdayText;
+                        slotsDisplay.classList.remove('fade-out');
+                        slotsDisplay.classList.add('fade-in');
+                        setTimeout(() => slotsDisplay.classList.remove('fade-in'), 500);
+                    }, 500);
                 } else {
-                    ctaMsg.innerHTML = 'Confirm slot for the chosen day.';
+                    slotsDisplay.textContent = weekdayText;
                 }
+                slotsDisplay.style.opacity = '1';
             }
 
-            const isThisNearestDay = absoluteNearestDate && 
-                                    selectedDate.getFullYear() === absoluteNearestDate.getFullYear() &&
-                                    selectedDate.getMonth() === absoluteNearestDate.getMonth() &&
-                                    selectedDate.getDate() === absoluteNearestDate.getDate();
+            // Render Slots
+            slotsGrid.innerHTML = '';
+            const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
 
-            slotsData.forEach((slot, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'slot-btn slot-btn--hypnotic'; 
+            if (selectedDate.getMonth() !== currentDate.getMonth()) {
+                slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: rgba(0,0,0,0.5); mix-blend-mode: overlay; margin-top: 10px;">Select a date in the current month to check availability.</p>`;
+                return;
+            }
+
+            // Show Loading (UI feedback already in header)
+            if (slotsData.length === 0) {
+                // Check if selected date is TODAY (Toronto)
+                const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
+                const torontoNow = new Date(torontoNowStr);
                 
-                // Show Busy Status
-                if (slot.status === 'busy') {
-                    btn.className = 'slot-btn slot-btn--busy';
-                    // Random rotation for stamp
-                    const rot = Math.floor(Math.random() * 8) - 4; // -4 to 3 deg
-                    btn.style.setProperty('--rot', rot + 'deg');
+                const datePhrase = isAutoSelection ? "anymore for Today" : "for this date";
+
+                slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #ffffff; font-weight: 700; font-size: 1.2rem; margin-top: 20px; line-height: 1.5;">No available slots ${datePhrase}.<br>Please select another day.</p>`;
+                
+                // Hide title if no slots
+                const titleEl = document.querySelector('.slots-title');
+                if(titleEl) titleEl.style.display = 'none';
+                
+                // Hide CTA when no slots
+                const ctaMsg = document.getElementById('calCtaMsg');
+                if(ctaMsg) {
+                    ctaMsg.style.display = 'none';
+                    ctaMsg.textContent = 'Please select a time slot to proceed.';
                 }
 
-                // Generate Dynamic Clock Icon
-                const svgIcon = getClockIcon(slot.text);
+            } else {
+                // Show title if slots exist
+                const titleEl = document.querySelector('.slots-title');
+                if(titleEl) titleEl.style.display = 'block';
                 
-                // Format: YYYY MMMM DDDD, DD H MM AMPM
-                const weekday = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-                const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
-                const yyyy = selectedDate.getFullYear();
-                const dd = selectedDate.getDate();
+                // Check if all slots are busy
+                const allBusy = slotsData.every(s => s.status === 'busy');
                 
-                // Parse time to 24h
-                let rawTime = slot.text.split(/[-–]/)[0].trim(); // "9:00 AM"
-                let time24 = rawTime;
-                let timeAmPm = rawTime; // Store original for fallback
-                try {
-                    let [tPart, modPart] = rawTime.split(' ');
-                    if (modPart) {
-                        let [hPart, mPart] = tPart.split(':');
-                        let hNum = parseInt(hPart);
-                        if (modPart === 'PM' && hNum !== 12) hNum += 12;
-                        if (modPart === 'AM' && hNum === 12) hNum = 0;
-                        time24 = `${String(hNum).padStart(2, '0')}:${mPart}`;
+                // Show CTA with appropriate message
+                const ctaMsg = document.getElementById('calCtaMsg');
+                if(ctaMsg) {
+                    ctaMsg.style.display = 'block';
+                    if (allBusy) {
+                        ctaMsg.innerHTML = 'No available slots for this date.';
                     } else {
-                         time24 = rawTime.replace(/\b\d{1}:/g, (match) => '0' + match);
+                        ctaMsg.innerHTML = 'Choose your day and slot';
                     }
-                } catch (e) { console.error("Time parse error", e); }
-
-                // Convert time24 back to 12h format with AMPM
-                let [h24Str, minStr] = time24.split(':');
-                let h24Num = parseInt(h24Str);
-                let ampm = h24Num >= 12 ? 'PM' : 'AM';
-                let h12 = h24Num % 12 || 12;
-                
-                const fullLabel = `${weekday}, ${monthName} ${dd}, ${yyyy}, ${h12}:${minStr} ${ampm}`;
-
-                // Animation logic: Last slot + every 2nd slot (more frequent teasing)
-                // Huge font for available slots, keep small for busy
-                let fontSize = '1.1rem';
-                let textStyle = `font-size: ${fontSize}; font-weight: 600; letter-spacing: 0.5px;`;
-                if ((index === slotsData.length - 1 || index % 2 === 0) && slot.status !== 'busy') {
-                    // Add delay based on index to desync
-                    textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s);`;
                 }
 
-                btn.innerHTML = `${svgIcon} <span style="${textStyle}">${fullLabel}</span>`;
-                
-                // Use CSS variable for index to control both animations independently
-                // Offset by availableDaysCount to continue sequence from calendar
-                btn.style.setProperty('--i', availableDaysCount + index);
-                
-                if (slot.status !== 'busy') {
-                    btn.onclick = () => openBookingModal(slot);
-                }
-                slotsGrid.appendChild(btn);
-            });
-        }
+                const isThisNearestDay = absoluteNearestDate && 
+                                        selectedDate.getFullYear() === absoluteNearestDate.getFullYear() &&
+                                        selectedDate.getMonth() === absoluteNearestDate.getMonth() &&
+                                        selectedDate.getDate() === absoluteNearestDate.getDate();
+
+                slotsData.forEach((slot, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'slot-btn slot-btn--hypnotic'; 
+                    
+                    // Show Busy Status
+                    if (slot.status === 'busy') {
+                        btn.className = 'slot-btn slot-btn--busy';
+                        // Random rotation for stamp
+                        const rot = Math.floor(Math.random() * 8) - 4; // -4 to 3 deg
+                        btn.style.setProperty('--rot', rot + 'deg');
+                    }
+
+                    // Generate Dynamic Clock Icon
+                    const svgIcon = getClockIcon(slot.text);
+                    
+                    // Format: Available: MMMM, DD
+                    // Line 2: YYYY.MM.DD - Time
+                    const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
+                    const yyyy = selectedDate.getFullYear();
+                    const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+                    const dd = String(selectedDate.getDate()).padStart(2, '0');
+                    
+                    let rawTime = slot.text.split(/[-–]/)[0].trim(); // "9:00 AM"
+                    
+                    const line1 = `Available: ${monthName}, ${dd}`;
+                    const line2 = `${yyyy}.${mm}.${dd} - ${rawTime}`;
+
+                    // Animation logic: Last slot + every 2nd slot (more frequent teasing)
+                    // Huge font for available slots, keep small for busy
+                    let fontSize = '1.1rem';
+                    let textStyle = `font-size: ${fontSize}; font-weight: 600; letter-spacing: 0.5px; display: block;`;
+                    if ((index === slotsData.length - 1 || index % 2 === 0) && slot.status !== 'busy') {
+                        // Add delay based on index to desync
+                        textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s);`;
+                    }
+
+                    btn.innerHTML = `${svgIcon} <div style="text-align: left; line-height: 1.3;">
+                        <span style="display: block; font-size: 0.75rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px;">${line1}</span>
+                        <span style="${textStyle}">${line2}</span>
+                    </div>`;
+                    
+                    // Use CSS variable for index to control both animations independently
+                    // Offset by availableDaysCount to continue sequence from calendar
+                    btn.style.setProperty('--i', availableDaysCount + index);
+                    
+                    if (slot.status !== 'busy') {
+                        btn.onclick = () => openBookingModal(slot);
+                    }
+                    slotsGrid.appendChild(btn);
+                });
+            }
+        }, needsLoadingDelay ? 600 : 0);
     }
 
     // Modal & Form Handling
@@ -2763,6 +2814,11 @@
             removeBtn.textContent = '\u00D7';
             removeBtn.addEventListener('click', () => removeFile(i));
             item.appendChild(removeBtn);
+            
+            const progress = document.createElement('div');
+            progress.className = 'file-attach__progress';
+            item.appendChild(progress);
+
             fileListEl.appendChild(item);
         });
     }
@@ -2937,7 +2993,17 @@
             const filesData = [];
             if (attachedFiles.length > 0) {
                 bookingStatus.textContent = "Uploading files...";
-                for (const file of attachedFiles) {
+                const fileItems = document.getElementById('fileAttachList').children;
+
+                for (let i = 0; i < attachedFiles.length; i++) {
+                    const file = attachedFiles[i];
+                    // Animate progress
+                    if (fileItems[i]) {
+                        const bar = fileItems[i].querySelector('.file-attach__progress');
+                        if (bar) bar.style.width = '100%';
+                    }
+                    await new Promise(r => setTimeout(r, 300)); // Visual delay
+
                     const base64 = await fileToBase64(file);
                     filesData.push({
                         name: file.name,
@@ -3109,22 +3175,14 @@
             { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText') }
         ];
 
-        if (absoluteNearestDate) {
+        if (absoluteNearestDate && nearestSlotData) {
             // Get day of week (e.g., "Monday")
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
             
-            // Find first available (non-busy) slot time for the nearest day
+            // Use nearestSlotData that was stored when absoluteNearestDate was found
             let timeStr = '';
-            const nearestEl = document.querySelector('.cal-day--nearest');
-            if (nearestEl && nearestEl.dataset.slots) {
-                try {
-                    const slots = JSON.parse(nearestEl.dataset.slots);
-                    const freeSlot = slots.find(s => s.status !== 'busy');
-                    if (freeSlot && freeSlot.text) {
-                        nearestSlotData = freeSlot;
-                        timeStr = freeSlot.text.split(/[-–]/)[0].trim();
-                    }
-                } catch(e) {}
+            if (nearestSlotData && nearestSlotData.text) {
+                timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
             }
             
             // Display in two lines: "Available Slot!" on first line, day + time on second
@@ -3146,6 +3204,9 @@
         // Continuous non-interrupting sparks
         if (container.dataset.sparkTimer) return; // Only start one interval
 
+        // Performance: Disable sparks on mobile devices to save battery/CPU
+        if (window.innerWidth < 768) return;
+
         const spawnSpark = () => {
             const spark = document.createElement('span');
             spark.className = 'spark';
@@ -3156,8 +3217,7 @@
             spark.style.left = `${Math.random() * 100}%`;
             spark.style.top = `${Math.random() * 100}%`;
             
-            // Random colors
-            spark.style.background = '#ffffff';
+            // Color handled by CSS animation
             
             container.appendChild(spark);
             
@@ -3168,7 +3228,7 @@
                 setTimeout(() => spark.remove(), 200);
             }, 1000); 
         };
-
+        
         // Initial burst
         for (let i = 0; i < 6; i++) spawnSpark();
 
@@ -3274,6 +3334,7 @@
 
     window.addEventListener('load', adjustDynamicText);
     window.addEventListener('resize', () => requestAnimationFrame(adjustDynamicText));
+
 </script>
 </body>
 </html>
