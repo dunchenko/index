@@ -2947,6 +2947,8 @@
 
     async function updateCalendarWithAvailability(slots) {
         if (!Array.isArray(slots)) {
+            // Play Sound (Nice Chime)
+            playSuccessLoadSound();
             // If no slots array, clear loading message
             const slotsDisplay = document.getElementById('slotsDayDisplay');
             if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
@@ -2955,6 +2957,7 @@
             }
             return;
         }
+
         
         const dayElements = document.querySelectorAll('.cal-day:not(.cal-day--empty)');
         const slotsMap = {}; // date -> count
@@ -3035,6 +3038,9 @@
                      }, 200);
                      
                      // Show message (update header) - "Available Appointments: ..."
+                    // Play Sound (Nice Chime)
+                    playSuccessLoadSound();
+
                      // Handled in selectDate now
                 }
 
@@ -3255,6 +3261,7 @@
     const confirmBtn = document.getElementById('confirmBookingBtn');
 
     function openBookingModal(slot) {
+
         try {
             selectedSlotData = slot;
             logEvent("Form Opened", slot.text);
@@ -3683,6 +3690,11 @@
         osc.stop(audioCtx.currentTime + delay + duration);
     }
 
+    function playSuccessLoadSound() {
+        // Magical success chord
+        playTone(440.00, 'sine', 0.4, 0);   // A4
+    }
+
     function playSuccessSound() {
         // Magical success chord
         playTone(523.25, 'sine', 1.5, 0);   // C5
@@ -3743,7 +3755,7 @@
              // Add 50 minutes instead of 1 hour
              d.setMinutes(d.getMinutes() + 50);
              
-             return d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+             return d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
         } catch(e) {
             return "50 min later";
         }
