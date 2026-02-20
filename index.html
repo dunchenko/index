@@ -117,7 +117,14 @@
             0%, 50%, 100% { transform: translate(0, 0) scaleX(1); }
             25% { transform: translate(2.5%, 1.5%) scaleX(1.06); }
             75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
-        }        /* Block: header */
+        }
+
+        /* Pause background animation when a modal is open */
+        body.modal-is-open .background__stripe {
+            animation-play-state: paused;
+        }
+        
+        /* Block: header */
         .header { 
             text-align: center; 
             padding: calc(30px + env(safe-area-inset-top)) 20px 10px; 
@@ -1461,7 +1468,7 @@
             position: relative;
             display: inline-block;
             padding: 14px 30px;
-            background: rgba(255, 255, 255, 0.05);
+            background: transparent;
             color: #fff;
             font-size: 1.05rem;
             font-weight: 700;
@@ -1472,15 +1479,27 @@
             text-align: center;
             margin: 15px auto;
             overflow: visible;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: none;
+            isolation: isolate;
+        }
+        .footer-book-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            box-shadow: none;
+            border-radius: 50px;
+            z-index: -1;
+            transition: background 0.2s;
         }
         .footer-book-btn:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.15);
             box-shadow: none;
+        }
+        .footer-book-btn:hover::before {
+            background: rgba(255, 255, 255, 0.15);
         }
         .spark {
             position: absolute;
@@ -1490,7 +1509,7 @@
             opacity: 0;
             animation: sparkle 1.2s ease-in-out infinite;
             background: #ffffff;
-            z-index: -1;
+            z-index: -2;
         }
 
         @keyframes hypnoticPulse {
@@ -1688,11 +1707,11 @@
         /* ------------------- BLACK THEME OVERRIDES ------------------- */
         [data-theme="black"] {
             --bg-dark: #000000;
-            --text-white: #f0f0f0;
+            --text-white: #d1d1d1;
             --glass-bg: rgba(30, 30, 30, 0.6);
             --glass-border: rgba(255, 255, 255, 0.15);
             --input-bg: rgba(255, 255, 255, 0.1);
-            --accent-gold: #bbbbbb; /* Was #D4B89A */
+            --accent-gold: #aaaaaa; /* Was #D4B89A */
             --accent-hover: #999999;
             --placeholder-color: #777777;
             scrollbar-color: #444 transparent;
@@ -1754,7 +1773,7 @@
         }
         [data-theme="black"] .custom-select__trigger {
             background: #222;
-            color: #eee;
+            color: #ddd;
         }
         [data-theme="black"] .custom-select__trigger::after {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23eeeeee' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -1906,36 +1925,22 @@
     <h2 class="section-title" data-i18n="faqTitle">FAQ</h2>
     <div class="faq">
         <details class="faq__item" open>
-             <summary class="faq__question">What are the keys on the calendar?</summary>
-             <div class="faq__answer">
+             <summary class="faq__question" data-i18n="faq1q">What are the keys on the calendar?</summary>
+             <div class="faq__answer" data-i18n="faq1a">
                  The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
-                 <!-- Coffee SVG 1 (Dark Coffee) -->
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 5px; margin-left: 5px;">
-                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                    <path d="M6 1v3"></path><path d="M10 1v3"></path><path d="M14 1v3"></path>
-                    <path d="M4 13h12v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3z" fill="#5a3d2a" stroke="none"></path>
-                 </svg>
-                 <!-- Coffee SVG 2 (Dark Coffee) -->
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-bottom: 5px;">
-                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                    <path d="M6 1v3"></path><path d="M10 1v3"></path><path d="M14 1v3"></path>
-                    <path d="M4 13h12v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3z" fill="#5a3d2a" stroke="none"></path>
-                 </svg>
              </div>
         </details>
 
         <details class="faq__item" open>
-            <summary class="faq__question">ARE FEES THE SAME ON SATURDAYS?</summary>
-            <div class="faq__answer">
+            <summary class="faq__question" data-i18n="faq2q">ARE FEES THE SAME ON SATURDAYS?</summary>
+            <div class="faq__answer" data-i18n="faq2a">
                 Yes. Service fees remain unchanged. The only difference is that weekend appointments must be confirmed in advance by phone. This confirmation ensures that there are no conflicting appointments in the calendar regarding other scopes of practice.
             </div>
         </details>
 
         <details class="faq__item" open>
-            <summary class="faq__question">What forms are worked with?</summary>
-            <div class="faq__answer">
+            <summary class="faq__question" data-i18n="faq3q">What forms are worked with?</summary>
+            <div class="faq__answer" data-i18n="faq3a">
                 <p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>
             </div>
         </details>
@@ -1946,8 +1951,8 @@
 
 
         <details class="faq__item" open>
-            <summary class="faq__question">Privacy Policy?</summary>
-            <div class="faq__answer">
+            <summary class="faq__question" data-i18n="faq4q">Privacy Policy?</summary>
+            <div class="faq__answer" data-i18n="faq4a">
                 <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p>
                 <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p>
                 <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none;">+1 (437) 239-6833</a></strong> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
@@ -1955,12 +1960,12 @@
         </details>
 
         <details class="faq__item" open>
-            <summary class="faq__question">OK ! WHERE IS YOUR OFFICE?</summary>
+            <summary class="faq__question" data-i18n="faq5q">OK ! WHERE IS YOUR OFFICE?</summary>
             <div class="faq__answer">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
-                    <span style="opacity: 0.9; font-size: 0.95rem;">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                    <span style="opacity: 0.9; font-size: 0.95rem;">to start driving</span>
+                    <span style="opacity: 0.9; font-size: 0.95rem; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
+                    <span style="opacity: 0.9; font-size: 0.95rem; display: inline-block;" data-i18n="faq5_driving">to start driving</span>
                 </div>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
@@ -1977,44 +1982,44 @@
 <div id="termsModal" class="modal">
     <div class="modal__content">
         <button class="modal__close" onclick="closeTermsModal()">&times;</button>
-        <h2 class="modal__title">Terms of Service</h2>
+        <h2 class="modal__title" data-i18n="termsModalTitle">Terms of Service</h2>
         <div class="modal__body">
-            <h3 class="modal__section-title">1. No Legal Advice</h3>
+            <h3 class="modal__section-title" data-i18n="noLegalAdvice">1. No Legal Advice</h3>
             <p class="modal__text">The information provided on this website is for general informational purposes only and does not constitute legal advice. You should not rely on, or take or fail to take any action, based upon this information. Always seek the advice of a qualified legal professional licensed in your jurisdiction regarding your specific legal situation.</p>
             
-            <h3 class="modal__section-title">2. No Paralegal-Client Relationship</h3>
+            <h3 class="modal__section-title" data-i18n="noParalegalRelationship">2. No Paralegal-Client Relationship</h3>
             <p class="modal__text">Accessing or using this website, or contacting Hanna Dunchenko via email, phone, or the booking form, does not create a paralegal-client relationship. A professional relationship is only established upon the execution of a formal written Retainer Agreement signed by both parties.</p>
             
-            <h3 class="modal__section-title">3. Confidentiality</h3>
+            <h3 class="modal__section-title" data-i18n="confidentiality">3. Confidentiality</h3>
             <p class="modal__text">While we respect your privacy, please be aware that information transmitted to us through this website or via email prior to the establishment of a formal paralegal-client relationship may not be privileged or confidential. Please avoid sending sensitive or confidential information until a retainer is in place.</p>
             
-            <h3 class="modal__section-title">4. No Guarantee of Results</h3>
+            <h3 class="modal__section-title" data-i18n="noGuarantee">4. No Guarantee of Results</h3>
             <p class="modal__text">In accordance with professional standards and applicable regulations, we do not and cannot guarantee the outcome of any legal matter. Past results are not indicative of future outcomes, and every case is unique.</p>
             
-            <h3 class="modal__section-title">5. Fees and Retainers</h3>
+            <h3 class="modal__section-title" data-i18n="feesAndRetainers">5. Fees and Retainers</h3>
             <p class="modal__text">Fees for legal services are determined based on the scope and complexity of the matter and will be clearly outlined in a Retainer Agreement. All fees and billing practices comply with professional regulatory guidelines.</p>
 
-            <h3 class="modal__section-title">6. Limitation of Liability</h3>
+            <h3 class="modal__section-title" data-i18n="limitationOfLiability">6. Limitation of Liability</h3>
             <p class="modal__text">Your use of this website is at your own risk. The content is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of this site.</p>
 
-            <h3 class="modal__section-title">7. Form Submission & Response Disclaimer</h3>
+            <h3 class="modal__section-title" data-i18n="formSubmission">7. Form Submission & Response Disclaimer</h3>
             <p class="modal__text">Submitting the inquiry form on this website is for informational purposes only and allows us to review your case files. It does not guarantee that a case will be opened, nor does it guarantee a response. While we aim to reply within 48 hours, a response is not guaranteed, and no legal rights are preserved by the mere act of submission.</p>
 
-            <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;">Privacy Policy</h2>
+            <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;" data-i18n="privacyPolicy">Privacy Policy</h2>
 
-            <h3 class="modal__section-title">1. Information Collection</h3>
+            <h3 class="modal__section-title" data-i18n="infoCollection">1. Information Collection</h3>
             <p class="modal__text">We collect personal information (such as name and contact details) only when you voluntarily provide it. This information is used solely to communicate with you and assess your potential legal needs.</p>
 
-            <h3 class="modal__section-title">2. Use of Information</h3>
+            <h3 class="modal__section-title" data-i18n="useOfInfo">2. Use of Information</h3>
             <p class="modal__text">Your data is used to facilitate communication and legal representation. We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
 
-            <h3 class="modal__section-title">3. Analytics & Advertising</h3>
+            <h3 class="modal__section-title" data-i18n="analyticsAds">3. Analytics & Advertising</h3>
             <p class="modal__text">This website uses services like Google Analytics, Google Ads, YouTube, and Facebook. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
 
-            <h3 class="modal__section-title">4. Response Time</h3>
+            <h3 class="modal__section-title" data-i18n="responseTime">4. Response Time</h3>
             <p class="modal__text">Please note that responses to your inquiry may take up to 48 business hours or longer. To expedite your request, we strongly recommend contacting our paralegal by phone immediately after submitting this form.</p>
 
-            <h3 class="modal__section-title">5. Contacting Us</h3>
+            <h3 class="modal__section-title" data-i18n="contactUs">5. Contacting Us</h3>
             <p class="modal__text">If there are any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
 
             <p class="modal__footer-text">
@@ -2029,7 +2034,7 @@
 <footer class="footer">
     <div class="footer__container">
         
-        <div class="footer__hours">
+        <div class="footer__hours" data-i18n="hours">
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
 
@@ -2042,7 +2047,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <p class="footer__copyright">&copy; 2026 Hanna Dunchenko Paralegal Services</p>
+    <p class="footer__copyright" data-i18n="copyright">&copy; 2026 Hanna Dunchenko Paralegal Services</p>
 </footer>
 </div> <!-- End blurContainer -->
 
@@ -2239,10 +2244,7 @@
         if (modal) {
             modal.classList.add('modal--active');
             document.body.style.overflow = 'hidden';
-            // Pause background animation
-            document.querySelectorAll('.background__stripe').forEach(el => {
-                el.style.animationPlayState = 'paused';
-            });
+            document.body.classList.add('modal-is-open');
         }
     }
 
@@ -2251,10 +2253,7 @@
         if (modal) {
             modal.classList.remove('modal--active');
             document.body.style.overflow = 'auto';
-            // Resume background animation
-            document.querySelectorAll('.background__stripe').forEach(el => {
-                el.style.animationPlayState = 'running';
-            });
+            document.body.classList.remove('modal-is-open');
         }
     }
 
@@ -2908,6 +2907,7 @@
                 window.scrollTo(0, 0);
                 modal.classList.add('modal--active');
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-is-open');
             }
 
             if(bookingStatus) bookingStatus.textContent = '';
@@ -2927,6 +2927,7 @@
     function closeBookingModal() {
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
+        document.body.classList.remove('modal-is-open');
         // Reload page after closing the success notification
         location.reload();
     }
@@ -3401,14 +3402,31 @@
         const spawnSpark = () => {
             const spark = document.createElement('span');
             spark.className = 'spark';
-            const angle = Math.random() * 360;
-            const dist = 20 + Math.random() * 30;
-            spark.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
-            spark.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
-            spark.style.left = `${Math.random() * 100}%`;
-            spark.style.top = `${Math.random() * 100}%`;
+
+            // New logic: Start from the edge and move outwards
+            let x, y;
+            const side = Math.floor(Math.random() * 4);
+            const pos = Math.random() * 100;
+
+            switch (side) {
+                case 0: x = pos; y = 0; break; // Top
+                case 1: x = 100; y = pos; break; // Right
+                case 2: x = pos; y = 100; break; // Bottom
+                case 3: x = 0; y = pos; break; // Left
+            }
+            spark.style.left = `${x}%`;
+            spark.style.top = `${y}%`;
+
+            // Move outwards from the center
+            const dx = x - 50;
+            const dy = y - 50;
+            const magnitude = Math.sqrt(dx * dx + dy * dy);
+            const normDx = dx / (magnitude || 1);
+            const normDy = dy / (magnitude || 1);
             
-            // Color handled by CSS animation
+            const dist = 15 + Math.random() * 15; // How far they travel
+            spark.style.setProperty('--tx', `${normDx * dist}px`);
+            spark.style.setProperty('--ty', `${normDy * dist}px`);
             
             container.appendChild(spark);
             
@@ -3563,47 +3581,192 @@
             seo3: "Toronto, Richmond Hill, Mississauga, London",
             seo4: "All online consultations are available province-wide",
             bookBtn: "Book Your First<br>Available Appointment",
-            faqTitle: "FAQ"
+            faqTitle: "FAQ",
+            hours: "<strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM",
+            copyright: "&copy; 2026 Hanna Dunchenko Paralegal Services",
+            faq1q: "What are the keys on the calendar?",
+            faq1a: "The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk",
+            faq2q: "ARE FEES THE SAME ON SATURDAYS?",
+            faq2a: "Yes. Service fees remain unchanged. The only difference is that weekend appointments must be confirmed in advance by phone. This confirmation ensures that there are no conflicting appointments in the calendar regarding other scopes of practice.",
+            faq3q: "What forms are worked with?",
+            faq3a: "<p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>",
+            faq4q: "Privacy Policy?",
+            faq4a: "<p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p><p style=\"margin-top: 10px;\"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p><p style=\"margin-top: 10px;\"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> or emailing <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
+            faq5q: "OK ! WHERE IS YOUR OFFICE?",
+            faq5directions: "Directions",
+            faq5_tap: "Just tap",
+            faq5_driving: "to start driving",
+            termsModalTitle: "Terms of Service",
+            privacyPolicy: "Privacy Policy",
+            noLegalAdvice: "No Paralegal Advice",
+            noParalegalRelationship: "No Paralegal-Client Relationship",
+            confidentiality: "Confidentiality",
+            noGuarantee: "No Guarantee of Results",
+            feesAndRetainers: "Fees and Retainers",
+            limitationOfLiability: "Limitation of Liability",
+            formSubmission: "Form Submission & Response Disclaimer",
+            infoCollection: "Information Collection",
+            useOfInfo: "Use of Information",
+            analyticsAds: "Analytics & Advertising",
+            responseTime: "Response Time",
+            contactUs: "Contacting Us",
+            namesOfCourts: "Ontario Court of Justice, Superior Court of Justice, Landlord and Tenant Board"
         },
         fr: {
             name: "Hanna Dunchenko",
-            subtitle: "Services Parajuridiques",
-            seo1: "Parajuriste agréé et services de notaire public",
-            seo2: "Défense des contraventions, LTB, dossiers WSIB",
+            subtitle: "Services de Paralégal",
+            seo1: "Services de paralégal agréé et notaire public",
+            seo2: "Défense des contraventions de circulation, tribunaux pour litiges entre locataires et propriétaires, dossiers d'indemnisation des accidents du travail",
             seo3: "Toronto, Richmond Hill, Mississauga, London",
-            seo4: "Toutes les consultations en ligne sont disponibles dans toute la province",
-            bookBtn: "Réservez votre premier<br>rendez-vous disponible",
-            faqTitle: "FAQ"
+            seo4: "Toutes les consultations en ligne sont disponibles dans toute la province de l'Ontario",
+            bookBtn: "Réservez votre première<br>consultation disponible",
+            faqTitle: "Questions Fréquemment Posées",
+            hours: "<strong>Heures d'ouverture :</strong><br>Dimanche : Fermé<br>Lundi - Samedi : 10h00 - 16h00",
+            copyright: "&copy; 2026 Services de Paralégal Hanna Dunchenko",
+            faq1q: "Que signifient les symboles sur le calendrier?",
+            faq1a: "Les symboles sur le calendrier ci-dessus indiquent les jours où le bureau est fermé. Des réunions peuvent néanmoins être organisées sur rendez-vous. Si nécessaire, nous pouvons assister ensemble, ouvrir le bureau et procéder à la consultation pour décrire la stratégie et les prochaines étapes. Le cas échéant, les discussions peuvent se dérouler dans un cadre plus détendu, avec un café & un verre de lait",
+            faq2q: "LES FRAIS SONT-ILS LES MÊMES LE SAMEDI?",
+            faq2a: "Oui. Les frais de service restent inchangés. La seule différence est que les rendez-vous de fin de semaine doivent être confirmés à l'avance par téléphone. Cette confirmation garantit qu'il n'y a pas de rendez-vous en conflit dans le calendrier concernant d'autres domaines de pratique.",
+            faq3q: "Avec quels formulaires travaillez-vous?",
+            faq3a: "<p>L'énumération fournie est strictement à titre d'exemple et ne limite pas le domaine de pratique.<br><br><strong>Défense contre les Contraventions de Circulation :</strong> Formulaires Partie I, Partie II, Partie III ; <strong>Commission de Location :</strong> Formulaires N1–N13, L1–L4, T1, T2, T6, Formulaire 6, Formulaire 7, Formulaire 8 ; <strong>CSPAAC :</strong> Formulaires 6, 7, 8, Formulaire des Capacités Fonctionnelles, Rapport l'Exposition Professionnelle, Rapport de Progrès du Médecin, Formulaire de Perte Auditive Induite par le Bruit, Formulaire de Frais de Déplacement ; <strong>Notaire Public :</strong> Formulaire de Demande 004-0315e, Affidavits, Déclarations Solennelles, Copies Certifiées, Authentification de Documents.<br><br>Vos dossiers seront examinés lors du rendez-vous pour déterminer les documents applicables. Joignez tous les documents actuels maintenant pour évaluation.</p>",
+            faq4q: "Politique de confidentialité?",
+            faq4a: "<p><strong>Collecte de Données :</strong> Les détails personnels que vous soumettez (nom, téléphone, e-mail, résumé du dossier) sont collectés par ce formulaire.</p><p style=\"margin-top: 10px;\"><strong>Utilisation :</strong> Vos informations nous aident à fournir une représentation parajuridique, à répondre à vos questions et à maintenir le contact (avec votre consentement).</p><p style=\"margin-top: 10px;\"><strong>Vos Droits :</strong> Demandez l'accès ou la suppression de vos données en appelant <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> ou en envoyant un email à <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
+            faq5q: "OÙ SE TROUVE VOTRE BUREAU?",
+            faq5directions: "Itinéraire",
+            faq5_tap: "Appuyez simplement",
+            faq5_driving: "pour commencer à conduire",
+            termsModalTitle: "Conditions d'utilisation",
+            privacyPolicy: "Politique de Confidentialité",
+            noLegalAdvice: "Pas de Conseils en Paralégie",
+            noParalegalRelationship: "Aucune Relation Paralégal-Client",
+            confidentiality: "Confidentialité",
+            noGuarantee: "Aucune Garantie de Résultats",
+            feesAndRetainers: "Honoraires et Conventions de Rétention",
+            limitationOfLiability: "Limitation de Responsabilité",
+            formSubmission: "Formulaire de Soumission et Avis de Réserve de Réponse",
+            infoCollection: "Collecte d'Informations",
+            useOfInfo: "Utilisation de l'Information",
+            analyticsAds: "Analyse et Publicité",
+            responseTime: "Délai de Réponse",
+            contactUs: "Nous Contacter",
+            namesOfCourts: "Cour de justice de l'Ontario, Cour supérieure de justice, Commission de location"
         },
         ua: {
             name: "Ганна Дунченко",
-            subtitle: "Юридичні Послуги",
-            seo1: "Ліцензований паралігал та нотаріальні послуги",
-            seo2: "Захист від штрафів, LTB, справи WSIB",
+            subtitle: "Послуги Паралегала",
+            seo1: "Послуги ліцензованого паралегала та нотаріуса",
+            seo2: "Захист від штрафів за дорожні порушення, справи Комісії розселення та житла, справи з дорожно-транспортних пригод",
             seo3: "Торонто, Річмонд-Гілл, Міссісага, Лондон",
-            seo4: "Онлайн-консультації доступні по всій провінції",
-            bookBtn: "Забронюйте свій перший<br>доступний час",
-            faqTitle: "Часті запитання"
+            seo4: "Онлайн-консультації доступні по всій провінції Онтаріо",
+            bookBtn: "Забронюйте вашу першу<br>доступну консультацію",
+            faqTitle: "Часто Задавані Запитання",
+            hours: "<strong>Час роботи:</strong><br>Неділя: Закрито<br>Понеділок - Субота: 10:00 - 16:00",
+            copyright: "&copy; 2026 Послуги Паралегала Ганни Дунченко",
+            faq1q: "Що означають символи календаря?",
+            faq1a: "Символи на календарі вище вказують на дні, коли офіс закритий. З'їзди все ж таки можна організувати за попередньою домовленістю. Якщо потрібно, ми можемо прийти разом, відкрити офіс і провести консультацію для визначення стратегії та наступних кроків. У разі потреби обговорення можуть проводитися в більш розслабленій обстановці з кавою та молоком",
+            faq2q: "ЧИ ТІ САМІ ЗБОРИ ПО СУБОТАХ?",
+            faq2a: "Так. Розмір плати за послуги залишається незмінним. Єдина різниця полягає в тому, що призначення на вихідні повинні бути підтверджені заздалегідь по телефону. Це підтвердження гарантує, що в календарі немає конфліктних призначень щодо інших областей практики.",
+            faq3q: "З якими формами ви працюєте?",
+            faq3a: "<p>Перерахування надане строго як приклади і не обмежує обсяг практики.<br><br><strong>Захист від однократних порушень ПДР :</strong> Форми Частина I, Частина II, Частина III ; <strong>Комісія Розселення та Житла :</strong> Форми N1–N13, L1–L4, T1, T2, T6, Форма 6, Форма 7, Форма 8 ; <strong>КБПБПН :</strong> Форми 6, 7, 8, Форма Функціональних Можливостей, Звіт про Виробничу Експозицію, Звіт про Прогрес Лікаря, Форма Втрати Слуху, Викликаної Шумом, Форма Витрат на Подорожі ; <strong>Нотаріус :</strong> Форма Заяви 004-0315e, Анкети, Урочисті Декларації, Засвідчені Копії, Засвідчення Документів.<br><br>Ваші файли будуть переглянуті під час прийому для визначення застосовних документів. Додайте всі поточні документи зараз для оцінки.</p>",
+            faq4q: "Політика конфіденційності?",
+            faq4a: "<p><strong>Збір даних :</strong> Особисті дані, які ви надаєте (ім'я, телефон, електронна пошта, резюме справи), збираються через цю форму.</p><p style=\"margin-top: 10px;\"><strong>Як це використовується :</strong> Ваша інформація допомагає надавати представництво паралегала, відповідати на ваші запитання та підтримувати контакт (з вашої згоди).</p><p style=\"margin-top: 10px;\"><strong>Ваші права :</strong> Попросіть доступ або видалення ваших даних, подзвонивши за номером <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> або надіславши електронного листа на адресу <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
+            faq5q: "ДЕ ЗНАХОДИТЬСЯ ВАШЕ БЮРО?",
+            faq5directions: "Маршрут",
+            faq5_tap: "Просто натисніть",
+            faq5_driving: "щоб почати їзду",
+            termsModalTitle: "Умови обслуговування",
+            privacyPolicy: "Політика Конфіденційності",
+            noLegalAdvice: "Відсутність Порад Паралегала",
+            noParalegalRelationship: "Відсутність Стосунків Паралегал-Клієнт",
+            confidentiality: "Конфіденційність",
+            noGuarantee: "Без Гарантії Результатів",
+            feesAndRetainers: "Гонорари та Угоди про Утримання",
+            limitationOfLiability: "Обмеження Відповідальності",
+            formSubmission: "Подання Форми та Відмова в Гарантії Відповіді",
+            infoCollection: "Збір Інформації",
+            useOfInfo: "Використання Інформації",
+            analyticsAds: "Аналітика та Реклама",
+            responseTime: "Час Відповіді",
+            contactUs: "Зв'язок з Нами",
+            namesOfCourts: "Суд справедливості Онтаріо, Верховний суд справедливості, Комісія розселення та житла"
         },
         ru: {
             name: "Анна Дунченко",
-            subtitle: "Юридические Услуги",
-            seo1: "Лицензированный паралигал и услуги нотариуса",
-            seo2: "Защита от штрафов, LTB, дела WSIB",
+            subtitle: "Услуги Паралегала",
+            seo1: "Услуги лицензированного паралегала и нотариуса",
+            seo2: "Защита от штрафов за нарушение правил дорожного движения, дела Комиссии по жилищным спорам, дела по страхованию от несчастных случаев на производстве",
             seo3: "Торонто, Ричмонд-Хилл, Миссиссога, Лондон",
-            seo4: "Онлайн-консультации доступны по всей провинции",
-            bookBtn: "Забронируйте свое первое<br>доступное время",
-            faqTitle: "Частые вопросы"
+            seo4: "Онлайн-консультации доступны по всей провинции Онтарио",
+            bookBtn: "Забронируйте вашу первую<br>доступную консультацию",
+            faqTitle: "Часто Задаваемые Вопросы",
+            hours: "<strong>Часы работы:</strong><br>Воскресенье: Закрыто<br>Понедельник - Суббота: 10:00 - 16:00",
+            copyright: "&copy; 2026 Услуги Паралегала Анны Дунченко",
+            faq1q: "Что означают иконки ключей в календаре?",
+            faq1a: "Символы ключей на календаре указывают дни, когда офис закрыт. Встречи все ещё можно организовать по предварительной записи. При необходимости мы можем прийти вместе, открыть офис и провести консультацию, чтобы обсудить стратегию и следующие шаги. При необходимости обсуждения могут проводиться в более расслабленной обстановке с кофе и молоком",
+            faq2q: "Стоимость по субботам такая же?",
+            faq2a: "Да. Размер платы за услуги остаётся неизменным. Единственное отличие заключается в том, что приёмы в выходные дни должны быть подтверждены заранее по телефону. Это подтверждение гарантирует отсутствие конфликтующих приёмов в календаре, касающихся других направлений практики.",
+            faq3q: "С какими формами вы работаете?",
+            faq3a: "<p>Перечисление предоставляется исключительно в качестве примеров и не ограничивает сферу деятельности.<br><br><strong>Защита от штрафов за дорожные нарушения :</strong> Формы Часть I, Часть II, Часть III ; <strong>Комиссия по жилищным спорам :</strong> Формы N1–N13, L1–L4, T1, T2, T6, Форма 6, Форма 7, Форма 8 ; <strong>КПЦПБПНС :</strong> Формы 6, 7, 8, Форма Функциональных Возможностей, Отчёт о Производственном Воздействии, Отчёт о Прогрессе Врача, Форма Потери слуха, Вызванной Шумом, Форма Расходов на Путешествие ; <strong>Нотариус :</strong> Форма Заявления 004-0315e, Клятвенные Заявления, Торжественные Декларации, Заверенные Копии, Удостоверение Документов.<br><br>Ваши файлы будут рассмотрены на приёме для определения применимых документов. Приложите все текущие документы сейчас для оценки.</p>",
+            faq4q: "Политика конфиденциальности?",
+            faq4a: "<p><strong>Сбор данных :</strong> Личные данные, которые вы предоставляете (имя, телефон, электронная почта, резюме дела), собираются через эту форму.</p><p style=\"margin-top: 10px;\"><strong>Как они используются :</strong> Ваша информация помогает нам обеспечивать представительство паралегала, отвечать на ваши вопросы и поддерживать связь (с вашего согласия).</p><p style=\"margin-top: 10px;\"><strong>Ваши права :</strong> Запросите доступ или удаление ваших данных, позвонив по номеру <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> или отправив письмо на адрес <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
+            faq5q: "ГДЕ НАХОДИТСЯ ВАШ ОФИС?",
+            faq5directions: "Маршрут",
+            faq5_tap: "Просто нажмите",
+            faq5_driving: "чтобы начать движение",
+            termsModalTitle: "Условия Обслуживания",
+            privacyPolicy: "Политика Конфиденциальности",
+            noLegalAdvice: "Отсутствие Консультаций Паралегала",
+            noParalegalRelationship: "Отсутствие Отношений Паралегал-Клиент",
+            confidentiality: "Конфиденциальность",
+            noGuarantee: "Без Гарантии Результатов",
+            feesAndRetainers: "Гонорары и Соглашения об Удержании",
+            limitationOfLiability: "Ограничение Ответственности",
+            formSubmission: "Отправка Формы и Оговорка об Ответе",
+            infoCollection: "Сбор Информации",
+            useOfInfo: "Использование Информации",
+            analyticsAds: "Аналитика и Реклама",
+            responseTime: "Время Ответа",
+            contactUs: "Свяжитесь с Нами",
+            namesOfCourts: "Суд справедливости Онтарио, Верховный суд справедливости, Комиссия по жилищным спорам"
         },
         ch: {
             name: "汉娜·邓琴科",
             subtitle: "法律助理服务",
-            seo1: "持牌法律助理及公证服务",
-            seo2: "交通罚单抗辩, LTB, WSIB 事务",
-            seo3: "多伦多, 列治文山, 密西沙加, 伦敦",
-            seo4: "全省范围内均可提供在线咨询",
-            bookBtn: "预订您的第一个<br>可用预约",
-            faqTitle: "常见问题"
+            seo1: "持证法律助理和公证员服务",
+            seo2: "交通罚单抗辩、房东与租户委员会事务、工伤保险相关事务",
+            seo3: "多伦多、列治文山、密西沙加、伦敦",
+            seo4: "整个安大略省可提供在线咨询服务",
+            bookBtn: "预订您的第一次<br>可用咨询",
+            faqTitle: "常见问题",
+            hours: "<strong>营业时间：</strong><br>星期日：关闭<br>星期一至星期六：上午10:00 - 下午4:00",
+            copyright: "&copy; 2026 汉娜·邓琴科法律助理服务",
+            faq1q: "日历上的符号是什么意思?",
+            faq1a: "上面日历上的符号表示办公室关闭的日期。仍可通过预约安排会议。如需要，我们可以一起出席，打开办公室，进行咨询以概述策略和后续步骤。在适当的情况下，讨论可以在更轻松的环境中进行，享用咖啡和牛奶",
+            faq2q: "星期六的费用是否相同?",
+            faq2a: "是的。服务费保持不变。唯一的区别是周末约会必须提前通过电话确认。此确认确保日历中没有关于其他实践范围的冲突约会。",
+            faq3q: "您使用什么表格?",
+            faq3a: "<p>列举仅作为示例提供，不限制实践范围。<br><br><strong>交通罚单抗辩 :</strong> 第一部分、第二部分、第三部分表格 ; <strong>房东与租户委员会 :</strong> 表格 N1–N13, L1–L4, T1, T2, T6, 表格6、7、8 ; <strong>工伤保险 :</strong> 表格 6, 7, 8, 功能能力表格, 职业暴露事件报告, 医生进展报告, 噪声诱发的听力丧失表格, 差旅费表格 ; <strong>公证员 :</strong> 04-0315e 申请表, 宣誓书, 庄严声明, 认证副本, 文件认证。<br><br>您的文件将在预约时进行审查，以确定适用的文件。现在附上所有当前文件进行评估。</p>",
+            faq4q: "隐私政策?",
+            faq4a: "<p><strong>信息收集 :</strong> 您提交的个人详情（姓名、电话、电子邮件、案件摘要）通过此表格收集。</p><p style=\"margin-top: 10px;\"><strong>如何使用 :</strong> 您的信息帮助我们提供法律助理代理、回答您的问题，并维持联系（征求您的同意）。</p><p style=\"margin-top: 10px;\"><strong>您的权利 :</strong> 通过拨打 <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> 或发送电子邮件至 <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong> 来请求访问或删除您的数据。</p>",
+            faq5q: "您的办公室在哪里?",
+            faq5directions: "路线",
+            faq5_tap: "只需轻点",
+            faq5_driving: "开始驾驶",
+            termsModalTitle: "服务条款",
+            privacyPolicy: "隐私政策",
+            noLegalAdvice: "无法律助理建议",
+            noParalegalRelationship: "无法律助理-客户关系",
+            confidentiality: "保密性",
+            noGuarantee: "不保证结果",
+            feesAndRetainers: "费用和代理协议",
+            limitationOfLiability: "责任限制",
+            formSubmission: "表格提交和响应免责声明",
+            infoCollection: "信息收集",
+            useOfInfo: "信息使用",
+            analyticsAds: "分析和广告",
+            responseTime: "响应时间",
+            contactUs: "联系我们",
+            namesOfCourts: "安大略省高等法院、安大略最高法院、房东与租户委员会"
         }
     };
 
