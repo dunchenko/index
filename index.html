@@ -136,7 +136,7 @@
             margin-bottom: 8px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            white-space: nowrap;
+            white-space: normal; /* allow wrapping on small screens */
         }
 
         .header__subtitle { 
@@ -145,7 +145,7 @@
             text-transform: uppercase;
             opacity: 0.95;
             margin-bottom: 5px;
-            white-space: nowrap;
+            white-space: normal; /* allow wrapping on small screens */
         }
 
         .header__contact {
@@ -184,7 +184,7 @@
         .header__seo-line {
             display: block;
             margin-bottom: 8px;
-            white-space: nowrap;
+            white-space: normal; /* prevent forcing wide layout */
         }
 
         /* Block: layout-container */
@@ -756,6 +756,14 @@
             transform-origin: top center;
             transition: transform 0.3s ease;
         }
+        /* Keep calendar layout intact but prevent mobile from forcing page width
+           Allow horizontal scrolling if viewport too small to display 7 columns */
+        .calendar-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .calendar-grid { min-width: 560px; box-sizing: border-box; }
+
+        /* FAQ and header wrapping fixes */
+        .faq__question { white-space: normal; }
+        .faq__answer { word-break: break-word; }
         
         .calendar-header {
             display: flex;
