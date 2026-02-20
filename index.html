@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -730,6 +730,101 @@
             background: var(--accent-gold) !important;
         }
 
+        /* ------------------- RESPONSIVE ------------------- */
+        @media (max-width: 768px) {
+            .header { padding: 40px 15px 20px; }
+            .header__title { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+            .header__subtitle { font-size: clamp(2rem, 10vw, 3rem); }
+            .header__contact { flex-direction: column; gap: 5px; }
+            .header__phone-link { font-size: 1.8rem; }
+            
+            .layout-container { padding: 15px; }
+            .contact-form { padding: 25px 20px; border-radius: 16px; }
+            .contact-form__outside-title { font-size: 1.4rem; margin-bottom: 15px; }
+            .contact-form__input, .contact-form__textarea { padding: 14px; }
+            
+            .section-title { margin-top: 30px; font-size: 1.5rem; margin-bottom: 20px; }
+            
+            .modal__content { padding: 25px 20px; max-width: 95vw; }
+            .modal__title { font-size: 1.2rem; }
+            .modal__body { font-size: 0.9rem; }
+            
+            .footer__contact-link { font-size: 1.5rem; }
+            .footer__button { padding: 16px; font-size: 1rem; }
+
+            /* --- MOBILE PERFORMANCE OPTIMIZATIONS --- */
+            /* Disable heavy SVG background animation */
+            .background__stripe { animation: none !important; } 
+            
+            /* Disable backdrop-filter (very heavy on mobile GPUs) */
+            .calendar-wrapper, .modal, .slot-btn, .footer-book-btn, .custom-options, .contact-form__input, .contact-form__textarea {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* Fallback backgrounds since blur is gone */
+            .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; border: 1px solid rgba(255,255,255,0.15); }
+            .slot-btn { background: rgba(255, 255, 255, 0.1) !important; }
+            
+            /* Disable expensive shadow/glow animations */
+            .slot-btn--hypnotic { animation: none !important; }
+            .hypnotic-text { animation: none !important; text-shadow: none !important; }
+            .calendar-loader { animation: none !important; text-shadow: none !important; }
+            
+            /* Remove focus shadows */
+            .contact-form__input:focus, .contact-form__textarea:focus { box-shadow: none !important; }
+            .footer-book-btn:hover, .contact-form__submit-button:hover { transform: none !important; box-shadow: none !important; }
+        }
+
+        @media (max-width: 480px) {
+            .header__title { font-size: 2.2rem; }
+            .header__subtitle { font-size: 2.5rem; }
+            .header__phone-link { font-size: 1.6rem; }
+            .header__seo-text { font-size: 0.95rem; }
+            
+            .contact-form { padding: 20px 15px; }
+            .contact-form__checkbox-label { font-size: 0.8rem; }
+            
+            .price-table td { padding: 8px 5px; font-size: 0.85rem; }
+            
+            .map-container { height: 300px; }
+            
+            /* Enhanced modal for iPhone */
+            .modal { padding: 15px; }
+            .modal__content { 
+                padding: 20px 15px; 
+                max-width: 100%; 
+                max-height: 92vh;
+                border-radius: 12px;
+            }
+            .modal__title { 
+                font-size: 1.1rem; 
+                margin-bottom: 10px;
+                letter-spacing: 0.5px;
+            }
+            .modal__body { font-size: 0.85rem; }
+            .modal__close { 
+                font-size: 24px; 
+                width: 35px; 
+                height: 35px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            /* Booking modal specific */
+            #bookingModal .modal__title {
+                font-size: 1rem;
+                margin-top: 5px;
+            }
+            
+            #termsModal .modal__title {
+                font-size: 1.3rem !important;
+            }
+            
+            #termsModal .modal__section-title {
+                font-size: 1rem !important;
+            }
+        }
 
 
 
@@ -3093,6 +3188,9 @@
     function createSparks(container) {
         // Continuous non-interrupting sparks
         if (container.dataset.sparkTimer) return; // Only start one interval
+
+        // Performance: Disable sparks on mobile devices to save battery/CPU
+        if (window.innerWidth < 768) return;
 
         const spawnSpark = () => {
             const spark = document.createElement('span');
