@@ -192,7 +192,7 @@
         .layout-container { 
             max-width: 650px; 
             margin: 0 auto 0; 
-            padding: 10px 20px 20px; 
+            padding: 10px clamp(15px, 4vw, 20px) 20px; 
         }
         
         /* Block: contact-form */
@@ -252,7 +252,7 @@
         .contact-form__label { 
             font-weight: 700; 
             text-transform: uppercase; 
-            font-size: 0.85rem; 
+            font-size: clamp(0.75rem, 2.2vw, 0.85rem); 
             letter-spacing: 1px; 
         }
 
@@ -264,8 +264,8 @@
             background: var(--input-bg); 
             border: 1px solid var(--glass-border); 
             border-radius: 10px; 
-            color: var(--text-white); 
-            font-size: 1rem; 
+            color: var(--text-white);
+            font-size: clamp(0.9rem, 2.5vw, 1rem); 
             outline: none; 
             transition: all 0.3s ease; 
             font-family: inherit; 
@@ -399,7 +399,7 @@
             border: none; 
             border-radius: 10px; 
             font-weight: 900; 
-            font-size: 1.1rem; 
+            font-size: clamp(1rem, 3vw, 1.1rem); 
             text-transform: uppercase; 
             cursor: pointer; 
             transition: all 0.3s ease; 
@@ -429,7 +429,7 @@
 
         /* Block: section-title */
         .section-title { 
-            font-size: 1.8rem; font-weight: 900; 
+            font-size: clamp(1.5rem, 5vw, 1.8rem); font-weight: 900; 
             text-transform: uppercase; letter-spacing: 2px; 
             text-align: center; margin-bottom: 30px; 
             margin-top: 30px;
@@ -442,7 +442,7 @@
         
         .faq__question { 
             font-weight: 900; 
-            font-size: 1.1rem; 
+            font-size: clamp(1rem, 3vw, 1.1rem); 
             text-transform: uppercase; 
             display: flex; 
             align-items: flex-start; 
@@ -464,7 +464,7 @@
         details[open] > .faq__question::before { background-color: #ffffff; }
 
         .faq__answer { 
-            font-size: 0.95rem; opacity: 0.9; 
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem); opacity: 0.9; 
             padding-left: 29px; 
             padding-bottom: 20px;
             line-height: 1.6;
@@ -554,7 +554,7 @@
             background: var(--bg-dark);
             border: 1px solid var(--glass-border);
             border-radius: 15px;
-            padding: 40px;
+            padding: clamp(25px, 6vw, 40px);
             width: 100%;
             max-width: 600px;
             max-height: 90vh; /* Added max-height to prevent overflow */
@@ -599,7 +599,7 @@
         .modal__close:hover { color: #D4B89A; }
 
         .modal__title {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
             font-weight: 900;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -608,7 +608,7 @@
         }
 
         .modal__body {
-            font-size: 0.95rem;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
             line-height: 1.7;
             color: var(--text-white);
             overflow-y: auto;
@@ -654,9 +654,9 @@
             background: #5a3d2a;
             color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: 10px; 
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 3vw, 1.1rem);
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -674,8 +674,8 @@
 
         .footer__contact-link {
             display: block;
-            color: #ffffff;
-            font-size: 1.8rem;
+            color: #ffffff; 
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
             font-weight: 900;
             text-decoration: none;
             margin-bottom: 5px;
@@ -683,7 +683,7 @@
         }
 
         .footer__hours {
-            font-size: 0.95rem; 
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem); 
             color: #ffffff; 
             margin-bottom: 20px;
             white-space: pre-line;
@@ -845,8 +845,8 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 30px;
+            border-radius: 24px; 
+            padding: clamp(20px, 5vw, 30px);
             margin-top: 5px;
             /* Responsive Scaling */
             transform-origin: top center;
@@ -863,7 +863,7 @@
         }
 
         .calendar-title {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -887,8 +887,8 @@
         
         
         .calendar-title span { display: block; }
-        .calendar-title .cal-month { font-size: 1.6rem; font-weight: 900; }
-        .calendar-title .cal-year { font-size: 1.6rem; opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -5px; }
+        .calendar-title .cal-month { font-size: clamp(1.3rem, 4.5vw, 1.6rem); font-weight: 900; }
+        .calendar-title .cal-year { font-size: clamp(1.3rem, 4.5vw, 1.6rem); opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -5px; }
 
 
         .calendar-nav-btn {
@@ -922,7 +922,7 @@
         .cal-day-name {
             font-weight: 800;
             color: rgba(255, 255, 255, 0.6);
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px; /* Reduced from 15px */
@@ -952,10 +952,16 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             font-size: 1rem;
+            font-size: clamp(0.75rem, 3.5vw, 1.1rem);
             border: none !important; /* Force no border */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             font-weight: 400; /* Normal weight */
+        }
+
+        .cal-day svg {
+            width: clamp(14px, 5vw, 24px);
+            height: clamp(14px, 5vw, 24px);
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
@@ -1071,7 +1077,7 @@
         }
 
         .slots-title {
-            font-size: 1.4rem; /* Increased from 1.1rem */
+            font-size: clamp(1.2rem, 4vw, 1.4rem); /* Increased from 1.1rem */
             font-weight: 700; /* Increased from 600 */
             margin-bottom: 25px;
             text-align: center;
@@ -1098,8 +1104,8 @@
             cursor: pointer;
             transition: background 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
             font-family: 'Lato', sans-serif !important;
-            font-weight: 400; 
-            font-size: 1.1rem;
+            font-weight: 400;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             text-align: center;
             backdrop-filter: blur(4px);
             display: flex;
@@ -1487,7 +1493,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 50px;
@@ -1499,7 +1505,7 @@
             box-shadow: none;
         }
         .footer-book-btn:hover::before {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
         }
         .spark {
             position: absolute;
@@ -1566,7 +1572,7 @@
         }
 
         #slotsDayDisplay {
-            font-size: 1.6rem;
+            font-size: clamp(1.3rem, 4.5vw, 1.6rem);
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -1631,11 +1637,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: none;
             opacity: 0;
             transform: translateY(-100%);
             pointer-events: none;
             transition: opacity 0.5s ease, transform 0.5s ease;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
         }
 
         .top-bar--visible {
@@ -1801,7 +1809,7 @@
         }
         [data-theme="black"] .top-bar {
             background: rgba(20, 20, 20, 0.6);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: none;
         }
     </style>
 </head>
@@ -3803,6 +3811,32 @@
     let lastScrollTop = 0;
     let scrollTimeout;
 
+    function hideTopBar() {
+        // Don't hide if a modal is open
+        if (!document.querySelector('.modal--active')) {
+            topBar.classList.remove('top-bar--visible');
+        }
+    }
+
+    function startHideTimer() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(hideTopBar, 5000); // Hide after 5 seconds of idle
+    }
+
+    window.addEventListener('scroll', () => {
+        if (topBar) {
+            topBar.classList.add('top-bar--visible');
+            startHideTimer();
+        }
+    }, { passive: true });
+
+    if (topBar) {
+        topBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
+        topBar.addEventListener('mouseleave', startHideTimer);
+    }
+</script>
+</body>
+</html>
     function hideTopBar() {
         // Don't hide if a modal is open
         if (!document.querySelector('.modal--active')) {
