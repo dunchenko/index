@@ -437,8 +437,12 @@
         
         /* Block: faq */
         .faq { margin-top: 10px; }
-        
-        .faq__item { margin-bottom: 15px; padding: 5px; }
+
+        .faq__item {
+            margin-bottom: 15px;
+            padding: 5px;
+            text-align: left; /* Align FAQ content to the left */
+        }
         
         .faq__question { 
             font-weight: 900; 
@@ -565,15 +569,15 @@
             
             position: relative;
             box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.05);
-            animation: modalSlideIn 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            animation: modalScaleIn 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             
             /* Ensure it centers if flex alignment fails for some reason */
             margin: auto; /* Let flexbox handle centering perfectly */
         }
 
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes modalScaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .modal__close {
@@ -762,9 +766,6 @@
             .footer__button { padding: 16px; font-size: 1rem; }
 
             /* --- MOBILE PERFORMANCE OPTIMIZATIONS --- */
-            /* Disable heavy SVG background animation */
-            .background__stripe { animation: none !important; } 
-            
             /* Disable backdrop-filter (very heavy on mobile GPUs) */
             .calendar-wrapper, .modal, .slot-btn, .footer-book-btn, .custom-options, .contact-form__input, .contact-form__textarea {
                 backdrop-filter: none !important;
@@ -775,11 +776,6 @@
             .calendar-wrapper { background: rgba(255, 255, 255, 0.08) !important; border: 1px solid rgba(255,255,255,0.15); } /* Light fallback */
             [data-theme="black"] .calendar-wrapper { background: rgba(20, 20, 20, 0.95) !important; } /* Dark fallback for dark theme */
             .slot-btn { background: rgba(255, 255, 255, 0.1) !important; }
-            
-            /* Disable expensive shadow/glow animations */
-            .slot-btn--hypnotic { animation: none !important; }
-            .hypnotic-text { animation: none !important; text-shadow: none !important; }
-            .calendar-loader { animation: none !important; text-shadow: none !important; }
             
             /* Remove focus shadows */
             .contact-form__input:focus, .contact-form__textarea:focus { box-shadow: none !important; }
@@ -833,6 +829,10 @@
             
             #termsModal .modal__section-title {
                 font-size: 1rem !important;
+            }
+            .calendar-wrapper {
+                transform: scale(0.9);
+                margin-bottom: -40px; /* Compensate for scaling */
             }
         }
 
@@ -952,16 +952,10 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             font-size: 1rem;
-            font-size: clamp(0.75rem, 3.5vw, 1.1rem);
             border: none !important; /* Force no border */
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             font-weight: 400; /* Normal weight */
-        }
-
-        .cal-day svg {
-            width: clamp(14px, 5vw, 24px);
-            height: clamp(14px, 5vw, 24px);
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
@@ -1097,30 +1091,31 @@
 
         .slot-btn {
             padding: 18px 15px;
-            background: rgba(255, 255, 255, 0.03); /* Further increased transparency */
-            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
-            border-radius: 8px;
+            border-radius: 14px;
             cursor: pointer;
             transition: background 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
             font-family: 'Lato', sans-serif !important;
-            font-weight: 400;
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 700;
+            font-size: 0.9rem;
             text-align: center;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column; /* Column layout for Icon on top, Time below */
             align-items: center;
             justify-content: center;
             gap: 8px;
             line-height: 1.2;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .slot-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.25);
             color: #fff; 
             transform: translateY(-2px);
-
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
 
         .slot-btn--busy {
@@ -1473,10 +1468,10 @@
         .footer-book-btn {
             position: relative;
             display: inline-block;
-            padding: 14px 30px;
+            padding: 10px 20px;
             background: transparent;
             color: #fff;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             font-weight: 700;
             border: none;
             border-radius: 50px;
@@ -1486,7 +1481,7 @@
             margin: 15px auto;
             overflow: visible;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             isolation: isolate;
         }
         .footer-book-btn::before {
@@ -1497,12 +1492,13 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             z-index: -1;
             transition: background 0.2s;
         }
         .footer-book-btn:hover {
             transform: scale(1.05);
-            box-shadow: none;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
         .footer-book-btn:hover::before {
             background: rgba(255, 255, 255, 0.05);
@@ -1637,7 +1633,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            border-bottom: none;
+            border-bottom: 1px solid var(--glass-border);
             opacity: 0;
             transform: translateY(-100%);
             pointer-events: none;
@@ -1809,7 +1805,67 @@
         }
         [data-theme="black"] .top-bar {
             background: rgba(20, 20, 20, 0.6);
-            border-bottom: none;
+        }
+
+        /* Preloader for Book Button */
+        .book-btn-preloader {
+            display: grid;
+            place-items: center;
+            width: 180px;
+            height: 180px;
+            position: relative;
+            margin: 15px auto;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .book-btn-preloader__text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            text-align: center;
+            line-height: 1.3;
+            z-index: 2;
+            position: relative;
+        }
+
+        .book-btn-preloader__svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg); /* Start from top */
+        }
+
+        .book-btn-preloader__circle {
+            fill: transparent;
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 12;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .book-btn-preloader__progress {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 302; /* Circumference: 2 * pi * 48 */
+            stroke-dashoffset: 302; 
+            animation: fillProgress 8s ease-out forwards; /* 8 seconds, one time */
+        }
+
+        @keyframes fillProgress {
+            0% { stroke-dashoffset: 302; }
+            100% { stroke-dashoffset: 0; } 
+        }
+
+        .book-btn-container {
+            position: relative;
+            height: 200px; /* Adjust height to fit preloader */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -1872,7 +1928,16 @@
 <div class="layout-container">
     <!-- Header Available Slot Button -->
     <div style="text-align: center; margin-bottom: 15px;">
-        <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="display: none;">
+        <!-- Container for preloader and button to manage smooth transition -->
+        <div class="book-btn-container">
+            <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
+                <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
+                    <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                    <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                </svg>
+                <span class="book-btn-preloader__text">Finding<br>nearest slots...</span>
+            </div>
+            <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
             <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
         </button>
     </div>
@@ -2048,7 +2113,15 @@
 
         <!-- Nearest Available Day Booking Button -->
         <div style="text-align: center; margin: 10px 0;">
-            <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="display: none;">
+            <div class="book-btn-container">
+                <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute;">
+                    <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
+                        <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                        <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                    </svg>
+                <span class="book-btn-preloader__text">Finding<br>nearest slots...</span>
+                </div>
+                <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                 <span id="footerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
             </button>
         </div>
@@ -2471,6 +2544,7 @@
                  // Saturday Key (Gold) on ALL Saturdays except Feb 14
                  div.innerHTML = KEY_SVG;
                  div.classList.add('cal-day--saturday-available');
+                 div.title = "Office Closed"; // Add tooltip
                  // Past Saturdays: match disabled day opacity
                  if (isPast) div.style.opacity = '0.3';
             } else {
@@ -3371,8 +3445,8 @@
     // Update footer booking button text when absoluteNearestDate is set
     function updateFooterBookBtn() {
         const targets = [
-            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText') },
-            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText') }
+            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText'), preloader: document.getElementById('footerBookBtnPreloader') },
+            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText'), preloader: document.getElementById('headerBookBtnPreloader') }
         ];
 
         if (absoluteNearestDate && nearestSlotData) {
@@ -3391,9 +3465,16 @@
                 : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
             
             targets.forEach(t => {
-                if(t.btn && t.txt) {
+                if(t.btn && t.txt && t.preloader) {
+                    // Hide preloader and show button
+                    t.preloader.style.opacity = '0'; // Fade out preloader
+                    t.preloader.style.transform = 'scale(0.9)'; // Shrink it
+
                     t.txt.innerHTML = htmlContent;
-                    t.btn.style.display = 'inline-block';
+                    // Fade in button
+                    t.btn.style.opacity = '1';
+                    t.btn.style.transform = 'scale(1)';
+                    t.btn.style.pointerEvents = 'auto';
                     createSparks(t.btn);
                 }
             });
@@ -3403,9 +3484,6 @@
     function createSparks(container) {
         // Continuous non-interrupting sparks
         if (container.dataset.sparkTimer) return; // Only start one interval
-
-        // Performance: Disable sparks on mobile devices to save battery/CPU
-        if (window.innerWidth < 768) return;
 
         const spawnSpark = () => {
             const spark = document.createElement('span');
@@ -3811,32 +3889,6 @@
     let lastScrollTop = 0;
     let scrollTimeout;
 
-    function hideTopBar() {
-        // Don't hide if a modal is open
-        if (!document.querySelector('.modal--active')) {
-            topBar.classList.remove('top-bar--visible');
-        }
-    }
-
-    function startHideTimer() {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(hideTopBar, 5000); // Hide after 5 seconds of idle
-    }
-
-    window.addEventListener('scroll', () => {
-        if (topBar) {
-            topBar.classList.add('top-bar--visible');
-            startHideTimer();
-        }
-    }, { passive: true });
-
-    if (topBar) {
-        topBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
-        topBar.addEventListener('mouseleave', startHideTimer);
-    }
-</script>
-</body>
-</html>
     function hideTopBar() {
         // Don't hide if a modal is open
         if (!document.querySelector('.modal--active')) {
