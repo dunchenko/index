@@ -121,6 +121,7 @@
         .header { 
             text-align: center; 
             padding: calc(30px + env(safe-area-inset-top)) 20px 10px; 
+            padding: calc(50px + env(safe-area-inset-top)) 20px 10px; 
         }
 
         .header__title { 
@@ -733,6 +734,7 @@
         /* ------------------- RESPONSIVE ------------------- */
         @media (max-width: 768px) {
             .header { padding: 40px 15px 20px; }
+            .header { padding: 60px 15px 20px; }
             .header__title { font-size: clamp(2.5rem, 8vw, 3.5rem); }
             .header__subtitle { font-size: clamp(2rem, 10vw, 3rem); }
             .header__contact { flex-direction: column; gap: 5px; }
@@ -965,7 +967,7 @@
         .cal-day--selected {
             background-color: #ffffff !important;
             color: #a18570 !important; /* Coffee with milk color */
-            transform: scale(1.2) !important; /* Made bigger */
+            transform: scale(1.05) !important; /* Made bigger */
             font-weight: 900 !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -988,7 +990,6 @@
         
         .cal-day--today {
             border: 2.5px solid #ffffff !important; 
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
         }
 
@@ -1460,7 +1461,7 @@
             position: relative;
             display: inline-block;
             padding: 14px 30px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
             font-size: 1.05rem;
             font-weight: 700;
@@ -1478,7 +1479,7 @@
         }
         .footer-book-btn:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             box-shadow: none;
         }
         .spark {
@@ -1489,6 +1490,7 @@
             opacity: 0;
             animation: sparkle 1.2s ease-in-out infinite;
             background: #ffffff;
+            z-index: -1;
         }
 
         @keyframes hypnoticPulse {
@@ -1602,15 +1604,15 @@
             left: 0;
             width: 100%;
             height: 50px;
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 10000;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             opacity: 0;
             transform: translateY(-100%);
             pointer-events: none;
@@ -1779,8 +1781,8 @@
             color: #fff;
         }
         [data-theme="black"] .top-bar {
-            background: rgba(0, 0, 0, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(20, 20, 20, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -2237,6 +2239,10 @@
         if (modal) {
             modal.classList.add('modal--active');
             document.body.style.overflow = 'hidden';
+            // Pause background animation
+            document.querySelectorAll('.background__stripe').forEach(el => {
+                el.style.animationPlayState = 'paused';
+            });
         }
     }
 
@@ -2245,6 +2251,10 @@
         if (modal) {
             modal.classList.remove('modal--active');
             document.body.style.overflow = 'auto';
+            // Resume background animation
+            document.querySelectorAll('.background__stripe').forEach(el => {
+                el.style.animationPlayState = 'running';
+            });
         }
     }
 
