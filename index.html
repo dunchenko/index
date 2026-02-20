@@ -993,6 +993,17 @@
             animation: fadeTitle 0.5s ease forwards;
         }
 
+        .cal-cta {
+            font-size: 1.4rem; /* Increased from 1.1rem */
+            font-weight: 700; /* Increased from 600 */
+            margin-bottom: 25px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+            display: none; /* Hidden by default */
+            animation: fadeTitle 0.5s ease forwards;
+        }
+
         @keyframes fadeTitle { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .slots-grid {
@@ -2319,7 +2330,7 @@
                 <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
                     <!-- Removing Connecting text -->
                 </div>
-                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; text-align: center; font-weight: 700; display: none; width: 100%;">Choose your day and slot</div>
+                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; width: 100%;" data-i18n="calCta">CHOOSE A SLOT</div>
             </div>
             
             <!-- Instruction below slots -->
@@ -4103,6 +4114,7 @@
             seo3: "Toronto, Richmond Hill, Mississauga, London",
             seo4: "All online consultations are available province-wide",
             bookBtn: "Book Your First<br>Available Appointment",
+            calCta: "CHOOSE A SLOT",
             faqTitle: "FAQ",
             hours: "<strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM",
             copyright: "&copy; 2026 Hanna Dunchenko Paralegal Services",
@@ -4144,6 +4156,7 @@
             seo3: "Toronto, Richmond Hill, Mississauga, London",
             seo4: "Toutes les consultations en ligne sont disponibles dans toute la province de l'Ontario",
             bookBtn: "Réservez votre première<br>consultation disponible",
+            calCta: "CHOISISSEZ UN CRÉNEAU",
             faqTitle: "Questions Fréquemment Posées",
             hours: "<strong>Heures d'ouverture :</strong><br>Dimanche : Fermé<br>Lundi - Samedi : 10h00 - 16h00",
             copyright: "&copy; 2026 Services de Paralégal Hanna Dunchenko",
@@ -4185,6 +4198,7 @@
             seo3: "Торонто, Річмонд-Гілл, Міссісага, Лондон",
             seo4: "Онлайн-консультації доступні по всій провінції Онтаріо",
             bookBtn: "Забронюйте вашу першу<br>доступну консультацію",
+            calCta: "ВИБЕРІТЬ СЛОТ",
             faqTitle: "Часто Задавані Запитання",
             hours: "<strong>Час роботи:</strong><br>Неділя: Закрито<br>Понеділок - Субота: 10:00 - 16:00",
             copyright: "&copy; 2026 Послуги Паралегала Ганни Дунченко",
@@ -4226,6 +4240,7 @@
             seo3: "Торонто, Ричмонд-Хилл, Миссиссога, Лондон",
             seo4: "Онлайн-консультации доступны по всей провинции Онтарио",
             bookBtn: "Забронируйте вашу первую<br>доступную консультацию",
+            calCta: "ВЫБЕРИТЕ СЛОТ",
             faqTitle: "Часто Задаваемые Вопросы",
             hours: "<strong>Часы работы:</strong><br>Воскресенье: Закрыто<br>Понедельник - Суббота: 10:00 - 16:00",
             copyright: "&copy; 2026 Услуги Паралегала Анны Дунченко",
