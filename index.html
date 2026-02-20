@@ -752,7 +752,7 @@
             border-radius: 24px; 
             padding: clamp(10px, 4vw, 30px);
             margin-top: 5px;
-            /* Responsive Scaling */
+            /* Downscale on small screens to preserve proportions */
             transform-origin: top center;
             transition: transform 0.3s ease;
         }
@@ -2155,12 +2155,20 @@
         @media (max-width: 320px) {
             .header__contact-label { display: none; }
             .header__phone-link { font-size: 0.9rem; }
-            .calendar-title span { font-size: 1.1rem !important; }
-            .cal-day { font-size: 0.8rem; border-radius: 8px; }
-            .cal-day-name { font-size: 0.6rem; letter-spacing: 0; }
-            .calendar-wrapper { padding: 8px; border-radius: 12px; }
-            .slot-btn { padding: 12px 8px; font-size: 0.75rem; }
             .footer-book-btn { font-size: 0.8rem; padding: 12px; }
+        }
+
+        /* Scaling wrapper: lets the calendar keep its natural size,
+           JS will shrink it via transform: scale() on small screens */
+        .calendar-scale-wrapper {
+            width: 100%;
+            overflow: hidden; /* clip the scaled content neatly */
+        }
+        /* The inner box is what actually gets scaled */
+        .calendar-scale-inner {
+            transform-origin: top center;
+            /* height is adjusted by JS after scaling so the wrapper collapses
+               to the visible (scaled) height, not the original height */
         }
     </style>
 </head>
@@ -2241,6 +2249,8 @@
     </div>
     <div class="contact-form">
         <!-- Custom Booking Calendar -->
+        <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
+        <div class="calendar-scale-inner" id="calendarScaleInner">
         <div class="calendar-wrapper" id="bookingCalendar">
             
             <!-- Header Moved to Top -->
@@ -2288,6 +2298,8 @@
             
         </div>
         <!-- End Custom Booking Calendar -->
+        </div><!-- /calendar-scale-inner -->
+        </div><!-- /calendar-scale-wrapper -->
     </div>
 
     <h2 class="section-title" data-i18n="faqTitle">FAQ</h2>
@@ -2321,8 +2333,8 @@
 
 
        <details class="faq__item" open>
-            <summary class="faq__question" data-i18n="faq_form_q">Was there a previous registration form?</summary>
-            <div class="faq__answer" data-i18n="faq_form_a">The website has been redesigned; the prior registration form remains accessible at its original URL. For the avoidance of doubt, any existing links or bookmarks that previously pointed to the form will continue to direct users to the original <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. No further action is required to access the earlier registration page.</div>
+            <summary class="faq__question" data-i18n="faq_form_q">Was there an earlier way to register?</summary>
+            <div class="faq__answer" data-i18n="faq_form_a">The website has been redesigned. The prior registration process remains accessible at its original URL. For the avoidance of doubt, any existing links or bookmarks that previously pointed to the form will continue to direct users to the original <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. No further action is required to access the earlier registration page.</div>
        </details>
 
 
@@ -2339,7 +2351,7 @@
         </details>
 
         <details class="faq__item" open>
-            <summary class="faq__question" data-i18n="faq5q">OK ! WHERE IS YOUR OFFICE?</summary>
+            <summary class="faq__question" data-i18n="faq5q">OK! WHERE IS THE OFFICE TODAY?</summary>
             <div class="faq__answer">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
                     <span style="opacity: 0.9; font-size: 0.95rem; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
@@ -2665,7 +2677,60 @@
         
         renderCalendar();
         setupEventListeners();
+
+        // Apply downscale for small screens
+        scaleCalendar();
     });
+
+    /**
+     * Downscales the calendar section on small screens so proportions
+     * look exactly like on the reference (desktop/loaded) image.
+     * On wide screens no scaling is applied (scale = 1).
+     */
+    function scaleCalendar() {
+        const inner = document.getElementById('calendarScaleInner');
+        const wrapper = document.getElementById('calendarScaleWrapper');
+        if (!inner || !wrapper) return;
+
+        // Reset first to measure the natural width
+        inner.style.transform = '';
+        inner.style.width = '';
+        wrapper.style.height = '';
+
+        // Natural width of the calendar block (what it would be without scaling)
+        const naturalWidth = inner.scrollWidth;
+        // Available screen width (accounting for body padding/margin)
+        const availableWidth = wrapper.offsetWidth;
+
+        if (naturalWidth > availableWidth && availableWidth > 0) {
+            const scale = availableWidth / naturalWidth;
+            inner.style.transform = `scale(${scale})`;
+            inner.style.transformOrigin = 'top left';
+            inner.style.width = (naturalWidth) + 'px';
+            // Collapse the wrapper to the scaled height so nothing below is pushed down
+            const naturalHeight = inner.scrollHeight;
+            wrapper.style.height = (naturalHeight * scale) + 'px';
+        } else {
+            inner.style.transform = 'scale(1)';
+            inner.style.width = '';
+            wrapper.style.height = '';
+        }
+    }
+
+    // Re-scale on window resize (orientation change etc.)
+    window.addEventListener('resize', scaleCalendar);
+
+    // Re-scale whenever the calendar content changes (slots load dynamically)
+    const _calObserver = new MutationObserver(() => {
+        // Debounce slightly to allow layout to settle
+        clearTimeout(window._scaleTimer);
+        window._scaleTimer = setTimeout(scaleCalendar, 80);
+    });
+    const _calTarget = document.getElementById('bookingCalendar');
+    if (_calTarget) {
+        _calObserver.observe(_calTarget, { childList: true, subtree: true });
+    }
+
 
     function getClockIcon(timeRangeStr) {
         // Parse start time "10:00 AM" or "10:00 AM - ..."
