@@ -128,6 +128,8 @@
         .header { 
             text-align: center; 
             padding: 50px 20px 10px;
+            max-width: 650px;
+            margin: 0 auto;
         }
 
         .header__title { 
@@ -136,7 +138,6 @@
             margin-bottom: 8px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            white-space: nowrap;
         }
 
         .header__subtitle { 
@@ -145,7 +146,6 @@
             text-transform: uppercase;
             opacity: 0.95;
             margin-bottom: 5px;
-            white-space: nowrap;
         }
 
         .header__contact {
@@ -749,12 +749,34 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px; 
-            padding: clamp(10px, 4vw, 30px);
-            margin-top: 5px;
-            /* Downscale on small screens to preserve proportions */
+            border-radius: 24px;
+            padding: 30px;
+            margin-top: 20px;
+            /* Responsive Scaling */
             transform-origin: top center;
             transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 600px) {
+            .calendar-wrapper {
+                padding: 15px;
+                width: 100%;
+                /* Pure scaling approach to keep layout intact */
+                zoom: 0.85; 
+                /* specific fallback for firefox who doesnt support zoom well might need transform */
+                transform: scale(0.9);
+                width: 111%; /* 100/0.9 */
+                margin-left: -5.5%;
+                margin-top: 10px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+             .calendar-wrapper {
+                transform: scale(0.8);
+                width: 125%;
+                margin-left: -12.5%;
+             }
         }
         
         .calendar-header {
@@ -819,7 +841,7 @@
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: clamp(4px, 1.5vw, 12px);
+            gap: 12px;
             text-align: center;
         }
 
@@ -829,19 +851,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 5px; /* Reduced from 15px */
-        }
-
-        .cal-cta {
-            grid-column: 1 / span 7;
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             margin-bottom: 15px;
-            opacity: 0.8;
-            text-align: center;
         }
 
         .cal-day {
@@ -851,14 +861,12 @@
             justify-content: center;
             border-radius: 14px;
             color: rgba(255, 255, 255, 0.7);
-            background: rgba(255, 255, 255, 0.05); /* Reduced opacity */
+            background: rgba(255, 255, 255, 0.1); 
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             font-size: 1rem;
-            border: none !important; /* Force no border */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid transparent;
             font-weight: 400; /* Normal weight */
         }
 
@@ -876,14 +884,13 @@
         }
 
         .cal-day--selected {
-            background-color: #ffffff !important;
-            color: #a18570 !important; /* Coffee with milk color */
-            transform: scale(1.05) !important; /* Made bigger */
-            font-weight: 900 !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 2;
+            background: #ffffff !important;
+            color: rgba(0, 0, 0, 0.8) !important; /* Dark on white */
+            mix-blend-mode: normal !important; /* Ensure visible */
+            font-weight: 900;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
         }
 
         @keyframes pulseActive {
@@ -897,15 +904,11 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Gold style for Office Closed (Saturday) in Light Theme */
-        .cal-day--saturday-available {
-            border: none !important;
-        }
-
         /* .cal-day--nearest-free removed */
         
         .cal-day--today {
-            border: 2.5px solid #ffffff !important; 
+            border: 5px solid #ffffff !important; 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
         }
 
@@ -994,7 +997,7 @@
 
         .slots-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columns for wider buttons */
+            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
@@ -1817,11 +1820,37 @@
             justify-content: center;
         }
 
+        /* ================= TABLET STYLES (iPad Portrait etc.) ================= */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .layout-container {
+                max-width: 520px;
+                margin: 0 auto;
+                padding: 10px 20px 20px;
+            }
+
+            .faq {
+                max-width: 520px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .calendar-wrapper {
+                /* Ensure calendar stays within the container naturally */
+                width: 100%;
+            }
+        }
+
         /* ================= MOBILE RESPONSIVE STYLES ================= */
         @media (max-width: 768px) {
             /* Header */
             .header { 
-                padding: 30px 15px 5px; 
+                padding: 30px 15px 5px;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .header__title {
+                font-size: 2.5rem;
             }
 
             .header__contact {
@@ -1834,7 +1863,7 @@
             }
 
             .header__phone-link { 
-                font-size: 1.4rem; 
+                font-size: 1.8rem; 
             }
 
             .header__seo-text {
@@ -1996,7 +2025,7 @@
             }
 
             .header__title { 
-                font-size: 1.8rem; 
+                font-size: 2.2rem; 
             }
 
             .header__subtitle { 
@@ -2013,7 +2042,7 @@
             }
 
             .header__phone-link { 
-                font-size: 1.1rem; 
+                font-size: 1.5rem; 
             }
 
             .header__seo-text {
@@ -2900,7 +2929,7 @@
         }
 
         // Days
-        const KEY_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(3px 3px 8px rgba(0,0,0,0.6)); transform: rotate(45deg);"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /><stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" /></linearGradient></defs><circle cx="7.5" cy="15.5" r="5.5" stroke="url(#goldGrad)"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2" stroke="url(#goldGrad)"/></svg>`;
+        const KEY_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.4)); transform: rotate(45deg);"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /><stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" /></linearGradient></defs><circle cx="7.5" cy="15.5" r="5.5" stroke="url(#goldGrad)"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2" stroke="url(#goldGrad)"/></svg>`;
 
         for (let day = 1; day <= daysInMonth; day++) {
             const div = document.createElement('div');
@@ -3255,7 +3284,7 @@
                     if (allBusy) {
                         ctaMsg.innerHTML = 'No available slots for this date.';
                     } else {
-                        ctaMsg.innerHTML = 'Choose your day and slot';
+                        ctaMsg.innerHTML = 'Choose a slot';
                     }
                 }
 
