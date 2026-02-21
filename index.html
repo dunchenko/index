@@ -8,7 +8,7 @@
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org;">
     <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
-    <title>Hanna Dunchenko | Paralegal Services GTA</title>
+    <title>Hanna Dunchenko Paralegal Services | Ontario</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,7 +65,7 @@
             color: var(--text-white); 
             line-height: 1.6; 
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding-bottom: 150px; /* Space for bottom bar */
             animation: blurReveal 4s ease-out forwards;
         }
 
@@ -88,6 +88,17 @@
             background-color: #6B5B4A;
         }
         ::-webkit-scrollbar-button { display: none; }
+
+        /* Scroll Fade-in Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* ------------------- BLOCKS ------------------- */
 
@@ -127,15 +138,15 @@
         /* Block: header */
         .header { 
             text-align: center; 
-            padding: 50px 20px 10px;
-            max-width: 650px;
+            padding: 80px 20px 40px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .header__title { 
             font-size: clamp(1.8rem, 8vw, 4.5rem); 
             font-weight: 900; 
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -145,11 +156,11 @@
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
-            margin-bottom: 5px;
+            margin-bottom: 25px;
         }
 
         .header__contact {
-            margin: 15px 0;
+            margin: 25px 0 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -176,14 +187,14 @@
             font-size: 1.3rem;
             font-weight: 700;
             opacity: 0.85;
-            margin: 15px auto;
+            margin: 35px auto;
             line-height: 1.6;
             max-width: 800px;
         }
 
         .header__seo-line {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             white-space: nowrap;
         }
 
@@ -191,7 +202,7 @@
         .layout-container { 
             max-width: 650px; 
             margin: 0 auto 0; 
-            padding: 10px 20px 20px; 
+            padding: 0 20px; 
         }
         
         /* Block: contact-form */
@@ -202,24 +213,12 @@
             border: none;
             padding: 0;
             box-shadow: none;
-            border-radius: 20px;
-        }
-
-        /* Google Calendar Iframe Styling */
-        .contact-form iframe {
-            display: block;
-            width: 100%;
-            height: 800px;
-            /*  No cropping: clip-path removed per user request */
-            /* Margin and Scale will be set by JS script */
-            filter: invert(1) grayscale(1);
-            mix-blend-mode: screen;
-            border: 0;
+            border-radius: 0;
         }
 
         .contact-form__outside-title { 
             font-size: 1.8rem; 
-            margin-bottom: 20px; 
+            margin-bottom: 30px; 
             text-align: center; 
             font-weight: 900; 
             text-transform: uppercase; 
@@ -228,7 +227,7 @@
         }
 
         .contact-form__title { 
-            display: none; /* Hide original if still referenced or kept for structure, but I removed it from HTML so this block is essentially being replaced/added to */
+            display: none;
             font-size: 1.8rem; 
             margin-bottom: 30px; 
             text-align: center; 
@@ -238,7 +237,7 @@
         }
 
         .contact-form__group { 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             position: relative; 
         }
 
@@ -402,7 +401,7 @@
             text-transform: uppercase; 
             cursor: pointer; 
             transition: all 0.3s ease; 
-            margin-top: 10px;
+            margin-top: 20px;
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
@@ -430,16 +429,16 @@
         .section-title { 
             font-size: 1.8rem; font-weight: 900; 
             text-transform: uppercase; letter-spacing: 2px; 
-            text-align: center; margin-bottom: 30px; 
-            margin-top: 30px;
+            text-align: center; 
+            margin: 80px 0 40px;
         }
         
         /* Block: faq */
-        .faq { margin-top: 10px; }
+        .faq { margin-top: 0; }
 
         .faq__item {
-            margin-bottom: 15px;
-            padding: 5px;
+            margin-bottom: 30px;
+            padding: 0;
             text-align: left; /* Align FAQ content to the left */
         }
         
@@ -451,7 +450,7 @@
             align-items: flex-start; 
             gap: 15px; 
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             list-style: none;
         }
 
@@ -469,7 +468,7 @@
         .faq__answer { 
             font-size: 0.95rem; opacity: 0.9; 
             padding-left: 29px; 
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             line-height: 1.6;
         }
 
@@ -642,13 +641,13 @@
         /* Block: footer */
         .footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 80px 20px 160px;
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             line-height: 1.8;
         }
 
-        .footer__container { margin-bottom: 40px; }
+        .footer__container { margin-bottom: 50px; }
         
         .footer__button {
             width: 100%;
@@ -680,14 +679,13 @@
             font-size: 1.8rem;
             font-weight: 900;
             text-decoration: none;
-            margin-bottom: 5px;
-            margin-top: 25px;
+            margin: 30px 0 10px;
         }
 
         .footer__hours {
             font-size: 0.95rem; 
             color: #ffffff; 
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             white-space: pre-line;
             line-height: 1.6;
         }
@@ -708,40 +706,6 @@
             height: 100%;
         }
 
-        .contact-form__booking-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* NEW: Pin button to top */
-            margin-top: 25px;
-            margin-bottom: 15px;
-            height: 62px; /* Adjusted to prevent button clipping */
-            overflow: hidden; /* Hide anything below the button */
-        }
-
-        /* Style the Google Button to match site buttons */
-        .contact-form__booking-wrapper button {
-            width: 100% !important;
-            padding: 20px !important;
-            background: var(--accent-hover) !important;
-            color: #ffffff !important;
-            border: none !important;
-            border-radius: 10px !important;
-            font-weight: 900 !important;
-            font-size: 1.1rem !important;
-            text-transform: uppercase !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            font-family: 'Lato', sans-serif !important;
-            display: block !important;
-            margin: 0 !important; /* NEW: Avoid displacement */
-        }
-
-        .contact-form__booking-wrapper button:hover {
-            background: var(--accent-gold) !important;
-        }
-
-        /* ------------------- RESPONSIVE ------------------- */
-
 
         /* ------------------- CUSTOM CALENDAR (Liquid Glass Design) ------------------- */
         .calendar-wrapper {
@@ -749,41 +713,30 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 30px;
-            margin-top: 20px;
+            border-radius: 0;
+            padding: 40px;
+            margin-top: 0;
             /* Responsive Scaling */
             transform-origin: top center;
             transition: transform 0.3s ease;
         }
         
-        @media (max-width: 600px) {
-            .calendar-wrapper {
-                padding: 15px;
-                width: 100%;
-                /* Pure scaling approach to keep layout intact */
-                zoom: 0.85; 
-                /* specific fallback for firefox who doesnt support zoom well might need transform */
-                transform: scale(0.9);
-                width: 111%; /* 100/0.9 */
-                margin-left: -5.5%;
-                margin-top: 10px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-             .calendar-wrapper {
-                transform: scale(0.8);
-                width: 125%;
-                margin-left: -12.5%;
-             }
+        .slots-block {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0;
+            padding: 40px;
+            margin-top: 0;
+            display: none;
         }
         
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px; /* Moved to top, added margin bottom */
+            margin-bottom: 30px;
             text-align: center;
             padding: 0 10px;
         }
@@ -821,7 +774,7 @@
             background: rgba(255, 255, 255, 0);
             border: none;
             color: #ffffff; 
-            border-radius: 50%;
+            border-radius: 0;
             width: 50px; height: 50px;
             cursor: pointer;
             font-size: 1.8rem;
@@ -859,7 +812,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
+            border-radius: 0;
             color: rgba(255, 255, 255, 0.7);
             background: rgba(255, 255, 255, 0.1); 
             cursor: pointer;
@@ -904,15 +857,34 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        .cal-day--saturday-available .cal-num {
+            display: none;
+        }
+        .cal-day--saturday-available.cal-day--selected .cal-key {
+            display: none;
+        }
+        .cal-day--saturday-available.cal-day--selected .cal-num {
+            display: inline;
+        }
+
+        @keyframes keyWiggle {
+            0%, 100% { transform: rotate(45deg); }
+            25% { transform: rotate(40deg); }
+            75% { transform: rotate(50deg); }
+        }
+
+        .cal-day--saturday-available:hover:not(.cal-day--disabled) svg {
+            animation: keyWiggle 0.5s ease-in-out infinite;
+        }
+
         /* .cal-day--nearest-free removed */
         
         .cal-day--today {
-            border: 5px solid #ffffff !important; 
+            border: 5px solid #ffffff; 
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
         }
 
-        /* Removed .cal-day--has-slots::after (dots) */
         .cal-day--has-slots {
             background: rgba(255, 255, 255, 0.2);
             opacity: 1 !important;
@@ -933,11 +905,10 @@
             position: absolute;
             top: 0;
             left: 10%; /* Centered at 80% width */
-            width: 80%; /* 20% smaller */
+            width: 80%;
             height: 1px;
             background: rgba(255, 255, 255, 0.1); 
             overflow: hidden;
-            
             opacity: 0; /* Hidden by default */
             transition: opacity 0.5s ease;
             
@@ -957,10 +928,8 @@
             left: 0;
             width: 50%;
             height: 100%;
-            /* Bright white with glow */
             background: linear-gradient(90deg, transparent, #ffffff, transparent);
             box-shadow: 0 0 15px rgba(255, 255, 255, 1);
-            
             opacity: 0; /* Hidden by default */
             transition: opacity 0.8s ease-out; /* Smooth fade out */
             
@@ -968,7 +937,7 @@
         }
 
         .loading-separator--active::after {
-            opacity: 1; /* Fade in */
+            opacity: 1;
         }
 
         @keyframes loadingScan {
@@ -978,14 +947,13 @@
         }
 
         .loading-separator::after {
-            /* ... existing styles ... */
             animation: loadingScan 10s infinite linear; /* Run every 10s */
         }
 
         .slots-title {
             font-size: 1.4rem; /* Increased from 1.1rem */
             font-weight: 700; /* Increased from 600 */
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
             color: rgba(255, 255, 255, 0.9);
             letter-spacing: 0.5px;
@@ -996,12 +964,11 @@
         .cal-cta {
             font-size: 1.4rem; /* Increased from 1.1rem */
             font-weight: 700; /* Increased from 600 */
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
             color: rgba(255, 255, 255, 0.9);
             letter-spacing: 0.5px;
             display: none; /* Hidden by default */
-            animation: fadeTitle 0.5s ease forwards;
         }
 
         @keyframes fadeTitle { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -1017,7 +984,7 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.18);
             color: #fff;
-            border-radius: 18px;
+            border-radius: 0;
             cursor: pointer;
             transition: all 0.4s ease;
             font-family: 'Lato', sans-serif !important;
@@ -1044,7 +1011,7 @@
         }
 
         .slot-btn--busy {
-            opacity: 0.45;
+            background: rgba(255, 255, 255, 0.04);
             pointer-events: none;
             background-image: none;
             border: none !important;
@@ -1054,6 +1021,10 @@
             position: relative;
             overflow: hidden;
             animation: none; 
+        }
+
+        .slot-btn--busy .clock-hand {
+            animation: none;
         }
         
         @keyframes slantStripes {
@@ -1068,11 +1039,11 @@
         
         /* Watermark "ALREADY BOOKED" - Red Stamp Style */
         .slot-btn--busy::after {
-            content: 'BOOKED';
+            content: 'UNAVAILABLE';
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
-            font-size: 1.2rem; 
+            font-size: 0.9rem; 
             font-weight: 900;
             color: rgba(255, 255, 255, 1); 
             border: 2.5px solid rgba(255, 255, 255, 1); 
@@ -1082,6 +1053,8 @@
             letter-spacing: 1px;
             text-align: center;
             opacity: 1;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
         }
         .slot-btn:hover::after {
             color: var(--accent-gold);
@@ -1094,23 +1067,23 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Sequential Glow Animation - modified for a unified cyclic wave */
-        /* Sequential Glow Animation - brighter */
-        @keyframes sequentialGlow {
-            0%, 30%, 100% { 
-                background: rgba(255, 255, 255, 0.05); 
-                box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+        @keyframes constantGlow {
+            0%, 100% { 
+                background: rgba(255, 255, 255, 0.25); 
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+                border-color: rgba(255, 255, 255, 0.5);
             }
-            15% { 
-                background: rgba(255, 255, 255, 0.35); /* Brighter pulse */
-                box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            50% { 
+                background: rgba(255, 255, 255, 0.15); 
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.25);
             }
         }
 
         .slot-btn--hypnotic {
             animation: 
                 slideUpFade 0.8s ease backwards calc(var(--i) * 0.1s),
-                sequentialGlow 10s infinite ease-in-out calc(var(--i) * 0.2s); /* Increased to 10s */
+                constantGlow 4s infinite ease-in-out;
         }
 
         @keyframes rotateIcon {
@@ -1124,8 +1097,41 @@
             line-height: 0;
         }
 
-        .slot-btn--hypnotic .slot-icon-wrapper {
-            animation: rotateIcon 10s infinite ease-in-out calc(var(--i) * 0.2s);
+        .slot-btn--hypnotic .slot-icon-wrapper {}
+
+        .clock-hand {
+            transform-origin: 20px 20px;
+            transform: rotate(var(--start));
+        }
+
+        .slot-btn--clicked .clock-hand {
+            animation: handSweepClick 0.6s ease-out forwards;
+        }
+
+        @keyframes handSweepClick {
+            to { transform: rotate(var(--end)); }
+        }
+
+        @keyframes handRotateContinuous {
+            from { transform: rotate(var(--start)); }
+            to { transform: rotate(calc(var(--start) + 360deg)); }
+        }
+
+        .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .minute-hand {
+            animation: handRotateContinuous 1.5s linear infinite;
+        }
+        .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .hour-hand {
+            animation: handRotateContinuous 4s linear infinite;
+        }
+
+        .slot-btn--clicked {
+            animation: btnClickScale 0.4s ease-out forwards;
+        }
+
+        @keyframes btnClickScale {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
         }
 
 
@@ -1424,7 +1430,7 @@
             cursor: pointer;
             text-decoration: none;
             text-align: center;
-            margin: 15px auto;
+            margin: 0 auto;
             overflow: visible;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -1434,7 +1440,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(90, 61, 42, 0.5);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 50px;
@@ -1447,7 +1453,7 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
         .footer-book-btn:hover::before {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(90, 61, 42, 0.75);
         }
 
         #headerBookBtn {
@@ -1483,7 +1489,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 40px 0; /* Increased vertical margin for centering */
+            margin: 40px 0 15px;
             padding: 0 10px;
             width: 100%;
         }
@@ -1503,7 +1509,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 0;
             transition: all 0.3s ease;
             opacity: 0.7;
             user-select: none;
@@ -1593,7 +1599,7 @@
             opacity: 0;
             transform: translateY(-100%);
             pointer-events: none;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
             -webkit-mask-image: linear-gradient(to bottom, black, transparent);
             mask-image: linear-gradient(to bottom, black, transparent);
         }
@@ -1602,172 +1608,68 @@
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
         }
 
-        /* ------------------- THEME SWITCH (Inside Top Bar) ------------------- */
-        .theme-switch-wrapper {
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 10000;
             display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .theme-switch {
-            display: inline-block;
-            height: 30px;
-            position: relative;
-            width: 52px;
-        }
-        .theme-switch input { display: none; }
-        .slider {
-            background-color: rgba(0, 0, 0, 0.2);
-            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
-            transition: .4s; border-radius: 34px; backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .slider:before {
-            background-color: #fff; bottom: 3px; content: ""; height: 22px; left: 3px;
-            position: absolute; transition: .4s; width: 22px; border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        input:checked + .slider {
-            background-color: #8e8e93;
-        }
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-        .theme-wrapper-icon {
-            width: 20px;
-            height: 20px;
-            stroke: #fff;
-            opacity: 0.7;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 20px 15px;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0;
+            transform: translateY(100%);
+            pointer-events: none;
+            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
+            -webkit-mask-image: linear-gradient(to top, black, transparent);
+            mask-image: linear-gradient(to top, black, transparent);
         }
 
-        /* ------------------- LANGUAGE SWITCHER ------------------- */
-        .lang-switcher {
-            display: flex;
-            gap: 15px;
-            align-items: center;
+        .services-content {
+            text-align: left;
+            margin: 60px 0;
+            padding: 40px;
+        }
+        .services-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .services-content li {
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .services-content li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .services-content h3 {
+            color: var(--text-white);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        .services-content p {
+            opacity: 0.9;
+            font-size: 0.95rem;
         }
 
-        .lang-btn {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 5px;
-        }
-
-        .lang-btn:hover, .lang-btn.active {
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* ------------------- BLACK THEME OVERRIDES ------------------- */
-        [data-theme="black"] {
-            --bg-dark: #000000;
-            --text-white: #d1d1d1;
-            --glass-bg: rgba(30, 30, 30, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --input-bg: rgba(255, 255, 255, 0.1);
-            --accent-gold: #aaaaaa; /* Was #D4B89A */
-            --accent-hover: #999999;
-            --placeholder-color: #777777;
-            scrollbar-color: #444 transparent;
-        }
-        [data-theme="black"] .background__svg rect {
-            fill: #000000 !important;
-        }
-        [data-theme="black"] body::-webkit-scrollbar-thumb { background-color: #444; }
-        [data-theme="black"] body::-webkit-scrollbar-thumb:hover { background-color: #666; }
-        [data-theme="black"] .background__stripe {
-            opacity: 0.1;
-            fill: #ffffff;
-        }
-        [data-theme="black"] .calendar-wrapper {
-            background: rgba(20, 20, 20, 0.6);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        [data-theme="black"] .cal-day {
-            background: rgba(255, 255, 255, 0.08);
-            color: #ddd;
-        }
-        [data-theme="black"] .cal-day--selected {
-            background: #ffffff !important;
-            color: #000000 !important;
-        }
-        [data-theme="black"] .slot-btn {
-            background: rgba(255, 255, 255, 0.08);
-        }
-        [data-theme="black"] .modal__content {
-            background: #121212;
-        }
-        [data-theme="black"] .map-container__iframe {
-            filter: grayscale(1) invert(1);
-        }
-        [data-theme="black"] .contact-form__input::placeholder,
-        [data-theme="black"] .contact-form__textarea::placeholder {
-            color: var(--placeholder-color);
-        }
-        [data-theme="black"] .contact-form__input:focus,
-        [data-theme="black"] .contact-form__textarea:focus,
-        [data-theme="black"] .contact-form__input--has-content {
-            color: #000000;
-        }
-        [data-theme="black"] .contact-form__submit-button,
-        [data-theme="black"] .footer__button,
-        [data-theme="black"] .contact-form__booking-wrapper button {
-            background: #333333 !important;
-        }
-        [data-theme="black"] .contact-form__submit-button:hover,
-        [data-theme="black"] .footer__button:hover,
-        [data-theme="black"] .contact-form__booking-wrapper button:hover {
-            background: #555555 !important;
-        }
-        [data-theme="black"] .contact-form__terms-link:hover {
-            color: #cccccc;
-        }
-        [data-theme="black"] .faq__question::before {
-            border-color: #888;
-        }
-        [data-theme="black"] details[open] > .faq__question::before {
-            background-color: #888;
-        }
-        [data-theme="black"] .faq__answer svg path[fill="#5a3d2a"] {
-            fill: #555555;
-        }
-        [data-theme="black"] .custom-select__trigger {
-            background: #222;
-            color: #ddd;
-        }
-        [data-theme="black"] .custom-select__trigger::after {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23eeeeee' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        }
-        [data-theme="black"] .custom-select.open .custom-select__trigger {
-            background: #444;
-            color: #fff;
-        }
-        [data-theme="black"] .custom-select.open .custom-select__trigger::after {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        }
-        [data-theme="black"] .custom-options {
-            background: #222;
-        }
-        [data-theme="black"] .custom-option {
-            color: #ddd;
-        }
-        [data-theme="black"] .custom-option:hover,
-        [data-theme="black"] .custom-option.selected {
-            background-color: #444;
-            color: #fff;
-        }
-        [data-theme="black"] .custom-option.selected::after {
-            color: #fff;
-        }
-        [data-theme="black"] .top-bar {
-            background: rgba(20, 20, 20, 0.6);
+        .bottom-bar--visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
         }
 
         /* Preloader for Book Button */
@@ -1777,7 +1679,7 @@
             width: 180px;
             height: 180px;
             position: relative;
-            margin: 15px auto;
+            margin: 0 auto;
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
@@ -1815,12 +1717,19 @@
             stroke-linecap: round;
             stroke-dasharray: 302; /* Circumference: 2 * pi * 48 */
             stroke-dashoffset: 302; 
-            animation: fillProgress 14s ease-out forwards; /* 14 seconds, one time */
+            animation: 
+                fillProgress 14s ease-out forwards,
+                hypnoticCircleGlow 3s infinite ease-in-out 17s;
         }
 
         @keyframes fillProgress {
             0% { stroke-dashoffset: 302; }
             100% { stroke-dashoffset: 0; } 
+        }
+
+        @keyframes hypnoticCircleGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)); }
         }
 
         .book-btn-container {
@@ -1829,375 +1738,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        /* ================= TABLET STYLES (iPad Portrait etc.) ================= */
-        @media (min-width: 600px) and (max-width: 1024px) {
-            .layout-container {
-                max-width: 520px;
-                margin: 0 auto;
-                padding: 10px 20px 20px;
-            }
-
-            .faq {
-                max-width: 520px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .calendar-wrapper {
-                /* Ensure calendar stays within the container naturally */
-                width: 100%;
-            }
-        }
-
-        /* ================= MOBILE RESPONSIVE STYLES ================= */
-        @media (max-width: 768px) {
-            /* Header */
-            .header { 
-                padding: 30px 15px 5px;
-                max-width: 100%;
-                margin: 0 auto;
-            }
-
-            .header__title {
-                font-size: 2.5rem;
-            }
-
-            .header__contact {
-                margin: 10px 0;
-                gap: 8px;
-            }
-
-            .header__contact-label {
-                font-size: 1rem;
-            }
-
-            .header__phone-link { 
-                font-size: 1.8rem; 
-            }
-
-            .header__seo-text {
-                font-size: 0.9rem;
-                margin: 10px auto;
-                max-width: 95%;
-            }
-
-            /* Layout Container */
-            .layout-container { 
-                max-width: 100%;
-                padding: 8px 15px 15px; 
-            }
-
-            /* Form Styling */
-            .contact-form__outside-title { 
-                font-size: 1.2rem; 
-                margin-bottom: 15px; 
-            }
-
-            .contact-form__group { 
-                margin-bottom: 18px; 
-            }
-
-            .contact-form__label { 
-                font-size: 0.75rem; 
-            }
-
-            .contact-form__input, 
-            .contact-form__textarea, 
-            .contact-form__select { 
-                padding: 12px; 
-                font-size: 16px; /* Prevents zoom on iOS */
-            }
-
-            .contact-form__textarea { 
-                min-height: 140px; 
-            }
-
-            .contact-form__submit-button { 
-                padding: 16px; 
-                font-size: 0.95rem; 
-            }
-
-            /* Section Title */
-            .section-title { 
-                font-size: 1.3rem;
-                margin-bottom: 20px; 
-                margin-top: 20px;
-            }
-
-            /* FAQ */
-            .faq__question { 
-                font-size: 0.95rem; 
-                gap: 12px; 
-            }
-
-            .faq__answer { 
-                font-size: 0.85rem;
-                padding-left: 24px; 
-            }
-
-
-            /* Footer */
-            .footer {
-                padding: 20px 15px;
-                font-size: 0.8rem;
-            }
-
-            .footer__button {
-                padding: 16px;
-                font-size: 0.95rem;
-                max-width: 90%;
-            }
-
-            .footer__contact-link {
-                font-size: 1.4rem;
-                margin-bottom: 3px;
-                margin-top: 15px;
-            }
-
-            .footer__hours {
-                font-size: 0.8rem;
-            }
-
-            /* Modal */
-            .modal {
-                padding: 5px;
-            }
-
-            .modal__content {
-                padding: 25px;
-                max-width: 95%;
-                max-height: 95vh;
-            }
-
-            .modal__title {
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-            }
-
-            .modal__body {
-                font-size: 0.85rem;
-                line-height: 1.6;
-            }
-
-            .modal__section-title {
-                font-size: 1rem;
-                margin-top: 15px;
-                margin-bottom: 8px;
-            }
-
-            .modal__footer-text {
-                font-size: 0.9rem;
-                margin-top: 20px;
-                padding-top: 15px;
-            }
-
-            #termsModal .modal__title {
-                font-size: 1.6rem;
-            }
-
-            #termsModal .modal__section-title {
-                font-size: 1rem;
-            }
-
-            /* Custom Select */
-            .custom-select__trigger {
-                padding: 12px 20px;
-                padding-right: 40px;
-                font-size: 0.95rem;
-            }
-
-            .custom-option {
-                padding: 10px 20px;
-                font-size: 0.95rem;
-            }
-
-            /* File Attach */
-            .file-attach__btn {
-                padding: 12px;
-                font-size: 0.85rem;
-            }
-
-            .file-attach__icon {
-                font-size: 1.2rem;
-            }
-
-            .file-attach__item {
-                padding: 8px 10px;
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Small Mobile Phones (max-width: 480px) */
-        @media (max-width: 480px) {
-            .header { 
-                padding: 20px 10px 5px; 
-            }
-
-            .header__title { 
-                font-size: 2.2rem; 
-            }
-
-            .header__subtitle { 
-                font-size: 1.3rem; 
-            }
-
-            .header__contact {
-                margin: 8px 0;
-                gap: 6px;
-            }
-
-            .header__contact-label {
-                font-size: 0.85rem;
-            }
-
-            .header__phone-link { 
-                font-size: 1.5rem; 
-            }
-
-            .header__seo-text {
-                font-size: 0.8rem;
-                margin: 8px auto;
-            }
-
-            .layout-container { 
-                padding: 6px 10px 12px; 
-            }
-
-            .contact-form__outside-title { 
-                font-size: 1rem; 
-                margin-bottom: 12px; 
-            }
-
-            .contact-form__group { 
-                margin-bottom: 15px; 
-            }
-
-            .contact-form__label { 
-                font-size: 0.7rem; 
-            }
-
-            .contact-form__input, 
-            .contact-form__textarea, 
-            .contact-form__select { 
-                padding: 10px; 
-            }
-
-            .contact-form__textarea { 
-                min-height: 120px; 
-            }
-
-            .contact-form__submit-button { 
-                padding: 14px; 
-                font-size: 0.85rem; 
-            }
-
-            .section-title { 
-                font-size: 1.1rem;
-                margin-bottom: 15px; 
-                margin-top: 15px;
-            }
-
-            .faq__question { 
-                font-size: 0.85rem; 
-                gap: 10px; 
-            }
-
-            .faq__answer { 
-                font-size: 0.75rem;
-                padding-left: 20px; 
-                padding-bottom: 15px;
-            }
-
-
-            .footer {
-                padding: 15px 10px;
-                font-size: 0.7rem;
-            }
-
-            .footer__button {
-                padding: 14px;
-                font-size: 0.85rem;
-                max-width: 95%;
-            }
-
-            .footer__contact-link {
-                font-size: 1.2rem;
-                margin-bottom: 2px;
-                margin-top: 12px;
-            }
-
-            .footer__hours {
-                font-size: 0.75rem;
-            }
-
-            .modal__content {
-                padding: 20px;
-                max-width: 98%;
-            }
-
-            .modal__title {
-                font-size: 1rem;
-                margin-bottom: 10px;
-            }
-
-            .modal__body {
-                font-size: 0.8rem;
-                line-height: 1.5;
-            }
-
-            .modal__section-title {
-                font-size: 0.9rem;
-                margin-top: 12px;
-                margin-bottom: 6px;
-            }
-
-            .modal__footer-text {
-                font-size: 0.8rem;
-                margin-top: 15px;
-                padding-top: 12px;
-            }
-
-            #termsModal .modal__title {
-                font-size: 1.4rem;
-            }
-
-            #termsModal .modal__section-title {
-                font-size: 0.9rem;
-            }
-
-            .custom-select__trigger {
-                padding: 10px 18px;
-                padding-right: 35px;
-                font-size: 0.9rem;
-            }
-
-            .custom-option {
-                padding: 9px 18px;
-                font-size: 0.9rem;
-            }
-
-            .file-attach__btn {
-                padding: 10px;
-                font-size: 0.75rem;
-            }
-
-            .file-attach__icon {
-                font-size: 1rem;
-            }
-
-            .file-attach__item {
-                padding: 6px 8px;
-                font-size: 0.7rem;
-            }
-        }
-
-        /* Ultra Small Devices (Smart Watches, etc.) */
-        @media (max-width: 320px) {
-            .header__contact-label { display: none; }
-            .header__phone-link { font-size: 0.9rem; }
-            .footer-book-btn { font-size: 0.8rem; padding: 12px; }
+            margin: 40px auto;
         }
 
         /* Scaling wrapper: lets the calendar keep its natural size,
@@ -2219,26 +1760,10 @@
 
 <!-- TOP BAR -->
 <div class="top-bar">
-    <!-- Theme Switch (Left) -->
-    <div class="theme-switch-wrapper">
-        <!-- Sun icon -->
-        <svg class="theme-wrapper-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox">
-            <div class="slider round"></div>
-        </label>
-        <!-- Moon icon -->
-        <svg class="theme-wrapper-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </div>
+</div>
 
-    <!-- Language Switcher (Right) -->
-    <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
-        <button class="lang-btn" onclick="setLanguage('fr')">FR</button>
-        <button class="lang-btn" onclick="setLanguage('ua')">UA</button>
-        <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
-        <button class="lang-btn" onclick="setLanguage('ch')">CH</button>
-    </div>
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
 </div>
 
 <div class="background">
@@ -2257,7 +1782,7 @@
     </svg>
 </div>
 
-<header class="header">
+<header class="header fade-in-section">
     <div class="header__title dynamic-text" data-i18n="name">Hanna Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__seo-text">
@@ -2266,14 +1791,15 @@
         <span class="header__seo-line dynamic-text" data-i18n="seo3">Toronto, Richmond Hill, Mississauga, London </span>
         <span class="header__seo-line dynamic-text" data-i18n="seo4">All online consultations are available province-wide </span>
     </h1>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
 </header>
 
 
 
 <div class="layout-container">
-    <!-- Header Available Slot Button -->
-    <div style="text-align: center; margin-bottom: 15px;">
-    <div style="text-align: center; margin-bottom: 15px; margin-top: 0;">
+    <div class="book-btn-wrapper fade-in-section">
         <!-- Container for preloader and button to manage smooth transition -->
         <div class="book-btn-container">
             <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
@@ -2286,11 +1812,8 @@
             <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
         </button>
     </div>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-    </div>
-    <div class="contact-form">
-        <!-- Custom Booking Calendar -->
+    <div class="contact-form fade-in-section">
+        <h2 class="contact-form__outside-title">NEXT AVAILABLE DAY</h2>
         <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
         <div class="calendar-scale-inner" id="calendarScaleInner">
         <div class="calendar-wrapper" id="bookingCalendar">
@@ -2305,9 +1828,6 @@
             <!-- Progress bar -->
             <div id="loadingSeparator" class="loading-separator"></div>
 
-            <!-- Slots Container moved BELOW -->
-            <!-- <div class="slots-container" id="slotsContainer">...</div> (Moved down) -->
-
             <div id="calendarLoader" class="calendar-loader">Loading availability...</div>
 
             <div class="calendar-grid" id="calendarGrid">
@@ -2315,43 +1835,32 @@
             </div>
             
             <div id="nextAvailableMsg" class="next-available-msg"></div>
-
-            <!-- Slots moved here -->
-             <!-- Slots moved here -->
-             <div class="slots-container" id="slotsContainer">
-                
-                <!-- Day Navigation Header -->
-                <div class="slots-nav slots-nav--loading">
-                    <span id="slotsDayDisplay" class="hypnotic-text">Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span></span>
-                </div>
-
-                <!-- Title removed per request -->
-                <!-- <h3 class="slots-title">Tap on time you need</h3> -->
-                <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr; /* Full width buttons for detailed text */">
-                    <!-- Removing Connecting text -->
-                </div>
-                <div id="calCtaMsg" class="cal-cta" style="margin-top: 30px; width: 100%;" data-i18n="calCta">CHOOSE A SLOT</div>
-            </div>
-            
-            <!-- Instruction below slots -->
-            <!-- Removed Instruction 'Please select a time slot now.' -->
-
-            <!-- Removed instruction text per "Убери надпись Just click..." request -->
-            
         </div>
-        <!-- End Custom Booking Calendar -->
+        
+        <!-- Day Navigation Header -->
+        <div class="slots-nav slots-nav--loading">
+            <span id="slotsDayDisplay" class="hypnotic-text">Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span></span>
+        </div>
+
+        <div class="slots-block">
+             <div class="slots-container" id="slotsContainer">
+                <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr;"></div>
+            </div>
         </div><!-- /calendar-scale-inner -->
         </div><!-- /calendar-scale-wrapper -->
     </div>
 
-    <h2 class="section-title" data-i18n="faqTitle">FAQ</h2>
-    <div class="faq">
+    <h2 class="section-title fade-in-section" data-i18n="faqTitle">FAQ</h2>
+    <div class="faq fade-in-section">
         <details class="faq__item" open>
              <summary class="faq__question" data-i18n="faq1q">What are the keys on the calendar?</summary>
              <div class="faq__answer" data-i18n="faq1a">
               <div id="coffeeCups" style="position: relative; display: inline-block; cursor: pointer;">
-                 The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
-                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA2MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+LnN7YW5pbWF0aW9uOnIgM3MgaW5maW5pdGUgZWFzZS1vdXQ7b3BhY2l0eTowO3N0cm9rZTojZmZmO2ZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS41O3N0cm9rZS1saW5lY2FwOnJvdW5kfUBrZXlmcmFtZXMgcnswJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjB9MjAle29wYWNpdHk6LjZ9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtMTVweCk7b3BhY2l0eTowfX08L3N0eWxlPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUsMTgpIj48cGF0aCBkPSJNMCAwaDE0djVhNyA3IDAgMCAxLTE0IDBWMHoiIGZpbGw9IiNhMTg1NzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cGF0aCBkPSJNMTQgMmgzYTIgMiAwIDAgMSAwIDRoLTMiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBjbGFzcz0icyIgZD0iTTQgLTJxMyAtNSAwIC04IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjBzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MS41cyIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNSwxOCkiPjxwYXRoIGQ9Ik0wIDBoMTR2NWE3IDcgMCAwIDEtMTQgMFYweiIgZmlsbD0iI2ExODU3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xNCAyaDNhMiAyIDAgMCAxIDAgNGgtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNNCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6LjVzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEzIC01IDAgLTgiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MnMiLz48L2c+PC9zdmc+" alt="Coffee Cups" style="vertical-align: middle; margin-left: 5px;">
+                 The keys on the calendar above indicate that the office is closed on those days.<br><br>
+                 Meetings may still be arranged by appointment.<br><br>
+                 If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps.<br><br>
+                 Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
+                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA2MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+LnN7YW5pbWF0aW9uOnIgNHMgaW5maW5pdGUgZWFzZS1pbi1vdXQ7b3BhY2l0eTowO3N0cm9rZTojZmZmO2ZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS41O3N0cm9rZS1saW5lY2FwOnJvdW5kfUBrZXlmcmFtZXMgcnswJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjB9NTAle29wYWNpdHk6LjV9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtN3B4KTtvcGFjaXR5OjB9fTwvc3R5bGU+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNSwxOCkiPjxwYXRoIGQ9Ik0wIDBoMTR2NWE3IDcgMCAwIDEtMTQgMFYweiIgZmlsbD0iI2ExODU3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xNCAyaDNhMiAyIDAgMCAxIDAgNGgtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNNCAtMnEzIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MHMiLz48cGF0aCBjbGFzcz0icyIgZD0iTTEwIC0ycS0zIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MnMiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUsMTgpIj48cGF0aCBkPSJNMCAwaDE0djVhNyA3IDAgMCAxLTE0IDBWMHoiIGZpbGw9IiNhMTg1NzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cGF0aCBkPSJNMTQgMmgzYTIgMiAwIDAgMSAwIDRoLTMiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBjbGFzcz0icyIgZD0iTTQgLTJxMyAtNCAwIC03IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjFzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEtMyAtNCAwIC03IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjNzIi8+PC9nPjwvc3ZnPg==" alt="Coffee Cups" style="vertical-align: middle; margin-left: 5px;">
                   <svg id="heartAnimation" width="30" height="30" viewBox="0 0 24 24" fill="white" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;">
                     <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                   </svg>
@@ -2369,7 +1878,7 @@
         <details class="faq__item" open>
             <summary class="faq__question" data-i18n="faq3q">What forms are worked with?</summary>
             <div class="faq__answer" data-i18n="faq3a">
-                <p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>
+                <p><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Enumeration provided strictly as examples and does not limit scope of practice.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>
             </div>
         </details>
 
@@ -2395,16 +1904,52 @@
         <details class="faq__item" open>
             <summary class="faq__question" data-i18n="faq5q">OK! WHERE IS THE OFFICE TODAY?</summary>
             <div class="faq__answer">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap;">
-                    <span style="opacity: 0.9; font-size: 0.95rem; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
-                    <span style="opacity: 0.9; font-size: 0.95rem; display: inline-block;" data-i18n="faq5_driving">to start driving</span>
-                </div>
+                <p style="margin-bottom: 15px; font-size: 0.95rem; font-weight: 400; opacity: 0.9;">146 Thirtieth St, Etobicoke, ON M8W 3C4</p>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
+                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
+                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_driving">to start driving</span>
+                </div>
             </div>
         </details>
+    </div>
+    <div class="services-content fade-in-section">
+        <h2 class="section-title">SERVICES</h2>
+        <ul>
+            <li>
+                <h3>Traffic Ticket Defense &amp; Provincial Offences</h3>
+                <p>
+                In Ontario, <strong>licensed paralegals</strong> are authorized by the Law Society of Ontario to represent clients in <strong>Provincial Offences Court</strong> for matters under the <strong>Highway Traffic Act (HTA)</strong> and other provincial statutes. Assisting those searching for <strong>how to fight a speeding ticket in Ontario</strong>, or wondering <strong>can I beat a traffic ticket without a lawyer</strong>. Handling <strong>speeding tickets</strong>, <strong>red light camera tickets</strong>, <strong>stunt driving charges Ontario</strong>, <strong>careless driving charges</strong>, <strong>driving with no insurance</strong>, and <strong>fail to stop for police</strong>. Addressing the common question — <strong>do I need a lawyer for a traffic ticket in Ontario?</strong> — with expert defense in traffic court. Analyzing the officer's disclosure, challenging evidence, negotiating with prosecutors, and fighting to reduce <strong>demerit points</strong>, lower fines, and protect your insurance rates.
+                </p>
+            </li>
+            <li>
+                <h3>Landlord &amp; Tenant Board (LTB)</h3>
+                <p>
+                Ontario paralegals are licensed to represent both landlords and tenants before the <strong>Landlord and Tenant Board</strong>. Providing professional advocacy for those searching for <strong>paralegal near me for eviction</strong> or <strong>how to fight an N4 notice in Ontario</strong>. Handling <strong>N4 notices</strong> for non-payment of rent, <strong>L1 applications</strong> to evict a tenant, <strong>N12 notices</strong> for landlord's own use, <strong>T2 applications</strong> for tenant rights, and <strong>T6 applications</strong> for maintenance issues. Responding to the frequent search — <strong>can a paralegal represent me at the LTB?</strong> — with qualified representation. Navigating <strong>rent arrears</strong>, an <strong>illegal lockout</strong>, <strong>above-guideline rent increases</strong>, or an <strong>Ontario Standard Lease dispute</strong> through strategic advocacy under the <strong>Residential Tenancies Act</strong>.
+                </p>
+            </li>
+            <li>
+                <h3>Small Claims Court (up to $35,000)</h3>
+                <p>
+                In Ontario, paralegals represent clients in the <strong>Superior Court of Justice (Small Claims Court)</strong> for claims up to $35,000. Offering a cost-effective alternative for those asking <strong>how to sue someone in Ontario small claims court</strong> or <strong>do I need a lawyer for small claims court Ontario</strong>. Handling <strong>unpaid invoices</strong>, <strong>property damage claims</strong>, <strong>breach of contract disputes</strong>, <strong>consumer complaints</strong>, and <strong>return of personal property</strong>. Clarifying the question — <strong>can a paralegal represent me in small claims court?</strong> — through full licensing to appear before the Ontario Superior Court of Justice, Small Claims branch.
+                </p>
+            </li>
+            <li>
+                <h3>WSIB &amp; Workplace Injury Claims</h3>
+                <p>
+                Guiding clients injured at work and searching for <strong>WSIB paralegal near me</strong> or <strong>how to appeal a WSIB decision in Ontario</strong>. Representing injured workers before the <strong>Workplace Safety and Insurance Board</strong> and the <strong>WSIAT (Workplace Safety and Insurance Appeals Tribunal)</strong>. Assisting with <strong>Form 6 Worker's Report of Injury</strong>, <strong>Loss of Earnings (LOE) benefits</strong>, <strong>Return to Work (RTW) disputes</strong>, <strong>Non-Economic Loss (NEL) claims</strong>, and <strong>chronic pain recognition</strong>. Answering — <strong>can a paralegal help with my WSIB claim?</strong> — by fighting to ensure recovery is fully supported under the <strong>Workplace Safety and Insurance Act</strong>.
+                </p>
+            </li>
+            <li>
+                <h3>Notary Public &amp; Commissioner of Oaths</h3>
+                <p>
+                Serving as a <strong>Commissioner of Oaths in Ontario</strong>. Helping those in need of a <strong>notary public near me in Toronto</strong> or <strong>commissioner of oaths near me</strong>. Commissioning <strong>affidavits</strong>, <strong>statutory declarations</strong>, and <strong>certified true copies</strong>. Preparing <strong>consent letter for a child travelling abroad</strong>, an <strong>invitation letter for visa applications</strong>, or an <strong>affidavit of service</strong>, ensuring documents are legally valid for use in Ontario and internationally. Addressing the search — <strong>where to get documents notarized near me Ontario</strong> — with flexible appointment-based commissioning services.
+                </p>
+            </li>
+        </ul>
     </div>
 </div>
 
@@ -2463,7 +2008,7 @@
 
 </div> 
 
-<footer class="footer">
+<footer class="footer fade-in-section">
     <div class="footer__container">
         
         <div class="footer__hours" data-i18n="hours">
@@ -2486,9 +2031,11 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <p class="footer__copyright" data-i18n="copyright">&copy; 2026 Hanna Dunchenko Paralegal Services</p>
+    <div style="margin-top: 200px;">
+        <p style="margin-bottom: 5px;">My only official website:</p>
+        <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+    </div>
 </footer>
-</div> <!-- End blurContainer -->
 
 <!-- BOOKING MODAL -->
 <div id="bookingModal" class="modal">
@@ -2512,7 +2059,6 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <!-- Custom Select Markup -->
                     <div class="custom-select-wrapper">
                         <div class="custom-select" id="customSelect">
                             <button class="custom-select__trigger" type="button">
@@ -2535,8 +2081,6 @@
                     <input type="tel" class="contact-form__input" placeholder="Phone Number" name="phone" required>
                 </div>
 
-                <!-- Budget field moved below Book Now button -->
-                
                 <div class="contact-form__group">
                     <input type="text" class="contact-form__input" placeholder="Street, City, ON, ZIP" name="address_full" required>
                 </div>
@@ -2666,15 +2210,6 @@
     // const selectedDateDisplay = document.getElementById('selectedDateDisplay'); // Removed
     const loader = document.getElementById('calendarLoader');
 
-    // Textarea Char Counter
-    const brief = document.getElementById('brief');
-    const counter = document.getElementById('current-chars');
-    if(brief && counter) {
-        brief.addEventListener('input', function() {
-            counter.textContent = this.value.length;
-        });
-    }
-
     // Input Visual State (keep white background if has text)
     const inputs = document.querySelectorAll('.contact-form__input, .contact-form__textarea');
     inputs.forEach(input => {
@@ -2707,6 +2242,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         // Initialize custom select dropdown
         initializeCustomSelects();
+        attachFormAutoSave();
         
         // Set today as selected by default
         // Set selectedDate to Toronto's "Today"
@@ -2717,6 +2253,7 @@
         // 2. Set selectedDate
         selectedDate = torontoNow; 
         
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
         renderCalendar();
         setupEventListeners();
 
@@ -2744,6 +2281,8 @@
         // Available screen width (accounting for body padding/margin)
         const availableWidth = wrapper.offsetWidth;
 
+    const todayEl = document.querySelector('.cal-day--today');
+
         if (naturalWidth > availableWidth && availableWidth > 0) {
             const scale = availableWidth / naturalWidth;
             inner.style.transform = `scale(${scale})`;
@@ -2751,11 +2290,20 @@
             inner.style.width = (naturalWidth) + 'px';
             // Collapse the wrapper to the scaled height so nothing below is pushed down
             const naturalHeight = inner.scrollHeight;
-            wrapper.style.height = (naturalHeight * scale) + 'px';
+            wrapper.style.height = (naturalHeight * scale + 10) + 'px';
+
+        if (todayEl) {
+            // Linearly interpolate border width between ~3px (at small scale) and 5px (at full scale)
+            const newBorderWidth = Math.max(2.5, Math.min(5, 1 + 4 * scale));
+            todayEl.style.borderWidth = `${newBorderWidth.toFixed(1)}px`;
+        }
         } else {
             inner.style.transform = 'scale(1)';
             inner.style.width = '';
             wrapper.style.height = '';
+        if (todayEl) {
+            todayEl.style.borderWidth = '5px';
+        }
         }
     }
 
@@ -2770,7 +2318,7 @@
     });
     const _calTarget = document.getElementById('bookingCalendar');
     if (_calTarget) {
-        _calObserver.observe(_calTarget, { childList: true, subtree: true });
+        _calObserver.observe(_calTarget, { childList: true, subtree: true, attributes: true });
     }
 
 
@@ -2778,128 +2326,87 @@
         // Parse start time "10:00 AM" or "10:00 AM - ..."
         const startTime = timeRangeStr.split(/[–-]/)[0].trim(); // Get "10:00 AM"
         
-        let [time, modifier] = startTime.split(' ');
-        let [hours, minutes] = time.split(':');
+        let hours = 12;
+        let minutes = 0;
         
-        hours = parseInt(hours);
-        minutes = parseInt(minutes);
+        // Robust parsing for "10:00", "10:00 AM", "10 AM", "10"
+        const timeMatch = startTime.match(/(\d+)(?::(\d+))?/);
+        if (timeMatch) {
+            hours = parseInt(timeMatch[1]);
+            minutes = timeMatch[2] ? parseInt(timeMatch[2]) : 0;
+        }
         
-        // Convert to 12-hour format 0-11 for calculation
-        // If 12, make it 0 for calcs (12:00 -> 0.0)
-        let hCalc = (hours % 12);
+        // Calculate angles
+        // Hour hand: (Hours % 12) * 30deg + Minutes * 0.5deg
+        const hourAngle = ((hours % 12) * 30) + (minutes * 0.5);
         
-        // Calculate angles for 50 minute duration on 12-hour face
-        // Each hour is 30 degrees (360 / 12)
-        // Each minute adds 0.5 degrees (30 / 60)
-        
-        const startDeg = (hCalc * 30) + (minutes * 0.5); 
-        // vary endDeg by 50 minutes duration
-        // 50 minutes * 0.5 deg/min = 25 degrees
-        const endDeg = startDeg + 25;
+        // Minute hand: Minutes * 6deg
+        const minuteAngle = minutes * 6;
+
+        // Duration 50 minutes
+        const duration = 50;
+        const endHourAngle = hourAngle + (duration * 0.5);
+        const endMinuteAngle = minuteAngle + (duration * 6);
         
         // SVG parameters
         const size = 40; 
         const cx = 20, cy = 20;
-        const rOuter = 18; // Outer ring radius
-        const rInner = 11; // Inner sector radius (gap of ~7px)
+        const rOuter = 18; 
         
-        // Helper to get coordinates
-        const getCoord = (deg, radius) => {
-            const rad = (deg - 90) * Math.PI / 180;
-            return {
-                x: cx + radius * Math.cos(rad),
-                y: cy + radius * Math.sin(rad)
-            };
-        };
-
-        const start = getCoord(startDeg, rInner);
-        const end = getCoord(endDeg, rInner);
-        
-        // Determine if large arc (>= 180 degrees)
-        // 50 minutes on hour face is 25 degrees, so always small arc (0)
-        const largeArc = 0;
-        
-        // Draw complement sector (filling free time)
-        // M cx cy -> L end.x end.y -> A r r 0 1 1 start.x start.y -> Z
-        const d = `M ${cx} ${cy} L ${end.x} ${end.y} A ${rInner} ${rInner} 0 1 1 ${start.x} ${start.y} Z`;
-        
-        // Outer ring (stroke only), and Inner sector (fill only)
-        return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Outer Ring -->
-            <circle cx="${cx}" cy="${cy}" r="${rOuter}" stroke="currentColor" stroke-opacity="0.8" fill="none" stroke-width="2.5"></circle>
-            <!-- Schedule Sector (Time Map) -->
-            <path d="${d}" fill="currentColor" stroke="none" fill-opacity="1"></path>
-            <!-- Optional: Hour Markers for reference? -> Cleaner without for now -->
+        return `<svg width="65" height="65" viewBox="0 0 ${size} ${size}" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Outer Ring (Square) -->
+            <rect x="2" y="2" width="36" height="36" stroke="currentColor" stroke-opacity="0.8" fill="none" stroke-width="2" stroke-linejoin="miter"></rect>
+            <!-- All 12 Hour Dots -->
+            <g fill="currentColor" stroke="none" opacity="0.6">
+                <circle cx="20" cy="4" r="1" />
+                <circle cx="28" cy="6.14" r="1" />
+                <circle cx="33.86" cy="12" r="1" />
+                <circle cx="36" cy="20" r="1" />
+                <circle cx="33.86" cy="28" r="1" />
+                <circle cx="28" cy="33.86" r="1" />
+                <circle cx="20" cy="36" r="1" />
+                <circle cx="12" cy="33.86" r="1" />
+                <circle cx="6.14" cy="28" r="1" />
+                <circle cx="4" cy="20" r="1" />
+                <circle cx="6.14" cy="12" r="1" />
+                <circle cx="12" cy="6.14" r="1" />
+            </g>
+            <!-- Center Dot -->
+            <circle cx="${cx}" cy="${cy}" r="2" fill="currentColor" stroke="none"></circle>
+            <!-- Hour Hand -->
+            <path d="M18.5 20 L21.5 20 L20 9 Z" fill="currentColor" stroke="none" class="clock-hand hour-hand" style="--start:${hourAngle}deg; --end:${endHourAngle}deg;" />
+            <!-- Minute Hand -->
+            <path d="M19 20 L21 20 L20 7 Z" fill="currentColor" stroke="none" class="clock-hand minute-hand" style="--start:${minuteAngle}deg; --end:${endMinuteAngle}deg;" />
         </svg>`;
     }
 
     function setupEventListeners() {
-        const nextDayBtn = document.getElementById('nextDayBtn');
-        const prevDayBtn = document.getElementById('prevDayBtn');
-        const slotsDayDisplay = document.getElementById('slotsDayDisplay');
-
-        prevBtn.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-        nextBtn.addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        // Day Navigation Logic
-        if(prevDayBtn && nextDayBtn) {
-            prevDayBtn.addEventListener('click', () => changeDay(-1));
-            nextDayBtn.addEventListener('click', () => changeDay(1));
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
         }
-
-
-
-    function changeDay(offset) {
-            if(!selectedDate) return;
-            // Create new date instance to avoid mutations
-            const newDate = new Date(selectedDate);
-            newDate.setDate(selectedDate.getDate() + offset);
-            
-            // If month changes, we need to update currentDate and re-render calendar grid
-            if(newDate.getMonth() !== currentDate.getMonth()) {
-                currentDate = new Date(newDate); // Update view to new month
-                renderCalendar().then(() => {
-                    // After render, find the new day element and click it
-                    setTimeout(() => {
-                        clickDayElement(newDate.getDate());
-                    }, 100);
-                });
-            } else {
-                 // Same month, just find the day element and click it
-                 clickDayElement(newDate.getDate());
-            }
-        }
-
-        function clickDayElement(day) {
-            const el = document.querySelector(`.cal-day[data-day='${day}']`);
-            if(el) {
-                // Manually trigger selection, ensuring visual update
-                selectDate(day, el, false); 
-            }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
         }
     }
 
     async function renderCalendar() {
-        // Reset view
         calendarGrid.innerHTML = '';
-        // slotsContainer.classList.remove('slots-container--active'); // Removed: Always visible
-        // selectedDateDisplay.textContent = "";  // Removed usage in HTML but keeping JS safe -> Actually removed element so must remove this line
-        slotsGrid.innerHTML = ''; // Empty by default
+        slotsGrid.innerHTML = '';
         const headerTitle = document.getElementById('calendarHeaderTitle');
-        // Initial state
-        // if(headerTitle) headerTitle.innerHTML = `<span style="font-size: 1.5rem;">Wait</span> <span class="loading-text" style="font-size: 1.5rem;">...</span>`;
-        // Removed initial Wait text from header to just show target header
-        if(headerTitle) headerTitle.innerHTML = ""; // Empty or specific text if needed, user requested removal
+        if(headerTitle) headerTitle.innerHTML = "";
 
-        // Hide CTA message during loading - it will be shown after slots load
         const ctaMsg = document.getElementById('calCtaMsg');
         if(ctaMsg) ctaMsg.style.display = 'none';
+
+        // Hide slots block during render/loading
+        const slotsBlock = document.querySelector('.slots-block');
+        if(slotsBlock) slotsBlock.style.display = 'none';
 
         // Show loading state when switching months
         const slotsDisplay = document.getElementById('slotsDayDisplay');
@@ -2915,10 +2422,8 @@
 
         logEvent("Calendar Render", `${monthNames[month]} ${year}`);
 
-        // Modified Display: Month only, no year
         monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span>`;
 
-        // Render Day Headers
         const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         dayNames.forEach(day => {
             const div = document.createElement('div');
@@ -2927,7 +2432,6 @@
             calendarGrid.appendChild(div);
         });
 
-        // Calculate padding days
         const firstDay = new Date(year, month, 1);
         const startingDay = firstDay.getDay(); // 0-6
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -2939,8 +2443,7 @@
             calendarGrid.appendChild(div);
         }
 
-        // Days
-        const KEY_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.4)); transform: rotate(45deg);"><defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /><stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" /></linearGradient></defs><circle cx="7.5" cy="15.5" r="5.5" stroke="url(#goldGrad)"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2" stroke="url(#goldGrad)"/></svg>`;
+        const KEY_SVG = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(45deg);"><g transform="translate(0, 1)"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2"/></g></svg>`;
 
         for (let day = 1; day <= daysInMonth; day++) {
             const div = document.createElement('div');
@@ -2957,43 +2460,28 @@
             const isSunday = checkDate.getDay() === 0;
             const isToday = checkDate.getTime() === torontoNow.getTime();
 
-            // Determine Content
             if (isSaturday) {
-                 // Saturday Key (Gold) on ALL Saturdays except Feb 14
-                 div.innerHTML = KEY_SVG;
+                 div.innerHTML = `<span class="cal-key">${KEY_SVG}</span><span class="cal-num">${day}</span>`;
                  div.classList.add('cal-day--saturday-available');
-                 div.title = "Office Closed"; // Add tooltip
-                 // Past Saturdays: match disabled day opacity
                  if (isPast) div.style.opacity = '0.3';
             } else {
-                 // Standard Day Number
                  div.textContent = day;
             }
 
-            // Determine Status (Disabled / Clickable) - Fix precedence
             if (isPast) {
                 div.classList.add('cal-day--disabled');
             } else if (isSunday) {
-                 // Sunday is disabled BUT if it's today, we want to show red border
-                 // So we add disabled class for opacity/clicks but today class will override border
                  div.classList.add('cal-day--disabled');
             }
             
             if (!isPast) {
                  div.onclick = () => selectDate(day, div);
             }
-            // Remove click for disabled
             if(div.classList.contains('cal-day--disabled')) div.onclick = null;
 
-            // Highlight Today - Apply LAST to ensure border visibility
             if (isToday) {
                 div.classList.add('cal-day--today');
-                // Ensure opacity is high enough to see border if it was disabled (e.g. Sunday)
                 if(isSunday) div.style.opacity = '1'; 
-                // But keep pointer events none if we want to disable clicks? 
-                // User said "Sunday unclickable". So keep disabled class or pointer-events:none
-                // But opacity 1 to show red border clearly? Or just the border?
-                // .cal-day--disabled sets opacity 0.15. We need to override it for TODAY.
             }
 
             calendarGrid.appendChild(div);
@@ -3019,13 +2507,10 @@
 
     async function fetchAvailability(year, month) {
         const cacheKey = `${year}-${month}`;
-        // loader.style.display = 'block'; // Old text loader disabled
         const separator = document.getElementById('loadingSeparator');
         if(separator) separator.classList.add('loading-separator--active');
         
         try {
-            // If checking availability for a different month than currently viewed, ignore (UI handling)
-            // But here we rely on cache or fetch
             if (!availableSlotsCache[cacheKey]) {
                 const response = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}&_t=${Date.now()}`);
                 const data = await response.json();
@@ -3048,7 +2533,6 @@
                 slotsDisplay.textContent = 'Error loading availability';
             }
         } finally {
-            // loader.style.display = 'none';
             const separator = document.getElementById('loadingSeparator');
             if(separator) separator.classList.remove('loading-separator--active');
         }
@@ -3056,8 +2540,6 @@
 
     async function updateCalendarWithAvailability(slots) {
         if (!Array.isArray(slots)) {
-            // Play Sound (Nice Chime)
-            // If no slots array, clear loading message
             const slotsDisplay = document.getElementById('slotsDayDisplay');
             if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
                 slotsDisplay.classList.remove('hypnotic-text');
@@ -3069,11 +2551,8 @@
         
         const dayElements = document.querySelectorAll('.cal-day:not(.cal-day--empty)');
         const slotsMap = {}; // date -> count
-        
-        // Fix: derive year/month from global currentDate as they are needed for comparisons
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
-        
         // Logic: Disable today and tomorrow (allow booking only from 2 days ahead)
         const minBookingDate = new Date();
         minBookingDate.setDate(minBookingDate.getDate() + 2);
@@ -3090,28 +2569,15 @@
             }
         });
 
-        // Find nearest free day (first day with slots that is >= today)
-        // We need to check available slots and find first one
         let nearestDay = null;
         const today = new Date();
         today.setHours(0,0,0,0);
-        
-        // Sort keys (dates) just to be sure
         const availableDays = Object.keys(slotsMap).map(Number).sort((a,b) => a-b);
-        
-        // We need to compare full dates.
-        // The slotsMap keys are just 'day' numbers for the 'current displayed month'.
-        // So we just iterate through them.
-        
-        // Only if we are in the future or current month?
-        // simple logic: find first day in availableDays that is not in the past.
-        // Since we are rendering a specific month, we can just check if (year, month, day) >= today.
 
         for (let d of availableDays) {
             const checkDate = new Date(year, month, d);
             // Skip Saturdays (6) for auto-selection, even if they have slots
             if (checkDate >= today && checkDate.getDay() !== 6) {
-                // Check if this day has at least one available (not busy) slot
                 const hasAvailableSlot = slotsMap[d].some(s => s.status !== 'busy');
                 if (hasAvailableSlot) {
                     nearestDay = d;
@@ -3133,31 +2599,16 @@
                 el.style.setProperty('--i', availableDaysCount++);
                 el.dataset.slots = JSON.stringify(slotsMap[dayFn]);
                 
-                // Highlight closest free day - MODIFIED for busy logic
-                // Check if ALL slots are busy?
                 const allBusy = slotsMap[dayFn].every(s => s.status === 'busy');
                 
                 if (!allBusy && nearestDay && dayFn === nearestDay) {
-                     autoSelectedDay = true; // Set flag BEFORE setTimeout
-                     // Instead of just highlighting, we SELECT it (open it)
-                     // Using timeout to ensure DOM is ready and transitions look okay
+                     autoSelectedDay = true;
                      setTimeout(() => {
-                        selectDate(dayFn, el, true); // Added true for isAutoSelection
+                        selectDate(dayFn, el, true);
                      }, 200);
-                     
-                     // Show message (update header) - "Available Appointments: ..."
-                    // Play Sound (Nice Chime)
-                    playSuccessLoadSound();
-
-                     // Handled in selectDate now
                 }
 
             } else {
-                // If not in past but no slots, disable it
-                // We checked if it's past/Sunday during creation, but here we know it has NO slots returned from API.
-                // However, API returns *available* slots. If a day is missing from slotsMap, it means 0 slots.
-                // We only want to disable if it's a valid day (not already disabled by past/Sunday check).
-                
                 if (!el.classList.contains('cal-day--disabled') && !el.classList.contains('cal-day--saturday-available')) { // Protect KEYS (Saturdays)
                      el.classList.add('cal-day--disabled');
                      el.style.opacity = '0.3'; // Visual cue
@@ -3166,8 +2617,6 @@
             }
         });
         
-        // Clear loading message after data processing, regardless of auto-selection result
-        // selectDate will handle the message if auto-selected, otherwise show helper text
         if (!autoSelectedDay) {
             const slotsDisplay = document.getElementById('slotsDayDisplay');
             if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
@@ -3180,62 +2629,50 @@
             }
         }
         
-        // Update footer button with nearest available slot info
-        // Do this after all calendar processing is complete
         updateFooterBookBtn();
     }
 
     function selectDate(day, element, isAutoSelection = false) {
-        // UI
         document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
         element.classList.add('cal-day--selected');
-        
-        // Remove specific highlights if any
         element.classList.remove('cal-day--nearest-free');
 
         selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
         logEvent("Date Selected", selectedDate.toDateString());
-        // selectedDateDisplay.textContent = selectedDate.toDateString(); // Removed from UI
-        
-        // Update header on manual selection
         const headerTitle = document.getElementById('calendarHeaderTitle'); // Legacy
         if(headerTitle) headerTitle.innerHTML = "";
 
-        // Update New Slots Header with [Weekday]
         const slotsDisplay = document.getElementById('slotsDayDisplay');
         const slotsNav = document.querySelector('.slots-nav');
-        
-        // Determine if we need to show loading state and delay
-        // Manual selections (user clicks date) show loading for 600ms
-        // Auto-selections (month switch) loading already shown, process immediately
         const needsLoadingDelay = !isAutoSelection;
+        const slotsBlock = document.querySelector('.slots-block');
         
-        // Show loading state only for manual date selections
         if (needsLoadingDelay && slotsDisplay) {
             slotsDisplay.textContent = '';
             slotsDisplay.innerHTML = 'Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span>';
             slotsDisplay.classList.add('hypnotic-text');
             if(slotsNav) slotsNav.classList.add('slots-nav--loading');
+            
+            // Hide block while loading new day
+            if(slotsBlock) slotsBlock.style.display = 'none';
         }
 
-        // Process slots after delay (or immediately for auto-selection)
         setTimeout(() => {
             if(slotsNav) slotsNav.classList.remove('slots-nav--loading');
+            
+            // Show block when data is ready
+            if(slotsBlock) slotsBlock.style.display = 'block';
 
             if(slotsDisplay) {
                 slotsDisplay.classList.remove('hypnotic-text'); // Remove animation
                 const options = { weekday: 'long' };
                 
-                // Check if there are slots
                 const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
                 let weekdayText;
                 
-                // Per request, replace date with a static legal-sounding title
                 weekdayText = (slotsData.length > 0)
-                    ? 'Slots:'
+                    ? 'SELECT YOUR TIME'
                     : 'No slots available for this date.';
-                
-                // Smooth transition for text update (skip for auto-selection to avoid double-animation)
                 if (needsLoadingDelay) {
                     slotsDisplay.classList.add('fade-out');
                     setTimeout(() => {
@@ -3250,7 +2687,6 @@
                 slotsDisplay.style.opacity = '1';
             }
 
-            // Render Slots
             slotsGrid.innerHTML = '';
             const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
 
@@ -3259,21 +2695,15 @@
                 return;
             }
 
-            // Show Loading (UI feedback already in header)
             if (slotsData.length === 0) {
-                // Check if selected date is TODAY (Toronto)
                 const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
                 const torontoNow = new Date(torontoNowStr);
                 
                 const datePhrase = isAutoSelection ? "anymore for Today" : "for this date";
 
                 slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #ffffff; font-weight: 700; font-size: 1.2rem; margin-top: 20px; line-height: 1.5;">No available slots ${datePhrase}.<br>Please select another day.</p>`;
-                
-                // Hide title if no slots
                 const titleEl = document.querySelector('.slots-title');
                 if(titleEl) titleEl.style.display = 'none';
-                
-                // Hide CTA when no slots
                 const ctaMsg = document.getElementById('calCtaMsg');
                 if(ctaMsg) {
                     ctaMsg.style.display = 'none';
@@ -3281,21 +2711,18 @@
                 }
 
             } else {
-                // Show title if slots exist
                 const titleEl = document.querySelector('.slots-title');
                 if(titleEl) titleEl.style.display = 'block';
                 
-                // Check if all slots are busy
                 const allBusy = slotsData.every(s => s.status === 'busy');
                 
-                // Show CTA with appropriate message
                 const ctaMsg = document.getElementById('calCtaMsg');
                 if(ctaMsg) {
                     ctaMsg.style.display = 'block';
                     if (allBusy) {
                         ctaMsg.innerHTML = 'No available slots for this date.';
                     } else {
-                        ctaMsg.innerHTML = 'Choose a slot';
+                        ctaMsg.innerHTML = 'SELECT YOUR TIME';
                     }
                 }
 
@@ -3307,45 +2734,35 @@
                 slotsData.forEach((slot, index) => {
                     const btn = document.createElement('button');
                     btn.className = 'slot-btn slot-btn--hypnotic'; 
-                    
-                    // Show Busy Status
                     if (slot.status === 'busy') {
                         btn.className = 'slot-btn slot-btn--busy';
-                        // Random rotation for stamp
                         const rot = Math.floor(Math.random() * 8) - 4; // -4 to 3 deg
                         btn.style.setProperty('--rot', rot + 'deg');
                     }
 
-                    // Generate Dynamic Clock Icon
                     const svgIcon = getClockIcon(slot.text);
                     
-                    // Format: Available: MMMM, DD
-                    // Line 2: YYYY.MM.DD - Time
                     const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
                     const yyyy = selectedDate.getFullYear();
                     const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
                     const dd = String(selectedDate.getDate()).padStart(2, '0');
                     
                     let rawTime = slot.text.split(/[-–]/)[0].trim().toUpperCase(); // "9:00 AM" always uppercase
-                    
                     let endTime = getEndTime(rawTime).toUpperCase();
                     const line2 = `${yyyy}.${mm}.${dd}`;
 
-                    // Animation logic: Last slot + every 2nd slot (more frequent teasing)
-                    // Huge font for available slots, keep small for busy. Added "PRESS" text.
                     let fontSize = '1.1rem';
                     let textStyle = `font-size: ${fontSize}; font-weight: 600; letter-spacing: 0.5px; display: block;`;
                     if ((index === slotsData.length - 1 || index % 2 === 0) && slot.status !== 'busy') {
-                        // Add delay based on index to desync
                         textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s); font-size: 2rem; text-align: center;`;
                     } 
 
-                    btn.innerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px;">
-                        <span style="font-size: 1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">${line2}</span>
-                        <div class="slot-icon-wrapper">${svgIcon}</div>
+                    btn.innerHTML = `<div style="width: 100%; text-align: left;">
+                        <span style="font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">${line2}</span>
                     </div>
-                    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; width: 100%;">
-                        <span style="${textStyle};text-align: center; height: 100%;">${rawTime} - ${endTime}</span>
+                    <div class="slot-icon-wrapper" style="margin: 0 auto;">${svgIcon}</div>
+                    <div style="width: 100%; text-align: center;">
+                        <span style="${textStyle};text-align: center; display: block;">${rawTime} - ${endTime}</span>
                     </div>`; 
                     
                     // Use CSS variable for index to control both animations independently
@@ -3353,7 +2770,10 @@
                     btn.style.setProperty('--i', availableDaysCount + index);
                     
                     if (slot.status !== 'busy') {
-                        btn.onclick = () => openBookingModal(slot);
+                        btn.onclick = () => {
+                            btn.classList.add('slot-btn--clicked');
+                            setTimeout(() => openBookingModal(slot), 600);
+                        };
                     }
                     slotsGrid.appendChild(btn);
                 });
@@ -3373,7 +2793,6 @@
         try {
             selectedSlotData = slot;
             logEvent("Form Opened", slot.text);
-            // Set timestamp for bot detection (server checks if form filled too fast)
             const tsInput = document.getElementById('formTimestamp');
             if (tsInput) tsInput.value = Date.now().toString();
 
@@ -3382,13 +2801,11 @@
                 return;
             }
 
-            // Date part: YYYY, Month, DD
             const year = selectedDate.getFullYear();
             const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
             const day = String(selectedDate.getDate()).padStart(2, '0');
             const dateFormatted = `${year}.${month}.${day}`;
 
-            // Time part
             let startTime = slot.text;
             if (startTime && (startTime.includes('-') || startTime.includes('–'))) {
                 startTime = startTime.split(/[-–]/)[0].trim();
@@ -3405,7 +2822,6 @@
                 bookingTimeDisplay.textContent = `${dateFormatted} at ${startTime} - ${endTime}`;
             }
             
-            // Also update modal title with appointment time
             const modalAppointmentTime = document.getElementById('modalAppointmentTime');
             if(modalAppointmentTime) {
                 modalAppointmentTime.textContent = `${dateFormatted} at ${startTime} - ${endTime}`;
@@ -3424,7 +2840,6 @@
                 confirmBtn.textContent = 'Book Now';
             }
             
-            // Load saved form data from localStorage
             loadFormData();
         } catch (error) {
             console.error("Error opening booking modal:", error);
@@ -3444,7 +2859,6 @@
         document.getElementById('termsModal').classList.remove('modal--active');
     }
     
-    // Existing Terms modal trigger needs a listener if not inline
     document.querySelectorAll('.contact-form__terms-link').forEach(link => {
         link.addEventListener('click', () => {
              document.getElementById('termsModal').classList.add('modal--active');
@@ -3587,7 +3001,6 @@
             if (data.dob_month) form.dob_month.value = data.dob_month;
             if (data.dob_day) form.dob_day.value = data.dob_day;
             
-            // Restore checkbox state
             if (data.agreeTerms) {
                 document.getElementById('agreeTerms').checked = true;
             }
@@ -3600,7 +3013,6 @@
                 const trigger = document.querySelector('.custom-select__trigger span');
                 if (trigger) trigger.textContent = data.service;
                 
-                // Mark the selected option
                 const options = document.querySelectorAll('.custom-option');
                 options.forEach(opt => {
                     if (opt.textContent.trim() === data.service) {
@@ -3623,14 +3035,12 @@
         }
     }
 
-    // Attach save listeners to form fields
     function attachFormAutoSave() {
         const inputs = document.querySelectorAll('#bookingForm input, #bookingForm textarea, #bookingForm select');
         inputs.forEach(input => {
             input.addEventListener('change', saveFormData);
             input.addEventListener('input', saveFormData);
         });
-        
         // Also save when custom select changes
         const customOptions = document.querySelectorAll('.custom-option');
         customOptions.forEach(option => {
@@ -3640,19 +3050,16 @@
         });
     }
 
-    // Initialize auto-save on page load
     window.addEventListener('DOMContentLoaded', () => {
         attachFormAutoSave();
     });
 
-    // Also try to attach if DOM is already loaded
     attachFormAutoSave();
 
     async function handleBookingSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        // Service Validation
         if (!formData.get('service')) {
             bookingStatus.style.color = '#ff6b6b';
             bookingStatus.textContent = 'Please choose a service from the list.';
@@ -3677,7 +3084,6 @@
             return;
         }
 
-        // Rate limiting: 60 seconds between submissions
         const now = Date.now();
         if (now - lastBookingTime < 60000) {
             bookingStatus.style.color = '#ff6b6b';
@@ -3689,7 +3095,6 @@
         confirmBtn.disabled = true;
 
         try {
-            // Convert attached files to base64
             const filesData = [];
             if (attachedFiles.length > 0) {
                 bookingStatus.textContent = "Uploading files...";
@@ -3697,7 +3102,6 @@
 
                 for (let i = 0; i < attachedFiles.length; i++) {
                     const file = attachedFiles[i];
-                    // Animate progress
                     if (fileItems[i]) {
                         const bar = fileItems[i].querySelector('.file-attach__progress');
                         if (bar) bar.style.width = '100%';
@@ -3742,16 +3146,13 @@
             if (result.success) {
                 logEvent("Booking Success", selectedSlotData.iso);
                 lastBookingTime = Date.now();
-                clearFormData(); // Clear saved form data after successful booking
-                
+                clearFormData();
                 playSuccessSound(); // Play Sound
-                
-                // Modal Success Message
                 const modalContent = modal.querySelector('.modal__content');
                 modalContent.innerHTML = `
                     <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
                     <h2 class="modal__title" style="text-align: center; color: var(--accent-gold); margin-top: 20px;">Booking Request Sent!</h2>
-                    <div class="modal__body" style="text-align: center; padding: 20px 10px;">
+                    <div class="modal__body" style="text-align: center; padding: 20px 10px; position: relative;" id="successBody">
                         <div style="font-size: 3rem; margin-bottom: 20px;">&#10003;</div>
                         <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you for your request.</p>
                         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
@@ -3763,9 +3164,12 @@
                     </div>
                 `;
                 
-                // attachedFiles = []; // No need to clear if we replaced content
-                // renderFileList();
-                // setTimeout(() => { ... }, 2000); // Removed auto-close to let user read
+                // Trigger fireworks in the success modal
+                const successBody = document.getElementById('successBody');
+                if (successBody) {
+                    // Create multiple bursts for a bigger effect
+                    for(let i=0; i<3; i++) setTimeout(() => createSparks(successBody), i * 300);
+          и       }
             } else {
                 throw new Error(result.error || "Unknown error");
             }
@@ -3781,6 +3185,7 @@
     // ------------------------------------------------------------------
     // AUDIO SYSTEM (Glassy Chimes)
     // ------------------------------------------------------------------
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playTone(freq, type, duration, delay = 0) {
         if(audioCtx.state === 'suspended') audioCtx.resume();
@@ -3796,12 +3201,7 @@
         osc.stop(audioCtx.currentTime + delay + duration);
     }
 
-    function playSuccessLoadSound() {
-        // playTone(440.00, 'sine', 0.4, 0);   // A4
-    }
-    
     function playSuccessSound() {
-        // Magical success chord
         playTone(523.25, 'sine', 1.5, 0);   // C5
         playTone(659.25, 'sine', 1.5, 0.1); // E5
         playTone(783.99, 'sine', 1.5, 0.2); // G5
@@ -3817,9 +3217,8 @@
 
     // Heart animation on coffee cups click
     document.getElementById('coffeeCups').addEventListener('click', function() {
-      const heart = document.querySelector('[data-theme="black"] #heartAnimation, [data-theme="light"] #heartAnimation');
+      const heart = document.getElementById('heartAnimation');
       
-      // Reset animation (forces restart)
       heart.style.transition = 'none';
       heart.style.transform = 'translate(-50%, -50%) scale(0)';
       heart.style.opacity = '1';
@@ -3831,19 +3230,7 @@
       });
     });
 
-
-
-    
-    // Also try on load (usually blocked, but harmless)
-    /* window.addEventListener('load', () => { setTimeout(playWelcomeSound, 500); }); */
-
-    // Modify HandleBookingSubmit Success Block inline override
-    // We already defined handleBookingSubmit, let's inject the new success logic by replacing the success block in the function via this tool.
-
-    
     function getEndTime(startTime) {
-        // Helper to add 50 minutes to start time
-        // Expected format "HH:MM AM/PM"
         try {
             const [time, modifier] = startTime.split(' ');
             let [hours, minutes] = time.split(':');
@@ -3855,7 +3242,6 @@
              
              d.setHours(h);
              d.setMinutes(parseInt(minutes));
-             
              // Add 50 minutes instead of 1 hour
              d.setMinutes(d.getMinutes() + 50);
              
@@ -3864,16 +3250,14 @@
             return "50 min later";
         }
     }
-    // Initial Load Log
-    window.addEventListener('load', () => logEvent("Page Load", window.location.href));
+    window.addEventListener('load', () => {
+        logEvent("Page Load", window.location.href);
+        adjustDynamicText();
+    });
 
-
-
-    // Footer Booking Button - show nearest available day
     function scrollToCalendar() {
         const cal = document.getElementById('bookingCalendar');
         if (cal) cal.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        // Click on nearest day if available
         setTimeout(() => {
             const nearestEl = document.querySelector('.cal-day--nearest');
             if (nearestEl) nearestEl.click();
@@ -3889,7 +3273,6 @@
         }
     }
 
-    // Update footer booking button text when absoluteNearestDate is set
     function updateFooterBookBtn() {
         const targets = [
             { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText'), preloader: document.getElementById('footerBookBtnPreloader') },
@@ -3897,28 +3280,22 @@
         ];
 
         if (absoluteNearestDate && nearestSlotData) {
-            // Get day of week (e.g., "Monday")
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
-            
-            // Use nearestSlotData that was stored when absoluteNearestDate was found
             let timeStr = '';
             if (nearestSlotData && nearestSlotData.text) {
                 timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
             }
             
-            // Display in two lines: "Available Slot!" on first line, day + time on second
             const htmlContent = timeStr 
                 ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek}, ${timeStr}</span>` 
                 : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
             
             targets.forEach(t => {
                 if(t.btn && t.txt && t.preloader) {
-                    // Hide preloader and show button
                     t.preloader.style.opacity = '0'; // Fade out preloader
                     t.preloader.style.transform = 'scale(0.9)'; // Shrink it
 
                     t.txt.innerHTML = htmlContent;
-                    // Fade in button
                     t.btn.style.opacity = '1';
                     t.btn.style.transform = 'scale(1)';
                     t.btn.style.pointerEvents = 'auto';
@@ -3929,14 +3306,12 @@
     }
 
     function createSparks(container) {
-        // Continuous non-interrupting sparks
         if (container.dataset.sparkTimer) return; // Only start one interval
 
         const spawnSpark = () => {
             const spark = document.createElement('span');
             spark.className = 'spark';
 
-            // New logic: Start from the edge and move outwards
             let x, y;
             const side = Math.floor(Math.random() * 4);
             const pos = Math.random() * 100;
@@ -3950,7 +3325,6 @@
             spark.style.left = `${x}%`;
             spark.style.top = `${y}%`;
 
-            // Move outwards from the center
             const dx = x - 50;
             const dy = y - 50;
             const magnitude = Math.sqrt(dx * dx + dy * dy);
@@ -3974,7 +3348,6 @@
         // Initial burst
         for (let i = 0; i < 6; i++) spawnSpark();
 
-        // Continuous trickle
         const timer = setInterval(() => {
             if (container.offsetParent === null) { // If hidden
                 clearInterval(timer);
@@ -3986,8 +3359,6 @@
         
         container.dataset.sparkTimer = timer;
     }
-
-
 
     // Periodic Progress Bar Scan
     setInterval(() => {
@@ -4009,14 +3380,10 @@
         const options = selectElement.querySelectorAll('.custom-option');
         const hiddenInput = document.getElementById('serviceInput');
         const wrapper = selectElement.closest('.custom-select-wrapper');
-        
-        // Toggle dropdown on trigger click
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             selectElement.classList.toggle('open');
         });
-        
-        // Handle option selection
         options.forEach(option => {
             option.addEventListener('click', () => {
                 const value = option.getAttribute('data-value') || option.textContent;
@@ -4025,19 +3392,14 @@
                 // Update trigger text
                 trigger.querySelector('span').textContent = text;
                 
-                // Update hidden input
                 if (hiddenInput) hiddenInput.value = text;
                 
-                // Update selected option styling
                 options.forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
                 
-                // Close dropdown
                 selectElement.classList.remove('open');
             });
         });
-        
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!wrapper.contains(e.target)) {
                 selectElement.classList.remove('open');
@@ -4045,20 +3407,6 @@
         });
     }
 
-    // Custom Select Logic (deprecated - kept for backward compatibility)
-    function selectOption(option, value) {
-        const wrapper = option.closest('.custom-select-wrapper');
-        const triggerSpan = wrapper.querySelector('.custom-select__trigger span');
-        const input = wrapper.querySelector('input[type="hidden"]');
-        
-        triggerSpan.textContent = value;
-        input.value = value;
-        
-        wrapper.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-    }
-
-    // Dynamic Text Scaling (Shrink to Fit)
     function adjustDynamicText() {
         const elements = document.querySelectorAll('.dynamic-text');
         elements.forEach(el => {
@@ -4068,319 +3416,72 @@
                 const style = window.getComputedStyle(el);
                 const currentSize = parseFloat(style.fontSize);
                 const ratio = el.clientWidth / el.scrollWidth;
-                // Shrink to fit with a small buffer (0.95)
                 el.style.fontSize = (currentSize * ratio * 0.95) + 'px';
             }
         });
     }
 
-    window.addEventListener('load', adjustDynamicText);
-    window.addEventListener('resize', () => requestAnimationFrame(adjustDynamicText));
-
-    // ------------------------------------------------------------------
-    // THEME SWITCH LOGIC
-    // ------------------------------------------------------------------
-    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-    const currentTheme = localStorage.getItem('theme');
-
-    if (currentTheme) {
-        document.documentElement.setAttribute('data-theme', currentTheme);
-        if (currentTheme === 'black') {
-            toggleSwitch.checked = true;
-        }
-    }
-
-    function switchTheme(e) {
-        if (e.target.checked) {
-            document.documentElement.setAttribute('data-theme', 'black');
-            localStorage.setItem('theme', 'black');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    toggleSwitch.addEventListener('change', switchTheme);
-
-    // ------------------------------------------------------------------
-    // LANGUAGE SWITCHER LOGIC
-    // ------------------------------------------------------------------
-    const translations = {
-        en: {
-            name: "Hanna Dunchenko",
-            subtitle: "Paralegal Services",
-            seo1: "Licensed Paralegal & Notary Public Services",
-            seo2: "Traffic Ticket Defense, LTB, WSIB Matters",
-            seo3: "Toronto, Richmond Hill, Mississauga, London",
-            seo4: "All online consultations are available province-wide",
-            bookBtn: "Book Your First<br>Available Appointment",
-            calCta: "CHOOSE A SLOT",
-            faqTitle: "FAQ",
-            hours: "<strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM",
-            copyright: "&copy; 2026 Hanna Dunchenko Paralegal Services",
-            faq1q: "What are the keys on the calendar?",
-            faq1a: "The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment. If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, some coffee & milk with",
-            faq2q: "ARE FEES THE SAME ON SATURDAYS?",
-            faq2a: "Yes. Service fees remain unchanged. The only difference is that weekend appointments must be confirmed in advance by phone. This confirmation ensures that there are no conflicting appointments in the calendar regarding other scopes of practice.",
-            faq3q: "What forms are worked with?",
-            faq3a: "<p>Enumeration provided strictly as examples and does not limit scope of practice.<br><br><strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. Attach all current documents now for assessment.</p>",
-            faq4q: "Privacy Policy?",
-            faq4a: "<p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary) are gathered through this form.</p><p style=\"margin-top: 10px;\"><strong>How It's Used:</strong> Your information helps deliver paralegal representation, answer your questions, and maintain contact (with your consent).</p><p style=\"margin-top: 10px;\"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> or emailing <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
-            faq5q: "OK ! WHERE IS YOUR OFFICE TODAY?",
-            faq5directions: "Directions",
-            faq5_tap: "Just tap",
-            faq5_driving: "to start driving",
-            termsModalTitle: "Terms of Service",
-            privacyPolicy: "Privacy Policy",
-            noLegalAdvice: "No Paralegal Advice",
-            noParalegalRelationship: "No Paralegal-Client Relationship",
-            confidentiality: "Confidentiality",
-            noGuarantee: "No Guarantee of Results",
-            feesAndRetainers: "Fees and Retainers",
-            limitationOfLiability: "Limitation of Liability",
-            formSubmission: "Form Submission & Response Disclaimer",
-            infoCollection: "Information Collection",
-            useOfInfo: "Use of Information",
-            analyticsAds: "Analytics & Advertising",
-            responseTime: "Response Time",
-            contactUs: "Contacting Us",
-            namesOfCourts: "Ontario Court of Justice, Superior Court of Justice, Landlord and Tenant Board",
-            faq_form_q: "Was there a previous registration form?",
-            faq_form_a: "The website has been redesigned; the prior registration form remains accessible at its original URL. For the avoidance of doubt, any existing links or bookmarks that previously pointed to the form will continue to direct users to the original <a href=\"https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:white; text-decoration: underline;\">Google Form</a>. No further action is required to access the earlier registration page."
-        },
-        fr: {
-            name: "Hanna Dunchenko",
-            subtitle: "Services de Paralégal",
-            seo1: "Services de paralégal agréé et notaire public",
-            seo2: "Défense des contraventions de circulation, tribunaux pour litiges entre locataires et propriétaires, dossiers d'indemnisation des accidents du travail",
-            seo3: "Toronto, Richmond Hill, Mississauga, London",
-            seo4: "Toutes les consultations en ligne sont disponibles dans toute la province de l'Ontario",
-            bookBtn: "Réservez votre première<br>consultation disponible",
-            calCta: "CHOISISSEZ UN CRÉNEAU",
-            faqTitle: "Questions Fréquemment Posées",
-            hours: "<strong>Heures d'ouverture :</strong><br>Dimanche : Fermé<br>Lundi - Samedi : 10h00 - 16h00",
-            copyright: "&copy; 2026 Services de Paralégal Hanna Dunchenko",
-            faq1q: "Que signifient les symboles sur le calendrier?",
-            faq1a: "Les symboles sur le calendrier ci-dessus indiquent les jours où le bureau est fermé. Des réunions peuvent néanmoins être organisées sur rendez-vous. Si nécessaire, nous pouvons assister ensemble, ouvrir le bureau et procéder à la consultation pour décrire la stratégie et les prochaines étapes. Le cas échéant, les discussions peuvent se dérouler dans un cadre plus détendu, avec un café & un verre de lait",
-            faq2q: "LES FRAIS SONT-ILS LES MÊMES LE SAMEDI?",
-            faq2a: "Oui. Les frais de service restent inchangés. La seule différence est que les rendez-vous de fin de semaine doivent être confirmés à l'avance par téléphone. Cette confirmation garantit qu'il n'y a pas de rendez-vous en conflit dans le calendrier concernant d'autres domaines de pratique.",
-            faq3q: "Avec quels formulaires travaillez-vous?",
-            faq3a: "<p>L'énumération fournie est strictement à titre d'exemple et ne limite pas le domaine de pratique.<br><br><strong>Défense contre les Contraventions de Circulation :</strong> Formulaires Partie I, Partie II, Partie III ; <strong>Commission de Location :</strong> Formulaires N1–N13, L1–L4, T1, T2, T6, Formulaire 6, Formulaire 7, Formulaire 8 ; <strong>CSPAAC :</strong> Formulaires 6, 7, 8, Formulaire des Capacités Fonctionnelles, Rapport l'Exposition Professionnelle, Rapport de Progrès du Médecin, Formulaire de Perte Auditive Induite par le Bruit, Formulaire de Frais de Déplacement ; <strong>Notaire Public :</strong> Formulaire de Demande 004-0315e, Affidavits, Déclarations Solennelles, Copies Certifiées, Authentification de Documents.<br><br>Vos dossiers seront examinés lors du rendez-vous pour déterminer les documents applicables. Joignez tous les documents actuels maintenant pour évaluation.</p>",
-            faq4q: "Politique de confidentialité?",
-            faq4a: "<p><strong>Collecte de Données :</strong> Les détails personnels que vous soumettez (nom, téléphone, e-mail, résumé du dossier) sont collectés par ce formulaire.</p><p style=\"margin-top: 10px;\"><strong>Utilisation :</strong> Vos informations nous aident à fournir une représentation parajuridique, à répondre à vos questions et à maintenir le contact (avec votre consentement).</p><p style=\"margin-top: 10px;\"><strong>Vos Droits :</strong> Demandez l'accès ou la suppression de vos données en appelant <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> ou en envoyant un email à <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
-            faq5q: "OÙ SE TROUVE VOTRE BUREAU?",
-            faq5directions: "Itinéraire",
-            faq5_tap: "Appuyez simplement",
-            faq5_driving: "pour commencer à conduire",
-            termsModalTitle: "Conditions d'utilisation",
-            privacyPolicy: "Politique de Confidentialité",
-            noLegalAdvice: "Pas de Conseils en Paralégie",
-            noParalegalRelationship: "Aucune Relation Paralégal-Client",
-            confidentiality: "Confidentialité",
-            noGuarantee: "Aucune Garantie de Résultats",
-            feesAndRetainers: "Honoraires et Conventions de Rétention",
-            limitationOfLiability: "Limitation de Responsabilité",
-            formSubmission: "Formulaire de Soumission et Avis de Réserve de Réponse",
-            infoCollection: "Collecte d'Informations",
-            useOfInfo: "Utilisation de l'Information",
-            analyticsAds: "Analyse et Publicité",
-            responseTime: "Délai de Réponse",
-            contactUs: "Nous Contacter",
-            namesOfCourts: "Cour de justice de l'Ontario, Cour supérieure de justice, Commission de location",
-            faq_form_q: "Y avait-il un formulaire d'inscription précédent ?",
-            faq_form_a: "Le site Web a été repensé ; l'ancien formulaire d'inscription reste accessible à son URL d'origine. Pour éviter tout doute, tous les liens ou signets existants qui pointaient auparavant vers le formulaire continueront de diriger les utilisateurs vers le <a href=\"https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:white; text-decoration: underline;\">Google Form</a> d'origine. Aucune autre action n'est requise pour accéder à la page d'inscription précédente."
-        },
-        ua: {
-            name: "Ганна Дунченко",
-            subtitle: "Послуги Паралегала",
-            seo1: "Послуги ліцензованого паралегала та нотаріуса",
-            seo2: "Захист від штрафів за дорожні порушення, справи Комісії розселення та житла, справи з дорожно-транспортних пригод",
-            seo3: "Торонто, Річмонд-Гілл, Міссісага, Лондон",
-            seo4: "Онлайн-консультації доступні по всій провінції Онтаріо",
-            bookBtn: "Забронюйте вашу першу<br>доступну консультацію",
-            calCta: "ВИБЕРІТЬ СЛОТ",
-            faqTitle: "Часто Задавані Запитання",
-            hours: "<strong>Час роботи:</strong><br>Неділя: Закрито<br>Понеділок - Субота: 10:00 - 16:00",
-            copyright: "&copy; 2026 Послуги Паралегала Ганни Дунченко",
-            faq1q: "Що означають символи календаря?",
-            faq1a: "Символи на календарі вище вказують на дні, коли офіс закритий. З'їзди все ж таки можна організувати за попередньою домовленістю. Якщо потрібно, ми можемо прийти разом, відкрити офіс і провести консультацію для визначення стратегії та наступних кроків. У разі потреби обговорення можуть проводитися в більш розслабленій обстановці з кавою та молоком",
-            faq2q: "ЧИ ТІ САМІ ЗБОРИ ПО СУБОТАХ?",
-            faq2a: "Так. Розмір плати за послуги залишається незмінним. Єдина різниця полягає в тому, що призначення на вихідні повинні бути підтверджені заздалегідь по телефону. Це підтвердження гарантує, що в календарі немає конфліктних призначень щодо інших областей практики.",
-            faq3q: "З якими формами ви працюєте?",
-            faq3a: "<p>Перерахування надане строго як приклади і не обмежує обсяг практики.<br><br><strong>Захист від однократних порушень ПДР :</strong> Форми Частина I, Частина II, Частина III ; <strong>Комісія Розселення та Житла :</strong> Форми N1–N13, L1–L4, T1, T2, T6, Форма 6, Форма 7, Форма 8 ; <strong>КБПБПН :</strong> Форми 6, 7, 8, Форма Функціональних Можливостей, Звіт про Виробничу Експозицію, Звіт про Прогрес Лікаря, Форма Втрати Слуху, Викликаної Шумом, Форма Витрат на Подорожі ; <strong>Нотаріус :</strong> Форма Заяви 004-0315e, Анкети, Урочисті Декларації, Засвідчені Копії, Засвідчення Документів.<br><br>Ваші файли будуть переглянуті під час прийому для визначення застосовних документів. Додайте всі поточні документи зараз для оцінки.</p>",
-            faq4q: "Політика конфіденційності?",
-            faq4a: "<p><strong>Збір даних :</strong> Особисті дані, які ви надаєте (ім'я, телефон, електронна пошта, резюме справи), збираються через цю форму.</p><p style=\"margin-top: 10px;\"><strong>Як це використовується :</strong> Ваша інформація допомагає надавати представництво паралегала, відповідати на ваші запитання та підтримувати контакт (з вашої згоди).</p><p style=\"margin-top: 10px;\"><strong>Ваші права :</strong> Попросіть доступ або видалення ваших даних, подзвонивши за номером <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> або надіславши електронного листа на адресу <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
-            faq5q: "ДЕ ЗНАХОДИТЬСЯ ВАШЕ БЮРО?",
-            faq5directions: "Маршрут",
-            faq5_tap: "Просто натисніть",
-            faq5_driving: "щоб почати їзду",
-            termsModalTitle: "Умови обслуговування",
-            privacyPolicy: "Політика Конфіденційності",
-            noLegalAdvice: "Відсутність Порад Паралегала",
-            noParalegalRelationship: "Відсутність Стосунків Паралегал-Клієнт",
-            confidentiality: "Конфіденційність",
-            noGuarantee: "Без Гарантії Результатів",
-            feesAndRetainers: "Гонорари та Угоди про Утримання",
-            limitationOfLiability: "Обмеження Відповідальності",
-            formSubmission: "Подання Форми та Відмова в Гарантії Відповіді",
-            infoCollection: "Збір Інформації",
-            useOfInfo: "Використання Інформації",
-            analyticsAds: "Аналітика та Реклама",
-            responseTime: "Час Відповіді",
-            contactUs: "Зв'язок з Нами",
-            namesOfCourts: "Суд справедливості Онтаріо, Верховний суд справедливості, Комісія розселення та житла",
-            faq_form_q: "Чи була тут раніше інша реєстраційна форма?",
-            faq_form_a: "Веб-сайт було оновлено; попередня реєстраційна форма залишається доступною за її оригінальною URL-адресою. Щоб уникнути сумнівів, будь-які існуючі посилання або закладки, які раніше вказували на форму, продовжуватимуть спрямовувати користувачів на оригінальну <a href=\"https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:white; text-decoration: underline;\">Google Form</a>. Для доступу до попередньої сторінки реєстрації не потрібно жодних додаткових дій."
-        },
-        ru: {
-            name: "Анна Дунченко",
-            subtitle: "Услуги Паралегала",
-            seo1: "Услуги лицензированного паралегала и нотариуса",
-            seo2: "Защита от штрафов за нарушение правил дорожного движения, дела Комиссии по жилищным спорам, дела по страхованию от несчастных случаев на производстве",
-            seo3: "Торонто, Ричмонд-Хилл, Миссиссога, Лондон",
-            seo4: "Онлайн-консультации доступны по всей провинции Онтарио",
-            bookBtn: "Забронируйте вашу первую<br>доступную консультацию",
-            calCta: "ВЫБЕРИТЕ СЛОТ",
-            faqTitle: "Часто Задаваемые Вопросы",
-            hours: "<strong>Часы работы:</strong><br>Воскресенье: Закрыто<br>Понедельник - Суббота: 10:00 - 16:00",
-            copyright: "&copy; 2026 Услуги Паралегала Анны Дунченко",
-            faq1q: "Что означают иконки ключей в календаре?",
-            faq1a: "Символы ключей на календаре указывают дни, когда офис закрыт. Встречи все ещё можно организовать по предварительной записи. При необходимости мы можем прийти вместе, открыть офис и провести консультацию, чтобы обсудить стратегию и следующие шаги. При необходимости обсуждения могут проводиться в более расслабленной обстановке с кофе и молоком",
-            faq2q: "Стоимость по субботам такая же?",
-            faq2a: "Да. Размер платы за услуги остаётся неизменным. Единственное отличие заключается в том, что приёмы в выходные дни должны быть подтверждены заранее по телефону. Это подтверждение гарантирует отсутствие конфликтующих приёмов в календаре, касающихся других направлений практики.",
-            faq3q: "С какими формами вы работаете?",
-            faq3a: "<p>Перечисление предоставляется исключительно в качестве примеров и не ограничивает сферу деятельности.<br><br><strong>Защита от штрафов за дорожные нарушения :</strong> Формы Часть I, Часть II, Часть III ; <strong>Комиссия по жилищным спорам :</strong> Формы N1–N13, L1–L4, T1, T2, T6, Форма 6, Форма 7, Форма 8 ; <strong>КПЦПБПНС :</strong> Формы 6, 7, 8, Форма Функциональных Возможностей, Отчёт о Производственном Воздействии, Отчёт о Прогрессе Врача, Форма Потери слуха, Вызванной Шумом, Форма Расходов на Путешествие ; <strong>Нотариус :</strong> Форма Заявления 004-0315e, Клятвенные Заявления, Торжественные Декларации, Заверенные Копии, Удостоверение Документов.<br><br>Ваши файлы будут рассмотрены на приёме для определения применимых документов. Приложите все текущие документы сейчас для оценки.</p>",
-            faq4q: "Политика конфиденциальности?",
-            faq4a: "<p><strong>Сбор данных :</strong> Личные данные, которые вы предоставляете (имя, телефон, электронная почта, резюме дела), собираются через эту форму.</p><p style=\"margin-top: 10px;\"><strong>Как они используются :</strong> Ваша информация помогает нам обеспечивать представительство паралегала, отвечать на ваши вопросы и поддерживать связь (с вашего согласия).</p><p style=\"margin-top: 10px;\"><strong>Ваши права :</strong> Запросите доступ или удаление ваших данных, позвонив по номеру <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> или отправив письмо на адрес <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong>.</p>",
-            faq5q: "ГДЕ НАХОДИТСЯ ВАШ ОФИС?",
-            faq5directions: "Маршрут",
-            faq5_tap: "Просто нажмите",
-            faq5_driving: "чтобы начать движение",
-            termsModalTitle: "Условия Обслуживания",
-            privacyPolicy: "Политика Конфиденциальности",
-            noLegalAdvice: "Отсутствие Консультаций Паралегала",
-            noParalegalRelationship: "Отсутствие Отношений Паралегал-Клиент",
-            confidentiality: "Конфиденциальность",
-            noGuarantee: "Без Гарантии Результатов",
-            feesAndRetainers: "Гонорары и Соглашения об Удержании",
-            limitationOfLiability: "Ограничение Ответственности",
-            formSubmission: "Отправка Формы и Оговорка об Ответе",
-            infoCollection: "Сбор Информации",
-            useOfInfo: "Использование Информации",
-            analyticsAds: "Аналитика и Реклама",
-            responseTime: "Время Ответа",
-            contactUs: "Свяжитесь с Нами",
-            namesOfCourts: "Суд справедливости Онтарио, Верховный суд справедливости, Комиссия по жилищным спорам",
-            faq_form_q: "Раньше здесь была другая регистрационная форма?",
-            faq_form_a: "Веб-сайт был обновлен; предыдущая регистрационная форма остается доступной по ее оригинальному URL-адресу. Чтобы избежать сомнений, любые существующие ссылки или закладки, которые ранее указывали на форму, будут по-прежнему направлять пользователей на оригинальную <a href=\"https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:white; text-decoration: underline;\">Google Form</a>. Для доступа к прежней странице регистрации не требуется никаких дополнительных действий."
-        },
-        ch: {
-            name: "汉娜·邓琴科",
-            subtitle: "法律助理服务",
-            seo1: "持证法律助理和公证员服务",
-            seo2: "交通罚单抗辩、房东与租户委员会事务、工伤保险相关事务",
-            seo3: "多伦多、列治文山、密西沙加、伦敦",
-            seo4: "整个安大略省可提供在线咨询服务",
-            bookBtn: "预订您的第一次<br>可用咨询",
-            faqTitle: "常见问题",
-            hours: "<strong>营业时间：</strong><br>星期日：关闭<br>星期一至星期六：上午10:00 - 下午4:00",
-            copyright: "&copy; 2026 汉娜·邓琴科法律助理服务",
-            faq1q: "日历上的符号是什么意思?",
-            faq1a: "上面日历上的符号表示办公室关闭的日期。仍可通过预约安排会议。如需要，我们可以一起出席，打开办公室，进行咨询以概述策略和后续步骤。在适当的情况下，讨论可以在更轻松的环境中进行，享用咖啡和牛奶",
-            faq2q: "星期六的费用是否相同?",
-            faq2a: "是的。服务费保持不变。唯一的区别是周末约会必须提前通过电话确认。此确认确保日历中没有关于其他实践范围的冲突约会。",
-            faq3q: "您使用什么表格?",
-            faq3a: "<p>列举仅作为示例提供，不限制实践范围。<br><br><strong>交通罚单抗辩 :</strong> 第一部分、第二部分、第三部分表格 ; <strong>房东与租户委员会 :</strong> 表格 N1–N13, L1–L4, T1, T2, T6, 表格6、7、8 ; <strong>工伤保险 :</strong> 表格 6, 7, 8, 功能能力表格, 职业暴露事件报告, 医生进展报告, 噪声诱发的听力丧失表格, 差旅费表格 ; <strong>公证员 :</strong> 04-0315e 申请表, 宣誓书, 庄严声明, 认证副本, 文件认证。<br><br>您的文件将在预约时进行审查，以确定适用的文件。现在附上所有当前文件进行评估。</p>",
-            faq4q: "隐私政策?",
-            faq4a: "<p><strong>信息收集 :</strong> 您提交的个人详情（姓名、电话、电子邮件、案件摘要）通过此表格收集。</p><p style=\"margin-top: 10px;\"><strong>如何使用 :</strong> 您的信息帮助我们提供法律助理代理、回答您的问题，并维持联系（征求您的同意）。</p><p style=\"margin-top: 10px;\"><strong>您的权利 :</strong> 通过拨打 <strong><a href=\"tel:+14372396833\" style=\"color: #ffffff; text-decoration: none;\">+1 (437) 239-6833</a></strong> 或发送电子邮件至 <strong><a href=\"mailto:paralegal@hannadunchenko.com\" style=\"color: #ffffff; text-decoration: none;\">paralegal@hannadunchenko.com</a></strong> 来请求访问或删除您的数据。</p>",
-            faq5q: "您的办公室在哪里?",
-            faq5directions: "路线",
-            faq5_tap: "只需轻点",
-            faq5_driving: "开始驾驶",
-            termsModalTitle: "服务条款",
-            privacyPolicy: "隐私政策",
-            noLegalAdvice: "无法律助理建议",
-            noParalegalRelationship: "无法律助理-客户关系",
-            confidentiality: "保密性",
-            noGuarantee: "不保证结果",
-            feesAndRetainers: "费用和代理协议",
-            limitationOfLiability: "责任限制",
-            formSubmission: "表格提交和响应免责声明",
-            infoCollection: "信息收集",
-            useOfInfo: "信息使用",
-            analyticsAds: "分析和广告",
-            responseTime: "响应时间",
-            contactUs: "联系我们",
-            namesOfCourts: "安大略省高等法院、安大略最高法院、房东与租户委员会",
-            faq_form_q: "以前这里有不同的注册表吗？",
-            faq_form_a: "网站已重新设计；之前的注册表仍可在其原始 URL 访问。为免生疑问，以前指向该表单的任何现有链接或书签将继续引导用户访问原始 <a href=\"https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:white; text-decoration: underline;\">Google Form</a>。无需进一步操作即可访问早期的注册页面。"
-        },
-    };
-
-    function setLanguage(lang) {
-        // Update active button state
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.textContent.toLowerCase() === lang) btn.classList.add('active');
-        });
-
-        // Update text content
-        const t = translations[lang];
-        if (!t) return;
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (t[key]) {
-                el.innerHTML = t[key];
-            }
-        });
-
-        // Save preference
-        localStorage.setItem('site_lang', lang);
-    }
-
-    // Load saved language
-    const savedLang = localStorage.getItem('site_lang');
-    if (savedLang) setLanguage(savedLang);
-
     // ------------------------------------------------------------------
     // AUTO-HIDING TOP BAR
     // ------------------------------------------------------------------
     const topBar = document.querySelector('.top-bar');
+    const bottomBar = document.querySelector('.bottom-bar');
     let lastScrollTop = 0;
     let scrollTimeout;
 
-    function hideTopBar() {
-        // Don't hide if a modal is open
+    function hideBars() {
         if (!document.querySelector('.modal--active')) {
-            topBar.classList.remove('top-bar--visible');
+            if (topBar) topBar.classList.remove('top-bar--visible');
+            if (bottomBar) bottomBar.classList.remove('bottom-bar--visible');
         }
     }
 
     function startHideTimer() {
         clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(hideTopBar, 5000); // Hide after 5 seconds of idle
+        scrollTimeout = setTimeout(hideBars, 10000);
     }
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (topBar) {
-            if (currentScroll > lastScrollTop) {
-                // Downscroll
-                topBar.classList.add('top-bar--visible');
-            } else {
-                // Upscroll
-                topBar.classList.remove('top-bar--visible');
-            }
-            startHideTimer();
-        }
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+        
+        // On any scroll, show the bars.
+        if (topBar) topBar.classList.add('top-bar--visible');
+        if (bottomBar) bottomBar.classList.add('bottom-bar--visible');
+        
+        // Reset the timer to hide it after a period of inactivity.
+        startHideTimer();
+        
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }, { passive: true });
 
     if (topBar) {
         topBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
         topBar.addEventListener('mouseleave', startHideTimer);
     }
+    if (bottomBar) {
+        bottomBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
+        bottomBar.addEventListener('mouseleave', startHideTimer);
+    }
+
+    // Scroll Fade-in Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-section').forEach(section => {
+        observer.observe(section);
+    });
 </script>
 </body>
 </html>
