@@ -157,11 +157,11 @@
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
 
         .header__contact {
-            margin: 20px 0 0;
+            margin: 5px 0 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -839,7 +839,7 @@
 
         .cal-day--selected {
             background: #ffffff !important;
-            color: rgba(0, 0, 0, 0.8) !important; /* Dark on white */
+            color: #5a3d2a !important; /* Match Available Slot button color */
             mix-blend-mode: normal !important; /* Ensure visible */
             font-weight: 900;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -972,6 +972,7 @@
             display: none; /* Hidden by default */
         }
 
+
         @keyframes fadeTitle { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .slots-grid {
@@ -979,6 +980,8 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
+
+
 
         .slot-btn {
             display: flex;
@@ -1805,11 +1808,14 @@
 <header class="header fade-in-section">
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
     <h1 class="header__seo-text">
         <span class="header__seo-line dynamic-text" data-i18n="seo1">Licensed Paralegal &amp; Notary Public Services </span>
         <span class="header__seo-line dynamic-text" data-i18n="seo2">Traffic Ticket Defense, LTB, WSIB Matters </span>
         <span class="header__seo-line dynamic-text" data-i18n="seo3">Toronto, Richmond Hill, Mississauga, London </span>
-        <span class="header__seo-line dynamic-text" data-i18n="seo4">All online consultations are available province-wide </span>
+        <span class="header__seo-line dynamic-text" data-i18n="seo4">Online meetings are available province-wide</span>
     </h1>
     <div class="book-btn-wrapper">
         <!-- Container for preloader and button to manage smooth transition -->
@@ -1824,9 +1830,6 @@
             <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
         </button>
     </div>
-    </div>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
     </div>
 </header>
 
@@ -1901,6 +1904,12 @@
             </div>
         </details>
 
+        <details class="faq__item" open>
+            <summary class="faq__question">Is online as effective as in-person?</summary>
+            <div class="faq__answer">
+                Yes! You’ll receive the same professional advice and representation, with the convenience of connecting from home or work. Sounds good, right?
+            </div>
+        </details>
 
        <details class="faq__item" open>
             <summary class="faq__question" data-i18n="faq_form_q">Was there an earlier way to register?</summary>
@@ -2415,7 +2424,6 @@
     }
 
     async function renderCalendar() {
-        calendarGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
         const headerTitle = document.getElementById('calendarHeaderTitle');
         if(headerTitle) headerTitle.innerHTML = "";
@@ -2469,6 +2477,9 @@
             div.className = 'cal-day';
             div.dataset.day = day;
             
+            // Reduce opacity by 3% for each subsequent day
+            div.style.opacity = Math.max(0.1, 1 - (day * 0.03)).toFixed(2);
+            
             const checkDate = new Date(year, month, day);
             const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
             const torontoNow = new Date(torontoNowStr);
@@ -2482,13 +2493,14 @@
             if (isSaturday) {
                  div.innerHTML = `<span class="cal-key">${KEY_SVG}</span><span class="cal-num">${day}</span>`;
                  div.classList.add('cal-day--saturday-available');
-                 if (isPast) div.style.opacity = '0.3';
+                 if (isPast) div.style.opacity = '0.3'; // Override calculated opacity for past
             } else {
                  div.textContent = day;
             }
 
             if (isPast) {
                 div.classList.add('cal-day--disabled');
+                div.style.opacity = '0.3'; // Override calculated opacity for past
             } else if (isSunday) {
                  div.classList.add('cal-day--disabled');
             }
@@ -2500,7 +2512,7 @@
 
             if (isToday) {
                 div.classList.add('cal-day--today');
-                if(isSunday) div.style.opacity = '1'; 
+                div.style.opacity = '1'; // Force today to be fully visible
             }
 
             calendarGrid.appendChild(div);
@@ -3475,8 +3487,8 @@
     // Scroll Fade-in Observer
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.1
+        rootMargin: '0px 0px 200px 0px',
+        threshold: 0.01
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
