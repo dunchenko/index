@@ -149,6 +149,7 @@
             margin-bottom: 15px;
             letter-spacing: 1px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .header__subtitle { 
@@ -160,7 +161,7 @@
         }
 
         .header__contact {
-            margin: 25px 0 0;
+            margin: 40px 0 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -980,34 +981,52 @@
         }
 
         .slot-btn {
-            padding: 16px 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            color: #fff;
-            border-radius: 0;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-family: 'Lato', sans-serif !important;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-align: center;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            position: relative;
             display: flex;
             flex-direction: column;
-            align-items: stretch;
+            align-items: center;
             justify-content: space-between;
-            gap: 8px;
-            line-height: 1.2;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.15);
+            padding: 25px 20px;
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Lato', sans-serif !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            gap: 20px;
         }
 
-        .slot-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border-color: rgba(255, 255, 255, 0.35);
-            color: #fff; 
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255,255,255,0.2);
+        .slot-btn:hover:not(.slot-btn--busy) {
+            background: #E8E0D5; /* Light premium beige */
+            border-color: #E8E0D5;
+            color: #1a1a1a; /* Dark text for contrast */
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .slot-date {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            width: 100%;
+            text-align: left;
+            font-weight: 700;
+        }
+        .slot-btn:hover .slot-date {
+            opacity: 0.5;
+            color: #000;
+        }
+
+        .slot-time {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            width: 100%;
+            text-align: center;
         }
 
         .slot-btn--busy {
@@ -1081,9 +1100,6 @@
         }
 
         .slot-btn--hypnotic {
-            animation: 
-                slideUpFade 0.8s ease backwards calc(var(--i) * 0.1s),
-                constantGlow 4s infinite ease-in-out;
         }
 
         @keyframes rotateIcon {
@@ -1105,7 +1121,7 @@
         }
 
         .slot-btn--clicked .clock-hand {
-            animation: handSweepClick 0.6s ease-out forwards;
+            animation: none;
         }
 
         @keyframes handSweepClick {
@@ -1118,14 +1134,14 @@
         }
 
         .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .minute-hand {
-            animation: handRotateContinuous 1.5s linear infinite;
+            animation: none;
         }
         .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .hour-hand {
-            animation: handRotateContinuous 4s linear infinite;
+            animation: none;
         }
 
         .slot-btn--clicked {
-            animation: btnClickScale 0.4s ease-out forwards;
+            animation: none;
         }
 
         @keyframes btnClickScale {
@@ -1489,7 +1505,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 40px 0 15px;
+            margin: 40px 0 30px;
             padding: 0 10px;
             width: 100%;
         }
@@ -1741,6 +1757,10 @@
             margin: 40px auto;
         }
 
+        .book-btn-wrapper .book-btn-container {
+            margin: -10px auto 60px;
+        }
+
         /* Scaling wrapper: lets the calendar keep its natural size,
            JS will shrink it via transform: scale() on small screens */
         .calendar-scale-wrapper {
@@ -1783,7 +1803,7 @@
 </div>
 
 <header class="header fade-in-section">
-    <div class="header__title dynamic-text" data-i18n="name">Hanna Dunchenko</div>
+    <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__seo-text">
         <span class="header__seo-line dynamic-text" data-i18n="seo1">Licensed Paralegal &amp; Notary Public Services </span>
@@ -1856,10 +1876,8 @@
              <summary class="faq__question" data-i18n="faq1q">What are the keys on the calendar?</summary>
              <div class="faq__answer" data-i18n="faq1a">
               <div id="coffeeCups" style="position: relative; display: inline-block; cursor: pointer;">
-                 The keys on the calendar above indicate that the office is closed on those days.<br><br>
-                 Meetings may still be arranged by appointment.<br><br>
-                 If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps.<br><br>
-                 Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
+                 The keys on the calendar above indicate that the office is closed on those days. Meetings may still be arranged by appointment.<br><br>
+                 If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
                  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA2MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+LnN7YW5pbWF0aW9uOnIgNHMgaW5maW5pdGUgZWFzZS1pbi1vdXQ7b3BhY2l0eTowO3N0cm9rZTojZmZmO2ZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS41O3N0cm9rZS1saW5lY2FwOnJvdW5kfUBrZXlmcmFtZXMgcnswJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjB9NTAle29wYWNpdHk6LjV9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtN3B4KTtvcGFjaXR5OjB9fTwvc3R5bGU+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNSwxOCkiPjxwYXRoIGQ9Ik0wIDBoMTR2NWE3IDcgMCAwIDEtMTQgMFYweiIgZmlsbD0iI2ExODU3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xNCAyaDNhMiAyIDAgMCAxIDAgNGgtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNNCAtMnEzIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MHMiLz48cGF0aCBjbGFzcz0icyIgZD0iTTEwIC0ycS0zIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MnMiLz48L2c+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzUsMTgpIj48cGF0aCBkPSJNMCAwaDE0djVhNyA3IDAgMCAxLTE0IDBWMHoiIGZpbGw9IiNhMTg1NzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cGF0aCBkPSJNMTQgMmgzYTIgMiAwIDAgMSAwIDRoLTMiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBjbGFzcz0icyIgZD0iTTQgLTJxMyAtNCAwIC03IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjFzIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik0xMCAtMnEtMyAtNCAwIC03IiBzdHlsZT0iYW5pbWF0aW9uLWRlbGF5OjNzIi8+PC9nPjwvc3ZnPg==" alt="Coffee Cups" style="vertical-align: middle; margin-left: 5px;">
                   <svg id="heartAnimation" width="30" height="30" viewBox="0 0 24 24" fill="white" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0;">
                     <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -2751,19 +2769,11 @@
                     let endTime = getEndTime(rawTime).toUpperCase();
                     const line2 = `${yyyy}.${mm}.${dd}`;
 
-                    let fontSize = '1.1rem';
-                    let textStyle = `font-size: ${fontSize}; font-weight: 600; letter-spacing: 0.5px; display: block;`;
-                    if ((index === slotsData.length - 1 || index % 2 === 0) && slot.status !== 'busy') {
-                        textStyle += ` animation: playfulJump 10s infinite ease-in-out calc(var(--i) * 0.2s); font-size: 2rem; text-align: center;`;
-                    } 
-
-                    btn.innerHTML = `<div style="width: 100%; text-align: left;">
-                        <span style="font-size: 0.85rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">${line2}</span>
-                    </div>
-                    <div class="slot-icon-wrapper" style="margin: 0 auto;">${svgIcon}</div>
-                    <div style="width: 100%; text-align: center;">
-                        <span style="${textStyle};text-align: center; display: block;">${rawTime} - ${endTime}</span>
-                    </div>`; 
+                    btn.innerHTML = `
+                        <div class="slot-date">${line2}</div>
+                        <div class="slot-icon-wrapper">${svgIcon}</div>
+                        <div class="slot-time">${rawTime} - ${endTime}</div>
+                    `; 
                     
                     // Use CSS variable for index to control both animations independently
                     // Offset by availableDaysCount to continue sequence from calendar
@@ -2851,8 +2861,6 @@
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
         document.body.classList.remove('modal-is-open');
-        // Reload page after closing the success notification
-        location.reload();
     }
 
     function closeTermsModal() {
