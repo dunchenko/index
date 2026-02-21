@@ -161,7 +161,7 @@
         }
 
         .header__contact {
-            margin: 40px 0 0;
+            margin: 20px 0 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -981,30 +981,30 @@
         }
 
         .slot-btn {
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             padding: 25px 20px;
-            background: rgba(15, 15, 15, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
             border-radius: 0;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'Lato', sans-serif !important;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             gap: 20px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
         .slot-btn:hover:not(.slot-btn--busy) {
-            background: #E8E0D5; /* Light premium beige */
-            border-color: #E8E0D5;
-            color: #1a1a1a; /* Dark text for contrast */
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
         .slot-date {
@@ -1015,10 +1015,10 @@
             width: 100%;
             text-align: left;
             font-weight: 700;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .slot-btn:hover .slot-date {
-            opacity: 0.5;
-            color: #000;
+            opacity: 0.8;
         }
 
         .slot-time {
@@ -1758,7 +1758,7 @@
         }
 
         .book-btn-wrapper .book-btn-container {
-            margin: -10px auto 60px;
+            margin: 20px auto;
         }
 
         /* Scaling wrapper: lets the calendar keep its natural size,
@@ -1811,15 +1811,7 @@
         <span class="header__seo-line dynamic-text" data-i18n="seo3">Toronto, Richmond Hill, Mississauga, London </span>
         <span class="header__seo-line dynamic-text" data-i18n="seo4">All online consultations are available province-wide </span>
     </h1>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-    </div>
-</header>
-
-
-
-<div class="layout-container">
-    <div class="book-btn-wrapper fade-in-section">
+    <div class="book-btn-wrapper">
         <!-- Container for preloader and button to manage smooth transition -->
         <div class="book-btn-container">
             <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
@@ -1832,6 +1824,15 @@
             <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
         </button>
     </div>
+    </div>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
+</header>
+
+
+
+<div class="layout-container">
     <div class="contact-form fade-in-section">
         <h2 class="contact-form__outside-title">NEXT AVAILABLE DAY</h2>
         <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
