@@ -2425,22 +2425,28 @@
         const rOuter = 18; 
         
         return `<svg width="65" height="65" viewBox="0 0 ${size} ${size}" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <!-- Outer Ring (Square) -->
-            <rect x="2" y="2" width="36" height="36" stroke="currentColor" stroke-opacity="0.8" fill="none" stroke-width="2" stroke-linejoin="miter"></rect>
-            <!-- All 12 Hour Dots -->
-            <g fill="currentColor" stroke="none" opacity="0.6">
-                <circle cx="20" cy="4" r="1" />
-                <circle cx="28" cy="6.14" r="1" />
-                <circle cx="33.86" cy="12" r="1" />
-                <circle cx="36" cy="20" r="1" />
-                <circle cx="33.86" cy="28" r="1" />
-                <circle cx="28" cy="33.86" r="1" />
-                <circle cx="20" cy="36" r="1" />
-                <circle cx="12" cy="33.86" r="1" />
-                <circle cx="6.14" cy="28" r="1" />
-                <circle cx="4" cy="20" r="1" />
-                <circle cx="6.14" cy="12" r="1" />
-                <circle cx="12" cy="6.14" r="1" />
+            <defs>
+                <filter id="diamondGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="0.4" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+            </defs>
+            <!-- Outer Ring (Square) - Thicker frame -->
+            <rect x="1.5" y="1.5" width="37" height="37" stroke="currentColor" stroke-opacity="0.9" fill="none" stroke-width="3" stroke-linejoin="miter"></rect>
+            <!-- All 12 Hour Dots - Diamond like glow -->
+            <g fill="#ffffff" stroke="none" filter="url(#diamondGlow)">
+                <circle cx="20" cy="4" r="1.2" />
+                <circle cx="28" cy="6.14" r="1.2" />
+                <circle cx="33.86" cy="12" r="1.2" />
+                <circle cx="36" cy="20" r="1.2" />
+                <circle cx="33.86" cy="28" r="1.2" />
+                <circle cx="28" cy="33.86" r="1.2" />
+                <circle cx="20" cy="36" r="1.2" />
+                <circle cx="12" cy="33.86" r="1.2" />
+                <circle cx="6.14" cy="28" r="1.2" />
+                <circle cx="4" cy="20" r="1.2" />
+                <circle cx="6.14" cy="12" r="1.2" />
+                <circle cx="12" cy="6.14" r="1.2" />
             </g>
             <!-- Center Dot -->
             <circle cx="${cx}" cy="${cy}" r="2" fill="currentColor" stroke="none"></circle>
