@@ -2580,8 +2580,8 @@
                 if (hasAvailableSlot) {
                     nearestDay = d;
                     absoluteNearestDate = checkDate; // Set global
-                    // Store the first available (non-busy) slot data
-                    nearestSlotData = slotsMap[d].find(s => s.status !== 'busy') || null;
+                    // Store the last available (non-busy) slot data
+                    nearestSlotData = slotsMap[d].filter(s => s.status !== 'busy').pop() || null;
                     break;
                 }
             }
@@ -3261,14 +3261,15 @@
 
         if (absoluteNearestDate && nearestSlotData) {
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+            const dayNum = absoluteNearestDate.getDate();
             let timeStr = '';
             if (nearestSlotData && nearestSlotData.text) {
                 timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
             }
             
             const htmlContent = timeStr 
-                ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek}, ${timeStr}</span>` 
-                : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${timeStr}</span><br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek} ${dayNum}</span>` 
+                : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek} ${dayNum}</span>`;
             
             targets.forEach(t => {
                 if(t.btn && t.txt && t.preloader) {
