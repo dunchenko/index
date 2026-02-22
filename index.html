@@ -1753,9 +1753,6 @@
 <header class="header fade-in-section">
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-    </div>
     <h1 class="header__seo-text">
         <span class="header__seo-line dynamic-text" data-i18n="seo1">Licensed Paralegal &amp; Notary Public Services </span>
         <span class="header__seo-line dynamic-text" data-i18n="seo2">Traffic Ticket Defense, LTB, WSIB Matters </span>
@@ -1776,16 +1773,19 @@
         </button>
     </div>
     </div>
+    <div class="header__contact">
+        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
 </header>
 
 
 
 <div class="layout-container">
-    <div class="contact-form fade-in-section">
+    <div class="contact-form fade-in-section reveal-on-interaction">
         <h2 class="contact-form__outside-title">NEXT AVAILABLE DAYS</h2>
         <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
         <div class="calendar-scale-inner" id="calendarScaleInner">
-        <div class="calendar-wrapper" id="bookingCalendar">
+        <div class="calendar-wrapper fade-in-section reveal-on-interaction" id="bookingCalendar">
             
             <!-- Header Moved to Top -->
             <div class="calendar-header">
@@ -1955,7 +1955,7 @@
             <p class="modal__text">Your use of this website is at your own risk. The content is provided "as is" without warranties of any kind. We are not liable for any damages arising from your use of this site.</p>
 
             <h3 class="modal__section-title" data-i18n="formSubmission">7. Form Submission & Response Disclaimer</h3>
-            <p class="modal__text">Submitting the inquiry form on this website is for informational purposes only and allows us to review your case files. It does not guarantee that a case will be opened, nor does it guarantee a response. While we aim to reply within 48 hours, a response is not guaranteed, and no legal rights are preserved by the mere act of submission.</p>
+            <p class="modal__text">Submitting the inquiry form on this website is for informational purposes only and allows us to review your case files. It does not guarantee that a case will be opened, nor does it guarantee a response. While we aim to reply within 48 hours, a response is not guaranteed, and no legal rights are preserved by the mere act of submission. To expedite your request, we strongly recommend contacting our paralegal by phone immediately after submitting this form.</p>
 
             <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;" data-i18n="privacyPolicy">Privacy Policy</h2>
 
@@ -1968,10 +1968,7 @@
             <h3 class="modal__section-title" data-i18n="analyticsAds">3. Analytics & Advertising</h3>
             <p class="modal__text">This website uses services like Google Analytics, Google Ads, YouTube, and Facebook. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
 
-            <h3 class="modal__section-title" data-i18n="responseTime">4. Response Time</h3>
-            <p class="modal__text">Please note that responses to your inquiry may take up to 48 business hours or longer. To expedite your request, we strongly recommend contacting our paralegal by phone immediately after submitting this form.</p>
-
-            <h3 class="modal__section-title" data-i18n="contactUs">5. Contacting Us</h3>
+            <h3 class="modal__section-title" data-i18n="contactUs">4. Contacting Us</h3>
             <p class="modal__text">If there are any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
 
             <p class="modal__footer-text">
@@ -2006,7 +2003,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div style="margin-top: 300px;">
+    <div class="fade-in-section" style="margin-top: 300px;">
         <p style="margin-bottom: 5px;">My only official website:</p>
         <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
@@ -2092,7 +2089,7 @@
                 <div class="contact-form__checkbox-wrapper" style="margin-bottom: 20px;">
                     <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
                     <label for="agreeTerms" class="contact-form__checkbox-label">
-                        I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                        I read and agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
                     </label>
                 </div>
 
@@ -2648,13 +2645,12 @@
                 
                 const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
                 const availableCount = slotsData.filter(s => s.status !== 'busy').length;
-                const monthName = selectedDate.toLocaleString('en-US', { month: 'long' });
+                const weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'long' });
                 const dayNum = selectedDate.getDate();
 
                 let weekdayText;
                 if (availableCount > 0) {
-                    const slotWord = availableCount === 1 ? 'slot' : 'slots';
-                    weekdayText = `Available ${slotWord} for ${monthName} ${dayNum}`;
+                    weekdayText = `SLOTS FOR ${weekdayName} ${dayNum}`;
                 } else {
                     weekdayText = 'Please select another available day';
                 }
@@ -2706,12 +2702,11 @@
                 if(ctaMsg) {
                     ctaMsg.style.display = 'block';
                     const availableCount = slotsData.filter(s => s.status !== 'busy').length;
-                    const monthName = selectedDate.toLocaleString('en-US', { month: 'long' });
+                    const weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'long' });
                     const dayNum = selectedDate.getDate();
                     
                     if (availableCount > 0) {
-                        const slotWord = availableCount === 1 ? 'slot' : 'slots';
-                        ctaMsg.innerHTML = `Available ${slotWord} for ${monthName} ${dayNum}`;
+                        ctaMsg.innerHTML = `SLOTS FOR ${weekdayName} ${dayNum}`;
                     } else {
                         ctaMsg.innerHTML = 'Please select another available day';
                     }
@@ -3436,6 +3431,9 @@
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Skip auto-reveal for interaction-only elements
+                if (entry.target.classList.contains('reveal-on-interaction')) return;
+                
                 entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             }
@@ -3445,6 +3443,32 @@
     document.querySelectorAll('.fade-in-section').forEach(section => {
         observer.observe(section);
     });
+
+    // Force reveal of the calendar on interaction (scroll or touch)
+    let isRevealed = false;
+    const interactionTrigger = (e) => {
+        if (isRevealed) return;
+        
+        // Prevent scroll events from layout shifts immediately after load from removing the hidden state
+        if (e && e.type === 'scroll' && performance.now() < 800) return;
+
+        isRevealed = true;
+        document.querySelectorAll('.reveal-on-interaction').forEach(el => {
+            el.classList.add('is-visible');
+        });
+        
+        ['scroll', 'touchstart', 'touchmove', 'wheel', 'keydown'].forEach(evt => {
+            window.removeEventListener(evt, interactionTrigger);
+        });
+    };
+
+    ['touchstart', 'touchmove', 'wheel', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, interactionTrigger, { passive: true });
+    });
+    // Add scroll with slight delay to avoid initial programmatic scrolls
+    setTimeout(() => {
+        window.addEventListener('scroll', interactionTrigger, { passive: true });
+    }, 800);
 </script>
 </body>
 </html></script>
