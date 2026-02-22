@@ -2301,13 +2301,17 @@
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    // Fetch IP on load
+    // Fetch IP and Country on load
     async function fetchIp() {
         try {
-            const res = await fetch('https://api.ipify.org?format=json');
+            const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
             const data = await res.json();
-            visitorIp = data.ip;
-        } catch (e) { visitorIp = "Unknown"; }
+            const ip = data.ip || 'Unknown';
+            const country = data.country_code || '??';
+            visitorIp = `${ip} (${country})`;
+        } catch (e) {
+            visitorIp = "Unknown"; 
+        }
     }
     fetchIp();
 
