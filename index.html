@@ -2921,9 +2921,17 @@
     }
 
     function closeBookingModal() {
+        const isSuccess = document.getElementById('successBody') !== null;
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
         document.body.classList.remove('modal-is-open');
+
+        // If we just successfully booked, reload the page to refresh slots
+        if (isSuccess) {
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        }
     }
 
     function closeTermsModal() {
