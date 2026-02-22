@@ -220,9 +220,7 @@
 
         /* Block: scroll-indicator */
         .scroll-indicator {
-            position: absolute;
-            bottom: 5vh;
-            left: 50%;
+            margin: 3.5rem auto 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -237,7 +235,7 @@
             animation: bounceArrow 2s infinite ease-in-out;
             transition: opacity 0.8s ease, transform 0.8s ease; /* Slower fade */
             opacity: 0; /* Hidden initially */
-            transform: translateX(-50%) scale(0.8);
+            transform: scale(0.8);
             pointer-events: none;
             cursor: pointer;
         }
@@ -250,13 +248,13 @@
 
         .scroll-indicator--visible {
             opacity: 1 !important;
-            transform: translateX(-50%) scale(1) !important;
+            transform: scale(1) !important;
             pointer-events: auto !important;
         }
 
         .scroll-indicator--hidden {
             opacity: 0 !important;
-            transform: translateX(-50%) scale(0.8) translateY(1rem) !important;
+            transform: scale(0.8) translateY(-1rem) !important;
             pointer-events: none;
         }
 
