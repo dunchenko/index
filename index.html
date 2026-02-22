@@ -2142,7 +2142,8 @@
     let currentDate = new Date();
     let selectedDate = null;
     let absoluteNearestDate = null; // Store the absolute closest date with slots
-    let nearestSlotData = null; // Store the slot data for the footer button
+    let nearestSlotData = null; // Store the first available slot data for header
+    let nearestDayLastSlotData = null; // Store the last available slot data for footer
     let availableDaysCount = 0; // Total available days in current view
     let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
     let visitorIp = "Fetching...";
@@ -2580,8 +2581,10 @@
                 if (hasAvailableSlot) {
                     nearestDay = d;
                     absoluteNearestDate = checkDate; // Set global
-                    // Store the last available (non-busy) slot data
-                    nearestSlotData = slotsMap[d].filter(s => s.status !== 'busy').pop() || null;
+                    // Store the first available (non-busy) slot data
+                    const availableSlots = slotsMap[d].filter(s => s.status !== 'busy');
+                    nearestSlotData = availableSlots[0] || null;
+                    nearestDayLastSlotData = availableSlots[availableSlots.length - 1] || null;
                     break;
                 }
             }
@@ -3262,17 +3265,31 @@
         if (absoluteNearestDate && nearestSlotData) {
             const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
             const dayNum = absoluteNearestDate.getDate();
-            let timeStr = '';
-            if (nearestSlotData && nearestSlotData.text) {
-                timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
-            }
-            
-            const htmlContent = timeStr 
-                ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${timeStr}</span><br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek} ${dayNum}</span>` 
-                : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek} ${dayNum}</span>`;
-            
+
             targets.forEach(t => {
                 if(t.btn && t.txt && t.preloader) {
+                    let htmlContent = '';
+                    
+                    if (t.btn.id === 'headerBookBtn') {
+                        // Header button: Original format (Line 1: Slot!, Line 2: Day, Time)
+                        let timeStr = '';
+                        if (nearestSlotData && nearestSlotData.text) {
+                            timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
+                        }
+                        htmlContent = timeStr 
+                            ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek}, ${timeStr}</span>` 
+                            : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                    } else {
+                        // Footer button: New 3-line format (Line 1: Slot!, Line 2: Last Time Large, Line 3: Day, Number)
+                        let lastTimeStr = '';
+                        if (nearestDayLastSlotData && nearestDayLastSlotData.text) {
+                            lastTimeStr = nearestDayLastSlotData.text.split(/[-–]/)[0].trim();
+                        }
+                        htmlContent = `Available Slot!<br>` +
+                                     `<span style="font-size: 1.3rem; font-weight: 800; display: block; margin: 2px 0;">${lastTimeStr}</span>` +
+                                     `<span style="font-size: 0.95rem; font-weight: 600; opacity: 0.9;">${dayOfWeek}, ${dayNum}</span>`;
+                    }
+
                     t.preloader.style.opacity = '0'; // Fade out preloader
                     t.preloader.style.transform = 'scale(0.9)'; // Shrink it
 
