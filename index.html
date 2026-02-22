@@ -1945,7 +1945,7 @@
         <details class="faq__item" open>
             <summary class="faq__question" data-i18n="faq3q">What forms are worked with?</summary>
             <div class="faq__answer" data-i18n="faq3a">
-                <p>Enumeration provided strictly as examples and does not limit scope of practice: <strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. <span style="cursor: pointer; color: #ffb142; text-decoration: underline; font-weight: bold;" onclick="bookNearestSlotLast()">Attach</span> all current documents now for assessment.</p>
+                <p>Enumeration provided strictly as examples and does not limit scope of practice: <strong>Traffic Ticket Defense:</strong> Forms Part I, Part II, Part III; <strong>Landlord and Tenant Board:</strong> Forms N1–N13, L1–L4, T1, T2, T6, Form 6, Form 7, Form 8; <strong>WSIB:</strong> Form 6, Form 7, Form 8, Functional Abilities Form, Construction Exposure Incident Report, Physician Progress Report, Noise-Induced Hearing Loss Form, Travel Expense Form; <strong>Notary Public:</strong> Application Form 004-0315e, Affidavits, Statutory Declarations, Certified Copies, Document Authentication.<br><br>Your files to be reviewed at appointment for determination of applicable documents. <span style="cursor: pointer; color: #ffffff; text-decoration: underline; font-weight: bold;" onclick="bookNearestSlotLast(true)">Attach</span> all current documents now for assessment.</p>
             </div>
         </details>
 
@@ -2854,7 +2854,7 @@
     const bookingStatus = document.getElementById('bookingStatus');
     const confirmBtn = document.getElementById('confirmBookingBtn');
 
-    function openBookingModal(slot) {
+    function openBookingModal(slot, triggerAttach = false) {
 
         try {
             selectedSlotData = slot;
@@ -2907,6 +2907,13 @@
             }
             
             loadFormData();
+
+            if (triggerAttach) {
+                setTimeout(() => {
+                    const fileInput = document.getElementById('fileAttachInput');
+                    if (fileInput) fileInput.click();
+                }, 800);
+            }
         } catch (error) {
             console.error("Error opening booking modal:", error);
             alert("Sorry, could not open the booking form. " + error.message);
@@ -3362,10 +3369,10 @@
         }
     }
 
-    function bookNearestSlotLast() {
+    function bookNearestSlotLast(triggerAttach = false) {
         if (absoluteNearestDate && nearestDayLastSlotData) {
             selectedDate = absoluteNearestDate;
-            openBookingModal(nearestDayLastSlotData);
+            openBookingModal(nearestDayLastSlotData, triggerAttach);
         } else {
             scrollToCalendar();
         }
