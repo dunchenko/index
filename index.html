@@ -1927,9 +1927,10 @@
                  If required, we can attend together, open the office, and proceed with the consultation to outline strategy and next steps. Where appropriate, discussions may take place in a more relaxed setting, with some coffee & milk
                  <div id="coffeeCups" style="position: relative; display: inline-block; cursor: pointer; width: 60px; height: 16px; vertical-align: -3px; margin-left: 5px;">
                      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA2MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48c3R5bGU+LnN7YW5pbWF0aW9uOnIgNHMgaW5maW5pdGUgZWFzZS1vdXQ7b3BhY2l0eTowO3N0cm9rZTojZmZmO2ZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS41O3N0cm9rZS1saW5lY2FwOnJvdW5kfUBrZXlmcmFtZXMgcnswJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKTtvcGFjaXR5OjB9MjAle29wYWNpdHk6LjZ9NjAle3RyYW5zZm9ybTp0cmFuc2xhdGVZKC03cHgpO29wYWNpdHk6MH0xMDAle3RyYW5zZm9ybTp0cmFuc2xhdGVZKC03cHgpO29wYWNpdHk6MH19PC9zdHlsZT48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LDE4KSI+PHBhdGggZD0iTTAgMGgxNHY1YTcgNyAwIDAgMS0xNCAwVjB6IiBmaWxsPSIjYTE4NTcwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHBhdGggZD0iTTE0IDJoM2EyIDIgMCAwIDEgMCA0aC0zIiBzdHJva2U9IiNmZmIiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggY2xhc3M9InMiIGQ9Ik00IC0ycTMgLTQgMCAtNyIgc3R5bGU9ImFuaW1hdGlvbi1kZWxheTowcyIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNMTAgLTJxLTMgLTQgMCAtNyIgc3R5bGU9ImFuaW1hdGlvbi1kZWxheToycyIvPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNSwxOCkiPjxwYXRoIGQ9Ik0wIDBoMTR2NWE3IDcgMCAwIDEtMTQgMFYweiIgZmlsbD0iI2ExODU3MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIvPjxwYXRoIGQ9Ik0xNCAyaDNhMiAyIDAgMCAxIDAgNGgtMyIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGNsYXNzPSJzIiBkPSJNNCAtMnEzIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MXMiLz48cGF0aCBjbGFzcz0icyIgZD0iTTEwIC0ycS0zIC00IDAgLTciIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6M3MiLz48L2c+PC9zdmc+" alt="Coffee Cups" style="position: absolute; left: 0; top: -16px; width: 60px; height: 40px; pointer-events: none;">
-                     <svg id="heartAnimation" width="30" height="30" viewBox="0 0 24 24" fill="white" style="position: absolute; left: 50%; top: -3px; transform: translate(-50%, -50%) scale(0); transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none;">
+                     <svg id="heartAnimation" width="40" height="40" viewBox="0 0 24 24" fill="white" style="position: absolute; left: 50%; top: -10px; transform: translate(-50%, -50%) scale(0); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease; opacity: 0; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
                          <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                      </svg>
+                     <span id="coffeeLikeCount" style="position: absolute; left: 65px; top: -12px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 2px 8px; border-radius: 12px; color: white; font-size: 0.8rem; font-weight: bold; opacity: 0; transform: translateY(5px); transition: all 0.3s ease; pointer-events: none; white-space: nowrap; border: 1px solid rgba(255, 255, 255, 0.2);"></span>
                  </div>
              </div>
         </details>
@@ -3278,18 +3279,49 @@
         document.removeEventListener('click', initAudio);
     }, { once: true });
 
-    // Heart animation on coffee cups click
+    // Heart animation and click counter on coffee cups
+    let coffeeClicks = 0;
+    
     document.getElementById('coffeeCups').addEventListener('click', function() {
       const heart = document.getElementById('heartAnimation');
+      const counter = document.getElementById('coffeeLikeCount');
       
+      coffeeClicks++;
+      
+      // Update counter text
+      if (coffeeClicks >= 1000000) {
+          counter.textContent = "Win Win!";
+      } else {
+          counter.textContent = coffeeClicks.toLocaleString();
+      }
+      
+      // Heart Animation
       heart.style.transition = 'none';
       heart.style.transform = 'translate(-50%, -50%) scale(0)';
       heart.style.opacity = '1';
       
+      // Counter Animation
+      counter.style.transition = 'none';
+      counter.style.transform = 'translateY(5px) scale(0.9)';
+      counter.style.opacity = '1';
+      
       requestAnimationFrame(() => {
-        heart.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-        heart.style.transform = 'translate(-50%, -50%) scale(1)';
+        // Pop the heart (using custom bezier for a bounce effect)
+        heart.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease';
+        heart.style.transform = 'translate(-50%, -50%) scale(1.6)'; // Bigger heart
         heart.style.opacity = '0';
+        
+        // Pop the counter
+        counter.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        counter.style.transform = 'translateY(0) scale(1)';
+        
+        // Fade out slightly after a delay, or keep it visible
+        setTimeout(() => {
+            counter.style.transition = 'all 0.8s ease';
+            if(coffeeClicks < 1000000) {
+              counter.style.opacity = '0.7'; // Keeps it slightly visible when idle
+            }
+        }, 500);
       });
     });
 
