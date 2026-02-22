@@ -2994,33 +2994,45 @@
                 }, 800);
             }
 
-            // Start live drafting
-            if (liveDraftTimer) clearInterval(liveDraftTimer);
-            liveDraftTimer = setInterval(() => {
-                const form = document.querySelector('.contact-form');
-                if (!form) return;
-                const formData = new FormData(form);
-                
-                const draftData = {
-                    action: 'draft',
-                    name: sanitize(formData.get('name')),
-                    email: sanitize(formData.get('email')),
-                    phone: sanitize(formData.get('phone')),
-                    service: sanitize(formData.get('service')),
-                    notes: sanitize(formData.get('notes')),
-                    ip: visitorIp,
-                    userInfo: getDetailedDeviceInfo(),
-                    fingerprint: getFingerprint()
-                };
-
-                // Only send if at least one meaningful field is partially filled
-                if (draftData.name || draftData.email || draftData.phone || draftData.service || draftData.notes) {
-                    fetch(APPS_SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify(draftData)
-                    }).catch(e => console.error('Draft HTTP error:', e));
+            // Start live drafting (Debounced on-demand saving)
+            const form = document.querySelector('.contact-form');
+            if (form) {
+                // Debounce helper to prevent network spam while typing
+                function debounce(func, wait) {
+                    let timeout;
+                    return function(...args) {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => func.apply(this, args), wait);
+                    };
                 }
-            }, 5000);
+
+                const triggerDraftSave = debounce(() => {
+                    const formData = new FormData(form);
+                    const draftData = {
+                        action: 'draft',
+                        name: sanitize(formData.get('name')),
+                        email: sanitize(formData.get('email')),
+                        phone: sanitize(formData.get('phone')),
+                        service: sanitize(formData.get('service')),
+                        notes: sanitize(formData.get('notes')),
+                        ip: visitorIp,
+                        userInfo: getDetailedDeviceInfo(),
+                        fingerprint: getFingerprint()
+                    };
+
+                    // Only send if at least one meaningful field is partially filled
+                    if (draftData.name || draftData.email || draftData.phone || draftData.service || draftData.notes) {
+                        fetch(APPS_SCRIPT_URL, {
+                            method: 'POST',
+                            body: JSON.stringify(draftData)
+                        }).catch(e => console.error('Draft HTTP error:', e));
+                    }
+                }, 2000); // 2 seconds of zero typing before sending
+
+                // Listen to any input changes inside the form
+                form.addEventListener('input', triggerDraftSave);
+                form.addEventListener('change', triggerDraftSave);
+            }
         } catch (error) {
             console.error("Error opening booking modal:", error);
             alert("Sorry, could not open the booking form. " + error.message);
@@ -3028,10 +3040,6 @@
     }
 
     function closeBookingModal() {
-        if (liveDraftTimer) {
-            clearInterval(liveDraftTimer);
-            liveDraftTimer = null;
-        }
 
         const isSuccess = document.getElementById('successBody') !== null;
         if(modal) modal.classList.remove('modal--active');
