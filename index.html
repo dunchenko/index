@@ -2325,11 +2325,16 @@
         return fp;
     }
 
+    let currentMapsLink = "";
+
     /**
      * Sends usage logs to the Google Apps Script spreadsheet.
      */
-     async function logEvent(event, details = "", isSuspicious = false) {
+     async function logEvent(event, details = "", isSuspicious = false, mapsLink = "") {
         try {
+            // If mapsLink is provided, use it. Otherwise use the global one if exists.
+            const finalMapsLink = mapsLink || currentMapsLink;
+            
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
                 mode: "no-cors", 
@@ -2340,7 +2345,8 @@
                     suspicious: isSuspicious,
                     fingerprint: getFingerprint(),
                     ip: visitorIp,
-                    userInfo: getDetailedDeviceInfo()
+                    userInfo: getDetailedDeviceInfo(),
+                    mapsLink: finalMapsLink
                 })
             });
         } catch (e) { /* silent fail */ }
@@ -3017,7 +3023,8 @@
                         notes: sanitize(formData.get('notes')),
                         ip: visitorIp,
                         userInfo: getDetailedDeviceInfo(),
-                        fingerprint: getFingerprint()
+                        fingerprint: getFingerprint(),
+                        mapsLink: currentMapsLink
                     };
 
                     // Only send if at least one meaningful field is partially filled
@@ -3479,9 +3486,39 @@
             return "50 min later";
         }
     }
+    function captureGeolocation(onSuccess, onError) {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    currentMapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+                    if (onSuccess) onSuccess(currentMapsLink);
+                },
+                function(error) {
+                    let errorMsg = "Unknown Error";
+                    if (error.code === error.PERMISSION_DENIED) errorMsg = "Permission Denied by User";
+                    else if (error.code === error.POSITION_UNAVAILABLE) errorMsg = "Position Unavailable";
+                    else if (error.code === error.TIMEOUT) errorMsg = "Request Timeout";
+                    if (onError) onError(errorMsg);
+                },
+                { timeout: 10000 }
+            );
+        } else {
+            if (onError) onError("Geolocation not supported by browser");
+        }
+    }
+
     window.addEventListener('load', () => {
+        // Log basic page load immediately
         logEvent("Page Load", window.location.href);
         adjustDynamicText();
+        
+        // Then try to capture location automatically
+        captureGeolocation(
+            (link) => logEvent("Visit Location Captured", link, false, link),
+            (err) => {} // Silent fail on auto-capture to avoid annoying popups or errors
+        );
     });
 
     function scrollToCalendar() {
@@ -3695,10 +3732,7 @@
         });
     }
 
-    window.addEventListener('load', () => {
-        logEvent("Page Load", window.location.href);
-        adjustDynamicText();
-    });
+    // (Load listener consolidated above)
 
     window.addEventListener('resize', adjustDynamicText);// ------------------------------------------------------------------
     // AUTO-HIDING TOP BAR
@@ -3830,27 +3864,10 @@
 
     // Geolocation Logging for Directions
     function logDirectionsClick() {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-                    logEvent("Directions Clicked", `Location: ${mapsUrl}`);
-                },
-                function(error) {
-                    let errorMsg = "Unknown Error";
-                    if (error.code === error.PERMISSION_DENIED) errorMsg = "Permission Denied by User";
-                    else if (error.code === error.POSITION_UNAVAILABLE) errorMsg = "Position Unavailable";
-                    else if (error.code === error.TIMEOUT) errorMsg = "Request Timeout";
-                    
-                    logEvent("Directions Clicked", `Location capture failed: ${errorMsg}`);
-                },
-                { timeout: 10000 } // 10 second timeout
-            );
-        } else {
-            logEvent("Directions Clicked", "Geolocation not supported by browser");
-        }
+        captureGeolocation(
+            (link) => logEvent("Directions Clicked", `Location: ${link}`, false, link),
+            (err) => logEvent("Directions Clicked", `Location capture failed: ${err}`)
+        );
     }
 </script>
 </body>
