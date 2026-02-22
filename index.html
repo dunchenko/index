@@ -2330,7 +2330,7 @@
     /**
      * Sends usage logs to the Google Apps Script spreadsheet.
      */
-     async function logEvent(event, details = "", isSuspicious = false, mapsLink = "") {
+     async function logEvent(event, details = "", isSuspicious = false, mapsLink = "", severity = "") {
         try {
             // If mapsLink is provided, use it. Otherwise use the global one if exists.
             const finalMapsLink = mapsLink || currentMapsLink;
@@ -2346,11 +2346,20 @@
                     fingerprint: getFingerprint(),
                     ip: visitorIp,
                     userInfo: getDetailedDeviceInfo(),
-                    mapsLink: finalMapsLink
+                    mapsLink: finalMapsLink,
+                    severity: severity
                 })
             });
         } catch (e) { /* silent fail */ }
     }
+
+    // --- Global Error Logging ---
+    window.addEventListener('error', function(e) {
+        logEvent('Frontend Error', `${e.message} at ${e.filename}:${e.lineno}`, false, "", "critical");
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+        logEvent('Unhandled Promise Rejection', e.reason ? e.reason.toString() : 'Unknown Reason', false, "", "critical");
+    });
 
     // elements
     const monthDisplay = document.getElementById('monthDisplay');
@@ -2957,6 +2966,7 @@
                 endTime = getEndTime(startTime); 
             } catch(e) {
                 console.warn("Could not calculate end time", e);
+                logEvent('Time Calc Warning', e.message, false, "", "warning");
             }
             
             if(bookingTimeDisplay) {
@@ -3374,6 +3384,9 @@
             bookingStatus.style.color = '#ff6b6b';
             bookingStatus.textContent = "Error: " + err.message;
             confirmBtn.disabled = false;
+            
+            // Log this booking failure as a critical error
+            logEvent('Booking Submit Error', err.message, false, "", "critical");
         }
     }
 
