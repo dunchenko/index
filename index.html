@@ -2756,7 +2756,7 @@
 
                 let weekdayText;
                 if (availableCount > 0) {
-                    weekdayText = `SLOTS FOR ${weekdayName} ${dayNum}`;
+                    weekdayText = `SLOTS FOR ${weekdayName} ${dayNum}:`;
                 } else {
                     weekdayText = 'Please select another available day';
                 }
@@ -2812,7 +2812,7 @@
                     const dayNum = selectedDate.getDate();
                     
                     if (availableCount > 0) {
-                        ctaMsg.innerHTML = `SLOTS FOR ${weekdayName} ${dayNum}`;
+                        ctaMsg.innerHTML = `SLOTS FOR ${weekdayName} ${dayNum}:`;
                     } else {
                         ctaMsg.innerHTML = 'Please select another available day';
                     }
