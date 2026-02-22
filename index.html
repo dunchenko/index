@@ -1623,9 +1623,13 @@
         /* Hypnotic Preloader Error Effect */
         .book-btn-preloader__text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #ff4c4c;
             font-size: 1.25rem;
             font-weight: 800;
@@ -1795,6 +1799,7 @@
             width: 100%;
             height: 100%;
             transform: rotate(-90deg); /* Start from top */
+            overflow: visible; /* Prevent glow from clipping square box */
         }
 
         .book-btn-preloader__circle {
@@ -3437,31 +3442,64 @@
             { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText'), preloader: document.getElementById('headerBookBtnPreloader') }
         ];
 
-        if (absoluteNearestDate && nearestSlotData) {
-            targets.forEach(t => {
-                if(t.btn && t.txt && t.preloader) {
-                    
-                    // Hypnotic Error Prank Effect
-                    t.preloader.classList.add('book-btn-preloader--hypnotic');
-                    const progressCircle = t.preloader.querySelector('.book-btn-preloader__progress');
-                    if (progressCircle) {
-                        progressCircle.style.strokeDashoffset = '0';
-                    }
-                    
-                    setTimeout(() => {
-                        t.preloader.classList.remove('book-btn-preloader--hypnotic');
-                        t.preloader.classList.add('book-btn-preloader--error');
-                        
-                        // Stop spinning
-                        const svg = t.preloader.querySelector('.book-btn-preloader__svg');
-                        if (svg) svg.style.animation = 'none';
+        targets.forEach(t => {
+            if (!t.btn || !t.txt || !t.preloader) return;
 
-                        const errText = t.preloader.querySelector('.book-btn-preloader__text');
-                        if (errText) errText.classList.add('is-visible');
-                    }, 60000); // 1 minute hypnotic delay
+            if (absoluteNearestDate && nearestSlotData) {
+                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+                const dayNum = absoluteNearestDate.getDate();
+                let htmlContent = '';
+                
+                if (t.btn.id === 'headerBookBtn') {
+                    // Header button: Original format (Line 1: Slot!, Line 2: Day, Time)
+                    let timeStr = '';
+                    if (nearestSlotData && nearestSlotData.text) {
+                        timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
+                    }
+                    htmlContent = timeStr 
+                        ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek} at ${timeStr}</span>` 
+                        : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                } else {
+                    // Footer button: New 3-line format
+                    let lastTimeStr = '';
+                    if (nearestDayLastSlotData && nearestDayLastSlotData.text) {
+                        lastTimeStr = nearestDayLastSlotData.text.split(/[-–]/)[0].trim();
+                    }
+                    htmlContent = `Available Slot!<br>` +
+                                 `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
+                                 `<span style="font-size: 0.95rem; font-weight: 600; opacity: 0.9;">${dayOfWeek}, ${dayNum}</span>`;
                 }
-            });
-        }
+
+                // Normal Success Reveal
+                t.preloader.style.opacity = '0'; // Fade out preloader
+                t.preloader.style.transform = 'scale(0.9)'; // Shrink it
+
+                t.txt.innerHTML = htmlContent;
+                t.btn.style.opacity = '1';
+                t.btn.style.transform = 'scale(1)';
+                t.btn.style.pointerEvents = 'auto';
+                createSparks(t.btn);
+            } else {
+                // Hypnotic Error Prank Effect (Empty/Error case)
+                t.preloader.classList.add('book-btn-preloader--hypnotic');
+                const progressCircle = t.preloader.querySelector('.book-btn-preloader__progress');
+                if (progressCircle) {
+                    progressCircle.style.strokeDashoffset = '0';
+                }
+                
+                setTimeout(() => {
+                    t.preloader.classList.remove('book-btn-preloader--hypnotic');
+                    t.preloader.classList.add('book-btn-preloader--error');
+                    
+                    // Stop spinning
+                    const svg = t.preloader.querySelector('.book-btn-preloader__svg');
+                    if (svg) svg.style.animation = 'none';
+
+                    const errText = t.preloader.querySelector('.book-btn-preloader__text');
+                    if (errText) errText.classList.add('is-visible');
+                }, 60000); // 1 minute hypnotic delay
+            }
+        });
     }
 
     function createSparks(container) {
