@@ -3024,6 +3024,7 @@
                     if (draftData.name || draftData.email || draftData.phone || draftData.service || draftData.notes) {
                         fetch(APPS_SCRIPT_URL, {
                             method: 'POST',
+                            mode: 'no-cors',
                             body: JSON.stringify(draftData)
                         }).catch(e => console.error('Draft HTTP error:', e));
                     }
