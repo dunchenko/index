@@ -3535,19 +3535,21 @@
         }
     }
 
-    window.addEventListener('load', async () => {
-        // Await the IP fetch before sending the first event to guarantee row color consistency
-        await fetchIp();
-        
-        // Log basic page load immediately
-        logEvent("Page Load", window.location.href);
+    window.addEventListener('load', () => {
+        // Run UI adjustments and permission requests immediately so they don't cause late layout shifts
         adjustDynamicText();
         
-        // Then try to capture location automatically
+        // Try to capture location automatically (silent catch)
         captureGeolocation(
             (link) => logEvent("Visit Location Captured", link, false, link),
-            (err) => {} // Silent fail on auto-capture to avoid annoying popups or errors
+            (err) => {} // Silent fail
         );
+
+        // Send the initial Page Load event asynchronously to guarantee correct IP row color
+        (async () => {
+            await fetchIp();
+            logEvent("Page Load", window.location.href);
+        })();
     });
 
     function scrollToCalendar() {
