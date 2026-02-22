@@ -108,6 +108,17 @@
             transform: translateY(0);
         }
 
+        .blur-in-section {
+            opacity: 0;
+            filter: blur(1.25rem); /* 20px */
+            transition: opacity 3s ease-out, filter 3s ease-out;
+            transform: none !important; /* Disable slide-up */
+        }
+        .blur-in-section.is-visible {
+            opacity: 1;
+            filter: blur(0);
+        }
+
         /* ------------------- BLOCKS ------------------- */
 
         /* Block: background */
@@ -2090,7 +2101,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div class="fade-in-section" style="margin-top: 300px;">
+    <div class="blur-in-section" style="margin-top: 300px;">
         <p style="margin-bottom: 5px;">My only official website:</p>
         <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
@@ -3578,7 +3589,7 @@
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in-section').forEach(section => {
+    document.querySelectorAll('.fade-in-section, .blur-in-section').forEach(section => {
         observer.observe(section);
     });
 
