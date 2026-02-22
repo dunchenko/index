@@ -207,6 +207,50 @@
             white-space: nowrap;
         }
 
+        /* Block: scroll-indicator */
+        .scroll-indicator {
+            margin: 2.5rem auto 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 3.125rem;
+            height: 3.125rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(0.3125rem);
+            -webkit-backdrop-filter: blur(0.3125rem);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            animation: bounceArrow 2s infinite ease-in-out;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .scroll-indicator svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke-width: 2.5;
+        }
+
+        .scroll-indicator--hidden {
+            opacity: 0 !important;
+            transform: scale(0.8) translateY(-1rem) !important;
+            pointer-events: none;
+        }
+
+        @keyframes bounceArrow {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-0.625rem);
+            }
+            60% {
+                transform: translateY(-0.3125rem);
+            }
+        }
+
         /* Block: layout-container */
         .layout-container { 
             max-width: 40.625rem; 
@@ -1804,6 +1848,12 @@
     </div>
     <div class="header__contact">
         <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
     </div>
 </header>
 
@@ -3453,8 +3503,20 @@
         scrollTimeout = setTimeout(hideBars, 10000);
     }
 
+    // ------------------------------------------------------------------
+    // SCROLL DOWN INDICATOR LOGIC
+    // ------------------------------------------------------------------
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    let scrollIndicatorHidden = false;
+
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Hide scroll indicator if user scrolls down a bit
+        if (scrollIndicator && !scrollIndicatorHidden && currentScroll > 50) {
+            scrollIndicator.classList.add('scroll-indicator--hidden');
+            scrollIndicatorHidden = true; // Only hide it once per session
+        }
         
         // On any scroll, show the bars.
         if (topBar) topBar.classList.add('top-bar--visible');
