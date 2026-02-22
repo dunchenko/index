@@ -2057,7 +2057,7 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
                     <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" onclick="logDirectionsClick()" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
                     <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_driving">to start driving</span>
                 </div>
             </div>
@@ -3827,6 +3827,31 @@
             interactionTrigger(null, true);
         }
     });
+
+    // Geolocation Logging for Directions
+    function logDirectionsClick() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+                    logEvent("Directions Clicked", `Location: ${mapsUrl}`);
+                },
+                function(error) {
+                    let errorMsg = "Unknown Error";
+                    if (error.code === error.PERMISSION_DENIED) errorMsg = "Permission Denied by User";
+                    else if (error.code === error.POSITION_UNAVAILABLE) errorMsg = "Position Unavailable";
+                    else if (error.code === error.TIMEOUT) errorMsg = "Request Timeout";
+                    
+                    logEvent("Directions Clicked", `Location capture failed: ${errorMsg}`);
+                },
+                { timeout: 10000 } // 10 second timeout
+            );
+        } else {
+            logEvent("Directions Clicked", "Geolocation not supported by browser");
+        }
+    }
 </script>
 </body>
 </html>
