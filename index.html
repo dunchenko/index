@@ -209,7 +209,6 @@
         /* Block: contact-form */
         .contact-form {
             width: 100%;
-            overflow: hidden;
             background: transparent;
             border: none;
             padding: 0;
@@ -549,8 +548,10 @@
         /* When active, use Flexbox to center */
         .modal--active { 
             display: flex !important; 
-            align-items: center !important; /* Changed to center vertically */
+            align-items: flex-start !important;
             justify-content: center !important;
+            padding-top: 5vh;
+            padding-bottom: 5vh;
         }
 
         .modal__content {
@@ -560,7 +561,6 @@
             padding: 40px;
             width: 100%;
             max-width: 600px;
-            max-height: 90vh; /* Added max-height to prevent overflow */
             text-align: center; /* Symmetrically center content */
             box-sizing: border-box;            
             display: flex;
@@ -614,8 +614,7 @@
             font-size: 0.95rem;
             line-height: 1.7;
             color: var(--text-white);
-            overflow-y: auto;
-            padding-right: 15px;
+            padding: 0 5px;
         }
 
         .modal__section-title {
@@ -642,7 +641,7 @@
         /* Block: footer */
         .footer {
             text-align: center;
-            padding: 80px 20px 160px;
+            padding: 80px 20px 20px;
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             line-height: 1.8;
@@ -723,12 +722,7 @@
         }
         
         .slots-block {
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 0;
-            padding: 40px;
+            padding: 0;
             margin-top: 0;
             display: none;
         }
@@ -828,7 +822,6 @@
             background: rgba(255, 255, 255, 0.25); /* Increased from 0.15 */
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            /* box-shadow removed */
         }
 
         .cal-day--disabled {
@@ -878,7 +871,7 @@
             animation: keyWiggle 0.5s ease-in-out infinite;
         }
 
-        /* .cal-day--nearest-free removed */
+        
         
         .cal-day--today {
             border: 5px solid #ffffff; 
@@ -972,7 +965,6 @@
             display: none; /* Hidden by default */
         }
 
-
         @keyframes fadeTitle { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .slots-grid {
@@ -981,14 +973,13 @@
             gap: 12px;
         }
 
-
-
-        .slot-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 25px 20px;
+        .slots-grid .slot-btn {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 8px 15px;
+            height: clamp(60px, 10vw, 75px);
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
@@ -998,86 +989,43 @@
             font-family: 'Lato', sans-serif !important;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            gap: 20px;
+            gap: 15px;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+            width: 100%;
         }
 
-        .slot-btn:hover:not(.slot-btn--busy) {
+        .slot-btn > div, .slot-btn > span {
+            flex-grow: 0 !important;
+            flex-shrink: 0 !important;
+        }
+
+        .slot-btn:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            transform: translateY(-5px);
+            transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
-        .slot-date {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            width: 100%;
-            text-align: left;
-            font-weight: 700;
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .slot-icon-wrapper {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
         }
-        .slot-btn:hover .slot-date {
-            opacity: 0.8;
+
+        .slot-icon-wrapper svg {
+            width: 100% !important;
+            height: 100% !important;
         }
 
         .slot-time {
-            font-size: 1.1rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            width: 100%;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-align: center;
         }
 
-        .slot-btn--busy {
-            background: rgba(255, 255, 255, 0.04);
-            pointer-events: none;
-            background-image: none;
-            border: none !important;
-            box-shadow: none !important;
-            color: rgba(255, 255, 255, 0.2); 
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            animation: none; 
-        }
 
-        .slot-btn--busy .clock-hand {
-            animation: none;
-        }
-        
-        @keyframes slantStripes {
-            0% { background-position: 0 0; }
-            100% { background-position: -40px 0; }
-        }
-
-        @keyframes busyPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
-        }
-        
-        /* Watermark "ALREADY BOOKED" - Red Stamp Style */
-        .slot-btn--busy::after {
-            content: 'UNAVAILABLE';
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(var(--rot, -5deg));
-            font-size: 0.9rem; 
-            font-weight: 900;
-            color: rgba(255, 255, 255, 1); 
-            border: 2.5px solid rgba(255, 255, 255, 1); 
-            padding: 5px 12px;
-            white-space: nowrap;
-            pointer-events: none;
-            letter-spacing: 1px;
-            text-align: center;
-            opacity: 1;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
-        }
         .slot-btn:hover::after {
             color: var(--accent-gold);
             border-color: var(--accent-gold);
@@ -1102,8 +1050,6 @@
             }
         }
 
-        .slot-btn--hypnotic {
-        }
 
         @keyframes rotateIcon {
             0% { transform: rotate(0deg); }
@@ -1115,8 +1061,6 @@
             display: inline-block;
             line-height: 0;
         }
-
-        .slot-btn--hypnotic .slot-icon-wrapper {}
 
         .clock-hand {
             transform-origin: 20px 20px;
@@ -1386,7 +1330,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: none;
             border-radius: 25px; /* All corners rounded */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
             z-index: 100;
             opacity: 0;
             visibility: hidden;
@@ -1604,7 +1548,6 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 50px;
             height: 120px;
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(20px);
@@ -1773,6 +1716,8 @@
         /* The inner box is what actually gets scaled */
         .calendar-scale-inner {
             transform-origin: top center;
+            /* Add some bottom padding to ensure the 1px border is never clipped by subpixel scaling */
+            padding-bottom: 5px; 
             /* height is adjusted by JS after scaling so the wrapper collapses
                to the visible (scaled) height, not the original height */
         }
@@ -1837,7 +1782,7 @@
 
 <div class="layout-container">
     <div class="contact-form fade-in-section">
-        <h2 class="contact-form__outside-title">NEXT AVAILABLE DAY</h2>
+        <h2 class="contact-form__outside-title">NEXT AVAILABLE DAYS</h2>
         <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
         <div class="calendar-scale-inner" id="calendarScaleInner">
         <div class="calendar-wrapper" id="bookingCalendar">
@@ -1855,24 +1800,26 @@
             <div id="calendarLoader" class="calendar-loader">Loading availability...</div>
 
             <div class="calendar-grid" id="calendarGrid">
-                <!-- Days will be injected here -->
+
             </div>
             
             <div id="nextAvailableMsg" class="next-available-msg"></div>
-        </div>
-        
-        <!-- Day Navigation Header -->
-        <div class="slots-nav slots-nav--loading">
-            <span id="slotsDayDisplay" class="hypnotic-text">Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span></span>
-        </div>
-
-        <div class="slots-block">
-             <div class="slots-container" id="slotsContainer">
-                <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr;"></div>
+            
+            <!-- Day Navigation Header -->
+            <div class="slots-nav slots-nav--loading">
+                <span id="slotsDayDisplay" class="hypnotic-text">Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span></span>
             </div>
+
+            <div class="slots-block">
+                 <div class="slots-container" id="slotsContainer">
+                    <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr;"></div>
+                </div>
+            </div>
+        </div><!-- /calendar-wrapper -->
         </div><!-- /calendar-scale-inner -->
         </div><!-- /calendar-scale-wrapper -->
     </div>
+
 
     <h2 class="section-title fade-in-section" data-i18n="faqTitle">FAQ</h2>
     <div class="faq fade-in-section">
@@ -1907,7 +1854,7 @@
         <details class="faq__item" open>
             <summary class="faq__question">Is online as effective as in-person?</summary>
             <div class="faq__answer">
-                Yes! You’ll receive the same professional advice and representation, with the convenience of connecting from home or work. Sounds good, right?
+                Yes! You’ll receive the same professional advice and representation, with the convenience of connecting from home or work. All online consultations are available province-wide.
             </div>
         </details>
 
@@ -1932,13 +1879,13 @@
         <details class="faq__item" open>
             <summary class="faq__question" data-i18n="faq5q">OK! WHERE IS THE OFFICE TODAY?</summary>
             <div class="faq__answer">
-                <p style="margin-bottom: 15px; font-size: 0.95rem; font-weight: 400; opacity: 0.9;">146 Thirtieth St, Etobicoke, ON M8W 3C4</p>
+                <p style="margin-bottom: 15px; font-size: 0.95rem; font-weight: 400; opacity: 0.9;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Etobicoke%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
                     <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_tap">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Etobicoke,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;" data-i18n="faq5directions">Directions</a>
                     <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;" data-i18n="faq5_driving">to start driving</span>
                 </div>
             </div>
@@ -2059,7 +2006,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div style="margin-top: 200px;">
+    <div style="margin-top: 300px;">
         <p style="margin-bottom: 5px;">My only official website:</p>
         <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
@@ -2235,7 +2182,6 @@
     const nextBtn = document.getElementById('nextBtn');
     const slotsContainer = document.getElementById('slotsContainer');
     const slotsGrid = document.getElementById('slotsGrid');
-    // const selectedDateDisplay = document.getElementById('selectedDateDisplay'); // Removed
     const loader = document.getElementById('calendarLoader');
 
     // Input Visual State (keep white background if has text)
@@ -2317,8 +2263,9 @@
             inner.style.transformOrigin = 'top left';
             inner.style.width = (naturalWidth) + 'px';
             // Collapse the wrapper to the scaled height so nothing below is pushed down
+            // Increased buffer from 10px to 30px to prevent bottom border clipping
             const naturalHeight = inner.scrollHeight;
-            wrapper.style.height = (naturalHeight * scale + 10) + 'px';
+            wrapper.style.height = (naturalHeight * scale + 30) + 'px';
 
         if (todayEl) {
             // Linearly interpolate border width between ~3px (at small scale) and 5px (at full scale)
@@ -2424,6 +2371,7 @@
     }
 
     async function renderCalendar() {
+        calendarGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
         const headerTitle = document.getElementById('calendarHeaderTitle');
         if(headerTitle) headerTitle.innerHTML = "";
@@ -2699,11 +2647,18 @@
                 const options = { weekday: 'long' };
                 
                 const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
+                const availableCount = slotsData.filter(s => s.status !== 'busy').length;
+                const monthName = selectedDate.toLocaleString('en-US', { month: 'long' });
+                const dayNum = selectedDate.getDate();
+
                 let weekdayText;
-                
-                weekdayText = (slotsData.length > 0)
-                    ? 'SELECT YOUR TIME'
-                    : 'No slots available for this date.';
+                if (availableCount > 0) {
+                    const slotWord = availableCount === 1 ? 'slot' : 'slots';
+                    weekdayText = `Available ${slotWord} for ${monthName} ${dayNum}`;
+                } else {
+                    weekdayText = 'Please select another available day';
+                }
+
                 if (needsLoadingDelay) {
                     slotsDisplay.classList.add('fade-out');
                     setTimeout(() => {
@@ -2750,10 +2705,15 @@
                 const ctaMsg = document.getElementById('calCtaMsg');
                 if(ctaMsg) {
                     ctaMsg.style.display = 'block';
-                    if (allBusy) {
-                        ctaMsg.innerHTML = 'No available slots for this date.';
+                    const availableCount = slotsData.filter(s => s.status !== 'busy').length;
+                    const monthName = selectedDate.toLocaleString('en-US', { month: 'long' });
+                    const dayNum = selectedDate.getDate();
+                    
+                    if (availableCount > 0) {
+                        const slotWord = availableCount === 1 ? 'slot' : 'slots';
+                        ctaMsg.innerHTML = `Available ${slotWord} for ${monthName} ${dayNum}`;
                     } else {
-                        ctaMsg.innerHTML = 'SELECT YOUR TIME';
+                        ctaMsg.innerHTML = 'Please select another available day';
                     }
                 }
 
@@ -2762,42 +2722,30 @@
                                         selectedDate.getMonth() === absoluteNearestDate.getMonth() &&
                                         selectedDate.getDate() === absoluteNearestDate.getDate();
 
-                slotsData.forEach((slot, index) => {
+                slotsData.filter(s => s.status !== 'busy').forEach((slot, index) => {
                     const btn = document.createElement('button');
                     btn.className = 'slot-btn slot-btn--hypnotic'; 
-                    if (slot.status === 'busy') {
-                        btn.className = 'slot-btn slot-btn--busy';
-                        const rot = Math.floor(Math.random() * 8) - 4; // -4 to 3 deg
-                        btn.style.setProperty('--rot', rot + 'deg');
-                    }
 
                     const svgIcon = getClockIcon(slot.text);
                     
-                    const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long' });
-                    const yyyy = selectedDate.getFullYear();
-                    const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
-                    const dd = String(selectedDate.getDate()).padStart(2, '0');
-                    
-                    let rawTime = slot.text.split(/[-–]/)[0].trim().toUpperCase(); // "9:00 AM" always uppercase
+                    let rawTime = slot.text.split(/[-–]/)[0].trim().toUpperCase(); 
+                    // Ensure leading zero if hour is single digit
+                    if (/^\d:/.test(rawTime)) {
+                        rawTime = '0' + rawTime;
+                    }
                     let endTime = getEndTime(rawTime).toUpperCase();
-                    const line2 = `${yyyy}.${mm}.${dd}`;
 
                     btn.innerHTML = `
-                        <div class="slot-date">${line2}</div>
                         <div class="slot-icon-wrapper">${svgIcon}</div>
-                        <div class="slot-time">${rawTime} - ${endTime}</div>
+                        <div class="slot-time"><span>${rawTime} - ${endTime}</span></div>
                     `; 
                     
-                    // Use CSS variable for index to control both animations independently
-                    // Offset by availableDaysCount to continue sequence from calendar
                     btn.style.setProperty('--i', availableDaysCount + index);
                     
-                    if (slot.status !== 'busy') {
-                        btn.onclick = () => {
-                            btn.classList.add('slot-btn--clicked');
-                            setTimeout(() => openBookingModal(slot), 600);
-                        };
-                    }
+                    btn.onclick = () => {
+                        btn.classList.add('slot-btn--clicked');
+                        setTimeout(() => openBookingModal(slot), 600);
+                    };
                     slotsGrid.appendChild(btn);
                 });
             }
@@ -3071,12 +3019,6 @@
         });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        attachFormAutoSave();
-    });
-
-    attachFormAutoSave();
-
     async function handleBookingSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -3190,7 +3132,7 @@
                 if (successBody) {
                     // Create multiple bursts for a bigger effect
                     for(let i=0; i<3; i++) setTimeout(() => createSparks(successBody), i * 300);
-          и       }
+                }
             } else {
                 throw new Error(result.error || "Unknown error");
             }
@@ -3504,5 +3446,7 @@
         observer.observe(section);
     });
 </script>
+</body>
+</html></script>
 </body>
 </html>
