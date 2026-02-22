@@ -209,12 +209,12 @@
 
         /* Block: scroll-indicator */
         .scroll-indicator {
-            margin: 2.5rem auto 0;
+            margin: 3.5rem auto 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 3.125rem;
-            height: 3.125rem;
+            width: 6rem; /* Increased size */
+            height: 6rem; /* Increased size */
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(0.3125rem);
@@ -222,15 +222,22 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.8);
             animation: bounceArrow 2s infinite ease-in-out;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            opacity: 1;
-            transform: scale(1);
+            transition: opacity 0.8s ease, transform 0.8s ease; /* Slower fade */
+            opacity: 0; /* Hidden initially */
+            transform: scale(0.8);
+            pointer-events: none;
         }
 
         .scroll-indicator svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            stroke-width: 2.5;
+            width: 3.5rem; /* Increased size */
+            height: 3.5rem; /* Increased size */
+            stroke-width: 2;
+        }
+
+        .scroll-indicator--visible {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            pointer-events: auto !important;
         }
 
         .scroll-indicator--hidden {
@@ -2688,6 +2695,7 @@
         }
         
         updateFooterBookBtn();
+        initScrollIndicator();
     }
 
     function selectDate(day, element, isAutoSelection = false) {
@@ -3508,12 +3516,25 @@
     // ------------------------------------------------------------------
     const scrollIndicator = document.getElementById('scrollIndicator');
     let scrollIndicatorHidden = false;
+    let scrollIndicatorInitialized = false;
+
+    function initScrollIndicator() {
+        if (scrollIndicatorInitialized || scrollIndicatorHidden) return;
+        
+        setTimeout(() => {
+            if (scrollIndicator && !scrollIndicatorHidden) {
+                scrollIndicator.classList.add('scroll-indicator--visible');
+                scrollIndicatorInitialized = true;
+            }
+        }, 2000); // 2 second delay after slots load
+    }
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
         
         // Hide scroll indicator if user scrolls down a bit
         if (scrollIndicator && !scrollIndicatorHidden && currentScroll > 50) {
+            scrollIndicator.classList.remove('scroll-indicator--visible');
             scrollIndicator.classList.add('scroll-indicator--hidden');
             scrollIndicatorHidden = true; // Only hide it once per session
         }
