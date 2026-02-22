@@ -2746,7 +2746,7 @@
                 const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
                 const availableCount = slotsData.filter(s => s.status !== 'busy').length;
                 let weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'short' });
-                if (!weekdayName.endsWith('.')) weekdayName += '.';
+                if (!weekdayName.endsWith(',')) weekdayName += ',';
                 const dayNum = selectedDate.getDate();
 
                 let weekdayText;
@@ -2804,7 +2804,7 @@
                     ctaMsg.style.display = 'block';
                     const availableCount = slotsData.filter(s => s.status !== 'busy').length;
                     let weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'short' });
-                    if (!weekdayName.endsWith('.')) weekdayName += '.';
+                    if (!weekdayName.endsWith(',')) weekdayName += ',';
                     const dayNum = selectedDate.getDate();
                     
                     if (availableCount > 0) {
@@ -3396,7 +3396,7 @@
 
         if (absoluteNearestDate && nearestSlotData) {
             let dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short' });
-            if (!dayOfWeek.endsWith('.')) dayOfWeek += '.';
+            if (!dayOfWeek.endsWith(',')) dayOfWeek += ',';
             const dayNum = absoluteNearestDate.getDate();
 
             targets.forEach(t => {
