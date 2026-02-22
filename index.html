@@ -3653,7 +3653,10 @@
     const interactionTrigger = (e) => {
         if (isRevealed) return;
         
-        // Prevent scroll events from layout shifts immediately after load from removing the hidden state
+        // Ignore noise in the first 400ms
+        if (performance.now() < 400) return;
+        
+        // Prevent scroll events from layout shifts immediately after load
         if (e && e.type === 'scroll' && performance.now() < 800) return;
 
         isRevealed = true;
@@ -3674,14 +3677,12 @@
         window.addEventListener('scroll', interactionTrigger, { passive: true });
     }, 800);
 
-    // If the page is loaded/refreshed while already scrolled down, reveal immediately
+    // If the page is loaded/refreshed while already scrolled down (more than 15px), reveal immediately
     window.addEventListener('load', () => {
-        if (window.scrollY > 0) {
+        if (window.scrollY > 15) {
             interactionTrigger();
         }
     });
 </script>
-</body>
-</html></script>
 </body>
 </html>
