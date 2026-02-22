@@ -2297,23 +2297,41 @@
     let nearestDayLastSlotData = null; // Store the last available slot data for footer
     let availableDaysCount = 0; // Total available days in current view
     let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
-    let visitorIp = "Fetching...";
+    let visitorIp = localStorage.getItem('site_ip') || "Fetching...";
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     // Fetch IP and Country on load
     async function fetchIp() {
+        if (visitorIp !== "Fetching...") return; // Already cached
+        
         try {
-            const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
+            const res = await fetch('https://api.country.is');
             const data = await res.json();
-            const ip = data.ip || 'Unknown';
-            const country = data.country_code || '??';
-            visitorIp = `${ip} (${country})`;
+            if (data.ip && data.country) {
+                visitorIp = `${data.ip} (${data.country})`;
+                localStorage.setItem('site_ip', visitorIp);
+                return;
+            }
         } catch (e) {
-            visitorIp = "Unknown"; 
+            console.error("api.country.is failed:", e);
         }
+
+        // Fallback to geojs if country.is fails or blocked
+        try {
+            const res = await fetch('https://get.geojs.io/v1/ip/country.json');
+            const data = await res.json();
+            if (data.ip && data.country) {
+                visitorIp = `${data.ip} (${data.country})`;
+                localStorage.setItem('site_ip', visitorIp);
+                return;
+            }
+        } catch (e) {
+            console.error("geojs failed:", e);
+        }
+
+        visitorIp = "Unknown";
     }
-    fetchIp();
 
     function getDetailedDeviceInfo() {
         return `UA: ${navigator.userAgent} | Platform: ${navigator.platform} | Res: ${window.screen.width}x${window.screen.height} | Lang: ${navigator.language}`;
@@ -3517,7 +3535,10 @@
         }
     }
 
-    window.addEventListener('load', () => {
+    window.addEventListener('load', async () => {
+        // Await the IP fetch before sending the first event to guarantee row color consistency
+        await fetchIp();
+        
         // Log basic page load immediately
         logEvent("Page Load", window.location.href);
         adjustDynamicText();
