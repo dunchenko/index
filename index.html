@@ -3395,8 +3395,7 @@
         ];
 
         if (absoluteNearestDate && nearestSlotData) {
-            let dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short' });
-            if (!dayOfWeek.endsWith(',')) dayOfWeek += ',';
+            const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
             const dayNum = absoluteNearestDate.getDate();
 
             targets.forEach(t => {
