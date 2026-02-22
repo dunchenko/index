@@ -1620,6 +1620,44 @@
             transform: translateY(0);
         }
 
+        /* Hypnotic Preloader Error Effect */
+        .book-btn-preloader__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff4c4c;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .book-btn-preloader__text.is-visible {
+            opacity: 1;
+        }
+
+        @keyframes hypnoticPulse {
+            0% { filter: drop-shadow(0 0 10px rgba(212, 184, 154, 0.5)); stroke: #D4B89A; transform: scale(1); }
+            50% { filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)); stroke: #ffffff; transform: scale(1.05); }
+            100% { filter: drop-shadow(0 0 10px rgba(212, 184, 154, 0.5)); stroke: #D4B89A; transform: scale(1); }
+        }
+
+        .book-btn-preloader--hypnotic .book-btn-preloader__progress {
+            /* Keep it visually at 100% */
+            stroke-dashoffset: 0 !important;
+            animation: hypnoticPulse 1.5s ease-in-out infinite !important;
+        }
+        
+        .book-btn-preloader--error .book-btn-preloader__progress {
+            stroke: #ff4c4c !important;
+            filter: drop-shadow(0 0 15px rgba(255, 76, 76, 0.8)) !important;
+            animation: none !important;
+        }
+
         /* Hide Spinners on Number Inputs */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
@@ -1862,6 +1900,7 @@
                     <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                     <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                 </svg>
+                <div class="book-btn-preloader__text">Error</div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
             <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
@@ -2096,6 +2135,7 @@
                         <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                         <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                     </svg>
+                    <div class="book-btn-preloader__text">Error</div>
                 </div>
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                 <span id="footerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
@@ -3398,41 +3438,27 @@
         ];
 
         if (absoluteNearestDate && nearestSlotData) {
-            const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
-            const dayNum = absoluteNearestDate.getDate();
-
             targets.forEach(t => {
                 if(t.btn && t.txt && t.preloader) {
-                    let htmlContent = '';
                     
-                    if (t.btn.id === 'headerBookBtn') {
-                        // Header button: Original format (Line 1: Slot!, Line 2: Day, Time)
-                        let timeStr = '';
-                        if (nearestSlotData && nearestSlotData.text) {
-                            timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
-                        }
-                        htmlContent = timeStr 
-                            ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek} at ${timeStr}</span>` 
-                            : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
-                    } else {
-                        // Footer button: New 3-line format (Line 1: Slot!, Line 2: Last Time Large, Line 3: Day, Number)
-                        let lastTimeStr = '';
-                        if (nearestDayLastSlotData && nearestDayLastSlotData.text) {
-                            lastTimeStr = nearestDayLastSlotData.text.split(/[-–]/)[0].trim();
-                        }
-                        htmlContent = `Available Slot!<br>` +
-                                     `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
-                                     `<span style="font-size: 0.95rem; font-weight: 600; opacity: 0.9;">${dayOfWeek}, ${dayNum}</span>`;
+                    // Hypnotic Error Prank Effect
+                    t.preloader.classList.add('book-btn-preloader--hypnotic');
+                    const progressCircle = t.preloader.querySelector('.book-btn-preloader__progress');
+                    if (progressCircle) {
+                        progressCircle.style.strokeDashoffset = '0';
                     }
+                    
+                    setTimeout(() => {
+                        t.preloader.classList.remove('book-btn-preloader--hypnotic');
+                        t.preloader.classList.add('book-btn-preloader--error');
+                        
+                        // Stop spinning
+                        const svg = t.preloader.querySelector('.book-btn-preloader__svg');
+                        if (svg) svg.style.animation = 'none';
 
-                    t.preloader.style.opacity = '0'; // Fade out preloader
-                    t.preloader.style.transform = 'scale(0.9)'; // Shrink it
-
-                    t.txt.innerHTML = htmlContent;
-                    t.btn.style.opacity = '1';
-                    t.btn.style.transform = 'scale(1)';
-                    t.btn.style.pointerEvents = 'auto';
-                    createSparks(t.btn);
+                        const errText = t.preloader.querySelector('.book-btn-preloader__text');
+                        if (errText) errText.classList.add('is-visible');
+                    }, 60000); // 1 minute hypnotic delay
                 }
             });
         }
