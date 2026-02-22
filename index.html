@@ -209,9 +209,14 @@
             opacity: 0.85;
             margin: 2.1875rem auto;
             line-height: 1.6;
-            max-width: 48rem;
-            text-align: justify;
-            text-align-last: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .header__description span {
+            white-space: nowrap;
         }
 
         /* Block: scroll-indicator */
