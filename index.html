@@ -3671,6 +3671,13 @@
     setTimeout(() => {
         window.addEventListener('scroll', interactionTrigger, { passive: true });
     }, 800);
+
+    // If the page is loaded/refreshed while already scrolled down, reveal immediately
+    window.addEventListener('load', () => {
+        if (window.scrollY > 0) {
+            interactionTrigger();
+        }
+    });
 </script>
 </body>
 </html></script>
