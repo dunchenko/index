@@ -3653,14 +3653,16 @@
 
     // Force reveal of the calendar on interaction (scroll or touch)
     let isRevealed = false;
-    const interactionTrigger = (e) => {
+    const interactionTrigger = (e, force = false) => {
         if (isRevealed) return;
         
-        // Ignore noise in the first 400ms
-        if (performance.now() < 400) return;
-        
-        // Prevent scroll events from layout shifts immediately after load
-        if (e && e.type === 'scroll' && performance.now() < 800) return;
+        if (!force) {
+            // Ignore noise in the first 400ms
+            if (performance.now() < 400) return;
+            
+            // Prevent scroll events from layout shifts immediately after load
+            if (e && e.type === 'scroll' && performance.now() < 800) return;
+        }
 
         isRevealed = true;
         document.querySelectorAll('.reveal-on-interaction').forEach(el => {
@@ -3680,10 +3682,10 @@
         window.addEventListener('scroll', interactionTrigger, { passive: true });
     }, 800);
 
-    // If the page is loaded/refreshed while already scrolled down (more than 15px), reveal immediately
+    // If the page is loaded/refreshed while already scrolled down, reveal immediately
     window.addEventListener('load', () => {
-        if (window.scrollY > 15) {
-            interactionTrigger();
+        if (window.scrollY > 0) {
+            interactionTrigger(null, true);
         }
     });
 </script>
