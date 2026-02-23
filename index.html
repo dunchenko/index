@@ -3516,12 +3516,6 @@
         // Run UI adjustments and permission requests immediately so they don't cause late layout shifts
         adjustDynamicText();
         
-        // Try to capture location automatically (silent catch)
-        captureGeolocation(
-            (link) => logEvent("Visit Location Captured", link, false, link),
-            (err) => {} // Silent fail
-        );
-
         // Send the initial Page Load event asynchronously to guarantee correct row color
         logEvent("Page Load", window.location.href);
     });
