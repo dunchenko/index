@@ -203,72 +203,43 @@
 
         .header__phone-link:hover { opacity: 0.8; }
 
-        /* Intake Preparation Notice Styles */
-        .header__notice {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 2rem;
-            margin: 2rem auto;
+        /* Updated Header Content Styles */
+        .header__content-block {
+            margin: 3rem auto;
             text-align: left;
-            max-width: 45rem;
-            color: #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 50rem;
+            color: #ffffff;
             font-family: inherit;
         }
 
-        .header__notice-title {
-            font-size: 1.8rem;
+        .header__content-header {
+            font-size: 2rem;
             font-weight: 900;
-            margin-bottom: 1.5rem;
+            margin: 3rem 0 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: #ffffff;
             text-align: center;
         }
 
-        .header__notice-text {
+        .header__content-subheader {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin: 2rem 0 1rem;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .header__content-text {
             font-size: 1.1rem;
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 1.5rem;
             color: #ffffff;
-            opacity: 1;
         }
 
-        .header__notice-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .header__notice-subtitle {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
+        .header__content-text strong {
             color: #ffffff;
-        }
-
-        .header__notice-list {
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        .header__notice-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            color: #ffffff;
-        }
-
-        .header__notice-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0.2rem;
-            color: #ffffff;
-            font-weight: bold;
+            font-weight: 800;
         }
 
         .header__description {
@@ -1941,37 +1912,44 @@
         <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
     </div>
 
-    <div class="header__notice">
-        <h2 class="header__notice-title">Intake Preparation Notice</h2>
-        <p class="header__notice-text">Before we can proceed with your intake appointment, it is strongly recommended that you prepare and bring the following documents. Having these materials ready will ensure that the process runs smoothly and without unnecessary delays.</p>
+    <div class="header__content-block">
+        <h2 class="header__content-header">SERVICES</h2>
         
-        <div class="header__notice-section">
-            <h3 class="header__notice-subtitle">Recommended Documents:</h3>
-            <ul class="header__notice-list">
-                <li>Any contracts, agreements, or letters relevant to your matter</li>
-                <li>Court notices or official correspondence</li>
-                <li>Financial records such as receipts, invoices, or statements</li>
-                <li>Copies of emails, text messages, or other communications that may serve as evidence</li>
-            </ul>
+        <div class="header__service-item">
+            <h3 class="header__content-subheader">Notary Public</h3>
+            <p class="header__content-text">Serving as a <strong>Commissioner of Oaths</strong> in Ontario.</p>
+            <p class="header__content-text">Notarizing <strong>affidavits</strong>, <strong>statutory declarations</strong>, and <strong>certified true copies</strong>. Preparing <strong>consent letters</strong> for children travelling abroad, <strong>invitation letters</strong> for visa applications, or various <strong>affidavits</strong>, ensuring documents are legally valid for use in Ontario and internationally.</p>
+            <p class="header__content-text">Addressing the search — <strong>where to get documents notarized Ontario</strong> — with flexible appointment-based notary services.</p>
         </div>
 
-        <div class="header__notice-section">
-            <h3 class="header__notice-subtitle">Additional Notes:</h3>
-            <ul class="header__notice-list">
-                <li>If you are uncertain whether a document is relevant, please bring it along so we can review it together.</li>
-                <li>Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</li>
-            </ul>
+        <div class="header__service-item">
+            <h3 class="header__content-subheader">WSIB & Workplace Injury Claims</h3>
+            <p class="header__content-text">Guiding clients injured at work and searching for <strong>how to appeal a WSIB decision</strong> in Ontario.</p>
+            <p class="header__content-text">Representing injured workers before the <strong>Workplace Safety and Insurance Board</strong> and the <strong>Workplace Safety and Insurance Appeals Tribunal</strong>. Assisting with <strong>Form 6 Worker's Report of Injury</strong>, <strong>Loss of Earnings (LOE) benefits</strong>, <strong>Return to Work (RTW) disputes</strong> and <strong>Non-Economic Loss (NEL) claims</strong>.</p>
+            <p class="header__content-text">Answering — <strong>can a paralegal help with my WSIB claim?</strong> — by fighting to ensure recovery is fully supported under the Workplace Safety and Insurance Act.</p>
         </div>
 
-        <div class="header__notice-section">
-            <h3 class="header__notice-subtitle">Identification Requirement (to be presented at the office):</h3>
-            <p class="header__notice-text">At the time of your intake appointment, you must present valid government-issued identification. This can be either:</p>
-            <ul class="header__notice-list">
-                <li>a passport, or</li>
-                <li>a driver’s licence</li>
-            </ul>
-            <p class="header__notice-text">Original identification must be shown in person at the office.</p>
+        <div class="header__service-item">
+            <h3 class="header__content-subheader">Traffic Ticket Defense</h3>
+            <p class="header__content-text">In Ontario, <strong>licensed paralegals</strong> are authorized to represent clients in <strong>Provincial Offences Court</strong> for matters under the <strong>Highway Traffic Act (HTA)</strong>.</p>
+            <p class="header__content-text">Assisting those searching for <strong>how to fight a traffic ticket in Ontario</strong>. Handling <strong>speeding tickets</strong>, <strong>red light camera tickets</strong>, <strong>stunt driving charges Ontario</strong>, <strong>careless driving charges</strong>, <strong>driving with no insurance</strong>, and <strong>fail to stop for police</strong>. Analyzing the officer's disclosure, challenging evidence, negotiating with prosecutors, and fighting to reduce <strong>demerit points</strong>, lower fines, and protect your <strong>insurance rates</strong>.</p>
+            <p class="header__content-text">Addressing the common question — <strong>do I need a lawyer for a traffic ticket in Ontario?</strong> — with expert defense in traffic court.</p>
         </div>
+
+        <div class="header__service-item">
+            <h3 class="header__content-subheader">Landlord & Tenant Board (LTB)</h3>
+            <p class="header__content-text">Ontario paralegals are licensed to represent both <strong>landlords</strong> and <strong>tenants</strong> before the <strong>Landlord and Tenant Board</strong>.</p>
+            <p class="header__content-text">Providing professional advocacy for those searching for <strong>paralegal service for eviction</strong> or <strong>how to fight an N4 notice in Ontario</strong>. Handling <strong>N4 notices</strong> for non-payment of rent, <strong>L1 applications</strong> to evict a tenant, <strong>N12 notices</strong> for landlord's own use, <strong>T2 applications</strong> for tenant rights, and <strong>T6 applications</strong> for maintenance issues. Navigating <strong>rent arrears</strong>, an <strong>illegal lockout</strong>, <strong>above-guideline rent increases</strong>, or an <strong>Ontario Standard Lease dispute</strong> through strategic advocacy under the Residential Tenancies Act.</p>
+            <p class="header__content-text">Responding to the frequent search — <strong>can a paralegal represent me at the LTB?</strong> — with qualified representation.</p>
+        </div>
+
+        <h2 class="header__content-header">Intake Notice</h2>
+        <p class="header__content-text">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as Contracts, agreements, Court notices, orders or any other paperwork.</p>
+        <p class="header__content-text">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
+
+        <h3 class="header__content-subheader" style="text-align: center;">Identification Requirement</h3>
+        <p class="header__content-text">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
+        <p class="header__content-text">full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization’s incorporation or business identification number and it’s place of issue.</p>
     </div>
 </header>
 
