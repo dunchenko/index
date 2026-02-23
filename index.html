@@ -163,7 +163,7 @@
         }
 
         .header__title { 
-            font-size: 4.5rem; 
+            font-size: 3.5rem; 
             font-weight: 900; 
             margin-bottom: 0.9375rem;
             letter-spacing: 1px;
@@ -172,7 +172,7 @@
         }
 
         .header__subtitle { 
-            font-size: 3.5rem; 
+            font-size: 4.5rem; 
             font-weight: 900; 
             text-transform: uppercase;
             opacity: 0.95;
@@ -222,61 +222,6 @@
             width: 100%;
             text-align: justify;
             text-align-last: justify;
-        }
-
-        /* Block: scroll-indicator */
-        .scroll-indicator {
-            position: fixed;
-            bottom: 5vh;
-            left: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 6rem; /* Increased size */
-            height: 6rem; /* Increased size */
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(0.3125rem);
-            -webkit-backdrop-filter: blur(0.3125rem);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-            animation: bounceArrow 2s infinite ease-in-out;
-            transition: opacity 0.8s ease, transform 0.8s ease; /* Slower fade */
-            opacity: 0; /* Hidden initially */
-            transform: translateX(-50%) scale(0.8);
-            pointer-events: none;
-            cursor: pointer;
-            z-index: 50;
-        }
-
-        .scroll-indicator svg {
-            width: 3.5rem; /* Increased size */
-            height: 3.5rem; /* Increased size */
-            stroke-width: 2;
-        }
-
-        .scroll-indicator--visible {
-            opacity: 1 !important;
-            transform: translateX(-50%) scale(1) !important;
-            pointer-events: auto !important;
-        }
-
-        .scroll-indicator--hidden {
-            opacity: 0 !important;
-            transform: translateX(-50%) scale(0.8) translateY(-1rem) !important;
-            pointer-events: none;
-        }
-
-        @keyframes bounceArrow {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-0.625rem);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-0.3125rem);
-            }
         }
 
         /* Block: layout-container */
@@ -1924,40 +1869,18 @@
         <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London</span> 
         <span data-i18n="desc4">Online meetings are available province-wide</span>
     </h1>
-    <div class="book-btn-wrapper">
-        <!-- Container for preloader and button to manage smooth transition -->
-        <div class="book-btn-container">
-            <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
-                <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
-                    <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
-                    <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
-                </svg>
-                <div class="book-btn-preloader__text">Error</div>
-            </div>
-            <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-            <span id="headerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
-        </button>
-    </div>
-    </div>
-    <div class="header__contact">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+
     </div>
 </header>
-
-<div class="scroll-indicator" id="scrollIndicator" onclick="scrollToCalendar()">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-</div>
 
 
 
 <div class="layout-container">
-    <div class="contact-form fade-in-section reveal-on-interaction">
+    <div class="contact-form fade-in-section">
         <h2 class="contact-form__outside-title">NEXT AVAILABLE DAYS</h2>
         <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
         <div class="calendar-scale-inner" id="calendarScaleInner">
-        <div class="calendar-wrapper fade-in-section reveal-on-interaction" id="bookingCalendar">
+        <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
             
             <!-- Header Moved to Top -->
             <div class="calendar-header">
@@ -2159,20 +2082,7 @@
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
 
-        <!-- Nearest Available Day Booking Button -->
-        <div style="text-align: center; margin: 10px 0;">
-            <div class="book-btn-container">
-                <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute;">
-                    <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
-                        <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
-                        <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
-                    </svg>
-                    <div class="book-btn-preloader__text">Error</div>
-                </div>
-                <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                <span id="footerBookBtnText" data-i18n="bookBtn">Book Your First<br>Available Appointment</span>
-            </button>
-        </div>
+
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
@@ -2286,7 +2196,7 @@
     // CONFIGURATION (СONF URL)
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydh65bWV9uSla4eYZA9J8NN0A81jC_gSfxcTh5WAhp4p7DAxdln_bOjZdKX6kkkbBK3g/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLZSPpRY5ymwMdEthVVWv7Dzqm09fJf2efbobNMUtkbtE-0Y9-UONFsXkrC2BV-aIJtw/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -2297,41 +2207,9 @@
     let nearestDayLastSlotData = null; // Store the last available slot data for footer
     let availableDaysCount = 0; // Total available days in current view
     let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
-    let visitorIp = localStorage.getItem('site_ip') || "Fetching...";
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    // Fetch IP and Country on load
-    async function fetchIp() {
-        if (visitorIp !== "Fetching...") return; // Already cached
-        
-        try {
-            const res = await fetch('https://api.country.is');
-            const data = await res.json();
-            if (data.ip && data.country) {
-                visitorIp = `${data.ip} (${data.country})`;
-                localStorage.setItem('site_ip', visitorIp);
-                return;
-            }
-        } catch (e) {
-            console.error("api.country.is failed:", e);
-        }
-
-        // Fallback to geojs if country.is fails or blocked
-        try {
-            const res = await fetch('https://get.geojs.io/v1/ip/country.json');
-            const data = await res.json();
-            if (data.ip && data.country) {
-                visitorIp = `${data.ip} (${data.country})`;
-                localStorage.setItem('site_ip', visitorIp);
-                return;
-            }
-        } catch (e) {
-            console.error("geojs failed:", e);
-        }
-
-        visitorIp = "Unknown";
-    }
 
     function getDetailedDeviceInfo() {
         return `UA: ${navigator.userAgent} | Platform: ${navigator.platform} | Res: ${window.screen.width}x${window.screen.height} | Lang: ${navigator.language}`;
@@ -2366,7 +2244,6 @@
                     details: details,
                     suspicious: isSuspicious,
                     fingerprint: getFingerprint(),
-                    ip: visitorIp,
                     userInfo: getDetailedDeviceInfo(),
                     mapsLink: finalMapsLink,
                     severity: severity
@@ -3043,7 +2920,6 @@
                         phone: sanitize(formData.get('phone')),
                         service: sanitize(formData.get('service')),
                         notes: sanitize(formData.get('notes')),
-                        ip: visitorIp,
                         userInfo: getDetailedDeviceInfo(),
                         fingerprint: getFingerprint(),
                         mapsLink: currentMapsLink
@@ -3351,7 +3227,6 @@
                 address: sanitize(formData.get('address_full')),
                 files: filesData,
                 fingerprint: getFingerprint(),
-                ip: visitorIp,
                 userInfo: getDetailedDeviceInfo(),
                 _honeypot: formData.get('website') || '',
                 _timestamp: formData.get('_timestamp') || ''
@@ -3545,11 +3420,8 @@
             (err) => {} // Silent fail
         );
 
-        // Send the initial Page Load event asynchronously to guarantee correct IP row color
-        (async () => {
-            await fetchIp();
-            logEvent("Page Load", window.location.href);
-        })();
+        // Send the initial Page Load event asynchronously to guarantee correct row color
+        logEvent("Page Load", window.location.href);
     });
 
     function scrollToCalendar() {
@@ -3579,126 +3451,7 @@
         }
     }
 
-    function updateFooterBookBtn() {
-        const targets = [
-            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText'), preloader: document.getElementById('footerBookBtnPreloader') },
-            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText'), preloader: document.getElementById('headerBookBtnPreloader') }
-        ];
 
-        targets.forEach(t => {
-            if (!t.btn || !t.txt || !t.preloader) return;
-
-            if (absoluteNearestDate && nearestSlotData) {
-                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
-                const dayNum = absoluteNearestDate.getDate();
-                let htmlContent = '';
-                
-                if (t.btn.id === 'headerBookBtn') {
-                    // Header button: Original format (Line 1: Slot!, Line 2: Day, Time)
-                    let timeStr = '';
-                    if (nearestSlotData && nearestSlotData.text) {
-                        timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
-                    }
-                    htmlContent = timeStr 
-                        ? `Available Slot!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek} at ${timeStr}</span>` 
-                        : `Available Slot!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
-                } else {
-                    // Footer button: New 3-line format
-                    let lastTimeStr = '';
-                    if (nearestDayLastSlotData && nearestDayLastSlotData.text) {
-                        lastTimeStr = nearestDayLastSlotData.text.split(/[-–]/)[0].trim();
-                    }
-                    htmlContent = `Available Slot!<br>` +
-                                 `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
-                                 `<span style="font-size: 0.95rem; font-weight: 600; opacity: 0.9;">${dayOfWeek}, ${dayNum}</span>`;
-                }
-
-                // Normal Success Reveal
-                t.preloader.style.opacity = '0'; // Fade out preloader
-                t.preloader.style.transform = 'scale(0.9)'; // Shrink it
-
-                t.txt.innerHTML = htmlContent;
-                t.btn.style.opacity = '1';
-                t.btn.style.transform = 'scale(1)';
-                t.btn.style.pointerEvents = 'auto';
-                createSparks(t.btn);
-            } else {
-                // Hypnotic Error Prank Effect (Empty/Error case)
-                t.preloader.classList.add('book-btn-preloader--hypnotic');
-                const progressCircle = t.preloader.querySelector('.book-btn-preloader__progress');
-                if (progressCircle) {
-                    progressCircle.style.strokeDashoffset = '0';
-                }
-                
-                setTimeout(() => {
-                    t.preloader.classList.remove('book-btn-preloader--hypnotic');
-                    t.preloader.classList.add('book-btn-preloader--error');
-                    
-                    // Stop spinning
-                    const svg = t.preloader.querySelector('.book-btn-preloader__svg');
-                    if (svg) svg.style.animation = 'none';
-
-                    const errText = t.preloader.querySelector('.book-btn-preloader__text');
-                    if (errText) errText.classList.add('is-visible');
-                }, 60000); // 1 minute hypnotic delay
-            }
-        });
-    }
-
-    function createSparks(container) {
-        if (container.dataset.sparkTimer) return; // Only start one interval
-
-        const spawnSpark = () => {
-            const spark = document.createElement('span');
-            spark.className = 'spark';
-
-            let x, y;
-            const side = Math.floor(Math.random() * 4);
-            const pos = Math.random() * 100;
-
-            switch (side) {
-                case 0: x = pos; y = 0; break; // Top
-                case 1: x = 100; y = pos; break; // Right
-                case 2: x = pos; y = 100; break; // Bottom
-                case 3: x = 0; y = pos; break; // Left
-            }
-            spark.style.left = `${x}%`;
-            spark.style.top = `${y}%`;
-
-            const dx = x - 50;
-            const dy = y - 50;
-            const magnitude = Math.sqrt(dx * dx + dy * dy);
-            const normDx = dx / (magnitude || 1);
-            const normDy = dy / (magnitude || 1);
-            
-            const dist = 15 + Math.random() * 15; // How far they travel
-            spark.style.setProperty('--tx', `${normDx * dist}px`);
-            spark.style.setProperty('--ty', `${normDy * dist}px`);
-            
-            container.appendChild(spark);
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                spark.style.transition = 'opacity 0.2s';
-                spark.style.opacity = '0';
-                setTimeout(() => spark.remove(), 200);
-            }, 1000); 
-        };
-        
-        // Initial burst
-        for (let i = 0; i < 6; i++) spawnSpark();
-
-        const timer = setInterval(() => {
-            if (container.offsetParent === null) { // If hidden
-                clearInterval(timer);
-                container.dataset.sparkTimer = "";
-                return;
-            }
-            spawnSpark();
-        }, 400);
-        
-        container.dataset.sparkTimer = timer;
-    }
 
     // Periodic Progress Bar Scan
     setInterval(() => {
@@ -3785,34 +3538,11 @@
         scrollTimeout = setTimeout(hideBars, 10000);
     }
 
-    // ------------------------------------------------------------------
-    // SCROLL DOWN INDICATOR LOGIC
-    // ------------------------------------------------------------------
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    let scrollIndicatorHidden = false;
-    let scrollIndicatorInitialized = false;
-
-    function initScrollIndicator() {
-        if (scrollIndicatorInitialized || scrollIndicatorHidden) return;
-        
-        setTimeout(() => {
-            if (scrollIndicator && !scrollIndicatorHidden) {
-                scrollIndicator.classList.add('scroll-indicator--visible');
-                scrollIndicatorInitialized = true;
-            }
-        }, 2000); // 2 second delay after slots load
-    }
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Hide scroll indicator if user scrolls down a bit
-        if (scrollIndicator && !scrollIndicatorHidden && currentScroll > 50) {
-            scrollIndicator.classList.remove('scroll-indicator--visible');
-            scrollIndicator.classList.add('scroll-indicator--hidden');
-            scrollIndicatorHidden = true; // Only hide it once per session
-        }
-        
+
         // On any scroll, show the bars.
         if (topBar) topBar.classList.add('top-bar--visible');
         if (bottomBar) bottomBar.classList.add('bottom-bar--visible');
@@ -3842,9 +3572,7 @@
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Skip auto-reveal for interaction-only elements
-                if (entry.target.classList.contains('reveal-on-interaction')) return;
-                
+
                 entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             }
@@ -3855,43 +3583,6 @@
         observer.observe(section);
     });
 
-    // Force reveal of the calendar on interaction (scroll or touch)
-    let isRevealed = false;
-    const interactionTrigger = (e, force = false) => {
-        if (isRevealed) return;
-        
-        if (!force) {
-            // Ignore noise in the first 400ms
-            if (performance.now() < 400) return;
-            
-            // Prevent scroll events from layout shifts immediately after load
-            if (e && e.type === 'scroll' && performance.now() < 800) return;
-        }
-
-        isRevealed = true;
-        document.querySelectorAll('.reveal-on-interaction').forEach(el => {
-            el.classList.add('is-visible');
-        });
-        
-        ['scroll', 'touchstart', 'touchmove', 'wheel', 'keydown'].forEach(evt => {
-            window.removeEventListener(evt, interactionTrigger);
-        });
-    };
-
-    ['touchstart', 'touchmove', 'wheel', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, interactionTrigger, { passive: true });
-    });
-    // Add scroll with slight delay to avoid initial programmatic scrolls
-    setTimeout(() => {
-        window.addEventListener('scroll', interactionTrigger, { passive: true });
-    }, 800);
-
-    // If the page is loaded/refreshed while already scrolled down, reveal immediately
-    window.addEventListener('load', () => {
-        if (window.scrollY > 0) {
-            interactionTrigger(null, true);
-        }
-    });
 
     // Geolocation Logging for Directions
     function logDirectionsClick() {
