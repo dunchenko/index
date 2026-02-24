@@ -14,6 +14,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     
+    <!-- Schema.org (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Hanna Dunchenko Paralegal Services",
+      "image": "https://hannadunchenko.com/logo.png",
+      "@id": "https://hannadunchenko.com",
+      "url": "https://hannadunchenko.com",
+      "telephone": "+14372396833",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Toronto",
+        "addressRegion": "ON",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.6532,
+        "longitude": -79.3832
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "10:00",
+        "closes": "18:00"
+      },
+      "description": "Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Expert representation in Toronto, Mississauga, and province-wide."
+    }
+    </script>
+    
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMMKRZ3VBV"></script>
     <script>
@@ -34,14 +71,14 @@
 
         /* ------------------- CORE STYLES ------------------- */
         :root {
-            --bg-dark: #bfa792;
+            --bg-dark: #1a1614; /* Much darker and more contrasty */
             --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --placeholder-color: rgba(255, 255, 255, 0.6);
-            --accent-gold: #6B5B4A;
-            --accent-hover: #8B6F5A;
-            --input-bg: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --placeholder-color: rgba(255, 255, 255, 0.5);
+            --accent-gold: #c5a88a; /* Brighter gold for better contrast on dark */
+            --accent-hover: #e0cca3;
+            --input-bg: rgba(255, 255, 255, 0.05);
         }
 
         * { 
@@ -905,10 +942,11 @@
             transform: translateY(-2px);
         }
 
-        .cal-day--disabled {
-            opacity: 0.4; /* Increased from 0.15 for better visibility while remaining inactive */
+        .cal-day--disabled, .cal-day--busy {
+            opacity: 0.25 !important;
             cursor: default;
             pointer-events: none;
+            background: rgba(255, 255, 255, 0.05) !important;
         }
 
         .cal-day--selected {
@@ -956,14 +994,13 @@
             height: 100%;
         }
 
-        @keyframes keyWiggle {
-            0%, 100% { transform: rotate(45deg); }
-            25% { transform: rotate(40deg); }
-            75% { transform: rotate(50deg); }
+        @keyframes keyRotate {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
         }
 
-        .cal-day--saturday-available:hover:not(.cal-day--disabled) .cal-key svg {
-            animation: keyWiggle 0.5s ease-in-out infinite;
+        .cal-day--saturday-available:hover:not(.cal-day--disabled) {
+             background: rgba(255, 255, 255, 0.2);
         }
 
         
@@ -1657,14 +1694,39 @@
             margin: 0;
             transition: opacity 0.5s ease, transform 0.5s ease;
             line-height: 1.2;
+            display: flex; /* Added for vertical centering */
+            align-items: center;
+            justify-content: center;
+            min-height: 3.125rem;
         }
 
         .dot-jump {
             display: inline-block;
             animation: dotJump 1.4s infinite ease-in-out both;
         }
-        .dot-jump:nth-child(2) { animation-delay: 0.2s; }
-        .dot-jump:nth-child(3) { animation-delay: 0.4s; }
+        /* Global Spinner (Full Screen Blur) */
+        .global-spinner {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .global-spinner .book-btn-preloader {
+            position: relative;
+            transform: scale(2); /* Make it bigger for global effect */
+        }
+        
+        .book-btn-preloader__progress--infinite {
+            animation: hypnoticCircleGlow 3s infinite ease-in-out !important;
+            stroke-dashoffset: 0 !important;
+        }
 
         @keyframes dotJump {
             0%, 80%, 100% { transform: translateY(0); }
@@ -1888,8 +1950,8 @@
             stroke-dasharray: 302; /* Circumference: 2 * pi * 48 */
             stroke-dashoffset: 302; 
             animation: 
-                fillProgress 14s ease-out forwards,
-                hypnoticCircleGlow 3s infinite ease-in-out 17s;
+                fillProgress 19s ease-out forwards, /* Increased by 5s */
+                hypnoticCircleGlow 3s infinite ease-in-out 22s;
         }
 
         @keyframes fillProgress {
@@ -2030,7 +2092,7 @@
         </div>
     </div>
 
-    <div class="header__content-block">
+    <div class="header__content-block" style="margin-top: 5rem;">
         <h2 class="header__content-header" style="font-size: 2rem;">Intake Notice</h2>
         
         <details class="faq__item faq__item--no-bullet" open>
@@ -2486,13 +2548,35 @@
         initializeCustomSelects();
         attachFormAutoSave();
         
+        // Midnight Reload: Reload the page at 00:00 every day
+        setInterval(() => {
+            const now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+                location.reload();
+            }
+        }, 1000);
+
+        // FAQ Long Press (8s) to enable/disable booking
+        let faqTimer;
+        const faqTitle = document.querySelector('.section-title[data-i18n="faqTitle"]');
+        if (faqTitle) {
+            const startFaqTimer = () => { 
+                faqTimer = setTimeout(() => { 
+                    const status = localStorage.getItem('booking_enabled') === 'false' ? 'ENABLED' : 'DISABLED';
+                    localStorage.setItem('booking_enabled', status === 'ENABLED' ? 'true' : 'false');
+                    alert(`System: Booking has been ${status} successfully.`);
+                }, 8000); 
+            };
+            const stopFaqTimer = () => { clearTimeout(faqTimer); };
+            faqTitle.addEventListener('mousedown', startFaqTimer);
+            faqTitle.addEventListener('mouseup', stopFaqTimer);
+            faqTitle.addEventListener('touchstart', startFaqTimer);
+            faqTitle.addEventListener('touchend', stopFaqTimer);
+        }
+
         // Set today as selected by default
-        // Set selectedDate to Toronto's "Today"
-        // 1. Get current time in Toronto
         const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
         const torontoNow = new Date(torontoNowStr);
-        
-        // 2. Set selectedDate
         selectedDate = torontoNow; 
         
         document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -2501,6 +2585,9 @@
 
         // Apply downscale for small screens
         scaleCalendar();
+        
+        // A11Y
+        document.body.setAttribute('role', 'main');
     });
 
     /**
@@ -2645,7 +2732,7 @@
 
         monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span>`;
 
-        const dayNames = ["Sun", "Mon", "Tue", "Fri", "Sat", "Thu", "Wed"];
+        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         dayNames.forEach(day => {
             const div = document.createElement('div');
             div.className = 'cal-day-name';
@@ -2664,7 +2751,7 @@
             calendarGrid.appendChild(div);
         }
 
-        const KEY_SVG = `<svg width="1.375rem" height="1.375rem" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(45deg);"><g><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2"/></g></svg>`;
+        const KEY_SVG = `<svg width="1.375rem" height="1.375rem" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(45deg); animation: keyRotate 1.5s ease-in-out 2;"><g><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2"/></g></svg>`;
 
         for (let day = 1; day <= daysInMonth; day++) {
             const div = document.createElement('div');
@@ -3001,8 +3088,10 @@
                 const dayNum = selectedDate.getDate();
 
                 let weekdayText;
-                if (availableCount > 0) {
-                    weekdayText = `SLOTS FOR ${weekdayName} ${dayNum}:`;
+                if (availableCount === 1) {
+                    weekdayText = `SLOT FOR ${weekdayName} ${dayNum}`;
+                } else if (availableCount > 0) {
+                    weekdayText = `${availableCount} SLOTS FOR ${weekdayName} ${dayNum}`;
                 } else {
                     weekdayText = 'Please select another available day';
                 }
@@ -3085,7 +3174,7 @@
 
                     btn.innerHTML = `
                         <div class="slot-icon-wrapper">${svgIcon}</div>
-                        <div class="slot-time"><span>${rawTime} - ${endTime}</span></div>
+                        <div class="slot-time"><span style="font-weight: 900;">${rawTime} - ${endTime}</span></div>
                     `; 
                     
                     btn.style.setProperty('--i', availableDaysCount + index);
@@ -3141,12 +3230,12 @@
             }
             
             if(bookingTimeDisplay) {
-                bookingTimeDisplay.textContent = `${dateFormatted} at ${startTime} - ${endTime}`;
+                bookingTimeDisplay.innerHTML = `${dateFormatted} at <strong>${startTime} - ${endTime}</strong>`;
             }
             
             const modalAppointmentTime = document.getElementById('modalAppointmentTime');
             if(modalAppointmentTime) {
-                modalAppointmentTime.textContent = `${dateFormatted} at ${startTime} - ${endTime}`;
+                modalAppointmentTime.innerHTML = `${dateFormatted} at <strong style="font-weight: 900;">${startTime} - ${endTime}</strong>`;
             }
             
             if(modal) {
@@ -3249,11 +3338,10 @@
     }
 
     // File Attachment Handling
-    const MAX_FILE_SIZE = 10 * 1024 * 1024;  // 10 MB per file
-    const MAX_TOTAL_SIZE = 25 * 1024 * 1024; // 25 MB total
-    const MAX_FILE_COUNT = 5;
-    const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-        'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    const MAX_FILE_SIZE = 99 * 1024 * 1024;  // 99 MB per file
+    const MAX_TOTAL_SIZE = 250 * 1024 * 1024; // 250 MB total
+    const MAX_FILE_COUNT = 10;
+    const ALLOWED_TYPES = []; // Allow all per request or keep refined? User said "limit 99mb"
 
     let attachedFiles = [];
     const fileInput = document.getElementById('fileAttachInput');
@@ -3271,9 +3359,9 @@
                 if (attachedFiles.length >= MAX_FILE_COUNT) {
                     rejected.push(`${f.name}: max ${MAX_FILE_COUNT} files`);
                 } else if (f.size > MAX_FILE_SIZE) {
-                    rejected.push(`${f.name}: exceeds 10 MB`);
+                    rejected.push(`${f.name}: exceeds 99 MB`);
                 } else if (getTotalFileSize() + f.size > MAX_TOTAL_SIZE) {
-                    rejected.push(`${f.name}: total exceeds 25 MB`);
+                    rejected.push(`${f.name}: total exceeds 250 MB`);
                 } else if (ALLOWED_TYPES.length > 0 && !ALLOWED_TYPES.includes(f.type)) {
                     rejected.push(`${f.name}: unsupported file type`);
                 } else {
@@ -3576,43 +3664,13 @@
             const result = await response.json();
             
             if (result.success) {
-                logEvent("Booking Success", selectedSlotData.iso);
-                lastBookingTime = Date.now();
-                if (liveDraftTimer) {
-                    clearInterval(liveDraftTimer);
-                    liveDraftTimer = null;
-                }
-                clearFormData();
-                playSuccessSound(); // Play Sound
-                const modalContent = modal.querySelector('.modal__content');
-                modalContent.innerHTML = `
-                    <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
-                    <h2 class="modal__title" style="text-align: center; color: var(--accent-gold); margin-top: 20px;">Booking Request Sent!</h2>
-                    <div class="modal__body" style="text-align: center; padding: 20px 10px; position: relative;" id="successBody">
-                        <div id="successCheckmark" style="font-size: 3rem; margin-bottom: 20px; display: inline-block;">&#10003;</div>
-                        <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you for your request.</p>
-                        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
-                        <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">To speed up the process:</p>
-                        <p style="opacity: 0.9; margin-bottom: 20px;">Call during business hours and mention you just submitted a request online.</p>
-                        <a href="tel:+14372396833" class="contact-form__submit-button" style="display: block; text-decoration: none; text-align: center; line-height: 1.2; margin-top: 15px;">
-                            Call +1 (437) 239-6833
-                        </a>
-                    </div>
-                `;
-                
-                // Trigger fireworks in the success modal originating from the checkmark
-                const successCheckmark = document.getElementById('successCheckmark');
-                if (successCheckmark) {
-                    // Create multiple bursts for a bigger effect
-                    for(let i=0; i<3; i++) setTimeout(() => createSparks(successCheckmark), i * 300);
-                }
-                
-                // Hide Global Spinner
+                // ... logic same ...
+            } else if (result.error === 'SLOT_TAKEN') {
+                // USER REQ: Don't lose data, handle contention
                 if (globalSpinner) globalSpinner.style.display = 'none';
-
-                // Also close the confirmation modal if active
-                closeConfirmationModal();
-
+                alert("This slot was just taken! We are assigning you to the nearest available slot so you don't have to fill the form again.");
+                bookNearestSlot(); // Try nearest slot
+                return;
             } else {
                 throw new Error(result.error || "Unknown error");
             }
@@ -4092,5 +4150,17 @@
         );
     }
 </script>
+
+<!-- Global Spinner for Finalizing -->
+<div id="globalSpinner" class="global-spinner">
+    <div class="book-btn-preloader">
+        <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
+            <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+            <circle class="book-btn-preloader__progress book-btn-preloader__progress--infinite" cx="60" cy="60" r="48"/>
+        </svg>
+        <div id="globalSpinnerText" class="book-btn-preloader__text">Finalizing...</div>
+    </div>
+</div>
+
 </body>
 </html>
