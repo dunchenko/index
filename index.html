@@ -2329,8 +2329,13 @@
 
 <!-- GLOBAL SPINNER FOR BOOKING SUBMISSION -->
 <div id="globalSpinner" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 30000; flex-direction: column; align-items: center; justify-content: center;">
-    <div class="loader" style="width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--text-white); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-    <p id="globalSpinnerText" style="color: var(--text-white); margin-top: 20px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;">Sending booking...</p>
+    <div style="position: relative; width: 80px; height: 80px; margin-bottom: 20px;">
+        <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; animation: spin 1.5s linear infinite;">
+            <circle cx="60" cy="60" r="48" style="fill: transparent; stroke: rgba(255, 255, 255, 0.2); stroke-width: 6;"/>
+            <circle cx="60" cy="60" r="48" style="fill: none; stroke: #ffffff; stroke-width: 6; stroke-dasharray: 302; stroke-dashoffset: 100; stroke-linecap: round;"/>
+        </svg>
+    </div>
+    <p id="globalSpinnerText" class="header__content-header" style="color: var(--text-white); font-size: 1.5rem; letter-spacing: 2px;">Sending booking...</p>
 </div>
 <style>
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -2364,7 +2369,7 @@
     // CONFIGURATION (СONF URL)
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9oKmQIco1LLqX-BBdy54XxWmQHqCxWrFo4MZQyxr2Nur6DA7_5bmR5tEeLtqWV7sGtg/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjrbqvJt_VhxWT6a-82qoqpSokYmgDWSKuj-0dky5_GUAYAsUafWyvbkbEWivri9TV_Q/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -3501,10 +3506,9 @@
             cModal.classList.add('modal--active');
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-is-open');
-
-            // Burst of sparks from the center checkmark icon
-            const checkIcon = document.getElementById('confirmationCheckmark');
-            if (checkIcon) createSparks(checkIcon);
+            // Sparks animation removed from here
+            // const checkIcon = document.getElementById('confirmationCheckmark');
+            // if (checkIcon) createSparks(checkIcon);
         }
     }
 
@@ -3586,7 +3590,7 @@
                     <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
                     <h2 class="modal__title" style="text-align: center; color: var(--accent-gold); margin-top: 20px;">Booking Request Sent!</h2>
                     <div class="modal__body" style="text-align: center; padding: 20px 10px; position: relative;" id="successBody">
-                        <div style="font-size: 3rem; margin-bottom: 20px;">&#10003;</div>
+                        <div id="successCheckmark" style="font-size: 3rem; margin-bottom: 20px; display: inline-block;">&#10003;</div>
                         <p style="font-size: 1.1rem; margin-bottom: 20px;">Thank you for your request.</p>
                         <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
                         <p style="font-weight: 700; color: #fff; margin-bottom: 10px;">To speed up the process:</p>
@@ -3597,11 +3601,11 @@
                     </div>
                 `;
                 
-                // Trigger fireworks in the success modal
-                const successBody = document.getElementById('successBody');
-                if (successBody) {
+                // Trigger fireworks in the success modal originating from the checkmark
+                const successCheckmark = document.getElementById('successCheckmark');
+                if (successCheckmark) {
                     // Create multiple bursts for a bigger effect
-                    for(let i=0; i<3; i++) setTimeout(() => createSparks(successBody), i * 300);
+                    for(let i=0; i<3; i++) setTimeout(() => createSparks(successCheckmark), i * 300);
                 }
                 
                 // Hide Global Spinner
