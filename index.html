@@ -61,9 +61,9 @@
         gtag('config', 'G-ZMMKRZ3VBV');
     </script>
     <style>
-        /* Proportional Scaling for Mobile */
+        /* Standard Scaling */
         html {
-            font-size: min(16px, calc(100vw / 650 * 16));
+            font-size: 16px;
         }
         body {
             font-size: 1rem;
@@ -71,13 +71,13 @@
 
         /* ------------------- CORE STYLES ------------------- */
         :root {
-            --bg-dark: #1a1614; /* Much darker and more contrasty */
+            --bg-dark: #bfa792;
             --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --placeholder-color: rgba(255, 255, 255, 0.5);
-            --accent-gold: #c5a88a; /* Brighter gold for better contrast on dark */
-            --accent-hover: #e0cca3;
+            --placeholder-color: rgba(255, 255, 255, 0.6);
+            --accent-gold: #6B5B4A;
+            --accent-hover: #8B6F5A;
             --input-bg: rgba(255, 255, 255, 0.05);
         }
 
@@ -85,7 +85,10 @@
             box-sizing: border-box; 
             margin: 0; 
             padding: 0; 
-            font-family: 'Lato', sans-serif !important;
+        }
+        
+        body, button, input, select, textarea {
+            font-family: 'Lato', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -98,7 +101,7 @@
 
         .pulseText {
             animation: pulseText 2s infinite ease-in-out;
-            font-weight: 500;
+            font-weight: 800;
         }
         
         @keyframes blurReveal {
@@ -112,7 +115,7 @@
             color: var(--text-white); 
             line-height: 1.6; 
             min-height: 100vh;
-            padding-bottom: 9.375rem; /* Space for bottom bar */
+            padding-bottom: 9.4rem; /* Space for bottom bar */
             animation: blurReveal 4s ease-out forwards;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -132,7 +135,7 @@
         }
         body::-webkit-scrollbar-thumb {
             background-color: #5a3d2a;
-            border-radius: 0.625rem;
+            border-radius: 0.6rem;
         }
         body::-webkit-scrollbar-thumb:hover {
             background-color: #6B5B4A;
@@ -142,12 +145,12 @@
         /* Scroll Fade-in Animation */
         .fade-in-section {
             opacity: 1; /* Was 0 */
-            transform: none; /* Was translateY(1.875rem) */
+            transform: none; /* Was translateY(1.9rem) */
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
         .fade-in-section.is-hidden {
             opacity: 0;
-            transform: translateY(1.875rem);
+            transform: translateY(1.9rem);
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -156,7 +159,7 @@
 
         .blur-in-section {
             opacity: 0;
-            filter: blur(1.25rem); /* 20px */
+            filter: blur(1.3rem); /* 20px approx */
             transition: opacity 1.5s ease-out, filter 1.5s ease-out;
             transform: none !important; /* Disable slide-up */
         }
@@ -173,7 +176,7 @@
             inset: 0; 
             z-index: -1; 
             overflow: hidden; 
-            background: var(--bg-dark); 
+            background: #bfa792; 
         }
 
         .background__svg {
@@ -195,56 +198,60 @@
             75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
         }
 
-        /* Pause background animation when a modal is open */
         body.modal-is-open .background__stripe {
             animation-play-state: paused;
+        }
+
+        .background__stripes-overlay {
+            mix-blend-mode: overlay;
         }
         
         /* Block: header */
         .header { 
             text-align: center; 
-            padding: 2rem 1.25rem 2.5rem;
+            padding: 2rem 1.3rem 2.5rem;
             max-width: 50rem;
             margin: 0 auto;
         }
 
         .header__title { 
-            font-size: 3.5rem; 
-            font-weight: 900; 
-            margin-bottom: 0.9375rem;
-            letter-spacing: 1px;
+            font-size: clamp(1.2rem, 4.5vw, 1.8rem); 
+            font-weight: 800; 
+            margin-bottom: 0.3rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            white-space: nowrap;
+            opacity: 0.9;
         }
 
         .header__subtitle { 
-            font-size: 4.5rem; 
-            font-weight: 900; 
+            font-size: clamp(2rem, 10vw, 4.2rem); 
+            font-weight: 800; 
             text-transform: uppercase;
-            opacity: 0.95;
-            margin-bottom: 0.625rem;
+            margin-bottom: 2rem;
+            letter-spacing: -2px;
+            line-height: 0.9;
         }
 
         .header__contact {
-            margin: 0.3125rem 0 0.9375rem;
+            margin: 0.3rem 0 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.8rem;
         }
 
         .header__contact-label {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 800;
             color: var(--text-white);
         }
 
         .header__phone-link { 
-            font-size: 2.3rem; 
-            font-weight: 900; 
-            color: var(--text-white);
-            text-decoration: none;
-            transition: opacity 0.3s ease;
+            font-size: clamp(1.5rem, 5vw, 2.3rem); 
+            font-weight: 800; 
+            color: #ffffff; 
+            text-decoration: none; 
+            transition: opacity 0.3s;
         }
 
         .header__phone-link:hover { opacity: 0.8; }
@@ -253,15 +260,15 @@
         .header__content-block {
             margin: 3rem auto;
             text-align: left;
-            max-width: 40.625rem;
+            max-width: 41rem;
             color: #ffffff;
             font-family: inherit;
         }
 
         .header__content-header {
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 3rem 0 1.5rem;
+            font-size: clamp(1.4rem, 5vw, 1.8rem);
+            font-weight: 800;
+            margin: 4rem 0 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #ffffff;
@@ -269,18 +276,19 @@
         }
 
         .header__content-subheader {
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin: 2rem 0 1rem;
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            font-weight: 800;
+            margin: 2rem 0 0.8rem;
             color: #ffffff;
             text-transform: uppercase;
         }
 
         .header__content-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 1.5rem;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 800;
         }
 
         .header__content-text strong {
@@ -289,31 +297,27 @@
         }
 
         .header__description {
-            font-size: 1.3rem;
-            font-weight: 700;
-            opacity: 0.85;
-            margin: 2.1875rem auto;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 auto 1.5rem;
+            max-width: 45rem;
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            width: max-content;
-            max-width: 100%; /* Prevent overflow on very narrow screens */
+            padding: 0 1.5rem;
+            text-align: center;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
         }
         
         .header__description span {
-            white-space: nowrap;
-            width: 100%;
-            text-align: justify;
-            text-align-last: justify;
+            display: inline;
         }
 
         /* Block: layout-container */
         .layout-container { 
-            max-width: 40.625rem; 
+            max-width: 41rem; 
             margin: 0 auto 0; 
-            padding: 0 1.25rem; 
+            padding: 0 1.2rem; 
         }
         
         /* Block: contact-form */
@@ -327,10 +331,10 @@
         }
 
         .contact-form__outside-title { 
-            font-size: 1.8rem; 
-            margin-bottom: 1.875rem; 
+            font-size: clamp(1.4rem, 5vw, 1.8rem); 
+            margin-bottom: 2rem; 
             text-align: center; 
-            font-weight: 900; 
+            font-weight: 800; 
             text-transform: uppercase; 
             letter-spacing: 2px;
             color: var(--text-white);
@@ -338,16 +342,16 @@
 
         .contact-form__title { 
             display: none;
-            font-size: 1.8rem; 
-            margin-bottom: 1.875rem; 
+            font-size: clamp(1.4rem, 5vw, 1.8rem); 
+            margin-bottom: 2rem; 
             text-align: center; 
-            font-weight: 900; 
+            font-weight: 800; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
         }
 
         .contact-form__group { 
-            margin-bottom: 1.875rem; 
+            margin-bottom: 2rem; 
             position: relative; 
         }
 
@@ -358,9 +362,9 @@
         }
 
         .contact-form__label { 
-            font-weight: 700; 
+            font-weight: 800; 
             text-transform: uppercase; 
-            font-size: 0.85rem; 
+            font-size: 0.9rem; 
             letter-spacing: 1px; 
         }
 
@@ -371,7 +375,7 @@
             padding: 1rem; 
             background: var(--input-bg); 
             border: 1px solid var(--glass-border); 
-            border-radius: 0.625rem; 
+            border-radius: 0.8rem; 
             color: var(--text-white);
             font-size: 1rem; 
             outline: none; 
@@ -403,11 +407,11 @@
 
         .contact-form__textarea { 
             resize: none; 
-            min-height: 11.25rem; 
+            min-height: 11rem; 
         }
         
         .contact-form__char-counter {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             opacity: 0.6;
             color: rgba(255, 255, 255, 0.6);
             transition: all 0.3s ease;
@@ -424,12 +428,12 @@
 
         .contact-form__file-upload {
             position: absolute;
-            bottom: 1.3125rem;
+            bottom: 1.3rem;
             right: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.25rem;
+            padding: 0.3rem; 
             cursor: pointer;
             z-index: 2;
         }
@@ -458,12 +462,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.9375rem;
-            margin-top: 0.9375rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         .contact-form__checkbox {
-            width: 1.75rem; height: 1.75rem;
+            width: 1.8rem; height: 1.8rem;
             padding: 0;
             appearance: none; -webkit-appearance: none;
             background: var(--input-bg);
@@ -480,12 +484,12 @@
         }
         
         .contact-form__checkbox:checked::before {
-            content: ""; width: 0.375rem; height: 0.625rem; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-top: -2px;
+            content: ""; width: 0.4rem; height: 0.6rem; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-top: -2px;
         }
 
         .contact-form__checkbox-label {
             font-size: 0.9rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
         }
         
@@ -494,32 +498,32 @@
             text-decoration: underline;
             cursor: pointer;
             transition: color 0.3s ease;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .contact-form__terms-link:hover { color: #D4B89A; }
 
         .contact-form__submit-button { 
             width: 100%; 
-            padding: 1.25rem; 
+            padding: 1.2rem; 
             background: #5a3d2a;
             color: #ffffff; 
             border: none; 
-            border-radius: 0.625rem; 
-            font-weight: 900; 
+            border-radius: 0.6rem; 
+            font-weight: 800; 
             font-size: 1.1rem; 
             text-transform: uppercase; 
             cursor: pointer; 
             transition: all 0.3s ease; 
-            margin-top: 1.25rem;
+            margin-top: 1.2rem;
             position: relative;
-            box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
         }
         
         .contact-form__submit-button:hover { 
             transform: translateY(-2px); 
             background: var(--accent-gold); 
-            box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.25); 
+            box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.25); 
         }
 
         /* Shadow Removal for Buttons inside Modals */
@@ -530,14 +534,14 @@
 
         .contact-form__note {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             opacity: 0.75;
-            margin-top: 0.9375rem;
+            margin-top: 1rem;
         }
 
         /* Block: section-title */
         .section-title { 
-            font-size: 1.8rem; font-weight: 900; 
+            font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight: 800; 
             text-transform: uppercase; letter-spacing: 2px; 
             text-align: center; 
             margin: 5rem 0 2.5rem;
@@ -547,56 +551,41 @@
         .faq { margin-top: 0; }
 
         .faq__item {
-            margin-bottom: 1.875rem;
+            margin-bottom: 2rem;
             padding: 0;
             text-align: left; /* Align FAQ content to the left */
         }
-        
-        .faq__item--no-bullet .faq__question::before {
-            display: none;
-        }
 
-        .faq__item--no-bullet .faq__answer {
-            padding-left: 0;
-        }
 
         .faq__question { 
-            font-weight: 900; 
-            font-size: 1.1rem; 
+            font-weight: 800; 
+            font-size: clamp(1rem, 3vw, 1.2rem); 
             text-transform: uppercase; 
             display: flex; 
             align-items: flex-start; 
-            gap: 0.9375rem; 
+            gap: 1rem; 
             cursor: pointer;
-            margin-bottom: 0.9375rem;
+            margin-bottom: 1rem;
             list-style: none;
+            line-height: 1.4;
         }
 
         .faq__question::-webkit-details-marker { display: none; }
-        
-        .faq__question::before { 
-            content: ""; display: inline-block; 
-            width: 0.75rem; height: 0.75rem; min-width: 0.75rem; 
-            border-radius: 50%; border: 2px solid #ffffff; 
-            margin-top: 0.3125rem; transition: background 0.3s;
-        }
-        
-        details[open] > .faq__question::before { background-color: #ffffff; }
+        .faq__question { list-style: none; }
 
         .faq__answer { 
-            font-size: 0.95rem; opacity: 0.9; 
-            padding-left: 1.8125rem; 
-            padding-bottom: 0.625rem;
+            font-size: 1.1rem; 
+            color: rgba(255, 255, 255, 0.9);
+            padding-left: 1.5rem; 
+            padding-bottom: 1rem;
             line-height: 1.6;
+            font-weight: 400;
         }
 
-        /* Block: price-table */
-        .price-table { width: 100%; border-collapse: collapse; margin-top: 0.9375rem; border: 1px solid rgba(255,255,255,0.3); }
-        .price-table td { padding: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.3); }
-        .price-table td:last-child { text-align: right; font-weight: 700; }
+
 
         .price-note {
-            font-size: 1rem; opacity: 0.9; display: block; margin-top: 0.625rem; text-align: left;
+            font-size: 1rem; opacity: 0.9; display: block; margin-top: 0.6rem; text-align: left;
         }
 
 
@@ -609,12 +598,12 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(0.25rem);
-            -webkit-backdrop-filter: blur(0.25rem);
+            backdrop-filter: blur(0.3rem);
+            -webkit-backdrop-filter: blur(0.3rem);
             z-index: 20000; /* Increased to be above top-bar */
             align-items: center;
             justify-content: center;
-            padding: 0.625rem;
+            padding: 0.6rem;
             /* Ensure it covers screen */
             inset: 0;
             overflow-y: auto; /* Changed to auto to prevent unnecessary scrollbar */
@@ -626,16 +615,16 @@
 
         #termsModal .modal__content {
             max-width: 50rem;
-            background: #121212; /* Solid dark background to cover underlying modal */
+            background: var(--bg-dark); /* Match the site's light background */
             border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 1.25rem 3.125rem rgba(0,0,0,0.5);
+            box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.5);
         }
 
         #termsModal .modal__title {
             text-align: center;
             color: var(--accent-gold);
-            margin-bottom: 1.875rem;
-            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
         }
         
         #termsModal .modal__section-title {
@@ -643,14 +632,14 @@
             font-size: 1.1rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             padding-bottom: 0.5rem;
-            margin-top: 1.875rem;
-            margin-bottom: 0.9375rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
 
         #termsModal .modal__text {
             color: rgba(255, 255, 255, 0.85);
-            text-align: justify;
-            margin-bottom: 0.9375rem;
+            text-align: left;
+            margin-bottom: 1rem;
         }
 
         #termsModal .modal__footer-text {
@@ -659,8 +648,8 @@
             font-size: 0.9rem;
             margin-top: 2.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1.25rem;
-            font-weight: 400;
+            padding-top: 1.3rem;
+            font-weight: 800;
         }
 
         /* When active, use Flexbox to center */
@@ -675,7 +664,7 @@
         .modal__content {
             background: var(--bg-dark);
             border: 1px solid var(--glass-border);
-            border-radius: 0.9375rem;
+            border-radius: 1.5rem;
             padding: 2.5rem;
             width: 100%;
             max-width: 37.5rem;
@@ -685,7 +674,7 @@
             flex-direction: column;
             
             position: relative;
-            box-shadow: 0 1.875rem 5.625rem rgba(0, 0, 0, 0.7), 0 0 1.25rem rgba(255, 255, 255, 0.05);
+            box-shadow: 0 1.9rem 5.6rem rgba(0, 0, 0, 0.7), 0 0 1.2rem rgba(255, 255, 255, 0.05);
             animation: modalScaleIn 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             
             /* Ensure it centers if flex alignment fails for some reason */
@@ -699,12 +688,12 @@
 
         .modal__close {
             position: absolute;
-            top: 1.25rem;
-            left: 1.25rem;
+            top: 1.3rem;
+            left: 1.3rem;
             right: auto;
             background: none;
             border: none;
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             color: var(--text-white);
             cursor: pointer;
             padding: 0;
@@ -720,67 +709,67 @@
         .modal__close:hover { color: #D4B89A; }
 
         .modal__title {
-            font-size: 1.4rem;
-            font-weight: 900;
-            margin-bottom: 0.9375rem;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             flex-shrink: 0;
         }
 
         .modal__body {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.7;
             color: var(--text-white);
-            padding: 0 0.3125rem;
+            padding: 0 0.3rem;
         }
 
         .modal__section-title {
             font-size: 1.2rem;
-            font-weight: 700;
-            margin-top: 1.25rem;
-            margin-bottom: 0.625rem;
+            font-weight: 800;
+            margin-top: 1.3rem;
+            margin-bottom: 0.6rem;
             text-transform: uppercase;
         }
         
-        .modal__text { margin-bottom: 0.75rem; opacity: 0.95; }
+        .modal__text { margin-bottom: 0.8rem; opacity: 0.95; }
         
-        .modal__highlight { font-weight: 700; color: #D4B89A; }
+        .modal__highlight { font-weight: 800; color: #D4B89A; }
         
         .modal__footer-text {
-            margin-top: 1.875rem; 
-            padding-top: 1.25rem; 
+            margin-top: 2rem; 
+            padding-top: 1.3rem; 
             border-top: 1px solid rgba(255, 255, 255, 0.2); 
-            font-size: 1.15rem; 
+            font-size: 1.2rem; 
             color: #ffffff; 
-            font-weight: 700;
+            font-weight: 800;
         }
 
         /* Block: footer */
         .footer {
             text-align: center;
-            padding: 5rem 1.25rem 1.25rem;
+            padding: 5rem 1.3rem 1.3rem;
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             line-height: 1.8;
         }
 
-        .footer__container { margin-bottom: 3.125rem; }
+        .footer__container { margin-bottom: 3.1rem; }
         
         .footer__button {
             width: 100%;
-            padding: 1.25rem;
+            padding: 1.3rem;
             background: #5a3d2a;
             color: #ffffff;
             border: none;
-            border-radius: 0.625rem; 
-            font-weight: 900;
+            border-radius: 0.6rem; 
+            font-weight: 800;
             font-size: 1.1rem;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
             max-width: 20rem;
             margin: 0 auto;
         }
@@ -788,22 +777,22 @@
         .footer__button:hover {
              transform: translateY(-2px); 
              background: var(--accent-gold); 
-             box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.25); 
+             box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.25); 
         }
 
         .footer__contact-link {
             display: block;
             color: #ffffff; 
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: clamp(1.4rem, 5vw, 1.8rem);
+            font-weight: 800;
             text-decoration: none;
-            margin: 1.875rem 0 0.625rem;
+            margin: 2rem 0 0.6rem;
         }
 
         .footer__hours {
-            font-size: 0.95rem; 
+            font-size: 1rem; 
             color: #ffffff; 
-            margin-bottom: 1.875rem;
+            margin-bottom: 2rem;
             white-space: pre-line;
             line-height: 1.6;
         }
@@ -811,10 +800,10 @@
         /* Block: map-container */
         .map-container {
             width: 100%; 
-            height: 28.125rem; 
+            height: 28rem; 
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNTzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); 
             background-size: cover; 
-            border-radius: 0.625rem; 
+            border-radius: 0.6rem; 
             overflow: hidden;
         }
 
@@ -828,15 +817,13 @@
         /* ------------------- CUSTOM CALENDAR (Liquid Glass Design) ------------------- */
         .calendar-wrapper {
             background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(1.25rem);
-            -webkit-backdrop-filter: blur(1.25rem);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 0;
-            padding: 2.5rem;
+            border-radius: 3rem;
+            padding: clamp(1rem, 5vw, 2.5rem);
             margin-top: 0;
-            /* Responsive Scaling */
-            transform-origin: top center;
-            transition: transform 0.3s ease;
+            position: relative; /* Added for loader overlay */
         }
         
         .slots-block {
@@ -849,14 +836,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.875rem;
+            margin-bottom: 2rem;
             text-align: center;
-            padding: 0 0.625rem;
+            padding: 0 0.6rem;
         }
 
         .calendar-title {
             font-size: 1.4rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #ffffff;
@@ -871,7 +858,7 @@
         /* "Wait..." Animation */
         .loading-text {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 800;
             color: rgba(255, 255, 255, 0.8);
             letter-spacing: 1px;
             animation: pulseText 1.5s infinite ease-in-out;
@@ -879,16 +866,17 @@
         
         
         .calendar-title span { display: block; }
-        .calendar-title .cal-month { font-size: 1.6rem; font-weight: 900; }
-        .calendar-title .cal-year { font-size: 1.6rem; opacity: 0.9; font-weight: 900; letter-spacing: 2px; margin-top: -0.3125rem; }
+        .calendar-title .cal-month { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 800; }
+        .calendar-title .cal-year { font-size: clamp(1.2rem, 4vw, 1.6rem); opacity: 0.9; font-weight: 800; letter-spacing: 2px; margin-top: -0.3rem; }
 
 
         .calendar-nav-btn {
-            background: rgba(255, 255, 255, 0);
-            border: none;
-            color: #ffffff; 
-            border-radius: 0;
-            width: 3.125rem; height: 3.125rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid transparent;
+            color: #ffffff;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
             cursor: pointer;
             font-size: 1.8rem;
             transition: all 0.3s ease;
@@ -899,15 +887,52 @@
         }
 
         .calendar-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
             opacity: 1;
+        }
+
+        /* Calendar Loader Overlay */
+        #calendarLoaderOverlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(191, 167, 146, 0.4);
+            display: none;
+            flex-direction: column; /* Added to support text below spinner */
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 3rem;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            gap: 15px; /* Space between spinner and text */
+        }
+        
+        #calendarLoaderOverlay span {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .cal-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: calSpin 0.8s linear infinite;
+        }
+        
+        @keyframes calSpin {
+            to { transform: rotate(360deg); }
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 0.75rem;
+            gap: clamp(0.2rem, 1.5vw, 0.8rem);
             text-align: center;
         }
 
@@ -917,7 +942,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 0.9375rem;
+            margin-bottom: 1rem;
         }
 
         .cal-day {
@@ -925,7 +950,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 0;
+            border-radius: 50%; /* Reverted to circular shape */
             color: rgba(255, 255, 255, 0.7);
             background: rgba(255, 255, 255, 0.1); 
             cursor: pointer;
@@ -933,7 +958,7 @@
             position: relative;
             font-size: 1rem;
             border: 1px solid transparent;
-            font-weight: 400; /* Normal weight */
+            font-weight: 800; /* Normal weight */
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
@@ -942,51 +967,41 @@
             transform: translateY(-2px);
         }
 
-        .cal-day--disabled, .cal-day--busy {
-            opacity: 0.25 !important;
+        .cal-day--disabled {
+            opacity: 0.38 !important;
             cursor: default;
             pointer-events: none;
-            background: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .cal-day--busy {
+            opacity: 0.3 !important;
+            cursor: default;
+            pointer-events: none;
         }
 
         .cal-day--selected {
             background: #ffffff !important;
-            color: #5a3d2a !important; /* Match Available Slot button color */
-            mix-blend-mode: normal !important; /* Ensure visible */
-            font-weight: 900;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+            color: #6B5B4A !important;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transform: scale(1.05);
         }
 
         @keyframes pulseActive {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 0.625rem rgba(224, 112, 32, 0); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 0.6rem rgba(224, 112, 32, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0); }
         }
 
-        .cal-day--saturday-available {
-            opacity: 0.8;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .cal-day--saturday-available .cal-num {
-            display: none;
-        }
-        .cal-day--saturday-available.cal-day--selected .cal-key {
-            display: none;
-        }
-        .cal-day--saturday-available.cal-day--selected .cal-num {
-            display: inline;
-        }
 
         .cal-key {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 1.375rem;
-            height: 1.375rem;
-            margin-top: 0.125rem; /* Visual compensation to push it down slightly */
+            width: 1.4rem;
+            height: 1.4rem;
+            margin-top: 0.1rem; /* Visual compensation to push it down slightly */
         }
 
         .cal-key svg {
@@ -999,15 +1014,12 @@
             100% { transform: rotate(405deg); }
         }
 
-        .cal-day--saturday-available:hover:not(.cal-day--disabled) {
-             background: rgba(255, 255, 255, 0.2);
-        }
 
         
         
         .cal-day--today {
-            border: 0.35rem solid #ffffff; 
-            box-shadow: 0 0 0.625rem rgba(255, 255, 255, 0.5) !important;
+            border: 0.2rem solid #ffffff; /* Reverted from 0.35rem */
+            box-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.4) !important;
             opacity: 1 !important;
         }
 
@@ -1020,7 +1032,7 @@
         /* Slots Section */
         .slots-container {
             margin-top: 0;
-            margin-bottom: 0.3125rem;
+            margin-bottom: 0.3rem;
             padding-top: 0;
             display: block;
             position: relative;
@@ -1055,7 +1067,7 @@
             width: 50%;
             height: 100%;
             background: linear-gradient(90deg, transparent, #ffffff, transparent);
-            box-shadow: 0 0 0.9375rem rgba(255, 255, 255, 1);
+            box-shadow: 0 0 1rem rgba(255, 255, 255, 1);
             opacity: 0; /* Hidden by default */
             transition: opacity 0.8s ease-out; /* Smooth fade out */
             
@@ -1078,31 +1090,32 @@
 
         .slots-title {
             font-size: 1.4rem; /* Increased from 1.1rem */
-            font-weight: 700; /* Increased from 600 */
-            margin-bottom: 1.875rem;
+            font-weight: 800; /* Increased from 600 */
+            margin-bottom: 2rem;
             text-align: center;
             color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             display: none; /* Hidden by default */
             animation: fadeTitle 0.5s ease forwards;
         }
 
         .cal-cta {
             font-size: 1.4rem; /* Increased from 1.1rem */
-            font-weight: 700; /* Increased from 600 */
-            margin-bottom: 1.875rem;
+            font-weight: 800; /* Increased from 600 */
+            margin-bottom: 2rem;
             text-align: center;
             color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             display: none; /* Hidden by default */
         }
 
-        @keyframes fadeTitle { from { opacity: 0; transform: translateY(0.625rem); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeTitle { from { opacity: 0; transform: translateY(0.6rem); } to { opacity: 1; transform: translateY(0); } }
 
         .slots-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
+            gap: 1.5rem; 
+            margin-top: 0.2rem;
         }
 
         .slots-grid .slot-btn {
@@ -1110,18 +1123,18 @@
             flex-direction: row !important;
             align-items: center !important;
             justify-content: center !important;
-            padding: 0.5rem 0.9375rem;
-            height: clamp(3.75rem, 10vw, 4.6875rem);
+            padding: 0.5rem 1rem;
+            height: clamp(3.8rem, 10vw, 4.7rem);
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
-            border-radius: 0;
+            border-radius: 2.5rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, background-color 0.6s ease;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             font-family: 'Lato', sans-serif !important;
-            backdrop-filter: blur(0.625rem);
-            -webkit-backdrop-filter: blur(0.625rem);
-            gap: 0.9375rem;
+            backdrop-filter: blur(0.6rem);
+            -webkit-backdrop-filter: blur(0.6rem);
+            gap: 1rem;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
             width: 100%;
         }
@@ -1131,61 +1144,6 @@
             flex-shrink: 0 !important;
         }
 
-        .slot-btn:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: rgba(255, 255, 255, 0.6) !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4) !important;
-        }
-
-        /* 25 Second Repeating Sequential Pulse Wave with Variable Speeds */
-        @keyframes slotPulseWave {
-            /* Pulse 1: Quick */
-            0%, 2% {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: rgba(255, 255, 255, 0.6);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
-                transform: translateY(-2px);
-            }
-            4%, 28% {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.1);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-                transform: translateY(0);
-            }
-            /* Pulse 2: Slow & Langurous */
-            30%, 36% {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: rgba(255, 255, 255, 0.6);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
-                transform: translateY(-2px);
-            }
-            39%, 66% {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.1);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-                transform: translateY(0);
-            }
-            /* Pulse 3: Lightning Fast */
-            68%, 69% {
-                background: rgba(255, 255, 255, 0.2);
-                border-color: rgba(255, 255, 255, 0.6);
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
-                transform: translateY(-2px);
-            }
-            71%, 100% {
-                background: rgba(255, 255, 255, 0.05);
-                border-color: rgba(255, 255, 255, 0.1);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-                transform: translateY(0);
-            }
-        }
-
-        .slot-btn:not(.slot-btn--busy) {
-            animation: slotPulseWave 25s infinite;
-            animation-delay: calc(var(--slot-idx) * 0.15s);
-        }
 
         .slot-icon-wrapper {
             width: 2.5rem;
@@ -1199,9 +1157,9 @@
         }
 
         .slot-time {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 800;
+            letter-spacing: 1px;
             text-align: center;
         }
 
@@ -1213,19 +1171,19 @@
 
 
         @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(0.9375rem); }
+            from { opacity: 0; transform: translateY(0.9rem); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes constantGlow {
             0% { 
                 background: rgba(255, 255, 255, 0.25); 
-                box-shadow: 0 0 0.9375rem rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 1rem rgba(255, 255, 255, 0.3);
                 border-color: rgba(255, 255, 255, 0.5);
             }
             50% { 
                 background: rgba(255, 255, 255, 0.15); 
-                box-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.1);
+                box-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.1);
                 border-color: rgba(255, 255, 255, 0.25);
             }
         }
@@ -1260,10 +1218,10 @@
             to { transform: rotate(calc(var(--start) + 360deg)); }
         }
 
-        .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .minute-hand {
+        .slot-btn:hover:not(.slot-btn--clicked) .minute-hand {
             animation: none;
         }
-        .slot-btn:hover:not(.slot-btn--busy):not(.slot-btn--clicked) .hour-hand {
+        .slot-btn:hover:not(.slot-btn--clicked) .hour-hand {
             animation: none;
         }
 
@@ -1281,16 +1239,16 @@
         /* Breathing Glow Animation */
         @keyframes breathingGlow {
             0% { 
-                text-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.2); 
+                text-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.2); 
                 opacity: 0.6; 
             }
             50% { 
-                text-shadow: 0 0 1.25rem rgba(255, 255, 255, 0.8), 0 0 0.625rem rgba(255, 255, 255, 0.6); 
+                text-shadow: 0 0 1.3rem rgba(255, 255, 255, 0.8), 0 0 0.6rem rgba(255, 255, 255, 0.6); 
                 opacity: 1; 
                 color: #fff; 
             }
             100% { 
-                text-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.2); 
+                text-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.2); 
                 opacity: 0.6; 
             }
         }
@@ -1298,13 +1256,13 @@
         /* Loader */
         .calendar-loader {
             text-align: center;
-            padding: 3.125rem;
-            font-weight: 700;
+            padding: 3.1rem;
+            font-weight: 800;
             color: rgba(255,255,255,0.6);
             display: none;
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             animation: breathingGlow 2s infinite ease-in-out;
         }
         /* Modal Specific Input Styles */
@@ -1324,10 +1282,10 @@
         /* Next Available Message */
         .next-available-msg {
             text-align: center;
-            margin-top: 1.25rem;
+            margin-top: 1.3rem;
             font-size: 1rem;
             color: #fff;
-            font-weight: 700;
+            font-weight: 800;
             opacity: 0;
             transition: opacity 0.5s ease;
         }
@@ -1338,26 +1296,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.9375rem;
-            margin-top: 0.3125rem;
+            gap: 1rem;
+            margin-top: 0.3rem;
         }
 
         .file-attach__btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.8rem;
             width: 100%;
             padding: 1rem;
             background: rgba(255, 255, 255, 0.08);
             border: 1px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 0.625rem;
+            border-radius: 0.6rem; 
             color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 800;
         }
 
         .file-attach__btn:hover {
@@ -1368,18 +1326,19 @@
 
         /* Paperclip Attention Animation */
         @keyframes paperclipAttention {
-            0%, 94% { transform: rotate(0deg) scale(1.1); }
-            95% { transform: rotate(-30deg) scale(1.2); }
-            96% { transform: rotate(25deg) scale(1.2); }
-            97% { transform: rotate(-15deg) scale(1.2); }
-            98% { transform: rotate(5deg) scale(1.2); }
-            100% { transform: rotate(0deg) scale(1.1); }
+            0%, 90%, 100% { transform: rotate(0deg) scale(1); }
+            92% { transform: rotate(5deg) scale(1.05); }
+            94% { transform: rotate(-5deg) scale(1.05); }
+            96% { transform: rotate(5deg) scale(1.05); }
+            98% { transform: rotate(-2deg) scale(1.02); }
         }
 
         .file-attach__icon-svg {
             display: inline-block;
             transform-origin: center center;
             animation: paperclipAttention 8s infinite ease-in-out;
+            width: 1.1em !important; 
+            height: 1.1em !important;
         }
 
         .file-attach__icon {
@@ -1399,10 +1358,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.625rem 0.875rem;
+            padding: 0.6rem 0.9rem;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.9);
             position: relative;
             overflow: hidden;
@@ -1421,7 +1380,7 @@
             color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
             font-size: 1.2rem;
-            padding: 0 0.25rem;
+            padding: 0 0.3rem; 
             transition: color 0.3s;
         }
 
@@ -1433,7 +1392,7 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            height: 0.1875rem;
+            height: 0.2rem;
             background: rgba(255, 255, 255, 0.6);
             width: 0%;
             transition: width 0.5s ease-out;
@@ -1444,7 +1403,7 @@
             position: relative;
             user-select: none;
             width: 100%;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.3rem;
         }
 
         .custom-select {
@@ -1458,13 +1417,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.875rem 1.5625rem;
-            padding-right: 2.8125rem; /* Space for arrow */
-            font-size: 1rem;
+            padding: 0.9rem 1.6rem;
+            padding-right: 2.8rem; /* Space for arrow */
+            font-size: 1.1rem;
             color: rgba(80, 60, 40, 0.9);
             background: rgba(255, 255, 255, 0.95);
             border: none;
-            border-radius: 1.5625rem;
+            border-radius: 1.6rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-sizing: border-box;
@@ -1474,7 +1433,7 @@
         .custom-select__trigger::after {
             content: '';
             position: absolute;
-            right: 1.125rem;
+            right: 1.1rem;
             top: 50%;
             transform: translateY(-50%);
             width: 1rem; height: 1rem;
@@ -1506,10 +1465,10 @@
             top: 100%;
             left: 0; right: 0;
             background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(1.25rem);
-            -webkit-backdrop-filter: blur(1.25rem);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
             border: none;
-            border-radius: 1.5625rem; /* All corners rounded */
+            border-radius: 1.6rem; /* All corners rounded */
             box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.4);
             z-index: 100;
             opacity: 0;
@@ -1532,8 +1491,8 @@
         .custom-option {
             position: relative;
             display: block;
-            padding: 0.75rem 1.5625rem;
-            font-size: 1rem;
+            padding: 0.8rem 1.6rem;
+            font-size: 1.1rem;
             color: rgba(80, 60, 40, 0.85);
             cursor: pointer;
             transition: background 0.2s;
@@ -1549,27 +1508,23 @@
         .custom-option.selected::after {
             content: '\2713';
             position: absolute;
-            right: 1.125rem; top: 50%;
+            right: 1.1rem; top: 50%;
             transform: translateY(-50%);
             color: var(--accent-gold);
         }
 
-        /* Sparks Animation for Footer Booking Button */
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0) translate(var(--tx), var(--ty)); }
-            50% { opacity: 1; transform: scale(1) translate(var(--tx), var(--ty)); }
-        }
+
 
         .footer-book-btn {
             position: relative;
             display: inline-block;
-            padding: 0.625rem 1.25rem;
+            padding: 0.6rem 1.3rem;
             background: transparent;
             color: #fff;
             font-size: 0.9rem;
-            font-weight: 700;
+            font-weight: 800;
             border: none;
-            border-radius: 3.125rem;
+            border-radius: 3.1rem;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
@@ -1584,23 +1539,23 @@
             position: absolute;
             inset: 0;
             background: rgba(90, 61, 42, 0.5);
-            backdrop-filter: blur(0.625rem);
-            -webkit-backdrop-filter: blur(0.625rem);
-            border-radius: 3.125rem;
+            backdrop-filter: blur(0.6rem);
+            -webkit-backdrop-filter: blur(0.6rem);
+            border-radius: 3.1rem;
             border: none;
             z-index: -1;
             transition: background 0.2s;
         }
         .footer-book-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0.75rem 2.1875rem rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0.8rem 2.2rem rgba(0, 0, 0, 0.15);
         }
         .footer-book-btn:hover::before {
             background: rgba(90, 61, 42, 0.75);
         }
 
         #headerBookBtn {
-            padding: 1.5625rem 2.5rem !important;
+            padding: 1.6rem 2.5rem !important;
             font-size: 1.3rem !important;
             width: auto !important;
             max-width: 90% !important;
@@ -1609,13 +1564,13 @@
         #footerBookBtn {
             padding: 1.5rem 3rem !important;
             width: auto !important;
-            min-width: 18.75rem !important; /* 300px equivalent */
+            min-width: 18.8rem !important; /* 300px equivalent rounded */
             max-width: 95% !important;
         }
 
         .spark {
             position: absolute;
-            width: 0.375rem; height: 0.375rem;
+            width: 0.4rem; height: 0.4rem;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
@@ -1630,9 +1585,9 @@
         }
 
         @keyframes hypnoticPulse {
-            0% { text-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.2); opacity: 0.6; }
-            50% { text-shadow: 0 0 1.25rem rgba(255, 255, 255, 0.9), 0 0 0.625rem rgba(255, 255, 255, 0.7); opacity: 1; color: #fff; }
-            100% { text-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.2); opacity: 0.6; }
+            0% { text-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.2); opacity: 0.6; }
+            50% { text-shadow: 0 0 1.3rem rgba(255, 255, 255, 0.9), 0 0 0.6rem rgba(255, 255, 255, 0.7); opacity: 1; color: #fff; }
+            100% { text-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.2); opacity: 0.6; }
         }
 
         .hypnotic-text {
@@ -1644,8 +1599,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 2.5rem 0 1.875rem;
-            padding: 0 0.625rem;
+            margin: 2.5rem 0 2rem;
+            padding: 0 0.6rem;
             width: 100%;
         }
 
@@ -1659,12 +1614,12 @@
             color: #ffffff;
             font-size: 1.8rem; /* Consistent with calendar nav */
             cursor: pointer;
-            width: 3.125rem;
-            height: 3.125rem;
+            width: 3.1rem;
+            height: 3.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 0;
+            border-radius: 50%;
             transition: all 0.3s ease;
             opacity: 0.7;
             user-select: none;
@@ -1683,10 +1638,10 @@
         }
 
         #slotsDayDisplay {
-            font-size: 1.6rem;
-            font-weight: 900;
+            font-size: 1.4rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: #ffffff;
             text-shadow: 0 1px 1px rgba(0,0,0,0.1);
             text-align: center;
@@ -1694,79 +1649,65 @@
             margin: 0;
             transition: opacity 0.5s ease, transform 0.5s ease;
             line-height: 1.2;
-            display: flex; /* Added for vertical centering */
+            display: flex; 
             align-items: center;
             justify-content: center;
-            min-height: 3.125rem;
+            min-height: 3.1rem;
         }
 
-        .dot-jump {
-            display: inline-block;
-            animation: dotJump 1.4s infinite ease-in-out both;
-        }
-        /* Global Spinner (Full Screen Blur) */
+        /* Block: Global Spinner Overlay */
         .global-spinner {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75); /* Darker backdrop as before */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 99999;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        
-        .global-spinner .book-btn-preloader {
-            position: relative;
-            transform: scale(2); /* Make it bigger for global effect */
-        }
-        
-        .book-btn-preloader__progress--infinite {
-            animation: hypnoticCircleGlow 3s infinite ease-in-out !important;
-            stroke-dashoffset: 0 !important;
+
+        .spinner-circle {
+            animation: spin 1.5s linear infinite;
         }
 
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .dot-jump {
+            display: inline-block;
+            animation: dotJump 1.4s infinite ease-in-out both;
+        }
+        .dot-jump:nth-child(2) { animation-delay: 0.2s; }
+        .dot-jump:nth-child(3) { animation-delay: 0.4s; }
+
         @keyframes dotJump {
-            0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-0.625rem); }
+            40% { transform: translateY(-0.6rem); }
         }
 
         .fade-out {
             opacity: 0;
-            transform: translateY(-0.625rem);
+            transform: translateY(-0.6rem);
         }
         .fade-in {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Hypnotic Preloader Error Effect */
-        .book-btn-preloader__text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Preloader Error State Text */
+        .book-btn-preloader--error .book-btn-preloader__text {
             color: #ff4c4c;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
         }
 
-        .book-btn-preloader__text.is-visible {
-            opacity: 1;
-        }
-
-        @keyframes hypnoticPulse {
+        @keyframes hypnoticCirclePulse {
             0% { filter: drop-shadow(0 0 10px rgba(212, 184, 154, 0.5)); stroke: #D4B89A; transform: scale(1); }
             50% { filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1)); stroke: #ffffff; transform: scale(1.05); }
             100% { filter: drop-shadow(0 0 10px rgba(212, 184, 154, 0.5)); stroke: #D4B89A; transform: scale(1); }
@@ -1775,7 +1716,7 @@
         .book-btn-preloader--hypnotic .book-btn-preloader__progress {
             /* Keep it visually at 100% */
             stroke-dashoffset: 0 !important;
-            animation: hypnoticPulse 1.5s ease-in-out infinite !important;
+            animation: hypnoticCirclePulse 1.5s ease-in-out infinite !important;
         }
         
         .book-btn-preloader--error .book-btn-preloader__progress {
@@ -1821,13 +1762,13 @@
             width: 100%;
             height: 7.5rem;
             background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(1.25rem);
-            -webkit-backdrop-filter: blur(1.25rem);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
             z-index: 10000;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 0.9375rem 1.25rem 0;
+            padding: 0.9rem 1.3rem 0;
             border-bottom: 1px solid var(--glass-border);
             opacity: 0;
             transform: translateY(-100%);
@@ -1850,13 +1791,13 @@
             width: 100%;
             height: 7.5rem;
             background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(1.25rem);
-            -webkit-backdrop-filter: blur(1.25rem);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
             z-index: 10000;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding: 0 1.25rem 0.9375rem;
+            padding: 0 1.3rem 0.9rem;
             border-top: 1px solid var(--glass-border);
             opacity: 0;
             transform: translateY(100%);
@@ -1868,7 +1809,7 @@
 
         .services-content {
             text-align: left;
-            margin: 3.75rem 0;
+            margin: 3.8rem 0;
             padding: 2.5rem;
         }
         .services-content ul {
@@ -1876,8 +1817,8 @@
             padding: 0;
         }
         .services-content li {
-            padding-bottom: 1.875rem;
-            margin-bottom: 1.875rem;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .services-content li:last-child {
@@ -1887,14 +1828,14 @@
         }
         .services-content h3 {
             color: var(--text-white);
-            margin-bottom: 0.9375rem;
+            margin-bottom: 1rem;
             font-size: 1.2rem;
             text-transform: uppercase;
-            font-weight: 900;
+            font-weight: 800;
         }
         .services-content p {
             opacity: 0.9;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         .bottom-bar--visible {
@@ -1907,8 +1848,8 @@
         .book-btn-preloader {
             display: grid;
             place-items: center;
-            width: 11.25rem;
-            height: 11.25rem;
+            width: 11.3rem;
+            height: 11.3rem;
             position: relative;
             margin: 0 auto;
             transition: opacity 0.5s ease, transform 0.5s ease;
@@ -1916,7 +1857,7 @@
 
         .book-btn-preloader__text {
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #fff;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
             text-align: center;
@@ -1938,8 +1879,8 @@
             fill: transparent;
             stroke: rgba(255, 255, 255, 0.2);
             stroke-width: 12;
-            backdrop-filter: blur(0.625rem);
-            -webkit-backdrop-filter: blur(0.625rem);
+            backdrop-filter: blur(0.6rem);
+            -webkit-backdrop-filter: blur(0.6rem);
         }
 
         .book-btn-preloader__progress {
@@ -1961,12 +1902,12 @@
 
         @keyframes hypnoticCircleGlow {
             0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1)); }
-            50% { filter: drop-shadow(0 0 0.9375rem rgba(255, 255, 255, 0.9)); }
+            50% { filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 0.9)); }
         }
 
         .book-btn-container {
             position: relative;
-            height: 11.25rem; /* Adjust height to fit preloader */
+            height: 11.3rem; /* Adjust height to fit preloader */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1974,27 +1915,13 @@
         }
 
         .book-btn-wrapper .book-btn-container {
-            margin: 1.25rem auto;
+            margin: 1.3rem auto;
         }
 
-        /* Scaling wrapper: lets the calendar keep its natural size,
-           JS will shrink it via transform: scale() on small screens */
-        .calendar-scale-wrapper {
-            width: 100%;
-            overflow: hidden; /* clip the scaled content neatly */
-        }
-        /* The inner box is what actually gets scaled */
-        .calendar-scale-inner {
-            transform-origin: top center;
-            /* Add some bottom padding to ensure the 1px border is never clipped by subpixel scaling */
-            padding-bottom: 0.3125rem; 
-            /* height is adjusted by JS after scaling so the wrapper collapses
-               to the visible (scaled) height, not the original height */
-        }
 
         .footer__copyright { 
-            font-size: 0.95rem; 
-            margin-top: 1.25rem; 
+            font-size: 1rem; 
+            margin-top: 1.3rem; 
             opacity: 0.8;
             transition: opacity 2s ease 1s; /* 1s delay */
         }
@@ -2033,7 +1960,7 @@
         <rect width="100%" height="100%" fill="url(#g)"/>
         <g style="mix-blend-mode:overlay" fill-opacity=".15">
             <path class="background__stripe" d="M-100 300L600-100V200L-100 600Z" fill="#fff"/>
-            <path class="background__stripe background__stripe--delay-1" d="M-100 700L600 200V400L-100 900Z" fill="#000" fill-opacity=".2"/>
+            <path class="background__stripe background__stripe--delay-1" d="M-100 700L600 200V400L-100 900Z" fill="#fff" fill-opacity=".1"/>
             <path class="background__stripe background__stripe--delay-2" d="M100-100L500 900H300L-100-100Z" fill="#fff" fill-opacity=".08"/>
         </g>
     </svg>
@@ -2049,7 +1976,7 @@
         <span data-i18n="desc4">Online meetings are available province-wide</span>
     </h1>
 
-    <div class="header__contact" style="margin-top: 0.5rem; margin-bottom: 2rem;">
+    <div class="header__contact" style="margin-top: 0.5rem; margin-bottom: 2rem; max-width: 45rem; width: 100%; margin-left: auto; margin-right: auto; padding: 0 1.3rem; text-align: center;">
         <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
     </div>
 
@@ -2060,7 +1987,7 @@
                     <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                     <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                 </svg>
-                <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2;">Loading...</div>
+                <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                 <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
@@ -2069,45 +1996,55 @@
     </div>
 
     <div class="header__content-block">
-        <h2 class="header__content-header" style="font-size: 2rem;">SERVICES</h2>
+        <h2 class="header__content-header">SERVICES</h2>
         
-        <div class="header__service-item">
-            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Notary Public & Commissioner of Oaths</h3>
-            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Operating as a Commissioner of Oaths in Ontario involves strictly assessing documents to establish the required level of notarization or commissioning. This requires formally verifying the deponent's identity utilizing valid, government-issued identification. The process continues with administering oaths, affirmations, or solemn declarations for documents including, but not limited to, an <strong>Affidavit</strong>, a <strong>Statutory Declaration</strong>, or a <strong>Consent Letter for Children Travelling Abroad</strong>. Providing certification to verify documents as true copies of the original is also conducted, where legally permissible under Ontario regulations.</p>
-        </div>
+        <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">Notary Public & Commissioner of Oaths</h3>
+                    <p class="header__content-text">Operating as a Commissioner of Oaths in Ontario involves strictly assessing documents to establish the required level of notarization or commissioning. This requires formally verifying the deponent's identity utilizing valid, government-issued identification. The process continues with administering oaths, affirmations, or solemn declarations for documents including, but not limited to, an <strong>Affidavit</strong>, a <strong>Statutory Declaration</strong>, or a <strong>Consent Letter for Children Travelling Abroad</strong>. Providing certification to verify documents as true copies of the original is also conducted, where legally permissible under Ontario regulations.</p>
+                </div>
+            </li>
 
-        <div class="header__service-item">
-            <h3 class="header__content-subheader" style="margin-bottom: 5px;">WSIB & Workplace Injury Claims</h3>
-            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Providing representation for injured workers in matters involving the Workplace Safety and Insurance Board falls under the strict authorization of licensed Ontario paralegals. The procedure initiates with reviewing the workplace injury circumstances, strictly analyzing the <strong>Form 6 Worker's Report of Injury</strong> or any existing WSIB decisions. This encompasses assisting with comprehensive claim management, submitting required documentation, and actively advising on <strong>Loss of Earnings (LOE)</strong> or <strong>Non-Economic Loss (NEL)</strong> entitlements. In instances of dispute, services include directly representing clients at hearings to address <strong>Return to Work (RTW)</strong> obligations or formally appealing adverse decisions before the Workplace Safety and Insurance Appeals Tribunal (WSIAT).</p>
-        </div>
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">WSIB & Workplace Injury Claims</h3>
+                    <p class="header__content-text">Providing representation for injured workers in matters involving the Workplace Safety and Insurance Board falls under the strict authorization of licensed Ontario paralegals. The procedure initiates with reviewing the workplace injury circumstances, strictly analyzing the <strong>Form 6 Worker's Report of Injury</strong> or any existing WSIB decisions. This encompasses assisting with comprehensive claim management, submitting required documentation, and actively advising on <strong>Loss of Earnings (LOE)</strong> or <strong>Non-Economic Loss (NEL)</strong> entitlements. In instances of dispute, services include directly representing clients at hearings to address <strong>Return to Work (RTW)</strong> obligations or formally appealing adverse decisions before the Workplace Safety and Insurance Appeals Tribunal (WSIAT).</p>
+                </div>
+            </li>
 
-        <div class="header__service-item">
-            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Provincial Offences & Traffic Ticket Defense</h3>
-            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Representing clients in Provincial Offences Court for matters under the <strong>Highway Traffic Act (HTA)</strong> is strictly authorized under the unique regulatory framework for Ontario paralegals. Counsel begins by formally requesting and critically examining the prosecuting officer's disclosure and evidence. This is followed by formulating a precise case strategy for defending charges such as speeding, careless driving, or stunt driving by exploring potential procedural or charter defenses. Efforts initially focus on pursuing resolution through negotiating with the municipal prosecutor to seek withdrawing charges or reducing penalties (e.g., demerit points). Should a negotiated resolution not be attainable, the process culminates in providing formal representation at the trial hearing.</p>
-        </div>
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">Provincial Offences & Traffic Ticket Defense</h3>
+                    <p class="header__content-text">Representing clients in Provincial Offences Court for matters under the <strong>Highway Traffic Act (HTA)</strong> is strictly authorized under the unique regulatory framework for Ontario paralegals. Counsel begins by formally requesting and critically examining the prosecuting officer's disclosure and evidence. This is followed by formulating a precise case strategy for defending charges such as speeding, careless driving, or stunt driving by exploring potential procedural or charter defenses. Efforts initially focus on pursuing resolution through negotiating with the municipal prosecutor to seek withdrawing charges or reducing penalties (e.g., demerit points). Should a negotiated resolution not be attainable, the process culminates in providing formal representation at the trial hearing.</p>
+                </div>
+            </li>
 
-        <div class="header__service-item">
-            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Landlord & Tenant Board (LTB)</h3>
-            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Holding a specific license enables Ontario paralegals to represent landlords and tenants before the Landlord and Tenant Board under the strict guidelines of the <strong>Residential Tenancies Act (RTA)</strong>. The procedure involves precisely preparing and serving statutory notices, such as an <strong>N4 Notice to End your Tenancy Early for Non-payment of Rent</strong> or an <strong>N12 Notice to End your Tenancy Because the Landlord, a Purchaser or a Family Member Requires the Rental Unit</strong>. This is followed by filing the appropriate application, such as an <strong>L1 Application to Evict a Tenant for Non-payment of Rent</strong> or a <strong>T2 Application about Tenant Rights</strong>. Furthermore, the process includes rigorously preparing documentary evidence and witness testimony, culminating in directly representing clients during case management hearings or formal eviction hearings before an LTB adjudicator.</p>
-        </div>
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">Landlord & Tenant Board (LTB)</h3>
+                    <p class="header__content-text">Holding a specific license enables Ontario paralegals to represent landlords and tenants before the Landlord and Tenant Board under the strict guidelines of the <strong>Residential Tenancies Act (RTA)</strong>. The procedure involves precisely preparing and serving statutory notices, such as an <strong>N4 Notice to End your Tenancy Early for Non-payment of Rent</strong> or an <strong>N12 Notice to End your Tenancy Because the Landlord, a Purchaser or a Family Member Requires the Rental Unit</strong>. This is followed by filing the appropriate application, such as an <strong>L1 Application to Evict a Tenant for Non-payment of Rent</strong> or a <strong>T2 Application about Tenant Rights</strong>. Furthermore, the process includes rigorously preparing documentary evidence and witness testimony, culminating in directly representing clients during case management hearings or formal eviction hearings before an LTB adjudicator.</p>
+                </div>
+            </li>
+        </ul>
     </div>
 
     <div class="header__content-block" style="margin-top: 5rem;">
-        <h2 class="header__content-header" style="font-size: 2rem;">Intake Notice</h2>
+        <h2 class="header__content-header">Intake Notice</h2>
         
-        <details class="faq__item faq__item--no-bullet" open>
-            <summary class="faq__question" style="margin-top: 20px;">Intake Appointment</summary>
+        <details class="faq__item" open>
+            <summary class="faq__question" style="font-size: 1.3rem;">Intake Appointment</summary>
             <div class="faq__answer">
-                <p class="header__content-text">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as contracts, agreements, court notices, orders or any other paperwork.</p>
-                <p class="header__content-text">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
+                <p class="header__content-text" style="font-size: 1.2rem;">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as contracts, agreements, court notices, orders or any other paperwork.</p>
+                <p class="header__content-text" style="font-size: 1.2rem;">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
             </div>
         </details>
 
-        <details class="faq__item faq__item--no-bullet" open>
-            <summary class="faq__question" style="margin-top: 20px;">Identification Requirement</summary>
+        <details class="faq__item" open>
+            <summary class="faq__question" style="font-size: 1.3rem;">Identification Requirement</summary>
             <div class="faq__answer">
-                <p class="header__content-text">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
-                <p class="header__content-text">Full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization’s incorporation or business identification number and it’s place of issue.</p>
+                <p class="header__content-text" style="font-size: 1.2rem;">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
+                <p class="header__content-text" style="font-size: 1.2rem;">Full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization’s incorporation or business identification number and it’s place of issue.</p>
             </div>
         </details>
     </div>
@@ -2115,46 +2052,47 @@
 
 
 
+
+
+
 <div class="layout-container">
     <div class="contact-form fade-in-section">
-        <h2 class="contact-form__outside-title">NEXT AVAILABLE DAYS</h2>
-        <div class="calendar-scale-wrapper" id="calendarScaleWrapper">
-        <div class="calendar-scale-inner" id="calendarScaleInner">
+        <h2 class="contact-form__outside-title" id="calendarHeaderTitle">AVAILABILITY</h2>
         <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
-            
-            <!-- Header Moved to Top -->
+
+            <!-- Loading Overlay -->
+            <div id="calendarLoaderOverlay">
+                <div class="cal-spinner"></div>
+                <span id="calLoaderStatus" style="display: none;"></span>
+            </div>
+
+            <!-- Header -->
             <div class="calendar-header">
                 <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
-                <div class="calendar-title" id="monthDisplay">Month Year</div>
+                <div class="calendar-title" id="monthDisplay"></div>
                 <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
             </div>
 
             <!-- Progress bar -->
             <div id="loadingSeparator" class="loading-separator"></div>
 
-            <div id="calendarLoader" class="calendar-loader">Loading availability...</div>
+            <!-- Day grid -->
+            <div class="calendar-grid" id="calendarGrid"></div>
 
-            <div class="calendar-grid" id="calendarGrid">
-
-            </div>
-            
-            <div id="nextAvailableMsg" class="next-available-msg"></div>
-            
-            <!-- Day Navigation Header -->
-            <div class="slots-nav slots-nav--loading">
-                <span id="slotsDayDisplay" class="hypnotic-text">Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span></span>
+            <!-- Slot label -->
+            <div class="slots-nav" id="slotsNav">
+                <span id="slotsDayDisplay"></span>
             </div>
 
-            <div class="slots-block">
-                 <div class="slots-container" id="slotsContainer">
-                    <div class="slots-grid" id="slotsGrid" style="grid-template-columns: 1fr;"></div>
+            <!-- Slots -->
+            <div class="slots-block" id="slotsBlock">
+                <div class="slots-container" id="slotsContainer">
+                    <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
                 </div>
             </div>
-        </div><!-- /calendar-wrapper -->
-        </div><!-- /calendar-scale-inner -->
-        </div><!-- /calendar-scale-wrapper -->
-    </div>
 
+        </div><!-- /calendar-wrapper -->
+    </div>
 
     <h2 class="section-title fade-in-section" data-i18n="faqTitle">FAQ</h2>
     <div class="faq fade-in-section">
@@ -2179,29 +2117,29 @@
             </div>
         </details>
 
-        <details class="faq__item" open>
-            <summary class="faq__question">Privacy Policy?</summary>
-            <div class="faq__answer">
-                <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary etc) are gathered through this form.</p>
-                <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal services, answer your questions, and maintain contact, with your consent.</p>
-                <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none;">+1 (437) 239-6833</a></strong> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
-            </div>
-        </details>
+
 
         <details class="faq__item" open>
             <summary class="faq__question">WHERE IS THE OFFICE?</summary>
             <div class="faq__answer">
-                <p style="margin-bottom: 15px; font-size: 0.95rem; font-weight: 400; opacity: 0.9;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
+                <p style="margin-bottom: 15px; font-size: 1rem; font-weight: 800; opacity: 0.9;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
-                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" onclick="logDirectionsClick()" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 700; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
-                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;">to start driving</span>
+                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 800; display: inline-block;">Just tap</span>
+                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" onclick="logDirectionsClick()" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
+                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 800; display: inline-block;">to start driving</span>
                 </div>
             </div>
         </details>
+    </div>
+
+    <div class="privacy-block fade-in-section" style="max-width: 41rem; margin: 4rem auto 0; padding: 0 1.3rem; color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.6; text-align: left;">
+        <h3 style="font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; color: #fff;">Privacy Policy</h3>
+        <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary etc) are gathered through this form.</p>
+        <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal services, answer your questions, and maintain contact, with your consent.</p>
+        <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none;">+1 (437) 239-6833</a></strong> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
     </div>
 </div>
 
@@ -2270,7 +2208,7 @@
                         <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                         <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                     </svg>
-                    <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2;">Loading...</div>
+                    <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
                 </div>
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                     <span id="footerBookBtnText">Book Your First<br>Available Appointment</span>
@@ -2280,7 +2218,7 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div class="blur-in-section" style="margin-top: 300px;">
+    <div class="blur-in-section" style="margin-top: 5rem;">
         <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
         <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
@@ -2290,7 +2228,7 @@
 <div id="bookingModal" class="modal">
     <div class="modal__content" style="max-width: 600px;">
         <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
-        <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0; line-height: 1.4;">REQUEST<br><span style="display: block; font-size: 0.75em; opacity: 0.9; margin-top: 5px;">TO BOOK YOUR APPOINTMENT AT:</span><span id="modalAppointmentTime" style="display: block; font-size: 0.9em; font-weight: normal; margin-top: 2px;"></span></h2>
+        <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0; line-height: 1.4;">REQUEST<br><span style="display: block; font-size: 1em; opacity: 0.9; margin-top: 5px;">TO BOOK YOUR APPOINTMENT:</span><span id="modalAppointmentTime" style="display: block; font-size: 1em; font-weight: 800; margin-top: 2px;"></span></h2>
         <div class="modal__body" style="padding-top: 5px; text-align: center;">
             
             <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
@@ -2301,13 +2239,13 @@
                 <input type="hidden" name="_timestamp" id="formTimestamp">
                 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Your Name" name="name" required>
+                    <input type="text" class="contact-form__input" placeholder="Name" name="name" required>
                 </div>
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Your Occupation" name="occupation" required>
+                    <input type="text" class="contact-form__input" placeholder="Occupation" name="occupation" required>
                 </div>
                 <div class="contact-form__group">
-                    <input type="email" class="contact-form__input" placeholder="Your Email" name="email" required>
+                    <input type="email" class="contact-form__input" placeholder="Email" name="email" required>
                 </div>
 
                 <div class="contact-form__group">
@@ -2330,7 +2268,7 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="tel" class="contact-form__input" placeholder="Phone Number" name="phone" required>
+                    <input type="tel" class="contact-form__input" placeholder="Phone" name="phone" required>
                 </div>
 
                 <div class="contact-form__group">
@@ -2380,28 +2318,15 @@
                     });
                 </script>
                 
-                <p id="bookingStatus" style="text-align: center; margin-bottom: 15px; font-weight: 700; color: #ff6b6b; min-height: 1.5em;"></p>
+                <p id="bookingStatus" style="text-align: center; margin-bottom: 15px; font-weight: 800; color: #ff6b6b; min-height: 1.5em;"></p>
 
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Attach any files you have</p>
+                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">Attach any files you have</p>
             </form>
         </div>
     </div>
 </div>
 
-<!-- GLOBAL SPINNER FOR BOOKING SUBMISSION -->
-<div id="globalSpinner" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 30000; flex-direction: column; align-items: center; justify-content: center;">
-    <div style="position: relative; width: 80px; height: 80px; margin-bottom: 20px;">
-        <svg viewBox="0 0 120 120" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; animation: spin 1.5s linear infinite;">
-            <circle cx="60" cy="60" r="48" style="fill: transparent; stroke: rgba(255, 255, 255, 0.2); stroke-width: 6;"/>
-            <circle cx="60" cy="60" r="48" style="fill: none; stroke: #ffffff; stroke-width: 6; stroke-dasharray: 302; stroke-dashoffset: 100; stroke-linecap: round;"/>
-        </svg>
-    </div>
-    <p id="globalSpinnerText" class="header__content-header" style="color: var(--text-white); font-size: 1.5rem; letter-spacing: 2px;">Sending booking...</p>
-</div>
-<style>
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-</style>
 
 <!-- CONFIRMATION MODAL -->
 <div id="confirmationModal" class="modal" style="z-index: 20002;">
@@ -2412,10 +2337,10 @@
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
             </div>
-            <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; text-align: left;">
+            <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 15px; text-align: left;">
                 I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.
             </p>
-            <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; text-align: left;">
+            <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 25px; text-align: left;">
                 I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.
             </p>
             <div id="confirmButtons" style="display: flex; flex-direction: column; gap: 15px; justify-content: center; margin-top: 25px;">
@@ -2431,19 +2356,292 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx348LzevZjd8oUBSxOdArNVTcVgD43aD7NZ4EJEPpHRSxwKloS0zbdJHnu5ONaMZEx/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKXQtU07QMeBG2_A9GwxUsCnBhlOPCtqBTE0FFMoCSZSGsSHwIZhPfilRvfG46M_iRHA/exec"; 
     // ------------------------------------------------------------------
+    
+    // ------------------------------------------------------------------
+    // CALENDAR STATE
+    // ------------------------------------------------------------------
+    let currentDate   = new Date();
+    let selectedDate  = null;
+    let absoluteNearestDate   = null;
+    let nearestSlotData       = null;
+    let nearestDayLastSlotData= null;
+    let availableDaysCount    = 0;
+    let availableSlotsCache   = {};
 
-    let currentDate = new Date();
-    let selectedDate = null;
-    let absoluteNearestDate = null; // Store the absolute closest date with slots
-    let nearestSlotData = null; // Store the first available slot data for header
-    let nearestDayLastSlotData = null; // Store the last available slot data for footer
-    let availableDaysCount = 0; // Total available days in current view
-    // Clear cache on every fresh load to ensure user sees latest Google data
-    let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
+    const MONTH_NAMES = ["January","February","March","April","May","June",
+                        "July","August","September","October","November","December"];
+    const DAY_NAMES   = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // DOM refs (resolved after DOMContentLoaded)
+    let calGrid, calOverlay, calLoaderStatus, monthDisplay,
+        slotsGrid, slotsBlock, slotsNav, slotsDayDisplay, headerTitle;
+
+    // ------------------------------------------------------------------
+    // FETCH
+    // ------------------------------------------------------------------
+    async function fetchMonth(year, month) {
+        const key = `${year}-${month}`;
+        if (availableSlotsCache[key] !== undefined) return; // Already cached
+        const separator = document.getElementById('loadingSeparator');
+        if (separator) separator.classList.add('loading-separator--active');
+        try {
+            const res  = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}&_t=${Date.now()}`);
+            const data = await res.json();
+            if (data.success && data.slots) {
+                const ay = data.resultYear  ?? year;
+                const am = data.resultMonth ?? month;
+                availableSlotsCache[`${ay}-${am}`] = data.slots;
+                if (ay !== year || am !== month) {
+                    // Backend found a later month with free slots — jump there
+                    currentDate = new Date(ay, am, 1);
+                }
+            } else {
+                availableSlotsCache[key] = [];
+            }
+        } catch(e) {
+            availableSlotsCache[key] = [];
+        } finally {
+            if (separator) separator.classList.remove('loading-separator--active');
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // RENDER CALENDAR
+    // ------------------------------------------------------------------
+    async function renderCalendar() {
+        // Show spinner
+        calGrid.innerHTML = '';
+        slotsGrid.innerHTML = '';
+        slotsBlock.style.display = 'none';
+        slotsDayDisplay.textContent = '';
+        calOverlay.style.display = 'flex';
+        calLoaderStatus.textContent = 'Loading...';
+
+        // Fetch (may update currentDate if backend jumps month)
+        await fetchMonth(currentDate.getFullYear(), currentDate.getMonth());
+
+        const year  = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const slots = availableSlotsCache[`${year}-${month}`] || [];
+
+        // Update external title
+        headerTitle.textContent = MONTH_NAMES[month].toUpperCase();
+
+        // Update inner nav title
+        if (selectedDate && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+            monthDisplay.innerHTML = `<span class="cal-month">${DAY_NAMES[selectedDate.getDay()]} ${selectedDate.getDate()}</span>`;
+        } else {
+            monthDisplay.innerHTML = `<span class="cal-month">${MONTH_NAMES[month]}</span> <span class="cal-year" style="font-size: 1.6rem; opacity: 0.9; font-weight: 800; letter-spacing: 2px;">${year}</span>`;
+        }
+
+        // Build slot map
+        const minDate = new Date();
+        minDate.setDate(minDate.getDate() + 1);
+        minDate.setHours(0,0,0,0);
+
+        const slotsMap = {};
+        slots.forEach(s => {
+            const d = new Date(year, month, s.date);
+            d.setHours(0,0,0,0);
+            if (d >= minDate) {
+                if (!slotsMap[s.date]) slotsMap[s.date] = [];
+                slotsMap[s.date].push(s);
+            }
+        });
+
+        // Find nearest free weekday
+        let nearestDay = null;
+        const today = new Date(); today.setHours(0,0,0,0);
+        for (const d of Object.keys(slotsMap).map(Number).sort((a,b)=>a-b)) {
+            const date = new Date(year, month, d);
+            if (date >= today && date.getDay() !== 0 && date.getDay() !== 6) {
+                const free = slotsMap[d].filter(s => s.status !== 'busy');
+                if (free.length) {
+                    nearestDay = d;
+                    absoluteNearestDate    = date;
+                    nearestSlotData        = free[0];
+                    nearestDayLastSlotData = free[free.length - 1];
+                    break;
+                }
+            }
+        }
+        updateFooterBookBtn();
+
+        // Day-name headers
+        DAY_NAMES.forEach(n => {
+            const el = document.createElement('div');
+            el.className = 'cal-day-name';
+            el.textContent = n;
+            calGrid.appendChild(el);
+        });
+
+        // Padding blanks
+        const firstDow = new Date(year, month, 1).getDay();
+        for (let i = 0; i < firstDow; i++) {
+            const el = document.createElement('div');
+            el.className = 'cal-day cal-day--empty';
+            calGrid.appendChild(el);
+        }
+
+        // Toronto "today"
+        const torNow = new Date(new Date().toLocaleString('en-US', {timeZone:'America/Toronto'}));
+        torNow.setHours(0,0,0,0);
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        availableDaysCount = 0;
+        let autoSelected = false;
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const el   = document.createElement('div');
+            const date = new Date(year, month, day);
+            el.className   = 'cal-day';
+            el.dataset.day = day;
+            const isPast   = date < torNow;
+            const isWeekend= date.getDay() === 0 || date.getDay() === 6;
+            const isSaturday = date.getDay() === 6;
+            const isToday  = date.getTime() === torNow.getTime();
+
+            if (isSaturday) {
+                el.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.8;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+            } else {
+                el.textContent = day;
+            }
+
+            if (isToday) el.classList.add('cal-day--today');
+
+            if (isPast || isWeekend) {
+                el.classList.add('cal-day--disabled');
+            } else if (slotsMap[day]) {
+                const allBusy = slotsMap[day].every(s => s.status === 'busy');
+                if (allBusy) {
+                    el.classList.add('cal-day--busy', 'cal-day--disabled');
+                } else {
+                    el.classList.add('cal-day--has-slots');
+                    el.style.setProperty('--i', availableDaysCount++);
+                    el.dataset.slots = JSON.stringify(slotsMap[day]);
+                    el.onclick = () => selectDay(day, el);
+
+                    // Auto-select nearest free weekday
+                    if (!autoSelected && day === nearestDay) {
+                        autoSelected = true;
+                        setTimeout(() => selectDay(day, el, true), 200);
+                    }
+                }
+            } else {
+                el.classList.add('cal-day--disabled');
+            }
+
+            calGrid.appendChild(el);
+        }
+
+        if (!autoSelected) {
+            slotsDayDisplay.textContent = nearestDay
+                ? 'Select a day to see available times'
+                : 'No available slots this month.';
+        }
+
+        calOverlay.style.display = 'none';
+
+        // If no nearest day found this month, background-search next month
+        if (!nearestDay) {
+            let nextM = month + 1, nextY = year;
+            if (nextM > 11) { nextM = 0; nextY++; }
+            fetchMonth(nextY, nextM).then(() => {
+                const nextSlots = availableSlotsCache[`${nextY}-${nextM}`];
+                if (Array.isArray(nextSlots)) {
+                    const minDate = new Date();
+                    minDate.setDate(minDate.getDate() + 1);
+                    minDate.setHours(0,0,0,0);
+                    for (const slot of nextSlots.filter(s => s.status !== 'busy').sort((a,b)=>a.date-b.date)) {
+                        const d = new Date(nextY, nextM, slot.date);
+                        if (d >= minDate && d.getDay() !== 0 && d.getDay() !== 6) {
+                            absoluteNearestDate = d;
+                            nearestSlotData = slot;
+                            nearestDayLastSlotData = slot;
+                            break;
+                        }
+                    }
+                    updateFooterBookBtn();
+                }
+            });
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // SELECT DAY -> show slots
+    // ------------------------------------------------------------------
+    function selectDay(day, el, isAuto = false) {
+        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
+        el.classList.add('cal-day--selected');
+
+        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        logEvent('Date Selected', selectedDate.toDateString());
+
+        // Update nav title
+        monthDisplay.innerHTML = `<span class="cal-month">${DAY_NAMES[selectedDate.getDay()]} ${day}</span>`;
+
+        const raw = el.dataset.slots ? JSON.parse(el.dataset.slots) : [];
+        const free = raw.filter(s => s.status !== 'busy');
+
+        // Label
+        slotsDayDisplay.textContent = free.length ? 'CHOOSE TIME:' : 'No available slots for this day.';
+        slotsDayDisplay.style.opacity = '1';
+
+        // Build slot buttons
+        slotsGrid.innerHTML = '';
+        free.forEach((slot, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'slot-btn slot-btn--hypnotic';
+            const svg = getClockIcon(slot.text);
+            let t = slot.text.split(/[-–]/)[0].trim().toUpperCase();
+            if (/^\d:/.test(t)) t = '0' + t;
+            const end = getEndTime(t).toUpperCase();
+            btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span></div>`;
+            btn.style.setProperty('--i', availableDaysCount + idx);
+            btn.style.setProperty('--slot-idx', idx);
+            btn.onclick = () => { btn.classList.add('slot-btn--clicked'); setTimeout(() => openBookingModal(slot), 600); };
+            slotsGrid.appendChild(btn);
+        });
+
+        slotsBlock.style.display = free.length ? 'block' : 'none';
+        if (!free.length) {
+            slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">No available slots for this day.<br>Please select another day.</p>`;
+            slotsBlock.style.display = 'block';
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // EVENT LISTENERS
+    // ------------------------------------------------------------------
+    function setupEventListeners() {
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (!selectedDate) selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            
+            const prevDay = new Date(selectedDate);
+            prevDay.setDate(prevDay.getDate() - 1);
+            
+            // Prevent navigating into the past (before today)
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            if (prevDay < today) return;
+            
+            selectedDate = prevDay;
+            currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+            renderCalendar();
+        });
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (!selectedDate) selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            
+            const nextDay = new Date(selectedDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            
+            selectedDate = nextDay;
+            currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+            renderCalendar();
+        });
+    }
 
 
     let userIP = "Unknown";
@@ -2468,21 +2666,13 @@
             localStorage.setItem('site_fp', fp);
         }
         return fp;
-    }
-
-    let currentMapsLink = "";
-
-    /**
+    }    /**
      * Sends usage logs to the Google Apps Script spreadsheet.
      */
-     async function logEvent(event, details = "", isSuspicious = false, mapsLink = "", severity = "") {
+     async function logEvent(event, details = "", isSuspicious = false, severity = "") {
         try {
-            // If mapsLink is provided, use it. Otherwise use the global one if exists.
-            const finalMapsLink = mapsLink || currentMapsLink;
-            
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
-                mode: "no-cors", 
                 body: JSON.stringify({
                     action: "log",
                     event: event,
@@ -2490,7 +2680,6 @@
                     suspicious: isSuspicious,
                     fingerprint: getFingerprint(),
                     userInfo: getDetailedDeviceInfo(),
-                    mapsLink: finalMapsLink,
                     severity: severity
                 })
             });
@@ -2505,14 +2694,8 @@
         logEvent('Unhandled Promise Rejection', e.reason ? e.reason.toString() : 'Unknown Reason', false, "", "critical");
     });
 
-    // elements
-    const monthDisplay = document.getElementById('monthDisplay');
-    const calendarGrid = document.getElementById('calendarGrid');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const slotsContainer = document.getElementById('slotsContainer');
-    const slotsGrid = document.getElementById('slotsGrid');
-    const loader = document.getElementById('calendarLoader');
+    // Legacy refs (kept for modal/form code that may reference them)
+    // monthDisplay, slotsGrid etc. are now resolved inside DOMContentLoaded via let declarations above
 
     // Input Visual State (keep white background if has text)
     const inputs = document.querySelectorAll('.contact-form__input, .contact-form__textarea');
@@ -2574,19 +2757,23 @@
             faqTitle.addEventListener('touchend', stopFaqTimer);
         }
 
-        // Set today as selected by default
-        const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
-        const torontoNow = new Date(torontoNowStr);
-        selectedDate = torontoNow; 
-        
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        renderCalendar();
-        setupEventListeners();
+        // selectedDate starts as null — auto-select will pick the nearest available day
 
-        // Apply downscale for small screens
+        // Resolve calendar DOM refs
+        calGrid          = document.getElementById('calendarGrid');
+        calOverlay       = document.getElementById('calendarLoaderOverlay');
+        calLoaderStatus  = document.getElementById('calLoaderStatus');
+        monthDisplay     = document.getElementById('monthDisplay');
+        slotsGrid        = document.getElementById('slotsGrid');
+        slotsBlock       = document.getElementById('slotsBlock');
+        slotsNav         = document.getElementById('slotsNav');
+        slotsDayDisplay  = document.getElementById('slotsDayDisplay');
+        headerTitle      = document.getElementById('calendarHeaderTitle');
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        setupEventListeners();
+        renderCalendar();
         scaleCalendar();
-        
-        // A11Y
         document.body.setAttribute('role', 'main');
     });
 
@@ -2662,533 +2849,22 @@
         // Minute hand: Minutes * 6deg
         const minuteAngle = minutes * 6;
 
-        // Duration 50 minutes
-        const duration = 50;
-        const endHourAngle = hourAngle + (duration * 0.5);
-        const endMinuteAngle = minuteAngle + (duration * 6);
-        
-        // SVG parameters
-        const cx = 25, cy = 25;
-        
-        return `<svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width: 100%; height: 100%;">
-            <!-- Outer Ring -->
-            <circle cx="25" cy="25" r="23" stroke="currentColor" stroke-opacity="0.8" fill="none" stroke-width="2.5"></circle>
-            
-            <!-- Soft shadow/glow for the ring -->
-            <circle cx="25" cy="25" r="23" stroke="currentColor" stroke-opacity="0.15" fill="none" stroke-width="5"></circle>
-
-            <!-- Center Dot -->
-            <circle cx="25" cy="25" r="2" fill="currentColor" stroke="none"></circle>
-            
-            <!-- Hour Hand (Triangular tip with rounded circular base) -->
-            <path d="M25,23 C26.1,23 27,23.9 27,25 C27,26.1 26.1,27 25,27 C23.9,27 23,26.1 23,25 C23,24.7 23.1,24.4 23.2,24.2 L25,12 L26.8,24.2 C26.9,24.4 27,24.7 27,25 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="clock-hand" style="--start:${hourAngle}deg; --end:${endHourAngle}deg;" />
-            
-            <!-- Minute Hand (Triangular tip with rounded circular base) -->
-            <path d="M25,23.5 C25.8,23.5 26.5,24.2 26.5,25 C26.5,25.8 25.8,26.5 25,26.5 C24.2,26.5 23.5,25.8 23.5,25 C23.5,24.8 23.6,24.6 23.6,24.4 L25,8 L26.4,24.4 C26.4,24.6 26.5,24.8 26.5,25 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.9" class="clock-hand" style="--start:${minuteAngle}deg; --end:${endMinuteAngle}deg;" />
-        </svg>`;
+        return `<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 30" style="width: 100%; height: 100%;">
+  <path d="M12,24C5.37,24,0,18.63,0,12S5.37,0,12,0s12,5.37,12,12-5.37,12-12,12ZM12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Z" fill="currentColor" fill-rule="evenodd"/>
+  <line x1="12" y1="12" x2="12" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${hourAngle}deg);" />
+  <line x1="12" y1="12" x2="12" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
+</svg>`;
     }
 
-    function setupEventListeners() {
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar();
-            });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar();
-            });
-        }
-    }
 
-    async function renderCalendar() {
-        calendarGrid.innerHTML = '';
-        slotsGrid.innerHTML = '';
-        const headerTitle = document.getElementById('calendarHeaderTitle');
-        if(headerTitle) headerTitle.innerHTML = "";
-
-        const ctaMsg = document.getElementById('calCtaMsg');
-        if(ctaMsg) ctaMsg.style.display = 'none';
-
-        // Hide slots block during render/loading
-        const slotsBlock = document.querySelector('.slots-block');
-        if(slotsBlock) slotsBlock.style.display = 'none';
-
-        // Show loading state when switching months
-        const slotsDisplay = document.getElementById('slotsDayDisplay');
-        if(slotsDisplay) {
-            slotsDisplay.innerHTML = 'Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span>';
-            slotsDisplay.classList.add('hypnotic-text');
-        }
-        const slotsNav = document.querySelector('.slots-nav');
-        if(slotsNav) slotsNav.classList.add('slots-nav--loading');
-
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-
-        logEvent("Calendar Render", `${monthNames[month]} ${year}`);
-
-        monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span>`;
-
-        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        dayNames.forEach(day => {
-            const div = document.createElement('div');
-            div.className = 'cal-day-name';
-            div.textContent = day;
-            calendarGrid.appendChild(div);
-        });
-
-        const firstDay = new Date(year, month, 1);
-        const startingDay = firstDay.getDay(); // 0-6
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        // Padding
-        for (let i = 0; i < startingDay; i++) {
-            const div = document.createElement('div');
-            div.className = 'cal-day cal-day--empty';
-            calendarGrid.appendChild(div);
-        }
-
-        const KEY_SVG = `<svg width="1.375rem" height="1.375rem" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(45deg); animation: keyRotate 1.5s ease-in-out 2;"><g><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.5 11.5L22 1M18 5l2 2M20 3l2 2"/></g></svg>`;
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const div = document.createElement('div');
-            div.className = 'cal-day';
-            div.dataset.day = day;
-            
-            // Reduce opacity by 3% for each subsequent day
-            div.style.opacity = Math.max(0.1, 1 - (day * 0.03)).toFixed(2);
-            
-            const checkDate = new Date(year, month, day);
-            const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
-            const torontoNow = new Date(torontoNowStr);
-            torontoNow.setHours(0,0,0,0);
-            
-            const isPast = checkDate < torontoNow;
-            const isSaturday = checkDate.getDay() === 6;
-            const isSunday = checkDate.getDay() === 0;
-            const isToday = checkDate.getTime() === torontoNow.getTime();
-
-            if (isSaturday) {
-                 div.innerHTML = `<span class="cal-key">${KEY_SVG}</span><span class="cal-num">${day}</span>`;
-                 div.classList.add('cal-day--saturday-available');
-                 if (isPast) div.style.opacity = '0.3'; // Override calculated opacity for past
-            } else {
-                 div.textContent = day;
-            }
-
-            if (isPast) {
-                div.classList.add('cal-day--disabled');
-                div.style.opacity = '0.3'; // Override calculated opacity for past
-            } else if (isSunday) {
-                 div.classList.add('cal-day--disabled');
-            }
-            
-            if (!isPast) {
-                 div.onclick = () => selectDate(day, div);
-            }
-            if(div.classList.contains('cal-day--disabled')) div.onclick = null;
-
-            if (isToday) {
-                div.classList.add('cal-day--today');
-                div.style.opacity = '1'; // Force today to be fully visible
-            }
-
-            calendarGrid.appendChild(div);
-        }
-
-        // Fetch Availability
-        if (APPS_SCRIPT_URL.includes("REPLACE")) {
-            console.warn("Script URL not set");
-        } else {
-            await fetchAvailability(year, month);
-            
-            // Safety timeout: if loading message still showing after 10 seconds, clear it
-            setTimeout(() => {
-                const slotsDisplay = document.getElementById('slotsDayDisplay');
-                if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
-                    console.warn("Loading message timeout - forcibly clearing");
-                    slotsDisplay.classList.remove('hypnotic-text');
-                    slotsDisplay.textContent = 'Success! Select a date\nto see available times';
-                }
-            }, 10000);
-        }
-    }
-
-    async function fetchAvailability(year, month, isRecursiveSearch = false) {
-        const cacheKey = `${year}-${month}`;
-        
-        // Only show the visual loading separator if this is the primary calendar view
-        if (!isRecursiveSearch) {
-            const separator = document.getElementById('loadingSeparator');
-            if(separator) separator.classList.add('loading-separator--active');
-        }
-        
-        try {
-            if (!availableSlotsCache[cacheKey]) {
-                const response = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}&_t=${Date.now()}`);
-                const data = await response.json();
-                console.log("Slots API Response:", data); // Debug log
-                if (data.success && data.slots) {
-                    availableSlotsCache[cacheKey] = data.slots; // Expecting [{date: 12, text: "9:00", iso: "..."}]
-                } else {
-                    availableSlotsCache[cacheKey] = []; // Empty array if no success or no slots
-                    console.warn("No slots found for", year, month);
-                }
-            }
-            
-            // If this is a background search just to find the next available button date
-            if (isRecursiveSearch) {
-                const searchSlots = availableSlotsCache[cacheKey];
-                const bgMonth = new Date(year, month, 1);
-                bgMonth.setHours(0,0,0,0);
-                
-                const foundValid = searchSlots.some(slot => {
-                     const slotDate = new Date(year, month, slot.date);
-                     const minBookingDate = new Date();
-                     minBookingDate.setDate(minBookingDate.getDate() + 2);
-                     minBookingDate.setHours(0,0,0,0);
-                     // Must not be a Saturday (6) and must not be busy
-                     return slotDate >= minBookingDate && slotDate.getDay() !== 6 && slot.status !== 'busy';
-                });
-
-                if (foundValid) {
-                     // Found it! Force a re-render of the footer button logic with this month's data
-                     // Note: We don't change the calendar view itself, just the global button data.
-                     extractNearestSlotData(year, month, searchSlots);
-                     updateFooterBookBtn();
-                } else {
-                     // Still nothing. Keep looking into the next month.
-                     // Cap search to +3 months to prevent infinite loops if they fully blocked off a year
-                     const currentCheck = new Date(year, month, 1);
-                     const limitCheck = new Date();
-                     limitCheck.setMonth(limitCheck.getMonth() + 3);
-                     if (currentCheck < limitCheck) {
-                         let nextM = month + 1;
-                         let nextY = year;
-                         if (nextM > 11) { nextM = 0; nextY++; }
-                         fetchAvailability(nextY, nextM, true);
-                     }
-                }
-            } else {
-                // Normal UI render
-                updateCalendarWithAvailability(availableSlotsCache[cacheKey]);
-            }
-
-        } catch (e) {
-            console.error("Error fetching slots", e);
-            if (!isRecursiveSearch) {
-                const slotsDisplay = document.getElementById('slotsDayDisplay');
-                if(slotsDisplay) {
-                    slotsDisplay.classList.remove('hypnotic-text');
-                    slotsDisplay.textContent = 'Error loading availability';
-                }
-            }
-        } finally {
-            if (!isRecursiveSearch) {
-                const separator = document.getElementById('loadingSeparator');
-                if(separator) separator.classList.remove('loading-separator--active');
-            }
-        }
-    }
-
-    // Extracted helper to just find the next slot without touching the UI
-    function extractNearestSlotData(year, month, slots) {
-        if (!Array.isArray(slots)) return false;
-        
-        const minBookingDate = new Date();
-        minBookingDate.setDate(minBookingDate.getDate() + 2);
-        minBookingDate.setHours(0, 0, 0, 0);
-
-        const slotsMap = {};
-        slots.forEach(slot => {
-            const slotDate = new Date(year, month, slot.date);
-            slotDate.setHours(0, 0, 0, 0);
-            if (slotDate >= minBookingDate) {
-                if (!slotsMap[slot.date]) slotsMap[slot.date] = [];
-                slotsMap[slot.date].push(slot);
-            }
-        });
-
-        const today = new Date();
-        today.setHours(0,0,0,0);
-        const availableDays = Object.keys(slotsMap).map(Number).sort((a,b) => a-b);
-
-        for (let d of availableDays) {
-            const checkDate = new Date(year, month, d);
-            if (checkDate >= today && checkDate.getDay() !== 6) {
-                const hasAvailableSlot = slotsMap[d].some(s => s.status !== 'busy');
-                if (hasAvailableSlot) {
-                    absoluteNearestDate = checkDate; 
-                    const availableSlots = slotsMap[d].filter(s => s.status !== 'busy');
-                    nearestSlotData = availableSlots[0] || null;
-                    nearestDayLastSlotData = availableSlots[availableSlots.length - 1] || null;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    async function updateCalendarWithAvailability(slots) {
-        if (!Array.isArray(slots)) {
-            const slotsDisplay = document.getElementById('slotsDayDisplay');
-            if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
-                slotsDisplay.classList.remove('hypnotic-text');
-                slotsDisplay.textContent = 'Success! Select a date\nto see available times';
-            }
-            return;
-        }
-
-        
-        const dayElements = document.querySelectorAll('.cal-day:not(.cal-day--empty)');
-        const slotsMap = {}; // date -> count
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        // Logic: Disable today and tomorrow (allow booking only from 2 days ahead)
-        const minBookingDate = new Date();
-        minBookingDate.setDate(minBookingDate.getDate() + 2);
-        minBookingDate.setHours(0, 0, 0, 0);
-
-        slots.forEach(slot => {
-            // Create date object for this slot to compare
-            const slotDate = new Date(year, month, slot.date);
-            slotDate.setHours(0, 0, 0, 0);
-
-            if (slotDate >= minBookingDate) {
-                if (!slotsMap[slot.date]) slotsMap[slot.date] = [];
-                slotsMap[slot.date].push(slot);
-            }
-        });
-
-        let nearestDay = null;
-        const today = new Date();
-        today.setHours(0,0,0,0);
-        const availableDays = Object.keys(slotsMap).map(Number).sort((a,b) => a-b);
-
-        for (let d of availableDays) {
-            const checkDate = new Date(year, month, d);
-            // Skip Saturdays (6) for auto-selection, even if they have slots
-            if (checkDate >= today && checkDate.getDay() !== 6) {
-                const hasAvailableSlot = slotsMap[d].some(s => s.status !== 'busy');
-                if (hasAvailableSlot) {
-                    nearestDay = d;
-                    absoluteNearestDate = checkDate; // Set global
-                    // Store the first available (non-busy) slot data
-                    const availableSlots = slotsMap[d].filter(s => s.status !== 'busy');
-                    nearestSlotData = availableSlots[0] || null;
-                    nearestDayLastSlotData = availableSlots[availableSlots.length - 1] || null;
-                    break;
-                }
-            }
-        }
-
-        availableDaysCount = 0;
-        let autoSelectedDay = false;
-        
-        dayElements.forEach(el => {
-            const dayFn = parseInt(el.dataset.day);
-            if (slotsMap[dayFn]) {
-                el.classList.add('cal-day--has-slots');
-                el.style.setProperty('--i', availableDaysCount++);
-                el.dataset.slots = JSON.stringify(slotsMap[dayFn]);
-                const allBusy = slotsMap[dayFn].every(s => s.status === 'busy');
-                
-                if (allBusy) {
-                    el.classList.add('cal-day--busy');
-                    el.style.pointerEvents = 'none';
-                    el.style.opacity = '0.3';
-                }
-                
-                if (!allBusy && nearestDay && dayFn === nearestDay) {
-                     autoSelectedDay = true;
-                     setTimeout(() => {
-                        selectDate(dayFn, el, true);
-                     }, 200);
-                }
-
-            } else {
-                if (!el.classList.contains('cal-day--disabled') && !el.classList.contains('cal-day--saturday-available')) { // Protect KEYS (Saturdays)
-                     el.classList.add('cal-day--disabled');
-                     el.style.opacity = '0.3'; // Visual cue
-                     el.onclick = null; // Remove click
-                }
-            }
-        });
-        
-        if (!autoSelectedDay) {
-            const slotsDisplay = document.getElementById('slotsDayDisplay');
-            if(slotsDisplay && slotsDisplay.classList.contains('hypnotic-text')) {
-                slotsDisplay.classList.remove('hypnotic-text');
-                if (availableDaysCount > 0) {
-                    slotsDisplay.textContent = 'Select an available day to see times.';
-                } else {
-                    slotsDisplay.textContent = 'No available slots this month.';
-                }
-            }
-        }
-        
-        // If we didn't find ANY nearest day in this month's render, it means the whole month
-        // is booked or passed. We MUST trigger a background search of the NEXT month 
-        // to populate the global "Nearest Appointment" buttons.
-        if (!nearestDay) {
-            let nextM = month + 1;
-            let nextY = year;
-            if (nextM > 11) { nextM = 0; nextY++; }
-            fetchAvailability(nextY, nextM, true);
-        } else {
-            // We found one, update the buttons normally
-            updateFooterBookBtn();
-        }
-
-        initScrollIndicator();
-    }
+    // (legacy renderCalendar removed — single version above is used)
 
     function selectDate(day, element, isAutoSelection = false) {
-        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
-        element.classList.add('cal-day--selected');
-        element.classList.remove('cal-day--nearest-free');
-
-        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        logEvent("Date Selected", selectedDate.toDateString());
-        const headerTitle = document.getElementById('calendarHeaderTitle'); // Legacy
-        if(headerTitle) headerTitle.innerHTML = "";
-
-        const slotsDisplay = document.getElementById('slotsDayDisplay');
-        const slotsNav = document.querySelector('.slots-nav');
-        const needsLoadingDelay = !isAutoSelection;
-        const slotsBlock = document.querySelector('.slots-block');
-        
-        if (needsLoadingDelay && slotsDisplay) {
-            slotsDisplay.textContent = '';
-            slotsDisplay.innerHTML = 'Connecting to server<span class="dot-jump">.</span><span class="dot-jump">.</span><span class="dot-jump">.</span>';
-            slotsDisplay.classList.add('hypnotic-text');
-            if(slotsNav) slotsNav.classList.add('slots-nav--loading');
-            
-            // Hide block while loading new day
-            if(slotsBlock) slotsBlock.style.display = 'none';
-        }
-
-        setTimeout(() => {
-            if(slotsNav) slotsNav.classList.remove('slots-nav--loading');
-            
-            // Show block when data is ready
-            if(slotsBlock) slotsBlock.style.display = 'block';
-
-            if(slotsDisplay) {
-                slotsDisplay.classList.remove('hypnotic-text'); // Remove animation
-                const options = { weekday: 'long' };
-                
-                const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
-                const availableCount = slotsData.filter(s => s.status !== 'busy').length;
-                let weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'short' });
-                if (!weekdayName.endsWith(',')) weekdayName += ',';
-                const dayNum = selectedDate.getDate();
-
-                let weekdayText;
-                if (availableCount === 1) {
-                    weekdayText = `SLOT FOR ${weekdayName} ${dayNum}`;
-                } else if (availableCount > 0) {
-                    weekdayText = `${availableCount} SLOTS FOR ${weekdayName} ${dayNum}`;
-                } else {
-                    weekdayText = 'Please select another available day';
-                }
-
-                if (needsLoadingDelay) {
-                    slotsDisplay.classList.add('fade-out');
-                    setTimeout(() => {
-                        slotsDisplay.textContent = weekdayText;
-                        slotsDisplay.classList.remove('fade-out');
-                        slotsDisplay.classList.add('fade-in');
-                        setTimeout(() => slotsDisplay.classList.remove('fade-in'), 500);
-                    }, 500);
-                } else {
-                    slotsDisplay.textContent = weekdayText;
-                }
-                slotsDisplay.style.opacity = '1';
-            }
-
-            slotsGrid.innerHTML = '';
-            const slotsData = element.dataset.slots ? JSON.parse(element.dataset.slots) : [];
-
-            if (selectedDate.getMonth() !== currentDate.getMonth()) {
-                slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: rgba(0,0,0,0.5); mix-blend-mode: overlay; margin-top: 10px;">Select a date in the current month to check availability.</p>`;
-                return;
-            }
-
-            if (slotsData.length === 0) {
-                const torontoNowStr = new Date().toLocaleString("en-US", {timeZone: "America/Toronto"});
-                const torontoNow = new Date(torontoNowStr);
-                
-                const datePhrase = isAutoSelection ? "anymore for Today" : "for this date";
-
-                slotsGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #ffffff; font-weight: 700; font-size: 1.2rem; margin-top: 20px; line-height: 1.5;">No available slots ${datePhrase}.<br>Please select another day.</p>`;
-                const titleEl = document.querySelector('.slots-title');
-                if(titleEl) titleEl.style.display = 'none';
-                const ctaMsg = document.getElementById('calCtaMsg');
-                if(ctaMsg) {
-                    ctaMsg.style.display = 'none';
-                    ctaMsg.textContent = 'Please select a time slot to proceed.';
-                }
-
-            } else {
-                const titleEl = document.querySelector('.slots-title');
-                if(titleEl) titleEl.style.display = 'block';
-                
-                const allBusy = slotsData.every(s => s.status === 'busy');
-                
-                const ctaMsg = document.getElementById('calCtaMsg');
-                if(ctaMsg) {
-                    ctaMsg.style.display = 'block';
-                    const availableCount = slotsData.filter(s => s.status !== 'busy').length;
-                    let weekdayName = selectedDate.toLocaleString('en-US', { weekday: 'short' });
-                    if (!weekdayName.endsWith(',')) weekdayName += ',';
-                    const dayNum = selectedDate.getDate();
-                    
-                    if (availableCount > 0) {
-                        ctaMsg.innerHTML = `SLOTS FOR ${weekdayName} ${dayNum}:`;
-                    } else {
-                        ctaMsg.innerHTML = 'Please select another available day';
-                    }
-                }
-
-                const isThisNearestDay = absoluteNearestDate && 
-                                        selectedDate.getFullYear() === absoluteNearestDate.getFullYear() &&
-                                        selectedDate.getMonth() === absoluteNearestDate.getMonth() &&
-                                        selectedDate.getDate() === absoluteNearestDate.getDate();
-
-                slotsData.filter(s => s.status !== 'busy').forEach((slot, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'slot-btn slot-btn--hypnotic'; 
-
-                    const svgIcon = getClockIcon(slot.text);
-                    
-                    let rawTime = slot.text.split(/[-–]/)[0].trim().toUpperCase(); 
-                    // Ensure leading zero if hour is single digit
-                    if (/^\d:/.test(rawTime)) {
-                        rawTime = '0' + rawTime;
-                    }
-                    let endTime = getEndTime(rawTime).toUpperCase();
-
-                    btn.innerHTML = `
-                        <div class="slot-icon-wrapper">${svgIcon}</div>
-                        <div class="slot-time"><span style="font-weight: 900;">${rawTime} - ${endTime}</span></div>
-                    `; 
-                    
-                    btn.style.setProperty('--i', availableDaysCount + index);
-                    btn.style.setProperty('--slot-idx', index);
-                    
-                    btn.onclick = () => {
-                        btn.classList.add('slot-btn--clicked');
-                        setTimeout(() => openBookingModal(slot), 600);
-                    };
-                    slotsGrid.appendChild(btn);
-                });
-            }
-        }, needsLoadingDelay ? 600 : 0);
+        // redirect to the canonical selectDay function
+        selectDay(day, element, isAutoSelection);
     }
+
+
 
     // Modal & Form Handling
     let liveDraftTimer = null;
@@ -3235,7 +2911,7 @@
             
             const modalAppointmentTime = document.getElementById('modalAppointmentTime');
             if(modalAppointmentTime) {
-                modalAppointmentTime.innerHTML = `${dateFormatted} at <strong style="font-weight: 900;">${startTime} - ${endTime}</strong>`;
+                modalAppointmentTime.innerHTML = `${dateFormatted} at <strong style="font-weight: 800;">${startTime} - ${endTime}</strong>`;
             }
             
             if(modal) {
@@ -3282,8 +2958,7 @@
                         service: sanitize(formData.get('service')),
                         notes: sanitize(formData.get('notes')),
                         userInfo: getDetailedDeviceInfo(),
-                        fingerprint: getFingerprint(),
-                        mapsLink: currentMapsLink
+                        fingerprint: getFingerprint()
                     };
 
                     // Only send if at least one meaningful field is partially filled
@@ -3321,15 +2996,7 @@
         }
     }
 
-    function closeTermsModal() {
-        document.getElementById('termsModal').classList.remove('modal--active');
-    }
-    
-    document.querySelectorAll('.contact-form__terms-link').forEach(link => {
-        link.addEventListener('click', () => {
-             document.getElementById('termsModal').classList.add('modal--active');
-        });
-    });
+    // closeTermsModal is defined above (single version), removed duplicate here
 
     // --- Security: sanitize user input before sending ---
     function sanitize(str) {
@@ -3593,7 +3260,6 @@
             cModal.classList.add('modal--active');
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-is-open');
-            // Sparks animation removed from here
             // const checkIcon = document.getElementById('confirmationCheckmark');
             // if (checkIcon) createSparks(checkIcon);
         }
@@ -3664,7 +3330,36 @@
             const result = await response.json();
             
             if (result.success) {
-                // ... logic same ...
+                // Hide Global Spinner
+                const globalSpinner = document.getElementById('globalSpinner');
+                if (globalSpinner) globalSpinner.style.display = 'none';
+                
+                playSuccessSound();
+                lastBookingTime = Date.now();
+                clearFormData();
+                
+                const modalBody = document.querySelector('#bookingModal .modal__body');
+                const modalTitle = document.querySelector('#bookingModal .modal__title');
+                // No longer replacing modalTitle.innerHTML
+                if (modalBody) {
+                    modalBody.innerHTML = `
+                        <div style="padding: 2rem; text-align: center;">
+                            <div style="color: var(--accent-gold); margin-bottom: 25px; position: relative; display: inline-block; width: 80px; height: 80px;">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 15px rgba(90, 61, 42, 0.4));">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <p style="font-size: 1.2rem; margin-bottom: 2rem; font-weight: 800;">Thank you, ${bookingData.name}!</p>
+                            <p style="font-size: 1rem; opacity: 0.9; line-height: 1.6;">Your request for <strong>${selectedSlotData.text}</strong> was received.<br>We will review it and contact you soon.</p>
+                            <button onclick="location.reload()" class="contact-form__submit-button" style="margin-top: 3rem; width: 100%; max-width: 200px;">Done</button>
+                        </div>
+                    `;
+                    // Hide any active confirmation elements
+                    const confirmBox = document.getElementById('confirmButtons');
+                    if(confirmBox) confirmBox.style.display = 'none';
+                }
+                
+                logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr}`);
             } else if (result.error === 'SLOT_TAKEN') {
                 // USER REQ: Don't lose data, handle contention
                 if (globalSpinner) globalSpinner.style.display = 'none';
@@ -3796,28 +3491,6 @@
             return "50 min later";
         }
     }
-    function captureGeolocation(onSuccess, onError) {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    currentMapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                    if (onSuccess) onSuccess(currentMapsLink);
-                },
-                function(error) {
-                    let errorMsg = "Unknown Error";
-                    if (error.code === error.PERMISSION_DENIED) errorMsg = "Permission Denied by User";
-                    else if (error.code === error.POSITION_UNAVAILABLE) errorMsg = "Position Unavailable";
-                    else if (error.code === error.TIMEOUT) errorMsg = "Request Timeout";
-                    if (onError) onError(errorMsg);
-                },
-                { timeout: 10000 }
-            );
-        } else {
-            if (onError) onError("Geolocation not supported by browser");
-        }
-    }
 
     window.addEventListener('load', () => {
         // Run UI adjustments and permission requests immediately so they don't cause late layout shifts
@@ -3882,7 +3555,7 @@
             if (!t.btn || !t.preloader) return;
 
             if (absoluteNearestDate && nearestSlotData) {
-                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' });
                 
                 let htmlContent = '';
                 
@@ -3894,8 +3567,8 @@
                     }
                     const slotWord = nearestSlotData ? 'Slot' : 'Slots';
                     htmlContent = timeStr 
-                        ? `Available ${slotWord}!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek} at ${timeStr}</span>` 
-                        : `Available ${slotWord}!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                        ? `Available ${slotWord}!<br><span style="font-size: 1rem; font-weight: 800; opacity: 0.95;">${dayOfWeek} ${nearestSlotData.date} at ${timeStr}</span>` 
+                        : `Available ${slotWord}!<br><span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeek} ${nearestSlotData.date}</span>`;
                 } else {
                     // Footer button: 3-line format
                     let lastTimeStr = '';
@@ -3906,7 +3579,7 @@
                     
                     htmlContent = `Available Slot!<br>` +
                                  `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
-                                 `<span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                                 `<span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeek} ${fallbackSlot.date}</span>`;
                 }
                 
                 t.preloader.style.transition = 'opacity 0.5s';
@@ -4050,7 +3723,9 @@
 
     // (Load listener consolidated above)
 
-    window.addEventListener('resize', adjustDynamicText);// ------------------------------------------------------------------
+    window.addEventListener('resize', adjustDynamicText);
+
+    // ------------------------------------------------------------------
     // AUTO-HIDING TOP BAR
     // ------------------------------------------------------------------
     const topBar = document.querySelector('.top-bar');
@@ -4142,24 +3817,21 @@
     window.addEventListener('load', triggerReveal);
 
 
-    // Geolocation Logging for Directions
+    // Location static logging
     function logDirectionsClick() {
-        captureGeolocation(
-            (link) => logEvent("Directions Clicked", `Location: ${link}`, false, link),
-            (err) => logEvent("Directions Clicked", `Location capture failed: ${err}`)
-        );
+        logEvent("Directions Clicked", "User opened Maps directions.");
     }
 </script>
 
 <!-- Global Spinner for Finalizing -->
 <div id="globalSpinner" class="global-spinner">
-    <div class="book-btn-preloader">
-        <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
-            <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
-            <circle class="book-btn-preloader__progress book-btn-preloader__progress--infinite" cx="60" cy="60" r="48"/>
+    <div style="position: relative; width: 80px; height: 80px; margin-bottom: 20px;">
+        <svg viewBox="0 0 120 120" class="spinner-circle" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+            <circle cx="60" cy="60" r="48" style="fill: transparent; stroke: rgba(255, 255, 255, 0.2); stroke-width: 6;"/>
+            <circle cx="60" cy="60" r="48" style="fill: none; stroke: #ffffff; stroke-width: 6; stroke-dasharray: 302; stroke-dashoffset: 100; stroke-linecap: round;"/>
         </svg>
-        <div id="globalSpinnerText" class="book-btn-preloader__text">Finalizing...</div>
     </div>
+    <p id="globalSpinnerText" class="header__content-header" style="color: var(--text-white); font-size: 1.5rem; letter-spacing: 2px;">Finalizing booking...</p>
 </div>
 
 </body>
