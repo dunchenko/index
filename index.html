@@ -49,6 +49,8 @@
             margin: 0; 
             padding: 0; 
             font-family: 'Lato', sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         @keyframes pulseText {
@@ -75,6 +77,9 @@
             min-height: 100vh;
             padding-bottom: 9.375rem; /* Space for bottom bar */
             animation: blurReveal 4s ease-out forwards;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         /* Custom Scrollbar */
@@ -99,9 +104,13 @@
 
         /* Scroll Fade-in Animation */
         .fade-in-section {
+            opacity: 1; /* Was 0 */
+            transform: none; /* Was translateY(1.875rem) */
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in-section.is-hidden {
             opacity: 0;
             transform: translateY(1.875rem);
-            transition: opacity 1s ease-out, transform 1s ease-out;
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -111,7 +120,7 @@
         .blur-in-section {
             opacity: 0;
             filter: blur(1.25rem); /* 20px */
-            transition: opacity 3s ease-out, filter 3s ease-out;
+            transition: opacity 1.5s ease-out, filter 1.5s ease-out;
             transform: none !important; /* Disable slide-up */
         }
         .blur-in-section.is-visible {
@@ -506,6 +515,14 @@
             text-align: left; /* Align FAQ content to the left */
         }
         
+        .faq__item--no-bullet .faq__question::before {
+            display: none;
+        }
+
+        .faq__item--no-bullet .faq__answer {
+            padding-left: 0;
+        }
+
         .faq__question { 
             font-weight: 900; 
             font-size: 1.1rem; 
@@ -758,7 +775,7 @@
         .map-container {
             width: 100%; 
             height: 28.125rem; 
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNUzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); 
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNTzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); 
             background-size: cover; 
             border-radius: 0.625rem; 
             overflow: hidden;
@@ -952,7 +969,7 @@
         
         
         .cal-day--today {
-            border: 0.3125rem solid #ffffff; 
+            border: 0.35rem solid #ffffff; 
             box-shadow: 0 0 0.625rem rgba(255, 255, 255, 0.5) !important;
             opacity: 1 !important;
         }
@@ -1085,24 +1102,51 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4) !important;
         }
 
-        /* 20 Second Repeating Sequential Pulse Wave */
+        /* 25 Second Repeating Sequential Pulse Wave with Variable Speeds */
         @keyframes slotPulseWave {
+            /* Pulse 1: Quick */
             0%, 2% {
                 background: rgba(255, 255, 255, 0.2);
                 border-color: rgba(255, 255, 255, 0.6);
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
                 transform: translateY(-2px);
             }
-            4%, 100% {
-                background: rgba(255, 255, 255, 0.05); /* Same as default slot background */
-                border-color: rgba(255, 255, 255, 0.1); /* Same as default slot border */
+            4%, 28% {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.1);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+                transform: translateY(0);
+            }
+            /* Pulse 2: Slow & Langurous */
+            30%, 36% {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: rgba(255, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
+                transform: translateY(-2px);
+            }
+            39%, 66% {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.1);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+                transform: translateY(0);
+            }
+            /* Pulse 3: Lightning Fast */
+            68%, 69% {
+                background: rgba(255, 255, 255, 0.2);
+                border-color: rgba(255, 255, 255, 0.6);
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255,255,255,0.4);
+                transform: translateY(-2px);
+            }
+            71%, 100% {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.1);
                 box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
                 transform: translateY(0);
             }
         }
 
         .slot-btn:not(.slot-btn--busy) {
-            animation: slotPulseWave 20s infinite;
+            animation: slotPulseWave 25s infinite;
             animation-delay: calc(var(--slot-idx) * 0.15s);
         }
 
@@ -1137,7 +1181,7 @@
         }
 
         @keyframes constantGlow {
-            0%, 100% { 
+            0% { 
                 background: rgba(255, 255, 255, 0.25); 
                 box-shadow: 0 0 0.9375rem rgba(255, 255, 255, 0.3);
                 border-color: rgba(255, 255, 255, 0.5);
@@ -1287,18 +1331,18 @@
 
         /* Paperclip Attention Animation */
         @keyframes paperclipAttention {
-            0%, 90% { transform: rotate(0deg); }
-            92% { transform: rotate(-25deg); }
-            94% { transform: rotate(20deg); }
-            96% { transform: rotate(-15deg); }
-            98% { transform: rotate(5deg); }
-            100% { transform: rotate(0deg); }
+            0%, 94% { transform: rotate(0deg) scale(1.1); }
+            95% { transform: rotate(-30deg) scale(1.2); }
+            96% { transform: rotate(25deg) scale(1.2); }
+            97% { transform: rotate(-15deg) scale(1.2); }
+            98% { transform: rotate(5deg) scale(1.2); }
+            100% { transform: rotate(0deg) scale(1.1); }
         }
 
         .file-attach__icon-svg {
             display: inline-block;
             transform-origin: center center;
-            animation: paperclipAttention 10s infinite ease-in-out;
+            animation: paperclipAttention 8s infinite ease-in-out;
         }
 
         .file-attach__icon {
@@ -1538,9 +1582,14 @@
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
-            animation: sparkle 1.2s ease-in-out infinite;
             background: #ffffff;
-            z-index: -2;
+            z-index: -1; /* Start behind the button */
+        }
+
+        @keyframes sparkle {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translate(var(--vx), var(--vy)) scale(1.8); opacity: 0; }
         }
 
         @keyframes hypnoticPulse {
@@ -1671,6 +1720,18 @@
             stroke: #ff4c4c !important;
             filter: drop-shadow(0 0 15px rgba(255, 76, 76, 0.8)) !important;
             animation: none !important;
+            stroke-dashoffset: 0 !important; /* Force fully filled */
+        }
+
+        /* Book Button Error State */
+        .book-btn-preloader--error .book-btn-preloader__circle {
+            stroke: rgba(255, 51, 51, 0.15); /* Light red track */
+            animation: pulseError 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseError {
+            0%, 100% { stroke-opacity: 0.5; stroke-width: 3; }
+            50% { stroke-opacity: 1; stroke-width: 4; }
         }
 
         /* Hide Spinners on Number Inputs */
@@ -1717,7 +1778,6 @@
         .top-bar--visible {
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
             transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
         }
 
@@ -1778,7 +1838,6 @@
         .bottom-bar--visible {
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
             transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
         }
 
@@ -1870,6 +1929,25 @@
             /* height is adjusted by JS after scaling so the wrapper collapses
                to the visible (scaled) height, not the original height */
         }
+
+        .footer__copyright { 
+            font-size: 0.95rem; 
+            margin-top: 1.25rem; 
+            opacity: 0.8;
+            transition: opacity 2s ease 1s; /* 1s delay */
+        }
+        
+        /* Specialized fade-in class for elements needing a delay */
+        .fade-in-delayed {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 2s ease 1s, transform 2s ease 1s; /* 1s delay */
+        }
+
+        .fade-in-delayed.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -1908,47 +1986,68 @@
         <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London</span> 
         <span data-i18n="desc4">Online meetings are available province-wide</span>
     </h1>
-    <div class="header__contact" style="margin-top: 2rem;">
+
+    <div class="header__contact" style="margin-top: 0.5rem; margin-bottom: 2rem;">
         <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
     </div>
 
+    <div class="book-btn-wrapper">
+        <div class="book-btn-container">
+            <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
+                <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
+                    <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                    <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                </svg>
+                <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2;">Loading...</div>
+            </div>
+            <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
+                <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
+            </button>
+        </div>
+    </div>
+
     <div class="header__content-block">
-        <h2 class="header__content-header">SERVICES</h2>
+        <h2 class="header__content-header" style="font-size: 2rem;">SERVICES</h2>
         
         <div class="header__service-item">
-            <h3 class="header__content-subheader">Traffic Ticket Defense & Provincial Offences</h3>
-            <p class="header__content-text">In Ontario, <strong>licensed paralegals</strong> are authorized to represent clients in <strong>Provincial Offences Court</strong> for matters under the <strong>Highway Traffic Act (HTA)</strong> and other provincial statutes.</p>
-            <p class="header__content-text">Assisting those searching for <strong>how to fight a speeding ticket in Ontario</strong>, or wondering <strong>can I beat a traffic ticket without a lawyer</strong>. Handling <strong>speeding tickets</strong>, <strong>red light camera tickets</strong>, <strong>stunt driving charges Ontario</strong>, <strong>careless driving charges</strong>, <strong>driving with no insurance</strong>, and <strong>fail to stop for police</strong>.</p>
-            <p class="header__content-text">Addressing the common question — <strong>do I need a lawyer for a traffic ticket in Ontario?</strong> — with expert defense in traffic court. Analyzing the officer's disclosure, challenging evidence, negotiating with prosecutors, and fighting to <strong>reduce demerit points</strong>, <strong>lower fines</strong>, and protect your <strong>insurance rates</strong>.</p>
+            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Notary Public & Commissioner of Oaths</h3>
+            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Operating as a Commissioner of Oaths in Ontario involves strictly assessing documents to establish the required level of notarization or commissioning. This requires formally verifying the deponent's identity utilizing valid, government-issued identification. The process continues with administering oaths, affirmations, or solemn declarations for documents including, but not limited to, an <strong>Affidavit</strong>, a <strong>Statutory Declaration</strong>, or a <strong>Consent Letter for Children Travelling Abroad</strong>. Providing certification to verify documents as true copies of the original is also conducted, where legally permissible under Ontario regulations.</p>
         </div>
 
         <div class="header__service-item">
-            <h3 class="header__content-subheader">Landlord & Tenant Board (LTB)</h3>
-            <p class="header__content-text">Ontario paralegals are licensed to represent both <strong>landlords</strong> and <strong>tenants</strong> before the <strong>Landlord and Tenant Board</strong>.</p>
-            <p class="header__content-text">Providing professional advocacy for those searching for <strong>paralegal near me for eviction</strong> or <strong>how to fight an N4 notice in Ontario</strong>. Handling <strong>N4 notices</strong> for non-payment of rent, <strong>L1 applications</strong> to evict a tenant, <strong>N12 notices</strong> for landlord's own use, <strong>T2 applications</strong> for tenant rights, and <strong>T6 applications</strong> for maintenance issues.</p>
-            <p class="header__content-text">Responding to the frequent search — <strong>can a paralegal represent me at the LTB?</strong> — with qualified representation. Navigating <strong>rent arrears</strong>, an <strong>illegal lockout</strong>, <strong>above-guideline rent increases</strong>, or an <strong>Ontario Standard Lease dispute</strong> through <strong>strategic advocacy</strong> under the Residential Tenancies Act.</p>
+            <h3 class="header__content-subheader" style="margin-bottom: 5px;">WSIB & Workplace Injury Claims</h3>
+            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Providing representation for injured workers in matters involving the Workplace Safety and Insurance Board falls under the strict authorization of licensed Ontario paralegals. The procedure initiates with reviewing the workplace injury circumstances, strictly analyzing the <strong>Form 6 Worker's Report of Injury</strong> or any existing WSIB decisions. This encompasses assisting with comprehensive claim management, submitting required documentation, and actively advising on <strong>Loss of Earnings (LOE)</strong> or <strong>Non-Economic Loss (NEL)</strong> entitlements. In instances of dispute, services include directly representing clients at hearings to address <strong>Return to Work (RTW)</strong> obligations or formally appealing adverse decisions before the Workplace Safety and Insurance Appeals Tribunal (WSIAT).</p>
         </div>
 
         <div class="header__service-item">
-            <h3 class="header__content-subheader">Small Claims Court (up to $35,000)</h3>
-            <p class="header__content-text">In Ontario, paralegals represent clients in the <strong>Superior Court of Justice (Small Claims Court)</strong> for claims up to <strong>$35,000</strong>.</p>
-            <p class="header__content-text">Offering a cost-effective alternative for those asking <strong>how to sue someone in Ontario small claims court</strong> or <strong>do I need a lawyer for small claims court Ontario</strong>. Handling <strong>unpaid invoices</strong>, <strong>property damage claims</strong>, <strong>breach of contract disputes</strong>, consumer complaints, and return of personal property.</p>
-            <p class="header__content-text">Clarifying the question — <strong>can a paralegal represent me in small claims court?</strong> — through full licensing to appear before the <strong>Ontario Superior Court of Justice</strong>, Small Claims branch.</p>
+            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Provincial Offences & Traffic Ticket Defense</h3>
+            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Representing clients in Provincial Offences Court for matters under the <strong>Highway Traffic Act (HTA)</strong> is strictly authorized under the unique regulatory framework for Ontario paralegals. Counsel begins by formally requesting and critically examining the prosecuting officer's disclosure and evidence. This is followed by formulating a precise case strategy for defending charges such as speeding, careless driving, or stunt driving by exploring potential procedural or charter defenses. Efforts initially focus on pursuing resolution through negotiating with the municipal prosecutor to seek withdrawing charges or reducing penalties (e.g., demerit points). Should a negotiated resolution not be attainable, the process culminates in providing formal representation at the trial hearing.</p>
         </div>
 
         <div class="header__service-item">
-            <h3 class="header__content-subheader">WSIB & Workplace Injury Claims</h3>
-            <p class="header__content-text">Guiding clients injured at work and searching for <strong>WSIB paralegal near me</strong> or <strong>how to appeal a WSIB decision in Ontario</strong>.</p>
-            <p class="header__content-text">Representing injured workers before the <strong>Workplace Safety and Insurance Board</strong> and the <strong>WSIAT (Workplace Safety and Insurance Appeals Tribunal)</strong>. Assisting with <strong>Form 6 Worker's Report of Injury</strong>, <strong>Loss of Earnings (LOE) benefits</strong>, <strong>Return to Work (RTW) disputes</strong>, <strong>Non-Economic Loss (NEL) claims</strong>, and <strong>chronic pain recognition</strong>.</p>
-            <p class="header__content-text">Answering — <strong>can a paralegal help with my WSIB claim?</strong> — by fighting to ensure recovery is fully supported under the <strong>Workplace Safety and Insurance Act</strong>.</p>
+            <h3 class="header__content-subheader" style="margin-bottom: 5px;">Landlord & Tenant Board (LTB)</h3>
+            <p class="header__content-text" style="font-size: 0.95rem; font-weight: 300;">Holding a specific license enables Ontario paralegals to represent landlords and tenants before the Landlord and Tenant Board under the strict guidelines of the <strong>Residential Tenancies Act (RTA)</strong>. The procedure involves precisely preparing and serving statutory notices, such as an <strong>N4 Notice to End your Tenancy Early for Non-payment of Rent</strong> or an <strong>N12 Notice to End your Tenancy Because the Landlord, a Purchaser or a Family Member Requires the Rental Unit</strong>. This is followed by filing the appropriate application, such as an <strong>L1 Application to Evict a Tenant for Non-payment of Rent</strong> or a <strong>T2 Application about Tenant Rights</strong>. Furthermore, the process includes rigorously preparing documentary evidence and witness testimony, culminating in directly representing clients during case management hearings or formal eviction hearings before an LTB adjudicator.</p>
         </div>
+    </div>
 
-        <div class="header__service-item">
-            <h3 class="header__content-subheader">Notary Public & Commissioner of Oaths</h3>
-            <p class="header__content-text">Serving as a <strong>Commissioner of Oaths</strong> in Ontario. Helping those in need of a <strong>notary public near me in Toronto</strong> or <strong>commissioner of oaths near me</strong>.</p>
-            <p class="header__content-text">Commissioning <strong>affidavits</strong>, <strong>statutory declarations</strong>, and <strong>certified true copies</strong>. Preparing <strong>consent letter for a child travelling abroad</strong>, an <strong>invitation letter</strong> for visa applications, or an <strong>affidavit of service</strong>, ensuring documents are legally valid for use in Ontario and internationally.</p>
-            <p class="header__content-text">Addressing the search — <strong>where to get documents notarized near me Ontario</strong> — with flexible appointment-based commissioning services.</p>
-        </div>
+    <div class="header__content-block">
+        <h2 class="header__content-header" style="font-size: 2rem;">Intake Notice</h2>
+        
+        <details class="faq__item faq__item--no-bullet" open>
+            <summary class="faq__question" style="margin-top: 20px;">Intake Appointment</summary>
+            <div class="faq__answer">
+                <p class="header__content-text">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as contracts, agreements, court notices, orders or any other paperwork.</p>
+                <p class="header__content-text">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
+            </div>
+        </details>
+
+        <details class="faq__item faq__item--no-bullet" open>
+            <summary class="faq__question" style="margin-top: 20px;">Identification Requirement</summary>
+            <div class="faq__answer">
+                <p class="header__content-text">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
+                <p class="header__content-text">Full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization’s incorporation or business identification number and it’s place of issue.</p>
+            </div>
+        </details>
     </div>
 </header>
 
@@ -2032,7 +2131,7 @@
             <div class="faq__answer">
                 <p style="margin-bottom: 15px; font-size: 0.95rem; font-weight: 400; opacity: 0.9;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%2C%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
                     <span style="opacity: 1; font-size: 1.1rem; font-weight: 700; display: inline-block;">Just tap</span>
@@ -2094,8 +2193,6 @@
     </div>
 </div>
 
-</div> 
-
 <footer class="footer fade-in-section">
     <div class="footer__container">
         
@@ -2103,13 +2200,27 @@
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
 
-
+        <!-- Nearest Available Day Booking Button -->
+        <div style="text-align: center; margin: 10px 0;">
+            <div class="book-btn-container">
+                <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute;">
+                    <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
+                        <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                        <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                    </svg>
+                    <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2;">Loading...</div>
+                </div>
+                <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
+                    <span id="footerBookBtnText">Book Your First<br>Available Appointment</span>
+                </button>
+            </div>
+        </div>
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
     <div class="blur-in-section" style="margin-top: 300px;">
-        <p style="margin-bottom: 5px;">My only official website:</p>
-        <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+        <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
+        <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -2117,7 +2228,7 @@
 <div id="bookingModal" class="modal">
     <div class="modal__content" style="max-width: 600px;">
         <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
-        <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0;">YOUR APPOINTMENT AT: <span id="modalAppointmentTime" style="display: block; font-size: 0.9em; font-weight: normal; margin-top: 5px;"></span></h2>
+        <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0; line-height: 1.4;">REQUEST<br><span style="display: block; font-size: 0.75em; opacity: 0.9; margin-top: 5px;">TO BOOK YOUR APPOINTMENT AT:</span><span id="modalAppointmentTime" style="display: block; font-size: 0.9em; font-weight: normal; margin-top: 2px;"></span></h2>
         <div class="modal__body" style="padding-top: 5px; text-align: center;">
             
             <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
@@ -2129,6 +2240,9 @@
                 
                 <div class="contact-form__group">
                     <input type="text" class="contact-form__input" placeholder="Your Name" name="name" required>
+                </div>
+                <div class="contact-form__group">
+                    <input type="text" class="contact-form__input" placeholder="Your Occupation" name="occupation" required>
                 </div>
                 <div class="contact-form__group">
                     <input type="email" class="contact-form__input" placeholder="Your Email" name="email" required>
@@ -2169,7 +2283,7 @@
                         <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
                         <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
                             <span class="file-attach__icon">
-                                <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
                                     <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
                                 </svg>
                             </span>
@@ -2189,12 +2303,12 @@
                 </div>
 
                 <div class="contact-form__group">
-                
-                <div class="contact-form__checkbox-wrapper" style="margin-bottom: 20px;">
-                    <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
-                    <label for="agreeTerms" class="contact-form__checkbox-label">
-                        I read and agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
-                    </label>
+                    <div class="contact-form__checkbox-wrapper" style="margin-bottom: 10px;">
+                        <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
+                        <label for="agreeTerms" class="contact-form__checkbox-label">
+                            I read and agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                        </label>
+                    </div>
                 </div>
 
                 <script>
@@ -2203,11 +2317,44 @@
                         modalBody.scrollTop = modalBody.scrollHeight;
                     });
                 </script>
+                
+                <p id="bookingStatus" style="text-align: center; margin-bottom: 15px; font-weight: 700; color: #ff6b6b; min-height: 1.5em;"></p>
 
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
                 <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 0.5px;">Attach any files you have</p>
             </form>
-            <p id="bookingStatus" style="text-align: center; margin-top: 15px; font-weight: 700;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- GLOBAL SPINNER FOR BOOKING SUBMISSION -->
+<div id="globalSpinner" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 30000; flex-direction: column; align-items: center; justify-content: center;">
+    <div class="loader" style="width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.2); border-top-color: var(--text-white); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    <p id="globalSpinnerText" style="color: var(--text-white); margin-top: 20px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;">Sending booking...</p>
+</div>
+<style>
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+
+<!-- CONFIRMATION MODAL -->
+<div id="confirmationModal" class="modal" style="z-index: 20002;">
+    <div class="modal__content" style="max-width: 500px; text-align: center;">
+        <div class="modal__body" style="padding-top: 15px;">
+            <div id="confirmationCheckmark" style="color: var(--accent-gold); margin-bottom: 20px; position: relative; display: inline-block; width: 60px; height: 60px;">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(90, 61, 42, 0.4));">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; text-align: left;">
+                I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.
+            </p>
+            <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; text-align: left;">
+                I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.
+            </p>
+            <div id="confirmButtons" style="display: flex; flex-direction: column; gap: 15px; justify-content: center; margin-top: 25px;">
+                <button type="button" class="contact-form__submit-button" id="confirmYesBtn" onclick="submitBookingAfterConfirm()" style="width: 100%; margin:0; animation: none;">YES</button>
+                <button type="button" class="contact-form__submit-button" onclick="closeConfirmationModal()" style="width: 100%; margin:0; background: #bfa792; animation: none;">NO</button>
+            </div>
         </div>
     </div>
 </div>
@@ -2217,7 +2364,7 @@
     // CONFIGURATION (СONF URL)
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLZSPpRY5ymwMdEthVVWv7Dzqm09fJf2efbobNMUtkbtE-0Y9-UONFsXkrC2BV-aIJtw/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9oKmQIco1LLqX-BBdy54XxWmQHqCxWrFo4MZQyxr2Nur6DA7_5bmR5tEeLtqWV7sGtg/exec"; 
     // Example: "https://script.google.com/macros/s/AKfycbx.../exec"
     // ------------------------------------------------------------------
 
@@ -2227,13 +2374,24 @@
     let nearestSlotData = null; // Store the first available slot data for header
     let nearestDayLastSlotData = null; // Store the last available slot data for footer
     let availableDaysCount = 0; // Total available days in current view
+    // Clear cache on every fresh load to ensure user sees latest Google data
     let availableSlotsCache = {}; // Cache format: { "YYYY-M": [ {date: 5, text: "9:00 AM", iso: "..."} ] }
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
+    let userIP = "Unknown";
+    async function fetchUserIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            userIP = data.ip;
+        } catch(e) {}
+    }
+    fetchUserIP();
+
     function getDetailedDeviceInfo() {
-        return `UA: ${navigator.userAgent} | Platform: ${navigator.platform} | Res: ${window.screen.width}x${window.screen.height} | Lang: ${navigator.language}`;
+        return `IP: ${userIP} | UA: ${navigator.userAgent} | Platform: ${navigator.platform} | Res: ${window.screen.width}x${window.screen.height} | Lang: ${navigator.language}`;
     }
 
     function getFingerprint() {
@@ -2361,8 +2519,6 @@
         // Available screen width (accounting for body padding/margin)
         const availableWidth = wrapper.offsetWidth;
 
-    const todayEl = document.querySelector('.cal-day--today');
-
         if (naturalWidth > availableWidth && availableWidth > 0) {
             const scale = availableWidth / naturalWidth;
             inner.style.transform = `scale(${scale})`;
@@ -2372,19 +2528,10 @@
             // Increased buffer from 10px to 30px to prevent bottom border clipping
             const naturalHeight = inner.scrollHeight;
             wrapper.style.height = (naturalHeight * scale + 30) + 'px';
-
-        if (todayEl) {
-            // Linearly interpolate border width between ~3px (at small scale) and 5px (at full scale)
-            const newBorderWidth = Math.max(2.5, Math.min(5, 1 + 4 * scale));
-            todayEl.style.borderWidth = `${newBorderWidth.toFixed(1)}px`;
-        }
         } else {
             inner.style.transform = 'scale(1)';
             inner.style.width = '';
             wrapper.style.height = '';
-        if (todayEl) {
-            todayEl.style.borderWidth = '5px';
-        }
         }
     }
 
@@ -2442,10 +2589,11 @@
             <!-- Center Dot -->
             <circle cx="25" cy="25" r="2" fill="currentColor" stroke="none"></circle>
             
-            <!-- Hour Hand (Sharp Polygon) -->
-            <polygon points="23.2,25 25,12 26.8,25 25,27" fill="currentColor" stroke="none" class="clock-hand" style="--start:${hourAngle}deg; --end:${endHourAngle}deg;" />
-            <!-- Minute Hand (Sharp Polygon) -->
-            <polygon points="23.8,25 25,8 26.2,25 25,27" fill="currentColor" stroke="none" opacity="0.9" class="clock-hand" style="--start:${minuteAngle}deg; --end:${endMinuteAngle}deg;" />
+            <!-- Hour Hand (Triangular tip with rounded circular base) -->
+            <path d="M25,23 C26.1,23 27,23.9 27,25 C27,26.1 26.1,27 25,27 C23.9,27 23,26.1 23,25 C23,24.7 23.1,24.4 23.2,24.2 L25,12 L26.8,24.2 C26.9,24.4 27,24.7 27,25 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="clock-hand" style="--start:${hourAngle}deg; --end:${endHourAngle}deg;" />
+            
+            <!-- Minute Hand (Triangular tip with rounded circular base) -->
+            <path d="M25,23.5 C25.8,23.5 26.5,24.2 26.5,25 C26.5,25.8 25.8,26.5 25,26.5 C24.2,26.5 23.5,25.8 23.5,25 C23.5,24.8 23.6,24.6 23.6,24.4 L25,8 L26.4,24.4 C26.4,24.6 26.5,24.8 26.5,25 Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.9" class="clock-hand" style="--start:${minuteAngle}deg; --end:${endMinuteAngle}deg;" />
         </svg>`;
     }
 
@@ -2493,7 +2641,7 @@
 
         monthDisplay.innerHTML = `<span class="cal-month">${monthNames[month]}</span>`;
 
-        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const dayNames = ["Sun", "Mon", "Tue", "Fri", "Sat", "Thu", "Wed"];
         dayNames.forEach(day => {
             const div = document.createElement('div');
             div.className = 'cal-day-name';
@@ -2578,10 +2726,14 @@
         }
     }
 
-    async function fetchAvailability(year, month) {
+    async function fetchAvailability(year, month, isRecursiveSearch = false) {
         const cacheKey = `${year}-${month}`;
-        const separator = document.getElementById('loadingSeparator');
-        if(separator) separator.classList.add('loading-separator--active');
+        
+        // Only show the visual loading separator if this is the primary calendar view
+        if (!isRecursiveSearch) {
+            const separator = document.getElementById('loadingSeparator');
+            if(separator) separator.classList.add('loading-separator--active');
+        }
         
         try {
             if (!availableSlotsCache[cacheKey]) {
@@ -2596,19 +2748,97 @@
                 }
             }
             
-            updateCalendarWithAvailability(availableSlotsCache[cacheKey]);
+            // If this is a background search just to find the next available button date
+            if (isRecursiveSearch) {
+                const searchSlots = availableSlotsCache[cacheKey];
+                const bgMonth = new Date(year, month, 1);
+                bgMonth.setHours(0,0,0,0);
+                
+                const foundValid = searchSlots.some(slot => {
+                     const slotDate = new Date(year, month, slot.date);
+                     const minBookingDate = new Date();
+                     minBookingDate.setDate(minBookingDate.getDate() + 2);
+                     minBookingDate.setHours(0,0,0,0);
+                     // Must not be a Saturday (6) and must not be busy
+                     return slotDate >= minBookingDate && slotDate.getDay() !== 6 && slot.status !== 'busy';
+                });
+
+                if (foundValid) {
+                     // Found it! Force a re-render of the footer button logic with this month's data
+                     // Note: We don't change the calendar view itself, just the global button data.
+                     extractNearestSlotData(year, month, searchSlots);
+                     updateFooterBookBtn();
+                } else {
+                     // Still nothing. Keep looking into the next month.
+                     // Cap search to +3 months to prevent infinite loops if they fully blocked off a year
+                     const currentCheck = new Date(year, month, 1);
+                     const limitCheck = new Date();
+                     limitCheck.setMonth(limitCheck.getMonth() + 3);
+                     if (currentCheck < limitCheck) {
+                         let nextM = month + 1;
+                         let nextY = year;
+                         if (nextM > 11) { nextM = 0; nextY++; }
+                         fetchAvailability(nextY, nextM, true);
+                     }
+                }
+            } else {
+                // Normal UI render
+                updateCalendarWithAvailability(availableSlotsCache[cacheKey]);
+            }
+
         } catch (e) {
             console.error("Error fetching slots", e);
-            // Still clear the loading message on error
-            const slotsDisplay = document.getElementById('slotsDayDisplay');
-            if(slotsDisplay) {
-                slotsDisplay.classList.remove('hypnotic-text');
-                slotsDisplay.textContent = 'Error loading availability';
+            if (!isRecursiveSearch) {
+                const slotsDisplay = document.getElementById('slotsDayDisplay');
+                if(slotsDisplay) {
+                    slotsDisplay.classList.remove('hypnotic-text');
+                    slotsDisplay.textContent = 'Error loading availability';
+                }
             }
         } finally {
-            const separator = document.getElementById('loadingSeparator');
-            if(separator) separator.classList.remove('loading-separator--active');
+            if (!isRecursiveSearch) {
+                const separator = document.getElementById('loadingSeparator');
+                if(separator) separator.classList.remove('loading-separator--active');
+            }
         }
+    }
+
+    // Extracted helper to just find the next slot without touching the UI
+    function extractNearestSlotData(year, month, slots) {
+        if (!Array.isArray(slots)) return false;
+        
+        const minBookingDate = new Date();
+        minBookingDate.setDate(minBookingDate.getDate() + 2);
+        minBookingDate.setHours(0, 0, 0, 0);
+
+        const slotsMap = {};
+        slots.forEach(slot => {
+            const slotDate = new Date(year, month, slot.date);
+            slotDate.setHours(0, 0, 0, 0);
+            if (slotDate >= minBookingDate) {
+                if (!slotsMap[slot.date]) slotsMap[slot.date] = [];
+                slotsMap[slot.date].push(slot);
+            }
+        });
+
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const availableDays = Object.keys(slotsMap).map(Number).sort((a,b) => a-b);
+
+        for (let d of availableDays) {
+            const checkDate = new Date(year, month, d);
+            if (checkDate >= today && checkDate.getDay() !== 6) {
+                const hasAvailableSlot = slotsMap[d].some(s => s.status !== 'busy');
+                if (hasAvailableSlot) {
+                    absoluteNearestDate = checkDate; 
+                    const availableSlots = slotsMap[d].filter(s => s.status !== 'busy');
+                    nearestSlotData = availableSlots[0] || null;
+                    nearestDayLastSlotData = availableSlots[availableSlots.length - 1] || null;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     async function updateCalendarWithAvailability(slots) {
@@ -2673,8 +2903,13 @@
                 el.classList.add('cal-day--has-slots');
                 el.style.setProperty('--i', availableDaysCount++);
                 el.dataset.slots = JSON.stringify(slotsMap[dayFn]);
-                
                 const allBusy = slotsMap[dayFn].every(s => s.status === 'busy');
+                
+                if (allBusy) {
+                    el.classList.add('cal-day--busy');
+                    el.style.pointerEvents = 'none';
+                    el.style.opacity = '0.3';
+                }
                 
                 if (!allBusy && nearestDay && dayFn === nearestDay) {
                      autoSelectedDay = true;
@@ -2704,7 +2939,19 @@
             }
         }
         
-        updateFooterBookBtn();
+        // If we didn't find ANY nearest day in this month's render, it means the whole month
+        // is booked or passed. We MUST trigger a background search of the NEXT month 
+        // to populate the global "Nearest Appointment" buttons.
+        if (!nearestDay) {
+            let nextM = month + 1;
+            let nextY = year;
+            if (nextM > 11) { nextM = 0; nextY++; }
+            fetchAvailability(nextY, nextM, true);
+        } else {
+            // We found one, update the buttons normally
+            updateFooterBookBtn();
+        }
+
         initScrollIndicator();
     }
 
@@ -3068,6 +3315,31 @@
         renderFileList();
     }
 
+    async function processFiles() {
+        const filesData = [];
+        if (attachedFiles.length > 0) {
+            if (globalSpinnerText) globalSpinnerText.textContent = 'Uploading files...';
+            const fileItems = document.getElementById('fileAttachList').children;
+
+            for (let i = 0; i < attachedFiles.length; i++) {
+                const file = attachedFiles[i];
+                if (fileItems[i]) {
+                    const bar = fileItems[i].querySelector('.file-attach__progress');
+                    if (bar) bar.style.width = '100%';
+                }
+                await new Promise(r => setTimeout(r, 300)); // Visual delay
+
+                const base64 = await fileToBase64(file);
+                filesData.push({
+                    name: file.name,
+                    type: file.type,
+                    data: base64
+                });
+            }
+        }
+        return filesData;
+    }
+
     function fileToBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -3191,6 +3463,13 @@
         const dobMonth = parseInt(formData.get('dob_month'));
         const dobDay = parseInt(formData.get('dob_day'));
         
+        const maxDays = new Date(dobYear, dobMonth, 0).getDate();
+        if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
+            bookingStatus.style.color = '#ff6b6b';
+            bookingStatus.textContent = 'Invalid date of birth. Please check the day and month.';
+            return;
+        }
+
         const today = new Date();
         let age = today.getFullYear() - dobYear;
         const m = (today.getMonth() + 1) - dobMonth;
@@ -3211,34 +3490,64 @@
             return;
         }
         
-        bookingStatus.textContent = "Processing...";
-        confirmBtn.disabled = true;
+        pendingBookingData = formData;
+        
+        const confBtn = document.getElementById('confirmButtons');
+        if (confBtn) confBtn.style.display = 'block';
+
+        const cModal = document.getElementById('confirmationModal');
+        if (cModal) {
+            cModal.style.display = 'flex';
+            cModal.classList.add('modal--active');
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-is-open');
+
+            // Burst of sparks from the center checkmark icon
+            const checkIcon = document.getElementById('confirmationCheckmark');
+            if (checkIcon) createSparks(checkIcon);
+        }
+    }
+
+    let pendingBookingData = null;
+
+    window.closeConfirmationModal = function() {
+        const cModal = document.getElementById('confirmationModal');
+        if (cModal) {
+            cModal.classList.remove('modal--active');
+            setTimeout(() => { cModal.style.display = 'none'; }, 300);
+        }
+    }
+
+    window.submitBookingAfterConfirm = async function() {
+        if (!pendingBookingData) return;
+        const formData = pendingBookingData;
+        
+        // Hide confirmation box buttons
+        document.getElementById('confirmButtons').style.display = 'none';
+        
+        // Show Global Full-Screen Blur Spinner
+        const globalSpinner = document.getElementById('globalSpinner');
+        const globalSpinnerText = document.getElementById('globalSpinnerText');
+        if (globalSpinner) {
+            globalSpinner.style.display = 'flex';
+            if (globalSpinnerText) globalSpinnerText.textContent = 'Sending booking...';
+        }
+        
+        // BUG FIX: Close the confirmation modal immediately so it doesn't stay as a "glitch" box behind/under the spinner
+        closeConfirmationModal();
+
+        if(typeof confirmBtn !== 'undefined' && confirmBtn) confirmBtn.disabled = true;
 
         try {
-            const filesData = [];
-            if (attachedFiles.length > 0) {
-                bookingStatus.textContent = "Uploading files...";
-                const fileItems = document.getElementById('fileAttachList').children;
-
-                for (let i = 0; i < attachedFiles.length; i++) {
-                    const file = attachedFiles[i];
-                    if (fileItems[i]) {
-                        const bar = fileItems[i].querySelector('.file-attach__progress');
-                        if (bar) bar.style.width = '100%';
-                    }
-                    await new Promise(r => setTimeout(r, 300)); // Visual delay
-
-                    const base64 = await fileToBase64(file);
-                    filesData.push({
-                        name: file.name,
-                        type: file.type,
-                        data: base64
-                    });
-                }
-            }
-
             const bookingData = {
+                year: selectedSlotData.iso.split('T')[0].split('-')[0],
+                month: parseInt(selectedSlotData.iso.split('T')[0].split('-')[1]) - 1,
+                day: parseInt(selectedSlotData.iso.split('T')[0].split('-')[2]),
+                hour: parseInt(selectedSlotData.iso.split('T')[1].split(':')[0]),
+                minute: parseInt(selectedSlotData.iso.split('T')[1].split(':')[1]),
+                
                 name: sanitize(formData.get('name')),
+                occupation: sanitize(formData.get('occupation')),
                 email: sanitize(formData.get('email')),
                 phone: sanitize(formData.get('phone')),
                 service: sanitize(formData.get('service')),
@@ -3246,14 +3555,15 @@
                 dateStr: selectedSlotData.iso,
                 dob: `${sanitize(formData.get('dob_year'))}-${sanitize(formData.get('dob_month'))}-${sanitize(formData.get('dob_day'))}`,
                 address: sanitize(formData.get('address_full')),
-                files: filesData,
+                files: await processFiles(),
+                
                 fingerprint: getFingerprint(),
                 userInfo: getDetailedDeviceInfo(),
                 _honeypot: formData.get('website') || '',
                 _timestamp: formData.get('_timestamp') || ''
             };
 
-            bookingStatus.textContent = "Sending booking...";
+            if (globalSpinnerText) globalSpinnerText.textContent = 'Finalizing booking...';
 
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
@@ -3293,18 +3603,32 @@
                     // Create multiple bursts for a bigger effect
                     for(let i=0; i<3; i++) setTimeout(() => createSparks(successBody), i * 300);
                 }
+                
+                // Hide Global Spinner
+                if (globalSpinner) globalSpinner.style.display = 'none';
+
+                // Also close the confirmation modal if active
+                closeConfirmationModal();
+
             } else {
                 throw new Error(result.error || "Unknown error");
             }
 
         } catch (err) {
             console.error(err);
+            // Hide Global Spinner
+            const globalSpinner = document.getElementById('globalSpinner');
+            if (globalSpinner) globalSpinner.style.display = 'none';
+
             bookingStatus.style.color = '#ff6b6b';
             bookingStatus.textContent = "Error: " + err.message;
-            confirmBtn.disabled = false;
+            if(confirmBtn) confirmBtn.disabled = false;
             
             // Log this booking failure as a critical error
             logEvent('Booking Submit Error', err.message, false, "", "critical");
+            
+            // Ensure confirmation modal closes on error
+            closeConfirmationModal();
         }
     }
 
@@ -3344,7 +3668,9 @@
     // Heart animation and click counter on coffee cups
     let coffeeClicks = 0;
     
-    document.getElementById('coffeeCups').addEventListener('click', function() {
+    const coffeeCupsEl = document.getElementById('coffeeCups');
+    if (coffeeCupsEl) {
+        coffeeCupsEl.addEventListener('click', function() {
       const heart = document.getElementById('heartAnimation');
       const counter = document.getElementById('coffeeLikeCount');
       
@@ -3385,8 +3711,9 @@
               counter.style.opacity = '0.7'; // Keeps it slightly visible when idle
             }
         }, 500);
+        });
       });
-    });
+    }
 
     function getEndTime(startTime) {
         try {
@@ -3446,6 +3773,135 @@
             const nearestEl = document.querySelector('.cal-day--nearest');
             if (nearestEl) nearestEl.click();
         }, 600);
+    }
+
+    function createSparks(container) {
+        if (!container || container.dataset.sparkTimer) return;
+        container.style.position = 'relative';
+        container.dataset.sparkTimer = 'running';
+        
+        setInterval(() => {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            
+            const angle = Math.random() * Math.PI * 2;
+            
+            // Start further away from center
+            const randomRadius = 30 + Math.random() * 20; 
+            const startX = Math.cos(angle) * randomRadius;
+            const startY = Math.sin(angle) * randomRadius;
+
+            spark.style.left = `calc(50% + ${startX}px)`;
+            spark.style.top = `calc(50% + ${startY}px)`;
+            spark.style.transform = 'translate(-50%, -50%)'; // Ensure origin is relative
+
+            // Targeted velocity away from start point (center explosion)
+            const velocity = 50 + Math.random() * 80; // Faster moving
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            spark.style.setProperty('--vx', vx + 'px');
+            spark.style.setProperty('--vy', vy + 'px');
+            spark.style.animation = 'sparkle 0.8s ease-out forwards';
+            
+            container.appendChild(spark);
+            setTimeout(() => {
+                if(spark.parentNode) spark.parentNode.removeChild(spark);
+            }, 800);
+        }, 80);
+    }
+    
+    function updateFooterBookBtn() {
+        const targets = [
+            { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText'), preloader: document.getElementById('footerBookBtnPreloader') },
+            { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText'), preloader: document.getElementById('headerBookBtnPreloader') }
+        ];
+
+        targets.forEach(t => {
+            if (!t.btn || !t.preloader) return;
+
+            if (absoluteNearestDate && nearestSlotData) {
+                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+                
+                let htmlContent = '';
+                
+                if (t.btn.id === 'headerBookBtn') {
+                    // Header button: Original format (Line 1: Slot!, Line 2: Day, Time)
+                    let timeStr = '';
+                    if (nearestSlotData && nearestSlotData.text) {
+                        timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
+                    }
+                    const slotWord = nearestSlotData ? 'Slot' : 'Slots';
+                    htmlContent = timeStr 
+                        ? `Available ${slotWord}!<br><span style="font-size: 0.95rem; font-weight: 600; opacity: 0.95;">${dayOfWeek} at ${timeStr}</span>` 
+                        : `Available ${slotWord}!<br><span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                } else {
+                    // Footer button: 3-line format
+                    let lastTimeStr = '';
+                    const fallbackSlot = nearestDayLastSlotData || nearestSlotData;
+                    if (fallbackSlot && fallbackSlot.text) {
+                        lastTimeStr = fallbackSlot.text.split(/[-–]/)[0].trim();
+                    }
+                    
+                    htmlContent = `Available Slot!<br>` +
+                                 `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
+                                 `<span style="font-size: 0.9rem; font-weight: 400; opacity: 0.9;">${dayOfWeek}</span>`;
+                }
+                
+                t.preloader.style.transition = 'opacity 0.5s';
+                t.preloader.style.opacity = '0';
+                t.preloader.style.transform = 'scale(0.9)';
+                t.preloader.style.pointerEvents = 'none';
+
+                t.txt.innerHTML = htmlContent;
+                t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
+                t.btn.style.opacity = '1';
+                t.btn.style.transform = 'scale(1)';
+                t.btn.style.pointerEvents = 'auto';
+
+                if (!t.btn.dataset.sparksInit) {
+                    createSparks(t.btn);
+                    t.btn.dataset.sparksInit = 'true';
+                }
+            } else {
+                // No data yet — show preloader, set 4-sec error timer
+                t.preloader.style.opacity = '1';
+                t.preloader.style.transform = 'scale(1)';
+                t.preloader.style.pointerEvents = 'none';
+                t.btn.style.opacity = '0';
+                t.btn.style.pointerEvents = 'none';
+
+                // Cancel any previously scheduled error timer for this target
+                if (t._errorTimer) {
+                    clearTimeout(t._errorTimer);
+                    t._errorTimer = null;
+                    // Reset error state if re-trying
+                    t.preloader.classList.remove('book-btn-preloader--error');
+                    const svg = t.preloader.querySelector('.book-btn-preloader__svg');
+                    if (svg) svg.style.animation = '';
+                    const errText = t.preloader.querySelector('.book-btn-preloader__text');
+                    if (errText) { errText.textContent = 'Loading...'; errText.style.color = ''; errText.style.display = 'none'; }
+                }
+
+                t._errorTimer = setTimeout(() => {
+                    t.preloader.classList.add('book-btn-preloader--error');
+                    const svg = t.preloader.querySelector('.book-btn-preloader__svg');
+                    if (svg) svg.style.animation = 'none';
+                    const errText = t.preloader.querySelector('.book-btn-preloader__text');
+                    if (errText) {
+                        errText.innerHTML = "SLOT NOT FOUND"; // Requested by user
+                        errText.style.color = '#ff3333';
+                        errText.style.fontWeight = 'bold';
+                        errText.style.letterSpacing = '1px';
+                        errText.style.fontSize = '0.9rem'; // Slightly smaller to fit "SLOT NOT FOUND"
+                        errText.style.display = 'flex'; // Use flex to center properly
+                        errText.style.opacity = '1';
+                        // Keep text stationary inside centered circle, do not offset since flex is active
+                        errText.style.transform = 'none'; 
+                    }
+                }, 20000); // Wait 20 seconds: 14s fill + 3s wait + 3s glow
+            }
+        });
     }
 
     function bookNearestSlot() {
@@ -3578,25 +4034,51 @@
     }
 
     // Scroll Fade-in Observer
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px 200px 0px',
-        threshold: 0.01
-    };
+    // Scroll Fade-in Observer
+    var revealObserver;
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
+    function triggerReveal() {
+        var revealElements = document.querySelectorAll('.fade-in-section, .blur-in-section, .fade-in-delayed');
+        if (!revealElements.length) return;
 
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
+        if (!revealObserver && window.IntersectionObserver) {
+            revealObserver = new IntersectionObserver(function(entries, observerInstance) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('is-hidden');
+                        entry.target.classList.add('is-visible');
+                        observerInstance.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px 0px 200px 0px',
+                threshold: 0
+            });
+        }
+
+        revealElements.forEach(function(el) {
+            // Initial state: hide if not in view
+            var rect = el.getBoundingClientRect();
+            if (rect.top > window.innerHeight) {
+                el.classList.add('is-hidden');
+            } else {
+                el.classList.add('is-visible');
+            }
+
+            if (revealObserver) {
+                revealObserver.observe(el);
             }
         });
-    }, observerOptions);
+    }
 
-    document.querySelectorAll('.fade-in-section, .blur-in-section').forEach(section => {
-        observer.observe(section);
-    });
+    // Run trigger
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', triggerReveal);
+    } else {
+        triggerReveal();
+    }
+    window.addEventListener('load', triggerReveal);
 
 
     // Geolocation Logging for Directions
