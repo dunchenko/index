@@ -54,6 +54,68 @@
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMMKRZ3VBV"></script>
     <script>
+        // --- Book Button Animation Logic ---
+        function startBookBtnJumping(btnId, preloaderId) {
+            const btn = document.getElementById(btnId);
+            const preloader = document.getElementById(preloaderId);
+            if (!btn) return;
+
+            // Добавим CSS-анимацию подпрыгивания
+            if (!document.getElementById('book-btn-jump-style')) {
+                const style = document.createElement('style');
+                style.id = 'book-btn-jump-style';
+                style.innerHTML = `
+                @keyframes bookBtnJump {
+                    0% { transform: scale(1) translateY(0); }
+                    10% { transform: scale(1.08, 0.92) translateY(-6px); }
+                    20% { transform: scale(0.95, 1.05) translateY(-12px); }
+                    30% { transform: scale(1.05, 0.95) translateY(-8px); }
+                    40% { transform: scale(1, 1) translateY(0); }
+                    100% { transform: scale(1, 1) translateY(0); }
+                }
+                .footer-book-btn.book-btn-jump {
+                    animation: bookBtnJump 0.7s cubic-bezier(.36,1.56,.64,1) 1;
+                }
+                `;
+                document.head.appendChild(style);
+            }
+
+            let jumpedOnce = false;
+            function doJumpWithSparks() {
+                if (btn.style.opacity === '1' && btn.style.pointerEvents !== 'none') {
+                    btn.classList.add('book-btn-jump');
+                    createSparks(btn);
+                    setTimeout(() => btn.classList.remove('book-btn-jump'), 800);
+                }
+            }
+            function scheduleJump() {
+                const min = 3000, max = 10000;
+                const delay = Math.floor(Math.random() * (max - min + 1)) + min;
+                setTimeout(() => {
+                    doJumpWithSparks();
+                    scheduleJump();
+                }, delay);
+            }
+            // Ждём исчезновения прелоадера и появления кнопки
+            const observer = new MutationObserver(() => {
+                if (preloader && preloader.style.opacity === '0' && btn.style.opacity === '1' && !jumpedOnce) {
+                    jumpedOnce = true;
+                    setTimeout(() => {
+                        doJumpWithSparks(); // первый прыжок сразу с появлением
+                        scheduleJump();
+                    }, 400); // чуть быстрее, чтобы не было задержки
+                }
+            });
+            if (preloader) {
+                observer.observe(preloader, { attributes: true, attributeFilter: ['style'] });
+            }
+        }
+
+        // Запуск для headerBookBtn и footerBookBtn
+        document.addEventListener('DOMContentLoaded', function() {
+            startBookBtnJumping('headerBookBtn', 'headerBookBtnPreloader');
+            startBookBtnJumping('footerBookBtn', 'footerBookBtnPreloader');
+        });
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
@@ -61,6 +123,79 @@
         gtag('config', 'G-ZMMKRZ3VBV');
     </script>
     <style>
+                        /* Smooth fade-in for booking modal */
+                        #bookingModal {
+                            opacity: 0;
+                            transform: translateY(40px) scale(0.98);
+                            pointer-events: none;
+                            transition: opacity 0.5s cubic-bezier(.4,1.6,.6,1), transform 0.5s cubic-bezier(.4,1.6,.6,1);
+                        }
+                        #bookingModal.modal--active {
+                            opacity: 1;
+                            transform: translateY(0) scale(1);
+                            pointer-events: auto;
+                        }
+                h1, h2, h3,
+                .section-title,
+                .header__content-header,
+                .header__content-subheader,
+                .faq__question,
+                .modal__title,
+                .modal__section-title {
+                    font-family: 'Lato', sans-serif;
+                    color: #fff;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                    margin-top: 0;
+                    margin-bottom: 1.3rem;
+                    line-height: 1.2;
+                    text-align: left;
+                }
+                h1, .section-title, .modal__title {
+                    font-size: clamp(1.7rem, 5vw, 2.2rem);
+                }
+                h2, .header__content-header {
+                    font-size: clamp(1.3rem, 4vw, 1.7rem);
+                }
+                h3, .header__content-subheader, .faq__question, .modal__section-title {
+                    font-size: clamp(1.05rem, 3vw, 1.25rem);
+                    margin-bottom: 2rem; /* Increased spacing between question and answer */
+                }
+                p, .header__content-text, .faq__answer, .modal__text, .footer__hours, .footer__copyright {
+                    font-family: 'Lato', sans-serif;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: rgba(255,255,255,0.92);
+                    line-height: 1.6;
+                    margin-bottom: 1.3rem;
+                    text-align: left;
+                    letter-spacing: 0.01em;
+                }
+                ul, ol {
+                    margin-bottom: 2rem;
+                }
+                .header__content-block, .header__service-item, .contact-form, .footer {
+                    margin-bottom: 2.5rem !important;
+                }
+                .footer-book-btn, .contact-form__submit-button {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    padding: 0.8rem 2rem;
+                    border-radius: 2rem;
+                    margin: 0 auto 2.5rem auto;
+                    display: block;
+                }
+                @media (max-width: 700px) {
+                    h1, .section-title, .modal__title { font-size: 1.2rem; }
+                    h2, .header__content-header { font-size: 1.05rem; }
+                    h3, .header__content-subheader, .faq__question, .modal__section-title { font-size: 0.97rem; }
+                    p, .header__content-text, .faq__answer, .modal__text, .footer__hours, .footer__copyright {
+                        font-size: 0.97rem;
+                        text-align: left;
+                    }
+                    .footer-book-btn, .contact-form__submit-button { font-size: 0.97rem; padding: 0.7rem 1.2rem; }
+                }
         /* Standard Scaling */
         html {
             font-size: 16px;
@@ -215,7 +350,7 @@
         }
 
         .header__title { 
-            font-size: clamp(1.2rem, 4.5vw, 1.8rem); 
+            font-size: clamp(1.35rem, 5.2vw, 2.05rem); 
             font-weight: 800; 
             margin-bottom: 0.3rem;
             letter-spacing: 2px;
@@ -286,9 +421,11 @@
         .header__content-text {
             font-size: 1rem;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 800;
+            margin-bottom: 1.3rem;
+            color: rgba(255,255,255,0.92);
+            font-weight: 400;
+            text-align: left;
+            letter-spacing: 0.01em;
         }
 
         .header__content-text strong {
@@ -297,20 +434,33 @@
         }
 
         .header__description {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0 auto 1.5rem;
-            max-width: 45rem;
-            line-height: 1.6;
+            --h1-fit-scale: 1;
+            font-size: calc(clamp(1.05rem, 3.6vw, 1.35rem) * var(--h1-fit-scale));
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.92);
+            margin: 0 auto 2.5rem;
+            max-width: 41rem;
+            line-height: 1.35;
             padding: 0 1.5rem;
             text-align: center;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            align-items: center;
         }
         
         .header__description span {
-            display: inline;
+            display: block;
+            white-space: nowrap;
+            text-wrap: nowrap;
+            overflow-wrap: normal;
+            word-break: keep-all;
+        }
+
+        .header__description br {
+            display: none;
         }
 
         /* Block: layout-container */
@@ -384,13 +534,29 @@
             -webkit-appearance: none;
             appearance: none;
             box-shadow: none; /* Remove iOS inner shadow */
+            line-height: 1.3;
+        }
+
+        .contact-form__input,
+        .contact-form__select,
+        .custom-select__trigger {
+            min-height: 3.3rem;
+            height: 3.3rem;
+            box-sizing: border-box;
+        }
+
+        .file-attach__btn {
+            min-height: 5.25rem;
+            height: 5.25rem;
+            box-sizing: border-box;
         }
 
         .contact-form__input:focus, 
         .contact-form__textarea:focus, 
         .contact-form__input--has-content {
             background: #ffffff;
-            color: var(--accent-gold);
+            color: #5a3d2a;
+            caret-color: #5a3d2a;
             box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.12);
             border-color: rgba(255, 255, 255, 0.5);
         }
@@ -407,7 +573,8 @@
 
         .contact-form__textarea { 
             resize: none; 
-            min-height: 11rem; 
+            min-height: 7.9rem;
+            overflow-y: hidden;
         }
         
         .contact-form__char-counter {
@@ -504,20 +671,28 @@
         .contact-form__terms-link:hover { color: #D4B89A; }
 
         .contact-form__submit-button { 
-            width: 100%; 
-            padding: 1.2rem; 
+            width: 100%;
+            padding: 0.8rem 2rem;
             background: #5a3d2a;
-            color: #ffffff; 
-            border: none; 
-            border-radius: 0.6rem; 
-            font-weight: 800; 
-            font-size: 1.1rem; 
-            text-transform: uppercase; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            margin-top: 1.2rem;
+            color: #ffffff;
+            border: none;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 auto 2rem auto;
             position: relative;
-            box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 12px 0 rgba(90, 61, 42, 0.08);
+        }
+
+        #confirmBookingBtn {
+            padding: 1.35rem 1rem;
+            min-height: 4.4rem;
+            line-height: 1.1;
+            font-weight: 900;
+            font-size: 1.08rem;
         }
         
         .contact-form__submit-button:hover { 
@@ -574,18 +749,29 @@
         .faq__question { list-style: none; }
 
         .faq__answer { 
-            font-size: 1.1rem; 
-            color: rgba(255, 255, 255, 0.9);
-            padding-left: 1.5rem; 
-            padding-bottom: 1rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.92);
+            padding-left: 0;
+            padding-bottom: 0;
+            line-height: 1.7;
             font-weight: 400;
+            text-align: left;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.3rem;
         }
 
 
 
         .price-note {
-            font-size: 1rem; opacity: 0.9; display: block; margin-top: 0.6rem; text-align: left;
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.7;
+            text-align: left;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.3rem;
+            display: block;
+            margin-top: 0;
         }
 
 
@@ -637,9 +823,13 @@
         }
 
         #termsModal .modal__text {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255,255,255,0.92);
             text-align: left;
-            margin-bottom: 1rem;
+            margin-bottom: 1.3rem;
+            line-height: 1.7;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
         }
 
         #termsModal .modal__footer-text {
@@ -719,8 +909,12 @@
 
         .modal__body {
             font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.92);
             line-height: 1.7;
-            color: var(--text-white);
+            text-align: left;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.3rem;
             padding: 0 0.3rem;
         }
 
@@ -732,7 +926,336 @@
             text-transform: uppercase;
         }
         
-        .modal__text { margin-bottom: 0.8rem; opacity: 0.95; }
+        .modal__text { 
+            margin-bottom: 1.3rem; 
+            color: rgba(255,255,255,0.92);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            text-align: left;
+            letter-spacing: 0.01em;
+        }
+
+        /* Booking modal typography aligned with FAQ first Q/A style */
+        #bookingModal,
+        #bookingModal * {
+            font-family: 'Lato', sans-serif !important;
+        }
+
+        #bookingModal .modal__title,
+        #bookingModal .modal__title span {
+            font-family: 'Lato', sans-serif !important;
+            font-size: clamp(1rem, 3vw, 1.2rem) !important;
+            font-weight: 800 !important;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.4 !important;
+            color: #ffffff;
+        }
+
+        #bookingModal .modal__body,
+        #bookingModal .modal__body p,
+        #bookingModal .contact-form__label,
+        #bookingModal .contact-form__checkbox-label,
+        #bookingModal .contact-form__terms-link,
+        #bookingModal .file-attach__name,
+        #bookingModal .file-attach__remove,
+        #bookingModal .contact-form__input::placeholder,
+        #bookingModal .contact-form__textarea::placeholder,
+        #bookingModal #bookingStatus {
+            font-family: 'Lato', sans-serif !important;
+            font-size: 1.2rem !important;
+            font-weight: 400 !important;
+            color: rgba(255,255,255,0.92) !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em !important;
+        }
+
+        /* Occupation-like style for every editable control in booking modal */
+        #bookingModal .contact-form__input,
+        #bookingModal .contact-form__textarea,
+        #bookingModal .custom-select__trigger,
+        #bookingModal .file-attach__btn {
+            font-family: 'Lato', sans-serif !important;
+            font-size: 1rem !important;
+            font-weight: 800 !important;
+            line-height: 1.3 !important;
+            letter-spacing: 0.01em !important;
+        }
+
+        #bookingModal .contact-form__input,
+        #bookingModal .custom-select__trigger {
+            min-height: 3.3rem !important;
+            height: 3.3rem !important;
+        }
+
+        #bookingModal .file-attach__btn {
+            min-height: 5.25rem !important;
+            height: 5.25rem !important;
+        }
+
+        #bookingModal .custom-select__trigger {
+            border: none !important;
+            box-shadow: 0 4px 0 rgba(58, 42, 26, 0.35) !important;
+        }
+
+        #bookingModal .contact-form__input:focus,
+        #bookingModal .contact-form__textarea:focus,
+        #bookingModal .contact-form__input--has-content {
+            background: #ffffff !important;
+            color: #5a3d2a !important;
+            -webkit-text-fill-color: #5a3d2a !important;
+            caret-color: #5a3d2a !important;
+        }
+
+        #bookingModal .file-attach__btn:hover,
+        #bookingModal .file-attach__btn:focus-visible {
+            color: #5a3d2a !important;
+        }
+
+        /* Dropdown text must stay brown on white background */
+        #bookingModal .custom-option {
+            font-weight: 800 !important;
+            color: rgba(80, 60, 40, 0.9) !important;
+        }
+
+        #bookingModal .file-attach__title,
+        #bookingModal .file-attach__hint {
+            font-weight: 800 !important;
+        }
+
+        #bookingModal .custom-option:hover,
+        #bookingModal .custom-option.selected {
+            color: #3a2a1a !important;
+        }
+
+        #bookingModal .custom-select.open .custom-select__trigger,
+        #bookingModal .custom-select.open .custom-select__trigger span {
+            color: #5a3d2a !important;
+        }
+
+        /* Confirmation modal: same font, keep existing proportions/sizes */
+        #confirmationModal,
+        #confirmationModal * {
+            font-family: 'Lato', sans-serif !important;
+        }
+
+        #bookingStatus {
+            min-height: 1.5rem;
+            margin: 0 0 1rem 0 !important;
+            padding: 0;
+            border-radius: 0.8rem;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #fff3f3 !important;
+            font-size: 0.95rem !important;
+            font-weight: 900 !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.02em !important;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-3px);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            pointer-events: none;
+        }
+
+        #bookingStatus.status-alert--visible {
+            padding: 0.55rem 0.9rem;
+            border-color: rgba(255, 138, 138, 0.7);
+            background: rgba(255, 82, 82, 0.18);
+            opacity: 1;
+            transform: translateY(0);
+            animation: bookingStatusPulse 1.15s ease-in-out infinite;
+        }
+
+        @keyframes bookingStatusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 90, 90, 0.0); }
+            50% { box-shadow: 0 0 0 6px rgba(255, 90, 90, 0.16); }
+        }
+
+        .contact-form__input.field-invalid,
+        .contact-form__textarea.field-invalid,
+        .custom-select__trigger.field-invalid,
+        .contact-form__checkbox-wrapper.field-invalid {
+            animation: invalidFieldShake 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+            box-shadow: 0 0 0 2px rgba(255, 106, 106, 0.35), 0 0.8rem 1.8rem rgba(120, 20, 20, 0.2) !important;
+        }
+
+        @keyframes invalidFieldShake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-3px); }
+            40%, 60% { transform: translateX(3px); }
+        }
+
+        .confirmation-modal__content {
+            max-width: 33.5rem !important;
+            text-align: center;
+        }
+
+        .confirmation-modal__body {
+            padding-top: 0.75rem !important;
+        }
+
+        .confirmation-modal__check {
+            color: var(--accent-gold);
+            margin: 0 auto 0.9rem;
+            position: relative;
+            display: inline-flex;
+            width: 3.7rem;
+            height: 3.7rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .confirmation-modal__title {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            margin: 0 0 0.95rem 0;
+            text-transform: uppercase;
+        }
+
+        .confirmation-modal__text {
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 1rem 0;
+            text-align: left;
+        }
+
+        .confirmation-modal__notice {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            margin: 0 0 1.15rem 0;
+            text-align: left;
+            padding: 0.75rem 0.85rem;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .confirmation-modal__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.1rem;
+        }
+
+        .confirmation-btn-yes {
+            margin: 0 !important;
+            width: 100%;
+            font-weight: 900 !important;
+            letter-spacing: 0.05em;
+        }
+
+        .confirmation-btn-no {
+            margin: 0 !important;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)) !important;
+            border: 1px solid rgba(255,255,255,0.32) !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.04em;
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .confirmation-btn-no:hover {
+            background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.16)) !important;
+            transform: translateY(-2px);
+        }
+
+        #confirmationModal .contact-form__submit-button.confirmation-btn-yes,
+        #confirmationModal .contact-form__submit-button.confirmation-btn-yes:hover {
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+        }
+
+        #confirmationModal .contact-form__submit-button.confirmation-btn-no,
+        #confirmationModal .contact-form__submit-button.confirmation-btn-no:hover {
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .success-panel {
+            padding: 0.5rem 0.1rem 0.2rem;
+            text-align: left;
+        }
+
+        .success-panel__icon {
+            color: var(--accent-gold);
+            margin: 0 auto 1rem;
+            position: relative;
+            display: flex;
+            width: 5rem;
+            height: 5rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-panel__hello {
+            font-size: 1.15rem;
+            font-weight: 900;
+            margin: 0 0 0.8rem 0;
+            text-align: left;
+        }
+
+        .success-panel__lead {
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 1rem 0;
+            text-align: left;
+        }
+
+        .success-panel__notice {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            margin: 0 0 0.9rem 0;
+            text-align: left;
+            padding: 0.78rem 0.85rem;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.09);
+        }
+
+        .success-panel__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.1rem;
+        }
+
+        .success-panel__call {
+            width: 100%;
+            margin: 0 !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900 !important;
+            letter-spacing: 0.02em;
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .success-panel__done {
+            width: 100%;
+            margin: 0 !important;
+            background: rgba(255,255,255,0.16) !important;
+            border: 1px solid rgba(255,255,255,0.3) !important;
+            color: #fff !important;
+            font-weight: 800 !important;
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
+        }
+
+        #bookingModal .contact-form__submit-button.success-panel__call,
+        #bookingModal .contact-form__submit-button.success-panel__call:hover {
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+        }
+
+        #bookingModal .contact-form__submit-button.success-panel__done,
+        #bookingModal .contact-form__submit-button.success-panel__done:hover {
+            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
+        }
         
         .modal__highlight { font-weight: 800; color: #D4B89A; }
         
@@ -790,11 +1313,14 @@
         }
 
         .footer__hours {
-            font-size: 1rem; 
-            color: #ffffff; 
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.92);
+            margin-bottom: 1.3rem;
             white-space: pre-line;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 400;
+            text-align: center;
+            letter-spacing: 0.01em;
         }
 
         /* Block: map-container */
@@ -824,6 +1350,39 @@
             padding: clamp(1rem, 5vw, 2.5rem);
             margin-top: 0;
             position: relative; /* Added for loader overlay */
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .calendar-wrapper.calendar--loaded {
+            opacity: 1;
+        }
+        .calendar-wrapper.calendar--loading {
+            background: transparent !important;
+            border: 0 !important;
+            border-color: transparent !important;
+            outline: 0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        .calendar-wrapper.calendar--loading #calendarLoaderOverlay {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border-radius: 0 !important;
+        }
+        .calendar-wrapper.calendar--loading .calendar-header,
+        .calendar-wrapper.calendar--loading .calendar-grid,
+        .calendar-wrapper.calendar--loading .slots-nav,
+        .calendar-wrapper.calendar--loading .slots-block,
+        .calendar-wrapper.calendar--loading .loading-separator {
+            opacity: 0 !important;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .contact-form__outside-title.calendar-title--loading {
+            opacity: 0 !important;
+            visibility: hidden !important;
         }
         
         .slots-block {
@@ -867,6 +1426,7 @@
         
         .calendar-title span { display: block; }
         .calendar-title .cal-month { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 800; }
+        .calendar-title .cal-selected-day { font-size: clamp(1.8rem, 6vw, 2.4rem); line-height: 1.05; }
         .calendar-title .cal-year { font-size: clamp(1.2rem, 4vw, 1.6rem); opacity: 0.9; font-weight: 800; letter-spacing: 2px; margin-top: -0.3rem; }
 
 
@@ -876,15 +1436,22 @@
             color: #ffffff;
             width: 3rem;
             height: 3rem;
+            min-width: 3rem;
+            min-height: 3rem;
+            flex: 0 0 3rem;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.8rem;
+            font-size: 1.55rem;
+            line-height: 1;
+            padding: 0;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-grid;
+            place-items: center;
             opacity: 0.7;
         }
+
+        #prevBtn { text-indent: -1px; }
+        #nextBtn { text-indent: 1px; }
 
         .calendar-nav-btn:hover {
             background: rgba(255, 255, 255, 0.25);
@@ -943,6 +1510,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1rem;
+            line-height: 1.1;
         }
 
         .cal-day {
@@ -961,7 +1529,7 @@
             font-weight: 800; /* Normal weight */
         }
 
-        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
+        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled):not(.cal-day--closed) {
             background: rgba(255, 255, 255, 0.25); /* Increased from 0.15 */
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
@@ -977,6 +1545,20 @@
             opacity: 0.3 !important;
             cursor: default;
             pointer-events: none;
+        }
+
+        .cal-day--closed {
+            opacity: 0.3 !important;
+            cursor: pointer;
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: transparent;
+        }
+
+        .cal-day--closed:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: transparent;
+            transform: none;
         }
 
         .cal-day--selected {
@@ -1137,6 +1719,146 @@
             gap: 1rem;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
             width: 100%;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transform: translateZ(0);
+        }
+
+        .slot-btn--hypnotic {
+            border-color: rgba(255, 255, 255, 0.22);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                0 8px 18px rgba(64, 44, 26, 0.12);
+            animation:
+                slotRevealRise 560ms cubic-bezier(0.18, 0.88, 0.25, 1) both,
+                slotBreathFloat 4.3s ease-in-out infinite;
+            animation-delay:
+                calc(var(--slot-idx, 0) * 55ms),
+                calc(700ms + var(--slot-idx, 0) * 130ms);
+        }
+
+        .slot-btn--hypnotic::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(
+                120deg,
+                rgba(255, 255, 255, 0) 12%,
+                rgba(255, 255, 255, 0.08) 36%,
+                rgba(255, 255, 255, 0.58) 50%,
+                rgba(255, 255, 255, 0.08) 64%,
+                rgba(255, 255, 255, 0) 88%
+            );
+            transform: translateX(-165%);
+            opacity: 0.95;
+            pointer-events: none;
+            z-index: 0;
+            animation: slotShimmerSweep 5.6s ease-in-out infinite;
+            animation-delay: calc(850ms + var(--slot-idx, 0) * 130ms);
+        }
+
+        .slot-btn--hypnotic::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.78;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+            animation: slotHaloPulse 3.6s ease-in-out infinite;
+            animation-delay: calc(var(--slot-idx, 0) * 90ms);
+        }
+
+        .slot-btn--hypnotic > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .slot-btn--hypnotic .slot-icon-wrapper {
+            animation: slotIconSway 4.8s ease-in-out infinite;
+            animation-delay: calc(650ms + var(--slot-idx, 0) * 110ms);
+            will-change: transform;
+        }
+
+        .slot-btn--hypnotic:hover,
+        .slot-btn--hypnotic:focus-visible {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.42);
+            transform: translateY(-3px) scale(1.015);
+            animation-play-state: paused;
+            box-shadow:
+                0 12px 24px rgba(63, 43, 24, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        .slot-btn--hypnotic:hover::after,
+        .slot-btn--hypnotic:focus-visible::after {
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+                0 0 0 6px rgba(255, 255, 255, 0.07);
+        }
+
+        @keyframes slotRevealRise {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.96);
+                filter: blur(2px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes slotBreathFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        @keyframes slotShimmerSweep {
+            0%, 74%, 100% {
+                transform: translateX(-165%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.82;
+            }
+            36% {
+                transform: translateX(165%);
+                opacity: 0.82;
+            }
+            46% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes slotHaloPulse {
+            0%, 100% {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 0 0 rgba(255,255,255,0);
+            }
+            50% {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 0 0 4px rgba(255,255,255,0.05);
+            }
+        }
+
+        @keyframes slotIconSway {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-1px) rotate(4deg) scale(1.02);
+            }
+            75% {
+                transform: translateY(1px) rotate(-4deg) scale(0.98);
+            }
         }
 
         .slot-btn > div, .slot-btn > span {
@@ -1164,10 +1886,7 @@
         }
 
 
-        .slot-btn:hover::after {
-            color: var(--accent-gold);
-            border-color: var(--accent-gold);
-        }
+        .slot-btn:hover::after { opacity: 1; }
 
 
         @keyframes slideUpFade {
@@ -1226,7 +1945,29 @@
         }
 
         .slot-btn--clicked {
-            animation: none;
+            animation: slotClickBurst 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+            pointer-events: none;
+        }
+
+        .slot-btn--clicked::before,
+        .slot-btn--clicked::after {
+            animation: none !important;
+            opacity: 0.2;
+        }
+
+        @keyframes slotClickBurst {
+            0% {
+                transform: translateY(0) scale(1);
+                filter: saturate(1);
+            }
+            35% {
+                transform: translateY(-2px) scale(1.04);
+                filter: saturate(1.2);
+            }
+            100% {
+                transform: translateY(0) scale(0.985);
+                filter: saturate(1);
+            }
         }
 
         @keyframes btnClickScale {
@@ -1250,6 +1991,19 @@
             100% { 
                 text-shadow: 0 0 0.3rem rgba(255, 255, 255, 0.2); 
                 opacity: 0.6; 
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slot-btn--hypnotic,
+            .slot-btn--hypnotic::before,
+            .slot-btn--hypnotic::after,
+            .slot-btn--hypnotic .slot-icon-wrapper {
+                animation: none !important;
+            }
+
+            .slots-grid .slot-btn {
+                transition: none !important;
             }
         }
 
@@ -1298,30 +2052,64 @@
             align-items: center;
             gap: 1rem;
             margin-top: 0.3rem;
+            width: 100%;
         }
 
         .file-attach__btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.8rem;
+            flex-direction: column;
+            gap: 0.35rem;
             width: 100%;
             padding: 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 0.6rem; 
-            color: rgba(255, 255, 255, 0.7);
+            background: var(--input-bg);
+            border: 2px dashed rgba(255, 255, 255, 0.65);
+            border-radius: 0.8rem;
+            color: var(--placeholder-color);
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
             font-size: 1rem;
             font-weight: 800;
+            line-height: 1.3;
+            text-align: center;
         }
 
-        .file-attach__btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+        .file-attach__btn:hover,
+        .file-attach__btn:focus-visible {
+            background: #ffffff;
             border-color: rgba(255, 255, 255, 0.5);
-            color: #fff;
+            color: #5a3d2a;
+            box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.12);
+        }
+
+        .file-attach--drag-over .file-attach__btn {
+            background: #ffffff;
+            border-color: #5a3d2a;
+            color: #5a3d2a;
+            box-shadow: 0 0 0 3px rgba(90, 61, 42, 0.2), 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .file-attach__title {
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            line-height: 1.15;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .file-attach__hint {
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+            opacity: 0.9;
+            text-transform: none;
         }
 
         /* Paperclip Attention Animation */
@@ -1342,9 +2130,14 @@
         }
 
         .file-attach__icon {
-            font-size: 1.6rem;
+            font-size: 1rem;
             line-height: 1;
             display: flex;
+        }
+
+        .file-attach__terms {
+            margin-top: 0.1rem;
+            margin-bottom: 0.3rem;
         }
 
         .file-attach__list {
@@ -1403,7 +2196,7 @@
             position: relative;
             user-select: none;
             width: 100%;
-            margin-bottom: 1.3rem;
+            margin-bottom: 0;
         }
 
         .custom-select {
@@ -1417,16 +2210,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.9rem 1.6rem;
+            padding: 1rem;
             padding-right: 2.8rem; /* Space for arrow */
-            font-size: 1.1rem;
-            color: rgba(80, 60, 40, 0.9);
-            background: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            color: var(--text-white);
+            background: var(--input-bg);
             border: none;
-            border-radius: 1.6rem;
+            border-radius: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-sizing: border-box;
+            line-height: 1.3;
+            font-weight: 800;
+            box-shadow: 0 4px 0 rgba(58, 42, 26, 0.35);
         }
 
         /* Arrow indicator */
@@ -1437,26 +2233,28 @@
             top: 50%;
             transform: translateY(-50%);
             width: 1rem; height: 1rem;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238B6F5A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-size: contain;
             transition: transform 0.3s ease;
         }
 
         .custom-select.open .custom-select__trigger {
-            background: rgba(139, 111, 90, 0.8);
-            color: #ffffff;
+            background: #ffffff;
+            color: #5a3d2a;
+            box-shadow: 0 4px 0 rgba(58, 42, 26, 0.45);
         }
 
         .custom-select.open .custom-select__trigger::after {
             transform: translateY(-50%) rotate(180deg);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235a3d2a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
         }
 
         .custom-select__trigger span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-weight: 800;
         }
 
         .custom-options {
@@ -1469,7 +2267,7 @@
             -webkit-backdrop-filter: blur(1.3rem);
             border: none;
             border-radius: 1.6rem; /* All corners rounded */
-            box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.4);
+            box-shadow: 0 5px 0 rgba(58, 42, 26, 0.28);
             z-index: 100;
             opacity: 0;
             visibility: hidden;
@@ -1493,6 +2291,7 @@
             display: block;
             padding: 0.8rem 1.6rem;
             font-size: 1.1rem;
+            font-weight: 800;
             color: rgba(80, 60, 40, 0.85);
             cursor: pointer;
             transition: background 0.2s;
@@ -1561,11 +2360,35 @@
             max-width: 90% !important;
         }
 
+        /* Top book button typography: match FAQ first answer style */
+        #headerBookBtn,
+        #headerBookBtnText,
+        #headerBookBtnText span {
+            font-family: 'Lato', sans-serif !important;
+            font-size: 1.2rem !important;
+            font-weight: 400 !important;
+            color: rgba(255,255,255,0.92) !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em !important;
+            text-transform: none !important;
+        }
+
+        #headerBookBtnText .header-book-line1 {
+            font-weight: 900 !important;
+        }
+
         #footerBookBtn {
             padding: 1.5rem 3rem !important;
             width: auto !important;
             min-width: 18.8rem !important; /* 300px equivalent rounded */
             max-width: 95% !important;
+        }
+
+        /* Bottom book button: same font, keep existing dynamic sizes */
+        #footerBookBtn,
+        #footerBookBtnText,
+        #footerBookBtnText span {
+            font-family: 'Lato', sans-serif !important;
         }
 
         .spark {
@@ -1667,16 +2490,55 @@
             -webkit-backdrop-filter: blur(8px);
             z-index: 99999;
             display: none;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
         }
 
-        .spinner-circle {
-            animation: spin 1.5s linear infinite;
+        .global-spinner__ring-wrap {
+            width: 11.3rem;
+            height: 11.3rem;
+            position: relative;
+            display: grid;
+            place-items: center;
         }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .global-spinner__svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+            overflow: visible;
+        }
+
+        .global-spinner__track {
+            fill: transparent;
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 12;
+        }
+
+        .global-spinner__glow {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 302;
+            stroke-dashoffset: 0;
+            animation: globalSpinnerGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes globalSpinnerGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(212, 184, 154, 0.45));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+                transform: scale(1.05);
+            }
+        }
 
         .dot-jump {
             display: inline-block;
@@ -1700,11 +2562,33 @@
 
         /* Preloader Error State Text */
         .book-btn-preloader--error .book-btn-preloader__text {
-            color: #ff4c4c;
-            font-size: 1.3rem;
-            font-weight: 800;
+            color: #ff2f45;
+            font-size: 1.08rem;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 2.2px;
+            position: absolute;
+            left: 50%;
+            bottom: -1.72rem;
+            transform: translateX(-50%);
+            width: max-content;
+            white-space: nowrap;
+            text-shadow: 0 0 14px rgba(255, 47, 69, 0.6), 0 0 28px rgba(255, 47, 69, 0.28);
+            animation: slotNotFoundPulse 0.9s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes slotNotFoundPulse {
+            0%, 100% {
+                opacity: 0.62;
+                transform: translateX(-50%) scale(1);
+                filter: drop-shadow(0 0 0 rgba(255, 76, 76, 0));
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.12);
+                filter: drop-shadow(0 0 12px rgba(255, 47, 69, 0.6));
+            }
         }
 
         @keyframes hypnoticCirclePulse {
@@ -1834,8 +2718,13 @@
             font-weight: 800;
         }
         .services-content p {
-            opacity: 0.9;
             font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.7;
+            text-align: left;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.3rem;
         }
 
         .bottom-bar--visible {
@@ -1920,9 +2809,14 @@
 
 
         .footer__copyright { 
-            font-size: 1rem; 
-            margin-top: 1.3rem; 
-            opacity: 0.8;
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.7;
+            text-align: center;
+            letter-spacing: 0.01em;
+            margin-bottom: 1.3rem; 
+            margin-top: 0;
             transition: opacity 2s ease 1s; /* 1s delay */
         }
         
@@ -1936,6 +2830,70 @@
         .fade-in-delayed.is-visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Unified paragraph style (matches "Identification Requirement" text blocks) */
+        .header__content-text,
+        .services-content p,
+        .faq__answer,
+        .faq__answer p,
+        .privacy-block p,
+        .modal__text,
+        .price-note {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2rem !important;
+            font-weight: 400 !important;
+            color: rgba(255, 255, 255, 0.92) !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em;
+            text-align: left;
+            margin-bottom: 1.3rem;
+            opacity: 1 !important;
+        }
+
+        .footer__hours,
+        .footer__copyright {
+            font-family: 'Lato', sans-serif !important;
+            font-size: 1.2rem !important;
+            font-weight: 400 !important;
+            color: rgba(255, 255, 255, 0.92) !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em !important;
+            text-align: center !important;
+            width: 100%;
+        }
+
+        .footer .blur-in-section {
+            margin-top: 26rem !important;
+        }
+
+        /* Slightly larger spacing between major content blocks */
+        .header__content-block,
+        .header__service-item,
+        .contact-form,
+        .footer {
+            margin-bottom: 3.2rem !important;
+        }
+
+        .faq__item {
+            margin-bottom: 2.4rem;
+        }
+
+        .layout-container > .contact-form,
+        .layout-container > .faq,
+        .layout-container > .privacy-block {
+            margin-bottom: 3rem;
+        }
+
+        /* Standalone privacy block under the map */
+        .privacy-block--map {
+            max-width: calc(45.25rem - 10px);
+            margin: 4rem auto 0;
+            padding: 0 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
         }
     </style>
 </head>
@@ -1970,13 +2928,14 @@
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__description">
-        <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services</span> 
-        <span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters</span> 
-        <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London</span> 
+        <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services </span><br>
+        <span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters </span><br>
+        <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London </span><br>
         <span data-i18n="desc4">Online meetings are available province-wide</span>
     </h1>
 
     <div class="header__contact" style="margin-top: 0.5rem; margin-bottom: 2rem; max-width: 45rem; width: 100%; margin-left: auto; margin-right: auto; padding: 0 1.3rem; text-align: center;">
+        <br>
         <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
     </div>
 
@@ -1990,15 +2949,15 @@
                 <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                <span id="headerBookBtnText">Book Your First<br>Available Appointment</span>
+                <span id="headerBookBtnText">Book Appointment</span>
             </button>
         </div>
     </div>
 
     <div class="header__content-block">
-        <h2 class="header__content-header">SERVICES</h2>
+        <h2 class="header__content-header" style="font-size: clamp(1.6rem, 6vw, 2.2rem);">SERVICES</h2>
         
-        <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
+        <ul class="services-list" style="list-style-type: disc; padding-left: 2rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
                     <h3 class="header__content-subheader">Notary Public & Commissioner of Oaths</h3>
@@ -2027,26 +2986,50 @@
                 </div>
             </li>
         </ul>
+        <style>
+            .services-list {
+                list-style: none !important;
+                padding-left: 0 !important;
+                overflow: visible;
+            }
+            .services-list li {
+                position: relative;
+                padding-left: 0;
+                overflow: visible;
+            }
+            .services-list li::before {
+                content: "•";
+                position: absolute;
+                left: -2.9rem;
+                top: 2.4875rem;
+                transform: translateY(-50%);
+                font-size: 3.2rem;
+                line-height: 1;
+                font-weight: 900;
+                color: #fff;
+                pointer-events: none;
+            }
+        </style>
     </div>
 
     <div class="header__content-block" style="margin-top: 5rem;">
-        <h2 class="header__content-header">Intake Notice</h2>
+        <h2 class="header__content-header" style="font-size: clamp(1.6rem, 6vw, 2.2rem);">Intake Notice</h2>
         
-        <details class="faq__item" open>
-            <summary class="faq__question" style="font-size: 1.3rem;">Intake Appointment</summary>
+        <div class="faq__item">
+            <h3 class="faq__question" style="font-size: 1.3rem;">Intake Appointment</h3>
             <div class="faq__answer">
                 <p class="header__content-text" style="font-size: 1.2rem;">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as contracts, agreements, court notices, orders or any other paperwork.</p>
                 <p class="header__content-text" style="font-size: 1.2rem;">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
             </div>
-        </details>
+        </div>
 
-        <details class="faq__item" open>
-            <summary class="faq__question" style="font-size: 1.3rem;">Identification Requirement</summary>
+        <div class="faq__item">
+            <h3 class="faq__question" style="font-size: 1.3rem;">Identification Requirement</h3>
             <div class="faq__answer">
                 <p class="header__content-text" style="font-size: 1.2rem;">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
                 <p class="header__content-text" style="font-size: 1.2rem;">Full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization’s incorporation or business identification number and it’s place of issue.</p>
             </div>
-        </details>
+        </div>
     </div>
 </header>
 
@@ -2059,87 +3042,82 @@
     <div class="contact-form fade-in-section">
         <h2 class="contact-form__outside-title" id="calendarHeaderTitle">AVAILABILITY</h2>
         <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
-
             <!-- Loading Overlay -->
             <div id="calendarLoaderOverlay">
-                <div class="cal-spinner"></div>
-                <span id="calLoaderStatus" style="display: none;"></span>
+                <div class="book-btn-preloader" style="position: relative; width: 120px; height: 120px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                    <svg class="book-btn-preloader__svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                        <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                    </svg>
+                </div>
             </div>
-
             <!-- Header -->
             <div class="calendar-header">
                 <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
                 <div class="calendar-title" id="monthDisplay"></div>
                 <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
             </div>
-
             <!-- Progress bar -->
             <div id="loadingSeparator" class="loading-separator"></div>
-
             <!-- Day grid -->
             <div class="calendar-grid" id="calendarGrid"></div>
-
             <!-- Slot label -->
             <div class="slots-nav" id="slotsNav">
                 <span id="slotsDayDisplay"></span>
             </div>
-
             <!-- Slots -->
             <div class="slots-block" id="slotsBlock">
                 <div class="slots-container" id="slotsContainer">
                     <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
                 </div>
             </div>
-
         </div><!-- /calendar-wrapper -->
     </div>
 
     <h2 class="section-title fade-in-section" data-i18n="faqTitle">FAQ</h2>
     <div class="faq fade-in-section">
-        <details class="faq__item" open>
-            <summary class="faq__question">Is online as effective as in-person?</summary>
+        <div class="faq__item">
+            <h3 class="faq__question">Is online as effective as in-person?</h3>
             <div class="faq__answer">
                 Yes! You’ll receive the same professional services, with the convenience of connecting remotely. All online consultations are available province-wide.
             </div>
-        </details>
+        </div>
 
-        <details class="faq__item" open>
-            <summary class="faq__question">What are the symbols on the calendar?</summary>
+        <div class="faq__item">
+            <h3 class="faq__question">What are the symbols on the calendar?</h3>
             <div class="faq__answer">
-                The keys on the calendar above indicate that the office is closed on those days. In exceptional circumstances, meetings may still be arranged by appointment and proceed with an in-person consultation to outline strategy and next steps.
+                The lock symbols on the calendar above indicate that the office is closed on those days. In exceptional circumstances, meetings may still be arranged by appointment and proceed with an in-person consultation to outline strategy and next steps.
             </div>
-        </details>
+        </div>
 
-        <details class="faq__item" open>
-            <summary class="faq__question">Was there an earlier way to register?</summary>
+        <div class="faq__item">
+            <h3 class="faq__question">Was there an earlier way to register?</h3>
             <div class="faq__answer">
                 The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. Please note that Google registration is required there.
             </div>
-        </details>
+        </div>
 
-
-
-        <details class="faq__item" open>
-            <summary class="faq__question">WHERE IS THE OFFICE?</summary>
+        <div class="faq__item">
+            <h3 class="faq__question">WHERE IS THE OFFICE?</h3>
             <div class="faq__answer">
-                <p style="margin-bottom: 15px; font-size: 1rem; font-weight: 800; opacity: 0.9;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
+                <p class="header__content-text" style="margin-bottom: 15px;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
-                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 800; display: inline-block;">Just tap</span>
+                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">Just tap</span>
                     <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" onclick="logDirectionsClick()" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
-                    <span style="opacity: 1; font-size: 1.1rem; font-weight: 800; display: inline-block;">to start driving</span>
+                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">to start driving</span>
                 </div>
             </div>
-        </details>
+        </div>
     </div>
 
-    <div class="privacy-block fade-in-section" style="max-width: 41rem; margin: 4rem auto 0; padding: 0 1.3rem; color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.6; text-align: left;">
+    <div class="privacy-block privacy-block--map fade-in-section">
         <h3 style="font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; color: #fff;">Privacy Policy</h3>
         <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary etc) are gathered through this form.</p>
         <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal services, answer your questions, and maintain contact, with your consent.</p>
-        <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <strong><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none;">+1 (437) 239-6833</a></strong> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+        <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
     </div>
 </div>
 
@@ -2199,9 +3177,7 @@
         <div class="footer__hours" data-i18n="hours">
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
-
-        <!-- Nearest Available Day Booking Button -->
-        <div style="text-align: center; margin: 10px 0;">
+        <div style="text-align: center; margin: 2rem 0;">
             <div class="book-btn-container">
                 <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute;">
                     <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
@@ -2211,14 +3187,14 @@
                     <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
                 </div>
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                    <span id="footerBookBtnText">Book Your First<br>Available Appointment</span>
+                    <span id="footerBookBtnText">Book Appointment</span>
                 </button>
             </div>
         </div>
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div class="blur-in-section" style="margin-top: 5rem;">
+    <div class="blur-in-section" style="margin-top: 10rem;">
         <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
         <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
@@ -2239,13 +3215,13 @@
                 <input type="hidden" name="_timestamp" id="formTimestamp">
                 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Name" name="name" required>
+                    <input type="text" class="contact-form__input" placeholder="Name" name="name" required minlength="2" maxlength="80" autocomplete="name" inputmode="text" spellcheck="false">
                 </div>
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Occupation" name="occupation" required>
+                    <input type="text" class="contact-form__input" placeholder="Occupation" name="occupation" required minlength="2" maxlength="100" autocomplete="organization-title" inputmode="text" spellcheck="false">
                 </div>
                 <div class="contact-form__group">
-                    <input type="email" class="contact-form__input" placeholder="Email" name="email" required>
+                    <input type="email" class="contact-form__input" placeholder="Email" name="email" required maxlength="120" autocomplete="email" inputmode="email" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
@@ -2268,26 +3244,29 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="tel" class="contact-form__input" placeholder="Phone" name="phone" required>
+                    <input type="tel" class="contact-form__input" placeholder="Phone" name="phone" required maxlength="20" autocomplete="tel" inputmode="tel" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, ZIP" name="address_full" required>
+                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, ZIP" name="address_full" required minlength="6" maxlength="180" autocomplete="street-address" inputmode="text" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
-                    <textarea class="contact-form__textarea" placeholder="Brief details about your case area..." name="notes" style="min-height: 100px; text-align: left;"></textarea>
+                    <textarea class="contact-form__textarea" rows="3" maxlength="3000" placeholder="Brief details about your case area..." name="notes" style="text-align: left;"></textarea>
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px;">
                         <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
                         <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
-                            <span class="file-attach__icon">
-                                <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
-                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                                </svg>
+                            <span class="file-attach__title">
+                                <span class="file-attach__icon">
+                                    <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                    </svg>
+                                </span>
+                                Attach Files
                             </span>
-                            Attach files
+                            <span class="file-attach__hint">Attach any files you have (drag &amp; drop or click)</span>
                         </button>
                         <div class="file-attach__list" id="fileAttachList"></div>
                     </div>
@@ -2296,32 +3275,21 @@
                 <div class="contact-form__group">
                     <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Date of Birth</label>
                     <div style="display: flex; gap: 10px; justify-content: center;">
-                        <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="width: 30%;" required>
-                        <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="width: 30%;" required>
-                        <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="width: 30%;" required>
+                        <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="width: 30%;" required min="1900" max="2100" step="1" inputmode="numeric">
+                        <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="width: 30%;" required min="1" max="12" step="1" inputmode="numeric">
+                        <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="width: 30%;" required min="1" max="31" step="1" inputmode="numeric">
                     </div>
                 </div>
 
-                <div class="contact-form__group">
-                    <div class="contact-form__checkbox-wrapper" style="margin-bottom: 10px;">
-                        <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
-                        <label for="agreeTerms" class="contact-form__checkbox-label">
-                            I read and agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
-                        </label>
-                    </div>
-                </div>
-
-                <script>
-                    document.getElementById('agreeTerms').addEventListener('change', function() {
-                        const modalBody = document.querySelector('#bookingModal .modal__body');
-                        modalBody.scrollTop = modalBody.scrollHeight;
-                    });
-                </script>
-                
-                <p id="bookingStatus" style="text-align: center; margin-bottom: 15px; font-weight: 800; color: #ff6b6b; min-height: 1.5em;"></p>
+                <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
 
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                <p style="font-size: 0.8rem; text-align: center; opacity: 0.7; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">Attach any files you have</p>
+                <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 12px; margin-bottom: 0;">
+                    <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
+                    <label for="agreeTerms" class="contact-form__checkbox-label">
+                        I read with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                    </label>
+                </div>
             </form>
         </div>
     </div>
@@ -2330,22 +3298,23 @@
 
 <!-- CONFIRMATION MODAL -->
 <div id="confirmationModal" class="modal" style="z-index: 20002;">
-    <div class="modal__content" style="max-width: 500px; text-align: center;">
-        <div class="modal__body" style="padding-top: 15px;">
-            <div id="confirmationCheckmark" style="color: var(--accent-gold); margin-bottom: 20px; position: relative; display: inline-block; width: 60px; height: 60px;">
+    <div class="modal__content confirmation-modal__content">
+        <div class="modal__body confirmation-modal__body">
+            <div id="confirmationCheckmark" class="confirmation-modal__check">
                 <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(90, 61, 42, 0.4));">
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
             </div>
-            <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 15px; text-align: left;">
-                I confirm that all information provided in this form is true, accurate, and complete to the best of my knowledge. I acknowledge that I am fully responsible for any consequences that may arise from providing false, misleading, or incomplete information.
+            <p class="confirmation-modal__title">Confirm Submission</p>
+            <p class="confirmation-modal__text">
+                Please confirm you want to submit this intake request now.
             </p>
-            <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 25px; text-align: left;">
-                I hereby authorize the recipient of this form to collect, use, and disclose the personal or confidential information I have provided for the purposes of responding to my inquiry and communicating with me. I understand that my information will be handled in accordance with applicable privacy and data-protection laws.
+            <p class="confirmation-modal__notice">
+                This intake form is for preliminary review only and does not create a paralegal-client relationship.
             </p>
-            <div id="confirmButtons" style="display: flex; flex-direction: column; gap: 15px; justify-content: center; margin-top: 25px;">
-                <button type="button" class="contact-form__submit-button" id="confirmYesBtn" onclick="submitBookingAfterConfirm()" style="width: 100%; margin:0; animation: none;">YES</button>
-                <button type="button" class="contact-form__submit-button" onclick="closeConfirmationModal()" style="width: 100%; margin:0; background: #bfa792; animation: none;">NO</button>
+            <div id="confirmButtons" class="confirmation-modal__actions">
+                <button type="button" class="contact-form__submit-button confirmation-btn-yes" id="confirmYesBtn" onclick="submitBookingAfterConfirm()">YES, SUBMIT</button>
+                <button type="button" class="contact-form__submit-button confirmation-btn-no" onclick="closeConfirmationModal()">NO, GO BACK</button>
             </div>
         </div>
     </div>
@@ -2356,7 +3325,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKXQtU07QMeBG2_A9GwxUsCnBhlOPCtqBTE0FFMoCSZSGsSHwIZhPfilRvfG46M_iRHA/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiSbAWmBTe4UnT2dyxWdbNo3mqhdUPyrr6zQroJD62_DO5YrIX-eEFZm88UbxNFSk-Ig/exec"; 
     // ------------------------------------------------------------------
     
     // ------------------------------------------------------------------
@@ -2369,10 +3338,24 @@
     let nearestDayLastSlotData= null;
     let availableDaysCount    = 0;
     let availableSlotsCache   = {};
+    let availableSlotsMeta    = {};
+    let availableDaysIndexCache = {};
+    let monthFetchPromises    = {};
+    let calendarNavInProgress = false;
+    let calendarListenersBound = false;
+    let calendarRenderToken = 0;
+    let calendarCacheLoaded = false;
+    let calendarCachePersistTimer = null;
+
+    const CALENDAR_CACHE_STORAGE_KEY = 'hd_calendar_cache_v2';
+    const CALENDAR_CACHE_TTL_MS = 5 * 60 * 1000;
+    const CALENDAR_CACHE_MAX_MONTHS = 18;
+    const CALENDAR_PREFETCH_MONTHS_AHEAD = 2;
 
     const MONTH_NAMES = ["January","February","March","April","May","June",
                         "July","August","September","October","November","December"];
-    const DAY_NAMES   = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const DAY_NAMES_FULL  = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const DAY_NAMES_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     // DOM refs (resolved after DOMContentLoaded)
     let calGrid, calOverlay, calLoaderStatus, monthDisplay,
@@ -2381,65 +3364,301 @@
     // ------------------------------------------------------------------
     // FETCH
     // ------------------------------------------------------------------
-    async function fetchMonth(year, month) {
-        const key = `${year}-${month}`;
-        if (availableSlotsCache[key] !== undefined) return; // Already cached
-        const separator = document.getElementById('loadingSeparator');
-        if (separator) separator.classList.add('loading-separator--active');
+    function getMonthKey(year, month) {
+        return `${year}-${month}`;
+    }
+
+    function isMonthCacheFresh(key) {
+        const ts = availableSlotsMeta[key];
+        return Number.isFinite(ts) && (Date.now() - ts) < CALENDAR_CACHE_TTL_MS;
+    }
+
+    function pruneCalendarCache() {
+        const now = Date.now();
+        const keys = Object.keys(availableSlotsCache);
+
+        keys.forEach(key => {
+            const ts = Number(availableSlotsMeta[key]);
+            if (!Number.isFinite(ts) || (now - ts) > CALENDAR_CACHE_TTL_MS) {
+                delete availableSlotsCache[key];
+                delete availableSlotsMeta[key];
+                delete availableDaysIndexCache[key];
+            }
+        });
+
+        const sorted = Object.keys(availableSlotsMeta).sort((a, b) => availableSlotsMeta[b] - availableSlotsMeta[a]);
+        if (sorted.length > CALENDAR_CACHE_MAX_MONTHS) {
+            sorted.slice(CALENDAR_CACHE_MAX_MONTHS).forEach(key => {
+                delete availableSlotsCache[key];
+                delete availableSlotsMeta[key];
+                delete availableDaysIndexCache[key];
+            });
+        }
+    }
+
+    function persistCalendarCache() {
         try {
-            const res  = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}&_t=${Date.now()}`);
+            pruneCalendarCache();
+            const months = {};
+            Object.keys(availableSlotsCache).forEach(key => {
+                const ts = Number(availableSlotsMeta[key]);
+                const slots = availableSlotsCache[key];
+                if (!Number.isFinite(ts) || !Array.isArray(slots)) return;
+                months[key] = { ts, slots };
+            });
+            localStorage.setItem(CALENDAR_CACHE_STORAGE_KEY, JSON.stringify({ version: 2, months }));
+        } catch (e) {
+            // localStorage can fail in private mode/quota pressure.
+        }
+    }
+
+    function scheduleCalendarCachePersist() {
+        clearTimeout(calendarCachePersistTimer);
+        calendarCachePersistTimer = setTimeout(persistCalendarCache, 120);
+    }
+
+    function hydrateCalendarCacheFromStorage() {
+        if (calendarCacheLoaded) return;
+        calendarCacheLoaded = true;
+
+        try {
+            const raw = localStorage.getItem(CALENDAR_CACHE_STORAGE_KEY);
+            if (!raw) return;
+            const parsed = JSON.parse(raw);
+            if (!parsed || parsed.version !== 2 || typeof parsed.months !== 'object' || !parsed.months) return;
+
+            Object.entries(parsed.months).forEach(([key, entry]) => {
+                if (!entry || !Array.isArray(entry.slots)) return;
+                const ts = Number(entry.ts);
+                if (!Number.isFinite(ts)) return;
+                availableSlotsCache[key] = entry.slots;
+                availableSlotsMeta[key] = ts;
+            });
+
+            pruneCalendarCache();
+        } catch (e) {
+            // Ignore malformed cache and continue with network fetches.
+        }
+    }
+
+    function setMonthCache(key, slots) {
+        availableSlotsCache[key] = Array.isArray(slots) ? slots : [];
+        availableSlotsMeta[key] = Date.now();
+        delete availableDaysIndexCache[key];
+        pruneCalendarCache();
+        scheduleCalendarCachePersist();
+    }
+
+    function clearCalendarCache() {
+        availableSlotsCache = {};
+        availableSlotsMeta = {};
+        availableDaysIndexCache = {};
+        monthFetchPromises = {};
+        clearTimeout(calendarCachePersistTimer);
+        try {
+            localStorage.removeItem(CALENDAR_CACHE_STORAGE_KEY);
+        } catch (e) {}
+    }
+
+    async function fetchMonth(year, month, applyMonthJump = true, showProgress = true) {
+        hydrateCalendarCacheFromStorage();
+        const key = getMonthKey(year, month);
+        if (availableSlotsCache[key] !== undefined && isMonthCacheFresh(key)) return; // Fresh cache hit
+        if (monthFetchPromises[key]) {
+            await monthFetchPromises[key];
+            return;
+        }
+        const separator = document.getElementById('loadingSeparator');
+        if (showProgress && separator) separator.classList.add('loading-separator--active');
+        monthFetchPromises[key] = (async () => {
+            try {
+            const res  = await fetch(`${APPS_SCRIPT_URL}?year=${year}&month=${month}`);
             const data = await res.json();
-            if (data.success && data.slots) {
+            if (data.success && Array.isArray(data.slots)) {
                 const ay = data.resultYear  ?? year;
                 const am = data.resultMonth ?? month;
-                availableSlotsCache[`${ay}-${am}`] = data.slots;
-                if (ay !== year || am !== month) {
+                const returnedKey = getMonthKey(ay, am);
+                if (ay === year && am === month) {
                     // Backend found a later month with free slots — jump there
-                    currentDate = new Date(ay, am, 1);
+                    setMonthCache(key, data.slots);
+                } else {
+                    setMonthCache(key, []);
+                    setMonthCache(returnedKey, data.slots);
+                    if (applyMonthJump) {
+                        currentDate = new Date(ay, am, 1);
+                    }
                 }
             } else {
-                availableSlotsCache[key] = [];
+                setMonthCache(key, []);
             }
         } catch(e) {
-            availableSlotsCache[key] = [];
+            // Do not poison cache on silent prefetch failures; allow retries later.
+            if (showProgress && availableSlotsCache[key] === undefined) setMonthCache(key, []);
         } finally {
-            if (separator) separator.classList.remove('loading-separator--active');
+                if (showProgress && separator) separator.classList.remove('loading-separator--active');
+                delete monthFetchPromises[key];
+            }
+        })();
+
+        await monthFetchPromises[key];
+    }
+
+    function prefetchNextMonthFrom(year, month) {
+        // Warm upcoming months for smoother arrow navigation.
+        for (let offset = 1; offset <= CALENDAR_PREFETCH_MONTHS_AHEAD; offset++) {
+            const target = new Date(year, month + offset, 1);
+            const targetYear = target.getFullYear();
+            const targetMonth = target.getMonth();
+            const targetKey = getMonthKey(targetYear, targetMonth);
+            if ((availableSlotsCache[targetKey] !== undefined && isMonthCacheFresh(targetKey)) || monthFetchPromises[targetKey]) continue;
+            fetchMonth(targetYear, targetMonth, false, false).catch(() => {});
         }
+    }
+
+    function getMinBookableDate() {
+        const d = new Date();
+        d.setDate(d.getDate() + 2);
+        d.setHours(0, 0, 0, 0);
+        return d;
+    }
+
+    function getAvailableDaysForMonth(year, month) {
+        const key = getMonthKey(year, month);
+        if (Array.isArray(availableDaysIndexCache[key])) {
+            return availableDaysIndexCache[key];
+        }
+        const slots = availableSlotsCache[key] || [];
+        const minDate = getMinBookableDate();
+        const daysMap = new Map();
+
+        slots.forEach(slot => {
+            if (slot.status === 'busy') return;
+            const day = Number(slot.date);
+            if (!Number.isFinite(day)) return;
+            const date = new Date(year, month, day);
+            date.setHours(0, 0, 0, 0);
+            const dow = date.getDay();
+            if (date < minDate) return;
+            if (dow === 0 || dow === 6) return;
+            if (!daysMap.has(day)) daysMap.set(day, true);
+        });
+
+        const indexedDays = Array.from(daysMap.keys()).sort((a, b) => a - b);
+        availableDaysIndexCache[key] = indexedDays;
+        return indexedDays;
+    }
+
+    async function findAdjacentAvailableDate(direction) {
+        if (direction !== 1 && direction !== -1) return null;
+
+        const minDate = getMinBookableDate();
+        const pivot = selectedDate ? new Date(selectedDate) : new Date(minDate);
+        pivot.setHours(0, 0, 0, 0);
+        if (pivot < minDate) pivot.setTime(minDate.getTime());
+        // No valid dates exist before min bookable date, so do not scan months.
+        if (direction === -1 && pivot <= minDate) return null;
+
+        const maxMonthsToScan = 12;
+        for (let offset = 0; offset < maxMonthsToScan; offset++) {
+            const monthCursor = new Date(pivot.getFullYear(), pivot.getMonth() + (offset * direction), 1);
+            const year = monthCursor.getFullYear();
+            const month = monthCursor.getMonth();
+            await fetchMonth(year, month, false, false);
+
+            const days = getAvailableDaysForMonth(year, month);
+            if (!days.length) continue;
+
+            let candidateDay = null;
+            if (offset === 0) {
+                const pivotDay = pivot.getDate();
+                if (direction === 1) {
+                    candidateDay = selectedDate
+                        ? (days.find(d => d > pivotDay) ?? null)
+                        : (days.find(d => d >= pivotDay) ?? null);
+                } else {
+                    const before = days.filter(d => d < pivotDay);
+                    candidateDay = before.length ? before[before.length - 1] : null;
+                }
+            } else {
+                candidateDay = direction === 1 ? days[0] : days[days.length - 1];
+            }
+
+            if (candidateDay == null) continue;
+            const candidate = new Date(year, month, candidateDay);
+            candidate.setHours(0, 0, 0, 0);
+            if (candidate < minDate) continue;
+            return candidate;
+        }
+
+        return null;
+    }
+
+    function getAdjacentRenderedAvailableDayEl(direction) {
+        const availableEls = Array.from(document.querySelectorAll('.cal-day.cal-day--has-slots'));
+        if (!availableEls.length) return null;
+
+        availableEls.sort((a, b) => Number(a.dataset.day) - Number(b.dataset.day));
+
+        const renderedYear = Number(calGrid?.dataset.year);
+        const renderedMonth = Number(calGrid?.dataset.month);
+        const hasRenderedMeta = Number.isFinite(renderedYear) && Number.isFinite(renderedMonth);
+
+        const sameMonthSelection = selectedDate && hasRenderedMeta &&
+            selectedDate.getFullYear() === renderedYear &&
+            selectedDate.getMonth() === renderedMonth;
+
+        if (!sameMonthSelection) {
+            return direction === 1 ? availableEls[0] : availableEls[availableEls.length - 1];
+        }
+
+        const pivotDay = selectedDate.getDate();
+        if (direction === 1) {
+            return availableEls.find(el => Number(el.dataset.day) > pivotDay) || null;
+        }
+
+        for (let i = availableEls.length - 1; i >= 0; i--) {
+            if (Number(availableEls[i].dataset.day) < pivotDay) return availableEls[i];
+        }
+        return null;
     }
 
     // ------------------------------------------------------------------
     // RENDER CALENDAR
     // ------------------------------------------------------------------
     async function renderCalendar() {
+        const renderToken = ++calendarRenderToken;
+        const calWrapper = document.getElementById('bookingCalendar');
+
         // Show spinner
         calGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
         slotsBlock.style.display = 'none';
         slotsDayDisplay.textContent = '';
+        if (calWrapper) calWrapper.classList.add('calendar--loading');
+        if (headerTitle) headerTitle.classList.add('calendar-title--loading');
         calOverlay.style.display = 'flex';
-        calLoaderStatus.textContent = 'Loading...';
+        if (calLoaderStatus) calLoaderStatus.textContent = 'Loading...';
 
         // Fetch (may update currentDate if backend jumps month)
         await fetchMonth(currentDate.getFullYear(), currentDate.getMonth());
+        if (renderToken !== calendarRenderToken) return;
 
         const year  = currentDate.getFullYear();
         const month = currentDate.getMonth();
-        const slots = availableSlotsCache[`${year}-${month}`] || [];
+        const slots = availableSlotsCache[getMonthKey(year, month)] || [];
+        if (calGrid) {
+            calGrid.dataset.year = String(year);
+            calGrid.dataset.month = String(month);
+        }
+        prefetchNextMonthFrom(year, month);
+        // Ensure no residual days from a stale parallel render.
+        calGrid.innerHTML = '';
 
         // Update external title
         headerTitle.textContent = MONTH_NAMES[month].toUpperCase();
 
-        // Update inner nav title
-        if (selectedDate && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
-            monthDisplay.innerHTML = `<span class="cal-month">${DAY_NAMES[selectedDate.getDay()]} ${selectedDate.getDate()}</span>`;
-        } else {
-            monthDisplay.innerHTML = `<span class="cal-month">${MONTH_NAMES[month]}</span> <span class="cal-year" style="font-size: 1.6rem; opacity: 0.9; font-weight: 800; letter-spacing: 2px;">${year}</span>`;
-        }
-
         // Build slot map
-        const minDate = new Date();
-        minDate.setDate(minDate.getDate() + 1);
-        minDate.setHours(0,0,0,0);
+        const minDate = getMinBookableDate();
 
         const slotsMap = {};
         slots.forEach(s => {
@@ -2453,10 +3672,9 @@
 
         // Find nearest free weekday
         let nearestDay = null;
-        const today = new Date(); today.setHours(0,0,0,0);
         for (const d of Object.keys(slotsMap).map(Number).sort((a,b)=>a-b)) {
             const date = new Date(year, month, d);
-            if (date >= today && date.getDay() !== 0 && date.getDay() !== 6) {
+            if (date >= minDate && date.getDay() !== 0 && date.getDay() !== 6) {
                 const free = slotsMap[d].filter(s => s.status !== 'busy');
                 if (free.length) {
                     nearestDay = d;
@@ -2469,8 +3687,18 @@
         }
         updateFooterBookBtn();
 
+        // Update inner nav title:
+        // If no available slots in this month, always show Month + Year (2 lines).
+        if (!nearestDay) {
+            monthDisplay.innerHTML = `<span class="cal-month">${MONTH_NAMES[month]}</span><span class="cal-year">${year}</span>`;
+        } else if (selectedDate && selectedDate.getMonth() === month && selectedDate.getFullYear() === year) {
+            monthDisplay.innerHTML = `<span class="cal-month cal-selected-day">${DAY_NAMES_FULL[selectedDate.getDay()]} ${selectedDate.getDate()}</span>`;
+        } else {
+            monthDisplay.innerHTML = `<span class="cal-month">${MONTH_NAMES[month]}</span><span class="cal-year">${year}</span>`;
+        }
+
         // Day-name headers
-        DAY_NAMES.forEach(n => {
+        DAY_NAMES_SHORT.forEach(n => {
             const el = document.createElement('div');
             el.className = 'cal-day-name';
             el.textContent = n;
@@ -2499,7 +3727,7 @@
             el.className   = 'cal-day';
             el.dataset.day = day;
             const isPast   = date < torNow;
-            const isWeekend= date.getDay() === 0 || date.getDay() === 6;
+            const isSunday = date.getDay() === 0;
             const isSaturday = date.getDay() === 6;
             const isToday  = date.getTime() === torNow.getTime();
 
@@ -2511,8 +3739,11 @@
 
             if (isToday) el.classList.add('cal-day--today');
 
-            if (isPast || isWeekend) {
+            if (isPast || isSunday) {
                 el.classList.add('cal-day--disabled');
+            } else if (isSaturday) {
+                el.classList.add('cal-day--closed');
+                el.onclick = () => selectClosedSaturday(day, el);
             } else if (slotsMap[day]) {
                 const allBusy = slotsMap[day].every(s => s.status === 'busy');
                 if (allBusy) {
@@ -2523,8 +3754,16 @@
                     el.dataset.slots = JSON.stringify(slotsMap[day]);
                     el.onclick = () => selectDay(day, el);
 
-                    // Auto-select nearest free weekday
-                    if (!autoSelected && day === nearestDay) {
+                    const isCurrentSelectedDay = selectedDate &&
+                        selectedDate.getFullYear() === year &&
+                        selectedDate.getMonth() === month &&
+                        selectedDate.getDate() === day;
+
+                    // Keep explicit selection when navigating; otherwise fallback to nearest free day.
+                    if (!autoSelected && isCurrentSelectedDay) {
+                        autoSelected = true;
+                        setTimeout(() => selectDay(day, el, true), 200);
+                    } else if (!autoSelected && day === nearestDay) {
                         autoSelected = true;
                         setTimeout(() => selectDay(day, el, true), 200);
                     }
@@ -2543,17 +3782,23 @@
         }
 
         calOverlay.style.display = 'none';
+        if (calWrapper) calWrapper.classList.remove('calendar--loading');
+        if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
+        // Плавно показать календарь при загрузке слотов
+        if (calWrapper) {
+            setTimeout(() => {
+                calWrapper.classList.add('calendar--loaded');
+            }, 50);
+        }
 
         // If no nearest day found this month, background-search next month
         if (!nearestDay) {
             let nextM = month + 1, nextY = year;
             if (nextM > 11) { nextM = 0; nextY++; }
-            fetchMonth(nextY, nextM).then(() => {
-                const nextSlots = availableSlotsCache[`${nextY}-${nextM}`];
+            fetchMonth(nextY, nextM, false, false).then(() => {
+                const nextSlots = availableSlotsCache[getMonthKey(nextY, nextM)];
                 if (Array.isArray(nextSlots)) {
-                    const minDate = new Date();
-                    minDate.setDate(minDate.getDate() + 1);
-                    minDate.setHours(0,0,0,0);
+                    const minDate = getMinBookableDate();
                     for (const slot of nextSlots.filter(s => s.status !== 'busy').sort((a,b)=>a.date-b.date)) {
                         const d = new Date(nextY, nextM, slot.date);
                         if (d >= minDate && d.getDay() !== 0 && d.getDay() !== 6) {
@@ -2580,7 +3825,7 @@
         logEvent('Date Selected', selectedDate.toDateString());
 
         // Update nav title
-        monthDisplay.innerHTML = `<span class="cal-month">${DAY_NAMES[selectedDate.getDay()]} ${day}</span>`;
+        monthDisplay.innerHTML = `<span class="cal-month cal-selected-day">${DAY_NAMES_FULL[selectedDate.getDay()]} ${day}</span>`;
 
         const raw = el.dataset.slots ? JSON.parse(el.dataset.slots) : [];
         const free = raw.filter(s => s.status !== 'busy');
@@ -2596,7 +3841,6 @@
             btn.className = 'slot-btn slot-btn--hypnotic';
             const svg = getClockIcon(slot.text);
             let t = slot.text.split(/[-–]/)[0].trim().toUpperCase();
-            if (/^\d:/.test(t)) t = '0' + t;
             const end = getEndTime(t).toUpperCase();
             btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span></div>`;
             btn.style.setProperty('--i', availableDaysCount + idx);
@@ -2612,34 +3856,62 @@
         }
     }
 
+    function selectClosedSaturday(day, el) {
+        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
+        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        logEvent('Closed Saturday Clicked', selectedDate.toDateString());
+
+        monthDisplay.innerHTML = `<span class="cal-month cal-selected-day">${DAY_NAMES_FULL[selectedDate.getDay()]} ${day}</span>`;
+        slotsDayDisplay.textContent = 'SATURDAY IS CLOSED';
+        slotsDayDisplay.style.opacity = '1';
+        slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">This day is closed.<br>Please choose another day.</p>`;
+        slotsBlock.style.display = 'block';
+    }
+
     // ------------------------------------------------------------------
     // EVENT LISTENERS
     // ------------------------------------------------------------------
     function setupEventListeners() {
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            if (!selectedDate) selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            
-            const prevDay = new Date(selectedDate);
-            prevDay.setDate(prevDay.getDate() - 1);
-            
-            // Prevent navigating into the past (before today)
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            if (prevDay < today) return;
-            
-            selectedDate = prevDay;
-            currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-            renderCalendar();
+        if (calendarListenersBound) return;
+        calendarListenersBound = true;
+
+        document.getElementById('prevBtn').addEventListener('click', async () => {
+            if (calendarNavInProgress) return;
+            calendarNavInProgress = true;
+            try {
+                const prevRenderedEl = getAdjacentRenderedAvailableDayEl(-1);
+                if (prevRenderedEl) {
+                    selectDay(Number(prevRenderedEl.dataset.day), prevRenderedEl, true);
+                    return;
+                }
+
+                const prevAvailable = await findAdjacentAvailableDate(-1);
+                if (!prevAvailable) return;
+                selectedDate = prevAvailable;
+                currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+                await renderCalendar();
+            } finally {
+                calendarNavInProgress = false;
+            }
         });
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (!selectedDate) selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            
-            const nextDay = new Date(selectedDate);
-            nextDay.setDate(nextDay.getDate() + 1);
-            
-            selectedDate = nextDay;
-            currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-            renderCalendar();
+        document.getElementById('nextBtn').addEventListener('click', async () => {
+            if (calendarNavInProgress) return;
+            calendarNavInProgress = true;
+            try {
+                const nextRenderedEl = getAdjacentRenderedAvailableDayEl(1);
+                if (nextRenderedEl) {
+                    selectDay(Number(nextRenderedEl.dataset.day), nextRenderedEl, true);
+                    return;
+                }
+
+                const nextAvailable = await findAdjacentAvailableDate(1);
+                if (!nextAvailable) return;
+                selectedDate = nextAvailable;
+                currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+                await renderCalendar();
+            } finally {
+                calendarNavInProgress = false;
+            }
         });
     }
 
@@ -2694,15 +3966,13 @@
         logEvent('Unhandled Promise Rejection', e.reason ? e.reason.toString() : 'Unknown Reason', false, "", "critical");
     });
 
-    // Legacy refs (kept for modal/form code that may reference them)
-    // monthDisplay, slotsGrid etc. are now resolved inside DOMContentLoaded via let declarations above
-
     // Input Visual State (keep white background if has text)
     const inputs = document.querySelectorAll('.contact-form__input, .contact-form__textarea');
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             if(input.value.trim() !== '') input.classList.add('contact-form__input--has-content');
             else input.classList.remove('contact-form__input--has-content');
+            input.classList.remove('field-invalid');
         });
     });
 
@@ -2730,6 +4000,7 @@
         // Initialize custom select dropdown
         initializeCustomSelects();
         attachFormAutoSave();
+        initAutoGrowTextareas();
         
         // Midnight Reload: Reload the page at 00:00 every day
         setInterval(() => {
@@ -2762,7 +4033,7 @@
         // Resolve calendar DOM refs
         calGrid          = document.getElementById('calendarGrid');
         calOverlay       = document.getElementById('calendarLoaderOverlay');
-        calLoaderStatus  = document.getElementById('calLoaderStatus');
+        calLoaderStatus  = document.getElementById('calLoaderStatus') || { textContent: '' };
         monthDisplay     = document.getElementById('monthDisplay');
         slotsGrid        = document.getElementById('slotsGrid');
         slotsBlock       = document.getElementById('slotsBlock');
@@ -2770,6 +4041,23 @@
         slotsDayDisplay  = document.getElementById('slotsDayDisplay');
         headerTitle      = document.getElementById('calendarHeaderTitle');
 
+        const termsCheckbox = document.getElementById('agreeTerms');
+        if (termsCheckbox) {
+            termsCheckbox.addEventListener('change', function() {
+                const modalBody = document.querySelector('#bookingModal .modal__body');
+                const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
+                if (termsWrap) termsWrap.classList.remove('field-invalid');
+                if (modalBody) modalBody.scrollTop = modalBody.scrollHeight;
+            });
+        }
+
+        normalizeSlotNotFoundText();
+        const preloaderTextObserver = new MutationObserver(() => normalizeSlotNotFoundText());
+        document.querySelectorAll('.book-btn-preloader__text').forEach(el => {
+            preloaderTextObserver.observe(el, { childList: true, characterData: true, subtree: true });
+        });
+
+        hydrateCalendarCacheFromStorage();
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         setupEventListeners();
         renderCalendar();
@@ -2827,7 +4115,6 @@
         _calObserver.observe(_calTarget, { childList: true, subtree: true, attributes: true });
     }
 
-
     function getClockIcon(timeRangeStr) {
         // Parse start time "10:00 AM" or "10:00 AM - ..."
         const startTime = timeRangeStr.split(/[–-]/)[0].trim(); // Get "10:00 AM"
@@ -2849,10 +4136,10 @@
         // Minute hand: Minutes * 6deg
         const minuteAngle = minutes * 6;
 
-        return `<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 30" style="width: 100%; height: 100%;">
-  <path d="M12,24C5.37,24,0,18.63,0,12S5.37,0,12,0s12,5.37,12,12-5.37,12-12,12ZM12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Z" fill="currentColor" fill-rule="evenodd"/>
-  <line x1="12" y1="12" x2="12" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${hourAngle}deg);" />
-  <line x1="12" y1="12" x2="12" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
+  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="12" y1="12" x2="12" y2="8.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${hourAngle}deg);" />
+  <line x1="12" y1="12" x2="12" y2="5.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
 </svg>`;
     }
 
@@ -2863,8 +4150,6 @@
         // redirect to the canonical selectDay function
         selectDay(day, element, isAutoSelection);
     }
-
-
 
     // Modal & Form Handling
     let liveDraftTimer = null;
@@ -2921,13 +4206,15 @@
                 document.body.classList.add('modal-is-open');
             }
 
-            if(bookingStatus) bookingStatus.textContent = '';
+            clearBookingError();
+            document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
             if(confirmBtn) {
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = 'Book Now';
             }
             
             loadFormData();
+            initAutoGrowTextareas();
 
             if (triggerAttach) {
                 setTimeout(() => {
@@ -3008,40 +4295,100 @@
     const MAX_FILE_SIZE = 99 * 1024 * 1024;  // 99 MB per file
     const MAX_TOTAL_SIZE = 250 * 1024 * 1024; // 250 MB total
     const MAX_FILE_COUNT = 10;
-    const ALLOWED_TYPES = []; // Allow all per request or keep refined? User said "limit 99mb"
+    const ALLOWED_MIME_TYPES = new Set([
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    ]);
+    const ALLOWED_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'pdf', 'doc', 'docx']);
 
     let attachedFiles = [];
     const fileInput = document.getElementById('fileAttachInput');
     const fileListEl = document.getElementById('fileAttachList');
+    const fileAttachZone = document.querySelector('.file-attach');
 
     function getTotalFileSize() {
         return attachedFiles.reduce((sum, f) => sum + f.size, 0);
     }
 
+    function isAllowedFile(file) {
+        const ext = (file.name.split('.').pop() || '').toLowerCase();
+        const mime = (file.type || '').toLowerCase();
+        const imageAllowed = mime.startsWith('image/');
+        return imageAllowed || ALLOWED_MIME_TYPES.has(mime) || ALLOWED_EXTENSIONS.has(ext);
+    }
+
+    function addSelectedFiles(newFiles) {
+        if (!Array.isArray(newFiles) || !newFiles.length) return;
+        const rejected = [];
+
+        newFiles.forEach(f => {
+            if (attachedFiles.length >= MAX_FILE_COUNT) {
+                rejected.push(`${f.name}: max ${MAX_FILE_COUNT} files`);
+            } else if (f.size > MAX_FILE_SIZE) {
+                rejected.push(`${f.name}: exceeds 99 MB`);
+            } else if (getTotalFileSize() + f.size > MAX_TOTAL_SIZE) {
+                rejected.push(`${f.name}: total exceeds 250 MB`);
+            } else if (!isAllowedFile(f)) {
+                rejected.push(`${f.name}: unsupported file type`);
+            } else {
+                attachedFiles.push(f);
+            }
+        });
+
+        if (rejected.length > 0) {
+            alert('Some files were rejected:\n' + rejected.join('\n'));
+        }
+        logEvent("Files Attached", `${attachedFiles.length} files`);
+        renderFileList();
+    }
+
     if (fileInput) {
         fileInput.addEventListener('change', function() {
-            const newFiles = Array.from(this.files);
-            const rejected = [];
-            newFiles.forEach(f => {
-                if (attachedFiles.length >= MAX_FILE_COUNT) {
-                    rejected.push(`${f.name}: max ${MAX_FILE_COUNT} files`);
-                } else if (f.size > MAX_FILE_SIZE) {
-                    rejected.push(`${f.name}: exceeds 99 MB`);
-                } else if (getTotalFileSize() + f.size > MAX_TOTAL_SIZE) {
-                    rejected.push(`${f.name}: total exceeds 250 MB`);
-                } else if (ALLOWED_TYPES.length > 0 && !ALLOWED_TYPES.includes(f.type)) {
-                    rejected.push(`${f.name}: unsupported file type`);
-                } else {
-                    attachedFiles.push(f);
-                }
-            });
-            if (rejected.length > 0) {
-                alert('Some files were rejected:\n' + rejected.join('\n'));
-            }
+            const newFiles = Array.from(this.files || []);
+            addSelectedFiles(newFiles);
             this.value = ''; // Reset input
-            logEvent("Files Attached", `${attachedFiles.length} files`);
-            renderFileList();
         });
+    }
+
+    if (fileAttachZone) {
+        let dragDepth = 0;
+
+        const onDragEnter = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDepth++;
+            fileAttachZone.classList.add('file-attach--drag-over');
+        };
+
+        const onDragOver = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fileAttachZone.classList.add('file-attach--drag-over');
+        };
+
+        const onDragLeave = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDepth = Math.max(0, dragDepth - 1);
+            if (dragDepth === 0) {
+                fileAttachZone.classList.remove('file-attach--drag-over');
+            }
+        };
+
+        const onDrop = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dragDepth = 0;
+            fileAttachZone.classList.remove('file-attach--drag-over');
+            const droppedFiles = Array.from((e.dataTransfer && e.dataTransfer.files) || []);
+            addSelectedFiles(droppedFiles);
+        };
+
+        fileAttachZone.addEventListener('dragenter', onDragEnter);
+        fileAttachZone.addEventListener('dragover', onDragOver);
+        fileAttachZone.addEventListener('dragleave', onDragLeave);
+        fileAttachZone.addEventListener('drop', onDrop);
     }
 
     function renderFileList() {
@@ -3077,7 +4424,6 @@
     async function processFiles() {
         const filesData = [];
         if (attachedFiles.length > 0) {
-            if (globalSpinnerText) globalSpinnerText.textContent = 'Uploading files...';
             const fileItems = document.getElementById('fileAttachList').children;
 
             for (let i = 0; i < attachedFiles.length; i++) {
@@ -3179,6 +4525,8 @@
                     }
                 });
             }
+
+            initAutoGrowTextareas();
         } catch (err) {
             console.warn('Could not load form data:', err);
         }
@@ -3190,6 +4538,24 @@
         } catch (err) {
             console.warn('Could not clear form data:', err);
         }
+    }
+
+    function fitTextareaHeight(textarea) {
+        if (!textarea) return;
+        textarea.style.height = 'auto';
+        const minHeight = parseFloat(window.getComputedStyle(textarea).minHeight) || 0;
+        textarea.style.height = `${Math.max(textarea.scrollHeight, minHeight)}px`;
+    }
+
+    function initAutoGrowTextareas() {
+        const textareas = document.querySelectorAll('#bookingForm .contact-form__textarea');
+        textareas.forEach(textarea => {
+            if (!textarea._autoGrowBound) {
+                textarea.addEventListener('input', () => fitTextareaHeight(textarea));
+                textarea._autoGrowBound = true;
+            }
+            fitTextareaHeight(textarea);
+        });
     }
 
     function attachFormAutoSave() {
@@ -3207,13 +4573,136 @@
         });
     }
 
+    function normalizeSingleLine(value) {
+        return String(value || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function normalizeMultiLine(value) {
+        return String(value || '').replace(/\r\n/g, '\n').replace(/[ \t]+\n/g, '\n').trim();
+    }
+
+    function clearBookingError() {
+        if (!bookingStatus) return;
+        bookingStatus.textContent = '';
+        bookingStatus.classList.remove('status-alert--visible');
+    }
+
+    function markInvalidField(fieldEl) {
+        if (!fieldEl || !fieldEl.classList) return;
+        fieldEl.classList.remove('field-invalid');
+        // Force reflow so repeated invalid attempts replay the animation.
+        void fieldEl.offsetWidth;
+        fieldEl.classList.add('field-invalid');
+        if (typeof fieldEl.focus === 'function') {
+            try { fieldEl.focus({ preventScroll: true }); } catch (e) { fieldEl.focus(); }
+        }
+    }
+
+    function setBookingError(message, fieldEl = null) {
+        if (!bookingStatus) return;
+        bookingStatus.textContent = message;
+        bookingStatus.classList.remove('status-alert--visible');
+        void bookingStatus.offsetWidth;
+        bookingStatus.classList.add('status-alert--visible');
+        markInvalidField(fieldEl);
+    }
+
+    function validateAndNormalizeBookingForm(form) {
+        const name = normalizeSingleLine(form.name?.value);
+        const occupation = normalizeSingleLine(form.occupation?.value);
+        const email = normalizeSingleLine(form.email?.value).toLowerCase();
+        const phone = normalizeSingleLine(form.phone?.value);
+        const address = normalizeSingleLine(form.address_full?.value);
+        const notes = normalizeMultiLine(form.notes?.value);
+        const serviceInput = document.getElementById('serviceInput');
+        const service = normalizeSingleLine(serviceInput?.value);
+        const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
+        const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
+
+        if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
+            setBookingError('Please enter a valid name (2-80 characters).', form.name);
+            return false;
+        }
+        if (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation)) {
+            setBookingError('Please enter a valid occupation (2-100 characters).', form.occupation);
+            return false;
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (email.length > 120 || !emailPattern.test(email)) {
+            setBookingError('Please enter a valid email address.', form.email);
+            return false;
+        }
+
+        const phoneDigits = phone.replace(/\D/g, '');
+        if (!/^[+\d().\-\s]+$/.test(phone) || phoneDigits.length < 10 || phoneDigits.length > 15) {
+            setBookingError('Please enter a valid phone number.', form.phone);
+            return false;
+        }
+
+        if (address.length < 6 || address.length > 180 || /[<>]/.test(address)) {
+            setBookingError('Please enter a valid address (6-180 characters).', form.address_full);
+            return false;
+        }
+
+        if (notes.length > 3000 || /[<>]/.test(notes)) {
+            setBookingError('Brief details are too long or contain invalid characters.', form.notes);
+            return false;
+        }
+
+        const allowedServices = new Set(
+            Array.from(document.querySelectorAll('.custom-option')).map(opt => normalizeSingleLine(opt.textContent))
+        );
+        if (!service || !allowedServices.has(service)) {
+            setBookingError('Please choose a valid service from the list.', serviceTrigger);
+            return false;
+        }
+
+        const dobYear = Number(form.dob_year?.value);
+        const dobMonth = Number(form.dob_month?.value);
+        const dobDay = Number(form.dob_day?.value);
+        const currentYear = new Date().getFullYear();
+        if (!Number.isInteger(dobYear) || dobYear < 1900 || dobYear > currentYear) {
+            setBookingError('Please enter a valid birth year.', form.dob_year);
+            return false;
+        }
+        if (!Number.isInteger(dobMonth) || dobMonth < 1 || dobMonth > 12) {
+            setBookingError('Please enter a valid birth month.', form.dob_month);
+            return false;
+        }
+        if (!Number.isInteger(dobDay) || dobDay < 1 || dobDay > 31) {
+            setBookingError('Please enter a valid birth day.', form.dob_day);
+            return false;
+        }
+
+        if (!document.getElementById('agreeTerms')?.checked) {
+            setBookingError('Please confirm Terms of Service.', termsWrap);
+            return false;
+        }
+
+        clearBookingError();
+        form.name.value = name;
+        form.occupation.value = occupation;
+        form.email.value = email;
+        form.phone.value = phone;
+        form.address_full.value = address;
+        form.notes.value = notes;
+        if (serviceInput) serviceInput.value = service;
+        fitTextareaHeight(form.notes);
+        return true;
+    }
+
     async function handleBookingSubmit(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
+        const form = e.target;
+        clearBookingError();
+        document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
+        if (!validateAndNormalizeBookingForm(form)) return;
+        const formData = new FormData(form);
 
         if (!formData.get('service')) {
-            bookingStatus.style.color = '#ff6b6b';
-            bookingStatus.textContent = 'Please choose a service from the list.';
+            const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
+            setBookingError('Please choose a service from the list.', serviceTrigger);
             return;
         }
 
@@ -3224,8 +4713,7 @@
         
         const maxDays = new Date(dobYear, dobMonth, 0).getDate();
         if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
-            bookingStatus.style.color = '#ff6b6b';
-            bookingStatus.textContent = 'Invalid date of birth. Please check the day and month.';
+            setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
             return;
         }
 
@@ -3237,22 +4725,20 @@
         }
 
         if (age < 18) {
-            bookingStatus.style.color = '#ff6b6b';
-            bookingStatus.textContent = 'You must be at least 18 years old to book services.';
+            setBookingError('You must be at least 18 years old to book services.', form.dob_year);
             return;
         }
 
         const now = Date.now();
         if (now - lastBookingTime < 60000) {
-            bookingStatus.style.color = '#ff6b6b';
-            bookingStatus.textContent = 'Please wait 60 seconds before booking again.';
+            setBookingError('Please wait 60 seconds before booking again.', form.name);
             return;
         }
         
         pendingBookingData = formData;
         
         const confBtn = document.getElementById('confirmButtons');
-        if (confBtn) confBtn.style.display = 'block';
+        if (confBtn) confBtn.style.display = 'flex';
 
         const cModal = document.getElementById('confirmationModal');
         if (cModal) {
@@ -3284,10 +4770,8 @@
         
         // Show Global Full-Screen Blur Spinner
         const globalSpinner = document.getElementById('globalSpinner');
-        const globalSpinnerText = document.getElementById('globalSpinnerText');
         if (globalSpinner) {
             globalSpinner.style.display = 'flex';
-            if (globalSpinnerText) globalSpinnerText.textContent = 'Sending booking...';
         }
         
         // BUG FIX: Close the confirmation modal immediately so it doesn't stay as a "glitch" box behind/under the spinner
@@ -3320,8 +4804,6 @@
                 _timestamp: formData.get('_timestamp') || ''
             };
 
-            if (globalSpinnerText) globalSpinnerText.textContent = 'Finalizing booking...';
-
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 body: JSON.stringify(bookingData),
@@ -3337,21 +4819,35 @@
                 playSuccessSound();
                 lastBookingTime = Date.now();
                 clearFormData();
+                clearCalendarCache();
                 
                 const modalBody = document.querySelector('#bookingModal .modal__body');
                 const modalTitle = document.querySelector('#bookingModal .modal__title');
-                // No longer replacing modalTitle.innerHTML
+                if (modalTitle) {
+                    modalTitle.innerHTML = `INTAKE REQUEST SUBMITTED`;
+                }
                 if (modalBody) {
                     modalBody.innerHTML = `
-                        <div style="padding: 2rem; text-align: center;">
-                            <div style="color: var(--accent-gold); margin-bottom: 25px; position: relative; display: inline-block; width: 80px; height: 80px;">
+                        <div class="success-panel">
+                            <div class="success-panel__icon">
                                 <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 15px rgba(90, 61, 42, 0.4));">
                                     <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg>
                             </div>
-                            <p style="font-size: 1.2rem; margin-bottom: 2rem; font-weight: 800;">Thank you, ${bookingData.name}!</p>
-                            <p style="font-size: 1rem; opacity: 0.9; line-height: 1.6;">Your request for <strong>${selectedSlotData.text}</strong> was received.<br>We will review it and contact you soon.</p>
-                            <button onclick="location.reload()" class="contact-form__submit-button" style="margin-top: 3rem; width: 100%; max-width: 200px;">Done</button>
+                            <p class="success-panel__hello">Thank you, ${bookingData.name}.</p>
+                            <p class="success-panel__lead">
+                                Your intake request for <strong>${selectedSlotData.text}</strong> was submitted successfully.
+                            </p>
+                            <p class="success-panel__notice">
+                                <strong>Important (Ontario):</strong> Submitting this form does not create a paralegal-client relationship. Please call during business hours to confirm your details and next steps.
+                            </p>
+                            <p class="success-panel__notice">
+                                If your matter is time-sensitive and you cannot reach us promptly, please do not wait - contact another licensed Ontario paralegal or lawyer right away.
+                            </p>
+                            <div class="success-panel__actions">
+                                <a href="tel:+14372396833" class="contact-form__submit-button success-panel__call">Call +1 (437) 239-6833</a>
+                                <button onclick="location.reload()" class="contact-form__submit-button success-panel__done">Done</button>
+                            </div>
                         </div>
                     `;
                     // Hide any active confirmation elements
@@ -3376,8 +4872,7 @@
             const globalSpinner = document.getElementById('globalSpinner');
             if (globalSpinner) globalSpinner.style.display = 'none';
 
-            bookingStatus.style.color = '#ff6b6b';
-            bookingStatus.textContent = "Error: " + err.message;
+            setBookingError("Error: " + err.message);
             if(confirmBtn) confirmBtn.disabled = false;
             
             // Log this booking failure as a critical error
@@ -3510,42 +5005,47 @@
     }
 
     function createSparks(container) {
-        if (!container || container.dataset.sparkTimer) return;
+        if (!container) return;
         container.style.position = 'relative';
-        container.dataset.sparkTimer = 'running';
-        
-        setInterval(() => {
-            const spark = document.createElement('div');
-            spark.className = 'spark';
-            
-            const angle = Math.random() * Math.PI * 2;
-            
-            // Start further away from center
-            const randomRadius = 30 + Math.random() * 20; 
-            const startX = Math.cos(angle) * randomRadius;
-            const startY = Math.sin(angle) * randomRadius;
-
-            spark.style.left = `calc(50% + ${startX}px)`;
-            spark.style.top = `calc(50% + ${startY}px)`;
-            spark.style.transform = 'translate(-50%, -50%)'; // Ensure origin is relative
-
-            // Targeted velocity away from start point (center explosion)
-            const velocity = 50 + Math.random() * 80; // Faster moving
-            const vx = Math.cos(angle) * velocity;
-            const vy = Math.sin(angle) * velocity;
-            
-            spark.style.setProperty('--vx', vx + 'px');
-            spark.style.setProperty('--vy', vy + 'px');
-            spark.style.animation = 'sparkle 0.8s ease-out forwards';
-            
-            container.appendChild(spark);
+        let burstCount = 18;
+        for (let i = 0; i < burstCount; i++) {
             setTimeout(() => {
-                if(spark.parentNode) spark.parentNode.removeChild(spark);
-            }, 800);
-        }, 80);
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                const angle = Math.random() * Math.PI * 2;
+                const randomRadius = 30 + Math.random() * 20;
+                const startX = Math.cos(angle) * randomRadius;
+                const startY = Math.sin(angle) * randomRadius;
+                spark.style.left = `calc(50% + ${startX}px)`;
+                spark.style.top = `calc(50% + ${startY}px)`;
+                spark.style.transform = 'translate(-50%, -50%)';
+                const velocity = 50 + Math.random() * 80;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                spark.style.setProperty('--vx', vx + 'px');
+                spark.style.setProperty('--vy', vy + 'px');
+                spark.style.animation = 'sparkle 0.8s ease-out forwards';
+                container.appendChild(spark);
+                setTimeout(() => {
+                    if(spark.parentNode) spark.parentNode.removeChild(spark);
+                }, 800);
+            }, i * 20);
+        }
+    }
+
+    function normalizeSlotNotFoundText() {
+        const nodes = document.querySelectorAll('.book-btn-preloader__text');
+        nodes.forEach(node => {
+            const raw = String(node.textContent || '').trim();
+            if (!raw) return;
+            if (/slot\s*no\s*found/i.test(raw) || /slots\s*no\s*found/i.test(raw) || /slot\s*not\s*fount/i.test(raw)) {
+                node.textContent = 'SLOT NO FOUND';
+            }
+        });
     }
     
     function updateFooterBookBtn() {
+        normalizeSlotNotFoundText();
         const targets = [
             { btn: document.getElementById('footerBookBtn'), txt: document.getElementById('footerBookBtnText'), preloader: document.getElementById('footerBookBtnPreloader') },
             { btn: document.getElementById('headerBookBtn'), txt: document.getElementById('headerBookBtnText'), preloader: document.getElementById('headerBookBtnPreloader') }
@@ -3555,7 +5055,8 @@
             if (!t.btn || !t.preloader) return;
 
             if (absoluteNearestDate && nearestSlotData) {
-                const dayOfWeek = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' });
+                const dayOfWeekShort = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayOfWeekFull = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
                 
                 let htmlContent = '';
                 
@@ -3567,8 +5068,8 @@
                     }
                     const slotWord = nearestSlotData ? 'Slot' : 'Slots';
                     htmlContent = timeStr 
-                        ? `Available ${slotWord}!<br><span style="font-size: 1rem; font-weight: 800; opacity: 0.95;">${dayOfWeek} ${nearestSlotData.date} at ${timeStr}</span>` 
-                        : `Available ${slotWord}!<br><span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeek} ${nearestSlotData.date}</span>`;
+                        ? `<span class="header-book-line1">Available ${slotWord}!</span><br><span style="font-size: 1rem; font-weight: 800; opacity: 0.95;">${dayOfWeekShort} ${nearestSlotData.date} at ${timeStr}</span>` 
+                        : `<span class="header-book-line1">Available ${slotWord}!</span><br><span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeekShort} ${nearestSlotData.date}</span>`;
                 } else {
                     // Footer button: 3-line format
                     let lastTimeStr = '';
@@ -3579,7 +5080,7 @@
                     
                     htmlContent = `Available Slot!<br>` +
                                  `<span style="font-size: 2.2rem; font-weight: 800; display: block; margin: 5px 0; line-height: 1;">${lastTimeStr}</span>` +
-                                 `<span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeek} ${fallbackSlot.date}</span>`;
+                                 `<span style="font-size: 0.9rem; font-weight: 800; opacity: 0.9;">${dayOfWeekFull} ${fallbackSlot.date}</span>`;
                 }
                 
                 t.preloader.style.transition = 'opacity 0.5s';
@@ -3593,12 +5094,9 @@
                 t.btn.style.transform = 'scale(1)';
                 t.btn.style.pointerEvents = 'auto';
 
-                if (!t.btn.dataset.sparksInit) {
-                    createSparks(t.btn);
-                    t.btn.dataset.sparksInit = 'true';
-                }
+                // Удалено: createSparks вызывается только во время прыжка
             } else {
-                // No data yet — show preloader, set 4-sec error timer
+                // No data yet: keep neutral loading state
                 t.preloader.style.opacity = '1';
                 t.preloader.style.transform = 'scale(1)';
                 t.preloader.style.pointerEvents = 'none';
@@ -3614,28 +5112,33 @@
                     const svg = t.preloader.querySelector('.book-btn-preloader__svg');
                     if (svg) svg.style.animation = '';
                     const errText = t.preloader.querySelector('.book-btn-preloader__text');
-                    if (errText) { errText.textContent = 'Loading...'; errText.style.color = ''; errText.style.display = 'none'; }
+                    if (errText) { errText.textContent = 'Loading...'; errText.style.display = 'none'; }
+                }
+
+                t.preloader.classList.remove('book-btn-preloader--error');
+                const svg = t.preloader.querySelector('.book-btn-preloader__svg');
+                if (svg) svg.style.animation = '';
+                const errText = t.preloader.querySelector('.book-btn-preloader__text');
+                if (errText) {
+                    errText.textContent = 'Loading...';
+                    errText.style.display = 'none';
+                    errText.style.opacity = '0';
                 }
 
                 t._errorTimer = setTimeout(() => {
                     t.preloader.classList.add('book-btn-preloader--error');
-                    const svg = t.preloader.querySelector('.book-btn-preloader__svg');
-                    if (svg) svg.style.animation = 'none';
-                    const errText = t.preloader.querySelector('.book-btn-preloader__text');
-                    if (errText) {
-                        errText.innerHTML = "SLOT NOT FOUND"; // Requested by user
-                        errText.style.color = '#ff3333';
-                        errText.style.fontWeight = 'bold';
-                        errText.style.letterSpacing = '1px';
-                        errText.style.fontSize = '0.9rem'; // Slightly smaller to fit "SLOT NOT FOUND"
-                        errText.style.display = 'flex'; // Use flex to center properly
-                        errText.style.opacity = '1';
-                        // Keep text stationary inside centered circle, do not offset since flex is active
-                        errText.style.transform = 'none'; 
+                    const errSvg = t.preloader.querySelector('.book-btn-preloader__svg');
+                    if (errSvg) errSvg.style.animation = 'none';
+                    const errNode = t.preloader.querySelector('.book-btn-preloader__text');
+                    if (errNode) {
+                        errNode.textContent = 'SLOT NO FOUND';
+                        errNode.style.display = 'block';
+                        errNode.style.opacity = '1';
                     }
-                }, 20000); // Wait 20 seconds: 14s fill + 3s wait + 3s glow
+                }, 20000);
             }
         });
+        normalizeSlotNotFoundText();
     }
 
     function bookNearestSlot() {
@@ -3680,6 +5183,7 @@
         const wrapper = selectElement.closest('.custom-select-wrapper');
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
+            trigger.classList.remove('field-invalid');
             selectElement.classList.toggle('open');
         });
         options.forEach(option => {
@@ -3696,6 +5200,7 @@
                 option.classList.add('selected');
                 
                 selectElement.classList.remove('open');
+                trigger.classList.remove('field-invalid');
             });
         });
         document.addEventListener('click', (e) => {
@@ -3719,6 +5224,26 @@
                 el.style.fontSize = newRemSize + 'rem';
             }
         });
+
+        // Keep hero H1 in 4 stable lines on mobile: no wrapping, shrink if needed.
+        const heroH1 = document.querySelector('.header__description');
+        if (!heroH1) return;
+        const lines = Array.from(heroH1.querySelectorAll('span'));
+        if (!lines.length) return;
+
+        heroH1.style.setProperty('--h1-fit-scale', '1');
+        const availableWidth = heroH1.clientWidth;
+        if (!availableWidth) return;
+
+        let maxLineWidth = 0;
+        lines.forEach(line => {
+            maxLineWidth = Math.max(maxLineWidth, line.scrollWidth);
+        });
+        if (!maxLineWidth) return;
+
+        const ratio = availableWidth / maxLineWidth;
+        const scale = Math.max(0.52, Math.min(1, ratio));
+        heroH1.style.setProperty('--h1-fit-scale', scale.toFixed(4));
     }
 
     // (Load listener consolidated above)
@@ -3746,17 +5271,14 @@
     }
 
 
+
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
-
         // On any scroll, show the bars.
         if (topBar) topBar.classList.add('top-bar--visible');
         if (bottomBar) bottomBar.classList.add('bottom-bar--visible');
-        
         // Reset the timer to hide it after a period of inactivity.
         startHideTimer();
-        
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }, { passive: true });
 
@@ -3825,13 +5347,12 @@
 
 <!-- Global Spinner for Finalizing -->
 <div id="globalSpinner" class="global-spinner">
-    <div style="position: relative; width: 80px; height: 80px; margin-bottom: 20px;">
-        <svg viewBox="0 0 120 120" class="spinner-circle" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
-            <circle cx="60" cy="60" r="48" style="fill: transparent; stroke: rgba(255, 255, 255, 0.2); stroke-width: 6;"/>
-            <circle cx="60" cy="60" r="48" style="fill: none; stroke: #ffffff; stroke-width: 6; stroke-dasharray: 302; stroke-dashoffset: 100; stroke-linecap: round;"/>
+    <div class="global-spinner__ring-wrap" aria-label="Loading">
+        <svg viewBox="0 0 120 120" class="global-spinner__svg" role="presentation">
+            <circle class="global-spinner__track" cx="60" cy="60" r="48"></circle>
+            <circle class="global-spinner__glow" cx="60" cy="60" r="48"></circle>
         </svg>
     </div>
-    <p id="globalSpinnerText" class="header__content-header" style="color: var(--text-white); font-size: 1.5rem; letter-spacing: 2px;">Finalizing booking...</p>
 </div>
 
 </body>
