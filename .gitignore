@@ -1,3 +1,11 @@
 *
 !index.html
 !.gitignore
+*.c
+*.js
+*.cs
+*.exe
+*.yml
+*.swift
+*.cpp
+*.ini
