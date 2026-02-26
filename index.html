@@ -2351,23 +2351,23 @@
 
         .spark {
             position: absolute;
-            width: 0.28rem;
-            height: 0.28rem;
+            width: 0.34rem;
+            height: 0.34rem;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
-            background: rgba(255, 255, 255, 0.95);
-            z-index: 0;
+            background: rgba(255, 236, 210, 0.98);
+            z-index: 3;
+            box-shadow: 0 0 0.55rem rgba(255, 245, 230, 0.8);
             will-change: transform, opacity;
-            contain: layout style paint;
             transform: translate3d(0, 0, 0);
-            animation: sparkle var(--spark-duration, 460ms) cubic-bezier(0.2, 0.75, 0.25, 1) var(--spark-delay, 0ms) forwards;
+            animation: sparkle var(--spark-duration, 500ms) cubic-bezier(0.2, 0.75, 0.25, 1) var(--spark-delay, 0ms) forwards;
         }
 
         @keyframes sparkle {
-            0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
-            15% { opacity: 0.95; }
-            100% { transform: translate3d(var(--vx), var(--vy), 0) scale(1.25); opacity: 0; }
+            0% { transform: translate3d(0, 0, 0) scale(0.65); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate3d(var(--vx), var(--vy), 0) scale(1.5); opacity: 0; }
         }
 
         @keyframes hypnoticPulse {
@@ -4988,7 +4988,7 @@
     function createSparks(container) {
         if (!container) return;
         if (document.hidden) return;
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
         const isLowEndDevice = (
             (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
@@ -4997,7 +4997,7 @@
 
         const now = performance.now();
         const lastBurstAt = sparkBurstState.get(container) || 0;
-        const minIntervalMs = isLowEndDevice ? 900 : 420;
+        const minIntervalMs = prefersReducedMotion ? 1200 : (isLowEndDevice ? 900 : 420);
         if (now - lastBurstAt < minIntervalMs) return;
         sparkBurstState.set(container, now);
 
@@ -5005,13 +5005,13 @@
             container.style.position = 'relative';
         }
 
-        const burstCount = isLowEndDevice ? 6 : 10;
+        const burstCount = prefersReducedMotion ? 3 : (isLowEndDevice ? 6 : 10);
         const minRadius = isLowEndDevice ? 14 : 18;
         const maxRadius = isLowEndDevice ? 24 : 34;
         const minVelocity = isLowEndDevice ? 18 : 28;
         const maxVelocity = isLowEndDevice ? 44 : 66;
-        const maxDelay = isLowEndDevice ? 90 : 160;
-        const durationMs = isLowEndDevice ? 360 : 460;
+        const maxDelay = prefersReducedMotion ? 70 : (isLowEndDevice ? 90 : 160);
+        const durationMs = prefersReducedMotion ? 340 : (isLowEndDevice ? 360 : 500);
 
         const fragment = document.createDocumentFragment();
         const sparks = [];
