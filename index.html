@@ -701,6 +701,18 @@
             line-height: 1.1;
             font-weight: 900;
             font-size: 1.08rem;
+            background: #5a3d2a;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        #confirmBookingBtn:hover {
+            background: #4f3526 !important;
+            transform: translateY(-1px);
+        }
+
+        #confirmBookingBtn:active {
+            background: #563a2a !important;
+            transform: translateY(0);
         }
         
         .contact-form__submit-button:hover { 
@@ -737,12 +749,13 @@
             margin-bottom: 2rem;
             padding: 0;
             text-align: left; /* Align FAQ content to the left */
+            position: relative;
         }
 
 
         .faq__question { 
             font-weight: 800; 
-            font-size: clamp(1rem, 3vw, 1.2rem); 
+            font-size: clamp(1.05rem, 3.1vw, 1.24rem); 
             text-transform: uppercase; 
             display: flex; 
             align-items: flex-start; 
@@ -750,7 +763,7 @@
             cursor: pointer;
             margin-bottom: 1rem;
             list-style: none;
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
         .faq__question::-webkit-details-marker { display: none; }
@@ -766,6 +779,86 @@
             text-align: left;
             letter-spacing: 0.01em;
             margin-bottom: 1.3rem;
+        }
+
+        .faq--accordion .faq__question {
+            margin-bottom: 0;
+            padding: 0.55rem 0;
+            user-select: none;
+            will-change: transform, opacity;
+        }
+
+        .faq--accordion .faq__question::before {
+            content: "";
+            flex: 0 0 1.06em;
+            width: 1.06em;
+            height: 1.06em;
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            margin-top: 0.22em;
+            margin-left: -0.52rem;
+            opacity: 0.95;
+        }
+
+        .faq--accordion .faq__question::after {
+            content: "";
+            margin-left: auto;
+            margin-top: 0.4em;
+            width: 0.62rem;
+            height: 0.62rem;
+            border-right: 2px solid rgba(255,255,255,0.9);
+            border-bottom: 2px solid rgba(255,255,255,0.9);
+            transform: rotate(45deg);
+            transition: transform 0.45s ease, opacity 0.3s ease;
+            opacity: 0.85;
+        }
+
+        .faq--accordion .faq__answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(0.9rem) scale(0.985);
+            filter: blur(2px);
+            margin-bottom: 0;
+            padding-left: 1.65rem;
+            transition: max-height 0.75s cubic-bezier(0.22, 0.9, 0.24, 1), opacity 0.5s ease, transform 0.65s ease, filter 0.65s ease;
+            pointer-events: none;
+        }
+
+        .faq--accordion .faq__item.is-open .faq__question {
+            animation: faqHypnoticOpen 0.8s ease forwards;
+        }
+
+        .faq--accordion .faq__item.is-open .faq__question::after {
+            transform: rotate(225deg);
+            opacity: 1;
+        }
+
+        .faq--accordion .faq__item.is-open .faq__answer {
+            max-height: 120rem;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+            margin-bottom: 1.15rem;
+            pointer-events: auto;
+        }
+
+        @keyframes faqHypnoticOpen {
+            0% {
+                text-shadow: 0 0 0 rgba(255,255,255,0);
+                transform: translateY(0.08rem);
+                opacity: 0.92;
+            }
+            45% {
+                text-shadow: 0 0 0.9rem rgba(255,255,255,0.34), 0 0 0.3rem rgba(255,255,255,0.18);
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                text-shadow: 0 0 0.45rem rgba(255,255,255,0.18);
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
 
@@ -1382,16 +1475,16 @@
         }
 
         .calendar-title {
-            font-size: 1.4rem;
+            font-size: 2rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: #ffffff;
             text-shadow: 0 1px 1px rgba(0,0,0,0.1);
             line-height: 1.2;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 0.2rem;
             align-items: center;
         }
 
@@ -1406,9 +1499,9 @@
         
         
         .calendar-title span { display: block; }
-        .calendar-title .cal-month { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 800; }
-        .calendar-title .cal-selected-day { font-size: clamp(1.8rem, 6vw, 2.4rem); line-height: 1.05; }
-        .calendar-title .cal-year { font-size: clamp(1.2rem, 4vw, 1.6rem); opacity: 0.9; font-weight: 800; letter-spacing: 2px; margin-top: -0.3rem; }
+        .calendar-title .cal-month { font-size: clamp(3rem, 12vw, 6.4rem); font-weight: 900; line-height: 0.9; }
+        .calendar-title .cal-selected-day { font-size: clamp(3.3rem, 13vw, 6.9rem); line-height: 0.92; font-weight: 900; }
+        .calendar-title .cal-year { font-size: clamp(1.35rem, 4.8vw, 2.3rem); opacity: 0.92; font-weight: 900; letter-spacing: 2px; margin-top: -0.15rem; }
 
 
         .calendar-nav-btn {
@@ -2344,7 +2437,7 @@
         }
 
         .custom-select.open .custom-select__trigger {
-            background: #ffffff;
+            background: #f4ece2;
             color: #5a3d2a;
             box-shadow: 0 4px 0 rgba(58, 42, 26, 0.45);
         }
@@ -2366,7 +2459,7 @@
             display: block;
             top: 100%;
             left: 0; right: 0;
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(242, 231, 218, 0.97);
             backdrop-filter: blur(1.3rem);
             -webkit-backdrop-filter: blur(1.3rem);
             border: none;
@@ -3066,7 +3159,7 @@
     <div class="header__content-block">
         <h2 class="header__content-header" style="font-size: clamp(1.6rem, 6vw, 2.2rem);">SERVICES</h2>
         
-        <ul class="services-list" style="list-style-type: disc; padding-left: 2rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
+        <ul class="services-list" style="padding-left: 1.65rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem;">
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
                     <h3 class="header__content-subheader">Notary Public & Commissioner of Oaths</h3>
@@ -3103,19 +3196,19 @@
             }
             .services-list li {
                 position: relative;
-                padding-left: 0;
+                padding-left: 0.2rem;
                 overflow: visible;
             }
             .services-list li::before {
-                content: "•";
+                content: "";
                 position: absolute;
-                left: -2.9rem;
-                top: 2.4875rem;
+                left: -2.28rem;
+                top: 0.98rem;
                 transform: translateY(-50%);
-                font-size: 3.2rem;
-                line-height: 1;
-                font-weight: 900;
-                color: #fff;
+                width: 1.12rem;
+                height: 1.12rem;
+                border: 2px solid rgba(255, 255, 255, 0.96);
+                border-radius: 50%;
                 pointer-events: none;
             }
         </style>
@@ -3184,7 +3277,7 @@
     </div>
 
     <h2 class="section-title fade-in-section" data-i18n="faqTitle">FAQ</h2>
-    <div class="faq fade-in-section">
+    <div class="faq faq--accordion fade-in-section">
         <div class="faq__item">
             <h3 class="faq__question">Is online as effective as in-person?</h3>
             <div class="faq__answer">
@@ -3359,7 +3452,7 @@
                 <div class="contact-form__group">
                     <div style="display: flex; gap: 10px;">
                         <input type="text" class="contact-form__input" placeholder="Street, City, ON" name="address_street" required minlength="6" maxlength="150" autocomplete="street-address" inputmode="text" spellcheck="false" style="flex-grow: 1;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="width: 30%;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="width: 4.6ch; min-width: 4.6ch; text-align: center; padding-left: 0.25rem; padding-right: 0.25rem;">
                     </div>
                 </div>
 
@@ -3380,7 +3473,7 @@
                                     </span>
                                     Attach Files
                                 </span>
-                                <span class="file-attach__hint">Attach any files you have<br>(drag &amp; drop<br>or click)</span>
+                                <span class="file-attach__hint">Attach any files you have<br>(drag &amp; drop or click)</span>
                             </button>
                             <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
                                 <span class="file-attach__title">
@@ -3391,7 +3484,6 @@
                                         </svg>
                                     </span>
                                 </span>
-                                <span class="file-attach__hint">Use device camera and add photo automatically</span>
                             </button>
                         </div>
                         <div class="file-attach__list" id="fileAttachList"></div>
@@ -4115,10 +4207,79 @@
         }
     }
 
+    function initFaqAccordionScrollReveal() {
+        const faqRoot = document.querySelector('.faq--accordion');
+        if (!faqRoot) return;
+
+        const items = Array.from(faqRoot.querySelectorAll('.faq__item'));
+        if (!items.length) return;
+
+        // Start with all FAQ items collapsed; reveal happens on scroll focus.
+        items.forEach((item) => item.classList.remove('is-open'));
+
+        const syncA11y = () => {
+            items.forEach((item) => {
+                const q = item.querySelector('.faq__question');
+                if (!q) return;
+                q.setAttribute('aria-expanded', item.classList.contains('is-open') ? 'true' : 'false');
+            });
+        };
+
+        const openItem = (targetItem) => {
+            items.forEach((item) => {
+                item.classList.toggle('is-open', item === targetItem);
+            });
+            syncA11y();
+        };
+
+        items.forEach((item) => {
+            const q = item.querySelector('.faq__question');
+            if (!q) return;
+            q.setAttribute('role', 'button');
+            q.setAttribute('tabindex', '0');
+            q.setAttribute('aria-expanded', 'false');
+
+            q.addEventListener('click', () => {
+                if (item.classList.contains('is-open')) {
+                    item.classList.remove('is-open');
+                    syncA11y();
+                } else {
+                    openItem(item);
+                }
+            });
+
+            q.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    q.click();
+                }
+            });
+        });
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        openItem(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0,
+                rootMargin: '-42% 0px -42% 0px'
+            });
+
+            items.forEach((item) => observer.observe(item));
+        } else {
+            syncA11y();
+        }
+    }
+
     // Init
     window.addEventListener('DOMContentLoaded', () => {
         // Initialize custom select dropdown
         initializeCustomSelects();
+        initFaqAccordionScrollReveal();
         attachFormAutoSave();
         initAutoGrowTextareas();
         
@@ -5760,3 +5921,4 @@
 
 </body>
 </html>
+
