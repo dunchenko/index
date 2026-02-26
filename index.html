@@ -441,6 +441,24 @@
             font-weight: 800;
         }
 
+        .header__intake-trigger-wrap {
+            margin: 5rem auto 1.5rem;
+            text-align: center;
+            max-width: 41rem;
+            padding: 0 1.2rem;
+        }
+
+        .header__intake-trigger {
+            width: auto;
+            min-width: clamp(12rem, 50vw, 17rem);
+            margin: 0 auto;
+            padding-inline: 2rem;
+        }
+
+        .header__content-block--intake-inline {
+            display: none !important;
+        }
+
         .header__description {
             --h1-fit-scale: 1;
             font-size: calc(clamp(1.05rem, 3.6vw, 1.35rem) * var(--h1-fit-scale));
@@ -937,6 +955,67 @@
 
         #termsModal {
             z-index: 20001;
+        }
+
+        #intakeNoticeModal {
+            z-index: 20001;
+        }
+
+        #intakeNoticeModal .modal__content {
+            max-width: 50rem;
+            background: #3a2a1a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.5);
+            padding: 2.3rem 2rem 1.6rem;
+        }
+
+        #intakeNoticeModal .modal__title {
+            text-align: center;
+            color: #D4B89A;
+            margin-bottom: 1.5rem;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+        }
+
+        #intakeNoticeModal .modal__body {
+            max-height: min(66vh, 44rem);
+            overflow-y: auto;
+            padding-right: 0.4rem;
+        }
+
+        #intakeNoticeModal .modal__section-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        #intakeNoticeModal .modal__text {
+            color: rgba(255,255,255,0.92);
+            text-align: left;
+            margin-bottom: 1.3rem;
+            line-height: 1.7;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        #intakeNoticeModal .intake-notice-modal__actions {
+            margin-top: 1rem;
+        }
+
+        #intakeNoticeModal .intake-notice-modal__ok {
+            width: auto;
+            min-width: 9.5rem;
+            margin: 0 auto;
+            display: block;
+            padding-inline: 2.2rem;
+            background: #5a3d2a;
+        }
+
+        #intakeNoticeModal .intake-notice-modal__ok:hover {
+            background: #4f3526;
         }
 
         #termsModal .modal__content {
@@ -3325,7 +3404,11 @@
         </style>
     </div>
 
-    <div class="header__content-block" style="margin-top: 5rem;">
+    <div class="header__intake-trigger-wrap">
+        <button type="button" class="contact-form__submit-button header__intake-trigger" onclick="openIntakeNoticeModal()">Intake Notice</button>
+    </div>
+
+    <div class="header__content-block header__content-block--intake-inline" style="margin-top: 5rem;">
         <h2 class="header__content-header" style="font-size: clamp(1.6rem, 6vw, 2.2rem);">Intake Notice</h2>
         
         <div class="faq__item">
@@ -3431,6 +3514,28 @@
         <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary etc) are gathered through this form.</p>
         <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal services, answer your questions, and maintain contact, with your consent.</p>
         <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+    </div>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+<!-- INTAKE NOTICE MODAL -->
+<!-- ----------------------------------------------------------- -->
+<div id="intakeNoticeModal" class="modal" onclick="if (event.target === this) closeIntakeNoticeModal();">
+    <div class="modal__content">
+        <button class="modal__close" onclick="closeIntakeNoticeModal()">&times;</button>
+        <h2 class="modal__title">Intake Notice</h2>
+        <div class="modal__body">
+            <h3 class="modal__section-title">Intake Appointment</h3>
+            <p class="modal__text">Before we can confirm and book your intake appointment, it is strongly recommended that you be ready to present all documents relevant to your matter, such as contracts, agreements, court notices, orders or any other paperwork.</p>
+            <p class="modal__text">If you are uncertain whether a document is relevant, we can review it together. Copies of supporting documents should be prepared in advance, but originals may also be requested for verification.</p>
+
+            <h3 class="modal__section-title">Identification Requirement</h3>
+            <p class="modal__text">At the time of your intake appointment, you must be ready to present any valid government-issued identification document and provide following information:</p>
+            <p class="modal__text">Full name; date of birth; home address and telephone number; occupation; and/or business address and business telephone number; organization's incorporation or business identification number and its place of issue.</p>
+        </div>
+        <div class="intake-notice-modal__actions modal-sticky-actions">
+            <button type="button" class="contact-form__submit-button intake-notice-modal__ok" onclick="closeIntakeNoticeModal()">OK</button>
+        </div>
     </div>
 </div>
 
@@ -4508,6 +4613,25 @@
             input.classList.remove('field-invalid');
         });
     });
+
+    // Intake Notice Modal
+    function openIntakeNoticeModal() {
+        const modal = document.getElementById('intakeNoticeModal');
+        if (modal) {
+            modal.classList.add('modal--active');
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-is-open');
+        }
+    }
+
+    function closeIntakeNoticeModal() {
+        const modal = document.getElementById('intakeNoticeModal');
+        if (modal) {
+            modal.classList.remove('modal--active');
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-is-open');
+        }
+    }
 
     // Terms of Service Modal
     function openTermsModal() {
