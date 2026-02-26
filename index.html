@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)">
+    <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org;">
     <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
     <title>Hanna Dunchenko Paralegal Services | Ontario</title>
@@ -2036,6 +2036,14 @@
             width: 100%;
         }
 
+        .file-attach__controls {
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 0.7rem;
+            align-items: stretch;
+        }
+
         .file-attach__btn {
             display: flex;
             align-items: center;
@@ -2057,12 +2065,29 @@
             text-align: center;
         }
 
+        .file-attach__btn--camera {
+            border-style: solid;
+            border-width: 2px;
+            border-color: rgba(255, 255, 255, 0.42);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .file-attach__btn--camera .file-attach__hint {
+            opacity: 0.85;
+        }
+
         .file-attach__btn:hover,
         .file-attach__btn:focus-visible {
             background: #ffffff;
             border-color: rgba(255, 255, 255, 0.5);
             color: #5a3d2a;
             box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.12);
+        }
+
+        @media (max-width: 520px) {
+            .file-attach__controls {
+                grid-template-columns: 1fr;
+            }
         }
 
         .file-attach--drag-over .file-attach__btn {
@@ -2170,6 +2195,77 @@
             background: rgba(255, 255, 255, 0.6);
             width: 0%;
             transition: width 0.5s ease-out;
+        }
+
+        .camera-capture-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 21050;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .camera-capture-modal--active {
+            display: flex;
+        }
+
+        .camera-capture__panel {
+            width: min(35rem, 96vw);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: #3a2a1a;
+            box-shadow: 0 1.5rem 2.8rem rgba(0, 0, 0, 0.38);
+            padding: 1rem;
+        }
+
+        .camera-capture__title {
+            margin: 0 0 0.7rem 0;
+            color: #fff;
+            font-size: 1.02rem;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .camera-capture__video-wrap {
+            border-radius: 0.78rem;
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 4 / 3;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .camera-capture__video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .camera-capture__status {
+            margin: 0.6rem 0 0.7rem;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.86);
+            text-align: center;
+            min-height: 1.05rem;
+        }
+
+        .camera-capture__actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        .camera-capture__actions .contact-form__submit-button {
+            margin: 0 !important;
+            width: 100%;
         }
 
         /* Custom Dropdown (Select Replacement) */
@@ -3246,17 +3342,32 @@
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px;">
                         <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
-                        <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
-                            <span class="file-attach__title">
-                                <span class="file-attach__icon">
-                                    <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
-                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                                    </svg>
+                        <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
+                        <div class="file-attach__controls">
+                            <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
+                                <span class="file-attach__title">
+                                    <span class="file-attach__icon">
+                                        <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                        </svg>
+                                    </span>
+                                    Attach Files
                                 </span>
-                                Attach Files
-                            </span>
-                            <span class="file-attach__hint">Attach any files you have (drag &amp; drop or click)</span>
-                        </button>
+                                <span class="file-attach__hint">Attach any files you have (drag &amp; drop or click)</span>
+                            </button>
+                            <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
+                                <span class="file-attach__title">
+                                    <span class="file-attach__icon">
+                                        <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                            <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
+                                            <circle cx="12" cy="13" r="4"></circle>
+                                        </svg>
+                                    </span>
+                                    Take Photo
+                                </span>
+                                <span class="file-attach__hint">Use device camera and add photo automatically</span>
+                            </button>
+                        </div>
                         <div class="file-attach__list" id="fileAttachList"></div>
                     </div>
                 </div>
@@ -3282,6 +3393,20 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<div id="cameraCaptureModal" class="camera-capture-modal" aria-hidden="true">
+    <div class="camera-capture__panel">
+        <h3 class="camera-capture__title">Take Document Photo</h3>
+        <div class="camera-capture__video-wrap">
+            <video id="cameraPreview" class="camera-capture__video" autoplay playsinline muted></video>
+        </div>
+        <p class="camera-capture__status" id="cameraCaptureStatus">Allow camera access, then press Capture.</p>
+        <div class="camera-capture__actions">
+            <button type="button" class="contact-form__submit-button" id="cameraSnapBtn">Capture</button>
+            <button type="button" class="contact-form__submit-button final-result-done" id="cameraCancelBtn">Cancel</button>
         </div>
     </div>
 </div>
@@ -4239,6 +4364,7 @@
     }
 
     function closeBookingModal() {
+        closeCameraCaptureModal();
         const isSuccess = modal && modal.dataset.state === 'success';
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
@@ -4273,8 +4399,16 @@
 
     let attachedFiles = [];
     const fileInput = document.getElementById('fileAttachInput');
+    const cameraFallbackInput = document.getElementById('cameraFallbackInput');
+    const takePhotoBtn = document.getElementById('takePhotoBtn');
     const fileListEl = document.getElementById('fileAttachList');
     const fileAttachZone = document.querySelector('.file-attach');
+    const cameraCaptureModal = document.getElementById('cameraCaptureModal');
+    const cameraPreviewEl = document.getElementById('cameraPreview');
+    const cameraCaptureStatus = document.getElementById('cameraCaptureStatus');
+    const cameraSnapBtn = document.getElementById('cameraSnapBtn');
+    const cameraCancelBtn = document.getElementById('cameraCancelBtn');
+    let cameraStream = null;
 
     function getTotalFileSize() {
         return attachedFiles.reduce((sum, f) => sum + f.size, 0);
@@ -4312,6 +4446,116 @@
         renderFileList();
     }
 
+    function setCameraStatus(message) {
+        if (cameraCaptureStatus) {
+            cameraCaptureStatus.textContent = message || '';
+        }
+    }
+
+    function stopCameraCaptureStream() {
+        if (cameraStream) {
+            cameraStream.getTracks().forEach(track => track.stop());
+            cameraStream = null;
+        }
+        if (cameraPreviewEl) {
+            cameraPreviewEl.pause();
+            cameraPreviewEl.srcObject = null;
+        }
+    }
+
+    function closeCameraCaptureModal() {
+        if (cameraCaptureModal) {
+            cameraCaptureModal.classList.remove('camera-capture-modal--active');
+            cameraCaptureModal.setAttribute('aria-hidden', 'true');
+        }
+        stopCameraCaptureStream();
+        setCameraStatus('Allow camera access, then press Capture.');
+    }
+
+    async function openCameraCaptureModal() {
+        if (!cameraCaptureModal || !cameraPreviewEl) {
+            if (cameraFallbackInput) cameraFallbackInput.click();
+            return;
+        }
+
+        cameraCaptureModal.classList.add('camera-capture-modal--active');
+        cameraCaptureModal.setAttribute('aria-hidden', 'false');
+        setCameraStatus('Requesting camera access...');
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            setCameraStatus('Camera API is unavailable. Opening device camera...');
+            if (cameraFallbackInput) cameraFallbackInput.click();
+            return;
+        }
+
+        try {
+            stopCameraCaptureStream();
+            cameraStream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: { ideal: 'environment' },
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                audio: false
+            });
+            cameraPreviewEl.srcObject = cameraStream;
+            await cameraPreviewEl.play();
+            setCameraStatus('Frame the document and press Capture.');
+        } catch (err) {
+            setCameraStatus('Camera access denied/unavailable. Opening device camera...');
+            if (cameraFallbackInput) cameraFallbackInput.click();
+        }
+    }
+
+    async function capturePhotoFromCamera() {
+        if (!cameraPreviewEl || !cameraPreviewEl.srcObject) {
+            setCameraStatus('Camera is not ready yet.');
+            return;
+        }
+
+        const width = cameraPreviewEl.videoWidth || 1280;
+        const height = cameraPreviewEl.videoHeight || 720;
+        if (!width || !height) {
+            setCameraStatus('Camera frame is not available yet. Please try again.');
+            return;
+        }
+
+        if (cameraSnapBtn) cameraSnapBtn.disabled = true;
+        try {
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                setCameraStatus('Could not capture image.');
+                return;
+            }
+            ctx.drawImage(cameraPreviewEl, 0, 0, width, height);
+
+            await new Promise((resolve) => {
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        setCameraStatus('Could not create photo file.');
+                        resolve();
+                        return;
+                    }
+
+                    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+                    const photoFile = new File([blob], `document-photo-${stamp}.jpg`, {
+                        type: 'image/jpeg',
+                        lastModified: Date.now()
+                    });
+
+                    addSelectedFiles([photoFile]);
+                    closeCameraCaptureModal();
+                    resolve();
+                }, 'image/jpeg', 0.9);
+            });
+        } finally {
+            if (cameraSnapBtn) cameraSnapBtn.disabled = false;
+        }
+    }
+
     if (fileInput) {
         fileInput.addEventListener('change', function() {
             const newFiles = Array.from(this.files || []);
@@ -4319,6 +4563,47 @@
             this.value = ''; // Reset input
         });
     }
+
+    if (cameraFallbackInput) {
+        cameraFallbackInput.addEventListener('change', function() {
+            const newFiles = Array.from(this.files || []);
+            addSelectedFiles(newFiles);
+            this.value = '';
+            closeCameraCaptureModal();
+        });
+    }
+
+    if (takePhotoBtn) {
+        takePhotoBtn.addEventListener('click', () => {
+            openCameraCaptureModal();
+        });
+    }
+
+    if (cameraCancelBtn) {
+        cameraCancelBtn.addEventListener('click', () => {
+            closeCameraCaptureModal();
+        });
+    }
+
+    if (cameraSnapBtn) {
+        cameraSnapBtn.addEventListener('click', () => {
+            capturePhotoFromCamera();
+        });
+    }
+
+    if (cameraCaptureModal) {
+        cameraCaptureModal.addEventListener('click', (e) => {
+            if (e.target === cameraCaptureModal) {
+                closeCameraCaptureModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && cameraCaptureModal && cameraCaptureModal.classList.contains('camera-capture-modal--active')) {
+            closeCameraCaptureModal();
+        }
+    });
 
     if (fileAttachZone) {
         let dragDepth = 0;
