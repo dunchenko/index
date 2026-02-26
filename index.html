@@ -4561,6 +4561,7 @@
         // Initialize custom select dropdown
         initializeCustomSelects();
         initFaqAccordionScrollReveal();
+        initSecretTestModeGesture();
         initPerformanceHealthMonitor();
         attachFormAutoSave();
         initAutoGrowTextareas();
@@ -4721,6 +4722,70 @@
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
     const confirmBtn = document.getElementById('confirmBookingBtn');
+    const SECRET_TEST_HOLD_MS = 8000;
+    let secretTestModeEnabled = false;
+    let secretHoldTimer = null;
+
+    function isSecretTestBypassReady(form) {
+        if (!secretTestModeEnabled || !form) return false;
+        return normalizeSingleLine(form.name?.value) === '1';
+    }
+
+    function getConfirmBtnLabel() {
+        return secretTestModeEnabled ? 'Book Now [TEST]' : 'Book Now';
+    }
+
+    function setBookingNotice(message) {
+        if (!bookingStatus) return;
+        bookingStatus.textContent = String(message || '');
+        bookingStatus.classList.remove('status-alert--visible');
+        void bookingStatus.offsetWidth;
+        if (bookingStatus.textContent) bookingStatus.classList.add('status-alert--visible');
+    }
+
+    function applySecretTestModeUI() {
+        const form = document.getElementById('bookingForm');
+        if (form) form.noValidate = !!secretTestModeEnabled;
+        if (confirmBtn && !confirmBtn.disabled) confirmBtn.textContent = getConfirmBtnLabel();
+    }
+
+    function toggleSecretTestMode() {
+        secretTestModeEnabled = !secretTestModeEnabled;
+        applySecretTestModeUI();
+
+        if (secretTestModeEnabled) {
+            setBookingNotice('TEST MODE ENABLED: Hold requirements are bypassed. Enter "1" in Name and submit.');
+            logEvent('Secret Test Mode Enabled', 'Long-press submit button for 8 seconds');
+        } else {
+            clearBookingError();
+            logEvent('Secret Test Mode Disabled', 'Long-press submit button for 8 seconds');
+        }
+    }
+
+    function initSecretTestModeGesture() {
+        if (!confirmBtn) return;
+
+        const clearHoldTimer = () => {
+            if (!secretHoldTimer) return;
+            clearTimeout(secretHoldTimer);
+            secretHoldTimer = null;
+        };
+
+        const startHoldTimer = (e) => {
+            if (e && typeof e.button === 'number' && e.button !== 0) return;
+            clearHoldTimer();
+            secretHoldTimer = setTimeout(() => {
+                secretHoldTimer = null;
+                toggleSecretTestMode();
+            }, SECRET_TEST_HOLD_MS);
+        };
+
+        confirmBtn.addEventListener('pointerdown', startHoldTimer);
+        confirmBtn.addEventListener('pointerup', clearHoldTimer);
+        confirmBtn.addEventListener('pointercancel', clearHoldTimer);
+        confirmBtn.addEventListener('pointerleave', clearHoldTimer);
+        confirmBtn.addEventListener('lostpointercapture', clearHoldTimer);
+    }
 
     function openBookingModal(slot, triggerAttach = false) {
 
@@ -4774,10 +4839,11 @@
             document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
             if(confirmBtn) {
                 confirmBtn.disabled = false;
-                confirmBtn.textContent = 'Book Now';
+                confirmBtn.textContent = getConfirmBtnLabel();
             }
             
             loadFormData();
+            applySecretTestModeUI();
             initAutoGrowTextareas();
 
             if (triggerAttach) {
@@ -5332,6 +5398,17 @@
     }
 
     function validateAndNormalizeBookingForm(form) {
+        if (isSecretTestBypassReady(form)) {
+            clearBookingError();
+            form.name.value = '1';
+            return true;
+        }
+
+        if (secretTestModeEnabled) {
+            setBookingError('TEST MODE: enter exactly "1" in Name to use quick submit.', form.name);
+            return false;
+        }
+
         const name = normalizeSingleLine(form.name?.value);
         const occupation = normalizeSingleLine(form.occupation?.value);
         const email = normalizeSingleLine(form.email?.value).toLowerCase();
@@ -5522,37 +5599,42 @@
         if (!validateAndNormalizeBookingForm(form)) return;
 
         const formData = new FormData(form);
-        if (!formData.get('service')) {
-            const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
-            setBookingError('Please choose a service from the list.', serviceTrigger);
-            return;
-        }
+        const isSecretQuickSubmit = isSecretBypassReady(form);
+        if (!isSecretQuickSubmit) {
+            if (!formData.get('service')) {
+                const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
+                setBookingError('Please choose a service from the list.', serviceTrigger);
+                return;
+            }
 
-        // Age Validation: Must be 18+
-        const dobYear = parseInt(formData.get('dob_year'));
-        const dobMonth = parseInt(formData.get('dob_month'));
-        const dobDay = parseInt(formData.get('dob_day'));
-        const maxDays = new Date(dobYear, dobMonth, 0).getDate();
-        if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
-            setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
-            return;
-        }
+            // Age Validation: Must be 18+
+            const dobYear = parseInt(formData.get('dob_year'));
+            const dobMonth = parseInt(formData.get('dob_month'));
+            const dobDay = parseInt(formData.get('dob_day'));
+            const maxDays = new Date(dobYear, dobMonth, 0).getDate();
+            if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
+                setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
+                return;
+            }
 
-        const today = new Date();
-        let age = today.getFullYear() - dobYear;
-        const m = (today.getMonth() + 1) - dobMonth;
-        if (m < 0 || (m === 0 && today.getDate() < dobDay)) {
-            age--;
-        }
-        if (age < 18) {
-            setBookingError('You must be at least 18 years old to book services.', form.dob_year);
-            return;
-        }
+            const today = new Date();
+            let age = today.getFullYear() - dobYear;
+            const m = (today.getMonth() + 1) - dobMonth;
+            if (m < 0 || (m === 0 && today.getDate() < dobDay)) {
+                age--;
+            }
+            if (age < 18) {
+                setBookingError('You must be at least 18 years old to book services.', form.dob_year);
+                return;
+            }
 
-        const now = Date.now();
-        if (now - lastBookingTime < 60000) {
-            setBookingError('Please wait 60 seconds before booking again.', form.name);
-            return;
+            const now = Date.now();
+            if (now - lastBookingTime < 60000) {
+                setBookingError('Please wait 60 seconds before booking again.', form.name);
+                return;
+            }
+        } else {
+            setBookingNotice('TEST MODE: quick submit payload generated from Name=1.');
         }
 
         const summary = {
@@ -5566,6 +5648,25 @@
             slotText: selectedSlotData ? String(selectedSlotData.text || '').trim() : '',
             filesCount: 0
         };
+
+        const quickSubmitDefaults = {
+            payloadName: 'Test User 1',
+            occupation: 'Test Occupation',
+            email: 'test.mode+1@example.com',
+            phone: '+1 (416) 555-0101',
+            service: 'Other',
+            notes: '[TEST_MODE] Quick submit with Name=1',
+            address: '100 Test St, Toronto, ON M1M 1M1',
+            dob: '1990-01-01'
+        };
+
+        if (isSecretQuickSubmit) {
+            summary.email = quickSubmitDefaults.email;
+            summary.phone = quickSubmitDefaults.phone;
+            summary.service = quickSubmitDefaults.service;
+            summary.address = quickSubmitDefaults.address;
+            summary.dob = quickSubmitDefaults.dob;
+        }
 
         const globalSpinner = document.getElementById('globalSpinner');
         if (globalSpinner) globalSpinner.style.display = 'flex';
@@ -5585,12 +5686,12 @@
                 day: parseInt(selectedSlotData.iso.split('T')[0].split('-')[2]),
                 hour: parseInt(selectedSlotData.iso.split('T')[1].split(':')[0]),
                 minute: parseInt(selectedSlotData.iso.split('T')[1].split(':')[1]),
-                name: sanitize(summary.name),
-                occupation: sanitize(formData.get('occupation')),
+                name: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.payloadName : summary.name),
+                occupation: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.occupation : formData.get('occupation')),
                 email: sanitize(summary.email),
                 phone: sanitize(summary.phone),
                 service: sanitize(summary.service),
-                notes: sanitize(formData.get('notes')),
+                notes: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.notes : formData.get('notes')),
                 dateStr: selectedSlotData.iso,
                 dob: sanitize(summary.dob),
                 address: sanitize(summary.address),
@@ -5636,7 +5737,7 @@
             if (globalSpinner) globalSpinner.style.display = 'none';
             if (!isSuccess && confirmBtn) {
                 confirmBtn.disabled = false;
-                confirmBtn.textContent = 'Book Now';
+                confirmBtn.textContent = getConfirmBtnLabel();
             }
         }
     }
