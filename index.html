@@ -882,6 +882,42 @@
             pointer-events: none;
         }
 
+        .faq--accordion .faq__item {
+            overflow: hidden;
+            border-bottom-left-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+        }
+
+        .faq--accordion .faq__item::after {
+            content: "";
+            position: absolute;
+            left: -0.25rem;
+            right: -0.25rem;
+            bottom: 0;
+            height: 1.25rem;
+            pointer-events: none;
+            opacity: 0;
+            background: linear-gradient(
+                to top,
+                rgba(255, 255, 255, 0.18) 0%,
+                rgba(255, 255, 255, 0.09) 45%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            -webkit-mask-image: linear-gradient(to top, black, transparent);
+            mask-image: linear-gradient(to top, black, transparent);
+            backdrop-filter: blur(0.65rem);
+            -webkit-backdrop-filter: blur(0.65rem);
+            transition: opacity 0.35s ease;
+        }
+
+        .faq--accordion .faq__item:not(.is-open)::after {
+            opacity: 1;
+        }
+
+        .faq--accordion .faq__item.is-open::after {
+            opacity: 0;
+        }
+
         .faq--accordion .faq__item.is-open .faq__question {
             animation: faqHypnoticOpen 0.8s ease forwards;
         }
