@@ -643,30 +643,68 @@
         }
 
         .contact-form__checkbox {
-            width: 1.8rem; height: 1.8rem;
+            width: 1.9rem;
+            height: 1.9rem;
             padding: 0;
-            appearance: none; -webkit-appearance: none;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 0.5rem;
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
             cursor: pointer;
-            display: grid; place-content: center;
+            display: inline-block;
             flex-shrink: 0;
+            position: relative;
+            border-radius: 0.45rem;
+            transition: transform 0.18s ease, filter 0.18s ease;
         }
 
-        .contact-form__checkbox:checked { 
-            background: var(--accent-hover); 
-            border-color: var(--accent-hover); 
+        .contact-form__checkbox::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            opacity: 0.95;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26' fill='none'%3E%3Cpath d='M4.6 5.3L20.9 4.7L21.7 21.1L4.1 20.5L4.6 5.3Z' stroke='rgba(255,255,255,0.9)' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.2 8.4L3.8 19.7' stroke='rgba(255,255,255,0.42)' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E");
         }
-        
-        .contact-form__checkbox:checked::before {
-            content: ""; width: 0.4rem; height: 0.6rem; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); margin-top: -2px;
+
+        .contact-form__checkbox:hover {
+            transform: translateY(-0.5px) rotate(-1deg);
+            filter: brightness(1.06);
+        }
+
+        .contact-form__checkbox:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.45);
+            outline-offset: 2px;
+        }
+
+        .contact-form__checkbox:checked {
+            background: rgba(255, 255, 255, 0.13);
+        }
+
+        .contact-form__checkbox:checked::after {
+            content: "";
+            position: absolute;
+            inset: 2px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 90% 90%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M4.8 12.4C6.1 13.2 7.6 14.7 8.9 17.2C11.9 12.9 14.3 10.1 18.7 6.8' stroke='white' stroke-width='2.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M5.5 13.2C6.6 14.2 7.6 15.4 8.6 16.9' stroke='rgba(255,255,255,0.8)' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+            animation: handCheckIn 0.2s ease-out;
+        }
+
+        @keyframes handCheckIn {
+            from { opacity: 0; transform: scale(0.7) rotate(-7deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
         }
 
         .contact-form__checkbox-label {
             font-size: 0.9rem;
             font-weight: 800;
             cursor: pointer;
+            font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive !important;
+            letter-spacing: 0.01em;
         }
         
         .contact-form__terms-link {
@@ -1103,7 +1141,6 @@
         #bookingModal .modal__body,
         #bookingModal .modal__body p,
         #bookingModal .contact-form__label,
-        #bookingModal .contact-form__checkbox-label,
         #bookingModal .contact-form__terms-link,
         #bookingModal .file-attach__name,
         #bookingModal .file-attach__remove,
@@ -1115,6 +1152,14 @@
             font-weight: 400 !important;
             color: rgba(255,255,255,0.92) !important;
             line-height: 1.6 !important;
+            letter-spacing: 0.01em !important;
+        }
+
+        #bookingModal .contact-form__checkbox-label {
+            font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", "Marker Felt", cursive !important;
+            font-size: 1.03rem !important;
+            font-weight: 700 !important;
+            line-height: 1.35 !important;
             letter-spacing: 0.01em !important;
         }
 
