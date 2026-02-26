@@ -55,6 +55,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMMKRZ3VBV"></script>
     <script>
         // --- Book Button Animation Logic ---
+        const IS_LOW_END_DEVICE_FOR_JUMP = (
+            (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
+            (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4)
+        );
+
         function startBookBtnJumping(btnId, preloaderId) {
             const btn = document.getElementById(btnId);
             const preloader = document.getElementById(preloaderId);
@@ -89,10 +94,13 @@
                 }
             }
             function scheduleJump() {
-                const min = 3000, max = 10000;
+                const min = IS_LOW_END_DEVICE_FOR_JUMP ? 9000 : 5000;
+                const max = IS_LOW_END_DEVICE_FOR_JUMP ? 18000 : 12000;
                 const delay = Math.floor(Math.random() * (max - min + 1)) + min;
                 setTimeout(() => {
-                    doJumpWithSparks();
+                    if (!document.hidden) {
+                        doJumpWithSparks();
+                    }
                     scheduleJump();
                 }, delay);
             }
@@ -2343,18 +2351,23 @@
 
         .spark {
             position: absolute;
-            width: 0.4rem; height: 0.4rem;
+            width: 0.28rem;
+            height: 0.28rem;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
-            background: #ffffff;
-            z-index: -1; /* Start behind the button */
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 0;
+            will-change: transform, opacity;
+            contain: layout style paint;
+            transform: translate3d(0, 0, 0);
+            animation: sparkle var(--spark-duration, 460ms) cubic-bezier(0.2, 0.75, 0.25, 1) var(--spark-delay, 0ms) forwards;
         }
 
         @keyframes sparkle {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translate(var(--vx), var(--vy)) scale(1.8); opacity: 0; }
+            0% { transform: translate3d(0, 0, 0) scale(0.6); opacity: 0; }
+            15% { opacity: 0.95; }
+            100% { transform: translate3d(var(--vx), var(--vy), 0) scale(1.25); opacity: 0; }
         }
 
         @keyframes hypnoticPulse {
@@ -4970,33 +4983,72 @@
         }, 600);
     }
 
+    // Lightweight particle burst: throttled and adaptive for low-end devices.
+    const sparkBurstState = new WeakMap();
     function createSparks(container) {
         if (!container) return;
-        container.style.position = 'relative';
-        let burstCount = 18;
-        for (let i = 0; i < burstCount; i++) {
-            setTimeout(() => {
-                const spark = document.createElement('div');
-                spark.className = 'spark';
-                const angle = Math.random() * Math.PI * 2;
-                const randomRadius = 30 + Math.random() * 20;
-                const startX = Math.cos(angle) * randomRadius;
-                const startY = Math.sin(angle) * randomRadius;
-                spark.style.left = `calc(50% + ${startX}px)`;
-                spark.style.top = `calc(50% + ${startY}px)`;
-                spark.style.transform = 'translate(-50%, -50%)';
-                const velocity = 50 + Math.random() * 80;
-                const vx = Math.cos(angle) * velocity;
-                const vy = Math.sin(angle) * velocity;
-                spark.style.setProperty('--vx', vx + 'px');
-                spark.style.setProperty('--vy', vy + 'px');
-                spark.style.animation = 'sparkle 0.8s ease-out forwards';
-                container.appendChild(spark);
-                setTimeout(() => {
-                    if(spark.parentNode) spark.parentNode.removeChild(spark);
-                }, 800);
-            }, i * 20);
+        if (document.hidden) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const isLowEndDevice = (
+            (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
+            (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4)
+        );
+
+        const now = performance.now();
+        const lastBurstAt = sparkBurstState.get(container) || 0;
+        const minIntervalMs = isLowEndDevice ? 900 : 420;
+        if (now - lastBurstAt < minIntervalMs) return;
+        sparkBurstState.set(container, now);
+
+        if (!container.style.position) {
+            container.style.position = 'relative';
         }
+
+        const burstCount = isLowEndDevice ? 6 : 10;
+        const minRadius = isLowEndDevice ? 14 : 18;
+        const maxRadius = isLowEndDevice ? 24 : 34;
+        const minVelocity = isLowEndDevice ? 18 : 28;
+        const maxVelocity = isLowEndDevice ? 44 : 66;
+        const maxDelay = isLowEndDevice ? 90 : 160;
+        const durationMs = isLowEndDevice ? 360 : 460;
+
+        const fragment = document.createDocumentFragment();
+        const sparks = [];
+
+        for (let i = 0; i < burstCount; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+
+            const angle = Math.random() * Math.PI * 2;
+            const radius = minRadius + Math.random() * (maxRadius - minRadius);
+            const startX = Math.cos(angle) * radius;
+            const startY = Math.sin(angle) * radius;
+            spark.style.left = `calc(50% + ${startX.toFixed(1)}px)`;
+            spark.style.top = `calc(50% + ${startY.toFixed(1)}px)`;
+            spark.style.transform = 'translate(-50%, -50%)';
+
+            const velocity = minVelocity + Math.random() * (maxVelocity - minVelocity);
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            spark.style.setProperty('--vx', `${vx.toFixed(1)}px`);
+            spark.style.setProperty('--vy', `${vy.toFixed(1)}px`);
+            spark.style.setProperty('--spark-delay', `${Math.floor(Math.random() * maxDelay)}ms`);
+            spark.style.setProperty('--spark-duration', `${durationMs}ms`);
+
+            fragment.appendChild(spark);
+            sparks.push(spark);
+        }
+
+        container.appendChild(fragment);
+
+        setTimeout(() => {
+            for (let i = 0; i < sparks.length; i++) {
+                if (sparks[i] && sparks[i].parentNode) {
+                    sparks[i].parentNode.removeChild(sparks[i]);
+                }
+            }
+        }, durationMs + maxDelay + 80);
     }
 
     function normalizeSlotNotFoundText() {
