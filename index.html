@@ -2861,10 +2861,10 @@
             align-items: flex-start;
             padding: 0.9rem 1.3rem 0;
             border-bottom: 1px solid var(--glass-border);
-            opacity: 0;
-            transform: translateY(-100%);
-            pointer-events: none;
-            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition: opacity 0.25s ease, transform 0.25s ease;
             -webkit-mask-image: linear-gradient(to bottom, black, transparent);
             mask-image: linear-gradient(to bottom, black, transparent);
         }
@@ -2890,10 +2890,10 @@
             align-items: flex-end;
             padding: 0 1.3rem 0.9rem;
             border-top: 1px solid var(--glass-border);
-            opacity: 0;
-            transform: translateY(100%);
-            pointer-events: none;
-            transition: opacity 2.5s ease-in-out, transform 2.5s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition: opacity 0.25s ease, transform 0.25s ease;
             -webkit-mask-image: linear-gradient(to top, black, transparent);
             mask-image: linear-gradient(to top, black, transparent);
         }
@@ -6009,45 +6009,14 @@
     window.addEventListener('resize', adjustDynamicText);
 
     // ------------------------------------------------------------------
-    // AUTO-HIDING TOP BAR
+    // PERSISTENT TOP/BOTTOM BARS
     // ------------------------------------------------------------------
-    const topBar = document.querySelector('.top-bar');
-    const bottomBar = document.querySelector('.bottom-bar');
-    let lastScrollTop = 0;
-    let scrollTimeout;
-
-    function hideBars() {
-        if (!document.querySelector('.modal--active')) {
-            if (topBar) topBar.classList.remove('top-bar--visible');
-            if (bottomBar) bottomBar.classList.remove('bottom-bar--visible');
-        }
-    }
-
-    function startHideTimer() {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(hideBars, 10000);
-    }
-
-
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        // On any scroll, show the bars.
+    (function keepBarsAlwaysVisible() {
+        const topBar = document.querySelector('.top-bar');
+        const bottomBar = document.querySelector('.bottom-bar');
         if (topBar) topBar.classList.add('top-bar--visible');
         if (bottomBar) bottomBar.classList.add('bottom-bar--visible');
-        // Reset the timer to hide it after a period of inactivity.
-        startHideTimer();
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    }, { passive: true });
-
-    if (topBar) {
-        topBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
-        topBar.addEventListener('mouseleave', startHideTimer);
-    }
-    if (bottomBar) {
-        bottomBar.addEventListener('mouseenter', () => clearTimeout(scrollTimeout));
-        bottomBar.addEventListener('mouseleave', startHideTimer);
-    }
+    })();
 
     // Scroll Fade-in Observer
     // Scroll Fade-in Observer
