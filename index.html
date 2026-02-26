@@ -2810,6 +2810,67 @@
             min-height: 3.1rem;
         }
 
+        /* Block: Month Switch Overlay */
+        .month-switch-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(18, 12, 8, 0.45);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 35000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s linear;
+        }
+
+        .month-switch-overlay--active {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .month-switch-overlay__progress {
+            width: min(84vw, 36rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .month-switch-overlay__bar {
+            width: 100%;
+            height: 0.62rem;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
+        }
+
+        .month-switch-overlay__fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, rgba(255,255,255,0.45), rgba(255,255,255,0.95));
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
+            transition: width 0.12s linear;
+            will-change: width;
+        }
+
+        .month-switch-overlay__percent {
+            font-size: clamp(1rem, 3.6vw, 1.55rem);
+            font-weight: 900;
+            letter-spacing: 1.6px;
+            color: #ffffff;
+            line-height: 1;
+            min-width: 4ch;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+        }
+
         /* Block: Global Spinner Overlay */
         .global-spinner {
             position: fixed;
@@ -3752,6 +3813,9 @@
     let slotSparkleTimer = null;
     let slotSparkleOrder = [];
     let slotSparkleCursor = 0;
+    let monthSwitchProgressTimer = null;
+    let monthSwitchProgressValue = 0;
+    let monthSwitchProgressRunId = 0;
 
     const CALENDAR_CACHE_STORAGE_KEY = 'hd_calendar_cache_v2';
     const CALENDAR_CACHE_TTL_MS = 5 * 60 * 1000;
@@ -3760,6 +3824,8 @@
     const SLOT_SPARKLE_MIN_DELAY_MS = 5000;
     const SLOT_SPARKLE_MAX_DELAY_MS = 15000;
     const SLOT_SPARKLE_DURATION_MS = 360;
+    const MONTH_SWITCH_PROGRESS_TICK_MS = 120;
+    const MONTH_SWITCH_PROGRESS_SOFT_CAP = 94;
 
     const MONTH_NAMES = ["January","February","March","April","May","June",
                         "July","August","September","October","November","December"];
@@ -3768,7 +3834,8 @@
 
     // DOM refs (resolved after DOMContentLoaded)
     let calGrid, calOverlay, calLoaderStatus, monthDisplay,
-        slotsGrid, slotsBlock, slotsNav, slotsDayDisplay, headerTitle;
+        slotsGrid, slotsBlock, slotsNav, slotsDayDisplay, headerTitle,
+        monthSwitchOverlay, monthSwitchProgressFill, monthSwitchProgressValueEl;
 
     // ------------------------------------------------------------------
     // FETCH
@@ -4313,6 +4380,60 @@
         scheduleNextSlotSparkle();
     }
 
+    function clearMonthSwitchProgressTimer() {
+        if (monthSwitchProgressTimer) {
+            clearInterval(monthSwitchProgressTimer);
+            monthSwitchProgressTimer = null;
+        }
+    }
+
+    function setMonthSwitchProgress(value) {
+        monthSwitchProgressValue = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+        if (monthSwitchProgressFill) {
+            monthSwitchProgressFill.style.width = `${monthSwitchProgressValue}%`;
+        }
+        if (monthSwitchProgressValueEl) {
+            monthSwitchProgressValueEl.textContent = `${monthSwitchProgressValue}%`;
+        }
+    }
+
+    function startMonthSwitchProgressOverlay() {
+        if (!monthSwitchOverlay || !monthSwitchProgressFill || !monthSwitchProgressValueEl) return 0;
+        monthSwitchProgressRunId += 1;
+        const runId = monthSwitchProgressRunId;
+        clearMonthSwitchProgressTimer();
+        setMonthSwitchProgress(0);
+        monthSwitchOverlay.classList.add('month-switch-overlay--active');
+        monthSwitchOverlay.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => {
+            if (runId !== monthSwitchProgressRunId) return;
+            setMonthSwitchProgress(randomBetween(4, 9));
+        });
+        monthSwitchProgressTimer = setInterval(() => {
+            if (runId !== monthSwitchProgressRunId) return;
+            const next = Math.min(
+                MONTH_SWITCH_PROGRESS_SOFT_CAP,
+                monthSwitchProgressValue + randomBetween(2, 8)
+            );
+            setMonthSwitchProgress(next);
+        }, MONTH_SWITCH_PROGRESS_TICK_MS);
+        return runId;
+    }
+
+    function finishMonthSwitchProgressOverlay(runId, isError = false) {
+        if (!monthSwitchOverlay || !runId) return;
+        if (runId !== monthSwitchProgressRunId) return;
+        clearMonthSwitchProgressTimer();
+        setMonthSwitchProgress(100);
+        setTimeout(() => {
+            if (runId !== monthSwitchProgressRunId) return;
+            monthSwitchOverlay.classList.remove('month-switch-overlay--active');
+            monthSwitchOverlay.setAttribute('aria-hidden', 'true');
+            if (isError) setMonthSwitchProgress(0);
+            else setTimeout(() => setMonthSwitchProgress(0), 40);
+        }, isError ? 60 : 140);
+    }
+
     // ------------------------------------------------------------------
     // SELECT DAY -> show slots
     // ------------------------------------------------------------------
@@ -4381,6 +4502,7 @@
         document.getElementById('prevBtn').addEventListener('click', async () => {
             if (calendarNavInProgress) return;
             calendarNavInProgress = true;
+            let monthSwitchRunId = 0;
             try {
                 const prevRenderedEl = getAdjacentRenderedAvailableDayEl(-1);
                 if (prevRenderedEl) {
@@ -4388,18 +4510,23 @@
                     return;
                 }
 
+                monthSwitchRunId = startMonthSwitchProgressOverlay();
                 const prevAvailable = await findAdjacentAvailableDate(-1);
                 if (!prevAvailable) return;
+                setMonthSwitchProgress(Math.max(monthSwitchProgressValue, 66));
                 selectedDate = prevAvailable;
                 currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
                 await renderCalendar();
+                setMonthSwitchProgress(100);
             } finally {
+                if (monthSwitchRunId) finishMonthSwitchProgressOverlay(monthSwitchRunId);
                 calendarNavInProgress = false;
             }
         });
         document.getElementById('nextBtn').addEventListener('click', async () => {
             if (calendarNavInProgress) return;
             calendarNavInProgress = true;
+            let monthSwitchRunId = 0;
             try {
                 const nextRenderedEl = getAdjacentRenderedAvailableDayEl(1);
                 if (nextRenderedEl) {
@@ -4407,12 +4534,16 @@
                     return;
                 }
 
+                monthSwitchRunId = startMonthSwitchProgressOverlay();
                 const nextAvailable = await findAdjacentAvailableDate(1);
                 if (!nextAvailable) return;
+                setMonthSwitchProgress(Math.max(monthSwitchProgressValue, 66));
                 selectedDate = nextAvailable;
                 currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
                 await renderCalendar();
+                setMonthSwitchProgress(100);
             } finally {
+                if (monthSwitchRunId) finishMonthSwitchProgressOverlay(monthSwitchRunId);
                 calendarNavInProgress = false;
             }
         });
@@ -4866,6 +4997,9 @@
         slotsNav         = document.getElementById('slotsNav');
         slotsDayDisplay  = document.getElementById('slotsDayDisplay');
         headerTitle      = document.getElementById('calendarHeaderTitle');
+        monthSwitchOverlay = document.getElementById('monthSwitchOverlay');
+        monthSwitchProgressFill = document.getElementById('monthSwitchProgressFill');
+        monthSwitchProgressValueEl = document.getElementById('monthSwitchProgressValue');
 
         const termsCheckbox = document.getElementById('agreeTerms');
         if (termsCheckbox) {
@@ -6522,6 +6656,16 @@
         return false;
     }
 </script>
+
+<!-- Month Switch Overlay -->
+<div id="monthSwitchOverlay" class="month-switch-overlay" aria-hidden="true">
+    <div class="month-switch-overlay__progress" role="status" aria-live="polite" aria-label="Calendar loading progress">
+        <div class="month-switch-overlay__bar">
+            <div id="monthSwitchProgressFill" class="month-switch-overlay__fill"></div>
+        </div>
+        <div id="monthSwitchProgressValue" class="month-switch-overlay__percent">0%</div>
+    </div>
+</div>
 
 <!-- Global Spinner for Finalizing -->
 <div id="globalSpinner" class="global-spinner">
