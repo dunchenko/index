@@ -2084,9 +2084,23 @@
         }
 
         .file-attach__btn--camera .file-attach__title {
-            font-size: 0.72rem;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
+            font-size: 0;
+            letter-spacing: 0;
+            text-transform: none;
+            gap: 0;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .file-attach__btn--camera .file-attach__icon {
+            font-size: 2rem;
+        }
+
+        .file-attach__btn--camera .file-attach__icon-svg,
+        .file-attach__icon-svg--camera {
+            width: 2.1em !important;
+            height: 2.1em !important;
+            animation: none !important;
         }
 
         .file-attach__btn:hover,
@@ -3366,17 +3380,16 @@
                                     </span>
                                     Attach Files
                                 </span>
-                                <span class="file-attach__hint">Attach any files you have (drag &amp; drop<br>or click)</span>
+                                <span class="file-attach__hint">Attach any files you have<br>(drag &amp; drop<br>or click)</span>
                             </button>
                             <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
                                 <span class="file-attach__title">
                                     <span class="file-attach__icon">
-                                        <svg class="file-attach__icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                        <svg class="file-attach__icon-svg file-attach__icon-svg--camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
                                             <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
                                             <circle cx="12" cy="13" r="4"></circle>
                                         </svg>
                                     </span>
-                                    Photo
                                 </span>
                                 <span class="file-attach__hint">Use device camera and add photo automatically</span>
                             </button>
