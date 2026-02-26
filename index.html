@@ -2039,7 +2039,7 @@
         .file-attach__controls {
             width: 100%;
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1fr) auto;
             gap: 0.7rem;
             align-items: stretch;
         }
@@ -2070,10 +2070,23 @@
             border-width: 2px;
             border-color: rgba(255, 255, 255, 0.42);
             background: rgba(255, 255, 255, 0.1);
+            width: 5.25rem;
+            min-width: 5.25rem;
+            height: 5.25rem;
+            min-height: 5.25rem;
+            padding: 0.5rem;
+            gap: 0.2rem;
+            flex-direction: column;
         }
 
         .file-attach__btn--camera .file-attach__hint {
-            opacity: 0.85;
+            display: none;
+        }
+
+        .file-attach__btn--camera .file-attach__title {
+            font-size: 0.72rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
 
         .file-attach__btn:hover,
@@ -3353,7 +3366,7 @@
                                     </span>
                                     Attach Files
                                 </span>
-                                <span class="file-attach__hint">Attach any files you have (drag &amp; drop or click)</span>
+                                <span class="file-attach__hint">Attach any files you have (drag &amp; drop<br>or click)</span>
                             </button>
                             <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
                                 <span class="file-attach__title">
@@ -3363,7 +3376,7 @@
                                             <circle cx="12" cy="13" r="4"></circle>
                                         </svg>
                                     </span>
-                                    Take Photo
+                                    Photo
                                 </span>
                                 <span class="file-attach__hint">Use device camera and add photo automatically</span>
                             </button>
