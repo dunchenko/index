@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org;">
     <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
     <title>Hanna Dunchenko Paralegal Services | Ontario</title>
@@ -45,7 +45,7 @@
           "Friday"
         ],
         "opens": "10:00",
-        "closes": "18:00"
+        "closes": "17:00"
       },
       "description": "Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Expert representation in Toronto, Mississauga, and province-wide."
     }
@@ -801,14 +801,14 @@
 
         #termsModal .modal__content {
             max-width: 50rem;
-            background: var(--bg-dark); /* Match the site's light background */
+            background: #3a2a1a; /* Darker background for contrast */
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.5);
         }
 
         #termsModal .modal__title {
             text-align: center;
-            color: var(--accent-gold);
+            color: #D4B89A; /* Lighter gold for dark background */
             margin-bottom: 2rem;
             font-size: clamp(1.5rem, 6vw, 2.2rem);
         }
@@ -852,7 +852,7 @@
         }
 
         .modal__content {
-            background: var(--bg-dark);
+            background: var(--accent-gold);
             border: 1px solid var(--glass-border);
             border-radius: 1.5rem;
             padding: 2.5rem;
@@ -1034,12 +1034,6 @@
             color: #5a3d2a !important;
         }
 
-        /* Confirmation modal: same font, keep existing proportions/sizes */
-        #confirmationModal,
-        #confirmationModal * {
-            font-family: 'Lato', sans-serif !important;
-        }
-
         #bookingStatus {
             min-height: 1.5rem;
             margin: 0 0 1rem 0 !important;
@@ -1088,144 +1082,94 @@
             40%, 60% { transform: translateX(3px); }
         }
 
-        .confirmation-modal__content {
-            max-width: 33.5rem !important;
-            text-align: center;
+        .final-result-form {
+            padding: 0.45rem 0.1rem 0.2rem;
+            text-align: left;
         }
 
-        .confirmation-modal__body {
-            padding-top: 0.75rem !important;
-        }
-
-        .confirmation-modal__check {
+        .final-result-form__icon {
             color: var(--accent-gold);
-            margin: 0 auto 0.9rem;
+            margin: 0 auto 0.95rem;
             position: relative;
-            display: inline-flex;
-            width: 3.7rem;
-            height: 3.7rem;
+            display: flex;
+            width: 4.25rem;
+            height: 4.25rem;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .confirmation-modal__title {
-            text-align: center;
-            font-size: 1.25rem;
+        .final-result-form__hello {
+            font-size: 1.12rem;
             font-weight: 900;
-            letter-spacing: 0.06em;
-            margin: 0 0 0.95rem 0;
-            text-transform: uppercase;
+            margin: 0 0 0.7rem 0;
+            text-align: left;
         }
 
-        .confirmation-modal__text {
+        .final-result-form__lead {
             font-size: 1rem;
             line-height: 1.55;
             margin: 0 0 1rem 0;
             text-align: left;
         }
 
-        .confirmation-modal__notice {
-            font-size: 0.95rem;
-            line-height: 1.55;
-            margin: 0 0 1.15rem 0;
-            text-align: left;
-            padding: 0.75rem 0.85rem;
+        .final-result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.72rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .final-result-field {
+            padding: 0.68rem 0.78rem;
             border-radius: 0.85rem;
             border: 1px solid rgba(255, 255, 255, 0.22);
             background: rgba(255, 255, 255, 0.08);
+            min-height: 4.1rem;
         }
 
-        .confirmation-modal__actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 1.1rem;
+        .final-result-field--full {
+            grid-column: 1 / -1;
         }
 
-        .confirmation-btn-yes {
-            margin: 0 !important;
-            width: 100%;
-            font-weight: 900 !important;
-            letter-spacing: 0.05em;
-        }
-
-        .confirmation-btn-no {
-            margin: 0 !important;
-            width: 100%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)) !important;
-            border: 1px solid rgba(255,255,255,0.32) !important;
-            color: #ffffff !important;
-            font-weight: 800 !important;
-            letter-spacing: 0.04em;
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.18) !important;
-        }
-
-        .confirmation-btn-no:hover {
-            background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.16)) !important;
-            transform: translateY(-2px);
-        }
-
-        #confirmationModal .contact-form__submit-button.confirmation-btn-yes,
-        #confirmationModal .contact-form__submit-button.confirmation-btn-yes:hover {
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
-        }
-
-        #confirmationModal .contact-form__submit-button.confirmation-btn-no,
-        #confirmationModal .contact-form__submit-button.confirmation-btn-no:hover {
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.18) !important;
-        }
-
-        .success-panel {
-            padding: 0.5rem 0.1rem 0.2rem;
-            text-align: left;
-        }
-
-        .success-panel__icon {
-            color: var(--accent-gold);
-            margin: 0 auto 1rem;
-            position: relative;
-            display: flex;
-            width: 5rem;
-            height: 5rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .success-panel__hello {
-            font-size: 1.15rem;
+        .final-result-label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.76rem;
             font-weight: 900;
-            margin: 0 0 0.8rem 0;
-            text-align: left;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .success-panel__lead {
-            font-size: 1rem;
-            line-height: 1.55;
-            margin: 0 0 1rem 0;
-            text-align: left;
+        .final-result-value {
+            font-size: 0.98rem;
+            line-height: 1.45;
+            color: #fff;
+            word-break: break-word;
         }
 
-        .success-panel__notice {
-            font-size: 0.95rem;
+        .final-result-warning {
+            font-size: 0.94rem;
             line-height: 1.55;
-            margin: 0 0 0.9rem 0;
+            margin: 0 0 0.88rem 0;
             text-align: left;
             padding: 0.78rem 0.85rem;
             border-radius: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.22);
-            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.09);
         }
 
-        .success-panel__actions {
+        .final-result-actions {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
             margin-top: 1.1rem;
         }
 
-        .success-panel__call {
+        .final-result-call {
             width: 100%;
             margin: 0 !important;
             text-decoration: none;
@@ -1237,7 +1181,7 @@
             box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
         }
 
-        .success-panel__done {
+        .final-result-done {
             width: 100%;
             margin: 0 !important;
             background: rgba(255,255,255,0.16) !important;
@@ -1247,14 +1191,20 @@
             box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
         }
 
-        #bookingModal .contact-form__submit-button.success-panel__call,
-        #bookingModal .contact-form__submit-button.success-panel__call:hover {
+        #bookingModal .contact-form__submit-button.final-result-call,
+        #bookingModal .contact-form__submit-button.final-result-call:hover {
             box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
         }
 
-        #bookingModal .contact-form__submit-button.success-panel__done,
-        #bookingModal .contact-form__submit-button.success-panel__done:hover {
+        #bookingModal .contact-form__submit-button.final-result-done,
+        #bookingModal .contact-form__submit-button.final-result-done:hover {
             box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
+        }
+
+        @media (max-width: 650px) {
+            .final-result-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         .modal__highlight { font-weight: 800; color: #D4B89A; }
@@ -3106,7 +3056,7 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 15px; flex-wrap: wrap;">
                     <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">Just tap</span>
-                    <a href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" onclick="logDirectionsClick()" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
+                    <a id="directionsBtn" href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" rel="noopener noreferrer" onclick="return logDirectionsClick(event)" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
                     <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">to start driving</span>
                 </div>
             </div>
@@ -3248,7 +3198,10 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Street, City, ON, ZIP" name="address_full" required minlength="6" maxlength="180" autocomplete="street-address" inputmode="text" spellcheck="false">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" class="contact-form__input" placeholder="Street, City, ON" name="address_street" required minlength="6" maxlength="150" autocomplete="street-address" inputmode="text" spellcheck="false" style="flex-grow: 1;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="width: 30%;">
+                    </div>
                 </div>
 
                 <div class="contact-form__group">
@@ -3287,35 +3240,10 @@
                 <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 12px; margin-bottom: 0;">
                     <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
                     <label for="agreeTerms" class="contact-form__checkbox-label">
-                        I read with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                        I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
                     </label>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-
-<!-- CONFIRMATION MODAL -->
-<div id="confirmationModal" class="modal" style="z-index: 20002;">
-    <div class="modal__content confirmation-modal__content">
-        <div class="modal__body confirmation-modal__body">
-            <div id="confirmationCheckmark" class="confirmation-modal__check">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(90, 61, 42, 0.4));">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </div>
-            <p class="confirmation-modal__title">Confirm Submission</p>
-            <p class="confirmation-modal__text">
-                Please confirm you want to submit this intake request now.
-            </p>
-            <p class="confirmation-modal__notice">
-                This intake form is for preliminary review only and does not create a paralegal-client relationship.
-            </p>
-            <div id="confirmButtons" class="confirmation-modal__actions">
-                <button type="button" class="contact-form__submit-button confirmation-btn-yes" id="confirmYesBtn" onclick="submitBookingAfterConfirm()">YES, SUBMIT</button>
-                <button type="button" class="contact-form__submit-button confirmation-btn-no" onclick="closeConfirmationModal()">NO, GO BACK</button>
-            </div>
         </div>
     </div>
 </div>
@@ -3941,7 +3869,8 @@
     }    /**
      * Sends usage logs to the Google Apps Script spreadsheet.
      */
-     async function logEvent(event, details = "", isSuspicious = false, severity = "") {
+     async function logEvent(event, details = "", isSuspicious = false, severity = "", extra = {}) {
+        const safeExtra = (extra && typeof extra === 'object') ? extra : {};
         try {
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
@@ -3952,7 +3881,9 @@
                     suspicious: isSuspicious,
                     fingerprint: getFingerprint(),
                     userInfo: getDetailedDeviceInfo(),
-                    severity: severity
+                    severity: severity,
+                    locationMapUrl: safeExtra.locationMapUrl || "",
+                    locationCoords: safeExtra.locationCoords || ""
                 })
             });
         } catch (e) { /* silent fail */ }
@@ -4202,6 +4133,7 @@
             if(modal) {
                 window.scrollTo(0, 0);
                 modal.classList.add('modal--active');
+                modal.dataset.state = 'form';
                 document.body.style.overflow = 'hidden';
                 document.body.classList.add('modal-is-open');
             }
@@ -4269,8 +4201,7 @@
     }
 
     function closeBookingModal() {
-
-        const isSuccess = document.getElementById('successBody') !== null;
+        const isSuccess = modal && modal.dataset.state === 'success';
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
         document.body.classList.remove('modal-is-open');
@@ -4471,8 +4402,9 @@
                 email: formData.get('email') || '',
                 phone: formData.get('phone') || '',
                 service: formData.get('service') || '',
-                address_full: formData.get('address_full') || '',
                 notes: formData.get('notes') || '',
+                address_street: formData.get('address_street') || '',
+                address_zip: formData.get('address_zip') || '',
                 dob_year: formData.get('dob_year') || '',
                 dob_month: formData.get('dob_month') || '',
                 dob_day: formData.get('dob_day') || '',
@@ -4612,7 +4544,8 @@
         const occupation = normalizeSingleLine(form.occupation?.value);
         const email = normalizeSingleLine(form.email?.value).toLowerCase();
         const phone = normalizeSingleLine(form.phone?.value);
-        const address = normalizeSingleLine(form.address_full?.value);
+        const street = normalizeSingleLine(form.address_street?.value);
+        const zip = normalizeSingleLine(form.address_zip?.value).toUpperCase();
         const notes = normalizeMultiLine(form.notes?.value);
         const serviceInput = document.getElementById('serviceInput');
         const service = normalizeSingleLine(serviceInput?.value);
@@ -4640,8 +4573,14 @@
             return false;
         }
 
-        if (address.length < 6 || address.length > 180 || /[<>]/.test(address)) {
-            setBookingError('Please enter a valid address (6-180 characters).', form.address_full);
+        if (street.length < 6 || street.length > 150 || /[<>]/.test(street)) {
+            setBookingError('Please enter a valid street address (6-150 characters).', form.address_street);
+            return false;
+        }
+
+        const zipPattern = /^[A-Z]\d[A-Z]\d[A-Z]\d$/;
+        if (!zipPattern.test(zip.replace(/\s/g, ''))) {
+            setBookingError('Please enter a valid postal code (e.g., M5V 2T6).', form.address_zip);
             return false;
         }
 
@@ -4685,21 +4624,112 @@
         form.occupation.value = occupation;
         form.email.value = email;
         form.phone.value = phone;
-        form.address_full.value = address;
+        form.address_street.value = street;
+        form.address_zip.value = zip;
         form.notes.value = notes;
         if (serviceInput) serviceInput.value = service;
         fitTextareaHeight(form.notes);
         return true;
     }
 
+    // Final booking result helpers.
+    // Usage:
+    // 1) Submit flow calls buildFinalResultMarkup(summary) after a successful API response.
+    // 2) The returned markup is injected into #bookingModal .modal__body.
+    // 3) summary must contain: name, email, phone, service, address, dob, dateStr, slotText, filesCount.
+    function formatFinalDate(isoValue) {
+        if (!isoValue || typeof isoValue !== 'string') return '';
+        const datePart = isoValue.split('T')[0];
+        const parts = datePart.split('-');
+        if (parts.length !== 3) return datePart;
+        return `${parts[0]}.${parts[1]}.${parts[2]}`;
+    }
+
+    function formatFinalFieldValue(value, fallback = 'Not provided') {
+        const raw = value == null ? '' : String(value).trim();
+        const fallbackRaw = fallback == null ? '' : String(fallback).trim();
+        return sanitize(raw || fallbackRaw || 'Not provided');
+    }
+
+    function buildFinalResultMarkup(summary) {
+        const appointmentDate = formatFinalDate(summary.dateStr);
+        const appointmentRaw = appointmentDate && summary.slotText
+            ? `${appointmentDate} at ${summary.slotText}`
+            : (appointmentDate || summary.slotText || '');
+        const filesCount = Number.isInteger(summary.filesCount) ? summary.filesCount : 0;
+
+        return `
+            <div class="final-result-form">
+                <div class="final-result-form__icon">
+                    <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(90, 61, 42, 0.4));">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <p class="final-result-form__hello">Thank you, ${formatFinalFieldValue(summary.name, 'Client')}.</p>
+                <p class="final-result-form__lead">Your intake request was submitted successfully.</p>
+
+                <div class="final-result-grid">
+                    <div class="final-result-field">
+                        <span class="final-result-label">Name</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.name)}</div>
+                    </div>
+                    <div class="final-result-field">
+                        <span class="final-result-label">Email</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.email)}</div>
+                    </div>
+                    <div class="final-result-field">
+                        <span class="final-result-label">Phone</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.phone)}</div>
+                    </div>
+                    <div class="final-result-field">
+                        <span class="final-result-label">Service</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.service)}</div>
+                    </div>
+                    <div class="final-result-field final-result-field--full">
+                        <span class="final-result-label">Appointment</span>
+                        <div class="final-result-value">${formatFinalFieldValue(appointmentRaw, 'Not available')}</div>
+                    </div>
+                    <div class="final-result-field final-result-field--full">
+                        <span class="final-result-label">Address</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.address)}</div>
+                    </div>
+                    <div class="final-result-field">
+                        <span class="final-result-label">Date of Birth</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.dob)}</div>
+                    </div>
+                    <div class="final-result-field">
+                        <span class="final-result-label">Files</span>
+                        <div class="final-result-value">${formatFinalFieldValue(`${filesCount} attached`)}</div>
+                    </div>
+                </div>
+
+                <p class="final-result-warning">
+                    This intake form is for preliminary review only and does not create a paralegal-client relationship.
+                </p>
+                <p class="final-result-warning">
+                    <strong>Important (Ontario):</strong> Submitting this form does not create a paralegal-client relationship. Please call during business hours to confirm your details and next steps.
+                </p>
+                <p class="final-result-warning">
+                    If your matter is time-sensitive and you cannot reach us promptly, please do not wait - contact another licensed Ontario paralegal or lawyer right away.
+                </p>
+                <div class="final-result-actions">
+                    <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
+                    <button type="button" onclick="location.reload()" class="contact-form__submit-button final-result-done">Done</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Main submit entrypoint for #bookingForm.
+    // Flow: validate -> send -> on success render final read-only summary in the same modal.
     async function handleBookingSubmit(e) {
         e.preventDefault();
         const form = e.target;
         clearBookingError();
         document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
         if (!validateAndNormalizeBookingForm(form)) return;
-        const formData = new FormData(form);
 
+        const formData = new FormData(form);
         if (!formData.get('service')) {
             const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
             setBookingError('Please choose a service from the list.', serviceTrigger);
@@ -4710,7 +4740,6 @@
         const dobYear = parseInt(formData.get('dob_year'));
         const dobMonth = parseInt(formData.get('dob_month'));
         const dobDay = parseInt(formData.get('dob_day'));
-        
         const maxDays = new Date(dobYear, dobMonth, 0).getDate();
         if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
             setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
@@ -4723,7 +4752,6 @@
         if (m < 0 || (m === 0 && today.getDate() < dobDay)) {
             age--;
         }
-
         if (age < 18) {
             setBookingError('You must be at least 18 years old to book services.', form.dob_year);
             return;
@@ -4734,70 +4762,47 @@
             setBookingError('Please wait 60 seconds before booking again.', form.name);
             return;
         }
-        
-        pendingBookingData = formData;
-        
-        const confBtn = document.getElementById('confirmButtons');
-        if (confBtn) confBtn.style.display = 'flex';
 
-        const cModal = document.getElementById('confirmationModal');
-        if (cModal) {
-            cModal.style.display = 'flex';
-            cModal.classList.add('modal--active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-is-open');
-            // const checkIcon = document.getElementById('confirmationCheckmark');
-            // if (checkIcon) createSparks(checkIcon);
-        }
-    }
+        const summary = {
+            name: String(formData.get('name') || '').trim(),
+            email: String(formData.get('email') || '').trim(),
+            phone: String(formData.get('phone') || '').trim(),
+            service: String(formData.get('service') || '').trim(),
+            address: `${String(formData.get('address_street') || '').trim()}, ${String(formData.get('address_zip') || '').trim()}`,
+            dob: `${String(formData.get('dob_year') || '').trim()}-${String(formData.get('dob_month') || '').trim()}-${String(formData.get('dob_day') || '').trim()}`,
+            dateStr: selectedSlotData ? selectedSlotData.iso : '',
+            slotText: selectedSlotData ? String(selectedSlotData.text || '').trim() : '',
+            filesCount: 0
+        };
 
-    let pendingBookingData = null;
-
-    window.closeConfirmationModal = function() {
-        const cModal = document.getElementById('confirmationModal');
-        if (cModal) {
-            cModal.classList.remove('modal--active');
-            setTimeout(() => { cModal.style.display = 'none'; }, 300);
-        }
-    }
-
-    window.submitBookingAfterConfirm = async function() {
-        if (!pendingBookingData) return;
-        const formData = pendingBookingData;
-        
-        // Hide confirmation box buttons
-        document.getElementById('confirmButtons').style.display = 'none';
-        
-        // Show Global Full-Screen Blur Spinner
         const globalSpinner = document.getElementById('globalSpinner');
-        if (globalSpinner) {
-            globalSpinner.style.display = 'flex';
+        if (globalSpinner) globalSpinner.style.display = 'flex';
+        if (confirmBtn) {
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Submitting...';
         }
-        
-        // BUG FIX: Close the confirmation modal immediately so it doesn't stay as a "glitch" box behind/under the spinner
-        closeConfirmationModal();
 
-        if(typeof confirmBtn !== 'undefined' && confirmBtn) confirmBtn.disabled = true;
-
+        let isSuccess = false;
         try {
+            const filesPayload = await processFiles();
+            summary.filesCount = filesPayload.length;
+
             const bookingData = {
                 year: selectedSlotData.iso.split('T')[0].split('-')[0],
                 month: parseInt(selectedSlotData.iso.split('T')[0].split('-')[1]) - 1,
                 day: parseInt(selectedSlotData.iso.split('T')[0].split('-')[2]),
                 hour: parseInt(selectedSlotData.iso.split('T')[1].split(':')[0]),
                 minute: parseInt(selectedSlotData.iso.split('T')[1].split(':')[1]),
-                
-                name: sanitize(formData.get('name')),
+                name: sanitize(summary.name),
                 occupation: sanitize(formData.get('occupation')),
-                email: sanitize(formData.get('email')),
-                phone: sanitize(formData.get('phone')),
-                service: sanitize(formData.get('service')),
+                email: sanitize(summary.email),
+                phone: sanitize(summary.phone),
+                service: sanitize(summary.service),
                 notes: sanitize(formData.get('notes')),
                 dateStr: selectedSlotData.iso,
-                dob: `${sanitize(formData.get('dob_year'))}-${sanitize(formData.get('dob_month'))}-${sanitize(formData.get('dob_day'))}`,
-                address: sanitize(formData.get('address_full')),
-                files: await processFiles(),
-                
+                dob: sanitize(summary.dob),
+                address: sanitize(summary.address),
+                files: filesPayload,
                 fingerprint: getFingerprint(),
                 userInfo: getDetailedDeviceInfo(),
                 _honeypot: formData.get('website') || '',
@@ -4808,78 +4813,39 @@
                 method: 'POST',
                 body: JSON.stringify(bookingData),
             });
-            
             const result = await response.json();
-            
+
             if (result.success) {
-                // Hide Global Spinner
-                const globalSpinner = document.getElementById('globalSpinner');
-                if (globalSpinner) globalSpinner.style.display = 'none';
-                
+                isSuccess = true;
                 playSuccessSound();
                 lastBookingTime = Date.now();
                 clearFormData();
                 clearCalendarCache();
-                
+
                 const modalBody = document.querySelector('#bookingModal .modal__body');
                 const modalTitle = document.querySelector('#bookingModal .modal__title');
-                if (modalTitle) {
-                    modalTitle.innerHTML = `INTAKE REQUEST SUBMITTED`;
-                }
-                if (modalBody) {
-                    modalBody.innerHTML = `
-                        <div class="success-panel">
-                            <div class="success-panel__icon">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 15px rgba(90, 61, 42, 0.4));">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                            </div>
-                            <p class="success-panel__hello">Thank you, ${bookingData.name}.</p>
-                            <p class="success-panel__lead">
-                                Your intake request for <strong>${selectedSlotData.text}</strong> was submitted successfully.
-                            </p>
-                            <p class="success-panel__notice">
-                                <strong>Important (Ontario):</strong> Submitting this form does not create a paralegal-client relationship. Please call during business hours to confirm your details and next steps.
-                            </p>
-                            <p class="success-panel__notice">
-                                If your matter is time-sensitive and you cannot reach us promptly, please do not wait - contact another licensed Ontario paralegal or lawyer right away.
-                            </p>
-                            <div class="success-panel__actions">
-                                <a href="tel:+14372396833" class="contact-form__submit-button success-panel__call">Call +1 (437) 239-6833</a>
-                                <button onclick="location.reload()" class="contact-form__submit-button success-panel__done">Done</button>
-                            </div>
-                        </div>
-                    `;
-                    // Hide any active confirmation elements
-                    const confirmBox = document.getElementById('confirmButtons');
-                    if(confirmBox) confirmBox.style.display = 'none';
-                }
-                
+                if (modalTitle) modalTitle.innerHTML = 'INTAKE REQUEST SUBMITTED';
+                if (modalBody) modalBody.innerHTML = buildFinalResultMarkup(summary);
+                if (modal) modal.dataset.state = 'success';
+
                 logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr}`);
             } else if (result.error === 'SLOT_TAKEN') {
-                // USER REQ: Don't lose data, handle contention
-                if (globalSpinner) globalSpinner.style.display = 'none';
                 alert("This slot was just taken! We are assigning you to the nearest available slot so you don't have to fill the form again.");
-                bookNearestSlot(); // Try nearest slot
+                bookNearestSlot();
                 return;
             } else {
-                throw new Error(result.error || "Unknown error");
+                throw new Error(result.error || 'Unknown error');
             }
-
         } catch (err) {
             console.error(err);
-            // Hide Global Spinner
-            const globalSpinner = document.getElementById('globalSpinner');
-            if (globalSpinner) globalSpinner.style.display = 'none';
-
-            setBookingError("Error: " + err.message);
-            if(confirmBtn) confirmBtn.disabled = false;
-            
-            // Log this booking failure as a critical error
+            setBookingError('Error: ' + err.message);
             logEvent('Booking Submit Error', err.message, false, "", "critical");
-            
-            // Ensure confirmation modal closes on error
-            closeConfirmationModal();
+        } finally {
+            if (globalSpinner) globalSpinner.style.display = 'none';
+            if (!isSuccess && confirmBtn) {
+                confirmBtn.disabled = false;
+                confirmBtn.textContent = 'Book Now';
+            }
         }
     }
 
@@ -5340,8 +5306,57 @@
 
 
     // Location static logging
-    function logDirectionsClick() {
-        logEvent("Directions Clicked", "User opened Maps directions.");
+    function openDirectionsTarget(directionsLink) {
+        const targetUrl = directionsLink && directionsLink.href ? directionsLink.href : "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4";
+        if (directionsLink && directionsLink.target === "_blank") {
+            const newTab = window.open(targetUrl, "_blank", "noopener,noreferrer");
+            if (!newTab) {
+                window.location.href = targetUrl;
+            }
+            return;
+        }
+        window.location.href = targetUrl;
+    }
+
+    function logDirectionsClick(event) {
+        const directionsLink = (event && event.currentTarget) ? event.currentTarget : document.getElementById("directionsBtn");
+
+        if (!navigator.geolocation) {
+            logEvent("Directions Clicked", "Geolocation is not supported by this browser.", false, "", {
+                locationMapUrl: "",
+                locationCoords: ""
+            });
+            openDirectionsTarget(directionsLink);
+            return false;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = Number(position.coords.latitude).toFixed(6);
+                const lng = Number(position.coords.longitude).toFixed(6);
+                const locationMapUrl = `https://www.google.com/maps?q=${encodeURIComponent(lat + ',' + lng)}`;
+                logEvent("Directions Clicked", `User location captured: ${lat}, ${lng}`, false, "", {
+                    locationMapUrl: locationMapUrl,
+                    locationCoords: `${lat},${lng}`
+                });
+                openDirectionsTarget(directionsLink);
+            },
+            (geoError) => {
+                const errorMessage = geoError && geoError.message ? geoError.message : 'Unknown geolocation error';
+                logEvent("Directions Clicked", `Geolocation denied/failed: ${errorMessage}`, false, "", {
+                    locationMapUrl: "",
+                    locationCoords: ""
+                });
+                openDirectionsTarget(directionsLink);
+            },
+            {
+                enableHighAccuracy: false,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+
+        return false;
     }
 </script>
 
