@@ -1956,12 +1956,8 @@
             box-shadow:
                 inset 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 8px 18px rgba(64, 44, 26, 0.12);
-            animation:
-                slotRevealRise 560ms cubic-bezier(0.18, 0.88, 0.25, 1) both,
-                slotBreathFloat 4.3s ease-in-out infinite;
-            animation-delay:
-                calc(var(--slot-idx, 0) * 55ms),
-                calc(700ms + var(--slot-idx, 0) * 130ms);
+            animation: slotRevealRise 560ms cubic-bezier(0.18, 0.88, 0.25, 1) both;
+            animation-delay: calc(var(--slot-idx, 0) * 55ms);
         }
 
         .slot-btn--hypnotic::before {
@@ -1978,11 +1974,9 @@
                 rgba(255, 255, 255, 0) 88%
             );
             transform: translateX(-165%);
-            opacity: 0.95;
+            opacity: 0;
             pointer-events: none;
             z-index: 0;
-            animation: slotShimmerSweep 5.6s ease-in-out infinite;
-            animation-delay: calc(850ms + var(--slot-idx, 0) * 130ms);
         }
 
         .slot-btn--hypnotic::after {
@@ -1994,8 +1988,6 @@
             z-index: 0;
             opacity: 0.78;
             box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
-            animation: slotHaloPulse 3.6s ease-in-out infinite;
-            animation-delay: calc(var(--slot-idx, 0) * 90ms);
         }
 
         .slot-btn--hypnotic > * {
@@ -2004,9 +1996,16 @@
         }
 
         .slot-btn--hypnotic .slot-icon-wrapper {
-            animation: slotIconSway 4.8s ease-in-out infinite;
-            animation-delay: calc(650ms + var(--slot-idx, 0) * 110ms);
             will-change: transform;
+        }
+
+        .slot-btn--hypnotic.slot-btn--sparkle::before {
+            opacity: 1;
+            animation: slotShimmerFlash 360ms linear 1;
+        }
+
+        .slot-btn--hypnotic.slot-btn--sparkle::after {
+            animation: slotHaloFlash 360ms ease-out 1;
         }
 
         .slot-btn--hypnotic:hover,
@@ -2040,50 +2039,29 @@
             }
         }
 
-        @keyframes slotBreathFloat {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-2px);
-            }
-        }
-
-        @keyframes slotShimmerSweep {
-            0%, 74%, 100% {
+        @keyframes slotShimmerFlash {
+            0% {
                 transform: translateX(-165%);
                 opacity: 0;
             }
-            10% {
-                opacity: 0.82;
+            18% {
+                opacity: 0.98;
             }
-            36% {
+            100% {
                 transform: translateX(165%);
-                opacity: 0.82;
-            }
-            46% {
                 opacity: 0;
             }
         }
 
-        @keyframes slotHaloPulse {
-            0%, 100% {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15), 0 0 0 0 rgba(255,255,255,0);
+        @keyframes slotHaloFlash {
+            0% {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 0 0 rgba(255,255,255,0);
             }
-            50% {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 0 0 4px rgba(255,255,255,0.05);
+            40% {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 0 0 8px rgba(255,255,255,0.16);
             }
-        }
-
-        @keyframes slotIconSway {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg) scale(1);
-            }
-            25% {
-                transform: translateY(-1px) rotate(4deg) scale(1.02);
-            }
-            75% {
-                transform: translateY(1px) rotate(-4deg) scale(0.98);
+            100% {
+                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 0 0 rgba(255,255,255,0);
             }
         }
 
@@ -3771,11 +3749,17 @@
     let calendarRenderToken = 0;
     let calendarCacheLoaded = false;
     let calendarCachePersistTimer = null;
+    let slotSparkleTimer = null;
+    let slotSparkleOrder = [];
+    let slotSparkleCursor = 0;
 
     const CALENDAR_CACHE_STORAGE_KEY = 'hd_calendar_cache_v2';
     const CALENDAR_CACHE_TTL_MS = 5 * 60 * 1000;
     const CALENDAR_CACHE_MAX_MONTHS = 18;
     const CALENDAR_PREFETCH_MONTHS_AHEAD = 2;
+    const SLOT_SPARKLE_MIN_DELAY_MS = 5000;
+    const SLOT_SPARKLE_MAX_DELAY_MS = 15000;
+    const SLOT_SPARKLE_DURATION_MS = 360;
 
     const MONTH_NAMES = ["January","February","March","April","May","June",
                         "July","August","September","October","November","December"];
@@ -4062,6 +4046,7 @@
         // Show spinner
         calGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
+        stopSlotSparkleLoop();
         slotsBlock.style.display = 'none';
         slotsDayDisplay.textContent = '';
         if (calWrapper) calWrapper.classList.add('calendar--loading');
@@ -4246,6 +4231,88 @@
         }
     }
 
+    function randomBetween(min, max) {
+        const low = Math.ceil(min);
+        const high = Math.floor(max);
+        return Math.floor(Math.random() * (high - low + 1)) + low;
+    }
+
+    function clearSlotSparkleTimer() {
+        if (slotSparkleTimer) {
+            clearTimeout(slotSparkleTimer);
+            slotSparkleTimer = null;
+        }
+    }
+
+    function stopSlotSparkleLoop() {
+        clearSlotSparkleTimer();
+        slotSparkleOrder = [];
+        slotSparkleCursor = 0;
+        if (slotsGrid) {
+            slotsGrid.querySelectorAll('.slot-btn--sparkle').forEach((btn) => {
+                btn.classList.remove('slot-btn--sparkle');
+            });
+        }
+    }
+
+    function shuffleButtons(buttons) {
+        const shuffled = buttons.slice();
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+
+    function getVisibleSlotButtons() {
+        if (!slotsGrid) return [];
+        return Array.from(slotsGrid.querySelectorAll('.slot-btn.slot-btn--hypnotic'))
+            .filter((btn) => !btn.classList.contains('slot-btn--clicked'));
+    }
+
+    function triggerSlotSparkle(btn) {
+        if (!btn) return;
+        btn.classList.remove('slot-btn--sparkle');
+        void btn.offsetWidth;
+        btn.classList.add('slot-btn--sparkle');
+        setTimeout(() => btn.classList.remove('slot-btn--sparkle'), SLOT_SPARKLE_DURATION_MS + 40);
+    }
+
+    function scheduleNextSlotSparkle() {
+        clearSlotSparkleTimer();
+        slotSparkleTimer = setTimeout(runSlotSparkleTick, randomBetween(SLOT_SPARKLE_MIN_DELAY_MS, SLOT_SPARKLE_MAX_DELAY_MS));
+    }
+
+    function runSlotSparkleTick() {
+        const currentButtons = getVisibleSlotButtons();
+        if (!currentButtons.length) {
+            stopSlotSparkleLoop();
+            return;
+        }
+
+        slotSparkleOrder = slotSparkleOrder.filter((btn) => currentButtons.includes(btn));
+        if (slotSparkleCursor >= slotSparkleOrder.length) {
+            slotSparkleOrder = shuffleButtons(currentButtons);
+            slotSparkleCursor = 0;
+        }
+
+        triggerSlotSparkle(slotSparkleOrder[slotSparkleCursor]);
+        slotSparkleCursor += 1;
+        scheduleNextSlotSparkle();
+    }
+
+    function startSlotSparkleLoop() {
+        stopSlotSparkleLoop();
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const buttons = getVisibleSlotButtons();
+        if (!buttons.length) return;
+
+        slotSparkleOrder = shuffleButtons(buttons);
+        slotSparkleCursor = 0;
+        scheduleNextSlotSparkle();
+    }
+
     // ------------------------------------------------------------------
     // SELECT DAY -> show slots
     // ------------------------------------------------------------------
@@ -4285,7 +4352,10 @@
         if (!free.length) {
             slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">No available slots for this day.<br>Please select another day.</p>`;
             slotsBlock.style.display = 'block';
+            stopSlotSparkleLoop();
+            return;
         }
+        startSlotSparkleLoop();
     }
 
     function selectClosedSaturday(day, el) {
@@ -4298,6 +4368,7 @@
         slotsDayDisplay.style.opacity = '1';
         slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">This day is closed.<br>Please choose another day.</p>`;
         slotsBlock.style.display = 'block';
+        stopSlotSparkleLoop();
     }
 
     // ------------------------------------------------------------------
