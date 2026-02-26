@@ -866,10 +866,12 @@
             padding: 2.5rem;
             width: 100%;
             max-width: 37.5rem;
+            max-height: calc(100vh - 10vh);
             text-align: center; /* Symmetrically center content */
             box-sizing: border-box;            
             display: flex;
             flex-direction: column;
+            overflow: hidden;
             
             position: relative;
             box-shadow: 0 1.9rem 5.6rem rgba(0, 0, 0, 0.7), 0 0 1.2rem rgba(255, 255, 255, 0.05);
@@ -924,6 +926,33 @@
             letter-spacing: 0.01em;
             margin-bottom: 1.3rem;
             padding: 0 0.3rem;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        /* Sticky modal action area anchored to viewport bottom while modal body scrolls */
+        .modal-sticky-actions {
+            position: sticky;
+            bottom: 0;
+            z-index: 25;
+            padding-top: 0.65rem;
+            padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+            margin-top: 0.9rem;
+            background: linear-gradient(180deg, rgba(58, 42, 26, 0) 0%, rgba(58, 42, 26, 0.9) 28%, rgba(58, 42, 26, 0.97) 100%);
+            backdrop-filter: blur(0.5rem);
+            -webkit-backdrop-filter: blur(0.5rem);
+        }
+
+        #bookingModal .modal-sticky-actions .contact-form__submit-button {
+            margin: 0 !important;
+        }
+
+        #bookingModal .modal-sticky-actions .contact-form__checkbox-wrapper {
+            margin-top: 0.7rem !important;
+            margin-bottom: 0 !important;
+            padding-bottom: 0.2rem;
         }
 
         .modal__section-title {
@@ -3249,12 +3278,14 @@
 
                 <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
 
-                <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 12px; margin-bottom: 0;">
-                    <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
-                    <label for="agreeTerms" class="contact-form__checkbox-label">
-                        I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
-                    </label>
+                <div class="modal-sticky-actions">
+                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
+                    <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 12px; margin-bottom: 0;">
+                        <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
+                        <label for="agreeTerms" class="contact-form__checkbox-label">
+                            I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                        </label>
+                    </div>
                 </div>
             </form>
         </div>
@@ -4725,7 +4756,7 @@
                 <p class="final-result-warning">
                     If your matter is time-sensitive and you cannot reach us promptly, please do not wait - contact another licensed Ontario paralegal or lawyer right away.
                 </p>
-                <div class="final-result-actions">
+                <div class="final-result-actions modal-sticky-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="location.reload()" class="contact-form__submit-button final-result-done">Done</button>
                 </div>
