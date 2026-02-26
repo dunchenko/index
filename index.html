@@ -4138,17 +4138,75 @@
 
 
     let userIP = "Unknown";
+    let userCountryCode = "CA";
+
+    function detectCountryCode() {
+        const lang = String(navigator.language || navigator.userLanguage || "").trim();
+        const parts = lang.split("-");
+        if (parts.length > 1 && /^[A-Za-z]{2}$/.test(parts[1])) {
+            return parts[1].toUpperCase();
+        }
+        return "CA";
+    }
+
+    function detectOsLabel() {
+        const ua = String(navigator.userAgent || "").toLowerCase();
+        if (ua.includes("windows")) return "Windows";
+        if (ua.includes("mac os") || ua.includes("macintosh")) return "macOS";
+        if (ua.includes("android")) return "Android";
+        if (ua.includes("iphone") || ua.includes("ipad") || ua.includes("ios")) return "iOS";
+        if (ua.includes("linux")) return "Linux";
+        return String(navigator.platform || "Unknown");
+    }
+
+    function getNetworkLabel() {
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (!connection) return "Unknown";
+        const type = connection.effectiveType || "n/a";
+        const downlink = Number.isFinite(connection.downlink) ? `${connection.downlink}Mbps` : "n/a";
+        const rtt = Number.isFinite(connection.rtt) ? `${connection.rtt}ms` : "n/a";
+        return `${type}/${downlink}/${rtt}`;
+    }
+
+    function getClientContext() {
+        const cores = Number.isFinite(navigator.hardwareConcurrency) ? navigator.hardwareConcurrency : "";
+        const memoryGB = Number.isFinite(navigator.deviceMemory) ? navigator.deviceMemory : "";
+        return {
+            countryCode: userCountryCode || "CA",
+            ip: userIP || "Unknown",
+            lang: String(navigator.language || ""),
+            os: detectOsLabel(),
+            screenResolution: `${window.screen.width}x${window.screen.height}`,
+            viewport: `${window.innerWidth}x${window.innerHeight}`,
+            timezone: String((Intl.DateTimeFormat().resolvedOptions() || {}).timeZone || ""),
+            cores: cores,
+            memoryGB: memoryGB,
+            network: getNetworkLabel(),
+            touchPoints: Number.isFinite(navigator.maxTouchPoints) ? navigator.maxTouchPoints : 0,
+            colorDepth: Number.isFinite(window.screen.colorDepth) ? window.screen.colorDepth : "",
+            pageUrl: window.location.href,
+            referrer: document.referrer || ""
+        };
+    }
+
     async function fetchUserIP() {
+        userCountryCode = detectCountryCode();
         try {
-            const response = await fetch('https://api.ipify.org?format=json');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 3500);
+            const response = await fetch("https://api.ipify.org?format=json", { signal: controller.signal });
+            clearTimeout(timeoutId);
             const data = await response.json();
-            userIP = data.ip;
+            if (data && typeof data.ip === "string" && data.ip.trim()) {
+                userIP = data.ip.trim();
+            }
         } catch(e) {}
     }
     fetchUserIP();
 
     function getDetailedDeviceInfo() {
-        return `IP: ${userIP} | UA: ${navigator.userAgent} | Platform: ${navigator.platform} | Res: ${window.screen.width}x${window.screen.height} | Lang: ${navigator.language}`;
+        const ctx = getClientContext();
+        return `${ctx.countryCode}:${ctx.ip} | Lang: ${ctx.lang} | OS: ${ctx.os} | Res: ${ctx.screenResolution} | Viewport: ${ctx.viewport} | TZ: ${ctx.timezone} | Cores: ${ctx.cores || "n/a"} | Mem: ${ctx.memoryGB || "n/a"}GB | Net: ${ctx.network}`;
     }
 
     function getFingerprint() {
@@ -4159,14 +4217,18 @@
             localStorage.setItem('site_fp', fp);
         }
         return fp;
-    }    /**
+    }
+    /**
      * Sends usage logs to the Google Apps Script spreadsheet.
      */
      async function logEvent(event, details = "", isSuspicious = false, severity = "", extra = {}) {
         const safeExtra = (extra && typeof extra === 'object') ? extra : {};
+        const ctx = getClientContext();
+        const getExtra = (key, fallback = "") => (Object.prototype.hasOwnProperty.call(safeExtra, key) ? safeExtra[key] : fallback);
         try {
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
+                keepalive: true,
                 body: JSON.stringify({
                     action: "log",
                     event: event,
@@ -4175,19 +4237,160 @@
                     fingerprint: getFingerprint(),
                     userInfo: getDetailedDeviceInfo(),
                     severity: severity,
-                    locationMapUrl: safeExtra.locationMapUrl || "",
-                    locationCoords: safeExtra.locationCoords || ""
+                    locationMapUrl: getExtra("locationMapUrl"),
+                    locationCoords: getExtra("locationCoords"),
+                    countryCode: ctx.countryCode,
+                    ip: ctx.ip,
+                    lang: ctx.lang,
+                    os: ctx.os,
+                    screenResolution: ctx.screenResolution,
+                    viewport: ctx.viewport,
+                    timezone: ctx.timezone,
+                    cores: ctx.cores,
+                    memoryGB: ctx.memoryGB,
+                    network: ctx.network,
+                    touchPoints: ctx.touchPoints,
+                    colorDepth: ctx.colorDepth,
+                    pageUrl: ctx.pageUrl,
+                    referrer: ctx.referrer,
+                    perfLoadPercent: getExtra("perfLoadPercent"),
+                    perfProcess: getExtra("perfProcess"),
+                    perfScript: getExtra("perfScript"),
+                    perfBlockedMs: getExtra("perfBlockedMs"),
+                    perfWindowMs: getExtra("perfWindowMs")
                 })
             });
         } catch (e) { /* silent fail */ }
     }
 
+    function initPerformanceHealthMonitor() {
+        if (window.__hdPerfMonitorInitialized) return;
+        window.__hdPerfMonitorInitialized = true;
+
+        const monitor = {
+            windowMs: 7000,
+            remoteLogCooldownMs: 120000,
+            highLoadThresholdPct: 28,
+            startedAt: performance.now(),
+            blockedLongTaskMs: 0,
+            blockedFrameMs: 0,
+            buckets: new Map(),
+            lastRemoteLogAt: 0
+        };
+
+        function clipText(value, maxLen) {
+            const text = String(value || "");
+            if (text.length <= maxLen) return text;
+            return text.slice(0, maxLen - 3) + "...";
+        }
+
+        function addBucket(processName, scriptName, durationMs) {
+            const process = clipText(processName || "main-thread", 90);
+            const script = clipText(scriptName || "inline/self", 180);
+            const key = `${process}::${script}`;
+            const existing = monitor.buckets.get(key) || { process, script, durationMs: 0, hits: 0 };
+            existing.durationMs += durationMs;
+            existing.hits += 1;
+            monitor.buckets.set(key, existing);
+        }
+
+        function getTopBucket() {
+            let top = null;
+            monitor.buckets.forEach((bucket) => {
+                if (!top || bucket.durationMs > top.durationMs) {
+                    top = bucket;
+                }
+            });
+            return top || { process: "idle", script: "none", durationMs: 0, hits: 0 };
+        }
+
+        function deriveLongTaskSource(entry) {
+            const attribution = entry && Array.isArray(entry.attribution) && entry.attribution.length ? entry.attribution[0] : null;
+            const process = attribution && attribution.name ? attribution.name : (entry && entry.name ? entry.name : "longtask");
+            const script = attribution && (attribution.containerSrc || attribution.containerName || attribution.containerId)
+                ? (attribution.containerSrc || attribution.containerName || attribution.containerId)
+                : "inline/self";
+            return { process, script };
+        }
+
+        if (window.PerformanceObserver) {
+            try {
+                const observer = new PerformanceObserver((list) => {
+                    const entries = list.getEntries();
+                    for (let i = 0; i < entries.length; i++) {
+                        const entry = entries[i];
+                        const duration = Number(entry.duration || 0);
+                        if (!Number.isFinite(duration) || duration <= 0) continue;
+                        monitor.blockedLongTaskMs += duration;
+                        const src = deriveLongTaskSource(entry);
+                        addBucket(src.process, src.script, duration);
+                    }
+                });
+                observer.observe({ entryTypes: ["longtask"] });
+            } catch (e) {
+                console.warn("[PERF] Long Task observer is unavailable:", e && e.message ? e.message : e);
+            }
+        }
+
+        let lastFrameTs = performance.now();
+        const frameTick = (now) => {
+            const delta = now - lastFrameTs;
+            lastFrameTs = now;
+            const overrun = delta - 16.7;
+            if (overrun > 12) {
+                monitor.blockedFrameMs += overrun;
+                addBucket("frame-jank", "animation-frame", overrun);
+            }
+            requestAnimationFrame(frameTick);
+        };
+        requestAnimationFrame(frameTick);
+
+        function flushPerfWindow() {
+            const now = performance.now();
+            const elapsedMs = Math.max(1, now - monitor.startedAt);
+            const blockedMs = Math.max(monitor.blockedLongTaskMs, monitor.blockedFrameMs);
+            const loadPercent = Math.min(100, (blockedMs / elapsedMs) * 100);
+            const top = getTopBucket();
+
+            console.log(
+                `[PERF] Load ${loadPercent.toFixed(1)}% | Blocked ${blockedMs.toFixed(0)}ms/${elapsedMs.toFixed(0)}ms | Process: ${top.process} | Script: ${top.script}`
+            );
+
+            const nowTs = Date.now();
+            const shouldRemoteLog = loadPercent >= monitor.highLoadThresholdPct && top.durationMs >= 120;
+            if (shouldRemoteLog && (nowTs - monitor.lastRemoteLogAt) >= monitor.remoteLogCooldownMs) {
+                monitor.lastRemoteLogAt = nowTs;
+                logEvent(
+                    "Performance Bottleneck",
+                    `Load ${loadPercent.toFixed(1)}% | Blocked ${blockedMs.toFixed(0)}ms/${elapsedMs.toFixed(0)}ms | Process: ${top.process} | Script: ${top.script}`,
+                    false,
+                    "warning",
+                    {
+                        perfLoadPercent: loadPercent.toFixed(1),
+                        perfBlockedMs: blockedMs.toFixed(0),
+                        perfWindowMs: elapsedMs.toFixed(0),
+                        perfProcess: top.process,
+                        perfScript: top.script
+                    }
+                );
+            }
+
+            monitor.startedAt = now;
+            monitor.blockedLongTaskMs = 0;
+            monitor.blockedFrameMs = 0;
+            monitor.buckets.clear();
+        }
+
+        setInterval(flushPerfWindow, monitor.windowMs);
+        setTimeout(flushPerfWindow, monitor.windowMs + 900);
+    }
+
     // --- Global Error Logging ---
     window.addEventListener('error', function(e) {
-        logEvent('Frontend Error', `${e.message} at ${e.filename}:${e.lineno}`, false, "", "critical");
+        logEvent('Frontend Error', `${e.message} at ${e.filename}:${e.lineno}`, false, "critical");
     });
     window.addEventListener('unhandledrejection', function(e) {
-        logEvent('Unhandled Promise Rejection', e.reason ? e.reason.toString() : 'Unknown Reason', false, "", "critical");
+        logEvent('Unhandled Promise Rejection', e.reason ? e.reason.toString() : 'Unknown Reason', false, "critical");
     });
 
     // Input Visual State (keep white background if has text)
@@ -4321,6 +4524,7 @@
         // Initialize custom select dropdown
         initializeCustomSelects();
         initFaqAccordionScrollReveal();
+        initPerformanceHealthMonitor();
         attachFormAutoSave();
         initAutoGrowTextareas();
         
@@ -4509,7 +4713,7 @@
                 endTime = getEndTime(startTime); 
             } catch(e) {
                 console.warn("Could not calculate end time", e);
-                logEvent('Time Calc Warning', e.message, false, "", "warning");
+                logEvent('Time Calc Warning', e.message, false, "warning");
             }
             
             if(bookingTimeDisplay) {
@@ -5390,7 +5594,7 @@
         } catch (err) {
             console.error(err);
             setBookingError('Error: ' + err.message);
-            logEvent('Booking Submit Error', err.message, false, "", "critical");
+            logEvent('Booking Submit Error', err.message, false, "critical");
         } finally {
             if (globalSpinner) globalSpinner.style.display = 'none';
             if (!isSuccess && confirmBtn) {
