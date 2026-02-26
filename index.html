@@ -5161,6 +5161,7 @@
     const SECRET_TEST_HOLD_MS = 8000;
     let secretTestModeEnabled = false;
     let secretHoldTimer = null;
+    let suppressNextHeaderBookClick = false;
 
     function isSecretTestBypassReady(form) {
         if (!secretTestModeEnabled || !form) return false;
@@ -5191,15 +5192,16 @@
 
         if (secretTestModeEnabled) {
             setBookingNotice('TEST MODE ENABLED: Hold requirements are bypassed. Enter "1" in Name and submit.');
-            logEvent('Secret Test Mode Enabled', 'Long-press submit button for 8 seconds');
+            logEvent('Secret Test Mode Enabled', 'Long-press top header button for 8 seconds');
         } else {
             clearBookingError();
-            logEvent('Secret Test Mode Disabled', 'Long-press submit button for 8 seconds');
+            logEvent('Secret Test Mode Disabled', 'Long-press top header button for 8 seconds');
         }
     }
 
     function initSecretTestModeGesture() {
-        if (!confirmBtn) return;
+        const headerBookBtn = document.getElementById('headerBookBtn');
+        if (!headerBookBtn) return;
 
         const clearHoldTimer = () => {
             if (!secretHoldTimer) return;
@@ -5212,15 +5214,29 @@
             clearHoldTimer();
             secretHoldTimer = setTimeout(() => {
                 secretHoldTimer = null;
-                toggleSecretTestMode();
+                if (!secretTestModeEnabled) {
+                    toggleSecretTestMode();
+                }
+                if (!modal || !modal.classList.contains('modal--active')) {
+                    suppressNextHeaderBookClick = true;
+                    bookNearestSlot();
+                }
             }, SECRET_TEST_HOLD_MS);
         };
 
-        confirmBtn.addEventListener('pointerdown', startHoldTimer);
-        confirmBtn.addEventListener('pointerup', clearHoldTimer);
-        confirmBtn.addEventListener('pointercancel', clearHoldTimer);
-        confirmBtn.addEventListener('pointerleave', clearHoldTimer);
-        confirmBtn.addEventListener('lostpointercapture', clearHoldTimer);
+        const suppressSyntheticClick = (e) => {
+            if (!suppressNextHeaderBookClick) return;
+            suppressNextHeaderBookClick = false;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        };
+
+        headerBookBtn.addEventListener('pointerdown', startHoldTimer);
+        headerBookBtn.addEventListener('pointerup', clearHoldTimer);
+        headerBookBtn.addEventListener('pointercancel', clearHoldTimer);
+        headerBookBtn.addEventListener('pointerleave', clearHoldTimer);
+        headerBookBtn.addEventListener('lostpointercapture', clearHoldTimer);
+        headerBookBtn.addEventListener('click', suppressSyntheticClick, true);
     }
 
     function openBookingModal(slot, triggerAttach = false) {
