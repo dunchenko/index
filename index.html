@@ -3200,21 +3200,58 @@
                 overflow: visible;
             }
             .services-list li {
-                position: relative;
-                padding-left: 0.2rem;
+                display: flex;
+                align-items: flex-start;
+                gap: 1.05rem;
+                padding-left: 0;
                 overflow: visible;
             }
             .services-list li::before {
                 content: "";
-                position: absolute;
-                left: -2.28rem;
-                top: 0.98rem;
-                transform: translateY(-50%);
+                flex: 0 0 1.12rem;
                 width: 1.12rem;
                 height: 1.12rem;
                 border: 2px solid rgba(255, 255, 255, 0.96);
                 border-radius: 50%;
+                margin-top: 0.16rem;
+                opacity: 0.95;
                 pointer-events: none;
+                animation: servicesBulletHypnotic 4.8s ease-in-out infinite;
+                will-change: transform, opacity;
+            }
+            .services-list li:nth-child(2)::before { animation-delay: 0.75s; }
+            .services-list li:nth-child(3)::before { animation-delay: 1.5s; }
+            .services-list li:nth-child(4)::before { animation-delay: 2.25s; }
+
+            .services-list .header__service-item {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .services-list .header__content-subheader {
+                margin-top: 0;
+                margin-bottom: 0.8rem;
+            }
+
+            @keyframes servicesBulletHypnotic {
+                0%, 100% {
+                    transform: translate3d(0, 0, 0) scale(1);
+                    opacity: 0.9;
+                }
+                38% {
+                    transform: translate3d(-1px, 0, 0) scale(1.08);
+                    opacity: 1;
+                }
+                72% {
+                    transform: translate3d(1px, 0, 0) scale(0.94);
+                    opacity: 0.82;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .services-list li::before {
+                    animation: none;
+                }
             }
         </style>
     </div>
