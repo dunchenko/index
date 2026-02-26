@@ -4214,8 +4214,9 @@
         const items = Array.from(faqRoot.querySelectorAll('.faq__item'));
         if (!items.length) return;
 
-        // Start with all FAQ items collapsed; reveal happens on scroll focus.
+        // Start with all FAQ items collapsed.
         items.forEach((item) => item.classList.remove('is-open'));
+        let activeItem = null;
 
         const syncA11y = () => {
             items.forEach((item) => {
@@ -4225,11 +4226,54 @@
             });
         };
 
-        const openItem = (targetItem) => {
+        const setOpenItem = (targetItem) => {
+            if (activeItem === targetItem) return;
+            activeItem = targetItem || null;
             items.forEach((item) => {
                 item.classList.toggle('is-open', item === targetItem);
             });
             syncA11y();
+        };
+
+        const getCenteredVisibleItem = () => {
+            const viewportCenter = window.innerHeight * 0.5;
+            let closest = null;
+            let minDistance = Number.POSITIVE_INFINITY;
+
+            items.forEach((item) => {
+                const rect = item.getBoundingClientRect();
+                if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+
+                const itemCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(itemCenter - viewportCenter);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closest = item;
+                }
+            });
+
+            return closest;
+        };
+
+        const faqIntersectsViewport = () => {
+            const rect = faqRoot.getBoundingClientRect();
+            return rect.bottom > 0 && rect.top < window.innerHeight;
+        };
+
+        let rafQueued = false;
+        const syncOpenItemToViewportCenter = () => {
+            rafQueued = false;
+            if (!faqIntersectsViewport()) {
+                setOpenItem(null);
+                return;
+            }
+            setOpenItem(getCenteredVisibleItem());
+        };
+
+        const scheduleCenterSync = () => {
+            if (rafQueued) return;
+            rafQueued = true;
+            requestAnimationFrame(syncOpenItemToViewportCenter);
         };
 
         items.forEach((item) => {
@@ -4240,12 +4284,9 @@
             q.setAttribute('aria-expanded', 'false');
 
             q.addEventListener('click', () => {
-                if (item.classList.contains('is-open')) {
-                    item.classList.remove('is-open');
-                    syncA11y();
-                } else {
-                    openItem(item);
-                }
+                setOpenItem(item);
+                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                scheduleCenterSync();
             });
 
             q.addEventListener('keydown', (e) => {
@@ -4256,23 +4297,11 @@
             });
         });
 
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        openItem(entry.target);
-                    }
-                });
-            }, {
-                root: null,
-                threshold: 0,
-                rootMargin: '-42% 0px -42% 0px'
-            });
-
-            items.forEach((item) => observer.observe(item));
-        } else {
-            syncA11y();
-        }
+        window.addEventListener('scroll', scheduleCenterSync, { passive: true });
+        window.addEventListener('resize', scheduleCenterSync, { passive: true });
+        syncA11y();
+        scheduleCenterSync();
+        setTimeout(scheduleCenterSync, 160);
     }
 
     // Init
