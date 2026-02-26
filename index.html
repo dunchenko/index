@@ -806,8 +806,8 @@
             margin-top: 0.4em;
             width: 0.62rem;
             height: 0.62rem;
-            border-right: 2px solid rgba(255,255,255,0.9);
-            border-bottom: 2px solid rgba(255,255,255,0.9);
+            border-right: 2.2px solid rgba(255,255,255,0.9);
+            border-bottom: 2.2px solid rgba(255,255,255,0.9);
             transform: rotate(45deg);
             transition: transform 0.45s ease, opacity 0.3s ease;
             opacity: 0.85;
@@ -4515,8 +4515,6 @@
         window.addEventListener('scroll', scheduleCenterSync, { passive: true });
         window.addEventListener('resize', scheduleCenterSync, { passive: true });
         syncA11y();
-        scheduleCenterSync();
-        setTimeout(scheduleCenterSync, 160);
     }
 
     // Init
