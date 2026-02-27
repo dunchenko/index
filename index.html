@@ -2010,7 +2010,13 @@
             width: 1.4rem;
             height: 1.4rem;
             line-height: 0;
-            margin-top: -0.06rem; /* Keep key centered, slightly higher */
+            /* previous upward offset removed so icon sits exactly in the centre */
+            margin-top: 0;
+        }
+
+        /* Saturday-specific adjustment: ensuring the key span isn't shifted */
+        .cal-day--closed .cal-key {
+            margin: 0;
         }
 
         .cal-key svg {
