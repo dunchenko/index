@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1280">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
@@ -264,12 +264,14 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+            overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
         html {
             scrollbar-width: thin; /* For Firefox */
             scrollbar-color: #5a3d2a transparent; /* thumb track */
+            overflow-x: hidden;
         }
         body::-webkit-scrollbar {
             width: 0.5rem;
@@ -875,18 +877,18 @@
             text-align: left;
             letter-spacing: 0.01em;
             transition:
-                max-height 0.62s cubic-bezier(0.22, 0.9, 0.24, 1),
-                opacity 0.45s ease,
-                filter 0.55s ease,
-                transform 0.5s ease,
-                margin-top 0.32s ease;
+                max-height 3.2s cubic-bezier(0.22, 0.9, 0.24, 1),
+                opacity 2.6s ease,
+                filter 3s ease,
+                transform 2.8s ease,
+                margin-top 2.1s ease;
         }
 
         .faq__answer > * {
             opacity: 0;
             filter: blur(8px);
             transform: translateY(0.42rem);
-            transition: opacity 0.46s ease, filter 0.55s ease, transform 0.46s ease;
+            transition: opacity 2.4s ease, filter 2.8s ease, transform 2.4s ease;
         }
 
         .faq__item.is-open .faq__question::after {
@@ -1014,7 +1016,13 @@
 
         #termsModal .modal__content {
             max-width: 50rem;
-            background: #2f3338;
+            background-color: #0b0c0e;
+            background-image:
+                radial-gradient(circle at 12% 18%, rgba(168, 172, 178, 0.12) 0 1px, transparent 1.4px),
+                radial-gradient(circle at 72% 34%, rgba(150, 155, 162, 0.1) 0 1px, transparent 1.3px),
+                radial-gradient(circle at 36% 72%, rgba(176, 180, 186, 0.11) 0 1px, transparent 1.35px),
+                radial-gradient(circle at 86% 82%, rgba(140, 145, 152, 0.09) 0 1px, transparent 1.25px);
+            background-size: 7px 7px, 9px 9px, 11px 11px, 13px 13px;
             border: 1px solid rgba(212, 184, 154, 0.35);
             box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.55);
         }
@@ -1309,6 +1317,41 @@
             color: rgba(255,255,255,0.92) !important;
             line-height: 1.6 !important;
             letter-spacing: 0.01em !important;
+        }
+
+        #bookingModal .booking-row--address-secondary {
+            justify-content: flex-end !important;
+        }
+
+        #bookingModal input[name="address_zip"] {
+            text-align: center;
+            caret-color: #ffffff;
+        }
+
+        #bookingModal input[name="address_zip"]:focus {
+            caret-color: #5a3d2a !important;
+        }
+
+        #bookingModal input[name="address_zip"]::placeholder,
+        #bookingModal #deadlineInputMain::placeholder {
+            text-align: center !important;
+        }
+
+        #bookingModal #dobAgePreview::placeholder {
+            text-align: center !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            opacity: 1 !important;
+        }
+
+        #bookingModal #dobAgePreview:focus::placeholder {
+            color: transparent !important;
+            opacity: 0 !important;
+        }
+
+        #bookingModal input[name="address_zip"]::placeholder {
+            color: #ffffff !important;
+            opacity: 1 !important;
         }
 
         #bookingModal .contact-form__checkbox-label {
@@ -1698,6 +1741,17 @@
 
 
         /* ------------------- CUSTOM CALENDAR (Liquid Glass Design) ------------------- */
+        .calendar-scale-wrapper {
+            width: 100%;
+            overflow: visible;
+        }
+
+        .calendar-scale-inner {
+            width: 100%;
+            transform-origin: top left;
+            will-change: transform;
+        }
+
         .calendar-wrapper {
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(1.3rem);
@@ -1920,16 +1974,16 @@
         }
 
         .cal-day--closed {
-            opacity: 0.3 !important;
+            opacity: 1 !important;
             cursor: pointer;
             pointer-events: auto;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: transparent;
+            background: rgba(255, 255, 255, 0.1);
+            border: none !important;
         }
 
         .cal-day--closed:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: transparent;
+            background: rgba(255, 255, 255, 0.1);
+            border: none !important;
             transform: none;
         }
 
@@ -1955,7 +2009,8 @@
             justify-content: center;
             width: 1.4rem;
             height: 1.4rem;
-            margin-top: 0.1rem; /* Visual compensation to push it down slightly */
+            line-height: 0;
+            margin-top: -0.06rem; /* Keep key centered, slightly higher */
         }
 
         .cal-key svg {
@@ -2434,6 +2489,25 @@
             text-align: center;
         }
 
+        .file-attach__btn:not(.file-attach__btn--camera) .file-attach__title,
+        .file-attach__btn:not(.file-attach__btn--camera) .file-attach__icon,
+        .file-attach__btn:not(.file-attach__btn--camera) .file-attach__icon-svg,
+        .file-attach__btn:not(.file-attach__btn--camera):hover .file-attach__title,
+        .file-attach__btn:not(.file-attach__btn--camera):hover .file-attach__icon,
+        .file-attach__btn:not(.file-attach__btn--camera):hover .file-attach__icon-svg,
+        .file-attach__btn:not(.file-attach__btn--camera):focus-visible .file-attach__title,
+        .file-attach__btn:not(.file-attach__btn--camera):focus-visible .file-attach__icon,
+        .file-attach__btn:not(.file-attach__btn--camera):focus-visible .file-attach__icon-svg {
+            color: #ffffff !important;
+            stroke: #ffffff !important;
+        }
+
+        .file-attach__btn:not(.file-attach__btn--camera):hover,
+        .file-attach__btn:not(.file-attach__btn--camera):focus-visible {
+            background: rgba(255, 255, 255, 0.5) !important;
+            color: #ffffff !important;
+        }
+
         .file-attach__btn--camera {
             border-style: solid;
             border-width: 2px;
@@ -2470,6 +2544,20 @@
             width: 1.85em !important;
             height: 1.85em !important;
             animation: none !important;
+        }
+
+        .file-attach__btn--camera .file-attach__icon-svg,
+        .file-attach__btn--camera .file-attach__icon-svg--camera,
+        .file-attach__btn--camera:focus-visible .file-attach__icon-svg,
+        .file-attach__btn--camera:focus-visible .file-attach__icon-svg--camera {
+            color: #ffffff !important;
+            stroke: #ffffff !important;
+        }
+
+        .file-attach__btn--camera:hover .file-attach__icon-svg,
+        .file-attach__btn--camera:hover .file-attach__icon-svg--camera {
+            color: #5a3d2a !important;
+            stroke: #5a3d2a !important;
         }
 
         .file-attach__btn--camera.file-attach__btn--camera-hypnotic {
@@ -2947,23 +3035,37 @@
 
         .spark {
             position: absolute;
-            width: 0.34rem;
-            height: 0.34rem;
-            border-radius: 50%;
+            width: var(--spark-size, 0.55rem);
+            height: var(--spark-size, 0.55rem);
             pointer-events: none;
             opacity: 0;
-            background: rgba(255, 236, 210, 0.98);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7de' d='M12 1.8l2.68 6.5 7.01.56-5.34 4.58 1.62 6.82L12 16.89 6.03 20.26l1.62-6.82-5.34-4.58 7.01-.56z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             z-index: 3;
-            box-shadow: 0 0 0.55rem rgba(255, 245, 230, 0.8);
+            filter: drop-shadow(0 0 0.35rem rgba(255, 245, 230, 0.85));
             will-change: transform, opacity;
-            transform: translate3d(0, 0, 0);
-            animation: sparkle var(--spark-duration, 500ms) cubic-bezier(0.2, 0.75, 0.25, 1) var(--spark-delay, 0ms) forwards;
+            transform: translate(-50%, -50%) translate3d(0, 0, 0);
+            animation: sparkle var(--spark-duration, 500ms) cubic-bezier(0.18, 0.72, 0.24, 1) var(--spark-delay, 0ms) forwards;
         }
 
         @keyframes sparkle {
-            0% { transform: translate3d(0, 0, 0) scale(0.55); opacity: 0; }
-            12% { opacity: 1; }
-            100% { transform: translate3d(var(--vx), var(--vy), 0) scale(1.85); opacity: 0; }
+            0% {
+                transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0.48) rotate(var(--spark-rotate, 0deg));
+                opacity: 0;
+            }
+            14% {
+                opacity: 1;
+            }
+            72% {
+                transform: translate(-50%, -50%) translate3d(var(--x-mid, 0px), var(--y-mid, 0px), 0) scale(1.32) rotate(calc(var(--spark-rotate, 0deg) + 130deg));
+                opacity: 0.95;
+            }
+            100% {
+                transform: translate(-50%, -50%) translate3d(var(--x-end, 0px), var(--y-end, 0px), 0) scale(1.08) rotate(calc(var(--spark-rotate, 0deg) + 205deg));
+                opacity: 0;
+            }
         }
 
         @keyframes hypnoticPulse {
@@ -3557,7 +3659,7 @@
 
         .footer-finger-hint--active {
             opacity: 1;
-            animation: footerFingerTap 1.95s ease-in-out infinite;
+            animation: footerFingerTap 8s ease-in-out infinite;
         }
 
         .footer-finger-hint--pressing {
@@ -3572,7 +3674,7 @@
         }
 
         @keyframes footerFingerTap {
-            0%, 52%, 100% {
+            0%, 100% {
                 transform: translate(-50%, 35%) rotate(-7.8deg) scale(1);
             }
             20% {
@@ -3584,6 +3686,18 @@
             42% {
                 transform: translate(-50%, 35%) rotate(-7.8deg) scale(1);
             }
+            56% {
+                transform: translate(-51.4%, 35.4%) rotate(-8.7deg) scale(1);
+            }
+            66% {
+                transform: translate(-48.8%, 34.8%) rotate(-6.9deg) scale(1);
+            }
+            76% {
+                transform: translate(-50.8%, 35.2%) rotate(-8.3deg) scale(1);
+            }
+            88% {
+                transform: translate(-49.5%, 35%) rotate(-7.4deg) scale(1);
+            }
         }
 
         @keyframes footerFingerTapPress {
@@ -3592,6 +3706,9 @@
             }
             70% {
                 transform: translate(-50%, -7%) rotate(-6.1deg) scale(0.98);
+            }
+            84% {
+                transform: translate(-50.9%, -2.2%) rotate(-7.4deg) scale(0.986);
             }
             100% {
                 transform: translate(-50%, -1%) rotate(-6.3deg) scale(0.986);
@@ -3702,6 +3819,390 @@
             line-height: 1.6;
             text-align: left;
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 6.9rem;
+            }
+
+            .top-bar,
+            .bottom-bar {
+                height: 5.9rem;
+                padding-left: 0.8rem;
+                padding-right: 0.8rem;
+            }
+
+            .top-bar {
+                padding-top: 0.6rem;
+            }
+
+            .bottom-bar {
+                padding-bottom: 0.6rem;
+            }
+
+            .header {
+                max-width: 100%;
+                padding: 1.15rem 0.85rem 1.75rem;
+            }
+
+            .header__subtitle {
+                margin-bottom: 1.3rem;
+                letter-spacing: -1px;
+            }
+
+            .header__description {
+                font-size: clamp(0.95rem, 4.6vw, 1.15rem);
+                padding: 0 0.35rem;
+                gap: 0.35rem;
+            }
+
+            .header__description span {
+                white-space: normal;
+                text-wrap: wrap;
+                overflow-wrap: anywhere;
+            }
+
+            .header__contact {
+                padding: 0 0.2rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            .header__phone-link {
+                font-size: clamp(1.15rem, 6.2vw, 1.6rem);
+                line-height: 1.2;
+            }
+
+            .header__content-block {
+                margin: 2rem auto;
+            }
+
+            .header__content-header {
+                margin: 2rem 0 1.35rem;
+            }
+
+            .header__content-text,
+            .services-content p,
+            .faq__answer,
+            .faq__answer p,
+            .privacy-block p,
+            .modal__text,
+            .price-note {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .faq__question {
+                font-size: 0.98rem;
+                gap: 0.6rem;
+                padding-right: 1.75rem;
+            }
+
+            .faq__answer {
+                padding-left: 1.25rem;
+            }
+
+            .layout-container {
+                max-width: 100%;
+                padding: 0 0.85rem;
+            }
+
+            .calendar-wrapper {
+                border-radius: 1.8rem;
+                padding: 0.95rem;
+            }
+
+            .calendar-header {
+                margin-bottom: 1rem;
+                padding: 0;
+            }
+
+            .calendar-title .cal-month {
+                font-size: clamp(2.15rem, 11vw, 3.4rem);
+            }
+
+            .calendar-title .cal-selected-day {
+                white-space: normal;
+                text-align: center;
+            }
+
+            .calendar-title .cal-year {
+                font-size: clamp(1rem, 4.8vw, 1.35rem);
+                letter-spacing: 1px;
+            }
+
+            .calendar-nav-btn {
+                width: 2.4rem;
+                height: 2.4rem;
+                min-width: 2.4rem;
+                min-height: 2.4rem;
+                flex: 0 0 2.4rem;
+                font-size: 1.25rem;
+            }
+
+            .cal-day-name {
+                margin-bottom: 0.45rem;
+                font-size: 0.62rem;
+                letter-spacing: 0.5px;
+            }
+
+            .cal-day {
+                font-size: 0.82rem;
+            }
+
+            .slots-nav {
+                margin: 1.45rem 0 1rem;
+                padding: 0;
+            }
+
+            #slotsDayDisplay {
+                font-size: 1.05rem;
+                min-height: 2rem;
+                line-height: 1.2;
+            }
+
+            .slots-grid {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+            }
+
+            .slots-grid .slot-btn {
+                height: 3.25rem;
+                border-radius: 1.8rem;
+                padding: 0.45rem 0.8rem;
+                gap: 0.6rem;
+            }
+
+            .slot-icon-wrapper {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .slot-time {
+                font-size: 0.96rem;
+                letter-spacing: 0.5px;
+            }
+
+            #headerBookBtn {
+                padding: 1.2rem 1rem !important;
+                max-width: 100% !important;
+            }
+
+            #headerBookBtn,
+            #headerBookBtnText,
+            #headerBookBtnText span {
+                font-size: 1rem !important;
+                line-height: 1.35 !important;
+            }
+
+            #headerBookBtn::after {
+                width: 165%;
+                height: 5rem;
+                bottom: 72%;
+                filter: blur(0.6rem);
+            }
+
+            #footerBookBtn {
+                min-width: 0 !important;
+                width: 100% !important;
+                max-width: 20rem !important;
+                padding: 1rem 1.3rem !important;
+            }
+
+            #footerBookBtnText {
+                display: inline-block;
+                white-space: normal;
+            }
+
+            .book-btn-container {
+                height: 8.2rem;
+                margin: 1.15rem auto;
+            }
+
+            .book-btn-preloader {
+                width: 8rem;
+                height: 8rem;
+            }
+
+            .book-btn-preloader__svg {
+                width: 8rem;
+                height: 8rem;
+            }
+
+            .modal {
+                padding: 0.35rem;
+            }
+
+            .modal--active {
+                padding-top: 1.5vh;
+                padding-bottom: 1.5vh;
+            }
+
+            .modal__content {
+                border-radius: 1.05rem;
+                padding: 1rem 0.85rem 1rem;
+            }
+
+            #bookingModal {
+                --booking-form-font-size: 1rem;
+            }
+
+            #bookingModal .modal__title,
+            #bookingModal .modal__title span {
+                letter-spacing: 0.8px;
+                line-height: 1.3 !important;
+            }
+
+            .modal__close {
+                top: 0.65rem;
+                left: 0.65rem;
+                width: 2rem;
+                height: 2rem;
+                font-size: 1.4rem;
+            }
+
+            .contact-form__group {
+                margin-bottom: 1.15rem;
+            }
+
+            .contact-form__input,
+            .contact-form__select,
+            .custom-select__trigger {
+                min-height: 3rem;
+                height: 3rem;
+            }
+
+            #bookingModal .contact-form__input,
+            #bookingModal .custom-select__trigger {
+                min-height: 3rem !important;
+                height: 3rem !important;
+            }
+
+            #bookingModal .file-attach__btn {
+                min-height: 4.2rem !important;
+                height: 4.2rem !important;
+            }
+
+            #bookingModal .file-attach__controls {
+                grid-template-columns: 1fr;
+            }
+
+            #bookingModal .file-attach__btn--camera {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            #confirmBookingBtn {
+                min-height: 3.6rem;
+                font-size: 1rem;
+                padding: 1rem 0.8rem;
+            }
+
+            #bookingModal .contact-form__checkbox-wrapper {
+                justify-content: flex-start;
+                align-items: flex-start;
+                gap: 0.65rem;
+            }
+
+            #bookingModal .contact-form__checkbox-label {
+                font-size: 0.9rem;
+                line-height: 1.35;
+                text-align: left;
+            }
+
+            .booking-row--address-main,
+            .booking-row--deadline,
+            .booking-row--dob {
+                flex-wrap: wrap;
+                justify-content: flex-start !important;
+            }
+
+            .booking-row--address-secondary {
+                flex-wrap: wrap;
+                justify-content: flex-end !important;
+            }
+
+            .booking-row--address-main .contact-form__input,
+            .booking-row--deadline .contact-form__label,
+            .booking-row--deadline .contact-form__input {
+                flex: 1 1 100% !important;
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            .booking-row--address-secondary .contact-form__input {
+                min-width: 0 !important;
+                width: auto !important;
+            }
+
+            input[name="address_unit"] {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            input[name="address_province"] {
+                flex: 1 1 5.5rem !important;
+                min-width: 5.5rem !important;
+            }
+
+            input[name="address_zip"] {
+                flex: 1 1 9.5rem !important;
+                min-width: 9.5rem !important;
+            }
+
+            .booking-row--dob .contact-form__input {
+                flex: 1 1 calc(50% - 0.4rem) !important;
+                min-width: 0 !important;
+            }
+
+            .booking-row--dob #dobAgePreview {
+                flex: 1 1 100% !important;
+            }
+
+            .services-list {
+                gap: 1.35rem !important;
+                padding-left: 0 !important;
+            }
+
+            .services-list li {
+                gap: 0.75rem;
+            }
+
+            .services-list li::before {
+                flex-basis: 0.95rem;
+                width: 0.95rem;
+                height: 0.95rem;
+                margin-top: 0.25rem;
+            }
+
+            .footer {
+                padding: 2.2rem 0.85rem 0.9rem;
+            }
+
+            .footer .blur-in-section {
+                margin-top: 8rem !important;
+            }
+
+            .footer__contact-link {
+                font-size: clamp(1.05rem, 6vw, 1.35rem);
+                margin-top: 1.15rem;
+            }
+
+            .footer__hours,
+            .footer__copyright {
+                font-size: 0.95rem !important;
+                line-height: 1.45 !important;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .booking-row--dob .contact-form__input {
+                flex: 1 1 100% !important;
+            }
+
+            .calendar-title .cal-month {
+                font-size: clamp(1.95rem, 11.5vw, 2.8rem);
+            }
+        }
     </style>
 </head>
 
@@ -3756,7 +4257,7 @@
                 <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                <span id="headerBookBtnText">Free Intake!</span>
+                <span id="headerBookBtnText">Intake</span>
             </button>
         </div>
     </div>
@@ -3848,13 +4349,6 @@
                 margin-bottom: 0 !important;
             }
 
-            @media (min-width: 1200px) {
-                .services-list .header__content-text {
-                    height: calc(4 * 1em * var(--services-line-height));
-                    overflow: hidden;
-                }
-            }
-
             .services-form-link {
                 color: #ffffff;
                 font-weight: 800;
@@ -3902,37 +4396,41 @@
 <div class="layout-container">
     <div class="contact-form fade-in-section">
         <h2 class="contact-form__outside-title" id="calendarHeaderTitle">NEXT IN MONTH</h2>
-        <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
-            <!-- Loading Overlay -->
-            <div id="calendarLoaderOverlay">
-                <div class="book-btn-preloader" style="position: relative; width: 120px; height: 120px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                    <svg class="book-btn-preloader__svg" viewBox="0 0 120 120" width="120" height="120">
-                        <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
-                        <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
-                    </svg>
-                </div>
+        <div id="calendarScaleWrapper" class="calendar-scale-wrapper">
+            <div id="calendarScaleInner" class="calendar-scale-inner">
+                <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
+                    <!-- Loading Overlay -->
+                    <div id="calendarLoaderOverlay">
+                        <div class="book-btn-preloader" style="position: relative; width: 120px; height: 120px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                            <svg class="book-btn-preloader__svg" viewBox="0 0 120 120" width="120" height="120">
+                                <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
+                                <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Header -->
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
+                        <div class="calendar-title" id="monthDisplay"></div>
+                        <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
+                    </div>
+                    <!-- Progress bar -->
+                    <div id="loadingSeparator" class="loading-separator"></div>
+                    <!-- Day grid -->
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                    <!-- Slot label -->
+                    <div class="slots-nav" id="slotsNav">
+                        <span id="slotsDayDisplay"></span>
+                    </div>
+                    <!-- Slots -->
+                    <div class="slots-block" id="slotsBlock">
+                        <div class="slots-container" id="slotsContainer">
+                            <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
+                        </div>
+                    </div>
+                </div><!-- /calendar-wrapper -->
             </div>
-            <!-- Header -->
-            <div class="calendar-header">
-                <button class="calendar-nav-btn" id="prevBtn">&#10094;</button>
-                <div class="calendar-title" id="monthDisplay"></div>
-                <button class="calendar-nav-btn" id="nextBtn">&#10095;</button>
-            </div>
-            <!-- Progress bar -->
-            <div id="loadingSeparator" class="loading-separator"></div>
-            <!-- Day grid -->
-            <div class="calendar-grid" id="calendarGrid"></div>
-            <!-- Slot label -->
-            <div class="slots-nav" id="slotsNav">
-                <span id="slotsDayDisplay"></span>
-            </div>
-            <!-- Slots -->
-            <div class="slots-block" id="slotsBlock">
-                <div class="slots-container" id="slotsContainer">
-                    <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
-                </div>
-            </div>
-        </div><!-- /calendar-wrapper -->
+        </div>
     </div>
 
     <h2 class="section-title" data-i18n="faqTitle">FAQ</h2>
@@ -4078,13 +4576,13 @@
                     <svg viewBox="0 0 220 330" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="footerFingerSkin" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#f5ddb1"/>
-                                <stop offset="55%" stop-color="#e6bf8a"/>
-                                <stop offset="100%" stop-color="#ca9462"/>
+                                <stop offset="0%" stop-color="#fdeccf"/>
+                                <stop offset="55%" stop-color="#f3d6ac"/>
+                                <stop offset="100%" stop-color="#e2b788"/>
                             </linearGradient>
                             <linearGradient id="footerFingerShine" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="rgba(255,255,255,0.34)"/>
-                                <stop offset="100%" stop-color="rgba(255,255,255,0.04)"/>
+                                <stop offset="0%" stop-color="rgba(255,255,255,0.48)"/>
+                                <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
                             </linearGradient>
                             <linearGradient id="footerNailRed" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stop-color="#ff5a71"/>
@@ -4098,13 +4596,10 @@
 
                         <!-- Red nail -->
                         <rect x="79" y="50" width="62" height="70" rx="26" fill="url(#footerNailRed)" />
-                        <path d="M85 59C99 64 114 64 129 58" stroke="rgba(255,255,255,0.42)" stroke-width="2.4" stroke-linecap="round" />
 
                         <!-- Finger detail lines -->
                         <path d="M78 142C95 151 123 151 141 142" stroke="rgba(150,108,74,0.4)" stroke-width="3" stroke-linecap="round" />
                         <path d="M76 188C92 197 127 197 143 188" stroke="rgba(150,108,74,0.32)" stroke-width="3" stroke-linecap="round" />
-                        <path d="M76 233C91 241 129 241 144 233" stroke="rgba(150,108,74,0.24)" stroke-width="3" stroke-linecap="round" />
-                        <path d="M74 275C88 282 132 282 146 275" stroke="rgba(150,108,74,0.2)" stroke-width="2.6" stroke-linecap="round" />
                     </svg>
                 </div>
             </div>
@@ -4152,7 +4647,7 @@
                                 <div class="custom-option" data-value="public-notary">Public Notary Services</div>
                                 <div class="custom-option" data-value="employment">Employment Law</div>
                                 <div class="custom-option" data-value="civil">Civil matter</div>
-                                <div class="custom-option" data-value="road-record-defense">Road Record Defense</div>
+                                <div class="custom-option" data-value="road-record-defense">Traffic Ticket Defense</div>
                                 <div class="custom-option" data-value="wsib">WSIB related issue</div>
                                 <div class="custom-option" data-value="ltb">LTB related issue</div>
                                 <div class="custom-option" data-value="other">Other</div>
@@ -4167,13 +4662,13 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <div class="booking-row booking-row--address-main" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="text" class="contact-form__input" placeholder="Unit/Apt" name="address_unit" maxlength="16" autocomplete="address-line2" inputmode="text" spellcheck="false" style="width: 8.2rem; min-width: 7.6rem; text-transform: uppercase;">
                         <input type="text" class="contact-form__input" placeholder="Street and City" name="address_street" required minlength="6" maxlength="150" autocomplete="street-address" inputmode="text" spellcheck="false" style="flex-grow: 1;">
                     </div>
-                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <div class="booking-row booking-row--address-secondary" style="display: flex; gap: 10px; justify-content: flex-end;">
                         <input type="text" class="contact-form__input" placeholder="ON" name="address_province" required minlength="2" maxlength="2" autocomplete="address-level1" inputmode="text" spellcheck="false" style="width: 4.8rem; min-width: 4.8rem; text-align: center; text-transform: uppercase;">
-                        <input type="text" class="contact-form__input" placeholder="M5V 2T6" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="flex: 0 0 151px; width: 151px; min-width: 151px; text-transform: uppercase;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP code" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="flex: 0 0 185px; width: 185px; min-width: 185px; text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -4212,18 +4707,18 @@
 
                 <div class="contact-form__group">
                     <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Date of Birth</label>
-                    <div style="display:flex; gap:10px; justify-content:center; align-items:center;">
+                    <div class="booking-row booking-row--dob" style="display:flex; gap:10px; justify-content:center; align-items:center;">
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="flex:0.85 1 0; min-width:64px;" required min="1" max="12" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
-                        <input type="text" class="contact-form__input" id="dobAgePreview" placeholder="Age" aria-label="Age (auto-calculated)" readonly tabindex="-1" style="flex:1 1 0; min-width:78px; text-align:center; pointer-events:none;">
+                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" style="flex:1 1 0; min-width:78px; text-align:center;">
                     </div>
                 </div>
 
                 <div class="contact-form__group">
-                    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:left; color:var(--text-white); flex:1 1 auto;">Deadline (if not urgent, leave blank)</label>
-                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 151px; width:151px; min-width:151px; text-align:center;">
+                    <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:flex-end; gap:8px;">
+                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline (blank if not urgent):</label>
+                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 185px; width:185px; min-width:185px; text-align:center;">
                     </div>
                 </div>
 
@@ -4948,7 +5443,7 @@
             const isToday  = date.getTime() === torNow.getTime();
 
             if (isSaturday) {
-                el.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.8;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="3.5"></circle><path d="M11 15.5h10M18 15.5v3M15 15.5v2"></path></svg></span>`;
             } else {
                 el.textContent = day;
             }
@@ -5665,6 +6160,7 @@
         initPerformanceHealthMonitor();
         attachFormAutoSave();
         initAutoGrowTextareas();
+        initAgePlaceholderBehavior();
         initFaqSpoilers();
         initFooterFingerHint();
         
@@ -5916,7 +6412,7 @@
 
         const root = document.documentElement;
         const currentBottom = window.scrollY + window.innerHeight;
-        const nearBottomThreshold = Math.max(70, Math.round(window.innerHeight * 0.08));
+        const nearBottomThreshold = Math.max(24, Math.round(window.innerHeight * 0.03));
         return currentBottom >= (root.scrollHeight - nearBottomThreshold);
     }
 
@@ -7007,13 +7503,6 @@
             input.addEventListener('change', saveFormData);
             input.addEventListener('input', saveFormData);
         });
-        ['dob_year', 'dob_month', 'dob_day'].forEach(name => {
-            const field = document.querySelector(`#bookingForm [name="${name}"]`);
-            if (!field) return;
-            const syncAge = () => updateDobAgePreview(document.getElementById('bookingForm'));
-            field.addEventListener('input', syncAge);
-            field.addEventListener('change', syncAge);
-        });
         // Also save when custom select changes
         const customOptions = document.querySelectorAll('.custom-option');
         customOptions.forEach(option => {
@@ -7031,37 +7520,30 @@
         return String(value || '').replace(/\r\n/g, '\n').replace(/[ \t]+\n/g, '\n').trim();
     }
 
-    function computeAgeFromDobParts(yearRaw, monthRaw, dayRaw) {
-        const year = Number(yearRaw);
-        const month = Number(monthRaw);
-        const day = Number(dayRaw);
-        if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return '';
-        if (year < 1900 || year > 2100) return '';
-        if (month < 1 || month > 12) return '';
-        const maxDays = new Date(year, month, 0).getDate();
-        if (day < 1 || day > maxDays) return '';
-
-        const today = new Date();
-        let age = today.getFullYear() - year;
-        const monthDelta = (today.getMonth() + 1) - month;
-        if (monthDelta < 0 || (monthDelta === 0 && today.getDate() < day)) age--;
-
-        if (!Number.isInteger(age) || age < 0 || age > 130) return '';
-        return String(age);
-    }
-
     function updateDobAgePreview(form) {
         const targetForm = form || document.getElementById('bookingForm');
         if (!targetForm) return;
         const ageInput = document.getElementById('dobAgePreview');
         if (!ageInput) return;
+        ageInput.value = '';
+        ageInput.placeholder = '(AGE)';
+    }
 
-        const age = computeAgeFromDobParts(
-            targetForm.dob_year?.value,
-            targetForm.dob_month?.value,
-            targetForm.dob_day?.value
-        );
-        ageInput.value = age;
+    function initAgePlaceholderBehavior() {
+        const ageInput = document.getElementById('dobAgePreview');
+        if (!ageInput || ageInput._placeholderBehaviorBound) return;
+
+        ageInput.addEventListener('focus', () => {
+            ageInput.placeholder = '';
+        });
+
+        ageInput.addEventListener('blur', () => {
+            if (!String(ageInput.value || '').trim()) {
+                ageInput.placeholder = '(AGE)';
+            }
+        });
+
+        ageInput._placeholderBehaviorBound = true;
     }
 
     function clearBookingError() {
@@ -7841,13 +8323,16 @@
             container.style.position = 'relative';
         }
 
-        const burstCount = prefersReducedMotion ? 3 : (isLowEndDevice ? 6 : 10);
-        const minRadius = isLowEndDevice ? 20 : 28;
-        const maxRadius = isLowEndDevice ? 38 : 56;
-        const minVelocity = isLowEndDevice ? 34 : 54;
-        const maxVelocity = isLowEndDevice ? 72 : 118;
+        const burstCount = prefersReducedMotion ? 4 : (isLowEndDevice ? 9 : 16);
+        const startJitter = isLowEndDevice ? 8 : 12;
+        const minFlightDistance = isLowEndDevice ? 48 : 84;
+        const maxFlightDistance = isLowEndDevice ? 104 : 186;
+        const minFallDistance = prefersReducedMotion ? 8 : (isLowEndDevice ? 12 : 18);
+        const maxFallDistance = prefersReducedMotion ? 16 : (isLowEndDevice ? 22 : 36);
         const maxDelay = prefersReducedMotion ? 50 : (isLowEndDevice ? 70 : 110);
-        const durationMs = prefersReducedMotion ? 240 : (isLowEndDevice ? 280 : 360);
+        const durationMs = prefersReducedMotion ? 320 : (isLowEndDevice ? 520 : 680);
+        const minSparkSize = isLowEndDevice ? 6 : 7;
+        const maxSparkSize = isLowEndDevice ? 9 : 11;
 
         const fragment = document.createDocumentFragment();
         const sparks = [];
@@ -7856,21 +8341,32 @@
             const spark = document.createElement('div');
             spark.className = 'spark';
 
-            const angle = Math.random() * Math.PI * 2;
-            const radius = minRadius + Math.random() * (maxRadius - minRadius);
-            const startX = Math.cos(angle) * radius;
-            const startY = Math.sin(angle) * radius;
+            // Firework-like arc: mostly upward burst, then slight gravity fall.
+            const angleDeg = -160 + Math.random() * 140;
+            const angle = angleDeg * (Math.PI / 180);
+            const startRadius = Math.random() * startJitter;
+            const startX = Math.cos(angle) * startRadius;
+            const startY = Math.sin(angle) * startRadius;
             spark.style.left = `calc(50% + ${startX.toFixed(1)}px)`;
             spark.style.top = `calc(50% + ${startY.toFixed(1)}px)`;
-            spark.style.transform = 'translate(-50%, -50%)';
 
-            const velocity = minVelocity + Math.random() * (maxVelocity - minVelocity);
-            const vx = Math.cos(angle) * velocity;
-            const vy = Math.sin(angle) * velocity;
-            spark.style.setProperty('--vx', `${vx.toFixed(1)}px`);
-            spark.style.setProperty('--vy', `${vy.toFixed(1)}px`);
+            const flightDistance = minFlightDistance + Math.random() * (maxFlightDistance - minFlightDistance);
+            const midX = Math.cos(angle) * flightDistance;
+            const midY = Math.sin(angle) * flightDistance;
+
+            const horizontalDrift = (Math.random() - 0.5) * (isLowEndDevice ? 12 : 20);
+            const fallDistance = minFallDistance + Math.random() * (maxFallDistance - minFallDistance);
+            const endX = midX + horizontalDrift;
+            const endY = midY + fallDistance;
+
+            spark.style.setProperty('--x-mid', `${midX.toFixed(1)}px`);
+            spark.style.setProperty('--y-mid', `${midY.toFixed(1)}px`);
+            spark.style.setProperty('--x-end', `${endX.toFixed(1)}px`);
+            spark.style.setProperty('--y-end', `${endY.toFixed(1)}px`);
             spark.style.setProperty('--spark-delay', `${Math.floor(Math.random() * maxDelay)}ms`);
             spark.style.setProperty('--spark-duration', `${durationMs}ms`);
+            spark.style.setProperty('--spark-size', `${(minSparkSize + Math.random() * (maxSparkSize - minSparkSize)).toFixed(1)}px`);
+            spark.style.setProperty('--spark-rotate', `${Math.floor(Math.random() * 360)}deg`);
 
             fragment.appendChild(spark);
             sparks.push(spark);
@@ -7911,7 +8407,7 @@
         if (!targetEl) return;
         targetEl.textContent = '';
 
-        const line1 = buildButtonLine('Free Intake!');
+        const line1 = buildButtonLine('Intake');
         line1.className = 'header-book-line1';
         targetEl.appendChild(line1);
         targetEl.appendChild(document.createElement('br'));
