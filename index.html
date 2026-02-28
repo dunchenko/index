@@ -367,7 +367,7 @@
         }
         .fade-in-section.is-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
         }
 
         .blur-in-section {
@@ -599,6 +599,9 @@
             font-size: clamp(1.7rem, 5.6vw, 2.35rem);
             letter-spacing: 1.2px;
             line-height: 1;
+        }
+        #calendarHeaderTitle.calendar-title--hidden {
+            display: none !important;
         }
         #calendarHeaderTitle.calendar-title--warning {
             color: #f3cd53;
@@ -875,6 +878,11 @@
             display: none;
             margin: 0.2rem 0 0.75rem;
             text-align: center;
+            background: #ff93c8;
+            border: 1px solid #ffd2e8;
+            border-radius: 0.95rem;
+            padding: 0.5rem 0.55rem 0.6rem;
+            box-shadow: 0 0 0.8rem rgba(255, 147, 200, 0.45);
         }
 
         .recaptcha-wrap__hint {
@@ -1102,7 +1110,7 @@
         .faq__item.is-open .faq__answer > * {
             opacity: 1;
             filter: blur(0);
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
         }
 
         .faq-no-date-action {
@@ -1629,7 +1637,7 @@
         }
 
         #bookingModal[data-state="form"] .modal__body {
-            --booking-top-fade-height: clamp(1.9rem, 5.2vh, 3rem);
+            --booking-top-fade-height: clamp(1.25rem, 3.6vh, 2.1rem);
             position: relative;
             display: block;
             overflow-y: auto;
@@ -1751,6 +1759,32 @@
 
         #bookingModal .booking-row--address-secondary.booking-row--province-zip {
             justify-content: flex-end !important;
+        }
+
+        #bookingModal .booking-row--deadline {
+            display: grid !important;
+            grid-template-columns: max-content 180px max-content;
+            align-items: center;
+            justify-content: center;
+            column-gap: 0.5rem;
+            row-gap: 0.35rem;
+        }
+
+        #bookingModal .booking-row--deadline .booking-row__deadline-label,
+        #bookingModal .booking-row--deadline .booking-row__deadline-optional {
+            margin: 0 !important;
+            text-transform: none !important;
+            letter-spacing: 0 !important;
+            white-space: nowrap;
+            text-align: center !important;
+        }
+
+        #bookingModal #deadlineInputMain {
+            width: 180px !important;
+            min-width: 180px !important;
+            max-width: 180px !important;
+            justify-self: center;
+            text-align: center !important;
         }
 
         #bookingModal .booking-row--province-zip .booking-row__label {
@@ -2027,6 +2061,11 @@
             transform: translateY(-0.34rem);
             position: relative;
             z-index: 3;
+            display: none;
+        }
+
+        .booking-scroll-cue.booking-scroll-cue--visible {
+            display: block;
         }
 
         .booking-scroll-cue span {
@@ -2422,6 +2461,13 @@
             width: 100%;
             overflow: visible;
         }
+        .calendar-scale-wrapper.calendar-scale-wrapper--hidden {
+            display: none !important;
+            height: 0 !important;
+            min-height: 0 !important;
+            margin: 0 !important;
+            overflow: hidden !important;
+        }
 
         .calendar-scale-inner {
             width: 41rem;
@@ -2719,31 +2765,16 @@
         }
 
         .cal-day--nearest {
-            border-color: rgba(255, 255, 255, 0.75) !important;
-            box-shadow:
-                0 0 0.38rem rgba(255, 255, 255, 0.92),
-                0 0 1.15rem rgba(255, 255, 255, 0.72);
-            animation: nearestDayGlow 1.8s ease-in-out infinite;
+            border-color: rgba(255, 255, 255, 0.62) !important;
+            font-size: clamp(1.04rem, 1.95vw, 1.16rem);
+            box-shadow: 0 0 0.22rem rgba(255, 255, 255, 0.34);
+            animation: none;
         }
 
         .cal-day--nearest.cal-day--selected {
             box-shadow:
-                0 0 0.45rem rgba(255, 255, 255, 0.98),
-                0 0 1.35rem rgba(255, 255, 255, 0.78),
-                0 0 2rem rgba(255, 255, 255, 0.55) !important;
-        }
-
-        @keyframes nearestDayGlow {
-            0%, 100% {
-                box-shadow:
-                    0 0 0.34rem rgba(255, 255, 255, 0.88),
-                    0 0 1rem rgba(255, 255, 255, 0.66);
-            }
-            50% {
-                box-shadow:
-                    0 0 0.58rem rgba(255, 255, 255, 1),
-                    0 0 1.7rem rgba(255, 255, 255, 0.9);
-            }
+                0 4px 12px rgba(0, 0, 0, 0.12),
+                0 0 0.28rem rgba(255, 255, 255, 0.36) !important;
         }
 
         @keyframes pulseActive {
@@ -2906,7 +2937,7 @@
         .slots-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem; 
+            gap: 1.2rem; 
             margin-top: 0.2rem;
         }
 
@@ -2915,20 +2946,21 @@
             flex-direction: row !important;
             align-items: center !important;
             justify-content: center !important;
-            padding: 1rem 2rem;
-            height: 8.2rem;
+            padding: 0.9rem 1.65rem;
+            height: 7.45rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
-            border-radius: 5rem;
+            border-radius: 4.4rem;
             cursor: pointer;
             transition: none;
             font-family: 'Lato', sans-serif !important;
             backdrop-filter: blur(0.6rem);
             -webkit-backdrop-filter: blur(0.6rem);
-            gap: 2rem;
+            gap: 1.55rem;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-            width: 100%;
+            width: 96%;
+            justify-self: center;
             position: relative;
             overflow: visible;
             isolation: isolate;
@@ -3096,8 +3128,8 @@
         }
 
         .slot-icon-wrapper {
-            width: 5rem;
-            height: 5rem;
+            width: 4.35rem;
+            height: 4.35rem;
             flex-shrink: 0;
         }
 
@@ -3107,7 +3139,7 @@
         }
 
         .slot-time {
-            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            font-size: clamp(1.62rem, 4.45vw, 1.95rem);
             font-weight: 800;
             letter-spacing: 2px;
             text-align: center;
@@ -3116,7 +3148,7 @@
             align-items: center;
             justify-content: center;
             line-height: 1.08;
-            padding-bottom: clamp(2.35rem, 5.6vw, 3.05rem);
+            padding-bottom: clamp(1.95rem, 4.95vw, 2.45rem);
         }
 
         .slot-date-legal {
@@ -3127,9 +3159,9 @@
             transform: none;
             display: block;
             margin-top: 0;
-            font-size: clamp(1.45rem, 3.8vw, 2rem);
+            font-size: clamp(1.2rem, 3.1vw, 1.55rem);
             font-weight: 800;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.02em;
             line-height: 1;
             text-align: right;
             opacity: 0.98;
@@ -3428,7 +3460,20 @@
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 255, 255, 0.22) !important;
         }
 
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file {
+            background: #ffffff !important;
+            border-color: #5a3d2a !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 255, 255, 0.22) !important;
+        }
+
         .file-attach__drop-zone-file--drag-over .file-attach__btn {
+            background: #ffffff !important;
+            border-color: #5a3d2a !important;
+            color: #5a3d2a !important;
+            box-shadow: none !important;
+        }
+
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__btn {
             background: #ffffff !important;
             border-color: #5a3d2a !important;
             color: #5a3d2a !important;
@@ -3439,6 +3484,15 @@
         .file-attach__drop-zone-file--drag-over .file-attach__icon,
         .file-attach__drop-zone-file--drag-over .file-attach__icon-svg,
         .file-attach__drop-zone-file--drag-over p {
+            color: #5a3d2a !important;
+            stroke: #5a3d2a !important;
+        }
+
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__title,
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__icon,
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__icon-svg,
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__hint,
+        .file-attach.file-attach--drag-over .file-attach__drop-zone-file p {
             color: #5a3d2a !important;
             stroke: #5a3d2a !important;
         }
@@ -3573,12 +3627,40 @@
             position: fixed;
             inset: 0;
             z-index: 22080;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: radial-gradient(120% 100% at 50% 100%, #d4b89a 0%, #8b6f5a 100%);
             align-items: stretch;
             justify-content: stretch;
             padding: 0;
+            overflow: hidden;
+            overscroll-behavior: none;
+            touch-action: none;
+        }
+
+        .form-calendar-overlay::before,
+        .form-calendar-overlay::after {
+            content: "";
+            position: absolute;
+            inset: -10%;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .form-calendar-overlay::before {
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, transparent 52%),
+                linear-gradient(33deg, transparent 8%, rgba(255, 255, 255, 0.13) 36%, transparent 74%),
+                linear-gradient(122deg, rgba(255, 255, 255, 0.1) 0%, transparent 64%);
+            opacity: 0.72;
+            animation: anim-stripes 42s ease-in-out infinite;
+        }
+
+        .form-calendar-overlay::after {
+            background:
+                linear-gradient(158deg, rgba(255, 255, 255, 0.1) 0%, transparent 56%),
+                linear-gradient(18deg, transparent 20%, rgba(255, 255, 255, 0.08) 47%, transparent 82%);
+            mix-blend-mode: overlay;
+            opacity: 0.62;
+            animation: anim-stripes 55s ease-in-out infinite reverse;
         }
 
         .form-calendar-overlay--active {
@@ -3586,29 +3668,24 @@
         }
 
         .form-calendar-overlay__panel {
-            width: 100vw;
-            height: 100vh;
-            height: 100dvh;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
             max-height: none;
             overflow: hidden;
+            overscroll-behavior: none;
             border-radius: 0;
             border: none;
-            background: #3a2a1a;
+            background: transparent;
             box-shadow: none;
-            padding: clamp(0.75rem, 2.2vh, 1.15rem) clamp(0.6rem, 2.6vw, 1.1rem);
+            padding: clamp(0.38rem, 1vh, 0.65rem) clamp(0.35rem, 1.6vw, 0.8rem) clamp(0.45rem, 1.2vh, 0.74rem);
             display: flex;
             flex-direction: column;
         }
 
         .form-calendar-overlay__header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 0.55rem;
-            padding: 0.1rem 0 0.25rem;
-            flex-shrink: 0;
+            display: none !important;
         }
 
         .form-calendar-overlay__title {
@@ -3619,9 +3696,10 @@
             padding-right: 3rem;
             font-size: 1rem;
             font-weight: 900;
-            color: #ffffff;
+            color: #fff8ef;
             letter-spacing: 0.03em;
             text-transform: uppercase;
+            text-shadow: 0 1px 10px rgba(30, 19, 12, 0.4);
         }
 
         .form-calendar-overlay__hint {
@@ -3629,42 +3707,59 @@
             text-align: center;
             font-size: 0.86rem;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 248, 239, 0.9);
             letter-spacing: 0.01em;
+            text-shadow: 0 1px 8px rgba(30, 19, 12, 0.28);
         }
 
         .form-calendar-overlay__close {
             position: absolute;
-            left: 0;
+            left: clamp(0.35rem, 1.2vw, 0.7rem);
             right: auto;
-            top: 0;
+            top: clamp(0.35rem, 1.2vh, 0.7rem);
             transform: none;
-            width: 2.25rem;
-            height: 2.25rem;
+            width: 2.15rem;
+            height: 2.15rem;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.76);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
             color: #ffffff;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             line-height: 1;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                0 4px 12px rgba(56, 41, 30, 0.28);
+            backdrop-filter: blur(8px) saturate(130%);
+            -webkit-backdrop-filter: blur(8px) saturate(130%);
+            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.35);
+            z-index: 4;
         }
 
         .form-calendar-overlay__mount {
             width: 100%;
             flex: 1 1 auto;
             min-height: 0;
-            overflow: auto;
+            overflow: hidden;
+            overscroll-behavior: none;
+            border-radius: 0;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: clamp(1.55rem, 3.6vh, 2.1rem) 0 0;
         }
 
         .form-calendar-overlay__mount .calendar-scale-wrapper {
             width: 100%;
             margin: 0;
+            overflow: hidden;
         }
 
         .form-calendar-overlay__mount .calendar-scale-inner {
@@ -3673,6 +3768,13 @@
 
         .form-calendar-overlay__mount #bookingCalendar {
             margin: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .form-calendar-overlay::before,
+            .form-calendar-overlay::after {
+                animation: none !important;
+            }
         }
 
         .camera-capture__panel {
@@ -3810,18 +3912,22 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
             transition: all 0.3s ease;
             max-height: none;
-            overflow: visible;
+            overflow: hidden;
             padding: 0.5rem 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            mask-image: radial-gradient(circle, #fff 98%, transparent 100%);
         }
 
         .custom-select.open .custom-options {
             opacity: 1;
             visibility: visible;
             pointer-events: all;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
         }
 
         #bookingModal .custom-select--city {
@@ -3971,12 +4077,12 @@
         }
 
         #headerBookBtn {
-            padding: 0.8rem 2rem !important;
+            padding: 1.25rem 3.2rem !important;
             font-size: 1rem !important;
             width: auto !important;
-            min-width: 14rem !important;
+            min-width: 21.5rem !important;
             max-width: 96% !important;
-            min-height: 4.5rem !important;
+            min-height: 6.9rem !important;
             border-radius: 999px !important;
             margin-bottom: 0 !important;
         }
@@ -5104,6 +5210,7 @@
                 width: 100% !important;
                 max-width: 20rem !important;
                 padding: 0.8rem 1.4rem !important;
+                min-height: 4.8rem !important;
                 border-radius: 999px !important;
             }
 
@@ -5365,6 +5472,11 @@
         @media (max-width: 420px) {
             .booking-row--dob .contact-form__input {
                 flex: 1 1 100% !important;
+            }
+
+            #bookingModal .booking-row--deadline {
+                grid-template-columns: 1fr;
+                justify-items: center;
             }
         }
 
@@ -6052,10 +6164,10 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline:</label>
+                    <div class="booking-row booking-row--deadline" style="align-items:center; justify-content:center; gap:8px;">
+                        <label for="deadlineInputMain" class="contact-form__label booking-row__deadline-label" style="color:var(--text-white);">Deadline:</label>
                         <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:center;">
-                        <span class="contact-form__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">(Optional)</span>
+                        <span class="contact-form__label booking-row__deadline-optional" style="color:var(--text-white);">(Optional)</span>
                     </div>
                 </div>
 
@@ -6099,11 +6211,7 @@
 
 <div id="formCalendarOverlay" class="form-calendar-overlay" aria-hidden="true">
     <div class="form-calendar-overlay__panel">
-        <div class="form-calendar-overlay__header">
-            <h3 class="form-calendar-overlay__title">Select Anoter Time or a Date</h3>
-            <p class="form-calendar-overlay__hint">If needed, choose another slot.</p>
-            <button type="button" class="form-calendar-overlay__close" id="formCalendarOverlayCloseBtn" aria-label="Close calendar">&times;</button>
-        </div>
+        <button type="button" class="form-calendar-overlay__close" id="formCalendarOverlayCloseBtn" aria-label="Close calendar">&times;</button>
         <div id="formCalendarOverlayMount" class="form-calendar-overlay__mount"></div>
     </div>
 </div>
@@ -6121,8 +6229,8 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqN-lMFxltye9HDKnAet0DoybCLtk3qfM22glSEYFXSRs4rscShybqKzrrI8xnssJ3VQ/exec"
-    const RECAPTCHA_SITE_KEY = "6LfdL3ssAAAAACfBHRBRYfWWpRCfbbK_6FzFZyHu";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tIxnzPBiiTdZn4Mmseo5KCIkyBPuNv9JPJ9aeiIameFEueO2WJwS5nbwJUF9BmQadA/exec"
+    const RECAPTCHA_SITE_KEY = "6LeYZHssAAAAADZpqJwxjGn6nc4GgRAGOaRJY-F_"
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
         'London',
@@ -6691,6 +6799,27 @@
         prevBtn.setAttribute('aria-hidden', String(!isEnabled));
     }
 
+    function setCalendarVisibleState(isVisible) {
+        const shouldShow = Boolean(isVisible);
+        const titleEl = document.getElementById('calendarHeaderTitle');
+        const scaleWrapper = document.getElementById('calendarScaleWrapper');
+
+        if (titleEl) {
+            titleEl.classList.toggle('calendar-title--hidden', !shouldShow);
+        }
+
+        if (scaleWrapper) {
+            scaleWrapper.classList.toggle('calendar-scale-wrapper--hidden', !shouldShow);
+            if (!shouldShow) {
+                scaleWrapper.style.height = '0';
+                scaleWrapper.style.minHeight = '0';
+            } else {
+                scaleWrapper.style.height = '';
+                scaleWrapper.style.minHeight = '';
+            }
+        }
+    }
+
     function setCalendarLoaderState(mode = 'loading', message = '') {
         if (!calOverlay) return;
 
@@ -6732,6 +6861,7 @@
         if (slotsBlock) slotsBlock.style.display = 'none';
         if (slotsDayDisplay) slotsDayDisplay.textContent = '';
         setCalendarPrevButtonEnabled(false);
+        setCalendarVisibleState(false);
 
         if (calWrapper) {
             calWrapper.classList.remove('calendar--loading');
@@ -6739,8 +6869,7 @@
         }
         if (headerTitle) {
             headerTitle.classList.remove('calendar-title--loading');
-            headerTitle.classList.add('calendar-title--warning');
-            headerTitle.textContent = String(message || CALENDAR_LOAD_FAILURE_TEXT);
+            headerTitle.classList.remove('calendar-title--warning');
         }
 
         setCalendarLoaderState('error', message);
@@ -6786,6 +6915,7 @@
         const renderToken = ++calendarRenderToken;
         const calWrapper = document.getElementById('bookingCalendar');
         calendarFetchFailedForRender = false;
+        setCalendarVisibleState(true);
 
         // Show spinner
         calGrid.innerHTML = '';
@@ -7107,21 +7237,6 @@
         return hour * 60 + minute;
     }
 
-    function getLatestSlot(slots) {
-        if (!Array.isArray(slots) || !slots.length) return null;
-        let best = slots[0];
-        let bestMinutes = getSlotStartMinutes(best);
-        for (let i = 1; i < slots.length; i++) {
-            const current = slots[i];
-            const currentMinutes = getSlotStartMinutes(current);
-            if (currentMinutes > bestMinutes) {
-                best = current;
-                bestMinutes = currentMinutes;
-            }
-        }
-        return best;
-    }
-
     function formatOntarioLegalDateLabel(slot, fallbackDate) {
         let year = 0;
         let month = 0;
@@ -7159,8 +7274,6 @@
 
         const raw = el.dataset.slots ? JSON.parse(el.dataset.slots) : [];
         const free = raw.filter(s => s.status !== 'busy');
-        const latestSlot = getLatestSlot(free);
-
         // Label
         slotsDayDisplay.textContent = free.length
             ? 'CHOOSE TIME:'
@@ -7200,13 +7313,7 @@
         }
         refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
 
-        if (!isAuto && latestSlot) {
-            if (isFormCalendarOverlayActive && modal && modal.classList.contains('modal--active')) {
-                setTimeout(() => applySlotFromCalendarOverlay(latestSlot), 120);
-            } else {
-                setTimeout(() => stageBookingAfterIntake(latestSlot), 120);
-            }
-        }
+        // Day click should only select the day and reveal its time slots.
     }
 
     // ------------------------------------------------------------------
@@ -7840,7 +7947,24 @@
         const availableWidth = wrapper.clientWidth || wrapper.offsetWidth;
         if (!availableWidth || !baselineHeight) return;
 
-        const scale = Math.min(1, availableWidth / CALENDAR_BASE_WIDTH_PX);
+        const scaleByWidth = availableWidth / CALENDAR_BASE_WIDTH_PX;
+        let scale = Math.min(1, scaleByWidth);
+        const overlayEl = document.getElementById('formCalendarOverlay');
+        const overlayMount = document.getElementById('formCalendarOverlayMount');
+        const isOverlayCalendar = !!(
+            overlayEl &&
+            overlayMount &&
+            overlayEl.classList.contains('form-calendar-overlay--active') &&
+            overlayMount.contains(wrapper)
+        );
+        if (isOverlayCalendar) {
+            const availableHeight = Math.max(0, (overlayMount.clientHeight || 0) - CALENDAR_SCALE_BOTTOM_BUFFER_PX);
+            if (availableHeight > 0) {
+                const scaleByHeight = availableHeight / baselineHeight;
+                scale = Math.min(scale, scaleByHeight);
+            }
+            scale = Math.max(0.42, scale);
+        }
         inner.style.transform = `scale(${scale})`;
         const scaledWidth = CALENDAR_BASE_WIDTH_PX * scale;
         const horizontalOffset = Math.max(0, (availableWidth - scaledWidth) / 2);
@@ -7907,6 +8031,7 @@
     const modal = document.getElementById('bookingModal');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
+    const bookingScrollCue = document.querySelector('#bookingModal .booking-scroll-cue');
     const confirmBtn = document.getElementById('confirmBookingBtn');
     const TSE_PROBNIK_HOLD_MS = 8000;
     let tseProbnikModeEnabled = false;
@@ -8104,6 +8229,25 @@
         return text.replace(/\.+$/, '');
     }
 
+    function setBookingScrollCueVisible(visible) {
+        if (!bookingScrollCue) return;
+        const shouldShow = !!visible;
+        bookingScrollCue.classList.toggle('booking-scroll-cue--visible', shouldShow);
+        bookingScrollCue.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+    }
+
+    function syncBookingScrollCueVisibility() {
+        if (!bookingStatus) {
+            setBookingScrollCueVisible(false);
+            return;
+        }
+        const hasActionHint =
+            bookingStatus.classList.contains('status-alert--visible') &&
+            (bookingStatus.classList.contains('status-alert--warning')
+                || bookingStatus.classList.contains('status-alert--error'));
+        setBookingScrollCueVisible(hasActionHint);
+    }
+
     function setBookingNotice(message, tone = 'success') {
         if (!bookingStatus) return;
         const safeTone = normalizeBookingStatusTone(tone);
@@ -8112,6 +8256,7 @@
         if (bookingStatus.textContent) {
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
         }
+        syncBookingScrollCueVisibility();
     }
 
     function setBookingWarning(message) {
@@ -8355,12 +8500,13 @@
             clearHoldTimer();
             tseProbnikHoldTimer = setTimeout(() => {
                 tseProbnikHoldTimer = null;
-                if (!tseProbnikModeEnabled) {
-                    tseProbnik();
-                }
+                const wasEnabled = tseProbnikModeEnabled;
+                tseProbnik();
                 if (!modal || !modal.classList.contains('modal--active')) {
                     suppressNextHeaderBookClick = true;
-                    bookNearestSlot();
+                    if (!wasEnabled) {
+                        bookNearestSlot('header');
+                    }
                 }
             }, TSE_PROBNIK_HOLD_MS);
         };
@@ -9379,6 +9525,12 @@
     }
 
     if (formCalendarOverlay) {
+        const preventFormCalendarOverlayScroll = (e) => {
+            if (!formCalendarOverlay.classList.contains('form-calendar-overlay--active')) return;
+            if (e.cancelable) e.preventDefault();
+        };
+        formCalendarOverlay.addEventListener('wheel', preventFormCalendarOverlayScroll, { passive: false });
+        formCalendarOverlay.addEventListener('touchmove', preventFormCalendarOverlayScroll, { passive: false });
         formCalendarOverlay.addEventListener('click', (e) => {
             if (e.target === formCalendarOverlay) {
                 closeFormCalendarOverlay();
@@ -9404,18 +9556,24 @@
 
     if (fileDropZone) {
         let dragDepth = 0;
+        const setDragOverState = (isActive) => {
+            fileDropZone.classList.toggle('file-attach__drop-zone-file--drag-over', !!isActive);
+            if (fileAttachZone) {
+                fileAttachZone.classList.toggle('file-attach--drag-over', !!isActive);
+            }
+        };
 
         const onDragEnter = (e) => {
             e.preventDefault();
             e.stopPropagation();
             dragDepth++;
-            fileDropZone.classList.add('file-attach__drop-zone-file--drag-over');
+            setDragOverState(true);
         };
 
         const onDragOver = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            fileDropZone.classList.add('file-attach__drop-zone-file--drag-over');
+            setDragOverState(true);
         };
 
         const onDragLeave = (e) => {
@@ -9423,7 +9581,7 @@
             e.stopPropagation();
             dragDepth = Math.max(0, dragDepth - 1);
             if (dragDepth === 0) {
-                fileDropZone.classList.remove('file-attach__drop-zone-file--drag-over');
+                setDragOverState(false);
             }
         };
 
@@ -9431,7 +9589,7 @@
             e.preventDefault();
             e.stopPropagation();
             dragDepth = 0;
-            fileDropZone.classList.remove('file-attach__drop-zone-file--drag-over');
+            setDragOverState(false);
             const droppedFiles = Array.from((e.dataTransfer && e.dataTransfer.files) || []);
             addSelectedFiles(droppedFiles);
         };
@@ -9762,6 +9920,7 @@
             bookingStatus.textContent = '';
             bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
         }
+        syncBookingScrollCueVisibility();
     }
 
     function markInvalidField(fieldEl) {
@@ -9943,7 +10102,7 @@
             return false;
         }
         if (!Number.isInteger(enteredAge) || enteredAge !== calculatedAge) {
-            setBookingError(`Age must match date of birth. Based on DOB, age should be ${calculatedAge}.`, form.age);
+            setBookingError('Age appears to be entered incorrectly', form.age);
             return false;
         }
         if (calculatedAge < 18) {
@@ -10201,7 +10360,7 @@
                 return;
             }
             if (!Number.isInteger(enteredAge) || enteredAge !== calculatedAge) {
-                setBookingError(`Age must match date of birth. Based on DOB, age should be ${calculatedAge}.`, form.age);
+                setBookingError('Age appears to be entered incorrectly', form.age);
                 return;
             }
             if (calculatedAge < 18) {
@@ -10750,6 +10909,7 @@
         'Hello!',
         'Connecting to the calendar to load court schedule...'
     ];
+    const HEADER_TYPEWRITER_SESSION_ONCE_KEY = 'hd_header_typewriter_session_once_v1';
     const HEADER_BOOK_DING_ONCE_KEY = 'hd_header_book_ding_once_v1';
     const HEADER_NEAREST_HINT_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
     const HEADER_NEAREST_HINT_LOADING_TEXT = HEADER_NEAREST_HINT_LOADING_SEQUENCE[0];
@@ -10783,6 +10943,28 @@
     let headerPreloaderSearchTypedOnce = false;
     let headerPreloaderBootSequenceDone = false;
     let headerNearestHintFirstSparkTriggered = false;
+    let headerTypewriterSessionPlayed = false;
+
+    function hasHeaderTypewriterSessionPlayed() {
+        try {
+            return window.sessionStorage && window.sessionStorage.getItem(HEADER_TYPEWRITER_SESSION_ONCE_KEY) === '1';
+        } catch (_) {
+            return false;
+        }
+    }
+
+    function markHeaderTypewriterSessionPlayed() {
+        headerTypewriterSessionPlayed = true;
+        try {
+            if (window.sessionStorage) {
+                window.sessionStorage.setItem(HEADER_TYPEWRITER_SESSION_ONCE_KEY, '1');
+            }
+        } catch (_) {
+            // Ignore storage errors in private mode or restricted environments.
+        }
+    }
+
+    headerTypewriterSessionPlayed = hasHeaderTypewriterSessionPlayed();
 
     function clearHeaderNearestHintTypewriter(options = {}) {
         const preserveText = !!(options && options.preserveText);
@@ -10858,6 +11040,19 @@
     }
 
     function startHeaderPreloaderSearchTypewriter(node, finalText) {
+        if (!node) return;
+        if (headerTypewriterSessionPlayed) {
+            clearHeaderPreloaderSearchTypewriter();
+            headerPreloaderSearchTypedOnce = true;
+            headerPreloaderBootSequenceDone = true;
+            node.classList.add('book-btn-preloader__text--loading');
+            node.classList.remove('book-btn-preloader__text--typing');
+            setHeaderPreloaderTypingPhase(node, HEADER_PRELOADER_LOADING_SEQUENCE.length - 1);
+            node.textContent = String(finalText || '').trim() || HEADER_PRELOADER_SEARCH_TEXT;
+            node.style.display = 'block';
+            node.style.opacity = '1';
+            return;
+        }
         clearHeaderPreloaderSearchTypewriter();
         headerPreloaderSearchTypewriterToken += 1;
         const runToken = headerPreloaderSearchTypewriterToken;
@@ -10935,6 +11130,7 @@
                 clearHeaderPreloaderSearchTypewriter({ preserveText: true });
                 headerPreloaderSearchTypedOnce = true;
                 headerPreloaderBootSequenceDone = true;
+                markHeaderTypewriterSessionPlayed();
                 setHeaderPreloaderTypingPhase(node, phases.length - 1);
                 return;
             }
@@ -10954,6 +11150,14 @@
         node.classList.add('book-btn-preloader__text--loading');
         node.style.display = 'block';
         node.style.opacity = '1';
+        if (headerTypewriterSessionPlayed) {
+            headerPreloaderSearchTypedOnce = true;
+            headerPreloaderBootSequenceDone = true;
+            node.classList.remove('book-btn-preloader__text--typing');
+            setHeaderPreloaderTypingPhase(node, HEADER_PRELOADER_LOADING_SEQUENCE.length - 1);
+            node.textContent = HEADER_PRELOADER_SEARCH_TEXT;
+            return;
+        }
         if (headerPreloaderSearchTypewriterActive && headerPreloaderSearchTypewriterNode === node) return;
         if (headerPreloaderSearchTypedOnce) {
             node.classList.remove('book-btn-preloader__text--typing');
@@ -10996,42 +11200,76 @@
 
         try {
             const ctx = new AudioCtx();
-            const now = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
+            const now = ctx.currentTime + 0.01;
             const compressor = ctx.createDynamicsCompressor();
+            const highpass = ctx.createBiquadFilter();
+            const master = ctx.createGain();
+            let activeOscillators = 0;
 
             if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
                 ctx.resume().catch(() => {});
             }
 
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(880, now);
-            osc.frequency.exponentialRampToValueAtTime(1320, now + 0.16);
-
-            gain.gain.setValueAtTime(0.0001, now);
-            gain.gain.exponentialRampToValueAtTime(0.14, now + 0.012);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.36);
-
             compressor.threshold.setValueAtTime(-24, now);
             compressor.knee.setValueAtTime(14, now);
             compressor.ratio.setValueAtTime(6, now);
             compressor.attack.setValueAtTime(0.002, now);
-            compressor.release.setValueAtTime(0.12, now);
+            compressor.release.setValueAtTime(0.2, now);
 
-            osc.connect(gain);
-            gain.connect(compressor);
+            highpass.type = 'highpass';
+            highpass.frequency.setValueAtTime(540, now);
+            highpass.Q.setValueAtTime(0.5, now);
+
+            master.gain.setValueAtTime(1, now);
+
+            highpass.connect(master);
+            master.connect(compressor);
             compressor.connect(ctx.destination);
 
-            osc.start(now);
-            osc.stop(now + 0.37);
-            markHeaderBookDingPlayed();
+            const scheduleBellStrike = (start, baseFreq, level, decaySeconds) => {
+                const fundamental = ctx.createOscillator();
+                const overtone = ctx.createOscillator();
+                const shimmer = ctx.createOscillator();
+                const strikeGain = ctx.createGain();
 
-            osc.onended = () => {
-                if (typeof ctx.close === 'function') {
-                    ctx.close().catch(() => {});
-                }
+                activeOscillators += 3;
+
+                fundamental.type = 'triangle';
+                overtone.type = 'sine';
+                shimmer.type = 'sine';
+
+                fundamental.frequency.setValueAtTime(baseFreq, start);
+                overtone.frequency.setValueAtTime(baseFreq * 2.01, start);
+                shimmer.frequency.setValueAtTime(baseFreq * 2.98, start);
+                shimmer.detune.setValueAtTime(8, start);
+
+                strikeGain.gain.setValueAtTime(0.0001, start);
+                strikeGain.gain.exponentialRampToValueAtTime(level, start + 0.006);
+                strikeGain.gain.exponentialRampToValueAtTime(0.0001, start + decaySeconds);
+
+                fundamental.connect(strikeGain);
+                overtone.connect(strikeGain);
+                shimmer.connect(strikeGain);
+                strikeGain.connect(highpass);
+
+                const stopAt = start + decaySeconds + 0.03;
+                [fundamental, overtone, shimmer].forEach(osc => {
+                    osc.start(start);
+                    osc.stop(stopAt);
+                    osc.onended = () => {
+                        activeOscillators -= 1;
+                        if (activeOscillators <= 0 && typeof ctx.close === 'function') {
+                            ctx.close().catch(() => {});
+                        }
+                    };
+                });
             };
+
+            // Two quick bell strikes with a bright metallic tail ("reception ding").
+            scheduleBellStrike(now, 1760, 0.13, 0.52);
+            scheduleBellStrike(now + 0.09, 1318.51, 0.11, 0.64);
+
+            markHeaderBookDingPlayed();
         } catch (_) {
             markHeaderBookDingPlayed();
         }
@@ -11070,6 +11308,19 @@
     }
 
     function startHeaderNearestHintLoadingSequence(hintEl) {
+        if (!hintEl) return;
+        if (headerTypewriterSessionPlayed) {
+            clearHeaderNearestHintTypewriter({ preserveText: true });
+            headerNearestHintTypewriterActive = false;
+            headerNearestHintTypewriterTargetText = '';
+            headerNearestHintHelloLockActive = false;
+            headerNearestHintDeferredText = null;
+            headerNearestHintLoadingTypedOnce = true;
+            headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+            hintEl.classList.remove('header-nearest-slot-hint--typing');
+            hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+            return;
+        }
         clearHeaderNearestHintTypewriter();
         headerNearestHintTypewriterToken += 1;
         const runToken = headerNearestHintTypewriterToken;
@@ -11133,6 +11384,7 @@
                 headerNearestHintHelloLockActive = false;
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
+                markHeaderTypewriterSessionPlayed();
                 headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                 hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                 return;
@@ -11148,6 +11400,16 @@
     }
 
     function startHeaderNearestHintTypewriter(hintEl, finalText) {
+        if (!hintEl) return;
+        if (headerTypewriterSessionPlayed) {
+            clearHeaderNearestHintTypewriter({ preserveText: true });
+            hintEl.classList.remove('header-nearest-slot-hint--typing');
+            hintEl.textContent = finalText;
+            headerNearestHintLoadingTypedOnce = true;
+            headerNearestHintLastRenderedText = finalText;
+            maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
+            return;
+        }
         clearHeaderNearestHintTypewriter();
         headerNearestHintTypewriterToken += 1;
         const runToken = headerNearestHintTypewriterToken;
@@ -11169,6 +11431,7 @@
                 hintEl.textContent = finalText;
                 clearHeaderNearestHintTypewriter({ preserveText: true });
                 headerNearestHintLoadingTypedOnce = true;
+                markHeaderTypewriterSessionPlayed();
                 headerNearestHintLastRenderedText = finalText;
                 maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
                 return;
@@ -11180,6 +11443,7 @@
             if (index >= finalText.length) {
                 clearHeaderNearestHintTypewriter({ preserveText: true });
                 headerNearestHintLoadingTypedOnce = true;
+                markHeaderTypewriterSessionPlayed();
                 headerNearestHintLastRenderedText = finalText;
                 maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
                 return;
