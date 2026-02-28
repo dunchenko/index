@@ -1467,12 +1467,6 @@
             margin-bottom: 0.35rem;
         }
 
-        #bookingModal .modal-sticky-actions #bookingStatus {
-            order: 2;
-            width: min(100%, 37.5rem);
-            margin: 0 auto 0.55rem !important;
-        }
-
         #bookingModal .modal-sticky-actions #confirmBookingBtn {
             order: 4;
         }
@@ -1506,12 +1500,20 @@
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
-        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingStatus,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
             width: min(100%, 37.5rem);
             margin-left: auto !important;
             margin-right: auto !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .booking-status-slot {
+            width: min(100%, 37.5rem);
+            min-height: 3rem;
+            margin: 0.2rem auto 0.45rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn {
@@ -1929,7 +1931,9 @@
             --booking-status-border: rgba(255, 128, 184, 0.95);
             --booking-status-bg: rgba(255, 130, 188, 0.24);
             min-height: 0;
-            margin: 0 0 1rem 0 !important;
+            width: 100%;
+            max-width: min(100%, 37.5rem);
+            margin: 0 auto !important;
             padding: 0;
             border-radius: 0.8rem;
             border: 1px solid transparent;
@@ -2739,11 +2743,14 @@
             filter: drop-shadow(0 0 0.16rem rgba(107, 91, 74, 0.28));
         }
 
-        .cal-key svg {
+        .cal-key svg,
+        .cal-key img {
             width: 100%;
             height: 100%;
             transform: none;
             transform-origin: center;
+            display: block;
+            object-fit: contain;
         }
 
         @keyframes keyRotate {
@@ -5729,18 +5736,18 @@
                                 </button>
                                 <div class="custom-options">
                                     <div class="custom-option selected" data-value="Ontario">Ontario</div>
-                                    <div class="custom-option" data-value="Alberta">Alberta</div>
-                                    <div class="custom-option" data-value="Manitoba">Manitoba</div>
-                                    <div class="custom-option" data-value="Nunavut">Nunavut</div>
-                                    <div class="custom-option" data-value="Quebec">Quebec</div>
-                                    <div class="custom-option" data-value="Yukon">Yukon</div>
-                                    <div class="custom-option" data-value="British Columbia">British Columbia</div>
-                                    <div class="custom-option" data-value="New Brunswick">New Brunswick</div>
-                                    <div class="custom-option" data-value="Newfoundland and Labrador">Newfoundland and Labrador</div>
-                                    <div class="custom-option" data-value="Northwest Territories">Northwest Territories</div>
-                                    <div class="custom-option" data-value="Nova Scotia">Nova Scotia</div>
-                                    <div class="custom-option" data-value="Prince Edward Island">Prince Edward Island</div>
-                                    <div class="custom-option" data-value="Saskatchewan">Saskatchewan</div>
+                                    <div class="custom-option" data-value="Alberta">AB</div>
+                                    <div class="custom-option" data-value="Manitoba">MB</div>
+                                    <div class="custom-option" data-value="Nunavut">NU</div>
+                                    <div class="custom-option" data-value="Quebec">QC</div>
+                                    <div class="custom-option" data-value="Yukon">YT</div>
+                                    <div class="custom-option" data-value="British Columbia">BC</div>
+                                    <div class="custom-option" data-value="New Brunswick">NB</div>
+                                    <div class="custom-option" data-value="Newfoundland and Labrador">NL</div>
+                                    <div class="custom-option" data-value="Northwest Territories">NT</div>
+                                    <div class="custom-option" data-value="Nova Scotia">NS</div>
+                                    <div class="custom-option" data-value="Prince Edward Island">PE</div>
+                                    <div class="custom-option" data-value="Saskatchewan">SK</div>
                                 </div>
                             </div>
                             <input id="provinceInputMain" type="hidden" name="address_province" value="Ontario">
@@ -5814,12 +5821,15 @@
                     </div>
                 </div>
 
+                <div class="booking-status-slot">
+                    <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
+                </div>
+
                 <div class="modal-sticky-actions">
                     <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
                         <p class="recaptcha-wrap__hint">Complete reCAPTCHA only when the form asks for it.</p>
                         <div id="bookingRecaptchaWidget"></div>
                     </div>
-                    <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
                     <div class="booking-scroll-cue" aria-hidden="true">
                         <span>▾</span><span>▾</span><span>▾</span>
                     </div>
@@ -6664,7 +6674,7 @@
                 const isToday  = date.getTime() === torNow.getTime();
 
                 if (isSaturday) {
-                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.8"></circle><path d="M10.8 12h10"></path><path d="M15.7 12v-2.2h2.3v2.2"></path><path d="M18.8 12v2.4h2"></path></svg></span>`;
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><img src="key.svg" alt="" loading="lazy" decoding="async"></span>`;
                 } else {
                     el.textContent = day;
                 }
@@ -9616,7 +9626,12 @@
         }
 
         const allowedProvinces = new Set(
-            Array.from(document.querySelectorAll('#provinceCustomSelect .custom-option')).map(opt => normalizeSingleLine(opt.textContent).toUpperCase())
+            Array.from(document.querySelectorAll('#provinceCustomSelect .custom-option'))
+                .flatMap(opt => [
+                    normalizeSingleLine(opt.textContent).toUpperCase(),
+                    normalizeSingleLine(opt.getAttribute('data-value')).toUpperCase()
+                ])
+                .filter(Boolean)
         );
         if (!province || !allowedProvinces.has(province)) {
             setBookingError('Please choose a province from the list.', provinceTrigger || form.address_province);
@@ -11069,7 +11084,13 @@
             } else {
                 triggerTextEl.textContent = selectedText;
             }
-            if (hiddenInput) hiddenInput.value = selectedText;
+            if (hiddenInput) {
+                if (selectId === 'provinceCustomSelect') {
+                    hiddenInput.value = normalizeSingleLine(selectedOption.getAttribute('data-value') || selectedText);
+                } else {
+                    hiddenInput.value = selectedText;
+                }
+            }
             return true;
         }
 
