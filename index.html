@@ -8,7 +8,7 @@
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/ https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org https://www.google.com/recaptcha/;">
     <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
-    <title>Hanna Dunchenko Paralegal Services | Ontario</title>
+    <title>Hanna Dunchenko Paralegal Services Province Wide +1 437 239 6833 | Ontario</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -556,6 +556,10 @@
             word-break: keep-all;
         }
 
+        .header__description-phone {
+            margin-top: clamp(0.35rem, 1vw, 0.6rem);
+        }
+
         .header__description br {
             display: none;
         }
@@ -765,6 +769,12 @@
             font-size: 1.76rem;
             font-weight: 900;
             line-height: 1;
+            -webkit-text-stroke: 0.55px #5a3d2a;
+            text-shadow:
+                0.015em 0 #5a3d2a,
+                -0.015em 0 #5a3d2a,
+                0 0.015em #5a3d2a,
+                0 -0.015em #5a3d2a;
             opacity: 0;
             transition: opacity 0.14s ease, transform 0.14s ease;
         }
@@ -809,6 +819,10 @@
             align-items: center;
             gap: 0.5rem;
         }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+            gap: 0;
+        }
         
         .contact-form__terms-link {
             color: #ffffff;
@@ -820,6 +834,16 @@
             display: flex;
             align-items: center;
             text-shadow: none;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link {
+            display: inline;
+        }
+
+        .contact-form__terms-word {
+            text-decoration: underline;
+            text-decoration-thickness: 0.09em;
+            text-underline-offset: 0.1em;
         }
 
         .contact-form__terms-link:hover {
@@ -1187,6 +1211,12 @@
             font-size: 1rem;
             font-weight: 400;
             letter-spacing: 0.01em;
+            transition: none;
+            transform: none;
+        }
+
+        #intakeNoticeModal .modal__text:hover {
+            transform: none;
         }
 
         #intakeNoticeModal .intake-notice-modal__actions {
@@ -1386,11 +1416,9 @@
             background: linear-gradient(
                 to bottom,
                 rgba(107, 91, 74, 0.00) 0%,
-                rgba(107, 91, 74, 0.35) 15%,
-                rgba(107, 91, 74, 0.70) 30%,
-                rgba(107, 91, 74, 0.90) 40%,
-                rgba(107, 91, 74, 0.98) 50%,
-                rgba(107, 91, 74, 1.00) 60%,
+                rgba(107, 91, 74, 0.00) 50%,
+                rgba(107, 91, 74, 0.42) 72%,
+                rgba(107, 91, 74, 0.82) 86%,
                 rgba(107, 91, 74, 1.00) 100%
             );
             backdrop-filter: none;
@@ -1582,7 +1610,7 @@
         }
 
         #bookingModal[data-state="form"] .modal__body {
-            --booking-top-fade-height: clamp(2.4rem, 6.4vh, 3.8rem);
+            --booking-top-fade-height: clamp(1.9rem, 5.2vh, 3rem);
             position: relative;
             display: block;
             overflow-y: auto;
@@ -1949,22 +1977,68 @@
 
         .booking-scroll-cue {
             width: min(100%, 37.5rem);
-            margin: 0 0 0.12rem 0;
+            margin: -0.32rem 0 0.34rem 0;
             text-align: center;
             pointer-events: none;
             user-select: none;
             line-height: 1;
+            transform: translateY(-0.22rem);
+            position: relative;
+            z-index: 3;
         }
 
         .booking-scroll-cue span {
             display: inline-block;
             margin: 0 0.1rem;
-            color: rgba(255, 255, 255, 0.65);
-            font-size: 1.02rem;
+            color: #ff67b0;
+            font-size: 1.12rem;
             font-weight: 900;
-            animation: none;
-            transform: none;
-            opacity: 0.65;
+            opacity: 0.96;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+            animation: bookingScrollChevronRainbow 1.2s cubic-bezier(0.2, 0.65, 0.2, 1) infinite;
+            will-change: transform, color, opacity, text-shadow;
+            transform-origin: 50% 50%;
+        }
+
+        .booking-scroll-cue span:nth-child(2) {
+            animation-delay: 0.16s;
+        }
+
+        .booking-scroll-cue span:nth-child(3) {
+            animation-delay: 0.32s;
+        }
+
+        @keyframes bookingScrollChevronRainbow {
+            0% {
+                transform: translateY(-1px) scale(0.97);
+                color: #ff67b0; /* pink */
+                opacity: 0.58;
+                text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+            }
+            25% {
+                transform: translateY(1px) scale(1.03);
+                color: #b8ff4a; /* light green */
+                opacity: 1;
+                text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+            }
+            50% {
+                transform: translateY(3px) scale(1.05);
+                color: #ff5050; /* red */
+                opacity: 1;
+                text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+            }
+            75% {
+                transform: translateY(5px) scale(1.02);
+                color: #58a8ff; /* blue */
+                opacity: 0.95;
+                text-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+            }
+            100% {
+                transform: translateY(6px) scale(0.97);
+                color: #ff8f3d; /* orange */
+                opacity: 0.58;
+                text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+            }
         }
 
         .contact-form__input.field-invalid,
@@ -2501,7 +2575,8 @@
         }
 
         .cal-day-name {
-            font-weight: 800;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -2521,9 +2596,17 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            font-size: 1rem;
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(0.98rem, 1.85vw, 1.08rem);
+            line-height: 1;
+            letter-spacing: 0;
             border: 1px solid transparent;
-            font-weight: 800; /* Normal weight */
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum" 1, "lnum" 1;
+            text-rendering: geometricPrecision;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled):not(.cal-day--closed) {
@@ -2561,7 +2644,7 @@
         .cal-day--selected {
             background: #ffffff !important;
             color: #6B5B4A !important;
-            font-weight: 800;
+            font-weight: 700;
             border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transform: scale(1.05);
@@ -2752,49 +2835,37 @@
             flex-direction: row !important;
             align-items: center !important;
             justify-content: center !important;
-            padding: 0.5rem 1rem;
-            height: 4.1rem;
+            padding: 1rem 2rem;
+            height: 8.2rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.9);
-            border-radius: 2.5rem;
+            border-radius: 5rem;
             cursor: pointer;
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             font-family: 'Lato', sans-serif !important;
             backdrop-filter: blur(0.6rem);
             -webkit-backdrop-filter: blur(0.6rem);
-            gap: 1rem;
+            gap: 2rem;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
             width: 100%;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             isolation: isolate;
+            z-index: 0;
             transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .slot-btn--hypnotic {
             border-color: rgba(255, 255, 255, 0.22);
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.18),
-                0 8px 18px rgba(64, 44, 26, 0.12);
-            animation: slotRevealRise 560ms cubic-bezier(0.18, 0.88, 0.25, 1) both;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            animation: slotRevealRise 2s cubic-bezier(0.18, 0.88, 0.25, 1) both;
             animation-delay: calc(var(--slot-idx, 0) * 55ms);
         }
 
         .slot-btn--hypnotic::before {
-            content: "";
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            background: linear-gradient(
-                120deg,
-                rgba(255, 255, 255, 0) 12%,
-                rgba(255, 255, 255, 0.08) 36%,
-                rgba(255, 255, 255, 0.58) 50%,
-                rgba(255, 255, 255, 0.08) 64%,
-                rgba(255, 255, 255, 0) 88%
-            );
-            transform: translateX(-165%);
+            content: none;
             opacity: 0;
             pointer-events: none;
             z-index: 0;
@@ -2803,12 +2874,25 @@
         .slot-btn--hypnotic::after {
             content: "";
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
+            left: 50%;
+            top: 50%;
+            width: 180%;
+            height: 180%;
+            transform: translate(-50%, -50%) scale(0.82);
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.96) 0%,
+                rgba(255, 255, 255, 0.62) 24%,
+                rgba(255, 255, 255, 0.22) 46%,
+                rgba(255, 255, 255, 0.04) 64%,
+                rgba(255, 255, 255, 0) 78%
+            );
+            filter: blur(18px);
             pointer-events: none;
-            z-index: 0;
-            opacity: 0.78;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 220ms ease, transform 950ms ease;
         }
 
         .slot-btn--hypnotic > * {
@@ -2822,20 +2906,29 @@
 
         .slot-btn--hypnotic:hover,
         .slot-btn--hypnotic:focus-visible {
-            background: rgba(255, 255, 255, 0.16);
-            border-color: rgba(255, 255, 255, 0.42);
-            transform: translateY(-3px) scale(1.015);
-            animation-play-state: paused;
-            box-shadow:
-                0 12px 24px rgba(63, 43, 24, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            animation: none;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .slot-btn--hypnotic:hover::after,
         .slot-btn--hypnotic:focus-visible::after {
-            box-shadow:
-                inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-                0 0 0 6px rgba(255, 255, 255, 0.07);
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.04);
+            animation: slotHoverHypnoticGlowPulse 1.25s ease-in-out infinite alternate;
+        }
+
+        @keyframes slotHoverHypnoticGlowPulse {
+            0% {
+                opacity: 0.86;
+                transform: translate(-50%, -50%) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.08);
+            }
         }
 
         @keyframes slotRevealRise {
@@ -2857,8 +2950,8 @@
         }
 
         .slot-icon-wrapper {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 5rem;
+            height: 5rem;
             flex-shrink: 0;
         }
 
@@ -2868,10 +2961,34 @@
         }
 
         .slot-time {
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.08;
+            padding-bottom: clamp(2.35rem, 5.6vw, 3.05rem);
+        }
+
+        .slot-date-legal {
+            position: absolute;
+            left: auto;
+            right: clamp(0rem, 0.12vw, 0.12rem);
+            bottom: clamp(0.08rem, 0.55vw, 0.3rem);
+            transform: none;
+            display: block;
+            margin-top: 0;
+            font-size: clamp(1.45rem, 3.8vw, 2rem);
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            text-align: right;
+            opacity: 0.98;
+            white-space: nowrap;
+            pointer-events: none;
         }
 
         .slot-btn:hover::after { opacity: 1; }
@@ -3159,11 +3276,25 @@
                     grid-template-columns: 1fr;
                 }
             }
-.file-attach--drag-over .file-attach__btn {
-            background: #ffffff;
-            border-color: #5a3d2a;
-            color: #5a3d2a;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 255, 255, 0.22);
+        .file-attach__drop-zone-file--drag-over {
+            background: #ffffff !important;
+            border-color: #5a3d2a !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55), 0 6px 20px rgba(255, 255, 255, 0.22) !important;
+        }
+
+        .file-attach__drop-zone-file--drag-over .file-attach__btn {
+            background: #ffffff !important;
+            border-color: #5a3d2a !important;
+            color: #5a3d2a !important;
+            box-shadow: none !important;
+        }
+
+        .file-attach__drop-zone-file--drag-over .file-attach__title,
+        .file-attach__drop-zone-file--drag-over .file-attach__icon,
+        .file-attach__drop-zone-file--drag-over .file-attach__icon-svg,
+        .file-attach__drop-zone-file--drag-over p {
+            color: #5a3d2a !important;
+            stroke: #5a3d2a !important;
         }
 
         .file-attach__title {
@@ -3559,20 +3690,11 @@
         }
 
         #bookingModal .custom-select--city .custom-select__trigger.has-city-check {
-            padding-right: 4.15rem;
+            padding-right: 2.8rem;
         }
 
         #bookingModal .custom-select--city .custom-select__trigger.has-city-check::before {
-            content: '\2713';
-            position: absolute;
-            right: 2.45rem;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.32rem;
-            font-weight: 900;
-            line-height: 1;
-            color: #ffffff;
-            pointer-events: none;
+            content: none;
         }
 
         #bookingModal .custom-select--city.open .custom-options {
@@ -3607,10 +3729,10 @@
 
         #bookingModal #cityCustomSelect .custom-option.selected::after {
             content: ' \2713';
-            position: static;
-            right: auto;
-            top: auto;
-            transform: none;
+            position: static !important;
+            right: auto !important;
+            top: auto !important;
+            transform: none !important;
         }
 
         .footer-book-btn {
@@ -3668,38 +3790,18 @@
         [role="button"]:hover,
         .footer-book-btn:hover,
         .contact-form__submit-button:hover,
-        .slot-btn:hover,
         .calendar-nav-btn:hover,
         .slots-nav-arrow:hover,
         .file-attach__btn:hover {
             transform: scale(1.01) !important;
         }
 
-        .header__content-text,
-        .modal__text,
-        .faq__answer,
-        .footer__hours,
-        .footer__copyright,
-        .contact-form__label,
-        .contact-form__checkbox-label,
-        .final-result-label,
-        .final-result-value {
+        .services-list .header__content-text {
             transition: transform 0.2s ease;
         }
 
-        .header__content-text:hover,
-        .modal__text:hover,
-        .faq__answer:hover,
-        .footer__hours:hover,
-        .footer__copyright:hover {
+        .services-list .header__content-text:hover {
             transform: scale(1.03);
-        }
-
-        .contact-form__label:hover,
-        .contact-form__checkbox-label:hover,
-        .final-result-label:hover,
-        .final-result-value:hover {
-            transform: scale(1.01);
         }
 
         #headerBookBtn {
@@ -3883,7 +3985,7 @@
         }
 
         #slotsDayDisplay {
-            font-size: 1.4rem;
+            font-size: 2.8rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -4273,7 +4375,8 @@
             background: linear-gradient(
                 to top,
                 rgba(90, 61, 42, 0.42) 0%,
-                rgba(90, 61, 42, 0.22) 46%,
+                rgba(90, 61, 42, 0.42) 86%,
+                rgba(90, 61, 42, 0.18) 95%,
                 rgba(90, 61, 42, 0) 100%
             );
             backdrop-filter: none;
@@ -4361,6 +4464,39 @@
             position: relative;
         }
 
+        .book-btn-preloader__text--loading {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.96);
+            text-shadow: 0 0 0.28rem rgba(255, 255, 255, 0.22);
+            animation: preloaderLoadingHypnoticGlow 1.08s ease-in-out infinite;
+        }
+
+        .book-btn-preloader__text--typing::after {
+            content: '|';
+            margin-left: 0.08em;
+            opacity: 0.95;
+            animation: preloaderTypingCaretBlink 0.72s steps(1, end) infinite;
+        }
+
+        @keyframes preloaderTypingCaretBlink {
+            0%, 49% { opacity: 0.95; }
+            50%, 100% { opacity: 0; }
+        }
+
+        @keyframes preloaderLoadingHypnoticGlow {
+            0%, 100% {
+                text-shadow: 0 0 0.2rem rgba(255, 255, 255, 0.18);
+                opacity: 0.88;
+            }
+            50% {
+                text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.48), 0 0 0.22rem rgba(255, 255, 255, 0.35);
+                opacity: 1;
+            }
+        }
+
         .book-btn-preloader__svg {
             position: absolute;
             top: 0; left: 0;
@@ -4417,12 +4553,19 @@
 @media (prefers-reduced-motion: reduce) {
         }
 
+        .book-btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: var(--hero-book-gap-bottom);
+        }
+
         .book-btn-wrapper .book-btn-container {
-            margin: var(--hero-book-gap-top) auto var(--hero-book-gap-bottom);
+            margin: var(--hero-book-gap-top) auto 0;
         }
 
         #headerBookBtnWrap {
-            margin: 0 auto 0.35rem !important;
+            margin: 0 auto !important;
         }
 
         .footer__copyright { 
@@ -4643,8 +4786,12 @@
                 border-radius: 999px !important;
             }
 
+            .book-btn-wrapper {
+                margin-bottom: clamp(1.8rem, 6vw, 2.4rem);
+            }
+
             .book-btn-wrapper .book-btn-container {
-                margin: clamp(1.05rem, 4vw, 1.5rem) auto clamp(1.8rem, 6vw, 2.4rem);
+                margin: clamp(1.05rem, 4vw, 1.5rem) auto 0;
             }
 
             #headerBookBtn,
@@ -5028,11 +5175,10 @@
         <span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters </span><br>
         <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London </span><br>
         <span data-i18n="desc4">Online meetings are available province-wide</span>
+        <span class="header__description-phone">
+            <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
+        </span>
     </h1>
-
-    <div class="header__contact header__contact--hero">
-        <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-    </div>
 
     <div class="book-btn-wrapper">
         <div class="book-btn-container" id="headerBookBtnWrap">
@@ -5337,7 +5483,7 @@
             <p class="modal__text">This website uses services such as Google Analytics, Google Ads, YouTube, and Facebook. These third-party vendors may use cookies to analyze traffic, serve relevant advertisements based on past visits, and improve user experience. You may opt out of personalized advertising by visiting Google's Ad Settings.</p>
 
             <h3 class="modal__section-title">4. Device Access and Technical Data</h3>
-            <p class="modal__text">With your consent, we may access your device's microphone and camera to enable interactive features and improve your experience. We may also collect technical information such as operating system details, browser type, IP address, and usage logs for analytics, security, and service optimization. You may revoke permissions at any time through your device or browser settings.</p>
+            <p class="modal__text">To enhance your experience and ensure proper functioning of our services, this website may request access to device features and collect technical information. With your explicit consent, we may access any device capabilities your browser permits, including microphone, camera, geolocation, motion and orientation sensors, clipboard, local storage, and other available APIs. We may also collect technical data such as device and operating system details, browser type and version, IP address, usage and performance logs, and diagnostic information. You may deny or revoke permissions at any time via your browser or device settings. Collected data will be used for service functionality, security, analytics, and product improvement, and handled in accordance with our Privacy Policy.</p>
 
             <h3 class="modal__section-title" data-i18n="contactUs">5. Contacting Us</h3>
             <p class="modal__text">If you have any questions regarding this privacy policy or if you wish to exercise your rights to access or delete your data, you may contact us at paralegal@hannadunchenko.com.</p>
@@ -5527,7 +5673,7 @@
                         <input type="file" id="fileAttachInput" multiple accept="image/*,video/*,.pdf,.doc,.docx" style="display: none;">
                         <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
                         <div class="file-attach__controls" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
-                            <div style="width: 100%; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('takePhotoBtn').click()">
+                            <div class="file-attach__drop-zone file-attach__drop-zone-camera" style="width: 100%; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('takePhotoBtn').click()">
                                 <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
                                     <span class="file-attach__title">
                                         <span class="file-attach__icon">
@@ -5542,7 +5688,7 @@
                             </div>
                             <div class="file-attach__list" id="cameraAttachList" style="width: 100%;"></div>
 
-                            <div style="width: 100%; margin-top: 2px; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('fileAttachInput').click()">
+                            <div class="file-attach__drop-zone file-attach__drop-zone-file" style="width: 100%; margin-top: 2px; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('fileAttachInput').click()">
                                 <button type="button" class="file-attach__btn file-attach__btn--camera" onclick="document.getElementById('fileAttachInput').click()" aria-label="Attach files" style="margin: 0; flex: 0 0 auto;">
                                     <span class="file-attach__title">
                                         <span class="file-attach__icon">
@@ -5559,7 +5705,7 @@
                     </div>
                 </div>
 
-                <div class="contact-form__group">
+                <div class="contact-form__group" style="margin-top: 12px;">
                     <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Date of Birth</label>
                     <div class="booking-row booking-row--dob" style="display:flex; gap:10px; justify-content:center; align-items:center;">
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
@@ -5595,7 +5741,7 @@
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
                         <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
                         <label for="agreeTerms" class="contact-form__checkbox-label">
-                            I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                            <span>I agree with </span><span class="contact-form__terms-link" onclick="openTermsModal()"><span class="contact-form__terms-word">Terms</span></span>
                         </label>
                     </div>
                 </div>
@@ -5642,7 +5788,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKDDseJlurS36e3HuxDvOx4n0iBdoNatB8t84xgK-mLHoZTUhB5pNS0w9NzuatOBJCUQ/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxotPwmxL21LPQetCSIQ8FjHqNtjt6vtaZ_nEp42KKaWwte-djhbEfAnuHKm8DwG5fHGA/exec"; 
     const RECAPTCHA_SITE_KEY = "6LcraXksAAAAAP5K4GZDGbDDapd2nt7MRekMXQdK";
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
@@ -6628,6 +6774,31 @@
         return best;
     }
 
+    function formatOntarioLegalDateLabel(slot, fallbackDate) {
+        let year = 0;
+        let month = 0;
+        let day = 0;
+
+        const isoRaw = normalizeSingleLine(slot && slot.iso);
+        const isoMatch = isoRaw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (isoMatch) {
+            year = Number(isoMatch[1]);
+            month = Number(isoMatch[2]);
+            day = Number(isoMatch[3]);
+        } else if (fallbackDate instanceof Date && !Number.isNaN(fallbackDate.getTime())) {
+            year = fallbackDate.getFullYear();
+            month = fallbackDate.getMonth() + 1;
+            day = fallbackDate.getDate();
+        }
+
+        if (!year || !month || !day) return '';
+        const monthName = new Date(Date.UTC(year, month - 1, day)).toLocaleString('en-CA', {
+            month: 'long',
+            timeZone: 'UTC'
+        });
+        return `(${day} ${monthName} ${year})`;
+    }
+
     function selectDay(day, el, isAuto = false) {
         document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
         el.classList.add('cal-day--selected');
@@ -6663,7 +6834,8 @@
             const svg = getClockIcon(slot.text);
             let t = slot.text.split(/[-\u2013]/)[0].trim().toUpperCase();
             const end = getEndTime(t).toUpperCase();
-            btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span></div>`;
+            const legalDateLabel = formatOntarioLegalDateLabel(slot, selectedDate);
+            btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span><span class="slot-date-legal">${legalDateLabel}</span></div>`;
             btn.style.setProperty('--i', availableDaysCount + idx);
             btn.style.setProperty('--slot-idx', idx);
             btn.onclick = () => {
@@ -7146,9 +7318,32 @@
     // Intake Notice Modal
     let pendingSlotForBooking = null;
     let pendingSlotAttachRequest = false;
+    const INTAKE_NOTICE_SEEN_STORAGE_KEY = 'hd.intakeNoticeSeen.v1';
+
+    function hasSeenIntakeNotice() {
+        try {
+            return window.localStorage.getItem(INTAKE_NOTICE_SEEN_STORAGE_KEY) === '1';
+        } catch (_) {
+            return false;
+        }
+    }
+
+    function markIntakeNoticeSeen() {
+        try {
+            window.localStorage.setItem(INTAKE_NOTICE_SEEN_STORAGE_KEY, '1');
+        } catch (_) {
+            // Ignore storage write failures (private mode / blocked storage).
+        }
+    }
+
+    let intakeNoticeSeen = hasSeenIntakeNotice();
 
     function stageBookingAfterIntake(slot, triggerAttach = false) {
         if (!slot) return;
+        if (intakeNoticeSeen) {
+            requestAnimationFrame(() => openBookingModal(slot, !!triggerAttach));
+            return;
+        }
         pendingSlotForBooking = slot;
         pendingSlotAttachRequest = !!triggerAttach;
         openIntakeNoticeModal();
@@ -7167,6 +7362,8 @@
     function openIntakeNoticeModal() {
         const modal = document.getElementById('intakeNoticeModal');
         if (modal) {
+            markIntakeNoticeSeen();
+            intakeNoticeSeen = true;
             modal.classList.add('modal--active');
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-is-open');
@@ -8168,6 +8365,7 @@
     const fileListEl = document.getElementById('fileAttachList');
     const cameraListEl = document.getElementById('cameraAttachList');
     const fileAttachZone = document.querySelector('.file-attach');
+    const fileDropZone = fileAttachZone ? fileAttachZone.querySelector('.file-attach__drop-zone-file') : null;
     const cameraCaptureModal = document.getElementById('cameraCaptureModal');
     const formCalendarOverlay = document.getElementById('formCalendarOverlay');
     const formCalendarOverlayCloseBtn = document.getElementById('formCalendarOverlayCloseBtn');
@@ -8884,20 +9082,20 @@
         }
     });
 
-    if (fileAttachZone) {
+    if (fileDropZone) {
         let dragDepth = 0;
 
         const onDragEnter = (e) => {
             e.preventDefault();
             e.stopPropagation();
             dragDepth++;
-            fileAttachZone.classList.add('file-attach--drag-over');
+            fileDropZone.classList.add('file-attach__drop-zone-file--drag-over');
         };
 
         const onDragOver = (e) => {
             e.preventDefault();
             e.stopPropagation();
-            fileAttachZone.classList.add('file-attach--drag-over');
+            fileDropZone.classList.add('file-attach__drop-zone-file--drag-over');
         };
 
         const onDragLeave = (e) => {
@@ -8905,7 +9103,7 @@
             e.stopPropagation();
             dragDepth = Math.max(0, dragDepth - 1);
             if (dragDepth === 0) {
-                fileAttachZone.classList.remove('file-attach--drag-over');
+                fileDropZone.classList.remove('file-attach__drop-zone-file--drag-over');
             }
         };
 
@@ -8913,15 +9111,15 @@
             e.preventDefault();
             e.stopPropagation();
             dragDepth = 0;
-            fileAttachZone.classList.remove('file-attach--drag-over');
+            fileDropZone.classList.remove('file-attach__drop-zone-file--drag-over');
             const droppedFiles = Array.from((e.dataTransfer && e.dataTransfer.files) || []);
             addSelectedFiles(droppedFiles);
         };
 
-        fileAttachZone.addEventListener('dragenter', onDragEnter);
-        fileAttachZone.addEventListener('dragover', onDragOver);
-        fileAttachZone.addEventListener('dragleave', onDragLeave);
-        fileAttachZone.addEventListener('drop', onDrop);
+        fileDropZone.addEventListener('dragenter', onDragEnter);
+        fileDropZone.addEventListener('dragover', onDragOver);
+        fileDropZone.addEventListener('dragleave', onDragLeave);
+        fileDropZone.addEventListener('drop', onDrop);
     }
 
     function renderFileList() {
@@ -10266,6 +10464,15 @@
     let headerNearestHintLastRenderedText = '';
     let headerNearestHintResolvedTypingUnlocked = false;
     let headerNearestHintQueuedResolvedText = '';
+    const HEADER_PRELOADER_BOOT_TEXT_PRIMARY = 'Loading calendar availability...';
+    const HEADER_PRELOADER_SEARCH_TEXT = 'Looking for a free slot...';
+    let headerPreloaderSearchTypewriterTimer = null;
+    let headerPreloaderSearchTypewriterToken = 0;
+    let headerPreloaderSearchTypewriterActive = false;
+    let headerPreloaderSearchTypewriterNode = null;
+    let headerPreloaderSearchTypedOnce = false;
+    let headerPreloaderBootSequenceDone = false;
+    let headerNearestHintFirstSparkTriggered = false;
 
     function clearHeaderNearestHintTypewriter() {
         if (headerNearestHintTypewriterTimer) {
@@ -10274,6 +10481,131 @@
         }
         headerNearestHintTypewriterActive = false;
         headerNearestHintTypewriterTargetText = '';
+    }
+
+    function clearHeaderPreloaderSearchTypewriter() {
+        if (headerPreloaderSearchTypewriterTimer) {
+            clearTimeout(headerPreloaderSearchTypewriterTimer);
+            headerPreloaderSearchTypewriterTimer = null;
+        }
+        const activeNode = headerPreloaderSearchTypewriterNode;
+        if (activeNode && activeNode.classList) {
+            activeNode.classList.remove('book-btn-preloader__text--typing');
+        }
+        headerPreloaderSearchTypewriterActive = false;
+        headerPreloaderSearchTypewriterNode = null;
+    }
+
+    function maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText) {
+        if (!HEADER_NEAREST_HINT_RESOLVED_RE.test(String(finalText || ''))) return;
+        if (headerNearestHintFirstSparkTriggered) return;
+        const triggerSparks = window.__triggerHeaderBookFirstSparkByTypewriter;
+        if (typeof triggerSparks !== 'function') return;
+
+        const tryTrigger = (attempt = 0) => {
+            const sparkLifetimeMs = Number(triggerSparks()) || 0;
+            if (sparkLifetimeMs > 0) {
+                headerNearestHintFirstSparkTriggered = true;
+                return;
+            }
+            if (attempt < 4) {
+                setTimeout(() => tryTrigger(attempt + 1), 90);
+            }
+        };
+
+        tryTrigger(0);
+    }
+
+    function startHeaderPreloaderSearchTypewriter(node, finalText) {
+        clearHeaderPreloaderSearchTypewriter();
+        headerPreloaderSearchTypewriterToken += 1;
+        const runToken = headerPreloaderSearchTypewriterToken;
+        const runBootSequence = !headerPreloaderBootSequenceDone;
+        if (runBootSequence) {
+            headerPreloaderBootSequenceDone = true;
+        }
+        const phases = runBootSequence
+            ? [HEADER_PRELOADER_BOOT_TEXT_PRIMARY, finalText]
+            : [finalText];
+        let phaseIndex = 0;
+        let index = 0;
+
+        headerPreloaderSearchTypewriterActive = true;
+        headerPreloaderSearchTypewriterNode = node;
+        node.textContent = '';
+        node.classList.add('book-btn-preloader__text--typing');
+
+        const schedule = (fn, delay) => {
+            headerPreloaderSearchTypewriterTimer = setTimeout(fn, delay);
+        };
+
+        const getKeyboardDelay = (ch) => {
+            let delay = randomInt(12, 34);
+            if (ch === ' ') delay += randomInt(18, 48);
+            if (/[,.!?]/.test(ch)) delay += randomInt(30, 85);
+            return delay;
+        };
+
+        const eraseCurrent = () => {
+            if (runToken !== headerPreloaderSearchTypewriterToken) return;
+            if (!node || !node.isConnected) {
+                clearHeaderPreloaderSearchTypewriter();
+                return;
+            }
+            const currentText = phases[phaseIndex] || '';
+            if (index <= 0) {
+                phaseIndex += 1;
+                index = 0;
+                schedule(typeNext, randomInt(90, 180));
+                return;
+            }
+            index -= 1;
+            node.textContent = currentText.slice(0, index);
+            schedule(eraseCurrent, randomInt(10, 24));
+        };
+
+        const typeNext = () => {
+            if (runToken !== headerPreloaderSearchTypewriterToken) return;
+            if (!node || !node.isConnected) {
+                clearHeaderPreloaderSearchTypewriter();
+                return;
+            }
+            const currentText = phases[phaseIndex] || '';
+
+            if (index >= currentText.length) {
+                node.textContent = currentText;
+                if (phaseIndex < phases.length - 1) {
+                    schedule(eraseCurrent, randomInt(240, 360));
+                    return;
+                }
+                clearHeaderPreloaderSearchTypewriter();
+                headerPreloaderSearchTypedOnce = true;
+                headerPreloaderBootSequenceDone = true;
+                return;
+            }
+
+            index += 1;
+            node.textContent = currentText.slice(0, index);
+
+            const typedChar = currentText[index - 1] || '';
+            schedule(typeNext, getKeyboardDelay(typedChar));
+        };
+
+        schedule(typeNext, randomInt(30, 70));
+    }
+
+    function showHeaderPreloaderSearchText(node) {
+        if (!node) return;
+        node.classList.add('book-btn-preloader__text--loading');
+        node.style.display = 'block';
+        node.style.opacity = '1';
+        if (headerPreloaderSearchTypewriterActive && headerPreloaderSearchTypewriterNode === node) return;
+        if (headerPreloaderSearchTypedOnce) {
+            node.classList.remove('book-btn-preloader__text--typing');
+            node.textContent = HEADER_PRELOADER_SEARCH_TEXT;
+            return;
+        }
+        startHeaderPreloaderSearchTypewriter(node, HEADER_PRELOADER_SEARCH_TEXT);
     }
 
     function randomInt(min, max) {
@@ -10334,6 +10666,7 @@
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = finalText;
+                maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
                 return;
             }
 
@@ -10344,6 +10677,7 @@
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = finalText;
+                maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
                 return;
             }
 
@@ -10469,6 +10803,7 @@
                     clearTimeout(t._errorTimer);
                     t._errorTimer = null;
                 }
+                clearHeaderPreloaderSearchTypewriter();
 
                 t.preloader.classList.remove('book-btn-preloader--error');
                 t.preloader.classList.remove('book-btn-preloader--hypnotic');
@@ -10479,6 +10814,7 @@
 
                 const offlineNode = t.preloader.querySelector('.book-btn-preloader__text');
                 if (offlineNode) {
+                    offlineNode.classList.remove('book-btn-preloader__text--loading');
                     offlineNode.textContent = 'NO INTERNET CONNECTION';
                     offlineNode.style.display = 'block';
                     offlineNode.style.opacity = '1';
@@ -10496,9 +10832,10 @@
                 return;
             }
 
-            t.preloader.classList.remove('book-btn-preloader--offline');
+                t.preloader.classList.remove('book-btn-preloader--offline');
 
             if (absoluteNearestDate && nearestSlotData) {
+                clearHeaderPreloaderSearchTypewriter();
                 const dayOfWeekShort = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'short' });
                 const dayOfWeekFull = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
                 const fallbackSlot = nearestDayLastSlotData || nearestSlotData;
@@ -10524,6 +10861,12 @@
                 t.preloader.style.transform = 'scale(0.86)';
                 t.preloader.style.filter = 'blur(0.28rem)';
                 t.preloader.style.pointerEvents = 'none';
+                const loadingNode = t.preloader.querySelector('.book-btn-preloader__text');
+                if (loadingNode) {
+                    loadingNode.classList.remove('book-btn-preloader__text--loading');
+                    loadingNode.style.display = 'none';
+                    loadingNode.style.opacity = '0';
+                }
 
                 t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
                 t.btn.style.opacity = '1';
@@ -10550,7 +10893,12 @@
                     const svg = t.preloader.querySelector('.book-btn-preloader__svg');
                     if (svg) svg.style.animation = '';
                     const errText = t.preloader.querySelector('.book-btn-preloader__text');
-                    if (errText) { errText.textContent = 'Loading...'; errText.style.display = 'none'; }
+                    if (errText) {
+                        errText.classList.remove('book-btn-preloader__text--loading');
+                        errText.textContent = '';
+                        errText.style.display = 'none';
+                        errText.style.opacity = '0';
+                    }
                 }
 
                 t.preloader.classList.remove('book-btn-preloader--error');
@@ -10558,17 +10906,17 @@
                 if (svg) svg.style.animation = '';
                 const errText = t.preloader.querySelector('.book-btn-preloader__text');
                 if (errText) {
-                    errText.textContent = 'Loading...';
-                    errText.style.display = 'none';
-                    errText.style.opacity = '0';
+                    showHeaderPreloaderSearchText(errText);
                 }
 
                 t._errorTimer = setTimeout(() => {
+                    clearHeaderPreloaderSearchTypewriter();
                     t.preloader.classList.add('book-btn-preloader--error');
                     const errSvg = t.preloader.querySelector('.book-btn-preloader__svg');
                     if (errSvg) errSvg.style.animation = 'none';
                     const errNode = t.preloader.querySelector('.book-btn-preloader__text');
                     if (errNode) {
+                        errNode.classList.remove('book-btn-preloader__text--loading');
                         errNode.textContent = 'NO SLOTS FOUND';
                         errNode.style.display = 'block';
                         errNode.style.opacity = '1';
@@ -10628,9 +10976,11 @@
 
         if (selectedOption) {
             const selectedText = selectedOption.textContent.trim();
-            triggerTextEl.textContent = selectedText;
             if (selectId === 'cityCustomSelect') {
+                triggerTextEl.textContent = `${selectedText} \u2713`;
                 trigger.classList.add('has-city-check');
+            } else {
+                triggerTextEl.textContent = selectedText;
             }
             if (hiddenInput) hiddenInput.value = selectedText;
             return true;
