@@ -151,7 +151,8 @@
                         }
                         #bookingModal.modal--active {
                             opacity: 1;
-                            transform: translateY(0) scale(1);
+                            /* Keep active modal untransformed so fixed CTA bar is anchored to viewport */
+                            transform: none;
                             pointer-events: auto;
                         }
                 h1, h2, h3,
@@ -965,7 +966,8 @@
             transform: translateY(0.8rem) scale(0.985);
             margin-top: 0;
             margin-bottom: 0;
-            padding-left: 1.73rem;
+            padding-left: 2.03rem;
+            padding-right: 1.8rem;
             font-family: 'Lato', sans-serif !important;
             font-size: 1.2rem !important;
             color: rgba(255, 255, 255, 0.92) !important;
@@ -1013,6 +1015,42 @@
             transform: translateY(0);
         }
 
+        .faq-no-date-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.55rem;
+            padding: 0.56rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .faq-no-date-action:hover,
+        .faq-no-date-action:focus-visible {
+            background: rgba(255, 255, 255, 0.24);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .faq-no-date-line {
+            display: block;
+        }
+
+        .faq-no-date-line .faq-no-date-action {
+            margin-top: 0;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+        }
+
         .price-note {
             font-size: 1rem;
             font-weight: 400;
@@ -1024,7 +1062,6 @@
             display: block;
             margin-top: 0;
         }
-
 
         /* Block: modal */
         .modal {
@@ -1055,7 +1092,7 @@
         }
 
         #intakeNoticeModal .modal__content {
-            max-width: 50rem;
+            max-width: 37.5rem;
             background: #3a2a1a;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 1.3rem 3.1rem rgba(0,0,0,0.5);
@@ -1280,27 +1317,21 @@
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions {
+            position: fixed;
+            left: 0;
+            right: 0;
             bottom: 0;
-            margin-top: 0.55rem;
-            padding-top: 1.25rem;
-            padding-bottom: calc(0.25rem + env(safe-area-inset-bottom));
-            background: linear-gradient(
-                to bottom,
-                rgba(107, 91, 74, 0) 0%,
-                rgba(107, 91, 74, 0.86) 24px,
-                rgba(107, 91, 74, 0.98) 46px,
-                rgba(107, 91, 74, 0.98) 100%
-            );
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            border-top-left-radius: 1.05rem;
-            border-top-right-radius: 1.05rem;
-            border-bottom-left-radius: 0.85rem;
-            border-bottom-right-radius: 0.85rem;
-            overflow: hidden;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
+            z-index: 20035;
+            margin: 0;
+            padding: 0.65rem 0.7rem calc(0.75rem + env(safe-area-inset-bottom));
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
+            border-top: 1px solid var(--glass-border);
+            box-shadow: 0 -0.45rem 1.4rem rgba(0, 0, 0, 0.28);
+            -webkit-mask-image: linear-gradient(to top, black, transparent);
+            mask-image: linear-gradient(to top, black, transparent);
+            isolation: isolate;
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions::before {
@@ -1330,6 +1361,20 @@
             margin-top: 0 !important;
             margin-bottom: 0.7rem !important;
             padding-bottom: 0;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
+            display: grid;
+            justify-items: center;
+            align-content: end;
+            gap: 0;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
+            width: min(37.5rem, calc(100vw - 1.4rem));
+            margin-left: auto !important;
+            margin-right: auto !important;
         }
 
         .modal__section-title {
@@ -1369,15 +1414,47 @@
 
         #bookingModal {
             --booking-form-font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        #bookingModal.modal--active {
+            align-items: center !important;
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
         }
 
         #bookingModal .modal__content {
             overflow: hidden;
+            max-height: calc(100vh - 1.2rem);
+            max-height: calc(100dvh - 1.2rem);
+            height: min(58rem, calc(100vh - 1.2rem));
+            height: min(58rem, calc(100dvh - 1.2rem));
         }
 
-        #bookingModal .modal__body,
+        #bookingModal .modal__body {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0;
+        }
+
+        #bookingModal[data-state="form"] .modal__body {
+            padding-bottom: calc(9.8rem + env(safe-area-inset-bottom));
+        }
+
         #bookingModal #bookingForm {
             overflow-x: hidden;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #bookingModal #bookingForm .modal-sticky-actions {
+            margin-top: auto;
+            bottom: 0;
         }
 
         #bookingModal .modal__body,
@@ -1408,27 +1485,38 @@
 
         #bookingModal .booking-row--address-secondary {
             justify-content: flex-end !important;
+            align-items: stretch !important;
+            flex-wrap: nowrap !important;
         }
 
         #bookingModal .custom-select-wrapper--city {
-            flex: 1 1 auto;
-            min-width: 13.8rem;
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
         }
 
         #bookingModal input[name="address_province"] {
-            width: 6.8rem;
-            min-width: 6.2rem;
+            flex: 0 0 60px !important;
+            width: 60px !important;
+            min-width: 60px !important;
+            max-width: 60px !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
             text-align: center;
             text-transform: uppercase;
         }
 
         #bookingModal input[name="address_zip"] {
+            flex: 0 0 50px !important;
+            width: 50px !important;
+            min-width: 50px !important;
+            max-width: 50px !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
             text-align: center;
             caret-color: #ffffff;
         }
 
         @media (min-width: 769px) {
-            #bookingModal input[name="address_zip"],
             #bookingModal #deadlineInputMain {
                 flex: 0 0 clamp(11rem, 16vw, 14rem) !important;
                 width: clamp(11rem, 16vw, 14rem) !important;
@@ -1436,8 +1524,8 @@
             }
 
             #bookingModal .custom-select-wrapper--city {
-                flex: 1 1 13rem !important;
-                min-width: 13rem !important;
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
             }
         }
 
@@ -1964,7 +2052,6 @@
             height: 100%;
         }
 
-
         /* ------------------- CUSTOM CALENDAR (Liquid Glass Design) ------------------- */
         .calendar-scale-wrapper {
             width: 100%;
@@ -2070,7 +2157,6 @@
         }
         .calendar-title .cal-year { font-size: 1.98rem; opacity: 0.92; font-weight: 900; letter-spacing: 2px; margin-top: -0.15rem; }
 
-
         .calendar-nav-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid transparent;
@@ -2125,6 +2211,12 @@
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             gap: 15px; /* Space between spinner and text */
+        }
+
+        #calendarLoaderOverlay.calendar-loader--error {
+            background: rgba(64, 48, 31, 0.58);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
         
         #calendarLoaderOverlay span {
@@ -2255,7 +2347,6 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0); }
         }
 
-
         .cal-key {
             display: flex;
             align-items: center;
@@ -2283,7 +2374,6 @@
             0% { transform: rotate(45deg); }
             100% { transform: rotate(405deg); }
         }
-
 
         
         
@@ -2476,15 +2566,6 @@
             will-change: transform;
         }
 
-        .slot-btn--hypnotic.slot-btn--sparkle::before {
-            opacity: 1;
-            animation: slotShimmerFlash 360ms linear 1;
-        }
-
-        .slot-btn--hypnotic.slot-btn--sparkle::after {
-            animation: slotHaloFlash 360ms ease-out 1;
-        }
-
         .slot-btn--hypnotic:hover,
         .slot-btn--hypnotic:focus-visible {
             background: rgba(255, 255, 255, 0.16);
@@ -2516,37 +2597,10 @@
             }
         }
 
-        @keyframes slotShimmerFlash {
-            0% {
-                transform: translateX(-165%);
-                opacity: 0;
-            }
-            18% {
-                opacity: 0.98;
-            }
-            100% {
-                transform: translateX(165%);
-                opacity: 0;
-            }
-        }
-
-        @keyframes slotHaloFlash {
-            0% {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 0 0 rgba(255,255,255,0);
-            }
-            40% {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6), 0 0 0 8px rgba(255,255,255,0.16);
-            }
-            100% {
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 0 0 rgba(255,255,255,0);
-            }
-        }
-
         .slot-btn > div, .slot-btn > span {
             flex-grow: 0 !important;
             flex-shrink: 0 !important;
         }
-
 
         .slot-icon-wrapper {
             width: 2.5rem;
@@ -2566,9 +2620,7 @@
             text-align: center;
         }
 
-
         .slot-btn:hover::after { opacity: 1; }
-
 
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(0.9rem); }
@@ -2587,7 +2639,6 @@
                 border-color: rgba(255, 255, 255, 0.25);
             }
         }
-
 
         @keyframes rotateIcon {
             0% { transform: rotate(0deg); }
@@ -2657,7 +2708,6 @@
             100% { transform: scale(1); }
         }
 
-
         /* Breathing Glow Animation */
         @keyframes breathingGlow {
             0% { 
@@ -2711,8 +2761,6 @@
             opacity: 0.7;
             text-align: left;
         }
-
-
 
         /* Next Available Message */
         .next-available-msg {
@@ -2844,29 +2892,6 @@
             color: #ffffff !important;
         }
 
-        .file-attach__btn--camera.file-attach__btn--camera-hypnotic {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: rgba(255, 255, 255, 0.98) !important;
-            color: #ffffff !important;
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.46), 0 0 1rem rgba(255, 255, 255, 0.3);
-            animation: cameraHypnoticGlow 1.35s ease-in-out infinite;
-        }
-
-        .file-attach__btn--camera.file-attach__btn--camera-hypnotic .file-attach__icon-svg--camera {
-            filter: drop-shadow(0 0 0.45rem rgba(255, 255, 255, 0.65));
-        }
-
-        @keyframes cameraHypnoticGlow {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.45), 0 0 0.7rem rgba(255, 255, 255, 0.25);
-            }
-            50% {
-                transform: scale(1.08);
-                box-shadow: 0 0 0 0.62rem rgba(255, 255, 255, 0.08), 0 0 1.45rem rgba(255, 255, 255, 0.55);
-            }
-        }
-
         .file-attach__btn:hover,
         .file-attach__btn:focus-visible {
             background: #ffffff;
@@ -2880,14 +2905,7 @@
                     grid-template-columns: 1fr;
                 }
             }
-
-            @media (prefers-reduced-motion: reduce) {
-                .file-attach__btn--camera.file-attach__btn--camera-hypnotic {
-                    animation: none;
-                }
-            }
-
-        .file-attach--drag-over .file-attach__btn {
+.file-attach--drag-over .file-attach__btn {
             background: #ffffff;
             border-color: #5a3d2a;
             color: #5a3d2a;
@@ -3307,8 +3325,6 @@
             color: var(--accent-gold);
         }
 
-
-
         .footer-book-btn {
             position: relative;
             display: inline-block;
@@ -3394,9 +3410,9 @@
             min-height: 1.4em;
             text-align: center;
             font-family: 'Lato', sans-serif;
-            font-size: clamp(0.9rem, 2.2vw, 1.05rem);
-            font-weight: 800;
-            line-height: 1.35;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
             letter-spacing: 0.01em;
             color: rgba(255, 255, 255, 0.9);
             opacity: 0;
@@ -3432,11 +3448,6 @@
 
         #footerBookBtn:hover::before {
             content: none !important;
-        }
-
-        #footerBookBtn.footer-book-btn--finger-press {
-            transform: scale(0.975) translateY(1px) !important;
-            filter: brightness(0.96);
         }
 
         /* Bottom book button: same font, keep existing dynamic sizes */
@@ -4060,111 +4071,7 @@
         .book-btn-container--footer {
             overflow: visible;
         }
-
-        .footer-finger-hint {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 11.8rem;
-            height: 16.4rem;
-            pointer-events: none;
-            opacity: 0;
-            z-index: 9;
-            transform: translate(-50%, 42%) rotate(-8.3deg) scale(1);
-            transform-origin: 50% 12%;
-            filter: drop-shadow(0 0.55rem 0.8rem rgba(0, 0, 0, 0.3));
-            transition: opacity 0.28s ease;
-            overflow: visible;
-            -webkit-mask-image: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.15) 14%,
-                rgba(0, 0, 0, 0.45) 30%,
-                rgba(0, 0, 0, 0.78) 42%,
-                rgba(0, 0, 0, 1) 50%,
-                rgba(0, 0, 0, 1) 100%
-            );
-            mask-image: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.15) 14%,
-                rgba(0, 0, 0, 0.45) 30%,
-                rgba(0, 0, 0, 0.78) 42%,
-                rgba(0, 0, 0, 1) 50%,
-                rgba(0, 0, 0, 1) 100%
-            );
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-size: 100% 100%;
-            mask-size: 100% 100%;
-        }
-
-        .footer-finger-hint--active {
-            opacity: 1;
-            animation: footerFingerTap 22s cubic-bezier(0.42, 0, 0.28, 1) infinite;
-        }
-
-        .footer-finger-hint--pressing {
-            animation: footerFingerTapPress 1.45s cubic-bezier(0.25, 0.1, 0.25, 1) forwards !important;
-        }
-
-        .footer-finger-hint svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-            overflow: visible;
-        }
-
-        @keyframes footerFingerTap {
-            0%, 100% {
-                transform: translate(-50%, 42%) rotate(-8.3deg) scale(1);
-            }
-            12% {
-                transform: translate(-50.4%, 41.5%) rotate(-7.9deg) scale(0.998);
-            }
-            28% {
-                transform: translate(-50.9%, 40.8%) rotate(-7.5deg) scale(0.997);
-            }
-            44% {
-                transform: translate(-49.8%, 41.8%) rotate(-8.1deg) scale(1);
-            }
-            60% {
-                transform: translate(-50.6%, 41.1%) rotate(-7.6deg) scale(0.998);
-            }
-            76% {
-                transform: translate(-49.7%, 41.9%) rotate(-8.2deg) scale(1);
-            }
-            90% {
-                transform: translate(-50.3%, 41.3%) rotate(-7.8deg) scale(0.999);
-            }
-        }
-
-        @keyframes footerFingerTapPress {
-            0% {
-                transform: translate(-50%, 42%) rotate(-8.3deg) scale(1);
-            }
-            58% {
-                transform: translate(-50%, 1.5%) rotate(-6.7deg) scale(0.982);
-            }
-            76% {
-                transform: translate(-50.8%, 4.2%) rotate(-7.8deg) scale(0.987);
-            }
-            100% {
-                transform: translate(-50%, 3.8%) rotate(-7.2deg) scale(0.988);
-            }
-        }
-
-        @media (max-width: 680px) {
-            .footer-finger-hint {
-                width: 9.5rem;
-                height: 13.1rem;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .footer-finger-hint--active {
-                animation: none;
-            }
+@media (prefers-reduced-motion: reduce) {
         }
 
         .book-btn-wrapper .book-btn-container {
@@ -4174,7 +4081,6 @@
         #headerBookBtnWrap {
             margin: 0 auto var(--hero-phone-button-gap) !important;
         }
-
 
         .footer__copyright { 
             font-size: 1rem;
@@ -4228,31 +4134,7 @@
             text-align: center !important;
             width: 100%;
         }
-
-        .footer__copyright--hypno {
-            animation: footerCopyrightHypnoGlow 7.2s ease-in-out infinite;
-            text-shadow: 0 0 0.06rem rgba(255, 255, 255, 0.08);
-        }
-
-        @keyframes footerCopyrightHypnoGlow {
-            0%, 100% {
-                text-shadow: 0 0 0.06rem rgba(255, 255, 255, 0.08);
-            }
-            50% {
-                text-shadow:
-                    0 0 0.12rem rgba(255, 255, 255, 0.16),
-                    0 0 0.22rem rgba(255, 255, 255, 0.08);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .footer__copyright--hypno {
-                animation: none;
-                text-shadow: 0 0 0.07rem rgba(255, 255, 255, 0.1);
-            }
-        }
-
-        .footer .blur-in-section {
+.footer .blur-in-section {
             margin-top: 20rem !important;
             transition: opacity 0.75s ease-out, filter 0.75s ease-out;
         }
@@ -4383,7 +4265,8 @@
             }
 
             .faq__answer {
-                padding-left: 1.25rem;
+                padding-left: 1.85rem;
+                padding-right: 1.4rem;
             }
 
             .layout-container {
@@ -4410,7 +4293,7 @@
             }
 
             .header-nearest-slot-hint {
-                font-size: 0.92rem;
+                font-size: 1rem;
             }
 
             #headerBookBtn::after {
@@ -4580,18 +4463,22 @@
             }
 
             input[name="address_province"] {
-                flex: 0 1 6.6rem !important;
-                min-width: 5.9rem !important;
+                flex: 0 0 60px !important;
+                width: 60px !important;
+                min-width: 60px !important;
+                max-width: 60px !important;
             }
 
             .custom-select-wrapper--city {
-                flex: 1 1 13.2rem !important;
-                min-width: 13.2rem !important;
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
             }
 
             input[name="address_zip"] {
-                flex: 1 1 9.5rem !important;
-                min-width: 9.5rem !important;
+                flex: 0 0 50px !important;
+                width: 50px !important;
+                min-width: 50px !important;
+                max-width: 50px !important;
             }
 
             .booking-row--dob .contact-form__input {
@@ -4647,10 +4534,10 @@
 
         @media (max-width: 560px) {
             #bookingModal .booking-row--address-secondary {
-                display: grid !important;
-                grid-template-columns: minmax(5.8rem, 0.78fr) minmax(7.4rem, 1.22fr);
+                display: flex !important;
+                flex-wrap: nowrap !important;
                 gap: 0.55rem !important;
-                justify-content: stretch !important;
+                justify-content: flex-end !important;
                 align-items: stretch !important;
             }
 
@@ -4659,19 +4546,31 @@
             }
 
             #bookingModal .custom-select-wrapper--city {
-                grid-column: 1 / -1;
                 width: 100% !important;
                 min-width: 0 !important;
-                flex: 1 1 100% !important;
+                flex: 1 1 auto !important;
             }
 
             #bookingModal input[name="address_province"],
             #bookingModal input[name="address_zip"] {
-                width: 100% !important;
-                min-width: 0 !important;
-                flex: 1 1 auto !important;
                 font-size: 0.98rem !important;
                 text-align: center !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            #bookingModal input[name="address_province"] {
+                flex: 0 0 60px !important;
+                width: 60px !important;
+                min-width: 60px !important;
+                max-width: 60px !important;
+            }
+
+            #bookingModal input[name="address_zip"] {
+                flex: 0 0 50px !important;
+                width: 50px !important;
+                min-width: 50px !important;
+                max-width: 50px !important;
             }
 
             #bookingModal .custom-select--city .custom-select__trigger {
@@ -4927,7 +4826,7 @@
                 <span id="headerBookBtnText">INTAKE<br>NOW!</span>
             </button>
         </div>
-        <p id="headerNearestSlotHint" class="header-nearest-slot-hint header-nearest-slot-hint--visible" aria-live="polite">Nearest appointment: checking availability...</p>
+        <p id="headerNearestSlotHint" class="header-nearest-slot-hint" aria-live="polite"></p>
     </div>
 
     <div class="header__content-block">
@@ -5056,11 +4955,6 @@
     </div>
 </header>
 
-
-
-
-
-
 <div class="layout-container">
     <div class="contact-form fade-in-section">
         <h2 class="contact-form__outside-title" id="calendarHeaderTitle">NEXT IN MONTH</h2>
@@ -5069,11 +4963,12 @@
                 <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
                     <!-- Loading Overlay -->
                     <div id="calendarLoaderOverlay">
-                        <div class="book-btn-preloader" style="position: relative; width: 120px; height: 120px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+                        <div id="calendarLoaderPreloader" class="book-btn-preloader" style="position: relative; width: 120px; height: 120px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
                             <svg class="book-btn-preloader__svg" viewBox="0 0 120 120" width="120" height="120">
                                 <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                                 <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                             </svg>
+                            <div id="calendarLoaderText" class="book-btn-preloader__text" style="display:none; opacity:0;"></div>
                         </div>
                     </div>
                     <!-- Header -->
@@ -5114,6 +5009,14 @@
             <h3 class="faq__question">What are the keys on the calendar?</h3>
             <div class="faq__answer">
                 The key symbols mark Saturdays. Saturday meetings may be available, but only by request and confirmation. Please select a Saturday slot and contact us to confirm.
+            </div>
+        </div>
+
+        <div class="faq__item">
+            <h3 class="faq__question">What if I do not know the date yet?</h3>
+            <div class="faq__answer">
+                <p class="faq-no-date-line">You can fill out the form without selecting any date or time by clicking this button here:<button type="button" class="faq-no-date-action" onclick="return openBookingModalWithoutDate(event)">Open form without a date</button></p>
+                <p>Where possible, retain supporting records and provide the best available estimate to ensure timeline accuracy.</p>
             </div>
         </div>
 
@@ -5246,44 +5149,14 @@
                 <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                     <span id="footerBookBtnText">INTAKE<br>NOW!</span>
                 </button>
-                <div class="footer-finger-hint" id="footerFingerHint" aria-hidden="true">
-                    <svg viewBox="0 0 220 330" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="footerFingerSkin" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#fdeccf"/>
-                                <stop offset="55%" stop-color="#f3d6ac"/>
-                                <stop offset="100%" stop-color="#e2b788"/>
-                            </linearGradient>
-                            <linearGradient id="footerFingerShine" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0%" stop-color="rgba(255,255,255,0.48)"/>
-                                <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
-                            </linearGradient>
-                            <linearGradient id="footerNailRed" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#ff5a71"/>
-                                <stop offset="55%" stop-color="#df1c3d"/>
-                                <stop offset="100%" stop-color="#a70a25"/>
-                            </linearGradient>
-                        </defs>
-                        <ellipse cx="110" cy="314" rx="46" ry="11" fill="rgba(0,0,0,0.2)" />
-                        <rect x="66" y="42" width="88" height="250" rx="44" fill="url(#footerFingerSkin)" />
-                        <path d="M104 44C132 49 144 72 144 102V253C144 272 132 284 109 288V44Z" fill="url(#footerFingerShine)" />
-
-                        <!-- Red nail -->
-                        <rect x="79" y="50" width="62" height="70" rx="26" fill="url(#footerNailRed)" />
-
-                        <!-- Finger detail lines -->
-                        <path d="M78 142C95 151 123 151 141 142" stroke="rgba(150,108,74,0.4)" stroke-width="3" stroke-linecap="round" />
-                        <path d="M76 188C92 197 127 197 143 188" stroke="rgba(150,108,74,0.32)" stroke-width="3" stroke-linecap="round" />
-                    </svg>
-                </div>
-            </div>
+</div>
         </div>
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
     <div class="blur-in-section" style="margin-top: 10rem;">
-        <p class="footer__copyright footer__copyright--hypno" style="margin-bottom: 5px;">My only official website:</p>
-        <p class="footer__copyright footer__copyright--hypno" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+        <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
+        <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -5376,8 +5249,8 @@
                             </div>
                             <input type="hidden" name="address_city" id="cityInput" value="">
                         </div>
-                        <input type="text" class="contact-form__input" placeholder="ON" name="address_province" required minlength="2" maxlength="30" autocomplete="address-level1" inputmode="text" spellcheck="false" value="ON" style="width: 6.8rem; min-width: 6.2rem; text-align: center; text-transform: uppercase;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="flex: 0 0 185px; width: 185px; min-width: 185px; text-transform: uppercase; text-align: center; caret-color: #ffffff;">
+                        <input type="text" class="contact-form__input" placeholder="ON" name="address_province" required minlength="2" maxlength="30" autocomplete="address-level1" inputmode="text" spellcheck="false" value="ON" style="text-align: center; text-transform: uppercase;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -5613,9 +5486,6 @@
     let calendarRenderToken = 0;
     let calendarCacheLoaded = false;
     let calendarCachePersistTimer = null;
-    let slotSparkleTimer = null;
-    let slotSparkleOrder = [];
-    let slotSparkleCursor = 0;
     let monthSwitchProgressTimer = null;
     let monthSwitchProgressValue = 0;
     let monthSwitchProgressRunId = 0;
@@ -5626,6 +5496,7 @@
     let calendarAutoRefreshInProgress = false;
     let calendarAutoRefreshQueued = false;
     let calendarAutoRefreshLastAt = 0;
+    let calendarFetchFailedForRender = false;
     let dailyMidnightReloadTimer = null;
     let isFormCalendarOverlayActive = false;
     let calendarScaleWrapperHomeParent = null;
@@ -5639,11 +5510,9 @@
     const CALENDAR_AUTO_REFRESH_INTERVAL_MS = 20 * 60 * 1000;
     const CALENDAR_BASE_WIDTH_PX = 656;
     const CALENDAR_SCALE_BOTTOM_BUFFER_PX = 30;
-    const SLOT_SPARKLE_MIN_DELAY_MS = 5000;
-    const SLOT_SPARKLE_MAX_DELAY_MS = 15000;
-    const SLOT_SPARKLE_DURATION_MS = 360;
     const MONTH_SWITCH_PROGRESS_TICK_MS = 120;
     const MONTH_SWITCH_PROGRESS_SOFT_CAP = 94;
+    const CALENDAR_LOAD_FAILURE_TEXT = 'SLOT NOT FOUND';
 
     const MONTH_NAMES = ["January","February","March","April","May","June",
                         "July","August","September","October","November","December"];
@@ -5869,12 +5738,7 @@
 
         // Remove known local/session state so next load is fresh.
         try { localStorage.removeItem('bookingFormData'); } catch (e) {}
-        let footerFingerUsedSnapshot = '';
-        try { footerFingerUsedSnapshot = String(sessionStorage.getItem(FOOTER_FINGER_SESSION_USED_KEY) || ''); } catch (e) {}
         try { sessionStorage.clear(); } catch (e) {}
-        if (footerFingerUsedSnapshot === '1') {
-            try { sessionStorage.setItem(FOOTER_FINGER_SESSION_USED_KEY, '1'); } catch (e) {}
-        }
     }
 
     function markHardReloadAfterModalClose() {
@@ -5958,6 +5822,7 @@
             }
         } catch(e) {
             // Do not poison cache on silent prefetch failures; allow retries later.
+            if (showProgress) calendarFetchFailedForRender = true;
             if (showProgress && availableSlotsCache[key] === undefined) setMonthCache(key, []);
         } finally {
                 if (showProgress && separator) separator.classList.remove('loading-separator--active');
@@ -6140,6 +6005,57 @@
         prevBtn.setAttribute('aria-hidden', String(!isEnabled));
     }
 
+    function setCalendarLoaderState(mode = 'loading', message = '') {
+        if (!calOverlay) return;
+
+        const loaderPreloader = document.getElementById('calendarLoaderPreloader');
+        const loaderText = document.getElementById('calendarLoaderText');
+
+        calOverlay.classList.remove('calendar-loader--error');
+        if (loaderPreloader) {
+            loaderPreloader.classList.remove('book-btn-preloader--offline', 'book-btn-preloader--error', 'book-btn-preloader--hypnotic');
+        }
+        if (loaderText) {
+            loaderText.textContent = '';
+            loaderText.style.display = 'none';
+            loaderText.style.opacity = '0';
+        }
+
+        if (mode === 'hidden') {
+            calOverlay.style.display = 'none';
+            return;
+        }
+
+        calOverlay.style.display = 'flex';
+        if (mode === 'error') {
+            calOverlay.classList.add('calendar-loader--error');
+            if (loaderPreloader) loaderPreloader.classList.add('book-btn-preloader--offline');
+            if (loaderText) {
+                loaderText.textContent = String(message || CALENDAR_LOAD_FAILURE_TEXT);
+                loaderText.style.display = 'block';
+                loaderText.style.opacity = '1';
+            }
+        }
+    }
+
+    function showCalendarLoadFailureFallback(message = CALENDAR_LOAD_FAILURE_TEXT) {
+        const calWrapper = document.getElementById('bookingCalendar');
+        if (calGrid) calGrid.innerHTML = '';
+        if (slotsGrid) slotsGrid.innerHTML = '';
+        if (slotsBlock) slotsBlock.style.display = 'none';
+        if (slotsDayDisplay) slotsDayDisplay.textContent = '';
+        setCalendarPrevButtonEnabled(false);
+
+        if (calWrapper) {
+            calWrapper.classList.remove('calendar--loading');
+            calWrapper.classList.add('calendar--loaded');
+        }
+        if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
+
+        setCalendarLoaderState('error', message);
+        setHeaderNearestSlotHint('Nearest appointment: unavailable.');
+    }
+
     async function refreshCalendarPrevButtonState() {
         const prevBtn = document.getElementById('prevBtn');
         if (!prevBtn) return;
@@ -6178,213 +6094,224 @@
     async function renderCalendar() {
         const renderToken = ++calendarRenderToken;
         const calWrapper = document.getElementById('bookingCalendar');
+        calendarFetchFailedForRender = false;
 
         // Show spinner
         calGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
-        stopSlotSparkleLoop();
         slotsBlock.style.display = 'none';
         slotsDayDisplay.textContent = '';
         if (calWrapper) calWrapper.classList.add('calendar--loading');
         if (headerTitle) headerTitle.classList.add('calendar-title--loading');
-        calOverlay.style.display = 'flex';
+        setCalendarLoaderState('loading');
         if (calLoaderStatus) calLoaderStatus.textContent = 'Loading...';
         setCalendarPrevButtonEnabled(false);
 
-        // Fetch (may update currentDate if backend jumps month)
-        await fetchMonth(currentDate.getFullYear(), currentDate.getMonth());
-        if (renderToken !== calendarRenderToken) return;
-
-        const year  = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const slots = availableSlotsCache[getMonthKey(year, month)] || [];
-        if (calGrid) {
-            calGrid.dataset.year = String(year);
-            calGrid.dataset.month = String(month);
-        }
-        prefetchNextMonthFrom(year, month);
-        // Ensure no residual days from a stale parallel render.
-        calGrid.innerHTML = '';
-
-        // Update external title
-        headerTitle.textContent = `NEXT IN ${MONTH_NAMES[month].toUpperCase()}`;
-
-        // Build slot map
-        const minDate = getMinBookableDate();
-
-        const slotsMap = {};
-        slots.forEach(s => {
-            const d = new Date(year, month, s.date);
-            d.setHours(0,0,0,0);
-            if (d >= minDate) {
-                if (!slotsMap[s.date]) slotsMap[s.date] = [];
-                slotsMap[s.date].push(s);
-            }
-        });
-
-        // Find nearest free day (excluding Sunday)
-        let nearestDay = null;
-        absoluteNearestDate = null;
-        nearestSlotData = null;
-        nearestDayLastSlotData = null;
-        for (const d of Object.keys(slotsMap).map(Number).sort((a,b)=>a-b)) {
-            const date = new Date(year, month, d);
-            if (date >= minDate && date.getDay() !== 0) {
-                const free = slotsMap[d].filter(s => s.status !== 'busy');
-                if (free.length) {
-                    nearestDay = d;
-                    absoluteNearestDate    = date;
-                    nearestSlotData        = free[0];
-                    nearestDayLastSlotData = free[free.length - 1];
-                    break;
-                }
-            }
-        }
-
-        if (!nearestDay) {
-            const monthStart = new Date(year, month, 1);
-            monthStart.setHours(0, 0, 0, 0);
-            const nearestFuture = await findNearestAvailableDateFrom(monthStart);
+        try {
+            // Fetch (may update currentDate if backend jumps month)
+            await fetchMonth(currentDate.getFullYear(), currentDate.getMonth());
             if (renderToken !== calendarRenderToken) return;
 
-            if (nearestFuture) {
-                selectedDate = nearestFuture;
-                currentDate = new Date(nearestFuture.getFullYear(), nearestFuture.getMonth(), 1);
-                await renderCalendar();
+            if (calendarFetchFailedForRender) {
+                showCalendarLoadFailureFallback();
                 return;
             }
-        }
 
-        updateFooterBookBtn();
-
-        // Inner title always uses "Weekday Day" and never switches to Month/Year.
-        const selectedInViewMonth = selectedDate &&
-            selectedDate.getMonth() === month &&
-            selectedDate.getFullYear() === year;
-        const fallbackDay = Number.isFinite(nearestDay)
-            ? nearestDay
-            : ((minDate.getFullYear() === year && minDate.getMonth() === month) ? minDate.getDate() : 1);
-        const titleDate = selectedInViewMonth
-            ? new Date(year, month, selectedDate.getDate())
-            : new Date(year, month, fallbackDay);
-        setCalendarInnerTitle(titleDate);
-
-        // Day-name headers
-        DAY_NAMES_SHORT.forEach(n => {
-            const el = document.createElement('div');
-            el.className = 'cal-day-name';
-            el.textContent = n;
-            calGrid.appendChild(el);
-        });
-
-        // Padding blanks
-        const firstDow = new Date(year, month, 1).getDay();
-        for (let i = 0; i < firstDow; i++) {
-            const el = document.createElement('div');
-            el.className = 'cal-day cal-day--empty';
-            calGrid.appendChild(el);
-        }
-
-        // Toronto "today"
-        const torNow = new Date(new Date().toLocaleString('en-US', {timeZone:'America/Toronto'}));
-        torNow.setHours(0,0,0,0);
-
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        availableDaysCount = 0;
-        let autoSelected = false;
-
-        for (let day = 1; day <= daysInMonth; day++) {
-            const el   = document.createElement('div');
-            const date = new Date(year, month, day);
-            el.className   = 'cal-day';
-            el.dataset.day = day;
-            const isPast   = date < torNow;
-            const isSunday = date.getDay() === 0;
-            const isSaturday = date.getDay() === 6;
-            const isToday  = date.getTime() === torNow.getTime();
-
-            if (isSaturday) {
-                el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
-            } else {
-                el.textContent = day;
+            const year  = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const slots = availableSlotsCache[getMonthKey(year, month)] || [];
+            if (calGrid) {
+                calGrid.dataset.year = String(year);
+                calGrid.dataset.month = String(month);
             }
+            prefetchNextMonthFrom(year, month);
+            // Ensure no residual days from a stale parallel render.
+            calGrid.innerHTML = '';
 
-            if (isToday) el.classList.add('cal-day--today');
+            // Update external title
+            headerTitle.textContent = `NEXT IN ${MONTH_NAMES[month].toUpperCase()}`;
 
-            if (isPast || isSunday) {
-                el.classList.add('cal-day--disabled');
-            } else if (slotsMap[day]) {
-                const allBusy = slotsMap[day].every(s => s.status === 'busy');
-                if (allBusy) {
-                    el.classList.add('cal-day--busy', 'cal-day--disabled');
-                } else {
-                    el.classList.add('cal-day--has-slots');
-                    if (day === nearestDay) el.classList.add('cal-day--nearest');
-                    el.style.setProperty('--i', availableDaysCount++);
-                    el.dataset.slots = JSON.stringify(slotsMap[day]);
-                    el.onclick = () => selectDay(day, el);
+            // Build slot map
+            const minDate = getMinBookableDate();
 
-                    const isCurrentSelectedDay = selectedDate &&
-                        selectedDate.getFullYear() === year &&
-                        selectedDate.getMonth() === month &&
-                        selectedDate.getDate() === day;
-
-                    // Keep explicit selection when navigating; otherwise fallback to nearest free day.
-                    if (!autoSelected && isCurrentSelectedDay) {
-                        autoSelected = true;
-                        setTimeout(() => selectDay(day, el, true), 200);
-                    } else if (!autoSelected && day === nearestDay) {
-                        autoSelected = true;
-                        setTimeout(() => selectDay(day, el, true), 200);
-                    }
-                }
-            } else if (isSaturday) {
-                el.classList.add('cal-day--closed');
-                el.onclick = () => selectClosedSaturday(day, el);
-            } else {
-                el.classList.add('cal-day--disabled');
-            }
-
-            calGrid.appendChild(el);
-        }
-
-        if (!autoSelected) {
-            slotsDayDisplay.textContent = nearestDay
-                ? 'Select a day to see available times'
-                : 'No available slots available right now.';
-        }
-
-        calOverlay.style.display = 'none';
-        if (calWrapper) calWrapper.classList.remove('calendar--loading');
-        if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
-        // Smoothly reveal calendar after slots are loaded
-        if (calWrapper) {
-            setTimeout(() => {
-                calWrapper.classList.add('calendar--loaded');
-            }, 50);
-        }
-        refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
-
-        // If no nearest day found this month, background-search next month
-        if (!nearestDay) {
-            let nextM = month + 1, nextY = year;
-            if (nextM > 11) { nextM = 0; nextY++; }
-            fetchMonth(nextY, nextM, false, false).then(() => {
-                const nextSlots = availableSlotsCache[getMonthKey(nextY, nextM)];
-                if (Array.isArray(nextSlots)) {
-                    const minDate = getMinBookableDate();
-                    for (const slot of nextSlots.filter(s => s.status !== 'busy').sort((a,b)=>a.date-b.date)) {
-                        const d = new Date(nextY, nextM, slot.date);
-                        if (d >= minDate && d.getDay() !== 0) {
-                            absoluteNearestDate = d;
-                            nearestSlotData = slot;
-                            nearestDayLastSlotData = slot;
-                            break;
-                        }
-                    }
-                    updateFooterBookBtn();
+            const slotsMap = {};
+            slots.forEach(s => {
+                const d = new Date(year, month, s.date);
+                d.setHours(0,0,0,0);
+                if (d >= minDate) {
+                    if (!slotsMap[s.date]) slotsMap[s.date] = [];
+                    slotsMap[s.date].push(s);
                 }
             });
+
+            // Find nearest free day (excluding Sunday)
+            let nearestDay = null;
+            absoluteNearestDate = null;
+            nearestSlotData = null;
+            nearestDayLastSlotData = null;
+            for (const d of Object.keys(slotsMap).map(Number).sort((a,b)=>a-b)) {
+                const date = new Date(year, month, d);
+                if (date >= minDate && date.getDay() !== 0) {
+                    const free = slotsMap[d].filter(s => s.status !== 'busy');
+                    if (free.length) {
+                        nearestDay = d;
+                        absoluteNearestDate    = date;
+                        nearestSlotData        = free[0];
+                        nearestDayLastSlotData = free[free.length - 1];
+                        break;
+                    }
+                }
+            }
+
+            if (!nearestDay) {
+                const monthStart = new Date(year, month, 1);
+                monthStart.setHours(0, 0, 0, 0);
+                const nearestFuture = await findNearestAvailableDateFrom(monthStart);
+                if (renderToken !== calendarRenderToken) return;
+
+                if (nearestFuture) {
+                    selectedDate = nearestFuture;
+                    currentDate = new Date(nearestFuture.getFullYear(), nearestFuture.getMonth(), 1);
+                    await renderCalendar();
+                    return;
+                }
+            }
+
+            updateFooterBookBtn();
+
+            // Inner title always uses "Weekday Day" and never switches to Month/Year.
+            const selectedInViewMonth = selectedDate &&
+                selectedDate.getMonth() === month &&
+                selectedDate.getFullYear() === year;
+            const fallbackDay = Number.isFinite(nearestDay)
+                ? nearestDay
+                : ((minDate.getFullYear() === year && minDate.getMonth() === month) ? minDate.getDate() : 1);
+            const titleDate = selectedInViewMonth
+                ? new Date(year, month, selectedDate.getDate())
+                : new Date(year, month, fallbackDay);
+            setCalendarInnerTitle(titleDate);
+
+            // Day-name headers
+            DAY_NAMES_SHORT.forEach(n => {
+                const el = document.createElement('div');
+                el.className = 'cal-day-name';
+                el.textContent = n;
+                calGrid.appendChild(el);
+            });
+
+            // Padding blanks
+            const firstDow = new Date(year, month, 1).getDay();
+            for (let i = 0; i < firstDow; i++) {
+                const el = document.createElement('div');
+                el.className = 'cal-day cal-day--empty';
+                calGrid.appendChild(el);
+            }
+
+            // Toronto "today"
+            const torNow = new Date(new Date().toLocaleString('en-US', {timeZone:'America/Toronto'}));
+            torNow.setHours(0,0,0,0);
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            availableDaysCount = 0;
+            let autoSelected = false;
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const el   = document.createElement('div');
+                const date = new Date(year, month, day);
+                el.className   = 'cal-day';
+                el.dataset.day = day;
+                const isPast   = date < torNow;
+                const isSunday = date.getDay() === 0;
+                const isSaturday = date.getDay() === 6;
+                const isToday  = date.getTime() === torNow.getTime();
+
+                if (isSaturday) {
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
+                } else {
+                    el.textContent = day;
+                }
+
+                if (isToday) el.classList.add('cal-day--today');
+
+                if (isPast || isSunday) {
+                    el.classList.add('cal-day--disabled');
+                } else if (slotsMap[day]) {
+                    const allBusy = slotsMap[day].every(s => s.status === 'busy');
+                    if (allBusy) {
+                        el.classList.add('cal-day--busy', 'cal-day--disabled');
+                    } else {
+                        el.classList.add('cal-day--has-slots');
+                        if (day === nearestDay) el.classList.add('cal-day--nearest');
+                        el.style.setProperty('--i', availableDaysCount++);
+                        el.dataset.slots = JSON.stringify(slotsMap[day]);
+                        el.onclick = () => selectDay(day, el);
+
+                        const isCurrentSelectedDay = selectedDate &&
+                            selectedDate.getFullYear() === year &&
+                            selectedDate.getMonth() === month &&
+                            selectedDate.getDate() === day;
+
+                        // Keep explicit selection when navigating; otherwise fallback to nearest free day.
+                        if (!autoSelected && isCurrentSelectedDay) {
+                            autoSelected = true;
+                            setTimeout(() => selectDay(day, el, true), 200);
+                        } else if (!autoSelected && day === nearestDay) {
+                            autoSelected = true;
+                            setTimeout(() => selectDay(day, el, true), 200);
+                        }
+                    }
+                } else if (isSaturday) {
+                    el.classList.add('cal-day--closed');
+                    el.onclick = () => selectClosedSaturday(day, el);
+                } else {
+                    el.classList.add('cal-day--disabled');
+                }
+
+                calGrid.appendChild(el);
+            }
+
+            if (!autoSelected) {
+                slotsDayDisplay.textContent = nearestDay
+                    ? 'Select a day to see available times'
+                    : 'No available slots available right now.';
+            }
+
+            setCalendarLoaderState('hidden');
+            if (calWrapper) calWrapper.classList.remove('calendar--loading');
+            if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
+            // Smoothly reveal calendar after slots are loaded
+            if (calWrapper) {
+                setTimeout(() => {
+                    calWrapper.classList.add('calendar--loaded');
+                }, 50);
+            }
+            refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
+
+            // If no nearest day found this month, background-search next month
+            if (!nearestDay) {
+                let nextM = month + 1, nextY = year;
+                if (nextM > 11) { nextM = 0; nextY++; }
+                fetchMonth(nextY, nextM, false, false).then(() => {
+                    const nextSlots = availableSlotsCache[getMonthKey(nextY, nextM)];
+                    if (Array.isArray(nextSlots)) {
+                        const minDate = getMinBookableDate();
+                        for (const slot of nextSlots.filter(s => s.status !== 'busy').sort((a,b)=>a.date-b.date)) {
+                            const d = new Date(nextY, nextM, slot.date);
+                            if (d >= minDate && d.getDay() !== 0) {
+                                absoluteNearestDate = d;
+                                nearestSlotData = slot;
+                                nearestDayLastSlotData = slot;
+                                break;
+                            }
+                        }
+                        updateFooterBookBtn();
+                    }
+                });
+            }
+        } catch (error) {
+            if (renderToken !== calendarRenderToken) return;
+            console.warn('[CALENDAR] Render failed, fallback displayed:', error && error.message ? error.message : error);
+            showCalendarLoadFailureFallback();
         }
     }
 
@@ -6392,82 +6319,6 @@
         const low = Math.ceil(min);
         const high = Math.floor(max);
         return Math.floor(Math.random() * (high - low + 1)) + low;
-    }
-
-    function clearSlotSparkleTimer() {
-        if (slotSparkleTimer) {
-            clearTimeout(slotSparkleTimer);
-            slotSparkleTimer = null;
-        }
-    }
-
-    function stopSlotSparkleLoop() {
-        clearSlotSparkleTimer();
-        slotSparkleOrder = [];
-        slotSparkleCursor = 0;
-        if (slotsGrid) {
-            slotsGrid.querySelectorAll('.slot-btn--sparkle').forEach((btn) => {
-                btn.classList.remove('slot-btn--sparkle');
-            });
-        }
-    }
-
-    function shuffleButtons(buttons) {
-        const shuffled = buttons.slice();
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled;
-    }
-
-    function getVisibleSlotButtons() {
-        if (!slotsGrid) return [];
-        return Array.from(slotsGrid.querySelectorAll('.slot-btn.slot-btn--hypnotic'))
-            .filter((btn) => !btn.classList.contains('slot-btn--clicked'));
-    }
-
-    function triggerSlotSparkle(btn) {
-        if (!btn) return;
-        btn.classList.remove('slot-btn--sparkle');
-        void btn.offsetWidth;
-        btn.classList.add('slot-btn--sparkle');
-        setTimeout(() => btn.classList.remove('slot-btn--sparkle'), SLOT_SPARKLE_DURATION_MS + 40);
-    }
-
-    function scheduleNextSlotSparkle() {
-        clearSlotSparkleTimer();
-        slotSparkleTimer = setTimeout(runSlotSparkleTick, randomBetween(SLOT_SPARKLE_MIN_DELAY_MS, SLOT_SPARKLE_MAX_DELAY_MS));
-    }
-
-    function runSlotSparkleTick() {
-        const currentButtons = getVisibleSlotButtons();
-        if (!currentButtons.length) {
-            stopSlotSparkleLoop();
-            return;
-        }
-
-        slotSparkleOrder = slotSparkleOrder.filter((btn) => currentButtons.includes(btn));
-        if (slotSparkleCursor >= slotSparkleOrder.length) {
-            slotSparkleOrder = shuffleButtons(currentButtons);
-            slotSparkleCursor = 0;
-        }
-
-        triggerSlotSparkle(slotSparkleOrder[slotSparkleCursor]);
-        slotSparkleCursor += 1;
-        scheduleNextSlotSparkle();
-    }
-
-    function startSlotSparkleLoop() {
-        stopSlotSparkleLoop();
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        const buttons = getVisibleSlotButtons();
-        if (!buttons.length) return;
-
-        slotSparkleOrder = shuffleButtons(buttons);
-        slotSparkleCursor = 0;
-        scheduleNextSlotSparkle();
     }
 
     function clearMonthSwitchProgressTimer() {
@@ -6624,11 +6475,9 @@
         if (!free.length) {
             slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">No available slots for this day.<br>Please select another day.</p>`;
             slotsBlock.style.display = 'block';
-            stopSlotSparkleLoop();
             refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
             return;
         }
-        startSlotSparkleLoop();
         refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
 
         if (!isAuto && latestSlot) {
@@ -6650,7 +6499,6 @@
         slotsDayDisplay.style.opacity = '1';
         slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight:800;font-size:1.1rem;margin-top:16px">Saturday appointments are available only by request.<br>Please call to confirm availability.</p>`;
         slotsBlock.style.display = 'block';
-        stopSlotSparkleLoop();
         refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
     }
 
@@ -6712,7 +6560,6 @@
             }
         });
     }
-
 
     let userIP = "Unknown";
     let userCountryCode = "CA";
@@ -7118,7 +6965,6 @@
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-is-open');
         }
-        scheduleFooterFingerHintStateUpdate();
     }
 
     function closeIntakeNoticeModal(resetPendingBooking = true) {
@@ -7128,7 +6974,6 @@
             document.body.style.overflow = 'auto';
             document.body.classList.remove('modal-is-open');
         }
-        scheduleFooterFingerHintStateUpdate();
         if (resetPendingBooking) {
             pendingSlotForBooking = null;
             pendingSlotAttachRequest = false;
@@ -7144,7 +6989,6 @@
             document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-is-open');
         }
-        scheduleFooterFingerHintStateUpdate();
     }
 
     function closeTermsModal() {
@@ -7154,7 +6998,6 @@
             document.body.style.overflow = 'auto';
             document.body.classList.remove('modal-is-open');
         }
-        scheduleFooterFingerHintStateUpdate();
         maybeTriggerHardReloadAfterLastModalClosed();
     }
 
@@ -7170,7 +7013,6 @@
         initProvinceInputBehavior();
         initFaqSpoilers();
         initWysiwygEditor();
-        initFooterFingerHint();
         
         // Full page refresh once per day at 00:00 (local browser time).
         scheduleDailyHardReloadAtMidnight();
@@ -7235,7 +7077,9 @@
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         setupEventListeners();
         Promise.resolve(renderCalendar())
-            .catch(() => {})
+            .catch(() => {
+                showCalendarLoadFailureFallback();
+            })
             .finally(() => {
                 calendarAutoRefreshLastAt = Date.now();
                 startCalendarAutoRefresh();
@@ -7316,7 +7160,6 @@
 </svg>`;
     }
 
-
     // Legacy renderCalendar removed - single version above is used
 
     function selectDate(day, element, isAutoSelection = false) {
@@ -7327,6 +7170,9 @@
     // Modal & Form Handling
     let liveDraftTimer = null;
     let selectedSlotData = null;
+    let bookingWithoutSpecificDate = false;
+    const BOOKING_WITHOUT_DATE_LABEL = 'WITHOUT SPECIFIC DATE';
+    const BOOKING_WITHOUT_DATE_SUMMARY = 'No specific date (to be scheduled)';
     const modal = document.getElementById('bookingModal');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
@@ -7349,17 +7195,6 @@
     let focusCameraButtonOnBookingOpen = false;
     let cameraButtonGlowTimer = null;
     let lastBookingSummaryForReferral = null;
-    let footerFingerHintInView = false;
-    let footerFingerHintRafPending = false;
-    let footerFingerHintObserver = null;
-    let footerFingerAutoPressTimer = null;
-    let footerFingerAutoPressPending = false;
-    let footerFingerAutoPressCooldownUntil = 0;
-    let footerFingerBottomLatch = false;
-    let footerFingerUsedThisSession = false;
-    const FOOTER_FINGER_AUTO_PRESS_DELAY_MS = 9000;
-    const FOOTER_FINGER_AUTO_PRESS_COOLDOWN_MS = 120000;
-    const FOOTER_FINGER_SESSION_USED_KEY = 'hd_footer_finger_used_v1';
     let bookingRecaptchaWidgetId = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
@@ -7378,27 +7213,14 @@
         return secretTestModeEnabled ? 'BOOK NOW [TEST]' : 'BOOK NOW';
     }
 
-    function readFooterFingerUsedSessionFlag() {
-        try {
-            return sessionStorage.getItem(FOOTER_FINGER_SESSION_USED_KEY) === '1';
-        } catch (e) {
-            return false;
+    function setBookingModalWithoutDateDisplay() {
+        if (bookingTimeDisplay) {
+            bookingTimeDisplay.innerHTML = `<strong>${BOOKING_WITHOUT_DATE_LABEL}</strong>`;
         }
-    }
-
-    function markFooterFingerUsedForSession() {
-        if (footerFingerUsedThisSession) return;
-        footerFingerUsedThisSession = true;
-        try {
-            sessionStorage.setItem(FOOTER_FINGER_SESSION_USED_KEY, '1');
-        } catch (e) {}
-        clearFooterFingerAutoPressTimer();
-        const hint = document.getElementById('footerFingerHint');
-        if (hint) {
-            hint.classList.remove('footer-finger-hint--active');
-            hint.classList.remove('footer-finger-hint--pressing');
+        const modalAppointmentTime = document.getElementById('modalAppointmentTime');
+        if (modalAppointmentTime) {
+            modalAppointmentTime.innerHTML = `<strong style="font-weight: 800;">${BOOKING_WITHOUT_DATE_LABEL}</strong>`;
         }
-        scheduleFooterFingerHintStateUpdate();
     }
 
     function getBookingRecaptchaWrap() {
@@ -7650,7 +7472,6 @@
 
         document.body.style.overflow = 'hidden';
         document.body.classList.add('modal-is-open');
-        scheduleFooterFingerHintStateUpdate();
 
         if (selectedDate instanceof Date && !Number.isNaN(selectedDate.getTime())) {
             currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
@@ -7693,7 +7514,6 @@
         }
 
         requestAnimationFrame(scaleCalendar);
-        scheduleFooterFingerHintStateUpdate();
         maybeTriggerHardReloadAfterLastModalClosed();
     }
 
@@ -7715,121 +7535,6 @@
             calendarAutoRefreshQueued = false;
             refreshCalendarAndButtons('modal-closed-catchup', true).catch(() => {});
         }
-    }
-
-    function shouldAnimateFooterFingerHint() {
-        const hint = document.getElementById('footerFingerHint');
-        if (!hint) return false;
-        if (footerFingerUsedThisSession) return false;
-        if (!footerFingerHintInView) return false;
-        if (!isFooterBookBtnReady()) return false;
-        if (isAnyModalOpen()) return false;
-        return true;
-    }
-
-    function clearFooterFingerAutoPressTimer() {
-        if (footerFingerAutoPressTimer) {
-            clearTimeout(footerFingerAutoPressTimer);
-            footerFingerAutoPressTimer = null;
-        }
-        footerFingerAutoPressPending = false;
-        const hint = document.getElementById('footerFingerHint');
-        if (hint) hint.classList.remove('footer-finger-hint--pressing');
-    }
-
-    function runFooterFingerAutoPress() {
-        const hint = document.getElementById('footerFingerHint');
-        const btn = document.getElementById('footerBookBtn');
-        if (!hint || !btn) return;
-        if (!shouldAnimateFooterFingerHint()) return;
-
-        footerFingerAutoPressCooldownUntil = Date.now() + FOOTER_FINGER_AUTO_PRESS_COOLDOWN_MS;
-        hint.classList.add('footer-finger-hint--pressing');
-
-        setTimeout(() => {
-            hint.classList.remove('footer-finger-hint--pressing');
-            if (!shouldAnimateFooterFingerHint()) return;
-            btn.classList.add('book-btn-jump');
-            btn.classList.add('footer-book-btn--finger-press');
-            createSparks(btn);
-            markFooterFingerUsedForSession();
-            setTimeout(() => {
-                btn.classList.remove('book-btn-jump');
-                btn.classList.remove('footer-book-btn--finger-press');
-            }, 900);
-            btn.click();
-        }, 1180);
-    }
-
-    function maybeScheduleFooterFingerAutoPress(shouldAnimate) {
-        if (!shouldAnimate) {
-            footerFingerBottomLatch = false;
-            clearFooterFingerAutoPressTimer();
-            return;
-        }
-        if (footerFingerAutoPressPending || footerFingerAutoPressTimer) return;
-        if (Date.now() < footerFingerAutoPressCooldownUntil) return;
-        if (footerFingerBottomLatch) return;
-        footerFingerBottomLatch = true;
-        footerFingerAutoPressPending = true;
-        footerFingerAutoPressTimer = setTimeout(() => {
-            footerFingerAutoPressTimer = null;
-            footerFingerAutoPressPending = false;
-            runFooterFingerAutoPress();
-        }, FOOTER_FINGER_AUTO_PRESS_DELAY_MS);
-    }
-
-    function applyFooterFingerHintState() {
-        const hint = document.getElementById('footerFingerHint');
-        if (!hint) return;
-        const shouldAnimate = shouldAnimateFooterFingerHint();
-        hint.classList.toggle('footer-finger-hint--active', shouldAnimate);
-        maybeScheduleFooterFingerAutoPress(shouldAnimate);
-    }
-
-    function scheduleFooterFingerHintStateUpdate() {
-        if (footerFingerHintRafPending) return;
-        footerFingerHintRafPending = true;
-        requestAnimationFrame(() => {
-            footerFingerHintRafPending = false;
-            applyFooterFingerHintState();
-        });
-    }
-
-    function initFooterFingerHint() {
-        const wrap = document.getElementById('footerBookBtnWrap');
-        if (!wrap) return;
-        footerFingerUsedThisSession = readFooterFingerUsedSessionFlag();
-
-        const hint = document.getElementById('footerFingerHint');
-        if (hint && hint.parentNode !== wrap) {
-            wrap.appendChild(hint);
-        }
-
-        const footerBookBtn = document.getElementById('footerBookBtn');
-        if (footerBookBtn && !footerBookBtn.dataset.fingerSessionBound) {
-            footerBookBtn.dataset.fingerSessionBound = '1';
-            footerBookBtn.addEventListener('click', () => {
-                markFooterFingerUsedForSession();
-            });
-        }
-
-        if (window.IntersectionObserver) {
-            footerFingerHintObserver = new IntersectionObserver((entries) => {
-                footerFingerHintInView = entries.some(entry => entry.isIntersecting);
-                scheduleFooterFingerHintStateUpdate();
-            }, {
-                threshold: [0, 0.2, 0.55]
-            });
-            footerFingerHintObserver.observe(wrap);
-        } else {
-            footerFingerHintInView = true;
-        }
-
-        window.addEventListener('scroll', scheduleFooterFingerHintStateUpdate, { passive: true });
-        window.addEventListener('resize', scheduleFooterFingerHintStateUpdate, { passive: true });
-        document.addEventListener('visibilitychange', scheduleFooterFingerHintStateUpdate);
-        scheduleFooterFingerHintStateUpdate();
     }
 
     function initFaqSpoilers() {
@@ -8407,22 +8112,21 @@
             event.stopImmediatePropagation();
         }, true);
     }
-
     function highlightCameraButtonHypnotic() {
         const cameraBtn = document.getElementById('takePhotoBtn');
         if (!cameraBtn) return false;
-
         cameraBtn.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-        cameraBtn.classList.remove('file-attach__btn--camera-hypnotic');
-        void cameraBtn.offsetWidth;
-        cameraBtn.classList.add('file-attach__btn--camera-hypnotic');
-
-        clearTimeout(cameraButtonGlowTimer);
-        cameraButtonGlowTimer = setTimeout(() => {
-            cameraBtn.classList.remove('file-attach__btn--camera-hypnotic');
-        }, 9000);
-
         return true;
+    }
+
+    function openBookingModalWithoutDate(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        selectedDate = null;
+        openBookingModal(null);
+        return false;
     }
 
     function openEmergencyFormWithCamera(event) {
@@ -8544,6 +8248,7 @@
     function applySlotFromCalendarOverlay(slot) {
         if (!slot) return;
         selectedSlotData = slot;
+        bookingWithoutSpecificDate = false;
         syncBookingModalSlotDisplay(slot);
         closeFormCalendarOverlay();
 
@@ -8557,19 +8262,24 @@
     function openBookingModal(slot, triggerAttach = false) {
 
         try {
-            selectedSlotData = slot;
+            selectedSlotData = (slot && slot.iso) ? slot : null;
+            bookingWithoutSpecificDate = !selectedSlotData;
             __mxBufK2 = [];
             __mxSigK2 = '';
             __mxRefK2 = [];
-            logEvent("Form Opened", slot.text);
+            logEvent("Form Opened", selectedSlotData ? String(selectedSlotData.text || '') : 'WITHOUT_SPECIFIC_DATE');
             const tsInput = document.getElementById('formTimestamp');
             if (tsInput) tsInput.value = Date.now().toString();
 
-            if (!selectedDate) {
+            if (!bookingWithoutSpecificDate && !selectedDate) {
                 console.error("Selected date is null");
                 return;
             }
-            syncBookingModalSlotDisplay(slot);
+            if (selectedSlotData) {
+                syncBookingModalSlotDisplay(selectedSlotData);
+            } else {
+                setBookingModalWithoutDateDisplay();
+            }
             
             if(modal) {
                 window.scrollTo(0, 0);
@@ -8578,7 +8288,6 @@
                 document.body.style.overflow = 'hidden';
                 document.body.classList.add('modal-is-open');
             }
-            scheduleFooterFingerHintStateUpdate();
 
             clearBookingError();
             document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
@@ -8587,7 +8296,7 @@
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = getConfirmBtnLabel();
             }
-            if (selectedDate && selectedDate.getDay() === 6) {
+            if (!bookingWithoutSpecificDate && selectedDate && selectedDate.getDay() === 6) {
                 setBookingWarning('Saturday appointments are available only by request. Please call to confirm availability.');
             }
             
@@ -8701,12 +8410,11 @@
         if(modal) modal.classList.remove('modal--active');
         document.body.style.overflow = 'auto';
         document.body.classList.remove('modal-is-open');
-        scheduleFooterFingerHintStateUpdate();
         focusCameraButtonOnBookingOpen = false;
         resetBookingRecaptchaUi();
         clearTimeout(cameraButtonGlowTimer);
         const cameraBtn = document.getElementById('takePhotoBtn');
-        if (cameraBtn) cameraBtn.classList.remove('file-attach__btn--camera-hypnotic');
+        bookingWithoutSpecificDate = false;
 
         if (isSuccess) {
             markHardReloadAfterModalClose();
@@ -10000,12 +9708,12 @@
         clearBookingError();
         document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
         if (!validateAndNormalizeBookingForm(form)) return;
-        if (!selectedSlotData || !selectedSlotData.iso) {
-            setBookingError('Please select an available time slot first.', document.getElementById('slotsGrid'));
-            return;
-        }
-
         const formData = new FormData(form);
+        const hasSelectedSlot = Boolean(selectedSlotData && selectedSlotData.iso);
+        const slotIsoValue = hasSelectedSlot ? String(selectedSlotData.iso || '').trim() : '';
+        const slotTextValue = hasSelectedSlot
+            ? String(selectedSlotData.text || '').trim()
+            : BOOKING_WITHOUT_DATE_SUMMARY;
         const isSecretQuickSubmit = isSecretTestBypassReady(form);
         const selectedServiceOption = document.querySelector('#customSelect .custom-option.selected');
         const rawServiceValue = selectedServiceOption
@@ -10077,8 +9785,8 @@
             })(),
             dob: `${rawDobYear}-${rawDobMonth}-${rawDobDay}`,
             deadline: String(formData.get('deadline') || '').trim(),
-            dateStr: selectedSlotData ? selectedSlotData.iso : '',
-            slotText: selectedSlotData ? String(selectedSlotData.text || '').trim() : '',
+            dateStr: slotIsoValue,
+            slotText: slotTextValue,
             filesCount: 0
         };
 
@@ -10172,13 +9880,33 @@
             const payloadAgreeTerms = rawAgreeTerms;
             const payloadHoneypot = rawHoneypot;
             const payloadTimestamp = rawTimestamp;
+            let slotYear = null;
+            let slotMonth = null;
+            let slotDay = null;
+            let slotHour = null;
+            let slotMinute = null;
+
+            if (hasSelectedSlot) {
+                const [slotDatePart = '', slotTimePart = ''] = slotIsoValue.split('T');
+                const slotDateParts = slotDatePart.split('-');
+                const slotTimeParts = slotTimePart.split(':');
+                if (slotDateParts.length === 3) {
+                    slotYear = slotDateParts[0];
+                    slotMonth = parseInt(slotDateParts[1], 10) - 1;
+                    slotDay = parseInt(slotDateParts[2], 10);
+                }
+                if (slotTimeParts.length >= 2) {
+                    slotHour = parseInt(slotTimeParts[0], 10);
+                    slotMinute = parseInt(slotTimeParts[1], 10);
+                }
+            }
 
             const bookingData = {
-                year: selectedSlotData.iso.split('T')[0].split('-')[0],
-                month: parseInt(selectedSlotData.iso.split('T')[0].split('-')[1]) - 1,
-                day: parseInt(selectedSlotData.iso.split('T')[0].split('-')[2]),
-                hour: parseInt(selectedSlotData.iso.split('T')[1].split(':')[0]),
-                minute: parseInt(selectedSlotData.iso.split('T')[1].split(':')[1]),
+                year: slotYear,
+                month: slotMonth,
+                day: slotDay,
+                hour: slotHour,
+                minute: slotMinute,
                 name: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.payloadName : summary.name),
                 occupation: sanitize(payloadOccupation),
                 email: sanitize(summary.email),
@@ -10189,7 +9917,11 @@
                 serviceValue: sanitize(payloadServiceValue),
                 service_value: sanitize(payloadServiceValue),
                 notes: sanitize(payloadNotes),
-                dateStr: selectedSlotData.iso,
+                dateStr: slotIsoValue,
+                slotText: sanitize(slotTextValue),
+                slot_text: sanitize(slotTextValue),
+                withoutSpecificDate: !hasSelectedSlot,
+                without_specific_date: !hasSelectedSlot,
                 dob: sanitize(summary.dob),
                 dobYear: sanitize(payloadDobYear),
                 dobMonth: sanitize(payloadDobMonth),
@@ -10285,7 +10017,7 @@
                 if (modalBody) modalBody.innerHTML = buildFinalResultMarkup(summary);
                 if (modal) modal.dataset.state = 'success';
 
-                logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr}`);
+                logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr || 'UNSPECIFIED'}`);
             } else if (result.error === 'RECAPTCHA_REQUIRED') {
                 const recaptchaWrap = getBookingRecaptchaWrap();
                 setBookingRecaptchaVisible(true);
@@ -10354,56 +10086,6 @@
         }
         document.removeEventListener('click', initAudio);
     }, { once: true });
-
-    // Heart animation and click counter on coffee cups
-    let coffeeClicks = 0;
-    
-    const coffeeCupsEl = document.getElementById('coffeeCups');
-    if (coffeeCupsEl) {
-        coffeeCupsEl.addEventListener('click', function() {
-      const heart = document.getElementById('heartAnimation');
-      const counter = document.getElementById('coffeeLikeCount');
-      
-      coffeeClicks++;
-      
-      // Update counter text with the heart SVG
-      const heartIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="#a18570" stroke="white" stroke-width="1.5" style="vertical-align: -2px; margin-left: 4px;"><path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-      if (coffeeClicks >= 1000000) {
-          counter.innerHTML = "Win Win!" + heartIcon;
-      } else {
-          counter.innerHTML = coffeeClicks.toLocaleString() + heartIcon;
-      }
-      
-      // Heart Animation
-      heart.style.transition = 'none';
-      heart.style.transform = 'translate(-50%, -50%) scale(0)';
-      heart.style.opacity = '1';
-      
-      // Counter Animation
-      counter.style.transition = 'none';
-      counter.style.transform = 'translateY(5px) scale(0.9)';
-      counter.style.opacity = '1';
-      
-      requestAnimationFrame(() => {
-        // Pop the heart (using custom bezier for a bounce effect)
-        heart.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease';
-        heart.style.transform = 'translate(-50%, -50%) scale(1.6)'; // Bigger heart
-        heart.style.opacity = '0';
-        
-        // Pop the counter
-        counter.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        counter.style.transform = 'translateY(0) scale(1)';
-        
-        // Fade out slightly after a delay, or keep it visible
-        setTimeout(() => {
-            counter.style.transition = 'all 0.8s ease';
-            if(coffeeClicks < 1000000) {
-              counter.style.opacity = '0.7'; // Keeps it slightly visible when idle
-            }
-        }, 500);
-        });
-      });
-    }
 
     function getEndTime(startTime) {
         try {
@@ -10607,12 +10289,128 @@
         return String(slot.text).split(/[-\u2013]/)[0].trim();
     }
 
+    const HEADER_NEAREST_HINT_LOADING_TEXT = 'Nearest appointment: checking availability...';
+    const HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS = 10000;
+    let headerNearestHintTypewriterTimer = null;
+    let headerNearestHintTypewriterToken = 0;
+    let headerNearestHintTypewriterActive = false;
+    let headerNearestHintLoadingTypedOnce = false;
+
+    function clearHeaderNearestHintTypewriter() {
+        if (headerNearestHintTypewriterTimer) {
+            clearTimeout(headerNearestHintTypewriterTimer);
+            headerNearestHintTypewriterTimer = null;
+        }
+        headerNearestHintTypewriterActive = false;
+    }
+
+    function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function buildHumanTypeDelays(text) {
+        const delays = [];
+        for (let i = 0; i < text.length; i += 1) {
+            const ch = text[i];
+            let delay = randomInt(45, 170);
+
+            if (ch === ' ') {
+                delay += randomInt(35, 115);
+            } else if (/[,:;.!?]/.test(ch)) {
+                delay += randomInt(120, 280);
+            } else if (/[A-Z]/.test(ch) && i !== 0) {
+                delay += randomInt(8, 45);
+            }
+
+            if (Math.random() < 0.09) delay += randomInt(120, 260);
+            if (Math.random() < 0.14) delay -= randomInt(8, 28);
+
+            delay = Math.max(24, Math.min(420, delay));
+            delays.push(delay);
+        }
+
+        const total = delays.reduce((sum, val) => sum + val, 0);
+        const budget = Math.floor(HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS * 0.92);
+        if (total > budget && total > 0) {
+            const scale = budget / total;
+            for (let i = 0; i < delays.length; i += 1) {
+                delays[i] = Math.max(18, Math.round(delays[i] * scale));
+            }
+        }
+        return delays;
+    }
+
+    function startHeaderNearestHintTypewriter(hintEl, finalText) {
+        clearHeaderNearestHintTypewriter();
+        headerNearestHintTypewriterToken += 1;
+        const runToken = headerNearestHintTypewriterToken;
+        const delays = buildHumanTypeDelays(finalText);
+        const startedAt = performance.now();
+        const deadline = startedAt + HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS;
+        let index = 0;
+
+        headerNearestHintTypewriterActive = true;
+        hintEl.textContent = '';
+
+        const typeNext = () => {
+            if (runToken !== headerNearestHintTypewriterToken) return;
+
+            const now = performance.now();
+            if (index >= finalText.length || now >= deadline) {
+                hintEl.textContent = finalText;
+                clearHeaderNearestHintTypewriter();
+                headerNearestHintLoadingTypedOnce = true;
+                return;
+            }
+
+            index += 1;
+            hintEl.textContent = finalText.slice(0, index);
+
+            if (index >= finalText.length) {
+                clearHeaderNearestHintTypewriter();
+                headerNearestHintLoadingTypedOnce = true;
+                return;
+            }
+
+            const remainingChars = finalText.length - index;
+            const remainingTime = Math.max(0, deadline - performance.now());
+            const capDelay = Math.max(16, Math.floor(remainingTime / Math.max(1, remainingChars)));
+            const nextPlannedDelay = delays[index] || randomInt(40, 120);
+            const nextDelay = Math.max(16, Math.min(nextPlannedDelay, capDelay));
+
+            headerNearestHintTypewriterTimer = setTimeout(typeNext, nextDelay);
+        };
+
+        const initialDelay = randomInt(110, 260);
+        headerNearestHintTypewriterTimer = setTimeout(typeNext, initialDelay);
+    }
+
     function setHeaderNearestSlotHint(message) {
         const hintEl = document.getElementById('headerNearestSlotHint');
         if (!hintEl) return;
         const nextText = String(message || '').trim();
-        hintEl.textContent = nextText;
         hintEl.classList.toggle('header-nearest-slot-hint--visible', Boolean(nextText));
+
+        if (!nextText) {
+            clearHeaderNearestHintTypewriter();
+            headerNearestHintLoadingTypedOnce = false;
+            hintEl.textContent = '';
+            return;
+        }
+
+        if (nextText === HEADER_NEAREST_HINT_LOADING_TEXT) {
+            if (headerNearestHintTypewriterActive) return;
+            if (headerNearestHintLoadingTypedOnce) {
+                hintEl.textContent = nextText;
+                return;
+            }
+            startHeaderNearestHintTypewriter(hintEl, nextText);
+            return;
+        }
+
+        headerNearestHintLoadingTypedOnce = false;
+        clearHeaderNearestHintTypewriter();
+        hintEl.textContent = nextText;
     }
 
     function renderHeaderBookBtnText(targetEl, dayShort, dayDate, timeStr) {
@@ -10677,7 +10475,7 @@
                 if (t.btn.id === 'headerBookBtn') {
                     let timeStr = '';
                     if (nearestSlotData && nearestSlotData.text) {
-                        timeStr = nearestSlotData.text.split(/[-–]/)[0].trim();
+                        timeStr = nearestSlotData.text.split(/[-\u2013]/)[0].trim();
                     }
                     renderHeaderBookBtnText(t.txt, dayOfWeekShort, nearestSlotData.date, timeStr);
                     const nearestDateLabel = formatDateAsYmd(absoluteNearestDate);
@@ -10691,7 +10489,7 @@
                 } else {
                     let lastTimeStr = '';
                     if (fallbackSlot && fallbackSlot.text) {
-                        lastTimeStr = fallbackSlot.text.split(/[-–]/)[0].trim();
+                        lastTimeStr = fallbackSlot.text.split(/[-\u2013]/)[0].trim();
                     }
                     renderFooterBookBtnText(t.txt, dayOfWeekFull, fallbackSlot ? fallbackSlot.date : '', lastTimeStr);
                 }
@@ -10754,7 +10552,6 @@
             }
         });
         normalizeSlotNotFoundText();
-        scheduleFooterFingerHintStateUpdate();
     }
     window.addEventListener('online', updateFooterBookBtn);
     window.addEventListener('offline', updateFooterBookBtn);
@@ -10776,8 +10573,6 @@
             scrollToCalendar();
         }
     }
-
-
 
     // Periodic Progress Bar Scan
     setInterval(() => {
@@ -11002,7 +10797,6 @@
     }
     window.addEventListener('load', triggerReveal);
 
-
     // Location static logging
     function openDirectionsTarget(directionsLink) {
         const targetUrl = directionsLink && directionsLink.href ? directionsLink.href : "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4";
@@ -11081,7 +10875,3 @@
 
 </body>
 </html>
-
-
-
-
