@@ -1414,12 +1414,13 @@
             bottom: -0.55rem;
             z-index: 25;
             margin: -0.12rem 0 0;
-            padding: clamp(1.05rem, 2.9vh, 1.65rem) 0.65rem 0.5rem;
+            padding: clamp(1.35rem, 3.6vh, 2.1rem) 0.65rem 0.5rem;
             background: linear-gradient(
                 to bottom,
-                rgba(107, 91, 74, 0.32) 0%,
-                rgba(107, 91, 74, 0.14) 8%,
-                rgba(107, 91, 74, 1.00) 18%,
+                rgba(107, 91, 74, 0.00) 0%,
+                rgba(107, 91, 74, 0.00) 10%,
+                rgba(107, 91, 74, 0.72) 34%,
+                rgba(107, 91, 74, 1.00) 52%,
                 rgba(107, 91, 74, 1.00) 100%
             );
             backdrop-filter: none;
@@ -1916,7 +1917,7 @@
         #bookingStatus {
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 128, 184, 0.95);
-            --booking-status-bg: rgba(255, 130, 188, 0.14);
+            --booking-status-bg: rgba(255, 130, 188, 0.24);
             min-height: 0;
             margin: 0 0 1rem 0 !important;
             padding: 0;
@@ -1943,8 +1944,8 @@
             background: var(--booking-status-bg);
             opacity: 1;
             transform: none;
-            animation: bookingStatusIn 0.28s ease-out, bookingStatusSoftPulse 2.6s ease-in-out 0.28s infinite;
-            box-shadow: none;
+            animation: bookingStatusIn 0.28s ease-out;
+            box-shadow: 0 0 0.45rem rgba(255, 162, 210, 0.24);
         }
 
         @keyframes bookingStatusIn {
@@ -1966,14 +1967,14 @@
 
         #bookingStatus.status-alert--warning {
             --booking-status-fg: #ffe8f3;
-            --booking-status-border: rgba(255, 138, 191, 0.95);
-            --booking-status-bg: rgba(255, 147, 200, 0.14);
+            --booking-status-border: rgba(255, 138, 191, 1);
+            --booking-status-bg: rgba(255, 147, 200, 0.28);
         }
 
         #bookingStatus.status-alert--error {
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 116, 179, 0.98);
-            --booking-status-bg: rgba(255, 120, 184, 0.16);
+            --booking-status-bg: rgba(255, 120, 184, 0.32);
         }
 
         .booking-scroll-cue {
@@ -2393,6 +2394,18 @@
             opacity: 0;
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .calendar-wrapper,
+        .calendar-wrapper * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        .calendar-wrapper button,
+        .calendar-wrapper [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+        }
         .calendar-wrapper.calendar--loaded {
             opacity: 1;
         }
@@ -2698,6 +2711,9 @@
             width: var(--calendar-key-size);
             height: var(--calendar-key-size);
             line-height: 0;
+            color: rgba(255, 255, 255, 0.96);
+            opacity: 0.96;
+            transition: color 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
             /* previous upward offset removed so icon sits exactly in the centre */
             margin-top: 0;
         }
@@ -2707,10 +2723,16 @@
             margin: 0;
         }
 
+        .cal-day--selected .cal-key {
+            color: var(--accent-gold) !important;
+            opacity: 1;
+            filter: drop-shadow(0 0 0.16rem rgba(107, 91, 74, 0.28));
+        }
+
         .cal-key svg {
             width: 100%;
             height: 100%;
-            transform: rotate(180deg) scaleX(-1);
+            transform: none;
             transform-origin: center;
         }
 
@@ -2872,39 +2894,65 @@
         }
 
         .slot-btn--hypnotic::before {
-            content: none;
-            opacity: 0;
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: calc(100% + clamp(0.14rem, 0.55vw, 0.32rem));
+            width: clamp(6.8rem, 18vw, 11.2rem);
+            height: clamp(1.6rem, 4.2vw, 2.7rem);
+            transform: translate3d(-50%, -50%, 0) scale(0.92);
+            border-radius: 50%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255, 255, 255, 0.92) 0%,
+                rgba(255, 255, 255, 0.56) 30%,
+                rgba(255, 255, 255, 0.2) 58%,
+                rgba(255, 255, 255, 0.04) 80%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            filter: blur(6px);
+            opacity: 0.1;
             pointer-events: none;
-            z-index: 0;
+            z-index: -3;
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            transition: opacity 160ms ease, transform 280ms ease, filter 280ms ease;
         }
 
         .slot-btn--hypnotic::after {
             content: "";
             position: absolute;
             left: 50%;
-            top: 50%;
-            width: clamp(18rem, 48vw, 38rem);
-            height: clamp(18rem, 48vw, 38rem);
-            transform: translate(-50%, -50%) scale(0.86);
+            top: 66%;
+            width: clamp(16rem, 44vw, 30rem);
+            height: clamp(13.5rem, 35vw, 23rem);
+            transform: translate3d(-50%, -50%, 0) scale(0.92);
             border-radius: 50%;
             background: radial-gradient(
-                circle,
-                rgba(255, 255, 255, 0.92) 0%,
-                rgba(255, 255, 255, 0.52) 18%,
-                rgba(255, 255, 255, 0.22) 36%,
-                rgba(255, 255, 255, 0.08) 52%,
-                rgba(255, 255, 255, 0) 72%
+                ellipse at center,
+                rgba(255, 255, 255, 0) 28%,
+                rgba(255, 255, 255, 0.52) 40%,
+                rgba(255, 255, 255, 0.24) 49%,
+                rgba(255, 255, 255, 0.1) 60%,
+                rgba(255, 255, 255, 0.03) 70%,
+                rgba(255, 255, 255, 0) 82%
             );
-            filter: blur(22px);
+            filter: none;
             opacity: 0;
             pointer-events: none;
-            z-index: -1;
+            z-index: -2;
+            box-shadow:
+                0 0 1rem rgba(255, 255, 255, 0.16),
+                0 0 2.2rem rgba(255, 255, 255, 0.1);
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+            outline: 1px solid transparent;
             transition: opacity 180ms ease, transform 380ms ease, filter 380ms ease;
         }
 
         .slot-btn--hypnotic > * {
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
 
         .slot-btn--hypnotic .slot-icon-wrapper {
@@ -2918,29 +2966,33 @@
             transform: translateY(-2px);
             animation: none;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                0 0 2.2rem rgba(255, 255, 255, 0.58),
-                0 0 4.8rem rgba(255, 255, 255, 0.42),
-                0 0 8.4rem rgba(255, 255, 255, 0.34),
-                0 0 13.5rem rgba(255, 255, 255, 0.24);
+                inset 0 1px 0 rgba(255, 255, 255, 0.48),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+        }
+
+        .slot-btn--hypnotic:hover::before,
+        .slot-btn--hypnotic:focus-visible::before {
+            opacity: 0.72;
+            transform: translate3d(-50%, -50%, 0) scale(1.08);
+            filter: blur(7px);
         }
 
         .slot-btn--hypnotic:hover::after,
         .slot-btn--hypnotic:focus-visible::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.12);
-            filter: blur(12px);
+            opacity: 0.78;
+            transform: translate3d(-50%, -50%, 0) scale(1.04);
+            filter: none;
             animation: slotBacklightPulseHuge 1.12s ease-in-out infinite alternate;
         }
 
         @keyframes slotBacklightPulseHuge {
             0% {
-                opacity: 0.72;
-                transform: translate(-50%, -50%) scale(0.98);
+                opacity: 0.52;
+                transform: translate3d(-50%, -50%, 0) scale(0.98);
             }
             100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.82;
+                transform: translate3d(-50%, -50%, 0) scale(1.07);
             }
         }
 
@@ -3004,7 +3056,7 @@
             pointer-events: none;
         }
 
-        .slot-btn:hover::after { opacity: 1; }
+        .slot-btn:not(.slot-btn--hypnotic):hover::after { opacity: 1; }
 
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(0.9rem); }
@@ -4760,14 +4812,16 @@
             }
 
             .header__content-block {
-                margin: 2.8rem 0 2rem;
+                margin: 2.8rem auto 2rem;
                 width: min(97vw, 41rem);
-                padding-left: clamp(0.18rem, 1.6vw, 0.5rem);
+                padding-left: clamp(0.45rem, 2.4vw, 0.9rem);
                 padding-right: clamp(0.45rem, 2.4vw, 0.9rem);
             }
 
             .header__content-header {
                 margin: 2rem 0 1.35rem;
+                text-align: center;
+                width: 100%;
             }
 
             .header__content-text,
@@ -5072,8 +5126,8 @@
 
             .header__content-block {
                 width: min(98.5vw, 41rem);
-                margin: 2.4rem 0 1.9rem;
-                padding-left: 0.08rem;
+                margin: 2.4rem auto 1.9rem;
+                padding-left: 0.8rem;
                 padding-right: 0.8rem;
             }
 
@@ -6596,7 +6650,7 @@
                 const isToday  = date.getTime() === torNow.getTime();
 
                 if (isSaturday) {
-                    el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="12" r="3.5"></circle><path d="M10.2 12h8.8M16 12v-1.7M18 12v1.7"></path></svg></span>`;
                 } else {
                     el.textContent = day;
                 }
@@ -8117,12 +8171,6 @@
                 modal.scrollTop = 0;
                 const modalBody = modal.querySelector('.modal__body');
                 if (modalBody) modalBody.scrollTop = 0;
-                const nameInput = modal.querySelector('#bookingForm input[name="name"]');
-                if (nameInput) {
-                    setTimeout(() => {
-                        try { nameInput.focus({ preventScroll: true }); } catch (e) { nameInput.focus(); }
-                    }, 0);
-                }
             }
 
             clearBookingError();
