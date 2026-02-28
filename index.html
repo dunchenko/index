@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- <?php /* bootstrap: include __DIR__ . '/inc/init.php'; */ ?> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -47,7 +48,7 @@
         "opens": "10:00",
         "closes": "17:00"
       },
-      "description": "Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Expert representation in Toronto, Mississauga, and province-wide."
+      "description": "Professional paralegal and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Proffesional representation in Toronto, Mississauga, and province-wide online."
     }
     </script>
     
@@ -530,7 +531,7 @@
 
         .header__description {
             --h1-fit-scale: 1;
-            font-size: calc(clamp(1.05rem, 3.6vw, 1.35rem) * var(--h1-fit-scale));
+            font-size: clamp(1.05rem, 3.6vw, 1.35rem);
             font-weight: 900;
             color: rgba(255, 255, 255, 0.92);
             margin: 0 auto 2.5rem;
@@ -1695,12 +1696,18 @@
 
         #bookingModal .booking-row--address-city {
             width: 100%;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         #bookingModal .booking-row--address-city .custom-select-wrapper--city {
-            flex: 1 1 100% !important;
-            width: 100% !important;
+            flex: 1 1 auto !important;
+            width: auto !important;
             min-width: 0 !important;
+        }
+
+        #bookingModal .booking-row--address-city .custom-select-wrapper--province {
+            margin-left: auto;
         }
 
         #bookingModal .booking-row--address-city .custom-select--city .custom-select__trigger {
@@ -1713,6 +1720,10 @@
             align-items: center !important;
             flex-wrap: nowrap !important;
             gap: 0.55rem !important;
+        }
+
+        #bookingModal .booking-row--address-secondary.booking-row--province-zip {
+            justify-content: flex-end !important;
         }
 
         #bookingModal .booking-row--province-zip .booking-row__label {
@@ -1886,7 +1897,6 @@
             text-transform: none !important;
         }
 
-        #bookingModal .custom-option:hover,
         #bookingModal .custom-option.selected {
             color: #3a2a1a !important;
         }
@@ -3778,7 +3788,6 @@
             text-align: left;
         }
 
-        .custom-option:hover, 
         .custom-option.selected {
             background-color: rgba(139, 111, 90, 0.12);
             color: #3a2a1a;
@@ -5049,8 +5058,8 @@
             }
 
             .booking-row--address-city .custom-select-wrapper--city {
-                flex: 1 1 100% !important;
-                width: 100% !important;
+                flex: 1 1 auto !important;
+                width: auto !important;
                 min-width: 0 !important;
             }
 
@@ -5143,12 +5152,16 @@
                 align-items: center !important;
             }
 
+            #bookingModal .booking-row--address-secondary.booking-row--province-zip {
+                justify-content: flex-end !important;
+            }
+
             #bookingModal .booking-row--address-secondary > * {
                 min-width: 0 !important;
             }
 
             #bookingModal .booking-row--address-city .custom-select-wrapper--city {
-                width: 100% !important;
+                width: auto !important;
                 min-width: 0 !important;
                 flex: 1 1 auto !important;
             }
@@ -5240,6 +5253,7 @@
 </div>
 
 <header class="header fade-in-section">
+    <!-- <?php /* template-part: hero-header.php */ ?> -->
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__description">
@@ -5602,7 +5616,8 @@
         <button class="modal__close" onclick="closeBookingModal()" style="left: 20px; right: auto;">&times;</button>
         <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0; line-height: 1.4;">REQUEST<br><span style="display: block; font-size: 1em; opacity: 0.9; margin-top: 5px;">TO BOOK YOUR APPOINTMENT:</span><span id="modalAppointmentTime" style="display: block; font-size: 1em; font-weight: 800; margin-top: 2px;"></span></h2>
         <div class="modal__body" style="padding-top: 5px; text-align: center;">
-            
+            <!-- <?php /* include __DIR__ . '/partials/booking-form.php'; */ ?> -->
+             
             <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
                 <!-- Honeypot: hidden from humans, visible to bots -->
                 <div style="position: absolute; left: -9999px; top: -9999px;" aria-hidden="true">
@@ -5707,9 +5722,6 @@
                             </div>
                             <input type="hidden" name="address_city" id="cityInput" value="">
                         </div>
-                    </div>
-                    <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                        <label for="provinceTriggerMain" class="contact-form__label booking-row__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Province:</label>
                         <div class="custom-select-wrapper custom-select-wrapper--province">
                             <div class="custom-select custom-select--province" id="provinceCustomSelect">
                                 <button class="custom-select__trigger" id="provinceTriggerMain" type="button" aria-label="Province">
@@ -5733,6 +5745,8 @@
                             </div>
                             <input id="provinceInputMain" type="hidden" name="address_province" value="Ontario">
                         </div>
+                    </div>
+                    <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
                         <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
@@ -6650,7 +6664,7 @@
                 const isToday  = date.getTime() === torNow.getTime();
 
                 if (isSaturday) {
-                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="12" r="3.5"></circle><path d="M10.2 12h8.8M16 12v-1.7M18 12v1.7"></path></svg></span>`;
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3.8"></circle><path d="M10.8 12h10"></path><path d="M15.7 12v-2.2h2.3v2.2"></path><path d="M18.8 12v2.4h2"></path></svg></span>`;
                 } else {
                     el.textContent = day;
                 }
@@ -11313,7 +11327,10 @@
             line.style.wordBreak = 'keep-all';
         });
 
+        // Reset to CSS-driven size first, then compute a stable pixel fallback for mobile browsers.
+        heroH1.style.fontSize = '';
         heroH1.style.setProperty('--h1-fit-scale', '1');
+        const baseFontPx = parseFloat(window.getComputedStyle(heroH1).fontSize || '0') || 16;
         const heroStyle = window.getComputedStyle(heroH1);
         const padLeft = parseFloat(heroStyle.paddingLeft || '0') || 0;
         const padRight = parseFloat(heroStyle.paddingRight || '0') || 0;
@@ -11331,7 +11348,7 @@
 
         const ratio = (availableWidth - 2) / maxLineWidth;
         let scale = Math.max(0.22, Math.min(1, ratio));
-        heroH1.style.setProperty('--h1-fit-scale', scale.toFixed(4));
+        heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
 
         let postFitMaxWidth = 0;
         lines.forEach(line => {
@@ -11341,7 +11358,19 @@
             const correction = availableWidth / postFitMaxWidth;
             scale = Math.max(0.22, scale * correction * 0.99);
         }
-        heroH1.style.setProperty('--h1-fit-scale', scale.toFixed(4));
+        heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
+
+        // Final safety pass for very narrow screens / browser rounding differences.
+        for (let i = 0; i < 3; i++) {
+            let overflowWidth = 0;
+            lines.forEach(line => {
+                overflowWidth = Math.max(overflowWidth, line.scrollWidth);
+            });
+            if (overflowWidth <= availableWidth + 0.5) break;
+            const correction = Math.max(0.6, Math.min(0.99, availableWidth / overflowWidth));
+            scale = Math.max(0.22, scale * correction * 0.995);
+            heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
+        }
     }
 
     // (Load listener consolidated above)
