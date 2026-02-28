@@ -71,6 +71,17 @@
             (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
             (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4)
         );
+        const BOOK_BTN_FIRST_PARTICLES_EVENT = 'header-book-btn-first-particles-done';
+        let headerNearestHintUnlockDispatched = false;
+
+        function dispatchHeaderNearestHintUnlock(delayMs = 0) {
+            if (headerNearestHintUnlockDispatched) return;
+            headerNearestHintUnlockDispatched = true;
+            const safeDelay = Math.max(0, Number(delayMs) || 0);
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent(BOOK_BTN_FIRST_PARTICLES_EVENT));
+            }, safeDelay);
+        }
 
         function startBookBtnJumping(btnId, preloaderId) {
             const btn = document.getElementById(btnId);
@@ -99,11 +110,13 @@
 
             let jumpedOnce = false;
             function doJumpWithSparks() {
+                let sparkLifetimeMs = 0;
                 if (btn.style.opacity === '1' && btn.style.pointerEvents !== 'none') {
                     btn.classList.add('book-btn-jump');
-                    createSparks(btn);
+                    sparkLifetimeMs = Number(createSparks(btn)) || 0;
                     setTimeout(() => btn.classList.remove('book-btn-jump'), 800);
                 }
+                return sparkLifetimeMs;
             }
             function scheduleJump() {
                 const min = IS_LOW_END_DEVICE_FOR_JUMP ? 9000 : 5000;
@@ -121,7 +134,8 @@
                 if (preloader && preloader.style.opacity === '0' && btn.style.opacity === '1' && !jumpedOnce) {
                     jumpedOnce = true;
                     setTimeout(() => {
-                        doJumpWithSparks(); // first jump right after reveal
+                        const firstSparkLifetimeMs = doJumpWithSparks(); // first jump right after reveal
+                        dispatchHeaderNearestHintUnlock(firstSparkLifetimeMs > 0 ? (firstSparkLifetimeMs + 30) : 620);
                         scheduleJump();
                     }, 400); // slightly faster to avoid visible delay
                 }
@@ -281,7 +295,7 @@
             color: var(--text-white); 
             line-height: 1.6; 
             min-height: 100vh;
-            padding-bottom: 9.4rem; /* Space for bottom bar */
+            padding-bottom: 0;
             animation: blurReveal 4s ease-out forwards;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -796,13 +810,13 @@
 
         .contact-form__terms-link:hover { color: #D4B89A; }
 
-        .recaptcha-repeat-wrap {
+        .recaptcha-wrap {
             display: none;
             margin: 0.2rem 0 0.75rem;
             text-align: center;
         }
 
-        .recaptcha-repeat-wrap__hint {
+        .recaptcha-wrap__hint {
             margin: 0 0 0.5rem 0;
             font-size: 0.85rem;
             font-weight: 700;
@@ -811,7 +825,7 @@
             text-align: center;
         }
 
-        .recaptcha-repeat-wrap #bookingRecaptchaWidget {
+        .recaptcha-wrap #bookingRecaptchaWidget {
             display: inline-block;
             min-height: 78px;
         }
@@ -834,28 +848,35 @@
         }
 
         #confirmBookingBtn {
-            padding: 1.35rem 1rem;
-            min-height: 4.4rem;
-            line-height: 1.1;
+            display: inline-block;
+            width: auto;
+            min-width: 14rem;
+            max-width: 96%;
+            padding: 0.8rem 2rem;
+            min-height: 4.5rem;
+            line-height: 1;
             font-weight: 900;
-            font-size: 1.125rem;
-            background: #3f281a;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            letter-spacing: 0.06em;
+            background: #5a3d2a;
             color: #ffffff;
-            border: 1px solid #3f281a;
+            border: 1px solid #5a3d2a;
             box-shadow: none;
-            transition: background-color 0.2s ease, transform 0.2s ease;
+            border-radius: 999px;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         #confirmBookingBtn:hover {
-            background: #352114 !important;
+            background: #4a3324 !important;
             color: #ffffff !important;
-            transform: translateY(-1px);
+            transform: none;
+            box-shadow: none;
         }
 
         #confirmBookingBtn:active {
-            background: #2b1a11 !important;
+            background: #4a3324 !important;
             color: #ffffff !important;
-            transform: translateY(0);
+            transform: none;
         }
 
         #confirmBookingBtn {
@@ -1317,20 +1338,28 @@
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 20035;
-            margin: 0;
-            padding: 0.65rem 0.7rem calc(0.75rem + env(safe-area-inset-bottom));
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(1.3rem);
-            -webkit-backdrop-filter: blur(1.3rem);
-            border-top: 1px solid var(--glass-border);
-            box-shadow: 0 -0.45rem 1.4rem rgba(0, 0, 0, 0.28);
-            -webkit-mask-image: linear-gradient(to top, black, transparent);
-            mask-image: linear-gradient(to top, black, transparent);
+            --sticky-bottom-bleed: clamp(56px, 11vh, 132px);
+            position: sticky;
+            left: auto;
+            right: auto;
+            bottom: calc(-1 * var(--sticky-bottom-bleed));
+            z-index: 25;
+            margin: 0 0 calc(-1 * var(--sticky-bottom-bleed));
+            padding: 0.65rem 0.65rem calc(0.95rem + var(--sticky-bottom-bleed));
+            background: linear-gradient(
+                to top,
+                rgba(107, 91, 74, 1.00) 0%,
+                rgba(107, 91, 74, 1.00) 36%,
+                rgba(107, 91, 74, 0.96) 45%,
+                rgba(107, 91, 74, 0.00) 52%,
+                rgba(107, 91, 74, 0.00) 100%
+            );
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-top: none;
+            box-shadow: none;
+            -webkit-mask-image: none;
+            mask-image: none;
             isolation: isolate;
         }
 
@@ -1357,24 +1386,65 @@
             margin: 0 !important;
         }
 
+        #bookingModal .modal-sticky-actions #bookingRecaptchaWrap {
+            order: 1;
+            width: min(100%, 37.5rem);
+            margin: 0 auto 0.45rem !important;
+        }
+
+        #bookingModal .modal-sticky-actions #bookingRecaptchaWrap .recaptcha-wrap__hint {
+            margin-bottom: 0.35rem;
+        }
+
+        #bookingModal .modal-sticky-actions #bookingStatus {
+            order: 2;
+            width: min(100%, 37.5rem);
+            margin: 0 auto 0.55rem !important;
+        }
+
+        #bookingModal .modal-sticky-actions #confirmBookingBtn {
+            order: 4;
+        }
+
         #bookingModal .modal-sticky-actions .contact-form__checkbox-wrapper {
-            margin-top: 0 !important;
-            margin-bottom: 0.7rem !important;
+            order: 5;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.55rem !important;
+            margin-bottom: 0 !important;
             padding-bottom: 0;
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
+            position: sticky;
+            bottom: calc(-1 * var(--sticky-bottom-bleed));
+            width: 100%;
+            box-sizing: border-box;
             display: grid;
             justify-items: center;
             align-content: end;
-            gap: 0;
+            gap: 0.15rem;
         }
 
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingStatus,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
-            width: min(37.5rem, calc(100vw - 1.4rem));
+            width: min(100%, 37.5rem);
             margin-left: auto !important;
             margin-right: auto !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn {
+            display: block !important;
+            width: auto !important;
+            min-width: 14rem !important;
+            max-width: 96% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            background: #5a3d2a !important;
+            border-color: #5a3d2a !important;
+            color: #ffffff !important;
         }
 
         .modal__section-title {
@@ -1414,35 +1484,49 @@
 
         #bookingModal {
             --booking-form-font-size: 1.2rem;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: auto;
+            scrollbar-color: auto;
+        }
+
+        #bookingModal::-webkit-scrollbar {
+            width: initial;
+        }
+
+        #bookingModal::-webkit-scrollbar-track {
+            background: initial;
+        }
+
+        #bookingModal::-webkit-scrollbar-thumb {
+            background: initial;
+            border-radius: initial;
         }
 
         #bookingModal.modal--active {
-            align-items: center !important;
+            align-items: flex-start !important;
             padding-top: 0.6rem;
             padding-bottom: 0.6rem;
         }
 
         #bookingModal .modal__content {
-            overflow: hidden;
-            max-height: calc(100vh - 1.2rem);
-            max-height: calc(100dvh - 1.2rem);
-            height: min(58rem, calc(100vh - 1.2rem));
-            height: min(58rem, calc(100dvh - 1.2rem));
+            overflow: visible;
+            max-height: none;
+            height: auto;
+            margin: 0 auto;
         }
 
         #bookingModal .modal__body {
-            flex: 1 1 auto;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            overscroll-behavior: contain;
-            -webkit-overflow-scrolling: touch;
+            flex: 0 0 auto;
+            min-height: auto;
+            overflow: visible;
             padding-bottom: 0;
         }
 
         #bookingModal[data-state="form"] .modal__body {
-            padding-bottom: calc(9.8rem + env(safe-area-inset-bottom));
+            display: block;
+            overflow: visible;
+            padding-bottom: 0;
         }
 
         #bookingModal #bookingForm {
@@ -1450,6 +1534,13 @@
             min-height: 100%;
             display: flex;
             flex-direction: column;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm {
+            flex: 0 0 auto;
+            min-height: auto;
+            overflow: visible;
+            padding-bottom: 0;
         }
 
         #bookingModal #bookingForm .modal-sticky-actions {
@@ -1483,33 +1574,75 @@
             letter-spacing: 0.01em !important;
         }
 
-        #bookingModal .booking-row--address-secondary {
-            justify-content: flex-end !important;
-            align-items: stretch !important;
-            flex-wrap: nowrap !important;
+        #bookingModal .booking-row--address-city {
+            width: 100%;
         }
 
-        #bookingModal .custom-select-wrapper--city {
-            flex: 1 1 auto !important;
+        #bookingModal .booking-row--address-city .custom-select-wrapper--city {
+            flex: 1 1 100% !important;
+            width: 100% !important;
             min-width: 0 !important;
         }
 
-        #bookingModal input[name="address_province"] {
-            flex: 0 0 60px !important;
-            width: 60px !important;
-            min-width: 60px !important;
-            max-width: 60px !important;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
+        #bookingModal .booking-row--address-city .custom-select--city .custom-select__trigger {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+
+        #bookingModal .booking-row--address-secondary {
+            justify-content: flex-start !important;
+            align-items: center !important;
+            flex-wrap: nowrap !important;
+            gap: 0.55rem !important;
+        }
+
+        #bookingModal .booking-row--province-zip .booking-row__label {
+            margin: 0;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--text-white);
+        }
+
+        #bookingModal .custom-select-wrapper--province {
+            flex: 0 0 98px !important;
+            width: 98px !important;
+            min-width: 98px !important;
+            max-width: 98px !important;
+            margin-bottom: 0 !important;
+        }
+
+        #bookingModal .custom-select--province .custom-select__trigger {
+            width: 100% !important;
+            min-width: 0 !important;
+            padding-left: 0.65rem !important;
+            padding-right: 2.15rem !important;
+            text-transform: uppercase;
             text-align: center;
+        }
+
+        #bookingModal .custom-select--province .custom-select__trigger span {
+            width: 100%;
+            text-align: center;
+            text-overflow: clip;
+        }
+
+        #bookingModal .custom-select--province .custom-options {
+            max-height: 14rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        #bookingModal .custom-select--province .custom-option {
             text-transform: uppercase;
         }
 
         #bookingModal input[name="address_zip"] {
-            flex: 0 0 50px !important;
-            width: 50px !important;
-            min-width: 50px !important;
-            max-width: 50px !important;
+            flex: 0 0 180px !important;
+            width: 180px !important;
+            min-width: 180px !important;
+            max-width: 180px !important;
             padding-left: 0 !important;
             padding-right: 0 !important;
             text-align: center;
@@ -1523,7 +1656,7 @@
                 min-width: clamp(11rem, 16vw, 14rem) !important;
             }
 
-            #bookingModal .custom-select-wrapper--city {
+            #bookingModal .booking-row--address-city .custom-select-wrapper--city {
                 flex: 1 1 auto !important;
                 min-width: 0 !important;
             }
@@ -1638,9 +1771,16 @@
             color: #5a3d2a !important;
         }
 
-        #bookingModal #confirmBookingBtn,
         #bookingModal .contact-form__submit-button {
             font-size: var(--booking-form-font-size) !important;
+        }
+
+        #bookingModal #confirmBookingBtn {
+            font-size: clamp(1.2rem, 4vw, 2rem) !important;
+            font-weight: 900 !important;
+            letter-spacing: 0.06em !important;
+            line-height: 1 !important;
+            text-transform: uppercase !important;
         }
 
         #bookingModal #confirmBookingBtn,
@@ -1653,7 +1793,7 @@
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 128, 184, 0.95);
             --booking-status-bg: rgba(255, 130, 188, 0.14);
-            min-height: 1.5rem;
+            min-height: 0;
             margin: 0 0 1rem 0 !important;
             padding: 0;
             border-radius: 0.8rem;
@@ -1665,19 +1805,21 @@
             line-height: 1.2 !important;
             letter-spacing: 0.02em !important;
             text-align: center;
-            opacity: 0;
-            transform: translateY(-3px);
-            transition: opacity 0.18s ease, transform 0.18s ease;
+            display: none;
+            opacity: 1;
+            transform: none;
+            transition: none;
             pointer-events: none;
         }
 
         #bookingStatus.status-alert--visible {
+            display: block;
             padding: 0.55rem 0.9rem;
             border-color: var(--booking-status-border);
             background: var(--booking-status-bg);
             opacity: 1;
-            transform: translateY(0);
-            animation: bookingStatusBorderFloat 1.55s ease-in-out infinite;
+            transform: none;
+            animation: none;
             box-shadow: none;
         }
 
@@ -1698,15 +1840,6 @@
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 116, 179, 0.98);
             --booking-status-bg: rgba(255, 120, 184, 0.16);
-        }
-
-        @keyframes bookingStatusBorderFloat {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-1px);
-            }
         }
 
         .contact-form__input.field-invalid,
@@ -1985,6 +2118,7 @@
         .footer {
             text-align: center;
             padding: 5rem 1.3rem 1.3rem;
+            margin-top: -5px;
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             line-height: 1.8;
@@ -1992,30 +2126,6 @@
 
         .footer__container { margin-bottom: 3.1rem; }
         
-        .footer__button {
-            width: 100%;
-            padding: 1.3rem;
-            background: #5a3d2a;
-            color: #ffffff;
-            border: none;
-            border-radius: 0.6rem; 
-            font-weight: 800;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
-            max-width: 20rem;
-            margin: 0 auto;
-        }
-
-        .footer__button:hover {
-             transform: translateY(-2px); 
-             background: var(--accent-gold); 
-             box-shadow: 0 0.5rem 1.3rem rgba(0, 0, 0, 0.25); 
-        }
-
         .footer__contact-link {
             display: block;
             color: #ffffff; 
@@ -3293,10 +3403,19 @@
             transform: translateY(0);
         }
 
+        #bookingModal .custom-select--city {
+            --city-options-open-height: 18rem;
+        }
+
         #bookingModal .custom-select--city .custom-options {
-            max-height: 15rem;
+            max-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
+            transition: max-height 0.36s cubic-bezier(.22, .61, .36, 1), opacity 0.24s ease, visibility 0.24s ease;
+        }
+
+        #bookingModal .custom-select--city.open .custom-options {
+            max-height: var(--city-options-open-height, 18rem);
         }
 
         .custom-option {
@@ -3367,16 +3486,6 @@
             margin-bottom: 0 !important;
         }
 
-        #headerBookBtn::after {
-            display: none;
-        }
-
-        @media (max-width: 700px) {
-            #headerBookBtn::after {
-                display: none;
-            }
-        }
-
         #headerBookBtnText,
         #headerBookBtnText span,
         #footerBookBtnText,
@@ -3406,7 +3515,7 @@
         }
 
         .header-nearest-slot-hint {
-            margin: 0 auto 0;
+            margin: 0.15rem auto 0;
             min-height: 1.4em;
             text-align: center;
             font-family: 'Lato', sans-serif;
@@ -3419,6 +3528,7 @@
             transition: opacity 0.25s ease;
             pointer-events: none;
             padding: 0 0.4rem;
+            max-width: max-content;
         }
 
         .header-nearest-slot-hint--visible {
@@ -4079,7 +4189,7 @@
         }
 
         #headerBookBtnWrap {
-            margin: 0 auto var(--hero-phone-button-gap) !important;
+            margin: 0 auto 0.35rem !important;
         }
 
         .footer__copyright { 
@@ -4181,7 +4291,7 @@
 
         @media (max-width: 768px) {
             body {
-                padding-bottom: 6.9rem;
+                padding-bottom: 0;
             }
 
             .top-bar,
@@ -4201,7 +4311,7 @@
 
             .header {
                 max-width: 100%;
-                padding: 1.15rem 0.85rem 1.75rem;
+                padding: 1.15rem 0.85rem 1.75rem 0.5rem;
             }
 
             .header__subtitle {
@@ -4240,7 +4350,10 @@
             }
 
             .header__content-block {
-                margin: 2.8rem auto 2rem;
+                margin: 2.8rem 0 2rem;
+                width: min(97vw, 41rem);
+                padding-left: clamp(0.18rem, 1.6vw, 0.5rem);
+                padding-right: clamp(0.45rem, 2.4vw, 0.9rem);
             }
 
             .header__content-header {
@@ -4294,13 +4407,6 @@
 
             .header-nearest-slot-hint {
                 font-size: 1rem;
-            }
-
-            #headerBookBtn::after {
-                width: 130%;
-                height: 4rem;
-                bottom: 75%;
-                filter: blur(0.4rem);
             }
 
             #footerBookBtn {
@@ -4398,9 +4504,13 @@
             }
 
             #confirmBookingBtn {
-                min-height: 3.6rem;
-                font-size: 1.05rem;
-                padding: 1rem 0.8rem;
+                width: 100% !important;
+                max-width: 20rem !important;
+                min-width: 0 !important;
+                min-height: 4.8rem;
+                font-size: clamp(1.2rem, 6vw, 2rem) !important;
+                padding: 0.8rem 1.4rem;
+                border-radius: 999px !important;
             }
 
             #bookingModal .contact-form__checkbox-wrapper {
@@ -4428,7 +4538,8 @@
 
             .booking-row--address-secondary {
                 flex-wrap: wrap;
-                justify-content: flex-end !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
             }
 
             .booking-row--address-main .contact-form__input,
@@ -4462,23 +4573,30 @@
                 min-width: 0 !important;
             }
 
-            input[name="address_province"] {
-                flex: 0 0 60px !important;
-                width: 60px !important;
-                min-width: 60px !important;
-                max-width: 60px !important;
+            .booking-row--province-zip .custom-select-wrapper--province {
+                flex: 0 0 98px !important;
+                width: 98px !important;
+                min-width: 98px !important;
+                max-width: 98px !important;
             }
 
-            .custom-select-wrapper--city {
-                flex: 1 1 auto !important;
+            .booking-row--address-city .custom-select-wrapper--city {
+                flex: 1 1 100% !important;
+                width: 100% !important;
                 min-width: 0 !important;
             }
 
+            .booking-row--province-zip .booking-row__label {
+                flex: 1 1 100%;
+                text-align: left !important;
+                margin-bottom: 0.15rem;
+            }
+
             input[name="address_zip"] {
-                flex: 0 0 50px !important;
-                width: 50px !important;
-                min-width: 50px !important;
-                max-width: 50px !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
             }
 
             .booking-row--dob .contact-form__input {
@@ -4533,25 +4651,45 @@
         }
 
         @media (max-width: 560px) {
+            .header {
+                padding-left: 0.35rem;
+                padding-right: 0.82rem;
+            }
+
+            .header__content-block {
+                width: min(98.5vw, 41rem);
+                margin: 2.4rem 0 1.9rem;
+                padding-left: 0.08rem;
+                padding-right: 0.8rem;
+            }
+
+            .services-list li {
+                gap: 0.62rem;
+            }
+
             #bookingModal .booking-row--address-secondary {
                 display: flex !important;
-                flex-wrap: nowrap !important;
+                flex-wrap: wrap !important;
                 gap: 0.55rem !important;
-                justify-content: flex-end !important;
-                align-items: stretch !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
             }
 
             #bookingModal .booking-row--address-secondary > * {
                 min-width: 0 !important;
             }
 
-            #bookingModal .custom-select-wrapper--city {
+            #bookingModal .booking-row--address-city .custom-select-wrapper--city {
                 width: 100% !important;
                 min-width: 0 !important;
                 flex: 1 1 auto !important;
             }
 
-            #bookingModal input[name="address_province"],
+            #bookingModal .custom-select--province .custom-select__trigger {
+                font-size: 0.98rem !important;
+                text-align: center !important;
+            }
+
             #bookingModal input[name="address_zip"] {
                 font-size: 0.98rem !important;
                 text-align: center !important;
@@ -4559,18 +4697,18 @@
                 padding-right: 0 !important;
             }
 
-            #bookingModal input[name="address_province"] {
-                flex: 0 0 60px !important;
-                width: 60px !important;
-                min-width: 60px !important;
-                max-width: 60px !important;
+            #bookingModal .booking-row--province-zip .custom-select-wrapper--province {
+                flex: 0 0 98px !important;
+                width: 98px !important;
+                min-width: 98px !important;
+                max-width: 98px !important;
             }
 
             #bookingModal input[name="address_zip"] {
-                flex: 0 0 50px !important;
-                width: 50px !important;
-                min-width: 50px !important;
-                max-width: 50px !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
             }
 
             #bookingModal .custom-select--city .custom-select__trigger {
@@ -4582,195 +4720,7 @@
                 max-width: 100%;
             }
         }
-
-        body.wysiwyg-mode-active {
-            padding-bottom: 14.8rem;
-        }
-
-        .wysiwyg-editable {
-            cursor: text;
-            border-radius: 0.5rem;
-            outline: 2px solid rgba(255, 195, 86, 0.78);
-            outline-offset: 2px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .wysiwyg-editable:focus {
-            outline-color: #ffd66e;
-            box-shadow: 0 0 0 1px rgba(255, 214, 110, 0.44);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        #editorHoldToggle.wysiwyg-editable {
-            padding: 0.2rem 0.45rem;
-            display: inline-block;
-            border-radius: 0.65rem;
-        }
-
-        .wysiwyg-toolbar {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 24050;
-            transform: translateY(calc(100% + 18px));
-            transition: transform 0.3s ease;
-            pointer-events: none;
-            padding: 0.5rem 0.65rem calc(env(safe-area-inset-bottom, 0px) + 0.65rem);
-        }
-
-        .wysiwyg-toolbar--active {
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .wysiwyg-toolbar__panel {
-            max-width: 53rem;
-            margin: 0 auto;
-            border-radius: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.34);
-            background: rgba(35, 26, 18, 0.95);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-            padding: 0.6rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.48rem;
-        }
-
-        .wysiwyg-toolbar__hint {
-            font-size: 0.79rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.86);
-            text-align: center;
-            letter-spacing: 0.01em;
-            text-transform: none;
-            margin: 0;
-        }
-
-        .wysiwyg-toolbar__row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wysiwyg-toolbar__btn,
-        .wysiwyg-toolbar__select {
-            min-height: 2.05rem;
-            border-radius: 0.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.11);
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 800;
-            padding: 0.36rem 0.56rem;
-            line-height: 1.1;
-        }
-
-        .wysiwyg-toolbar__btn {
-            min-width: 2.05rem;
-            cursor: pointer;
-        }
-
-        .wysiwyg-toolbar__btn:hover,
-        .wysiwyg-toolbar__select:hover {
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.17);
-        }
-
-        .wysiwyg-toolbar__select {
-            cursor: pointer;
-        }
-
-        .wysiwyg-review-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 24100;
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .wysiwyg-review-modal--active {
-            display: flex;
-        }
-
-        .wysiwyg-review-modal__panel {
-            width: min(100%, 40rem);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            background: #3a2a1a;
-            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
-            padding: 1.1rem 1rem 0.95rem;
-        }
-
-        .wysiwyg-review-modal__title {
-            margin: 0 0 0.42rem;
-            text-align: center;
-            color: #fff;
-            font-size: 1.05rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .wysiwyg-review-modal__text {
-            margin: 0;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.94rem;
-        }
-
-        .wysiwyg-review-modal__summary {
-            margin-top: 0.7rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 0.75rem;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 0.65rem 0.72rem;
-            max-height: 34vh;
-            overflow: auto;
-            color: rgba(255, 255, 255, 0.93);
-            font-size: 0.85rem;
-            line-height: 1.45;
-            text-align: left;
-            white-space: pre-wrap;
-        }
-
-        .wysiwyg-review-modal__actions {
-            margin-top: 0.8rem;
-            display: flex;
-            gap: 0.55rem;
-            justify-content: center;
-        }
-
-        .wysiwyg-review-modal__btn {
-            border: 1px solid rgba(255, 255, 255, 0.34);
-            background: rgba(255, 255, 255, 0.14);
-            color: #fff;
-            border-radius: 0.72rem;
-            padding: 0.55rem 1.05rem;
-            font-size: 0.9rem;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
-        .wysiwyg-review-modal__btn--ok {
-            background: #f0b53a;
-            border-color: #f0b53a;
-            color: #2e1f14;
-        }
-
-        .wysiwyg-page-break {
-            margin: 1.2rem 0;
-            border: none;
-            border-top: 2px dashed rgba(255, 255, 255, 0.46);
-        }
-    </style>
+</style>
 </head>
 
 <body id="top">
@@ -4800,7 +4750,7 @@
 </div>
 
 <header class="header fade-in-section">
-    <div id="editorHoldToggle" class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
+    <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
     <h1 class="header__description">
         <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services </span><br>
@@ -5023,7 +4973,7 @@
         <div class="faq__item">
             <h3 class="faq__question">Was there an earlier way to register?</h3>
             <div class="faq__answer">
-                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>. Please note that for identity verification, <a id="googleAuthorizationFaqLink" href="https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmyaccount.google.com%2Fpermissions&service=accountsettings" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Authorization</a> is required there.
+                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" style="color:white; text-decoration: underline;">Google Form</a>.
             </div>
         </div>
 
@@ -5139,14 +5089,14 @@
         </div>
         <div style="text-align: center; margin: 2rem 0;">
             <div class="book-btn-container book-btn-container--footer" id="footerBookBtnWrap">
-                <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute;">
+                <div class="book-btn-preloader" id="footerBookBtnPreloader" style="position: absolute; display: none;" aria-hidden="true">
                     <svg class="book-btn-preloader__svg" viewBox="0 0 120 120">
                         <circle class="book-btn-preloader__circle" cx="60" cy="60" r="48"/>
                         <circle class="book-btn-preloader__progress" cx="60" cy="60" r="48"/>
                     </svg>
                     <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
                 </div>
-                <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
+                <button class="footer-book-btn" id="footerBookBtn" onclick="bookNearestSlot()" style="opacity: 1; transform: scale(1); pointer-events: auto;">
                     <span id="footerBookBtnText">INTAKE<br>NOW!</span>
                 </button>
 </div>
@@ -5156,7 +5106,7 @@
     </div>
     <div class="blur-in-section" style="margin-top: 10rem;">
         <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
-        <p class="footer__copyright" style="margin-top: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+        <p class="footer__copyright" style="margin-top: 0; margin-bottom: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -5213,7 +5163,7 @@
                         <input type="text" class="contact-form__input" placeholder="Unit/Apt" name="address_unit" maxlength="16" autocomplete="address-line2" inputmode="text" spellcheck="false" style="width: 8.2rem; min-width: 7.6rem; text-transform: uppercase;">
                         <input type="text" class="contact-form__input" placeholder="Street" name="address_street" required minlength="6" maxlength="150" autocomplete="address-line1" inputmode="text" spellcheck="false" style="flex-grow: 1;">
                     </div>
-                    <div class="booking-row booking-row--address-secondary" style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <div class="booking-row booking-row--address-city" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <div class="custom-select-wrapper custom-select-wrapper--city">
                             <div class="custom-select custom-select--city" id="cityCustomSelect">
                                 <button class="custom-select__trigger" type="button" aria-label="City">
@@ -5249,7 +5199,32 @@
                             </div>
                             <input type="hidden" name="address_city" id="cityInput" value="">
                         </div>
-                        <input type="text" class="contact-form__input" placeholder="ON" name="address_province" required minlength="2" maxlength="30" autocomplete="address-level1" inputmode="text" spellcheck="false" value="ON" style="text-align: center; text-transform: uppercase;">
+                    </div>
+                    <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
+                        <label for="provinceTriggerMain" class="contact-form__label booking-row__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Province and Postal Code:</label>
+                        <div class="custom-select-wrapper custom-select-wrapper--province">
+                            <div class="custom-select custom-select--province" id="provinceCustomSelect">
+                                <button class="custom-select__trigger" id="provinceTriggerMain" type="button" aria-label="Province">
+                                    <span>ON</span>
+                                </button>
+                                <div class="custom-options">
+                                    <div class="custom-option selected" data-value="ON">ON</div>
+                                    <div class="custom-option" data-value="AB">AB</div>
+                                    <div class="custom-option" data-value="BC">BC</div>
+                                    <div class="custom-option" data-value="MB">MB</div>
+                                    <div class="custom-option" data-value="NB">NB</div>
+                                    <div class="custom-option" data-value="NL">NL</div>
+                                    <div class="custom-option" data-value="NS">NS</div>
+                                    <div class="custom-option" data-value="NT">NT</div>
+                                    <div class="custom-option" data-value="NU">NU</div>
+                                    <div class="custom-option" data-value="PE">PE</div>
+                                    <div class="custom-option" data-value="QC">QC</div>
+                                    <div class="custom-option" data-value="SK">SK</div>
+                                    <div class="custom-option" data-value="YT">YT</div>
+                                </div>
+                            </div>
+                            <input id="provinceInputMain" type="hidden" name="address_province" value="ON">
+                        </div>
                         <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
@@ -5321,20 +5296,27 @@
                     <input id="hearAboutInput" type="text" class="contact-form__input" name="hear_about" placeholder="Optional" maxlength="150" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:center;">
                 </div>
 
-                <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
-                <div id="bookingRecaptchaWrap" class="recaptcha-repeat-wrap">
-                    <p class="recaptcha-repeat-wrap__hint">Repeated submissions from the same user require reCAPTCHA.</p>
-                    <div id="bookingRecaptchaWidget"></div>
-                </div>
-
                 <div class="modal-sticky-actions">
-                    <div class="contact-form__checkbox-wrapper file-attach__terms" style="margin-top: 0; margin-bottom: 12px;">
+                    <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
+                        <p class="recaptcha-wrap__hint">Complete reCAPTCHA only when the form asks for it.</p>
+                        <div id="bookingRecaptchaWidget"></div>
+                    </div>
+                    <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
+                    <div id="bookingHelpPopover" hidden>
+                        <button type="button" id="bookingHelpToggle" aria-expanded="false" aria-controls="bookingHelpPanel">
+                            Why BOOK NOW may not submit
+                        </button>
+                        <div id="bookingHelpPanel" hidden>
+                            <p id="bookingHelpPrimary">Step 1/4: Complete all required fields marked in pink.</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
+                    <div class="contact-form__checkbox-wrapper file-attach__terms">
                         <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
                         <label for="agreeTerms" class="contact-form__checkbox-label">
                             I agree with <span class="contact-form__terms-link" onclick="openTermsModal()">Terms</span>
                         </label>
                     </div>
-                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
                 </div>
             </form>
         </div>
@@ -5365,62 +5347,6 @@
         <div id="formCalendarOverlayMount" class="form-calendar-overlay__mount"></div>
     </div>
 </div>
-
-<div id="wysiwygToolbar" class="wysiwyg-toolbar" aria-hidden="true">
-    <div class="wysiwyg-toolbar__panel">
-        <p class="wysiwyg-toolbar__hint">Editor mode: hold the top name for 8 seconds again to finish and submit for review.</p>
-        <div class="wysiwyg-toolbar__row">
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="bold" title="Bold"><strong>B</strong></button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="italic" title="Italic"><em>I</em></button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="underline" title="Underline"><u>U</u></button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="justifyLeft" title="Align left">L</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="justifyCenter" title="Align center">C</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="justifyRight" title="Align right">R</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="justifyFull" title="Justify">J</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="insertUnorderedList" title="Bullet list">UL</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="insertOrderedList" title="Numbered list">OL</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="undo" title="Undo">Undo</button>
-            <button type="button" class="wysiwyg-toolbar__btn" data-cmd="redo" title="Redo">Redo</button>
-            <select id="wysiwygFontFamilySelect" class="wysiwyg-toolbar__select" aria-label="Font family">
-                <option value="">Font</option>
-                <option value="Lato">Lato</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Arial">Arial</option>
-                <option value="Verdana">Verdana</option>
-            </select>
-            <select id="wysiwygFontSizeSelect" class="wysiwyg-toolbar__select" aria-label="Font size">
-                <option value="">Size</option>
-                <option value="2">12</option>
-                <option value="3">14</option>
-                <option value="4">16</option>
-                <option value="5">18</option>
-                <option value="6">22</option>
-            </select>
-            <select id="wysiwygFormatBlockSelect" class="wysiwyg-toolbar__select" aria-label="Paragraph style">
-                <option value="">Block</option>
-                <option value="P">Paragraph</option>
-                <option value="H1">Heading 1</option>
-                <option value="H2">Heading 2</option>
-                <option value="H3">Heading 3</option>
-            </select>
-            <button type="button" id="wysiwygInsertPageBtn" class="wysiwyg-toolbar__btn" title="Insert section">New Section</button>
-        </div>
-    </div>
-</div>
-
-<div id="wysiwygReviewModal" class="wysiwyg-review-modal" aria-hidden="true">
-    <div class="wysiwyg-review-modal__panel">
-        <h3 class="wysiwyg-review-modal__title">Submit site text changes?</h3>
-        <p class="wysiwyg-review-modal__text">Review once more. Press OK to send these edits to review by email.</p>
-        <div id="wysiwygReviewSummary" class="wysiwyg-review-modal__summary"></div>
-        <div class="wysiwyg-review-modal__actions">
-            <button type="button" id="wysiwygReviewCancelBtn" class="wysiwyg-review-modal__btn">Continue Editing</button>
-            <button type="button" id="wysiwygReviewOkBtn" class="wysiwyg-review-modal__btn wysiwyg-review-modal__btn--ok">OK Send to Review</button>
-        </div>
-    </div>
-</div>
-
 <script>
     window.__recaptchaApiReady = false;
     function onRecaptchaApiLoaded() {
@@ -5437,7 +5363,6 @@
 
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwhYdLPpHlCc4d1It5NAoKUGffVBXsofD-_-yAjlGUL0Nx7LYzslqZRr8OLEjKH4oajFA/exec"; 
     const RECAPTCHA_SITE_KEY = "6LcraXksAAAAAP5K4GZDGbDDapd2nt7MRekMXQdK";
-    const REPEAT_BOOKING_GUARD_STORAGE_KEY = "hd_repeat_booking_guard_v1";
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
         'London',
@@ -7005,16 +6930,14 @@
     window.addEventListener('DOMContentLoaded', () => {
         // Initialize custom select dropdown
         initializeCustomSelects();
-        initSecretTestModeGesture();
+        initTseProbnikGesture();
         initPerformanceHealthMonitor();
         attachFormAutoSave();
         initAutoGrowTextareas();
         initAgePlaceholderBehavior();
         initProvinceInputBehavior();
         initFaqSpoilers();
-        initWysiwygEditor();
-        
-        // Full page refresh once per day at 00:00 (local browser time).
+// Full page refresh once per day at 00:00 (local browser time).
         scheduleDailyHardReloadAtMidnight();
 
         // selectedDate starts as null - auto-select picks nearest available day
@@ -7055,6 +6978,19 @@
                         preventDefault: () => {},
                         target: bookingFormEl
                     });
+                }
+            });
+        }
+        if (bookingHelpToggle && !bookingHelpToggle.dataset.toggleBound) {
+            bookingHelpToggle.dataset.toggleBound = '1';
+            bookingHelpToggle.addEventListener('click', () => {
+                const currentlyOpen = bookingHelpToggle.getAttribute('aria-expanded') === 'true';
+                if (!currentlyOpen || bookingHelpPopover?.hidden) {
+                    showBookingHelp();
+                    return;
+                }
+                if (bookingHelpPrimary) {
+                    bookingHelpPrimary.textContent = nextBookingHelpStepText();
                 }
             });
         }
@@ -7176,21 +7112,14 @@
     const modal = document.getElementById('bookingModal');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
+    const bookingHelpPopover = document.getElementById('bookingHelpPopover');
+    const bookingHelpToggle = document.getElementById('bookingHelpToggle');
+    const bookingHelpPanel = document.getElementById('bookingHelpPanel');
+    const bookingHelpPrimary = document.getElementById('bookingHelpPrimary');
     const confirmBtn = document.getElementById('confirmBookingBtn');
-    const SECRET_TEST_HOLD_MS = 8000;
-    const WYSIWYG_HOLD_MS = 8000;
-    const WYSIWYG_AUTH_STORAGE_KEY = 'hd_google_auth_wysiwyg_v1';
-    const WYSIWYG_AUTH_TTL_MS = 12 * 60 * 60 * 1000;
-    let secretTestModeEnabled = false;
-    let secretHoldTimer = null;
-    let wysiwygHoldTimer = null;
-    let wysiwygSuppressNextClick = false;
-    let wysiwygEditModeActive = false;
-    let wysiwygEditableNodes = [];
-    let wysiwygBaselineMap = new Map();
-    let wysiwygPendingPayload = null;
-    let wysiwygReviewSubmitting = false;
-    let wysiwygSavedSelectionRange = null;
+    const TSE_PROBNIK_HOLD_MS = 8000;
+    let tseProbnikModeEnabled = false;
+    let tseProbnikHoldTimer = null;
     let suppressNextHeaderBookClick = false;
     let focusCameraButtonOnBookingOpen = false;
     let cameraButtonGlowTimer = null;
@@ -7198,19 +7127,22 @@
     let bookingRecaptchaWidgetId = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
+    const BOOKING_HELP_STEPS = [
+        'Complete all required fields marked in pink.',
+        'Confirm the checkbox "I agree with Terms".',
+        'Complete security verification if it appears.',
+        'If a waiting timer appears, submit again after it ends.'
+    ];
+    const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
+    let bookingHelpStepCursor = 0;
 
-    function isSecretTestBypassReady(form) {
-        if (!secretTestModeEnabled || !form) return false;
-        return normalizeSingleLine(form.name?.value) === '1';
-    }
-
-    // Backward-compatible alias for older submit handlers/cached bundles.
-    function isSecretBypassReady(form) {
-        return isSecretTestBypassReady(form);
+    function isTseProbnikBypassReady(form) {
+        if (!tseProbnikModeEnabled || !form) return false;
+        return normalizeSingleLine(form.name?.value) === TSE_PROBNIK_ACCESS_CODE;
     }
 
     function getConfirmBtnLabel() {
-        return secretTestModeEnabled ? 'BOOK NOW [TEST]' : 'BOOK NOW';
+        return 'BOOK NOW';
     }
 
     function setBookingModalWithoutDateDisplay() {
@@ -7274,61 +7206,6 @@
         });
     }
 
-    function getRepeatBookingGuardStore() {
-        try {
-            const raw = localStorage.getItem(REPEAT_BOOKING_GUARD_STORAGE_KEY);
-            if (!raw) return {};
-            const parsed = JSON.parse(raw);
-            if (!parsed || typeof parsed !== 'object') return {};
-            return parsed;
-        } catch (e) {
-            return {};
-        }
-    }
-
-    function setRepeatBookingGuardStore(store) {
-        try {
-            localStorage.setItem(REPEAT_BOOKING_GUARD_STORAGE_KEY, JSON.stringify(store || {}));
-        } catch (e) {}
-    }
-
-    function normalizeRepeatIdentity(source) {
-        const readField = (fieldName) => {
-            if (!source) return '';
-            if (typeof source.get === 'function') return source.get(fieldName);
-            return source[fieldName];
-        };
-        const email = normalizeSingleLine(readField('email')).toLowerCase();
-        const phone = normalizeSingleLine(readField('phone')).replace(/\D/g, '');
-        if (!email && !phone) return '';
-        return `${email}|${phone}`;
-    }
-
-    function hasPreviousSubmissionForIdentity(identityKey) {
-        if (!identityKey) return false;
-        const store = getRepeatBookingGuardStore();
-        return Boolean(store[identityKey]);
-    }
-
-    function markSubmissionIdentity(identityKey) {
-        if (!identityKey) return;
-        const now = Date.now();
-        const store = getRepeatBookingGuardStore();
-        const current = store[identityKey] || { count: 0, lastSubmittedAt: 0 };
-        store[identityKey] = {
-            count: Number(current.count || 0) + 1,
-            lastSubmittedAt: now
-        };
-
-        // Keep storage small: retain only the latest 100 identities.
-        const entries = Object.entries(store).sort((a, b) => Number((b[1] || {}).lastSubmittedAt || 0) - Number((a[1] || {}).lastSubmittedAt || 0));
-        const trimmed = {};
-        entries.slice(0, 100).forEach(([key, value]) => {
-            trimmed[key] = value;
-        });
-        setRepeatBookingGuardStore(trimmed);
-    }
-
     function handleBookingRecaptchaSolved(token) {
         bookingRecaptchaToken = String(token || '').trim();
         bookingRecaptchaTokenIssuedAt = bookingRecaptchaToken ? Date.now() : 0;
@@ -7347,8 +7224,8 @@
         clearBookingRecaptchaToken();
     }
 
-    async function ensureRepeatSubmissionCaptcha(identityKey) {
-        if (!identityKey || !hasPreviousSubmissionForIdentity(identityKey)) {
+    async function ensureTseProbnikCaptcha(isTseProbnikSubmission) {
+        if (!isTseProbnikSubmission) {
             setBookingRecaptchaVisible(false);
             clearBookingRecaptchaToken();
             return { required: false, passed: true };
@@ -7395,7 +7272,7 @@
                 try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
             }
             clearBookingRecaptchaToken();
-            setBookingError('Please complete reCAPTCHA to submit a repeated request.', wrap);
+            setBookingError('Please complete reCAPTCHA and submit again.', wrap);
             return { required: true, passed: false };
         }
 
@@ -7408,14 +7285,60 @@
         return 'success';
     }
 
+    function setBookingHelpOpen(open) {
+        if (!bookingHelpPanel || !bookingHelpToggle || !bookingHelpPopover) return;
+        const nextOpen = Boolean(open);
+        bookingHelpPopover.classList.toggle('is-open', nextOpen);
+        bookingHelpPanel.hidden = !nextOpen;
+        bookingHelpToggle.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+    }
+
+    function getBookingHelpStepText(stepIndex = 0) {
+        const total = BOOKING_HELP_STEPS.length || 1;
+        const safeIndex = Math.max(0, Math.min(total - 1, stepIndex));
+        return `Step ${safeIndex + 1}/${total}: ${BOOKING_HELP_STEPS[safeIndex]}`;
+    }
+
+    function nextBookingHelpStepText() {
+        if (!BOOKING_HELP_STEPS.length) return '';
+        const current = bookingHelpStepCursor % BOOKING_HELP_STEPS.length;
+        const text = getBookingHelpStepText(current);
+        bookingHelpStepCursor = (current + 1) % BOOKING_HELP_STEPS.length;
+        return text;
+    }
+
+    function resetBookingHelpSequence() {
+        bookingHelpStepCursor = 0;
+        if (bookingHelpPrimary) {
+            bookingHelpPrimary.textContent = getBookingHelpStepText(0);
+        }
+    }
+
+    function showBookingHelp() {
+        if (!bookingHelpPopover) return;
+        bookingHelpPopover.hidden = false;
+        if (bookingHelpPrimary) {
+            bookingHelpPrimary.textContent = nextBookingHelpStepText();
+        }
+        setBookingHelpOpen(true);
+    }
+
+    function hideBookingHelp() {
+        if (!bookingHelpPopover) return;
+        bookingHelpPopover.hidden = true;
+        setBookingHelpOpen(false);
+    }
+
     function setBookingNotice(message, tone = 'success') {
         if (!bookingStatus) return;
         const safeTone = normalizeBookingStatusTone(tone);
         bookingStatus.textContent = String(message || '');
         bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
-        void bookingStatus.offsetWidth;
         if (bookingStatus.textContent) {
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
+        }
+        if (safeTone !== 'error') {
+            hideBookingHelp();
         }
     }
 
@@ -7423,7 +7346,7 @@
         setBookingNotice(message, 'warning');
     }
 
-    function applySecretTestModeUI() {
+    function applyTseProbnikUI() {
         const form = document.getElementById('bookingForm');
         if (form) form.noValidate = true;
         if (confirmBtn && !confirmBtn.disabled) confirmBtn.textContent = getConfirmBtnLabel();
@@ -7583,535 +7506,6 @@
         });
     }
 
-    function readWysiwygAuthTimestamp() {
-        try {
-            const raw = Number(localStorage.getItem(WYSIWYG_AUTH_STORAGE_KEY) || 0);
-            return Number.isFinite(raw) ? raw : 0;
-        } catch (e) {
-            return 0;
-        }
-    }
-
-    function markWysiwygAuthAuthorized() {
-        try {
-            localStorage.setItem(WYSIWYG_AUTH_STORAGE_KEY, String(Date.now()));
-        } catch (e) {}
-    }
-
-    function isWysiwygAuthFresh() {
-        const ts = readWysiwygAuthTimestamp();
-        return ts > 0 && (Date.now() - ts) < WYSIWYG_AUTH_TTL_MS;
-    }
-
-    function handleFaqGoogleAuthorizationClick() {
-        markWysiwygAuthAuthorized();
-        logEvent('Google Authorization Clicked', 'FAQ authorization link used for WYSIWYG mode');
-    }
-
-    function stripWysiwygHtml(value) {
-        const tmp = document.createElement('div');
-        tmp.innerHTML = String(value || '');
-        return String(tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
-    }
-
-    function getWysiwygNodeKey(node, index) {
-        if (!node) return `node:${index}`;
-        if (node.dataset && node.dataset.wysiwygKey) return node.dataset.wysiwygKey;
-        if (node.id) return `id:${node.id}`;
-        const classPart = String(node.className || '')
-            .split(/\s+/)
-            .filter(Boolean)
-            .slice(0, 2)
-            .join('.');
-        const textPart = stripWysiwygHtml(node.innerHTML || node.textContent || '')
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '')
-            .slice(0, 24);
-        return `node:${String(node.tagName || 'div').toLowerCase()}:${classPart || 'noclass'}:${index}:${textPart || 'text'}`;
-    }
-
-    function getWysiwygNodeLabel(node, index) {
-        if (!node) return `node-${index + 1}`;
-        if (node.id) return `#${node.id}`;
-        const classPart = String(node.className || '')
-            .split(/\s+/)
-            .filter(Boolean)
-            .slice(0, 2)
-            .map(cls => `.${cls}`)
-            .join('');
-        return `${String(node.tagName || 'div').toLowerCase()}${classPart || ''}`;
-    }
-
-    function collectWysiwygEditableNodes() {
-        const selector = [
-            '#editorHoldToggle',
-            '.header__subtitle',
-            '.header__description span',
-            '.header__phone-link',
-            '#headerBookBtnText',
-            '#headerNearestSlotHint',
-            '.section-title',
-            '.header__content-header',
-            '.header__content-subheader',
-            '.header__content-text',
-            '#faqSpoiler .faq__question',
-            '#faqSpoiler .faq__item:not(:last-child) .faq__answer',
-            '#faqSpoiler .faq__item:not(:last-child) .faq__answer p',
-            '.privacy-block h3',
-            '.privacy-block p',
-            '.footer__hours',
-            '.footer__copyright'
-        ].join(', ');
-
-        const uniq = new Set();
-        return Array.from(document.querySelectorAll(selector)).filter((node) => {
-            if (!node || uniq.has(node)) return false;
-            uniq.add(node);
-            if (node.closest('#bookingModal') || node.closest('#termsModal') || node.closest('#intakeNoticeModal')) return false;
-            if (node.closest('#wysiwygToolbar') || node.closest('#wysiwygReviewModal')) return false;
-            if (node.closest('.map-container')) return false;
-            return !!String(node.textContent || '').trim();
-        });
-    }
-
-    function focusWysiwygCursorAtEnd(target) {
-        if (!target) return;
-        target.focus();
-        const range = document.createRange();
-        range.selectNodeContents(target);
-        range.collapse(false);
-        const selection = window.getSelection();
-        if (!selection) return;
-        selection.removeAllRanges();
-        selection.addRange(range);
-        wysiwygSavedSelectionRange = range.cloneRange();
-    }
-
-    function rememberWysiwygSelection() {
-        if (!wysiwygEditModeActive) return;
-        const selection = window.getSelection();
-        if (!selection || selection.rangeCount < 1) return;
-        const range = selection.getRangeAt(0);
-        const anchor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
-            ? range.commonAncestorContainer
-            : range.commonAncestorContainer.parentElement;
-        if (anchor && anchor.closest && anchor.closest('.wysiwyg-editable')) {
-            wysiwygSavedSelectionRange = range.cloneRange();
-        }
-    }
-
-    function restoreWysiwygSelection() {
-        if (!wysiwygSavedSelectionRange) return;
-        const selection = window.getSelection();
-        if (!selection) return;
-        selection.removeAllRanges();
-        selection.addRange(wysiwygSavedSelectionRange);
-    }
-
-    function executeWysiwygCommand(command, value) {
-        if (!wysiwygEditModeActive) return;
-        restoreWysiwygSelection();
-        try {
-            document.execCommand('styleWithCSS', false, true);
-        } catch (e) {}
-        try {
-            document.execCommand(command, false, value == null ? null : value);
-        } catch (e) {}
-    }
-
-    function syncWysiwygEditableRegistry() {
-        if (!wysiwygEditModeActive) return;
-        const latest = collectWysiwygEditableNodes();
-        latest.forEach((node, index) => {
-            const key = getWysiwygNodeKey(node, index);
-            node.dataset.wysiwygKey = key;
-            node.setAttribute('contenteditable', 'true');
-            node.setAttribute('spellcheck', 'true');
-            node.classList.add('wysiwyg-editable');
-            if (!wysiwygBaselineMap.has(key)) {
-                wysiwygBaselineMap.set(key, '');
-            }
-        });
-        wysiwygEditableNodes = latest;
-    }
-
-    function activateWysiwygMode() {
-        if (wysiwygEditModeActive) return;
-
-        const nodes = collectWysiwygEditableNodes();
-        if (!nodes.length) {
-            alert('No editable text blocks were found on this page.');
-            return;
-        }
-
-        wysiwygBaselineMap = new Map();
-        nodes.forEach((node, index) => {
-            const key = getWysiwygNodeKey(node, index);
-            node.dataset.wysiwygKey = key;
-            node.setAttribute('contenteditable', 'true');
-            node.setAttribute('spellcheck', 'true');
-            node.classList.add('wysiwyg-editable');
-            wysiwygBaselineMap.set(key, String(node.innerHTML || ''));
-        });
-        wysiwygEditableNodes = nodes;
-        wysiwygEditModeActive = true;
-
-        const toolbar = document.getElementById('wysiwygToolbar');
-        if (toolbar) {
-            toolbar.classList.add('wysiwyg-toolbar--active');
-            toolbar.setAttribute('aria-hidden', 'false');
-        }
-        document.body.classList.add('wysiwyg-mode-active');
-        focusWysiwygCursorAtEnd(document.getElementById('editorHoldToggle'));
-        logEvent('WYSIWYG Mode Enabled', 'Top name long-press enabled site text editing');
-    }
-
-    function deactivateWysiwygMode() {
-        wysiwygEditableNodes.forEach((node) => {
-            node.removeAttribute('contenteditable');
-            node.removeAttribute('spellcheck');
-            node.classList.remove('wysiwyg-editable');
-        });
-
-        wysiwygEditableNodes = [];
-        wysiwygBaselineMap = new Map();
-        wysiwygSavedSelectionRange = null;
-        wysiwygEditModeActive = false;
-        wysiwygPendingPayload = null;
-        wysiwygReviewSubmitting = false;
-
-        const toolbar = document.getElementById('wysiwygToolbar');
-        if (toolbar) {
-            toolbar.classList.remove('wysiwyg-toolbar--active');
-            toolbar.setAttribute('aria-hidden', 'true');
-        }
-        document.body.classList.remove('wysiwyg-mode-active');
-        if (!isAnyBlockingOverlayOpen()) {
-            document.body.style.overflow = 'auto';
-            document.body.classList.remove('modal-is-open');
-        }
-        logEvent('WYSIWYG Mode Disabled', 'Site text editing was closed');
-    }
-
-    function buildWysiwygReviewPayload() {
-        const changes = [];
-        wysiwygEditableNodes.forEach((node, index) => {
-            const key = getWysiwygNodeKey(node, index);
-            const beforeHtml = String(wysiwygBaselineMap.get(key) || '');
-            const afterHtml = String(node.innerHTML || '');
-            if (beforeHtml === afterHtml) return;
-
-            const beforeText = stripWysiwygHtml(beforeHtml);
-            const afterText = stripWysiwygHtml(afterHtml);
-            changes.push({
-                key: key,
-                label: getWysiwygNodeLabel(node, index),
-                beforeText: beforeText.slice(0, 500),
-                afterText: afterText.slice(0, 500),
-                beforeHtml: beforeHtml.slice(0, 2500),
-                afterHtml: afterHtml.slice(0, 2500)
-            });
-        });
-
-        const summaryLines = changes.map((change, idx) => {
-            const beforeText = change.beforeText || '(empty)';
-            const afterText = change.afterText || '(empty)';
-            return `${idx + 1}. ${change.label}\nBefore: ${beforeText}\nAfter: ${afterText}`;
-        });
-
-        const ctx = getClientContext();
-        const holdTarget = stripWysiwygHtml(document.getElementById('editorHoldToggle')?.textContent || '');
-        return {
-            action: 'wysiwyg_review',
-            holdTarget: holdTarget,
-            pageUrl: window.location.href,
-            editedAt: new Date().toISOString(),
-            summary: summaryLines.join('\n\n').slice(0, 12000),
-            changes: changes.slice(0, 80),
-            fingerprint: getFingerprint(),
-            userInfo: getDetailedDeviceInfo(),
-            countryCode: ctx.countryCode,
-            city: ctx.city,
-            ip: ctx.ip,
-            lang: ctx.lang,
-            os: ctx.os,
-            deviceModel: ctx.deviceModel,
-            screenResolution: ctx.screenResolution,
-            viewport: ctx.viewport,
-            timezone: ctx.timezone,
-            cores: ctx.cores,
-            memoryGB: ctx.memoryGB,
-            network: ctx.network,
-            touchPoints: ctx.touchPoints,
-            colorDepth: ctx.colorDepth,
-            pageUrlContext: ctx.pageUrl,
-            userAgent: ctx.userAgent,
-            referrer: ctx.referrer
-        };
-    }
-
-    function buildWysiwygSummaryText(payload) {
-        const count = Array.isArray(payload && payload.changes) ? payload.changes.length : 0;
-        if (!count) {
-            return 'No changes detected yet. Add edits first, then hold the top name again.';
-        }
-        const shortList = payload.changes.slice(0, 6).map((change, idx) => `${idx + 1}. ${change.label}`).join('\n');
-        const rest = count > 6 ? `\n...and ${count - 6} more block(s).` : '';
-        return `Detected edited blocks: ${count}\n\n${shortList}${rest}`;
-    }
-
-    function openWysiwygReviewModal(payload) {
-        const modal = document.getElementById('wysiwygReviewModal');
-        const summaryEl = document.getElementById('wysiwygReviewSummary');
-        if (!modal || !summaryEl) return;
-        const okBtn = document.getElementById('wysiwygReviewOkBtn');
-        const cancelBtn = document.getElementById('wysiwygReviewCancelBtn');
-        wysiwygPendingPayload = payload;
-        if (okBtn) {
-            okBtn.disabled = false;
-            okBtn.textContent = 'OK Send to Review';
-        }
-        if (cancelBtn) cancelBtn.disabled = false;
-        summaryEl.textContent = buildWysiwygSummaryText(payload);
-        modal.classList.add('wysiwyg-review-modal--active');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        document.body.classList.add('modal-is-open');
-    }
-
-    function closeWysiwygReviewModal() {
-        const modal = document.getElementById('wysiwygReviewModal');
-        if (!modal) return;
-        modal.classList.remove('wysiwyg-review-modal--active');
-        modal.setAttribute('aria-hidden', 'true');
-        if (!isAnyBlockingOverlayOpen()) {
-            document.body.style.overflow = 'auto';
-            document.body.classList.remove('modal-is-open');
-        }
-    }
-
-    function requestWysiwygReviewModal() {
-        if (!wysiwygEditModeActive) return;
-        syncWysiwygEditableRegistry();
-        const payload = buildWysiwygReviewPayload();
-        openWysiwygReviewModal(payload);
-    }
-
-    async function submitWysiwygReview() {
-        if (wysiwygReviewSubmitting || !wysiwygPendingPayload) return;
-
-        const summaryEl = document.getElementById('wysiwygReviewSummary');
-        const okBtn = document.getElementById('wysiwygReviewOkBtn');
-        const cancelBtn = document.getElementById('wysiwygReviewCancelBtn');
-        const changeCount = Array.isArray(wysiwygPendingPayload.changes) ? wysiwygPendingPayload.changes.length : 0;
-
-        if (changeCount < 1) {
-            if (summaryEl) summaryEl.textContent = 'No changes detected yet. Edit text first.';
-            return;
-        }
-
-        wysiwygReviewSubmitting = true;
-        if (okBtn) {
-            okBtn.disabled = true;
-            okBtn.textContent = 'Sending...';
-        }
-        if (cancelBtn) cancelBtn.disabled = true;
-
-        try {
-            const response = await fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(wysiwygPendingPayload)
-            });
-            const result = await response.json();
-            if (!response.ok || !result || !result.success) {
-                throw new Error((result && result.error) || 'Could not send editor review.');
-            }
-
-            closeWysiwygReviewModal();
-            deactivateWysiwygMode();
-            alert('Changes were sent to review: mylastnameisboyko@gmail.com');
-            logEvent('WYSIWYG Review Sent', `Changed blocks: ${changeCount}`);
-        } catch (err) {
-            if (summaryEl) {
-                summaryEl.textContent = `Send failed: ${String(err && err.message ? err.message : 'Unknown error')}`;
-            }
-            if (okBtn) {
-                okBtn.disabled = false;
-                okBtn.textContent = 'OK Send to Review';
-            }
-            if (cancelBtn) cancelBtn.disabled = false;
-            wysiwygReviewSubmitting = false;
-            return;
-        }
-
-        wysiwygReviewSubmitting = false;
-    }
-
-    function insertWysiwygSectionTemplate() {
-        if (!wysiwygEditModeActive) return;
-        const html = '<hr class="wysiwyg-page-break"><h2>New Section Title</h2><p>Type your new content here...</p>';
-        restoreWysiwygSelection();
-        const inserted = document.execCommand('insertHTML', false, html);
-        if (!inserted) {
-            const mount = document.querySelector('.layout-container');
-            if (mount) {
-                const wrapper = document.createElement('div');
-                wrapper.innerHTML = html;
-                mount.appendChild(wrapper);
-            }
-        }
-        syncWysiwygEditableRegistry();
-    }
-
-    function toggleWysiwygModeFromHold() {
-        if (wysiwygReviewSubmitting) return;
-        if (isAnyBlockingOverlayOpen() && !document.getElementById('wysiwygReviewModal')?.classList.contains('wysiwyg-review-modal--active')) return;
-
-        if (wysiwygEditModeActive) {
-            requestWysiwygReviewModal();
-            return;
-        }
-
-        if (!isWysiwygAuthFresh()) {
-            const authLink = document.getElementById('googleAuthorizationFaqLink');
-            if (authLink) authLink.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            alert('Open FAQ and click Google Authorization first, then hold the top name for 8 seconds.');
-            return;
-        }
-        activateWysiwygMode();
-    }
-
-    function initWysiwygToolbar() {
-        const toolbar = document.getElementById('wysiwygToolbar');
-        if (!toolbar || toolbar.dataset.bound === '1') return;
-        toolbar.dataset.bound = '1';
-
-        toolbar.addEventListener('mousedown', (event) => {
-            if (event.target && event.target.closest && event.target.closest('button')) {
-                event.preventDefault();
-            }
-        });
-
-        toolbar.addEventListener('click', (event) => {
-            const commandButton = event.target && event.target.closest ? event.target.closest('[data-cmd]') : null;
-            if (!commandButton) return;
-            const command = commandButton.dataset ? commandButton.dataset.cmd : '';
-            if (!command) return;
-            executeWysiwygCommand(command, null);
-        });
-
-        const fontFamilySelect = document.getElementById('wysiwygFontFamilySelect');
-        if (fontFamilySelect) {
-            fontFamilySelect.addEventListener('change', () => {
-                const value = String(fontFamilySelect.value || '').trim();
-                if (!value) return;
-                executeWysiwygCommand('fontName', value);
-                fontFamilySelect.value = '';
-            });
-        }
-
-        const fontSizeSelect = document.getElementById('wysiwygFontSizeSelect');
-        if (fontSizeSelect) {
-            fontSizeSelect.addEventListener('change', () => {
-                const value = String(fontSizeSelect.value || '').trim();
-                if (!value) return;
-                executeWysiwygCommand('fontSize', value);
-                fontSizeSelect.value = '';
-            });
-        }
-
-        const formatBlockSelect = document.getElementById('wysiwygFormatBlockSelect');
-        if (formatBlockSelect) {
-            formatBlockSelect.addEventListener('change', () => {
-                const value = String(formatBlockSelect.value || '').trim();
-                if (!value) return;
-                executeWysiwygCommand('formatBlock', `<${value}>`);
-                formatBlockSelect.value = '';
-            });
-        }
-
-        const insertPageBtn = document.getElementById('wysiwygInsertPageBtn');
-        if (insertPageBtn) {
-            insertPageBtn.addEventListener('click', (event) => {
-                event.preventDefault();
-                insertWysiwygSectionTemplate();
-            });
-        }
-
-        const reviewModal = document.getElementById('wysiwygReviewModal');
-        if (reviewModal) {
-            reviewModal.addEventListener('click', (event) => {
-                if (event.target === reviewModal) {
-                    closeWysiwygReviewModal();
-                }
-            });
-        }
-
-        const cancelBtn = document.getElementById('wysiwygReviewCancelBtn');
-        if (cancelBtn) {
-            cancelBtn.addEventListener('click', () => {
-                closeWysiwygReviewModal();
-            });
-        }
-
-        const okBtn = document.getElementById('wysiwygReviewOkBtn');
-        if (okBtn) {
-            okBtn.addEventListener('click', () => {
-                submitWysiwygReview();
-            });
-        }
-
-        document.addEventListener('selectionchange', rememberWysiwygSelection);
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && reviewModal && reviewModal.classList.contains('wysiwyg-review-modal--active')) {
-                event.preventDefault();
-                closeWysiwygReviewModal();
-            }
-        });
-    }
-
-    function initWysiwygEditor() {
-        initWysiwygToolbar();
-
-        const authLink = document.getElementById('googleAuthorizationFaqLink');
-        if (authLink && authLink.dataset.wysiwygBound !== '1') {
-            authLink.dataset.wysiwygBound = '1';
-            authLink.addEventListener('click', handleFaqGoogleAuthorizationClick);
-        }
-
-        const holdTarget = document.getElementById('editorHoldToggle');
-        if (!holdTarget || holdTarget.dataset.wysiwygHoldBound === '1') return;
-        holdTarget.dataset.wysiwygHoldBound = '1';
-
-        const clearHoldTimer = () => {
-            if (!wysiwygHoldTimer) return;
-            clearTimeout(wysiwygHoldTimer);
-            wysiwygHoldTimer = null;
-        };
-
-        const startHoldTimer = (event) => {
-            if (event && typeof event.button === 'number' && event.button !== 0) return;
-            clearHoldTimer();
-            wysiwygHoldTimer = setTimeout(() => {
-                wysiwygHoldTimer = null;
-                toggleWysiwygModeFromHold();
-                wysiwygSuppressNextClick = true;
-            }, WYSIWYG_HOLD_MS);
-        };
-
-        holdTarget.addEventListener('pointerdown', startHoldTimer);
-        holdTarget.addEventListener('pointerup', clearHoldTimer);
-        holdTarget.addEventListener('pointercancel', clearHoldTimer);
-        holdTarget.addEventListener('pointerleave', clearHoldTimer);
-        holdTarget.addEventListener('lostpointercapture', clearHoldTimer);
-        holdTarget.addEventListener('click', (event) => {
-            if (!wysiwygSuppressNextClick) return;
-            wysiwygSuppressNextClick = false;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-        }, true);
-    }
     function highlightCameraButtonHypnotic() {
         const cameraBtn = document.getElementById('takePhotoBtn');
         if (!cameraBtn) return false;
@@ -8161,42 +7555,42 @@
         return false;
     }
 
-    function toggleSecretTestMode() {
-        secretTestModeEnabled = !secretTestModeEnabled;
-        applySecretTestModeUI();
+    function tseProbnik() {
+        tseProbnikModeEnabled = !tseProbnikModeEnabled;
+        applyTseProbnikUI();
 
-        if (secretTestModeEnabled) {
-            setBookingNotice('TEST MODE ENABLED: Hold requirements are bypassed. Enter "1" in Name and submit.', 'warning');
-            logEvent('Secret Test Mode Enabled', 'Long-press top header button for 8 seconds');
+        if (tseProbnikModeEnabled) {
+            setBookingNotice('Additional verification mode enabled.', 'warning');
+            logEvent('tseProbnik Enabled', 'Long-press top header button for 8 seconds');
         } else {
             clearBookingError();
-            logEvent('Secret Test Mode Disabled', 'Long-press top header button for 8 seconds');
+            logEvent('tseProbnik Disabled', 'Long-press top header button for 8 seconds');
         }
     }
 
-    function initSecretTestModeGesture() {
+    function initTseProbnikGesture() {
         const headerBookBtn = document.getElementById('headerBookBtn');
         if (!headerBookBtn) return;
 
         const clearHoldTimer = () => {
-            if (!secretHoldTimer) return;
-            clearTimeout(secretHoldTimer);
-            secretHoldTimer = null;
+            if (!tseProbnikHoldTimer) return;
+            clearTimeout(tseProbnikHoldTimer);
+            tseProbnikHoldTimer = null;
         };
 
         const startHoldTimer = (e) => {
             if (e && typeof e.button === 'number' && e.button !== 0) return;
             clearHoldTimer();
-            secretHoldTimer = setTimeout(() => {
-                secretHoldTimer = null;
-                if (!secretTestModeEnabled) {
-                    toggleSecretTestMode();
+            tseProbnikHoldTimer = setTimeout(() => {
+                tseProbnikHoldTimer = null;
+                if (!tseProbnikModeEnabled) {
+                    tseProbnik();
                 }
                 if (!modal || !modal.classList.contains('modal--active')) {
                     suppressNextHeaderBookClick = true;
                     bookNearestSlot();
                 }
-            }, SECRET_TEST_HOLD_MS);
+            }, TSE_PROBNIK_HOLD_MS);
         };
 
         const suppressSyntheticClick = (e) => {
@@ -8289,6 +7683,7 @@
                 document.body.classList.add('modal-is-open');
             }
 
+            resetBookingHelpSequence();
             clearBookingError();
             document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
             resetBookingRecaptchaUi();
@@ -8301,7 +7696,7 @@
             }
             
             loadFormData();
-            applySecretTestModeUI();
+            applyTseProbnikUI();
             updateDobAgePreview(document.getElementById('bookingForm'));
             initAutoGrowTextareas();
 
@@ -9208,7 +8603,14 @@
                 form.address_city.value = data.address_city;
                 setCustomSelectValue('cityCustomSelect', data.address_city);
             }
-            if (data.address_province && form.address_province) form.address_province.value = data.address_province;
+            if (form.address_province) {
+                const provinceValue = normalizeSingleLine(data.address_province || form.address_province.value || 'ON').toUpperCase();
+                form.address_province.value = provinceValue;
+                if (!setCustomSelectValue('provinceCustomSelect', provinceValue)) {
+                    form.address_province.value = 'ON';
+                    setCustomSelectValue('provinceCustomSelect', 'ON');
+                }
+            }
             if (data.address_zip && form.address_zip) form.address_zip.value = data.address_zip;
             if (data.notes) form.notes.value = data.notes;
             if (data.dob_year) form.dob_year.value = data.dob_year;
@@ -9312,20 +8714,22 @@
     function initProvinceInputBehavior() {
         const form = document.getElementById('bookingForm');
         const provinceInput = form?.address_province;
-        if (!provinceInput || provinceInput._replaceOnFocusBound) return;
+        if (!provinceInput) return;
 
-        provinceInput.addEventListener('focus', () => {
-            if (!String(provinceInput.value || '').trim()) return;
-            try { provinceInput.select(); } catch (e) {}
-        });
-
-        provinceInput._replaceOnFocusBound = true;
+        const provinceValue = normalizeSingleLine(provinceInput.value || 'ON').toUpperCase();
+        provinceInput.value = provinceValue || 'ON';
+        if (!setCustomSelectValue('provinceCustomSelect', provinceInput.value)) {
+            provinceInput.value = 'ON';
+            setCustomSelectValue('provinceCustomSelect', 'ON');
+        }
     }
 
     function clearBookingError() {
-        if (!bookingStatus) return;
-        bookingStatus.textContent = '';
-        bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
+        if (bookingStatus) {
+            bookingStatus.textContent = '';
+            bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
+        }
+        hideBookingHelp();
     }
 
     function markInvalidField(fieldEl) {
@@ -9342,17 +8746,18 @@
     function setBookingError(message, fieldEl = null) {
         setBookingNotice(message, 'error');
         markInvalidField(fieldEl);
+        showBookingHelp();
     }
 
     function validateAndNormalizeBookingForm(form) {
-        if (isSecretTestBypassReady(form)) {
+        if (isTseProbnikBypassReady(form)) {
             clearBookingError();
-            form.name.value = '1';
+            form.name.value = TSE_PROBNIK_ACCESS_CODE;
             return true;
         }
 
-        if (secretTestModeEnabled) {
-            setBookingError('TEST MODE: enter exactly "1" in Name to use quick submit.', form.name);
+        if (tseProbnikModeEnabled) {
+            setBookingError('Authorization value is required in Name for this submission mode.', form.name);
             return false;
         }
 
@@ -9372,6 +8777,7 @@
         const service = normalizeSingleLine(serviceInput?.value);
         const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
         const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
+        const provinceTrigger = document.querySelector('#provinceCustomSelect .custom-select__trigger');
         const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
 
         if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
@@ -9414,9 +8820,11 @@
             return false;
         }
 
-        const provincePattern = /^[A-Z][A-Z .'-]{1,29}$/;
-        if (!provincePattern.test(province) || /[<>]/.test(province)) {
-            setBookingError('Please enter a valid province/state.', form.address_province);
+        const allowedProvinces = new Set(
+            Array.from(document.querySelectorAll('#provinceCustomSelect .custom-option')).map(opt => normalizeSingleLine(opt.textContent).toUpperCase())
+        );
+        if (!province || !allowedProvinces.has(province)) {
+            setBookingError('Please choose a province from the list.', provinceTrigger || form.address_province);
             return false;
         }
 
@@ -9512,6 +8920,7 @@
         if (serviceInput) serviceInput.value = service;
         setCustomSelectValue('cityCustomSelect', city);
         setCustomSelectValue('customSelect', service);
+        setCustomSelectValue('provinceCustomSelect', province);
         updateDobAgePreview(form);
         fitTextareaHeight(form.notes);
         return true;
@@ -9714,7 +9123,7 @@
         const slotTextValue = hasSelectedSlot
             ? String(selectedSlotData.text || '').trim()
             : BOOKING_WITHOUT_DATE_SUMMARY;
-        const isSecretQuickSubmit = isSecretTestBypassReady(form);
+        const isTseProbnikQuickSubmit = isTseProbnikBypassReady(form);
         const selectedServiceOption = document.querySelector('#customSelect .custom-option.selected');
         const rawServiceValue = selectedServiceOption
             ? String(selectedServiceOption.getAttribute('data-value') || '').trim()
@@ -9732,7 +9141,7 @@
         const rawAgreeTerms = document.getElementById('agreeTerms')?.checked === true;
         const rawHoneypot = String(formData.get('website') || '').trim();
         const rawTimestamp = String(formData.get('_timestamp') || '').trim();
-        if (!isSecretQuickSubmit) {
+        if (!isTseProbnikQuickSubmit) {
             if (!formData.get('service')) {
                 const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
                 setBookingError('Please choose a service from the list.', serviceTrigger);
@@ -9765,8 +9174,6 @@
                 setBookingError('Please wait 60 seconds before booking again.', form.name);
                 return;
             }
-        } else {
-            setBookingNotice('TEST MODE: quick submit payload generated from Name=1.', 'warning');
         }
 
         const summary = {
@@ -9790,15 +9197,15 @@
             filesCount: 0
         };
 
-        const quickSubmitDefaults = {
-            payloadName: 'Test User 1',
-            occupation: 'Test Occupation',
-            email: 'test.mode+1@example.com',
+        const tseProbnikDefaults = {
+            payloadName: 'Internal User',
+            occupation: 'Internal Occupation',
+            email: 'internal.flow+1@example.com',
             phone: '+1 (416) 555-0101',
             service: 'Other',
             serviceValue: 'other',
             hearAbout: '',
-            notes: '[TEST_MODE] Quick submit with Name=1',
+            notes: '[INTERNAL_FAST_PATH] Auto-generated payload',
             address: '100 Test St, Toronto, ON M1M 1M1',
             addressUnit: '',
             addressStreet: '100 Test St',
@@ -9812,23 +9219,19 @@
             age: '35'
         };
 
-        if (isSecretQuickSubmit) {
-            summary.email = quickSubmitDefaults.email;
-            summary.phone = quickSubmitDefaults.phone;
-            summary.hearAbout = quickSubmitDefaults.hearAbout;
-            summary.service = quickSubmitDefaults.service;
-            summary.address = quickSubmitDefaults.address;
-            summary.dob = quickSubmitDefaults.dob;
+        if (isTseProbnikQuickSubmit) {
+            summary.email = tseProbnikDefaults.email;
+            summary.phone = tseProbnikDefaults.phone;
+            summary.hearAbout = tseProbnikDefaults.hearAbout;
+            summary.service = tseProbnikDefaults.service;
+            summary.address = tseProbnikDefaults.address;
+            summary.dob = tseProbnikDefaults.dob;
             summary.deadline = '';
         }
 
-        const repeatIdentitySource = isSecretQuickSubmit
-            ? { email: quickSubmitDefaults.email, phone: quickSubmitDefaults.phone }
-            : formData;
-        const repeatIdentityKey = normalizeRepeatIdentity(repeatIdentitySource);
-        const repeatCaptchaState = await ensureRepeatSubmissionCaptcha(repeatIdentityKey);
-        if (!repeatCaptchaState.passed) return;
-        const recaptchaRequiredForBooking = repeatCaptchaState.required;
+        const tseProbnikCaptchaState = await ensureTseProbnikCaptcha(isTseProbnikQuickSubmit);
+        if (!tseProbnikCaptchaState.passed) return;
+        const recaptchaRequiredForBooking = tseProbnikCaptchaState.required;
         const recaptchaTokenForBooking = recaptchaRequiredForBooking ? bookingRecaptchaToken : '';
 
         showGlobalSpinner('hypnotic-progress');
@@ -9846,7 +9249,7 @@
 
         let isSuccess = false;
         try {
-            if (!isSecretQuickSubmit) {
+            if (!isTseProbnikQuickSubmit) {
                 await m1Sync();
             }
             const filesPayload = await processFiles();
@@ -9859,24 +9262,24 @@
             const ctx = getClientContext();
             submitProgress = Math.max(submitProgress, 58);
             setGlobalSpinnerProgress(submitProgress);
-            const payloadOccupation = isSecretQuickSubmit
-                ? quickSubmitDefaults.occupation
+            const payloadOccupation = isTseProbnikQuickSubmit
+                ? tseProbnikDefaults.occupation
                 : String(formData.get('occupation') || '').trim();
             const payloadServiceText = summary.service;
-            const payloadServiceValue = isSecretQuickSubmit ? quickSubmitDefaults.serviceValue : rawServiceValue;
-            const payloadHearAbout = isSecretQuickSubmit ? quickSubmitDefaults.hearAbout : rawHearAbout;
-            const payloadNotes = isSecretQuickSubmit
-                ? quickSubmitDefaults.notes
+            const payloadServiceValue = isTseProbnikQuickSubmit ? tseProbnikDefaults.serviceValue : rawServiceValue;
+            const payloadHearAbout = isTseProbnikQuickSubmit ? tseProbnikDefaults.hearAbout : rawHearAbout;
+            const payloadNotes = isTseProbnikQuickSubmit
+                ? tseProbnikDefaults.notes
                 : String(formData.get('notes') || '').trim();
-            const payloadAddressUnit = isSecretQuickSubmit ? quickSubmitDefaults.addressUnit : rawAddressUnit;
-            const payloadAddressStreet = isSecretQuickSubmit ? quickSubmitDefaults.addressStreet : rawAddressStreet;
-            const payloadAddressCity = isSecretQuickSubmit ? quickSubmitDefaults.addressCity : rawAddressCity;
-            const payloadAddressProvince = isSecretQuickSubmit ? quickSubmitDefaults.addressProvince : rawAddressProvince;
-            const payloadAddressZip = isSecretQuickSubmit ? quickSubmitDefaults.addressZip : rawAddressZip;
-            const payloadDobYear = isSecretQuickSubmit ? quickSubmitDefaults.dobYear : rawDobYear;
-            const payloadDobMonth = isSecretQuickSubmit ? quickSubmitDefaults.dobMonth : rawDobMonth;
-            const payloadDobDay = isSecretQuickSubmit ? quickSubmitDefaults.dobDay : rawDobDay;
-            const payloadAge = isSecretQuickSubmit ? quickSubmitDefaults.age : rawAge;
+            const payloadAddressUnit = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressUnit : rawAddressUnit;
+            const payloadAddressStreet = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressStreet : rawAddressStreet;
+            const payloadAddressCity = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressCity : rawAddressCity;
+            const payloadAddressProvince = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressProvince : rawAddressProvince;
+            const payloadAddressZip = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressZip : rawAddressZip;
+            const payloadDobYear = isTseProbnikQuickSubmit ? tseProbnikDefaults.dobYear : rawDobYear;
+            const payloadDobMonth = isTseProbnikQuickSubmit ? tseProbnikDefaults.dobMonth : rawDobMonth;
+            const payloadDobDay = isTseProbnikQuickSubmit ? tseProbnikDefaults.dobDay : rawDobDay;
+            const payloadAge = isTseProbnikQuickSubmit ? tseProbnikDefaults.age : rawAge;
             const payloadAgreeTerms = rawAgreeTerms;
             const payloadHoneypot = rawHoneypot;
             const payloadTimestamp = rawTimestamp;
@@ -9907,7 +9310,7 @@
                 day: slotDay,
                 hour: slotHour,
                 minute: slotMinute,
-                name: sanitize(isSecretQuickSubmit ? quickSubmitDefaults.payloadName : summary.name),
+                name: sanitize(isTseProbnikQuickSubmit ? tseProbnikDefaults.payloadName : summary.name),
                 occupation: sanitize(payloadOccupation),
                 email: sanitize(summary.email),
                 phone: sanitize(summary.phone),
@@ -9973,6 +9376,8 @@
                 recaptcha_token: sanitize(recaptchaTokenForBooking),
                 recaptchaRequired: recaptchaRequiredForBooking,
                 recaptcha_required: recaptchaRequiredForBooking,
+                tseProbnikSubmission: isTseProbnikQuickSubmit,
+                tse_probnik_submission: isTseProbnikQuickSubmit,
                 _honeypot: sanitize(payloadHoneypot),
                 _timestamp: sanitize(payloadTimestamp)
             };
@@ -9991,7 +9396,6 @@
                 isSuccess = true;
                 playSuccessSound();
                 lastBookingTime = Date.now();
-                markSubmissionIdentity(repeatIdentityKey);
                 clearBookingRecaptchaToken();
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
@@ -10021,7 +9425,7 @@
             } else if (result.error === 'RECAPTCHA_REQUIRED') {
                 const recaptchaWrap = getBookingRecaptchaWrap();
                 setBookingRecaptchaVisible(true);
-                setBookingError('Please complete reCAPTCHA before submitting again.', recaptchaWrap);
+                setBookingError('Please complete reCAPTCHA before submitting.', recaptchaWrap);
                 return;
             } else if (result.error === 'RECAPTCHA_FAILED') {
                 const recaptchaWrap = getBookingRecaptchaWrap();
@@ -10174,8 +9578,8 @@
     // Lightweight particle burst: throttled and adaptive for low-end devices.
     const sparkBurstState = new WeakMap();
     function createSparks(container) {
-        if (!container) return;
-        if (document.hidden) return;
+        if (!container) return 0;
+        if (document.hidden) return 0;
         const prefersReducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
         const isLowEndDevice = (
@@ -10186,7 +9590,7 @@
         const now = performance.now();
         const lastBurstAt = sparkBurstState.get(container) || 0;
         const minIntervalMs = prefersReducedMotion ? 900 : (isLowEndDevice ? 700 : 260);
-        if (now - lastBurstAt < minIntervalMs) return;
+        if (now - lastBurstAt < minIntervalMs) return 0;
         sparkBurstState.set(container, now);
 
         if (!container.style.position) {
@@ -10254,6 +9658,7 @@
                 }
             }
         }, durationMs + maxDelay + 80);
+        return durationMs + maxDelay + 80;
     }
 
     function normalizeSlotNotFoundText() {
@@ -10290,11 +9695,17 @@
     }
 
     const HEADER_NEAREST_HINT_LOADING_TEXT = 'Nearest appointment: checking availability...';
+    const HEADER_NEAREST_HINT_UNLOCK_EVENT = 'header-book-btn-first-particles-done';
+    const HEADER_NEAREST_HINT_RESOLVED_RE = /^Nearest appointment:\s*\d{4}\.\d{2}\.\d{2}(?:\s+at\s+\d{1,2}:\d{2}\s*(?:AM|PM))?/i;
     const HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS = 10000;
     let headerNearestHintTypewriterTimer = null;
     let headerNearestHintTypewriterToken = 0;
     let headerNearestHintTypewriterActive = false;
+    let headerNearestHintTypewriterTargetText = '';
     let headerNearestHintLoadingTypedOnce = false;
+    let headerNearestHintLastRenderedText = '';
+    let headerNearestHintResolvedTypingUnlocked = false;
+    let headerNearestHintQueuedResolvedText = '';
 
     function clearHeaderNearestHintTypewriter() {
         if (headerNearestHintTypewriterTimer) {
@@ -10302,6 +9713,7 @@
             headerNearestHintTypewriterTimer = null;
         }
         headerNearestHintTypewriterActive = false;
+        headerNearestHintTypewriterTargetText = '';
     }
 
     function randomInt(min, max) {
@@ -10350,6 +9762,7 @@
         let index = 0;
 
         headerNearestHintTypewriterActive = true;
+        headerNearestHintTypewriterTargetText = finalText;
         hintEl.textContent = '';
 
         const typeNext = () => {
@@ -10360,6 +9773,7 @@
                 hintEl.textContent = finalText;
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
+                headerNearestHintLastRenderedText = finalText;
                 return;
             }
 
@@ -10369,6 +9783,7 @@
             if (index >= finalText.length) {
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
+                headerNearestHintLastRenderedText = finalText;
                 return;
             }
 
@@ -10394,6 +9809,8 @@
         if (!nextText) {
             clearHeaderNearestHintTypewriter();
             headerNearestHintLoadingTypedOnce = false;
+            headerNearestHintQueuedResolvedText = '';
+            headerNearestHintLastRenderedText = '';
             hintEl.textContent = '';
             return;
         }
@@ -10402,6 +9819,22 @@
             if (headerNearestHintTypewriterActive) return;
             if (headerNearestHintLoadingTypedOnce) {
                 hintEl.textContent = nextText;
+                headerNearestHintLastRenderedText = nextText;
+                return;
+            }
+            startHeaderNearestHintTypewriter(hintEl, nextText);
+            return;
+        }
+
+        if (HEADER_NEAREST_HINT_RESOLVED_RE.test(nextText)) {
+            if (!headerNearestHintResolvedTypingUnlocked) {
+                headerNearestHintQueuedResolvedText = nextText;
+                return;
+            }
+            if (
+                (headerNearestHintTypewriterActive && headerNearestHintTypewriterTargetText === nextText) ||
+                (!headerNearestHintTypewriterActive && headerNearestHintLastRenderedText === nextText)
+            ) {
                 return;
             }
             startHeaderNearestHintTypewriter(hintEl, nextText);
@@ -10411,7 +9844,25 @@
         headerNearestHintLoadingTypedOnce = false;
         clearHeaderNearestHintTypewriter();
         hintEl.textContent = nextText;
+        headerNearestHintLastRenderedText = nextText;
     }
+
+    window.addEventListener(HEADER_NEAREST_HINT_UNLOCK_EVENT, () => {
+        headerNearestHintResolvedTypingUnlocked = true;
+        const queued = String(headerNearestHintQueuedResolvedText || '').trim();
+        if (!queued) return;
+        const hintEl = document.getElementById('headerNearestSlotHint');
+        if (!hintEl) return;
+        headerNearestHintQueuedResolvedText = '';
+        hintEl.classList.add('header-nearest-slot-hint--visible');
+        if (
+            (headerNearestHintTypewriterActive && headerNearestHintTypewriterTargetText === queued) ||
+            (!headerNearestHintTypewriterActive && headerNearestHintLastRenderedText === queued)
+        ) {
+            return;
+        }
+        startHeaderNearestHintTypewriter(hintEl, queued);
+    });
 
     function renderHeaderBookBtnText(targetEl, dayShort, dayDate, timeStr) {
         if (!targetEl) return;
@@ -10432,7 +9883,27 @@
         ];
 
         targets.forEach(t => {
-            if (!t.btn || !t.preloader) return;
+            if (!t.btn) return;
+            const isHeaderBtn = t.btn.id === 'headerBookBtn';
+
+            if (!isHeaderBtn) {
+                if (absoluteNearestDate && nearestSlotData) {
+                    const dayOfWeekFull = absoluteNearestDate.toLocaleDateString('en-US', { weekday: 'long' });
+                    const fallbackSlot = nearestDayLastSlotData || nearestSlotData;
+                    let lastTimeStr = '';
+                    if (fallbackSlot && fallbackSlot.text) {
+                        lastTimeStr = fallbackSlot.text.split(/[-\u2013]/)[0].trim();
+                    }
+                    renderFooterBookBtnText(t.txt, dayOfWeekFull, fallbackSlot ? fallbackSlot.date : '', lastTimeStr);
+                }
+                t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
+                t.btn.style.opacity = '1';
+                t.btn.style.transform = 'scale(1)';
+                t.btn.style.pointerEvents = 'auto';
+                return;
+            }
+
+            if (!t.preloader) return;
             if (isOffline) {
                 if (t._errorTimer) {
                     clearTimeout(t._errorTimer);
@@ -10486,12 +9957,6 @@
                             ? `Nearest appointment: ${nearestDateLabel}`
                             : 'Nearest appointment: checking availability...');
                     setHeaderNearestSlotHint(hintText);
-                } else {
-                    let lastTimeStr = '';
-                    if (fallbackSlot && fallbackSlot.text) {
-                        lastTimeStr = fallbackSlot.text.split(/[-\u2013]/)[0].trim();
-                    }
-                    renderFooterBookBtnText(t.txt, dayOfWeekFull, fallbackSlot ? fallbackSlot.date : '', lastTimeStr);
                 }
                 
                 t.preloader.style.transition = 'opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1), transform 1.35s cubic-bezier(0.22, 1, 0.36, 1), filter 1.35s cubic-bezier(0.22, 1, 0.36, 1)';
@@ -10574,17 +10039,6 @@
         }
     }
 
-    // Periodic Progress Bar Scan
-    setInterval(() => {
-        const separator = document.getElementById('loadingSeparator');
-        if (separator && !separator.classList.contains('loading-separator--active')) {
-            separator.classList.add('loading-separator--active');
-            setTimeout(() => {
-                separator.classList.remove('loading-separator--active');
-            }, 3000); // Pulse for 3 seconds
-        }
-    }, 18000); // Every ~18 seconds
-
     // Custom Select Initialization
     function setCustomSelectValue(selectId, nextValue) {
         const selectElement = document.getElementById(selectId);
@@ -10624,6 +10078,146 @@
         return false;
     }
 
+    function findScrollableAncestor(node) {
+        let current = node ? node.parentElement : null;
+        while (current && current !== document.body) {
+            const style = window.getComputedStyle(current);
+            const overflowY = String(style.overflowY || '').toLowerCase();
+            const canScrollY = (overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay');
+            if (canScrollY && current.scrollHeight > current.clientHeight + 1) {
+                return current;
+            }
+            current = current.parentElement;
+        }
+        return document.scrollingElement || document.documentElement;
+    }
+
+    function isDocumentScrollHost(scrollHost) {
+        return (
+            scrollHost === document.scrollingElement ||
+            scrollHost === document.documentElement ||
+            scrollHost === document.body
+        );
+    }
+
+    function getScrollTopForHost(scrollHost) {
+        if (isDocumentScrollHost(scrollHost)) {
+            return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        }
+        return scrollHost ? scrollHost.scrollTop : 0;
+    }
+
+    function setScrollTopForHost(scrollHost, nextTop, smooth) {
+        if (isDocumentScrollHost(scrollHost)) {
+            if (smooth) {
+                window.scrollTo({ top: nextTop, behavior: 'smooth' });
+            } else {
+                window.scrollTo(0, nextTop);
+            }
+            return;
+        }
+
+        if (!scrollHost) return;
+        if (smooth && typeof scrollHost.scrollTo === 'function') {
+            try {
+                scrollHost.scrollTo({ top: nextTop, behavior: 'smooth' });
+                return;
+            } catch (_) {
+                // Fallback to immediate assignment for unsupported hosts.
+            }
+        }
+        scrollHost.scrollTop = nextTop;
+    }
+
+    function getCustomSelectTargetTop(trigger, scrollHost, topOffset) {
+        if (!trigger) return 0;
+        if (isDocumentScrollHost(scrollHost)) {
+            const triggerRect = trigger.getBoundingClientRect();
+            return Math.max(0, Math.round(triggerRect.top + window.pageYOffset - topOffset));
+        }
+
+        const hostRect = scrollHost.getBoundingClientRect();
+        const triggerRect = trigger.getBoundingClientRect();
+        const triggerTopInHost = (triggerRect.top - hostRect.top) + scrollHost.scrollTop;
+        return Math.max(0, Math.round(triggerTopInHost - topOffset));
+    }
+
+    function smoothScrollHostTo(scrollHost, targetTop) {
+        return new Promise((resolve) => {
+            const currentTop = getScrollTopForHost(scrollHost);
+            if (Math.abs(currentTop - targetTop) <= 1) {
+                resolve();
+                return;
+            }
+
+            setScrollTopForHost(scrollHost, targetTop, true);
+            const startedAt = performance.now();
+            let lastTop = currentTop;
+            let stillFrames = 0;
+
+            const tick = () => {
+                const nextTop = getScrollTopForHost(scrollHost);
+                if (Math.abs(nextTop - targetTop) <= 2) {
+                    resolve();
+                    return;
+                }
+
+                if (Math.abs(nextTop - lastTop) < 0.25) {
+                    stillFrames += 1;
+                } else {
+                    stillFrames = 0;
+                }
+                lastTop = nextTop;
+
+                if ((performance.now() - startedAt) > 850 || stillFrames > 9) {
+                    resolve();
+                    return;
+                }
+
+                requestAnimationFrame(tick);
+            };
+
+            requestAnimationFrame(tick);
+        });
+    }
+
+    function alignCustomSelectToTopViewport(selectElement, trigger, options = {}) {
+        if (!selectElement || !trigger) return Promise.resolve();
+        const scrollHost = findScrollableAncestor(trigger);
+        const topOffset = Number.isFinite(options.topOffset) ? options.topOffset : 14;
+        const smooth = !!options.smooth;
+        const targetTop = getCustomSelectTargetTop(trigger, scrollHost, topOffset);
+        const currentTop = getScrollTopForHost(scrollHost);
+
+        if (Math.abs(currentTop - targetTop) <= 1) {
+            return Promise.resolve();
+        }
+
+        if (!smooth) {
+            setScrollTopForHost(scrollHost, targetTop, false);
+            return Promise.resolve();
+        }
+
+        return smoothScrollHostTo(scrollHost, targetTop);
+    }
+
+    function updateCityDropdownOpenHeight(selectElement) {
+        if (!selectElement || selectElement.id !== 'cityCustomSelect') return;
+        const trigger = selectElement.querySelector('.custom-select__trigger');
+        const optionsPanel = selectElement.querySelector('.custom-options');
+        if (!trigger || !optionsPanel) return;
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+        const triggerRect = trigger.getBoundingClientRect();
+        const safeGap = 12;
+        const availableBelow = Math.max(120, Math.floor(viewportHeight - triggerRect.bottom - safeGap));
+        const fullContentHeight = Math.ceil(optionsPanel.scrollHeight);
+        const openHeight = Math.min(fullContentHeight, availableBelow);
+
+        selectElement.style.setProperty('--city-options-open-height', `${Math.max(120, openHeight)}px`);
+        optionsPanel.scrollTop = 0;
+    }
+
     function bindCustomSelect(selectId, hiddenInputId) {
         const selectElement = document.getElementById(selectId);
         if (!selectElement || selectElement.dataset.bound === '1') return;
@@ -10635,18 +10229,36 @@
 
         selectElement.dataset.bound = '1';
         selectElement.dataset.inputId = hiddenInputId || '';
+        const useDeferredOpen = selectId === 'cityCustomSelect';
+        let openActionToken = 0;
 
-        trigger.addEventListener('click', (e) => {
+        trigger.addEventListener('click', async (e) => {
             e.preventDefault();
             trigger.classList.remove('field-invalid');
+            const willOpen = !selectElement.classList.contains('open');
+            openActionToken += 1;
+            const token = openActionToken;
             document.querySelectorAll('.custom-select.open').forEach(openSelect => {
                 if (openSelect !== selectElement) openSelect.classList.remove('open');
             });
-            selectElement.classList.toggle('open');
+            if (willOpen) {
+                if (useDeferredOpen) {
+                    await alignCustomSelectToTopViewport(selectElement, trigger, { smooth: true, topOffset: 12 });
+                    if (token !== openActionToken) return;
+                    updateCityDropdownOpenHeight(selectElement);
+                } else {
+                    alignCustomSelectToTopViewport(selectElement, trigger, { smooth: false, topOffset: 14 });
+                }
+                if (token !== openActionToken) return;
+                selectElement.classList.add('open');
+            } else {
+                selectElement.classList.remove('open');
+            }
         });
 
         options.forEach(option => {
             option.addEventListener('click', () => {
+                openActionToken += 1;
                 setCustomSelectValue(selectId, option.textContent.trim());
                 selectElement.classList.remove('open');
                 trigger.classList.remove('field-invalid');
@@ -10655,9 +10267,19 @@
 
         document.addEventListener('click', (e) => {
             if (!wrapper.contains(e.target)) {
+                openActionToken += 1;
                 selectElement.classList.remove('open');
             }
         });
+
+        if (useDeferredOpen) {
+            const syncCityOptionsHeight = () => {
+                if (!selectElement.classList.contains('open')) return;
+                updateCityDropdownOpenHeight(selectElement);
+            };
+            window.addEventListener('resize', syncCityOptionsHeight);
+            window.addEventListener('orientationchange', syncCityOptionsHeight);
+        }
 
         const hiddenInput = hiddenInputId ? document.getElementById(hiddenInputId) : null;
         const selectedOption = selectElement.querySelector('.custom-option.selected');
@@ -10671,6 +10293,7 @@
     function initializeCustomSelects() {
         bindCustomSelect('customSelect', 'serviceInput');
         bindCustomSelect('cityCustomSelect', 'cityInput');
+        bindCustomSelect('provinceCustomSelect', 'provinceInputMain');
     }
 
     function adjustDynamicText() {
@@ -10875,3 +10498,7 @@
 
 </body>
 </html>
+
+
+
+
