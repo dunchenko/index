@@ -558,7 +558,8 @@
         }
 
         .header__description-phone {
-            margin-top: clamp(0.35rem, 1vw, 0.6rem);
+            margin-top: clamp(0.08rem, 0.35vw, 0.2rem);
+            transform: translateY(-0.2rem);
         }
 
         .header__description br {
@@ -598,6 +599,10 @@
             font-size: clamp(1.7rem, 5.6vw, 2.35rem);
             letter-spacing: 1.2px;
             line-height: 1;
+        }
+        #calendarHeaderTitle.calendar-title--warning {
+            color: #f3cd53;
+            text-shadow: 0 0 12px rgba(243, 205, 83, 0.42);
         }
 
         .contact-form__title { 
@@ -1415,13 +1420,14 @@
             bottom: -0.55rem;
             z-index: 25;
             margin: -0.12rem 0 0;
-            padding: clamp(1.35rem, 3.6vh, 2.1rem) 0.65rem 0.5rem;
+            padding: clamp(1.9rem, 4.8vh, 2.9rem) 0.65rem 0.72rem;
             background: linear-gradient(
                 to bottom,
                 rgba(107, 91, 74, 0.00) 0%,
-                rgba(107, 91, 74, 0.00) 10%,
-                rgba(107, 91, 74, 0.72) 34%,
-                rgba(107, 91, 74, 1.00) 52%,
+                rgba(107, 91, 74, 0.00) 2%,
+                rgba(107, 91, 74, 0.46) 16%,
+                rgba(107, 91, 74, 0.84) 26%,
+                rgba(107, 91, 74, 1.00) 32%,
                 rgba(107, 91, 74, 1.00) 100%
             );
             backdrop-filter: none;
@@ -1467,6 +1473,14 @@
             margin-bottom: 0.35rem;
         }
 
+        #bookingModal .modal-sticky-actions .booking-scroll-cue {
+            order: 2;
+        }
+
+        #bookingModal .modal-sticky-actions .booking-status-slot {
+            order: 3;
+        }
+
         #bookingModal .modal-sticky-actions #confirmBookingBtn {
             order: 4;
         }
@@ -1488,7 +1502,7 @@
             display: grid;
             justify-items: center;
             align-content: end;
-            gap: 0.05rem;
+            gap: 0.18rem;
         }
 
         #bookingModal #hearAboutInput {
@@ -1509,8 +1523,8 @@
 
         #bookingModal[data-state="form"] #bookingForm .booking-status-slot {
             width: min(100%, 37.5rem);
-            min-height: 3rem;
-            margin: 0.2rem auto 0.45rem;
+            min-height: clamp(3.3rem, 6.2vh, 4.2rem);
+            margin: 0 auto 0.78rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1666,6 +1680,17 @@
             bottom: 0;
         }
 
+        #bookingModal[data-state="success"] .modal__content {
+            height: auto;
+            max-height: min(82dvh, 41rem);
+        }
+
+        #bookingModal[data-state="success"] .modal__body {
+            flex: 0 1 auto;
+            overflow-y: auto;
+            padding-bottom: 0.45rem;
+        }
+
         #bookingModal .modal__body,
         #bookingModal .modal__body p,
         #bookingModal .contact-form__label,
@@ -1738,10 +1763,10 @@
         }
 
         #bookingModal .custom-select-wrapper--province {
-            flex: 0 0 148px !important;
-            width: 148px !important;
-            min-width: 148px !important;
-            max-width: 148px !important;
+            flex: 0 0 180px !important;
+            width: 180px !important;
+            min-width: 180px !important;
+            max-width: 180px !important;
             margin-bottom: 0 !important;
         }
 
@@ -1766,8 +1791,8 @@
             overflow-x: hidden;
             width: max-content;
             min-width: 100%;
-            right: auto;
-            left: 0;
+            right: 0;
+            left: auto;
         }
 
         #bookingModal .custom-select--province .custom-option {
@@ -1789,9 +1814,10 @@
 
         @media (min-width: 769px) {
             #bookingModal #deadlineInputMain {
-                flex: 0 0 clamp(11rem, 16vw, 14rem) !important;
-                width: clamp(11rem, 16vw, 14rem) !important;
-                min-width: clamp(11rem, 16vw, 14rem) !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
             }
 
             #bookingModal .booking-row--address-city .custom-select-wrapper--city {
@@ -1929,7 +1955,7 @@
         #bookingStatus {
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 128, 184, 0.95);
-            --booking-status-bg: rgba(255, 130, 188, 0.24);
+            --booking-status-bg: rgba(255, 130, 188, 0.95);
             min-height: 0;
             width: 100%;
             max-width: min(100%, 37.5rem);
@@ -1953,11 +1979,11 @@
 
         #bookingStatus.status-alert--visible {
             display: block;
-            padding: 0.55rem 0.9rem;
+            padding: 0.78rem 0.95rem;
             border-color: var(--booking-status-border);
             background: var(--booking-status-bg);
             opacity: 1;
-            transform: none;
+            transform: translateY(-0.12rem);
             animation: bookingStatusIn 0.28s ease-out;
             box-shadow: 0 0 0.45rem rgba(255, 162, 210, 0.24);
         }
@@ -1975,30 +2001,30 @@
         #bookingStatus.status-alert--success {
             --booking-status-fg: #e9ffef;
             --booking-status-border: rgba(102, 220, 130, 0.74);
-            --booking-status-bg: rgba(56, 175, 95, 0.2);
+            --booking-status-bg: rgba(56, 175, 95, 0.95);
             --booking-status-pulse: rgba(84, 214, 123, 0.2);
         }
 
         #bookingStatus.status-alert--warning {
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 138, 191, 1);
-            --booking-status-bg: rgba(255, 147, 200, 0.28);
+            --booking-status-bg: rgba(255, 147, 200, 0.95);
         }
 
         #bookingStatus.status-alert--error {
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 116, 179, 0.98);
-            --booking-status-bg: rgba(255, 120, 184, 0.32);
+            --booking-status-bg: rgba(255, 120, 184, 0.95);
         }
 
         .booking-scroll-cue {
             width: min(100%, 37.5rem);
-            margin: -0.32rem 0 0.34rem 0;
+            margin: -0.46rem 0 0.18rem 0;
             text-align: center;
             pointer-events: none;
             user-select: none;
             line-height: 1;
-            transform: translateY(-0.22rem);
+            transform: translateY(-0.34rem);
             position: relative;
             z-index: 3;
         }
@@ -2294,27 +2320,36 @@
             justify-content: center;
             font-weight: 900 !important;
             letter-spacing: 0.02em;
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+            min-height: 3.6rem;
+            padding: 1.02rem 2rem !important;
+            border: 2px solid #5a3d2a !important;
+            box-shadow: none !important;
         }
 
         .final-result-done {
             width: 100%;
             margin: 0 !important;
             background: rgba(255,255,255,0.16) !important;
-            border: 1px solid rgba(255,255,255,0.3) !important;
+            border: 2px solid rgba(255,255,255,0.45) !important;
             color: #fff !important;
-            font-weight: 800 !important;
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
+            font-weight: 900 !important;
+            min-height: 3.6rem;
+            padding: 1.02rem 2rem !important;
+            box-shadow: none !important;
         }
 
         #bookingModal .contact-form__submit-button.final-result-call,
-        #bookingModal .contact-form__submit-button.final-result-call:hover {
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.2) !important;
+        #bookingModal .contact-form__submit-button.final-result-call:hover,
+        #bookingModal .contact-form__submit-button.final-result-call:active,
+        #bookingModal .contact-form__submit-button.final-result-call:focus-visible {
+            box-shadow: none !important;
         }
 
         #bookingModal .contact-form__submit-button.final-result-done,
-        #bookingModal .contact-form__submit-button.final-result-done:hover {
-            box-shadow: 0 0.7rem 1.5rem rgba(0, 0, 0, 0.16) !important;
+        #bookingModal .contact-form__submit-button.final-result-done:hover,
+        #bookingModal .contact-form__submit-button.final-result-done:active,
+        #bookingModal .contact-form__submit-button.final-result-done:focus-visible {
+            box-shadow: none !important;
         }
 
         @media (max-width: 650px) {
@@ -2574,9 +2609,9 @@
         }
 
         #calendarLoaderOverlay.calendar-loader--error {
-            background: rgba(64, 48, 31, 0.58);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
         }
         
         #calendarLoaderOverlay span {
@@ -2721,7 +2756,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            --calendar-key-size: clamp(1.55rem, 3.8vw, 2.35rem);
+            --calendar-key-size: clamp(1.72rem, 4.2vw, 2.62rem);
             width: var(--calendar-key-size);
             height: var(--calendar-key-size);
             line-height: 0;
@@ -2743,8 +2778,7 @@
             filter: drop-shadow(0 0 0.16rem rgba(107, 91, 74, 0.28));
         }
 
-        .cal-key svg,
-        .cal-key img {
+        .cal-key svg {
             width: 100%;
             height: 100%;
             transform: none;
@@ -2888,7 +2922,7 @@
             color: rgba(255, 255, 255, 0.9);
             border-radius: 5rem;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: none;
             font-family: 'Lato', sans-serif !important;
             backdrop-filter: blur(0.6rem);
             -webkit-backdrop-filter: blur(0.6rem);
@@ -2904,67 +2938,34 @@
         }
 
         .slot-btn--hypnotic {
-            border-color: rgba(255, 255, 255, 0.22);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
-            animation: slotRevealRise 2s cubic-bezier(0.18, 0.88, 0.25, 1) both;
-            animation-delay: calc(var(--slot-idx, 0) * 55ms);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.16),
+                0 0 0.1rem rgba(255, 255, 255, 0.04);
+            animation: slotCardSoftGlow var(--slot-rand-duration, 11.5s) ease-in-out infinite;
+            animation-delay: calc(var(--slot-idx, 0) * 0.41s + var(--slot-rand-delay, 0s));
         }
 
         .slot-btn--hypnotic::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: calc(100% + clamp(0.14rem, 0.55vw, 0.32rem));
-            width: clamp(6.8rem, 18vw, 11.2rem);
-            height: clamp(1.6rem, 4.2vw, 2.7rem);
-            transform: translate3d(-50%, -50%, 0) scale(0.92);
-            border-radius: 50%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(255, 255, 255, 0.92) 0%,
-                rgba(255, 255, 255, 0.56) 30%,
-                rgba(255, 255, 255, 0.2) 58%,
-                rgba(255, 255, 255, 0.04) 80%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            filter: blur(6px);
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: -3;
-            will-change: opacity, transform;
-            backface-visibility: hidden;
-            transition: opacity 160ms ease, transform 280ms ease, filter 280ms ease;
+            content: none;
         }
 
         .slot-btn--hypnotic::after {
             content: "";
             position: absolute;
-            left: 50%;
-            top: 66%;
-            width: clamp(16rem, 44vw, 30rem);
-            height: clamp(13.5rem, 35vw, 23rem);
-            transform: translate3d(-50%, -50%, 0) scale(0.92);
-            border-radius: 50%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(255, 255, 255, 0) 28%,
-                rgba(255, 255, 255, 0.52) 40%,
-                rgba(255, 255, 255, 0.24) 49%,
-                rgba(255, 255, 255, 0.1) 60%,
-                rgba(255, 255, 255, 0.03) 70%,
-                rgba(255, 255, 255, 0) 82%
-            );
-            filter: none;
-            opacity: 0;
+            inset: -0.08rem;
+            border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            background: transparent;
+            opacity: 0.05;
             pointer-events: none;
             z-index: -2;
-            box-shadow:
-                0 0 1rem rgba(255, 255, 255, 0.16),
-                0 0 2.2rem rgba(255, 255, 255, 0.1);
-            will-change: opacity, transform;
+            box-shadow: 0 0 0.16rem rgba(255, 255, 255, 0.07);
+            will-change: opacity, box-shadow, border-color;
             backface-visibility: hidden;
-            outline: 1px solid transparent;
-            transition: opacity 180ms ease, transform 380ms ease, filter 380ms ease;
+            transition: opacity 180ms ease, box-shadow 260ms ease, border-color 260ms ease;
+            animation: slotIdleHaloSequence var(--slot-rand-duration, 11.5s) ease-in-out infinite;
+            animation-delay: calc(var(--slot-idx, 0) * 0.41s + var(--slot-rand-delay, 0s));
         }
 
         .slot-btn--hypnotic > * {
@@ -2978,28 +2979,91 @@
 
         .slot-btn--hypnotic:hover,
         .slot-btn--hypnotic:focus-visible {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.26);
+            transform: none;
             animation: none;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.48),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.24);
-        }
-
-        .slot-btn--hypnotic:hover::before,
-        .slot-btn--hypnotic:focus-visible::before {
-            opacity: 0.72;
-            transform: translate3d(-50%, -50%, 0) scale(1.08);
-            filter: blur(7px);
+                inset 0 1px 0 rgba(255,255,255,0.16),
+                0 0 0.22rem rgba(255, 255, 255, 0.09);
         }
 
         .slot-btn--hypnotic:hover::after,
         .slot-btn--hypnotic:focus-visible::after {
-            opacity: 0.78;
-            transform: translate3d(-50%, -50%, 0) scale(1.04);
-            filter: none;
-            animation: slotBacklightPulseHuge 1.12s ease-in-out infinite alternate;
+            opacity: 0.34;
+            border-color: rgba(255, 255, 255, 0.48);
+            box-shadow:
+                0 0 0.44rem rgba(255, 255, 255, 0.24),
+                0 0 0.92rem rgba(255, 255, 255, 0.12);
+            animation: slotEclipseHoverPulse 1.65s ease-in-out infinite;
+        }
+
+        @keyframes slotCardSoftGlow {
+            0%, 100% {
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+                    0 0 0.08rem rgba(255, 255, 255, 0.03);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            19% {
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 0 0.2rem rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.24);
+            }
+            41% {
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                    0 0 0.12rem rgba(255, 255, 255, 0.04);
+                border-color: rgba(255, 255, 255, 0.22);
+            }
+            67% {
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                    0 0 0.24rem rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.28);
+            }
+        }
+
+        @keyframes slotIdleHaloSequence {
+            0%, 100% {
+                opacity: 0.04;
+                box-shadow: 0 0 0.12rem rgba(255, 255, 255, 0.06);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            23% {
+                opacity: 0.09;
+                box-shadow: 0 0 0.2rem rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.26);
+            }
+            39% {
+                opacity: 0.05;
+                box-shadow: 0 0 0.14rem rgba(255, 255, 255, 0.07);
+                border-color: rgba(255, 255, 255, 0.22);
+            }
+            66% {
+                opacity: 0.1;
+                box-shadow: 0 0 0.26rem rgba(255, 255, 255, 0.13);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+            84% {
+                opacity: 0.06;
+                box-shadow: 0 0 0.16rem rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.23);
+            }
+        }
+
+        @keyframes slotEclipseHoverPulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 0.4rem rgba(255, 255, 255, 0.2),
+                    0 0 0.8rem rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow:
+                    0 0 0.5rem rgba(255, 255, 255, 0.27),
+                    0 0 1rem rgba(255, 255, 255, 0.14);
+            }
         }
 
         @keyframes slotBacklightPulseHuge {
@@ -3073,7 +3137,7 @@
             pointer-events: none;
         }
 
-        .slot-btn:not(.slot-btn--hypnotic):hover::after { opacity: 1; }
+        .slot-btn:not(.slot-btn--hypnotic):hover::after { opacity: 0; }
 
         @keyframes slideUpFade {
             from { opacity: 0; transform: translateY(0.9rem); }
@@ -3130,7 +3194,7 @@
         }
 
         .slot-btn--clicked {
-            animation: slotClickBurst 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+            animation: none !important;
             pointer-events: none;
         }
 
@@ -3831,7 +3895,7 @@
             text-align: center;
             margin: 0 auto;
             overflow: visible;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
             box-shadow: none;
             min-width: 15rem;
         }
@@ -3860,7 +3924,6 @@
         [role="button"],
         .footer-book-btn,
         .contact-form__submit-button,
-        .slot-btn,
         .calendar-nav-btn,
         .slots-nav-arrow,
         .file-attach__btn {
@@ -3875,6 +3938,28 @@
         .slots-nav-arrow:hover,
         .file-attach__btn:hover {
             transform: scale(1.01) !important;
+        }
+
+        .slot-btn,
+        .slot-btn:hover,
+        .slot-btn:focus-visible {
+            transform: none !important;
+            transition: none !important;
+        }
+
+        .custom-select__trigger,
+        .custom-select__trigger:hover,
+        .custom-select__trigger:focus-visible,
+        .custom-option,
+        .custom-option:hover,
+        .custom-option:focus-visible,
+        .custom-options,
+        .custom-options:hover,
+        .file-attach__btn,
+        .file-attach__btn:hover,
+        .file-attach__btn:focus-visible,
+        .file-attach__hint {
+            transform: none !important;
         }
 
         .services-list .header__content-text {
@@ -3907,6 +3992,7 @@
             line-height: 1 !important;
             letter-spacing: 0.06em !important;
             text-transform: uppercase !important;
+            transition: color 0.28s ease;
         }
 
         #headerBookBtnText,
@@ -3947,12 +4033,83 @@
             animation: headerNearestHintGlow 1.85s ease-in-out infinite;
         }
 
+        .header-no-slot-notice {
+            display: none;
+            width: min(94vw, 41rem);
+            margin: 0.55rem auto 0;
+            padding: 0.7rem 0.8rem 0.8rem;
+            border-radius: 0.95rem;
+            border: 1px solid rgba(255, 235, 202, 0.44);
+            background: rgba(74, 48, 32, 0.44);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+            box-shadow: 0 0 1.1rem rgba(255, 220, 176, 0.18);
+            text-align: center;
+        }
+
+        .header-no-slot-notice--visible {
+            display: block;
+            animation: headerNoSlotNoticeFade 0.24s ease-out;
+        }
+
+        .header-no-slot-notice__text {
+            margin: 0 0 0.62rem;
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(0.86rem, 2.25vw, 0.98rem);
+            line-height: 1.42;
+            letter-spacing: 0.01em;
+            color: rgba(255, 244, 227, 0.98);
+            text-shadow: 0 0 0.28rem rgba(255, 220, 176, 0.16);
+        }
+
+        .header-no-slot-notice__action {
+            margin-top: 0 !important;
+            padding: 0.58rem 1.04rem !important;
+            border-color: rgba(255, 232, 198, 0.58) !important;
+            background: rgba(255, 245, 226, 0.18) !important;
+            box-shadow: 0 0 0.8rem rgba(255, 223, 168, 0.18);
+        }
+
+        .header-no-slot-notice__action:hover,
+        .header-no-slot-notice__action:focus-visible {
+            background: rgba(255, 245, 226, 0.28) !important;
+            border-color: rgba(255, 232, 198, 0.76) !important;
+        }
+
+        @keyframes headerNoSlotNoticeFade {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-nearest-slot-hint--typing {
+            animation: headerNearestHintTypingGlow 1.05s ease-in-out infinite;
+        }
+
         @keyframes headerNearestHintGlow {
             0%, 100% {
                 text-shadow: 0 0 0.25rem rgba(255, 255, 255, 0.2), 0 0 0.65rem rgba(255, 255, 255, 0.12);
             }
             50% {
                 text-shadow: 0 0 0.45rem rgba(255, 255, 255, 0.42), 0 0 1.05rem rgba(255, 255, 255, 0.24);
+            }
+        }
+
+        @keyframes headerNearestHintTypingGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 0.28rem rgba(255, 255, 255, 0.26),
+                    0 0 0.72rem rgba(255, 255, 255, 0.18);
+            }
+            50% {
+                text-shadow:
+                    0 0 0.54rem rgba(255, 255, 255, 0.56),
+                    0 0 1.25rem rgba(255, 255, 255, 0.36);
             }
         }
 
@@ -3963,7 +4120,7 @@
             max-width: 96% !important;
             min-height: 6.9rem !important;
             border-radius: 999px !important;
-            transition: none !important;
+            transition: background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease !important;
             transform: none !important;
             margin-bottom: 0.9rem !important;
         }
@@ -4234,6 +4391,7 @@
             letter-spacing: 1px;
             text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
             user-select: none;
+            display: none !important;
         }
 
         @keyframes globalSpinnerHypnotic {
@@ -4448,8 +4606,8 @@
             transform: translateY(0);
             pointer-events: auto;
             transition: opacity 0.25s ease, transform 0.25s ease;
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent);
         }
 
         .top-bar--visible {
@@ -4548,6 +4706,81 @@
             line-height: 1.3;
             z-index: 2;
             position: relative;
+        }
+
+        /* Hide center labels inside circular preloaders; keep header text outside ring. */
+        .book-btn-preloader:not(#headerBookBtnPreloader) .book-btn-preloader__text {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        #headerBookBtnPreloader {
+            overflow: visible;
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text {
+            position: absolute;
+            top: calc(100% + 0.38rem);
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(92vw, 24rem);
+            font-size: clamp(0.94rem, 2.25vw, 1.12rem);
+            font-weight: 800;
+            line-height: 1.24;
+            letter-spacing: 0.01em;
+            white-space: normal;
+            pointer-events: none;
+            --header-preloader-fg: #ffffff;
+            --header-preloader-glow-soft: rgba(255, 255, 255, 0.24);
+            --header-preloader-glow-strong: rgba(255, 255, 255, 0.5);
+            color: var(--header-preloader-fg);
+            text-shadow: 0 0 0.28rem var(--header-preloader-glow-soft);
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text--loading {
+            animation: headerPreloaderTypingGlow 1.05s ease-in-out infinite;
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text--typing {
+            animation: headerPreloaderTypingGlow 1.05s ease-in-out infinite;
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text--service,
+        #headerBookBtnPreloader.book-btn-preloader--error .book-btn-preloader__text,
+        #headerBookBtnPreloader.book-btn-preloader--offline .book-btn-preloader__text {
+            top: auto;
+            bottom: calc(100% + 0.38rem);
+            width: max-content;
+            max-width: calc(100vw - 1.4rem);
+            white-space: nowrap;
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text--phase-1 {
+            --header-preloader-fg: #ffffff;
+            --header-preloader-glow-soft: rgba(255, 255, 255, 0.22);
+            --header-preloader-glow-strong: rgba(255, 255, 255, 0.5);
+        }
+
+        #headerBookBtnPreloader .book-btn-preloader__text--phase-2 {
+            --header-preloader-fg: #ffd98a;
+            --header-preloader-glow-soft: rgba(255, 219, 143, 0.26);
+            --header-preloader-glow-strong: rgba(255, 219, 143, 0.52);
+        }
+
+        @keyframes headerPreloaderTypingGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 0.22rem var(--header-preloader-glow-soft),
+                    0 0 0.58rem rgba(255, 255, 255, 0.1);
+                opacity: 0.9;
+            }
+            50% {
+                text-shadow:
+                    0 0 0.48rem var(--header-preloader-glow-strong),
+                    0 0 1rem var(--header-preloader-glow-soft);
+                opacity: 1;
+            }
         }
 
         .book-btn-preloader__text--loading {
@@ -5041,9 +5274,10 @@
             }
 
             .booking-row--deadline .contact-form__input {
-                flex: 0 1 min(100%, 14rem) !important;
-                width: min(100%, 14rem) !important;
-                min-width: 0 !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
                 margin: 0 auto;
             }
 
@@ -5058,10 +5292,10 @@
             }
 
             .booking-row--province-zip .custom-select-wrapper--province {
-                flex: 0 0 148px !important;
-                width: 148px !important;
-                min-width: 148px !important;
-                max-width: 148px !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
             }
 
             .booking-row--address-city .custom-select-wrapper--city {
@@ -5186,10 +5420,10 @@
             }
 
             #bookingModal .booking-row--province-zip .custom-select-wrapper--province {
-                flex: 0 0 148px !important;
-                width: 148px !important;
-                min-width: 148px !important;
-                max-width: 148px !important;
+                flex: 0 0 180px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
             }
 
             #bookingModal input[name="address_zip"] {
@@ -5282,11 +5516,15 @@
                 </svg>
                 <div class="book-btn-preloader__text" style="text-align: center; line-height: 1.2; display: none;"></div>
             </div>
-            <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot()" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
+            <button class="footer-book-btn" id="headerBookBtn" onclick="bookNearestSlot('header')" style="opacity: 0; transform: scale(0.9); pointer-events: none;">
                 <span id="headerBookBtnText">BOOK</span>
             </button>
         </div>
         <p id="headerNearestSlotHint" class="header-nearest-slot-hint" aria-live="polite"></p>
+        <div id="headerNoSlotNotice" class="header-no-slot-notice" aria-live="polite">
+            <p id="headerNoSlotNoticeText" class="header-no-slot-notice__text"></p>
+            <button type="button" class="faq-no-date-action header-no-slot-notice__action" onclick="return openBookingModalWithoutDate(event)">Click here and we will find your place in the agenda</button>
+        </div>
     </div>
 
     <div class="header__content-block">
@@ -5816,13 +6054,9 @@
                 <div class="contact-form__group">
                     <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                         <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline:</label>
-                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 185px; width:185px; min-width:185px; text-align:center;">
+                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:center;">
                         <span class="contact-form__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">(Optional)</span>
                     </div>
-                </div>
-
-                <div class="booking-status-slot">
-                    <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
                 </div>
 
                 <div class="modal-sticky-actions">
@@ -5832,6 +6066,9 @@
                     </div>
                     <div class="booking-scroll-cue" aria-hidden="true">
                         <span>▾</span><span>▾</span><span>▾</span>
+                    </div>
+                    <div class="booking-status-slot">
+                        <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
                     </div>
                     <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
@@ -5884,8 +6121,8 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "hhttps://script.google.com/macros/s/AKfycbzXr3KWjyo6vY56mJ9GzkylyiYfXLGeh3F3RQe_p_GtucDniHGPkaTpfoEFgxjzyFV4kw/exec"; 
-    const RECAPTCHA_SITE_KEY = "6LcULHssAAAAABBC3AYr_sk660jxUqHDsANqdvLv";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNQIcY_T688znOtJsGgoOKiFhvLE4obbEPkyZfu77WTWo44SalzEeBDNDTc5K_UOXLxg/exec"; 
+    const RECAPTCHA_SITE_KEY = "6LfdL3ssAAAAACfBHRBRYfWWpRCfbbK_6FzFZyHu";
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
         'London',
@@ -5961,6 +6198,7 @@
     const MONTH_SWITCH_PROGRESS_TICK_MS = 120;
     const MONTH_SWITCH_PROGRESS_SOFT_CAP = 94;
     const CALENDAR_LOAD_FAILURE_TEXT = 'SLOT NOT FOUND';
+    const CALENDAR_KEY_SVG = `<svg viewBox="0 0 2731.1914 957.4548" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMid meet"><path fill="currentColor" d="M455.4235,66.1424c-54.6162,17.0518-99.3918,59.2998-124.8123,109.9444c-19.2071,38.806-20.2057,83.0207-19.2763,125.3689c-81.3054-22.5263-175.0156,22.3917-210.1871,98.7897c-9.2783,20.1539-8.3644,20.2433-11.8496,40.3688c-4.8375,27.9341-4.2083,37.05-2.2042,55.969c1.4357,22.2823,7.3027,38.5111,7.3027,38.5111c18.9492,58.527,69.7227,105.9932,129.7515,120.0033c29.4164,7.2276,60.193,5.4804,89.8412,0.4908c-10.0096,49.0664,0.651,101.5653,26.9936,143.9475c40.0951,69.8319,124.2904,109.4827,203.7165,100.3759c59.5697-5.0167,114.4316-39.2678,148.4309-88.02c43.8649-59.9792,49.3115-143.4517,19.5382-210.7177c-9.8316-22.9943-26.1176-42.2539-42.4297-60.8617c28.0953,8.4742,51.7559,26.8591,78.8311,37.7869c15.0134-12.9937,31.1224-24.7645,45.5006-38.5804c3.7272,8.9449,3.8483,18.9711,7.8889,27.7497c10.0868,16.8039,29.2522,29.2213,49.3516,27.063c30.2103-0.5527,57.327-29.4418,52.5215-60.0773c53.2219,2.8256,106.5587,1.6002,159.8384,2.1477c369.2572,1.4902,738.547,2.401,1107.818,3.5652c1.2515,14.8565,2.1516,29.8459-0.686,44.5543c-50.4106-0.8195-100.8386-0.8437-151.2317-0.3648c-0.5316,25.5208-1.4232,51.0667,0.4229,76.5304c12.7258,5.466,26.0077,9.5942,39.3083,13.4681c2.9021,10.049,2.3779,20.6616,0.739,30.8108c-13.6473,3.5859-26.5519,9.5385-40.3643,12.3054c-0.2438,58.6731-3.405,117.4406-0.8727,176.0644c44.5675,0.3605,89.2118-1.8113,133.7675,0.968c2.3611-41.747,1.3955-83.5872,0.6863-125.3732c20.0256-2.6947,40.2749,0.4066,60.4207-1.6105c2.1978,41.3934-0.7817,83.0754-0.6724,124.5418c35.9739,2.9083,72.0852,2.0889,108.1611,0.7665c2.4275-41.3186-1.1101-82.7631,2.1106-124.1005c18.6907-0.6166,37.4458,0.2062,56.2112-0.3792c6.5234,41.3085-0.7234,83.3964,3.1113,124.9642c44.2317,1.7554,88.5386-0.068,132.8147,1.2869c3.0449-58.3628,1.282-116.8237,1.3247-175.2663c-13.5281-4.0386-26.4944-9.8492-40.3279-12.5671c-2.46-10.4407-1.1895-21.2139,0.4966-31.7269c13.1692-3.1915,25.8591-8.0822,38.8096-12.3415c3.7913-9.8293,0.4207-20.3871,1.0415-30.6455c-1.0986-15.77,0.114-31.5202,1.5471-47.2133c-6.0505-0.842-12.2354-1.0246-18.2112-0.7888c-45.033,1.7659-90.1157-0.2912-135.1638,1.2592c-1.3352-13.9846-0.3328-28.0956-0.8804-42.1711c48.9639-3.3753,98.0977-0.1564,147.1155-0.684c-0.1201-7.4272-0.6382-14.8632-0.3325-22.3926c2.8564-5.1081,8.5769-1.7526,11.6807,1.3517c9.5369,9.9482,19.1436,20.9016,32.7354,25.3331c31.6147,11.8386,69.2354-5.6537,83.7314-35.3964c14.8845-30.3829,1.4768-71.0313-28.1584-87.0868c-20.8877-9.1569-46.5176-11.7753-66.7476,0.4272c-12.7231,6.481-17.4023,25.3247-33.6899,24.6904c-0.3083-8.5696,2.5593-17.1435,0.8042-25.7563c-535.365-2.9481-1070.7096,3.1985-1606.0455-0.3652c4.9905-41.3167-45.7549-72.3251-81.2896-53.3897c-17.4521,9.59-25.137,29.3286-29.7484,47.5896c-15.7491-12.0779-30.9636-24.7701-45.6766-38.0392c-26.2166,12.7996-50.687,29.4122-78.5338,38.4993c13.2449-15.5779,27.082-30.9441,36.637-49.2245c30.2678-52.5713,31.2701-117.9753,12.8795-174.6998c-13.9058-42.0941-43.6952-77.9916-80.674-102.0542C586.0027,56.07,516.3781,46.8071,455.4235,66.1424z M590.3859,152.6449c35.858,21.975,61.7482,60.9593,64.8013,103.2316c4.816,47.8885-19.7172,97.2808-60.3073,122.9215c-14.9481,9.7766-31.9865,15.9811-49.3969,19.4317c-3.9196,1.248-10.6946,0.8896-10.3176,6.8194c-0.7255,9.7962,2.2458,19.8047-1.2086,29.286c-10.6701,0.2019-15.4357-10.6922-22.0568-17.125c-12.06-14.5729-34.2052-16.3871-50.3849-8.2208c-21.0975,9.5914-32.5003,32.4406-35.6277,54.3883c-4.3816,27.7741,2.1835,59.8391,24.7355,78.3736c17.1709,14.8664,45.9146,15.0294,61.9397-1.5718c5.8635-6.509,10.3444-17.8304,20.7899-17.1146c4.5142,10.9116,0.8486,22.5371,0.8004,33.7661c28.3914,4.953,57.049,14.7596,77.7832,35.6943c48.924,42.6865,57.3423,123.0994,17.7656,174.6948c-22.9255,31.0155-58.7788,53.1497-97.6028,55.963c-33.1117,3.4619-66.901-7.4676-93.0364-27.701c-35.6729-28.1241-56.2947-74.9119-51.0098-120.2916c3.0522-31.8329,20.527-60.2668,42.0326-83.1698c-23.9846-20.9613-47.7036-42.2656-71.6544-63.2652c-19.6789,24.2558-45.584,46.7074-77.8283,50.1813c-55.5916,5.6416-111.0992-41.3868-113.423-97.535c-1.8406-38.8557,22.0823-76.7988,57.1049-93.244c29.2238-14.7057,66.0112-14.6336,94.302,2.3456c15.801,8.6812,28.0173,22.3768,38.3102,36.9644c26.0116-18.8495,48.4291-42.141,73.6849-61.9848c-22.0155-24.3114-38.4592-54.6412-42.0161-87.5662c-8.1386-65.5243,43.349-130.0781,107.2407-141.9646C527.9047,129.3482,562.4468,135.5323,590.3859,152.6449z"/></svg>`;
 
     const MONTH_NAMES = ["January","February","March","April","May","June",
                         "July","August","September","October","November","December"];
@@ -6480,8 +6718,9 @@
             if (loaderPreloader) loaderPreloader.classList.add('book-btn-preloader--offline');
             if (loaderText) {
                 loaderText.textContent = String(message || CALENDAR_LOAD_FAILURE_TEXT);
-                loaderText.style.display = 'block';
-                loaderText.style.opacity = '1';
+                const showInlineError = !headerTitle;
+                loaderText.style.display = showInlineError ? 'block' : 'none';
+                loaderText.style.opacity = showInlineError ? '1' : '0';
             }
         }
     }
@@ -6498,7 +6737,11 @@
             calWrapper.classList.remove('calendar--loading');
             calWrapper.classList.add('calendar--loaded');
         }
-        if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
+        if (headerTitle) {
+            headerTitle.classList.remove('calendar-title--loading');
+            headerTitle.classList.add('calendar-title--warning');
+            headerTitle.textContent = String(message || CALENDAR_LOAD_FAILURE_TEXT);
+        }
 
         setCalendarLoaderState('error', message);
         setHeaderNearestSlotHint('Nearest appointment: unavailable.');
@@ -6550,9 +6793,13 @@
         slotsBlock.style.display = 'none';
         slotsDayDisplay.textContent = '';
         if (calWrapper) calWrapper.classList.add('calendar--loading');
-        if (headerTitle) headerTitle.classList.add('calendar-title--loading');
+        if (headerTitle) {
+            headerTitle.classList.remove('calendar-title--warning');
+            headerTitle.classList.add('calendar-title--loading');
+        }
         setCalendarLoaderState('loading');
         if (calLoaderStatus) calLoaderStatus.textContent = 'Loading...';
+        setHeaderNearestSlotHint(HEADER_NEAREST_HINT_LOADING_TEXT);
         setCalendarPrevButtonEnabled(false);
 
         try {
@@ -6674,7 +6921,7 @@
                 const isToday  = date.getTime() === torNow.getTime();
 
                 if (isSaturday) {
-                    el.innerHTML = `<span class="cal-key" aria-hidden="true"><img src="key.svg" alt="" loading="lazy" decoding="async"></span>`;
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true">${CALENDAR_KEY_SVG}</span>`;
                 } else {
                     el.textContent = day;
                 }
@@ -6728,7 +6975,10 @@
 
             setCalendarLoaderState('hidden');
             if (calWrapper) calWrapper.classList.remove('calendar--loading');
-            if (headerTitle) headerTitle.classList.remove('calendar-title--loading');
+            if (headerTitle) {
+                headerTitle.classList.remove('calendar-title--loading');
+                headerTitle.classList.remove('calendar-title--warning');
+            }
             // Smoothly reveal calendar after slots are loaded
             if (calWrapper) {
                 setTimeout(() => {
@@ -6894,7 +7144,7 @@
             month: 'long',
             timeZone: 'UTC'
         });
-        return `(${day} ${monthName} ${year})`;
+        return `${day} ${monthName} ${year}`;
     }
 
     function selectDay(day, el, isAuto = false) {
@@ -6929,6 +7179,8 @@
             btn.innerHTML = `<div class="slot-icon-wrapper">${svg}</div><div class="slot-time"><span style="font-weight: 800">${t} - ${end}</span><span class="slot-date-legal">${legalDateLabel}</span></div>`;
             btn.style.setProperty('--i', availableDaysCount + idx);
             btn.style.setProperty('--slot-idx', idx);
+            btn.style.setProperty('--slot-rand-delay', `${(Math.random() * 1.8).toFixed(2)}s`);
+            btn.style.setProperty('--slot-rand-duration', `${(9.6 + Math.random() * 4.4).toFixed(2)}s`);
             btn.onclick = () => {
                 btn.classList.add('slot-btn--clicked');
                 if (isFormCalendarOverlayActive && modal && modal.classList.contains('modal--active')) {
@@ -6942,8 +7194,7 @@
 
         slotsBlock.style.display = free.length ? 'block' : 'none';
         if (!free.length) {
-            slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight: 800;font-size:1.1rem;margin-top:16px">No available slots for this day.<br>Please select another day.</p>`;
-            slotsBlock.style.display = 'block';
+            slotsGrid.innerHTML = '';
             refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
             return;
         }
@@ -7636,7 +7887,7 @@
         return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
   <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
   <line x1="12" y1="12" x2="12" y2="8.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${hourAngle}deg);" />
-  <line x1="12" y1="12" x2="12" y2="5.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
+  <line x1="12" y1="12" x2="12" y2="6.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
 </svg>`;
     }
 
@@ -7848,10 +8099,15 @@
         return 'success';
     }
 
+    function normalizeBookingNoticeMessage(message) {
+        const text = String(message || '').trim();
+        return text.replace(/\.+$/, '');
+    }
+
     function setBookingNotice(message, tone = 'success') {
         if (!bookingStatus) return;
         const safeTone = normalizeBookingStatusTone(tone);
-        bookingStatus.textContent = String(message || '');
+        bookingStatus.textContent = normalizeBookingNoticeMessage(message);
         bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
         if (bookingStatus.textContent) {
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
@@ -10450,10 +10706,21 @@
         const nodes = document.querySelectorAll('.book-btn-preloader__text');
         nodes.forEach(node => {
             const raw = String(node.textContent || '').trim();
-            if (!raw) return;
-            if (/slot\s*no\s*found/i.test(raw) || /slots\s*no\s*found/i.test(raw) || /slot\s*not\s*fount/i.test(raw)) {
-                node.textContent = 'NO SLOTS FOUND';
+            if (!raw) {
+                node.classList.remove('book-btn-preloader__text--service');
+                return;
             }
+            if (
+                /slot\s*no\s*found/i.test(raw) ||
+                /slots\s*no\s*found/i.test(raw) ||
+                /slot\s*not\s*fount/i.test(raw) ||
+                /no\s*slots?\s*found/i.test(raw)
+            ) {
+                node.textContent = 'NO SLOTS FOUND';
+                node.classList.add('book-btn-preloader__text--service');
+                return;
+            }
+            node.classList.remove('book-btn-preloader__text--service');
         });
     }
 
@@ -10479,17 +10746,23 @@
         return String(slot.text).split(/[-\u2013]/)[0].trim();
     }
 
-    const HEADER_NEAREST_HINT_LOADING_SEQUENCE = [
-        'Hello ...',
-        'Syncing with your calendar...',
-        'Looking for an available slot...'
+    const HEADER_TYPEWRITER_LOADING_SEQUENCE = [
+        'Hello!',
+        'Connecting to the calendar to load court schedule...'
     ];
+    const HEADER_BOOK_DING_ONCE_KEY = 'hd_header_book_ding_once_v1';
+    const HEADER_NEAREST_HINT_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
     const HEADER_NEAREST_HINT_LOADING_TEXT = HEADER_NEAREST_HINT_LOADING_SEQUENCE[0];
     const HEADER_NEAREST_HINT_LOADING_FINAL_TEXT =
         HEADER_NEAREST_HINT_LOADING_SEQUENCE[HEADER_NEAREST_HINT_LOADING_SEQUENCE.length - 1];
+    const HEADER_NO_SLOT_NOTICE_TEXT = 'We sincerely apologize. At this moment, no immediate appointment slot is available in our Ontario scheduling agenda. This administrative notice is provided for coordination purposes only and does not constitute legal advice. Please click below and we will place your request for manual agenda scheduling without selecting a date or time.';
+    const HEADER_NO_SLOT_NOTICE_OFFLINE_TEXT = 'We sincerely apologize. At this moment, immediate scheduling is temporarily unavailable due to connection status. This administrative notice is not legal advice. Please click below and we will place your request in our agenda for manual follow-up without selecting a date or time.';
     const HEADER_NEAREST_HINT_UNLOCK_EVENT = 'header-book-btn-first-particles-done';
     const HEADER_NEAREST_HINT_RESOLVED_RE = /^Nearest appointment:\s*\d{4}\.\d{2}\.\d{2}(?:\s+at\s+\d{1,2}:\d{2}\s*(?:AM|PM))?/i;
     const HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS = 10000;
+    const TYPEWRITER_PHASE_VISIBLE_PAUSE_MS = 500;
+    const TYPEWRITER_PHASE_HIDDEN_PAUSE_MS = 500;
+    const TYPEWRITER_HELLO_VISIBLE_PAUSE_MS = 2500;
     let headerNearestHintTypewriterTimer = null;
     let headerNearestHintTypewriterToken = 0;
     let headerNearestHintTypewriterActive = false;
@@ -10498,8 +10771,11 @@
     let headerNearestHintLastRenderedText = '';
     let headerNearestHintResolvedTypingUnlocked = false;
     let headerNearestHintQueuedResolvedText = '';
-    const HEADER_PRELOADER_BOOT_TEXT_PRIMARY = 'Loading calendar availability...';
-    const HEADER_PRELOADER_SEARCH_TEXT = 'Looking for a free slot...';
+    let headerNearestHintHelloLockActive = false;
+    let headerNearestHintDeferredText = null;
+    const HEADER_PRELOADER_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
+    const HEADER_PRELOADER_SEARCH_TEXT =
+        HEADER_PRELOADER_LOADING_SEQUENCE[HEADER_PRELOADER_LOADING_SEQUENCE.length - 1];
     let headerPreloaderSearchTypewriterTimer = null;
     let headerPreloaderSearchTypewriterToken = 0;
     let headerPreloaderSearchTypewriterActive = false;
@@ -10508,16 +10784,25 @@
     let headerPreloaderBootSequenceDone = false;
     let headerNearestHintFirstSparkTriggered = false;
 
-    function clearHeaderNearestHintTypewriter() {
+    function clearHeaderNearestHintTypewriter(options = {}) {
+        const preserveText = !!(options && options.preserveText);
         if (headerNearestHintTypewriterTimer) {
             clearTimeout(headerNearestHintTypewriterTimer);
             headerNearestHintTypewriterTimer = null;
+        }
+        const hintEl = document.getElementById('headerNearestSlotHint');
+        if (hintEl && hintEl.classList) {
+            hintEl.classList.remove('header-nearest-slot-hint--typing');
+        }
+        if (!preserveText && hintEl) {
+            hintEl.textContent = '';
         }
         headerNearestHintTypewriterActive = false;
         headerNearestHintTypewriterTargetText = '';
     }
 
-    function clearHeaderPreloaderSearchTypewriter() {
+    function clearHeaderPreloaderSearchTypewriter(options = {}) {
+        const preserveText = !!(options && options.preserveText);
         if (headerPreloaderSearchTypewriterTimer) {
             clearTimeout(headerPreloaderSearchTypewriterTimer);
             headerPreloaderSearchTypewriterTimer = null;
@@ -10525,9 +10810,31 @@
         const activeNode = headerPreloaderSearchTypewriterNode;
         if (activeNode && activeNode.classList) {
             activeNode.classList.remove('book-btn-preloader__text--typing');
+            activeNode.classList.remove(
+                'book-btn-preloader__text--phase-1',
+                'book-btn-preloader__text--phase-2'
+            );
+        }
+        if (!preserveText && activeNode) {
+            activeNode.textContent = '';
+            activeNode.style.display = 'none';
+            activeNode.style.opacity = '0';
         }
         headerPreloaderSearchTypewriterActive = false;
         headerPreloaderSearchTypewriterNode = null;
+    }
+
+    function setHeaderPreloaderTypingPhase(node, phaseIndex) {
+        if (!node || !node.classList) return;
+        node.classList.remove(
+            'book-btn-preloader__text--phase-1',
+            'book-btn-preloader__text--phase-2'
+        );
+        const safeIndex = Math.max(0, Number(phaseIndex) || 0);
+        const phaseClass = safeIndex <= 0
+            ? 'book-btn-preloader__text--phase-1'
+            : 'book-btn-preloader__text--phase-2';
+        node.classList.add(phaseClass);
     }
 
     function maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText) {
@@ -10554,20 +10861,26 @@
         clearHeaderPreloaderSearchTypewriter();
         headerPreloaderSearchTypewriterToken += 1;
         const runToken = headerPreloaderSearchTypewriterToken;
+        const targetText = String(finalText || '').trim() || HEADER_PRELOADER_SEARCH_TEXT;
         const runBootSequence = !headerPreloaderBootSequenceDone;
         if (runBootSequence) {
             headerPreloaderBootSequenceDone = true;
         }
         const phases = runBootSequence
-            ? [HEADER_PRELOADER_BOOT_TEXT_PRIMARY, finalText]
-            : [finalText];
+            ? HEADER_PRELOADER_LOADING_SEQUENCE.slice()
+            : [targetText];
+        if (runBootSequence && phases[phases.length - 1] !== targetText) {
+            phases.push(targetText);
+        }
         let phaseIndex = 0;
         let index = 0;
 
         headerPreloaderSearchTypewriterActive = true;
         headerPreloaderSearchTypewriterNode = node;
         node.textContent = '';
+        node.classList.add('book-btn-preloader__text--loading');
         node.classList.add('book-btn-preloader__text--typing');
+        setHeaderPreloaderTypingPhase(node, phaseIndex);
 
         const schedule = (fn, delay) => {
             headerPreloaderSearchTypewriterTimer = setTimeout(fn, delay);
@@ -10580,22 +10893,29 @@
             return delay;
         };
 
-        const eraseCurrent = () => {
-            if (runToken !== headerPreloaderSearchTypewriterToken) return;
-            if (!node || !node.isConnected) {
-                clearHeaderPreloaderSearchTypewriter();
-                return;
-            }
-            const currentText = phases[phaseIndex] || '';
-            if (index <= 0) {
-                phaseIndex += 1;
-                index = 0;
-                schedule(typeNext, randomInt(90, 180));
-                return;
-            }
-            index -= 1;
-            node.textContent = currentText.slice(0, index);
-            schedule(eraseCurrent, randomInt(10, 24));
+        const queueNextPhase = () => {
+            const visiblePause = phaseIndex === 0
+                ? TYPEWRITER_HELLO_VISIBLE_PAUSE_MS
+                : TYPEWRITER_PHASE_VISIBLE_PAUSE_MS;
+            schedule(() => {
+                if (runToken !== headerPreloaderSearchTypewriterToken) return;
+                if (!node || !node.isConnected) {
+                    clearHeaderPreloaderSearchTypewriter();
+                    return;
+                }
+                node.textContent = '';
+                schedule(() => {
+                    if (runToken !== headerPreloaderSearchTypewriterToken) return;
+                    if (!node || !node.isConnected) {
+                        clearHeaderPreloaderSearchTypewriter();
+                        return;
+                    }
+                    phaseIndex += 1;
+                    index = 0;
+                    setHeaderPreloaderTypingPhase(node, phaseIndex);
+                    typeNext();
+                }, TYPEWRITER_PHASE_HIDDEN_PAUSE_MS);
+            }, visiblePause);
         };
 
         const typeNext = () => {
@@ -10609,12 +10929,13 @@
             if (index >= currentText.length) {
                 node.textContent = currentText;
                 if (phaseIndex < phases.length - 1) {
-                    schedule(eraseCurrent, randomInt(240, 360));
+                    queueNextPhase();
                     return;
                 }
-                clearHeaderPreloaderSearchTypewriter();
+                clearHeaderPreloaderSearchTypewriter({ preserveText: true });
                 headerPreloaderSearchTypedOnce = true;
                 headerPreloaderBootSequenceDone = true;
+                setHeaderPreloaderTypingPhase(node, phases.length - 1);
                 return;
             }
 
@@ -10636,6 +10957,7 @@
         if (headerPreloaderSearchTypewriterActive && headerPreloaderSearchTypewriterNode === node) return;
         if (headerPreloaderSearchTypedOnce) {
             node.classList.remove('book-btn-preloader__text--typing');
+            setHeaderPreloaderTypingPhase(node, HEADER_PRELOADER_LOADING_SEQUENCE.length - 1);
             node.textContent = HEADER_PRELOADER_SEARCH_TEXT;
             return;
         }
@@ -10644,6 +10966,75 @@
 
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function hasHeaderBookDingPlayed() {
+        try {
+            return window.localStorage && window.localStorage.getItem(HEADER_BOOK_DING_ONCE_KEY) === '1';
+        } catch (_) {
+            return false;
+        }
+    }
+
+    function markHeaderBookDingPlayed() {
+        try {
+            if (window.localStorage) {
+                window.localStorage.setItem(HEADER_BOOK_DING_ONCE_KEY, '1');
+            }
+        } catch (_) {
+            // Ignore storage errors in private mode or restricted environments.
+        }
+    }
+
+    function playHeaderBookDingOnce() {
+        if (hasHeaderBookDingPlayed()) return;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) {
+            markHeaderBookDingPlayed();
+            return;
+        }
+
+        try {
+            const ctx = new AudioCtx();
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const compressor = ctx.createDynamicsCompressor();
+
+            if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
+                ctx.resume().catch(() => {});
+            }
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, now);
+            osc.frequency.exponentialRampToValueAtTime(1320, now + 0.16);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.14, now + 0.012);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.36);
+
+            compressor.threshold.setValueAtTime(-24, now);
+            compressor.knee.setValueAtTime(14, now);
+            compressor.ratio.setValueAtTime(6, now);
+            compressor.attack.setValueAtTime(0.002, now);
+            compressor.release.setValueAtTime(0.12, now);
+
+            osc.connect(gain);
+            gain.connect(compressor);
+            compressor.connect(ctx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.37);
+            markHeaderBookDingPlayed();
+
+            osc.onended = () => {
+                if (typeof ctx.close === 'function') {
+                    ctx.close().catch(() => {});
+                }
+            };
+        } catch (_) {
+            markHeaderBookDingPlayed();
+        }
     }
 
     function buildHumanTypeDelays(text) {
@@ -10686,8 +11077,11 @@
         let phaseIndex = 0;
         let index = 0;
 
+        headerNearestHintHelloLockActive = true;
+        headerNearestHintDeferredText = null;
         headerNearestHintTypewriterActive = true;
         headerNearestHintTypewriterTargetText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+        hintEl.classList.add('header-nearest-slot-hint--typing');
         hintEl.textContent = '';
 
         const schedule = (fn, delay) => {
@@ -10701,18 +11095,29 @@
             return delay;
         };
 
-        const eraseCurrent = () => {
-            if (runToken !== headerNearestHintTypewriterToken) return;
-            const currentText = phases[phaseIndex] || '';
-            if (index <= 0) {
-                phaseIndex += 1;
-                index = 0;
-                schedule(typeNext, randomInt(110, 220));
-                return;
-            }
-            index -= 1;
-            hintEl.textContent = currentText.slice(0, index);
-            schedule(eraseCurrent, randomInt(12, 28));
+        const queueNextPhase = () => {
+            const visiblePause = phaseIndex === 0
+                ? TYPEWRITER_HELLO_VISIBLE_PAUSE_MS
+                : TYPEWRITER_PHASE_VISIBLE_PAUSE_MS;
+            schedule(() => {
+                if (runToken !== headerNearestHintTypewriterToken) return;
+                if (phaseIndex === 0) {
+                    headerNearestHintHelloLockActive = false;
+                    if (headerNearestHintDeferredText !== null) {
+                        const deferredAfterHello = headerNearestHintDeferredText;
+                        headerNearestHintDeferredText = null;
+                        setHeaderNearestSlotHint(deferredAfterHello);
+                        return;
+                    }
+                }
+                hintEl.textContent = '';
+                schedule(() => {
+                    if (runToken !== headerNearestHintTypewriterToken) return;
+                    phaseIndex += 1;
+                    index = 0;
+                    typeNext();
+                }, TYPEWRITER_PHASE_HIDDEN_PAUSE_MS);
+            }, visiblePause);
         };
 
         const typeNext = () => {
@@ -10722,9 +11127,10 @@
             if (index >= currentText.length) {
                 hintEl.textContent = currentText;
                 if (phaseIndex < phases.length - 1) {
-                    schedule(eraseCurrent, randomInt(260, 420));
+                    queueNextPhase();
                     return;
                 }
+                headerNearestHintHelloLockActive = false;
                 clearHeaderNearestHintTypewriter();
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
@@ -10752,6 +11158,7 @@
 
         headerNearestHintTypewriterActive = true;
         headerNearestHintTypewriterTargetText = finalText;
+        hintEl.classList.add('header-nearest-slot-hint--typing');
         hintEl.textContent = '';
 
         const typeNext = () => {
@@ -10760,7 +11167,7 @@
             const now = performance.now();
             if (index >= finalText.length || now >= deadline) {
                 hintEl.textContent = finalText;
-                clearHeaderNearestHintTypewriter();
+                clearHeaderNearestHintTypewriter({ preserveText: true });
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = finalText;
                 maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
@@ -10771,7 +11178,7 @@
             hintEl.textContent = finalText.slice(0, index);
 
             if (index >= finalText.length) {
-                clearHeaderNearestHintTypewriter();
+                clearHeaderNearestHintTypewriter({ preserveText: true });
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = finalText;
                 maybeTriggerHeaderBookFirstParticlesAfterTypewriter(finalText);
@@ -10793,11 +11200,33 @@
 
     function setHeaderNearestSlotHint(message) {
         const hintEl = document.getElementById('headerNearestSlotHint');
-        if (!hintEl) return;
         const nextText = String(message || '').trim();
+        const isLoadingText = nextText === HEADER_NEAREST_HINT_LOADING_TEXT;
+        if (!isLoadingText && headerNearestHintHelloLockActive) {
+            headerNearestHintDeferredText = nextText;
+            return;
+        }
+        const noSlotWrap = document.getElementById('headerNoSlotNotice');
+        const noSlotText = document.getElementById('headerNoSlotNoticeText');
+        const isUnavailable = /^Nearest appointment:\s*unavailable/i.test(nextText);
+        const isOfflineUnavailable = isUnavailable && /no internet connection/i.test(nextText);
+        if (noSlotWrap && noSlotText) {
+            if (isUnavailable) {
+                noSlotText.textContent = isOfflineUnavailable
+                    ? HEADER_NO_SLOT_NOTICE_OFFLINE_TEXT
+                    : HEADER_NO_SLOT_NOTICE_TEXT;
+                noSlotWrap.classList.add('header-no-slot-notice--visible');
+            } else {
+                noSlotText.textContent = '';
+                noSlotWrap.classList.remove('header-no-slot-notice--visible');
+            }
+        }
+        if (!hintEl) return;
         hintEl.classList.toggle('header-nearest-slot-hint--visible', Boolean(nextText));
 
         if (!nextText) {
+            headerNearestHintHelloLockActive = false;
+            headerNearestHintDeferredText = null;
             clearHeaderNearestHintTypewriter();
             headerNearestHintLoadingTypedOnce = false;
             headerNearestHintQueuedResolvedText = '';
@@ -10806,7 +11235,7 @@
             return;
         }
 
-        if (nextText === HEADER_NEAREST_HINT_LOADING_TEXT) {
+        if (isLoadingText) {
             if (
                 headerNearestHintTypewriterActive &&
                 headerNearestHintTypewriterTargetText === HEADER_NEAREST_HINT_LOADING_FINAL_TEXT
@@ -10892,7 +11321,7 @@
                     }
                     renderFooterBookBtnText(t.txt, dayOfWeekFull, fallbackSlot ? fallbackSlot.date : '', lastTimeStr);
                 }
-                t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
+                t.btn.style.transition = 'opacity 0.5s, transform 0.5s, background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease';
                 t.btn.style.opacity = '1';
                 t.btn.style.transform = 'scale(1)';
                 t.btn.style.pointerEvents = 'auto';
@@ -10917,8 +11346,8 @@
                 const offlineNode = t.preloader.querySelector('.book-btn-preloader__text');
                 if (offlineNode) {
                     offlineNode.classList.remove('book-btn-preloader__text--loading');
-                    offlineNode.textContent = 'NO INTERNET CONNECTION';
-                    offlineNode.style.display = 'block';
+                    offlineNode.textContent = '';
+                    offlineNode.style.display = 'none';
                     offlineNode.style.opacity = '1';
                 }
 
@@ -10970,7 +11399,7 @@
                     loadingNode.style.opacity = '0';
                 }
 
-                t.btn.style.transition = 'opacity 0.5s, transform 0.5s';
+                t.btn.style.transition = 'opacity 0.5s, transform 0.5s, background-color 0.28s ease, border-color 0.28s ease, color 0.28s ease';
                 t.btn.style.opacity = '1';
                 t.btn.style.transform = 'scale(1)';
                 t.btn.style.pointerEvents = 'auto';
@@ -10983,7 +11412,14 @@
                 t.btn.style.opacity = '0';
                 t.btn.style.pointerEvents = 'none';
                 if (t.btn.id === 'headerBookBtn') {
-                    setHeaderNearestSlotHint(HEADER_NEAREST_HINT_LOADING_TEXT);
+                    const calWrapperEl = document.getElementById('bookingCalendar');
+                    const isCalendarLoading = !!(calWrapperEl && calWrapperEl.classList.contains('calendar--loading'));
+                    const hasPreloaderError = !!(t.preloader && t.preloader.classList.contains('book-btn-preloader--error'));
+                    setHeaderNearestSlotHint(
+                        (isCalendarLoading && !hasPreloaderError)
+                            ? HEADER_NEAREST_HINT_LOADING_TEXT
+                            : 'Nearest appointment: unavailable.'
+                    );
                 }
 
                 // Cancel any previously scheduled error timer for this target
@@ -11008,7 +11444,10 @@
                 if (svg) svg.style.animation = '';
                 const errText = t.preloader.querySelector('.book-btn-preloader__text');
                 if (errText) {
-                    showHeaderPreloaderSearchText(errText);
+                    errText.classList.remove('book-btn-preloader__text--loading');
+                    errText.textContent = '';
+                    errText.style.display = 'none';
+                    errText.style.opacity = '0';
                 }
 
                 t._errorTimer = setTimeout(() => {
@@ -11019,9 +11458,13 @@
                     const errNode = t.preloader.querySelector('.book-btn-preloader__text');
                     if (errNode) {
                         errNode.classList.remove('book-btn-preloader__text--loading');
-                        errNode.textContent = 'NO SLOTS FOUND';
-                        errNode.style.display = 'block';
-                        errNode.style.opacity = '1';
+                        errNode.textContent = '';
+                        errNode.style.display = 'none';
+                        errNode.style.opacity = '0';
+                    }
+                    if (t.btn.id === 'headerBookBtn') {
+                        // Hide the trailing loading typewriter when error state is shown.
+                        setHeaderNearestSlotHint('');
                     }
                 }, 20000);
             }
@@ -11031,7 +11474,10 @@
     window.addEventListener('online', updateFooterBookBtn);
     window.addEventListener('offline', updateFooterBookBtn);
 
-    function bookNearestSlot() {
+    function bookNearestSlot(source = '') {
+        if (source === 'header') {
+            playHeaderBookDingOnce();
+        }
         if (absoluteNearestDate && nearestSlotData) {
             selectedDate = absoluteNearestDate;
             stageBookingAfterIntake(nearestSlotData);
