@@ -1415,10 +1415,9 @@
             padding: clamp(1.05rem, 2.9vh, 1.65rem) 0.65rem 0.5rem;
             background: linear-gradient(
                 to bottom,
-                rgba(107, 91, 74, 0.00) 0%,
-                rgba(107, 91, 74, 0.00) 50%,
-                rgba(107, 91, 74, 0.42) 72%,
-                rgba(107, 91, 74, 0.82) 86%,
+                rgba(107, 91, 74, 0.32) 0%,
+                rgba(107, 91, 74, 0.14) 8%,
+                rgba(107, 91, 74, 1.00) 18%,
                 rgba(107, 91, 74, 1.00) 100%
             );
             backdrop-filter: none;
@@ -2872,27 +2871,7 @@
         }
 
         .slot-btn--hypnotic::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 180%;
-            height: 180%;
-            transform: translate(-50%, -50%) scale(0.82);
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(255, 255, 255, 0.96) 0%,
-                rgba(255, 255, 255, 0.62) 24%,
-                rgba(255, 255, 255, 0.22) 46%,
-                rgba(255, 255, 255, 0.04) 64%,
-                rgba(255, 255, 255, 0) 78%
-            );
-            filter: blur(18px);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 220ms ease, transform 950ms ease;
+            content: none;
         }
 
         .slot-btn--hypnotic > * {
@@ -2910,25 +2889,11 @@
             border-color: rgba(255, 255, 255, 0.9);
             transform: translateY(-2px);
             animation: none;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-        }
-
-        .slot-btn--hypnotic:hover::after,
-        .slot-btn--hypnotic:focus-visible::after {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.04);
-            animation: slotHoverHypnoticGlowPulse 1.25s ease-in-out infinite alternate;
-        }
-
-        @keyframes slotHoverHypnoticGlowPulse {
-            0% {
-                opacity: 0.86;
-                transform: translate(-50%, -50%) scale(0.96);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.08);
-            }
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 0 0.75rem rgba(255, 255, 255, 0.18),
+                0 0 1.7rem rgba(255, 255, 255, 0.14),
+                0 0 2.8rem rgba(255, 255, 255, 0.1);
         }
 
         @keyframes slotRevealRise {
@@ -4372,27 +4337,21 @@
             left: 0;
             width: 100%;
             height: 7.5rem;
-            background: linear-gradient(
-                to top,
-                rgba(90, 61, 42, 0.42) 0%,
-                rgba(90, 61, 42, 0.42) 86%,
-                rgba(90, 61, 42, 0.18) 95%,
-                rgba(90, 61, 42, 0) 100%
-            );
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(1.3rem);
+            -webkit-backdrop-filter: blur(1.3rem);
             z-index: 10000;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             padding: 0 1.3rem 0.9rem;
-            border-top: none;
+            border-top: 1px solid var(--glass-border);
             opacity: 1;
             transform: translateY(0);
             pointer-events: none;
-            transition: opacity 0.25s ease;
-            -webkit-mask-image: none;
-            mask-image: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
         }
 
         .services-content {
@@ -5193,7 +5152,7 @@
                 <span id="headerBookBtnText">BOOK</span>
             </button>
         </div>
-        <p id="headerNearestSlotHint" class="header-nearest-slot-hint" aria-live="polite"></p>
+        <p id="headerNearestSlotHint" class="header-nearest-slot-hint header-nearest-slot-hint--visible" aria-live="polite">Hello ...</p>
     </div>
 
     <div class="header__content-block">
@@ -5698,7 +5657,7 @@
                                         </span>
                                     </span>
                                 </button>
-                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Upload files: Images: JPG, PNG. Videos: MOV, MP4. Docs: PDF, DOC, DOCX. Up to 50 files, max 99 MB each, 500 MB total.</p>
+                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Upload files: Images: JPG, PNG. Videos: MOV, MP4. Docs: PDF, DOC, DOCX. Up to 50 files, max 100 MB each, 500 MB total.</p>
                             </div>
                             <div class="file-attach__list" id="fileAttachList" style="width: 100%;"></div>
                         </div>
@@ -8327,7 +8286,7 @@
     }
 
     // File Attachment Handling
-    const MAX_FILE_SIZE = 99 * 1024 * 1024;  // 99 MB per file
+    const MAX_FILE_SIZE = 100 * 1024 * 1024;  // 100 MB per file
     const MAX_TOTAL_SIZE = 500 * 1024 * 1024; // 500 MB total
     const MAX_FILE_COUNT = 100;
     const TEST_FILES_BATCH_LIMIT = 10;
@@ -8872,7 +8831,7 @@
             if (attachedFiles.length >= MAX_FILE_COUNT) {
                 rejected.push(`${f.name}: max ${MAX_FILE_COUNT} files`);
             } else if (f.size > MAX_FILE_SIZE) {
-                rejected.push(`${f.name}: exceeds 99 MB`);
+                rejected.push(`${f.name}: exceeds 100 MB`);
             } else if (getTotalFileSize() + f.size > MAX_TOTAL_SIZE) {
                 rejected.push(`${f.name}: total exceeds 500 MB`);
             } else if (!isAllowedFile(f)) {
@@ -9465,7 +9424,10 @@
         if (modalBody && modalBody.contains(target)) {
             const bodyRect = modalBody.getBoundingClientRect();
             const targetRect = target.getBoundingClientRect();
-            const topOffset = Math.max(22, Math.round(modalBody.clientHeight * 0.12));
+            const isServicePicker = Boolean(fieldEl.closest('#customSelect'));
+            const defaultTopOffset = Math.max(22, Math.round(modalBody.clientHeight * 0.12));
+            const servicePickerTopOffset = Math.max(46, Math.round(modalBody.clientHeight * 0.19));
+            const topOffset = isServicePicker ? servicePickerTopOffset : defaultTopOffset;
             const nextTop = modalBody.scrollTop + (targetRect.top - bodyRect.top) - topOffset;
             modalBody.scrollTo({
                 top: Math.max(0, nextTop),
@@ -10452,7 +10414,7 @@
         return String(slot.text).split(/[-\u2013]/)[0].trim();
     }
 
-    const HEADER_NEAREST_HINT_LOADING_TEXT = 'Nearest appointment: checking availability...';
+    const HEADER_NEAREST_HINT_LOADING_TEXT = 'Hello ...';
     const HEADER_NEAREST_HINT_UNLOCK_EVENT = 'header-book-btn-first-particles-done';
     const HEADER_NEAREST_HINT_RESOLVED_RE = /^Nearest appointment:\s*\d{4}\.\d{2}\.\d{2}(?:\s+at\s+\d{1,2}:\d{2}\s*(?:AM|PM))?/i;
     const HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS = 10000;
@@ -10852,7 +10814,7 @@
                         ? `Nearest appointment: ${nearestDateLabel} at ${nearestTimeLabel}`
                         : (nearestDateLabel
                             ? `Nearest appointment: ${nearestDateLabel}`
-                            : 'Nearest appointment: checking availability...');
+                            : HEADER_NEAREST_HINT_LOADING_TEXT);
                     setHeaderNearestSlotHint(hintText);
                 }
                 
@@ -10881,7 +10843,7 @@
                 t.btn.style.opacity = '0';
                 t.btn.style.pointerEvents = 'none';
                 if (t.btn.id === 'headerBookBtn') {
-                    setHeaderNearestSlotHint('Nearest appointment: checking availability...');
+                    setHeaderNearestSlotHint(HEADER_NEAREST_HINT_LOADING_TEXT);
                 }
 
                 // Cancel any previously scheduled error timer for this target
