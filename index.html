@@ -1342,16 +1342,18 @@
             position: sticky;
             left: auto;
             right: auto;
-            bottom: calc(-1 * var(--sticky-bottom-bleed));
+            bottom: 0;
             z-index: 25;
-            margin: 0 0 calc(-1 * var(--sticky-bottom-bleed));
-            padding: 0.65rem 0.65rem calc(0.95rem + var(--sticky-bottom-bleed));
+            margin: 0;
+            padding: 3.2rem 0.65rem 4rem;
             background: linear-gradient(
                 to top,
                 rgba(107, 91, 74, 1.00) 0%,
-                rgba(107, 91, 74, 1.00) 36%,
-                rgba(107, 91, 74, 0.96) 45%,
-                rgba(107, 91, 74, 0.00) 52%,
+                rgba(107, 91, 74, 1.00) 40%,
+                rgba(107, 91, 74, 0.98) 50%,
+                rgba(107, 91, 74, 0.90) 60%,
+                rgba(107, 91, 74, 0.70) 70%,
+                rgba(107, 91, 74, 0.35) 85%,
                 rgba(107, 91, 74, 0.00) 100%
             );
             backdrop-filter: none;
@@ -1417,7 +1419,7 @@
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
             position: sticky;
-            bottom: calc(-1 * var(--sticky-bottom-bleed));
+            bottom: 0;
             width: 100%;
             box-sizing: border-box;
             display: grid;
