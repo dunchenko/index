@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
@@ -821,7 +821,9 @@
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
-            gap: 0;
+            gap: 0.3rem;
+            white-space: nowrap;
+            flex-wrap: nowrap;
         }
         
         .contact-form__terms-link {
@@ -2127,17 +2129,22 @@
         }
 
         .final-result-form__icon {
-            color: var(--accent-gold);
-            margin: 0 auto 0.95rem;
+            color: #ffffff;
+            margin: 0 auto 1.05rem;
             position: relative;
             display: flex;
-            width: 5.35rem;
-            height: 5.35rem;
+            width: 6.25rem;
+            height: 6.25rem;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0;
+            background: none;
+            border: none;
+        }
+
+        .final-result-form__icon svg {
+            width: 100%;
+            height: 100%;
         }
 
         .final-result-form__hello {
@@ -2608,7 +2615,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled):not(.cal-day--closed) {
+        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
             background: rgba(255, 255, 255, 0.25); /* Increased from 0.15 */
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
@@ -2631,13 +2638,13 @@
             cursor: pointer;
             pointer-events: auto;
             background: rgba(255, 255, 255, 0.1);
-            border: none !important;
+            border: 1px solid transparent !important;
         }
 
         .cal-day--closed:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border: none !important;
-            transform: none;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            transform: translateY(-2px);
         }
 
         .cal-day--selected {
@@ -2687,8 +2694,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 1.4rem;
-            height: 1.4rem;
+            --calendar-key-size: clamp(1.55rem, 3.8vw, 2.35rem);
+            width: var(--calendar-key-size);
+            height: var(--calendar-key-size);
             line-height: 0;
             /* previous upward offset removed so icon sits exactly in the centre */
             margin-top: 0;
@@ -2871,7 +2879,27 @@
         }
 
         .slot-btn--hypnotic::after {
-            content: none;
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: clamp(18rem, 48vw, 38rem);
+            height: clamp(18rem, 48vw, 38rem);
+            transform: translate(-50%, -50%) scale(0.86);
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.92) 0%,
+                rgba(255, 255, 255, 0.52) 18%,
+                rgba(255, 255, 255, 0.22) 36%,
+                rgba(255, 255, 255, 0.08) 52%,
+                rgba(255, 255, 255, 0) 72%
+            );
+            filter: blur(22px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+            transition: opacity 180ms ease, transform 380ms ease, filter 380ms ease;
         }
 
         .slot-btn--hypnotic > * {
@@ -2891,9 +2919,29 @@
             animation: none;
             box-shadow:
                 inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                0 0 0.75rem rgba(255, 255, 255, 0.18),
-                0 0 1.7rem rgba(255, 255, 255, 0.14),
-                0 0 2.8rem rgba(255, 255, 255, 0.1);
+                0 0 2.2rem rgba(255, 255, 255, 0.58),
+                0 0 4.8rem rgba(255, 255, 255, 0.42),
+                0 0 8.4rem rgba(255, 255, 255, 0.34),
+                0 0 13.5rem rgba(255, 255, 255, 0.24);
+        }
+
+        .slot-btn--hypnotic:hover::after,
+        .slot-btn--hypnotic:focus-visible::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.12);
+            filter: blur(12px);
+            animation: slotBacklightPulseHuge 1.12s ease-in-out infinite alternate;
+        }
+
+        @keyframes slotBacklightPulseHuge {
+            0% {
+                opacity: 0.72;
+                transform: translate(-50%, -50%) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
         }
 
         @keyframes slotRevealRise {
@@ -3823,10 +3871,21 @@
             pointer-events: none;
             padding: 0 0.4rem;
             max-width: max-content;
+            text-shadow: 0 0 0.25rem rgba(255, 255, 255, 0.22);
         }
 
         .header-nearest-slot-hint--visible {
             opacity: 1;
+            animation: headerNearestHintGlow 1.85s ease-in-out infinite;
+        }
+
+        @keyframes headerNearestHintGlow {
+            0%, 100% {
+                text-shadow: 0 0 0.25rem rgba(255, 255, 255, 0.2), 0 0 0.65rem rgba(255, 255, 255, 0.12);
+            }
+            50% {
+                text-shadow: 0 0 0.45rem rgba(255, 255, 255, 0.42), 0 0 1.05rem rgba(255, 255, 255, 0.24);
+            }
         }
 
         #footerBookBtn {
@@ -3867,12 +3926,12 @@
             height: var(--spark-size, 0.55rem);
             pointer-events: none;
             opacity: 0;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff7de' d='M12 1.8l2.68 6.5 7.01.56-5.34 4.58 1.62 6.82L12 16.89 6.03 20.26l1.62-6.82-5.34-4.58 7.01-.56z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M12 1.8l2.68 6.5 7.01.56-5.34 4.58 1.62 6.82L12 16.89 6.03 20.26l1.62-6.82-5.34-4.58 7.01-.56z'/%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             z-index: 3;
-            filter: drop-shadow(0 0 0.35rem rgba(255, 245, 230, 0.85));
+            filter: drop-shadow(0 0 0.55rem rgba(255, 255, 255, 1)) drop-shadow(0 0 1.15rem rgba(255, 255, 255, 0.8));
             will-change: transform, opacity;
             transform: translate(-50%, -50%) translate3d(0, 0, 0);
             animation: sparkle var(--spark-duration, 500ms) cubic-bezier(0.18, 0.72, 0.24, 1) var(--spark-delay, 0ms) forwards;
@@ -5152,7 +5211,7 @@
                 <span id="headerBookBtnText">BOOK</span>
             </button>
         </div>
-        <p id="headerNearestSlotHint" class="header-nearest-slot-hint header-nearest-slot-hint--visible" aria-live="polite">Hello ...</p>
+        <p id="headerNearestSlotHint" class="header-nearest-slot-hint" aria-live="polite"></p>
     </div>
 
     <div class="header__content-block">
@@ -5334,7 +5393,7 @@
         <div class="faq__item">
             <h3 class="faq__question">What are the keys on the calendar?</h3>
             <div class="faq__answer">
-                The key symbols mark Saturdays. Saturday meetings may be available, but only by request and confirmation. Please select a Saturday slot and contact us to confirm.
+                The key symbols mark Saturdays. Saturdays are available for regular slot selection and booking when time slots are shown.
             </div>
         </div>
 
@@ -6537,7 +6596,7 @@
                 const isToday  = date.getTime() === torNow.getTime();
 
                 if (isSaturday) {
-                    el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
+                    el.innerHTML = `<span class="cal-key" aria-hidden="true" style="color:#ffffff; opacity:0.96;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"></circle><path d="M11 10.6l8.2 8.2M16.4 15.2l1.9-1.9M18.3 17.1l1.7-1.7"></path></svg></span>`;
                 } else {
                     el.textContent = day;
                 }
@@ -6573,7 +6632,9 @@
                     }
                 } else if (isSaturday) {
                     el.classList.add('cal-day--closed');
-                    el.onclick = () => selectClosedSaturday(day, el);
+                    el.style.setProperty('--i', availableDaysCount++);
+                    el.dataset.slots = '[]';
+                    el.onclick = () => selectDay(day, el);
                 } else {
                     el.classList.add('cal-day--disabled');
                 }
@@ -6763,7 +6824,6 @@
         el.classList.add('cal-day--selected');
 
         selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        const isSaturdaySelection = selectedDate.getDay() === 6;
         logEvent('Date Selected', selectedDate.toDateString());
 
         // Update nav title
@@ -6775,18 +6835,12 @@
 
         // Label
         slotsDayDisplay.textContent = free.length
-            ? (isSaturdaySelection ? 'CHOOSE TIME (SATURDAY BY REQUEST):' : 'CHOOSE TIME:')
+            ? 'CHOOSE TIME:'
             : 'No available slots for this day.';
         slotsDayDisplay.style.opacity = '1';
 
         // Build slot buttons
         slotsGrid.innerHTML = '';
-        if (isSaturdaySelection && free.length) {
-            const warningEl = document.createElement('p');
-            warningEl.className = 'slots-saturday-warning';
-            warningEl.textContent = 'Saturday appointments are available only by request.';
-            slotsGrid.appendChild(warningEl);
-        }
         free.forEach((slot, idx) => {
             const btn = document.createElement('button');
             btn.className = 'slot-btn slot-btn--hypnotic';
@@ -6824,19 +6878,6 @@
                 setTimeout(() => stageBookingAfterIntake(latestSlot), 120);
             }
         }
-    }
-
-    function selectClosedSaturday(day, el) {
-        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('cal-day--selected'));
-        selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        logEvent('Saturday By Request Clicked', selectedDate.toDateString());
-
-        setCalendarInnerTitle(selectedDate);
-        slotsDayDisplay.textContent = 'SATURDAY: BY REQUEST ONLY';
-        slotsDayDisplay.style.opacity = '1';
-        slotsGrid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#fff;font-weight:800;font-size:1.1rem;margin-top:16px">Saturday appointments are available only by request.<br>Please call to confirm availability.</p>`;
-        slotsBlock.style.display = 'block';
-        refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
     }
 
     // ------------------------------------------------------------------
@@ -8042,12 +8083,7 @@
         bookingWithoutSpecificDate = false;
         syncBookingModalSlotDisplay(slot);
         closeFormCalendarOverlay();
-
-        if (selectedDate && selectedDate.getDay() === 6) {
-            setBookingWarning('Saturday appointments are available only by request. Please call to confirm availability.');
-        } else {
-            setBookingNotice('Appointment time updated.', 'success');
-        }
+        setBookingNotice('Appointment time updated.', 'success');
     }
 
     function openBookingModal(slot, triggerAttach = false) {
@@ -8095,9 +8131,6 @@
             if(confirmBtn) {
                 confirmBtn.disabled = false;
                 confirmBtn.textContent = getConfirmBtnLabel();
-            }
-            if (!bookingWithoutSpecificDate && selectedDate && selectedDate.getDay() === 6) {
-                setBookingWarning('Saturday appointments are available only by request. Please call to confirm availability.');
             }
             
             loadFormData();
@@ -9760,60 +9793,15 @@
     }
 
     function buildFinalResultMarkup(summary) {
-        const appointmentDate = formatFinalDate(summary.dateStr);
-        const appointmentRaw = appointmentDate && summary.slotText
-            ? `${appointmentDate} at ${summary.slotText}`
-            : (appointmentDate || summary.slotText || '');
-        const filesCount = Number.isInteger(summary.filesCount) ? summary.filesCount : 0;
-
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
-                    <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));">
+                    <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.9));">
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
                 <p class="final-result-form__hello">Thank you, ${formatFinalFieldValue(summary.name, 'Client')}.</p>
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
-
-                <div class="final-result-grid">
-                    <div class="final-result-field">
-                        <span class="final-result-label">Name</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.name)}</div>
-                    </div>
-                    <div class="final-result-field">
-                        <span class="final-result-label">Email</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.email)}</div>
-                    </div>
-                    <div class="final-result-field">
-                        <span class="final-result-label">Phone</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.phone)}</div>
-                    </div>
-                    <div class="final-result-field">
-                        <span class="final-result-label">Service</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.service)}</div>
-                    </div>
-                    <div class="final-result-field final-result-field--full">
-                        <span class="final-result-label">Where did you hear about us?</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.hearAbout)}</div>
-                    </div>
-                    <div class="final-result-field final-result-field--full">
-                        <span class="final-result-label">Appointment</span>
-                        <div class="final-result-value">${formatFinalFieldValue(appointmentRaw, 'Not available')}</div>
-                    </div>
-                    <div class="final-result-field final-result-field--full">
-                        <span class="final-result-label">Address</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.address)}</div>
-                    </div>
-                    <div class="final-result-field">
-                        <span class="final-result-label">Date of Birth</span>
-                        <div class="final-result-value">${formatFinalFieldValue(summary.dob)}</div>
-                    </div>
-                    <div class="final-result-field">
-                        <span class="final-result-label">Files</span>
-                        <div class="final-result-value">${formatFinalFieldValue(`${filesCount} attached`)}</div>
-                    </div>
-                </div>
 
                 <p class="final-result-warning">
                     <strong>Important:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed Ontario paralegal or lawyer right away.
@@ -10414,7 +10402,14 @@
         return String(slot.text).split(/[-\u2013]/)[0].trim();
     }
 
-    const HEADER_NEAREST_HINT_LOADING_TEXT = 'Hello ...';
+    const HEADER_NEAREST_HINT_LOADING_SEQUENCE = [
+        'Hello ...',
+        'Syncing with your calendar...',
+        'Looking for an available slot...'
+    ];
+    const HEADER_NEAREST_HINT_LOADING_TEXT = HEADER_NEAREST_HINT_LOADING_SEQUENCE[0];
+    const HEADER_NEAREST_HINT_LOADING_FINAL_TEXT =
+        HEADER_NEAREST_HINT_LOADING_SEQUENCE[HEADER_NEAREST_HINT_LOADING_SEQUENCE.length - 1];
     const HEADER_NEAREST_HINT_UNLOCK_EVENT = 'header-book-btn-first-particles-done';
     const HEADER_NEAREST_HINT_RESOLVED_RE = /^Nearest appointment:\s*\d{4}\.\d{2}\.\d{2}(?:\s+at\s+\d{1,2}:\d{2}\s*(?:AM|PM))?/i;
     const HEADER_NEAREST_HINT_TYPEWRITER_MAX_MS = 10000;
@@ -10606,6 +10601,69 @@
         return delays;
     }
 
+    function startHeaderNearestHintLoadingSequence(hintEl) {
+        clearHeaderNearestHintTypewriter();
+        headerNearestHintTypewriterToken += 1;
+        const runToken = headerNearestHintTypewriterToken;
+        const phases = HEADER_NEAREST_HINT_LOADING_SEQUENCE;
+        let phaseIndex = 0;
+        let index = 0;
+
+        headerNearestHintTypewriterActive = true;
+        headerNearestHintTypewriterTargetText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+        hintEl.textContent = '';
+
+        const schedule = (fn, delay) => {
+            headerNearestHintTypewriterTimer = setTimeout(fn, delay);
+        };
+
+        const getKeyboardDelay = (ch) => {
+            let delay = randomInt(26, 72);
+            if (ch === ' ') delay += randomInt(14, 42);
+            if (/[,.!?]/.test(ch)) delay += randomInt(28, 90);
+            return delay;
+        };
+
+        const eraseCurrent = () => {
+            if (runToken !== headerNearestHintTypewriterToken) return;
+            const currentText = phases[phaseIndex] || '';
+            if (index <= 0) {
+                phaseIndex += 1;
+                index = 0;
+                schedule(typeNext, randomInt(110, 220));
+                return;
+            }
+            index -= 1;
+            hintEl.textContent = currentText.slice(0, index);
+            schedule(eraseCurrent, randomInt(12, 28));
+        };
+
+        const typeNext = () => {
+            if (runToken !== headerNearestHintTypewriterToken) return;
+            const currentText = phases[phaseIndex] || '';
+
+            if (index >= currentText.length) {
+                hintEl.textContent = currentText;
+                if (phaseIndex < phases.length - 1) {
+                    schedule(eraseCurrent, randomInt(260, 420));
+                    return;
+                }
+                clearHeaderNearestHintTypewriter();
+                headerNearestHintLoadingTypedOnce = true;
+                headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                return;
+            }
+
+            index += 1;
+            hintEl.textContent = currentText.slice(0, index);
+            const typedChar = currentText[index - 1] || '';
+            schedule(typeNext, getKeyboardDelay(typedChar));
+        };
+
+        schedule(typeNext, randomInt(80, 180));
+    }
+
     function startHeaderNearestHintTypewriter(hintEl, finalText) {
         clearHeaderNearestHintTypewriter();
         headerNearestHintTypewriterToken += 1;
@@ -10672,13 +10730,18 @@
         }
 
         if (nextText === HEADER_NEAREST_HINT_LOADING_TEXT) {
-            if (headerNearestHintTypewriterActive) return;
-            if (headerNearestHintLoadingTypedOnce) {
-                hintEl.textContent = nextText;
-                headerNearestHintLastRenderedText = nextText;
+            if (
+                headerNearestHintTypewriterActive &&
+                headerNearestHintTypewriterTargetText === HEADER_NEAREST_HINT_LOADING_FINAL_TEXT
+            ) {
                 return;
             }
-            startHeaderNearestHintTypewriter(hintEl, nextText);
+            if (headerNearestHintLoadingTypedOnce) {
+                hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                return;
+            }
+            startHeaderNearestHintLoadingSequence(hintEl);
             return;
         }
 
