@@ -1690,12 +1690,12 @@
 
         #bookingModal[data-state="success"] .modal__content {
             height: auto;
-            max-height: min(82dvh, 41rem);
+            max-height: none;
         }
 
         #bookingModal[data-state="success"] .modal__body {
             flex: 0 1 auto;
-            overflow-y: auto;
+            overflow: visible;
             padding-bottom: 0.45rem;
         }
 
@@ -1999,6 +1999,7 @@
             border: 1px solid transparent;
             background: transparent;
             color: var(--booking-status-fg) !important;
+            font-family: 'Lato', sans-serif !important;
             font-size: var(--booking-form-font-size) !important;
             font-weight: 900 !important;
             line-height: 1.2 !important;
@@ -2009,6 +2010,9 @@
             transform: none;
             transition: none;
             pointer-events: none;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: default;
         }
 
         #bookingStatus.status-alert--visible {
@@ -2049,6 +2053,16 @@
             --booking-status-fg: #ffe8f3;
             --booking-status-border: rgba(255, 116, 179, 0.98);
             --booking-status-bg: rgba(255, 120, 184, 0.95);
+        }
+
+        #bookingStatus.status-alert--actionable {
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        #bookingStatus.status-alert--actionable:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.92);
+            outline-offset: 2px;
         }
 
         .booking-scroll-cue {
@@ -6180,7 +6194,7 @@
                         <span>▾</span><span>▾</span><span>▾</span>
                     </div>
                     <div class="booking-status-slot">
-                        <p id="bookingStatus" aria-live="polite" aria-atomic="true"></p>
+                        <button type="button" id="bookingStatus" aria-live="polite" aria-atomic="true" tabindex="-1" aria-disabled="true"></button>
                     </div>
                     <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
@@ -8043,7 +8057,17 @@
     let bookingRecaptchaWidgetId = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
+    let bookingStatusActionTarget = null;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
+
+    if (bookingStatus && bookingStatus.dataset.actionBound !== '1') {
+        bookingStatus.dataset.actionBound = '1';
+        bookingStatus.addEventListener('click', (event) => {
+            if (!bookingStatus.classList.contains('status-alert--actionable')) return;
+            event.preventDefault();
+            triggerBookingStatusAction();
+        });
+    }
 
     function bindBookingModalOuterScrollProxy() {
         if (!modal || modal.dataset.outerScrollProxyBound === '1') return;
@@ -8248,19 +8272,30 @@
         setBookingScrollCueVisible(hasActionHint);
     }
 
-    function setBookingNotice(message, tone = 'success') {
+    function setBookingNoticeActionTarget(targetEl = null) {
+        bookingStatusActionTarget = targetEl || null;
+        if (!bookingStatus) return;
+        const hasMessage = Boolean(normalizeBookingNoticeMessage(bookingStatus.textContent));
+        const actionable = hasMessage && Boolean(bookingStatusActionTarget);
+        bookingStatus.classList.toggle('status-alert--actionable', actionable);
+        bookingStatus.tabIndex = actionable ? 0 : -1;
+        bookingStatus.setAttribute('aria-disabled', actionable ? 'false' : 'true');
+    }
+
+    function setBookingNotice(message, tone = 'success', actionTarget = null) {
         if (!bookingStatus) return;
         const safeTone = normalizeBookingStatusTone(tone);
         bookingStatus.textContent = normalizeBookingNoticeMessage(message);
-        bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
+        bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
         if (bookingStatus.textContent) {
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
         }
+        setBookingNoticeActionTarget(bookingStatus.textContent ? actionTarget : null);
         syncBookingScrollCueVisibility();
     }
 
-    function setBookingWarning(message) {
-        setBookingNotice(message, 'warning');
+    function setBookingWarning(message, actionTarget = null) {
+        setBookingNotice(message, 'warning', actionTarget);
     }
 
     function applyTseProbnikUI() {
@@ -8616,7 +8651,7 @@
                 const currentName = normalizeSingleLine(nameInput.value);
                 if (!currentName) {
                     nameInput.classList.add('field-invalid');
-                    setBookingNotice('Please enter your full name.', 'warning');
+                    setBookingNotice('Please enter your full name.', 'warning', nameInput);
                 }
                 if (nameInput.dataset.openHintBound !== '1') {
                     const clearNameOpenHint = () => {
@@ -9918,8 +9953,9 @@
     function clearBookingError() {
         if (bookingStatus) {
             bookingStatus.textContent = '';
-            bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error');
+            bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
         }
+        setBookingNoticeActionTarget(null);
         syncBookingScrollCueVisibility();
     }
 
@@ -9961,8 +9997,34 @@
         }
     }
 
+    function getBookingFieldFocusTarget(fieldEl) {
+        if (!fieldEl) return null;
+        if (typeof fieldEl.matches === 'function' && fieldEl.matches('input, select, textarea, button, [tabindex]:not([tabindex="-1"])')) {
+            return fieldEl;
+        }
+        if (typeof fieldEl.querySelector === 'function') {
+            return fieldEl.querySelector('input, select, textarea, button, [tabindex]:not([tabindex="-1"])');
+        }
+        return null;
+    }
+
+    function triggerBookingStatusAction() {
+        const target = bookingStatusActionTarget;
+        if (!target || !document.body.contains(target)) {
+            setBookingNoticeActionTarget(null);
+            return;
+        }
+        scrollBookingFieldIntoView(target);
+        const focusTarget = getBookingFieldFocusTarget(target);
+        if (focusTarget && typeof focusTarget.focus === 'function') {
+            requestAnimationFrame(() => {
+                try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
+            });
+        }
+    }
+
     function setBookingError(message, fieldEl = null) {
-        setBookingNotice(message, 'error');
+        setBookingNotice(message, 'error', fieldEl || null);
         markInvalidField(fieldEl);
         if (fieldEl) {
             requestAnimationFrame(() => scrollBookingFieldIntoView(fieldEl));
