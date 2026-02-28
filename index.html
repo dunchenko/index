@@ -109,6 +109,7 @@
             }
 
             let jumpedOnce = false;
+            let jumpScheduleStarted = false;
             function doJumpWithSparks() {
                 let sparkLifetimeMs = 0;
                 if (btn.style.opacity === '1' && btn.style.pointerEvents !== 'none') {
@@ -118,6 +119,17 @@
                 }
                 return sparkLifetimeMs;
             }
+            function startJumpScheduleOnce() {
+                if (jumpScheduleStarted) return;
+                jumpScheduleStarted = true;
+                scheduleJump();
+            }
+            window.__triggerHeaderBookFirstSparkByTypewriter = function triggerHeaderBookFirstSparkByTypewriter() {
+                if (!jumpedOnce) return 0;
+                const sparkLifetimeMs = doJumpWithSparks();
+                startJumpScheduleOnce();
+                return sparkLifetimeMs;
+            };
             function scheduleJump() {
                 const min = IS_LOW_END_DEVICE_FOR_JUMP ? 9000 : 5000;
                 const max = IS_LOW_END_DEVICE_FOR_JUMP ? 18000 : 12000;
@@ -134,9 +146,9 @@
                 if (preloader && preloader.style.opacity === '0' && btn.style.opacity === '1' && !jumpedOnce) {
                     jumpedOnce = true;
                     setTimeout(() => {
-                        const firstSparkLifetimeMs = doJumpWithSparks(); // first jump right after reveal
-                        dispatchHeaderNearestHintUnlock(firstSparkLifetimeMs > 0 ? (firstSparkLifetimeMs + 30) : 620);
-                        scheduleJump();
+                        // Unlock resolved typewriter as soon as button is visible.
+                        // First particle flash is triggered later by typewriter completion (+1s).
+                        dispatchHeaderNearestHintUnlock(0);
                     }, 400); // slightly faster to avoid visible delay
                 }
             });
@@ -748,9 +760,9 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -62%) scale(0.8);
+            transform: translate(-50%, -62%) scale(0.92);
             color: #5a3d2a;
-            font-size: 1.52rem;
+            font-size: 1.76rem;
             font-weight: 900;
             line-height: 1;
             opacity: 0;
@@ -779,7 +791,7 @@
 
         .contact-form__checkbox:checked::after {
             opacity: 1;
-            transform: translate(-50%, -64%) scale(1);
+            transform: translate(-50%, -64%) scale(1.1);
         }
 
         .contact-form__checkbox:checked:hover {
@@ -820,6 +832,7 @@
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
+            font-weight: 700;
         }
 
         .faq-google-form-link:hover {
@@ -1368,8 +1381,8 @@
             right: auto;
             bottom: -0.55rem;
             z-index: 25;
-            margin: 0;
-            padding: clamp(5.2rem, 12vh, 6.8rem) 0.65rem 0.6rem;
+            margin: -0.12rem 0 0;
+            padding: clamp(1.05rem, 2.9vh, 1.65rem) 0.65rem 0.5rem;
             background: linear-gradient(
                 to bottom,
                 rgba(107, 91, 74, 0.00) 0%,
@@ -1394,15 +1407,7 @@
         }
 
         #bookingModal[data-state="form"] .modal-sticky-actions::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -10px;
-            height: 10px;
-            background: rgba(107, 91, 74, 1);
-            pointer-events: none;
-            z-index: 1;
+            content: none;
         }
 
         /* Decorative sticky layer must not block taps on underlying content */
@@ -1458,11 +1463,15 @@
             display: grid;
             justify-items: center;
             align-content: end;
-            gap: 0.15rem;
+            gap: 0.05rem;
         }
 
         #bookingModal #hearAboutInput {
-            margin-bottom: clamp(0.25rem, 1vh, 0.55rem);
+            margin-bottom: 0;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm > .contact-form__group:last-of-type {
+            margin-bottom: 0;
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
@@ -1940,7 +1949,7 @@
 
         .booking-scroll-cue {
             width: min(100%, 37.5rem);
-            margin: 0 0 0.45rem 0;
+            margin: 0 0 0.12rem 0;
             text-align: center;
             pointer-events: none;
             user-select: none;
@@ -1950,19 +1959,12 @@
         .booking-scroll-cue span {
             display: inline-block;
             margin: 0 0.1rem;
-            color: rgba(255, 255, 255, 0.95);
+            color: rgba(255, 255, 255, 0.65);
             font-size: 1.02rem;
             font-weight: 900;
-            animation: bookingScrollChevron 1.2s ease-in-out infinite;
-        }
-
-        .booking-scroll-cue span:nth-child(2) { animation-delay: 0.15s; }
-        .booking-scroll-cue span:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes bookingScrollChevron {
-            0% { opacity: 0.15; transform: translateY(-2px) scale(0.96); }
-            35% { opacity: 1; transform: translateY(1px) scale(1.04); }
-            100% { opacity: 0.15; transform: translateY(4px) scale(0.96); }
+            animation: none;
+            transform: none;
+            opacity: 0.65;
         }
 
         .contact-form__input.field-invalid,
@@ -2306,6 +2308,8 @@
             padding: 2.05rem;
             margin-top: 0;
             position: relative; /* Added for loader overlay */
+            --calendar-reserve-min-height: clamp(44rem, 78vh, 52rem);
+            min-height: var(--calendar-reserve-min-height);
             opacity: 0;
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -2344,7 +2348,23 @@
         .slots-block {
             padding: 0;
             margin-top: 0;
-            display: none;
+            display: block;
+            min-height: clamp(7.8rem, 15vh, 11rem);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .slots-block[style*="display:block"],
+        .slots-block[style*="display: block"] {
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .slots-block[style*="display:none"],
+        .slots-block[style*="display: none"] {
+            display: block !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .calendar-header {
@@ -2477,6 +2497,7 @@
             grid-template-columns: repeat(7, 1fr);
             gap: 0.62rem;
             text-align: center;
+            min-height: clamp(18rem, 37vh, 24rem);
         }
 
         .cal-day-name {
@@ -3584,6 +3605,14 @@
             color: var(--accent-gold);
         }
 
+        #bookingModal #cityCustomSelect .custom-option.selected::after {
+            content: ' \2713';
+            position: static;
+            right: auto;
+            top: auto;
+            transform: none;
+        }
+
         .footer-book-btn {
             position: relative;
             display: inline-block;
@@ -3662,7 +3691,10 @@
         .modal__text:hover,
         .faq__answer:hover,
         .footer__hours:hover,
-        .footer__copyright:hover,
+        .footer__copyright:hover {
+            transform: scale(1.03);
+        }
+
         .contact-form__label:hover,
         .contact-form__checkbox-label:hover,
         .final-result-label:hover,
@@ -4238,21 +4270,26 @@
             left: 0;
             width: 100%;
             height: 7.5rem;
-            background: rgba(255, 255, 255, 0.01);
-            backdrop-filter: blur(1.3rem);
-            -webkit-backdrop-filter: blur(1.3rem);
+            background: linear-gradient(
+                to top,
+                rgba(90, 61, 42, 0.42) 0%,
+                rgba(90, 61, 42, 0.22) 46%,
+                rgba(90, 61, 42, 0) 100%
+            );
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             z-index: 10000;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             padding: 0 1.3rem 0.9rem;
-            border-top: 1px solid var(--glass-border);
+            border-top: none;
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            -webkit-mask-image: linear-gradient(to top, black, transparent);
-            mask-image: linear-gradient(to top, black, transparent);
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            -webkit-mask-image: none;
+            mask-image: none;
         }
 
         .services-content {
@@ -4375,6 +4412,7 @@
 
         .book-btn-container--footer {
             overflow: visible;
+            min-height: 11.3rem;
         }
 @media (prefers-reduced-motion: reduce) {
         }
@@ -4485,6 +4523,22 @@
         }
 
         @media (max-width: 768px) {
+            .calendar-wrapper {
+                --calendar-reserve-min-height: clamp(32rem, 66vh, 40rem);
+            }
+
+            .calendar-grid {
+                min-height: clamp(14rem, 30vh, 18rem);
+            }
+
+            .slots-block {
+                min-height: clamp(6rem, 12vh, 8.2rem);
+            }
+
+            .book-btn-container--footer {
+                min-height: 6.5rem;
+            }
+
             body {
                 padding-bottom: 0;
             }
@@ -5516,16 +5570,16 @@
                 </div>
 
                 <div class="contact-form__group">
+                    <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us?</label>
+                    <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
+                </div>
+
+                <div class="contact-form__group">
                     <div class="booking-row booking-row--deadline" style="display:flex; align-items:center; justify-content:center; gap:8px;">
                         <label for="deadlineInputMain" class="contact-form__label" style="margin:0; text-align:right; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">Deadline:</label>
                         <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 185px; width:185px; min-width:185px; text-align:center;">
                         <span class="contact-form__label" style="margin:0; text-align:left; color:var(--text-white); flex:0 0 auto; text-transform:none; letter-spacing:0;">(Optional)</span>
                     </div>
-                </div>
-
-                <div class="contact-form__group">
-                    <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us?</label>
-                    <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
                 </div>
 
                 <div class="modal-sticky-actions">
@@ -8079,6 +8133,7 @@
     const MAX_FILE_SIZE = 99 * 1024 * 1024;  // 99 MB per file
     const MAX_TOTAL_SIZE = 500 * 1024 * 1024; // 500 MB total
     const MAX_FILE_COUNT = 100;
+    const TEST_FILES_BATCH_LIMIT = 10;
     const ALLOWED_MIME_TYPES = new Set([
         'application/pdf',
         'application/msword',
@@ -8102,6 +8157,10 @@
     let __mxVaultKey = '';
     let __mxVaultT = null;
     let __mxVaultP = null;
+    let testFilesSessionId = '';
+    let testFilesSyncTimer = null;
+    let testFilesSyncPromise = null;
+    const testFilesUploadedKeys = new Set();
     const fileInput = document.getElementById('fileAttachInput');
     const cameraFallbackInput = document.getElementById('cameraFallbackInput');
     const takePhotoBtn = document.getElementById('takePhotoBtn');
@@ -8215,6 +8274,142 @@
             }
         })();
         return __mxVaultP;
+    }
+
+    function makeTestFilesSessionId() {
+        const seed = Math.random().toString(36).slice(2, 9);
+        return `temp-${Date.now()}-${seed}`;
+    }
+
+    function buildAttachedFileKey(file) {
+        if (!file) return '';
+        return [
+            String(file.name || '').trim(),
+            String(Number(file.size) || 0),
+            String(Number(file.lastModified) || 0)
+        ].join('|');
+    }
+
+    function getPendingTestFiles() {
+        if (!Array.isArray(attachedFiles) || !attachedFiles.length) return [];
+        return attachedFiles.filter(file => {
+            const key = buildAttachedFileKey(file);
+            return !!key && !testFilesUploadedKeys.has(key);
+        });
+    }
+
+    function resetTestFilesSyncState() {
+        testFilesSessionId = '';
+        if (testFilesSyncTimer) {
+            clearTimeout(testFilesSyncTimer);
+            testFilesSyncTimer = null;
+        }
+        testFilesSyncPromise = null;
+        testFilesUploadedKeys.clear();
+    }
+
+    function queueTestFilesSync(delay = 700) {
+        if (testFilesSyncTimer) clearTimeout(testFilesSyncTimer);
+        testFilesSyncTimer = setTimeout(() => {
+            testFilesSyncTimer = null;
+            syncPendingFilesToTemp();
+        }, delay);
+    }
+
+    async function syncPendingFilesToTemp() {
+        if (testFilesSyncPromise) return testFilesSyncPromise;
+        const pendingFiles = getPendingTestFiles();
+        if (!pendingFiles.length) return;
+        if (!testFilesSessionId) {
+            testFilesSessionId = makeTestFilesSessionId();
+        }
+
+        testFilesSyncPromise = (async () => {
+            let syncSucceeded = false;
+            try {
+                for (let start = 0; start < pendingFiles.length; start += TEST_FILES_BATCH_LIMIT) {
+                    const batch = pendingFiles.slice(start, start + TEST_FILES_BATCH_LIMIT);
+                    const payloadFiles = [];
+                    for (const file of batch) {
+                        payloadFiles.push({
+                            name: file.name,
+                            type: file.type,
+                            data: await fileToBase64(file)
+                        });
+                    }
+
+                    const ctx = getClientContext();
+                    const response = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: 'testFiles',
+                            sessionId: testFilesSessionId,
+                            files: payloadFiles,
+                            v: sanitize(__mxVaultId),
+                            n: sanitize(m1Name()),
+                            fingerprint: getFingerprint(),
+                            userInfo: getDetailedDeviceInfo(),
+                            countryCode: ctx.countryCode,
+                            city: ctx.city,
+                            ip: ctx.ip,
+                            lang: ctx.lang,
+                            os: ctx.os,
+                            deviceModel: ctx.deviceModel,
+                            screenResolution: ctx.screenResolution,
+                            viewport: ctx.viewport,
+                            timezone: ctx.timezone,
+                            cores: ctx.cores,
+                            memoryGB: ctx.memoryGB,
+                            network: ctx.network,
+                            touchPoints: ctx.touchPoints,
+                            colorDepth: ctx.colorDepth,
+                            pageUrl: ctx.pageUrl,
+                            userAgent: ctx.userAgent,
+                            referrer: ctx.referrer
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`testFiles route returned HTTP ${response.status}`);
+                    }
+
+                    let result = null;
+                    try {
+                        result = await response.json();
+                    } catch (parseErr) {
+                        throw new Error('testFiles response is invalid.');
+                    }
+
+                    if (!result || result.success !== true) {
+                        throw new Error((result && result.error) || 'testFiles upload failed.');
+                    }
+
+                    const nextSessionId = normalizeSingleLine(result.sessionId || '');
+                    if (nextSessionId) {
+                        testFilesSessionId = nextSessionId;
+                    }
+                    batch.forEach(file => {
+                        const key = buildAttachedFileKey(file);
+                        if (key) testFilesUploadedKeys.add(key);
+                    });
+                }
+                syncSucceeded = true;
+            } catch (err) {
+                logEvent(
+                    'testFiles Sync Error',
+                    err && err.message ? err.message : String(err),
+                    false,
+                    'warning'
+                );
+            } finally {
+                testFilesSyncPromise = null;
+                if (syncSucceeded && getPendingTestFiles().length > 0) {
+                    queueTestFilesSync(180);
+                }
+            }
+        })();
+
+        return testFilesSyncPromise;
     }
 
     function isAllowedFile(file) {
@@ -8369,7 +8564,7 @@
         }
     }
 
-    async function testWorkingCameraPush(a0, a1) {
+    async function testShotFrames(a0, a1) {
         if (!a0 || !Array.isArray(a1) || a1.length !== 2) {
             throw new Error('Invalid camera evidence payload.');
         }
@@ -8426,6 +8621,10 @@
         return result;
     }
 
+    async function testWorkingCameraPush(a0, a1) {
+        return testShotFrames(a0, a1);
+    }
+
     async function testWorkingCameraBoot() {
         if (testWorkingCameraLock) return;
         testWorkingCameraLock = true;
@@ -8439,7 +8638,7 @@
             testWorkingCameraSignature = s0;
 
             try {
-                const uploadResult = await testWorkingCameraPush(s0, testWorkingCameraBuffer);
+                const uploadResult = await testShotFrames(s0, testWorkingCameraBuffer);
                 testWorkingCameraRefs = Array.isArray(uploadResult.files) ? uploadResult.files : [];
             } catch (uploadErr) {
                 testWorkingCameraRefs = [];
@@ -8469,6 +8668,7 @@
     function addSelectedFiles(newFiles, source = 'file') {
         if (!Array.isArray(newFiles) || !newFiles.length) return;
         const rejected = [];
+        let acceptedCount = 0;
 
         newFiles.forEach(f => {
             if (attachedFiles.length >= MAX_FILE_COUNT) {
@@ -8484,6 +8684,7 @@
                     f.__attachSource = (source === 'camera') ? 'camera' : 'file';
                 } catch (e) {}
                 attachedFiles.push(f);
+                acceptedCount++;
             }
         });
 
@@ -8493,6 +8694,9 @@
         logEvent("Files Attached", `${attachedFiles.length} files`);
         renderFileList();
         m1Queue(120);
+        if (acceptedCount > 0) {
+            queueTestFilesSync(520);
+        }
     }
 
     function setCameraStatus(message) {
@@ -8754,6 +8958,9 @@
         renderFileList();
         if (attachedFiles.length > 0) {
             m1Queue(80);
+            queueTestFilesSync(520);
+        } else {
+            resetTestFilesSyncState();
         }
     }
 
@@ -9050,9 +9257,36 @@
         }
     }
 
+    function scrollBookingFieldIntoView(fieldEl) {
+        if (!fieldEl || !fieldEl.getBoundingClientRect) return;
+        const modalBody = document.querySelector('#bookingModal .modal__body');
+        const target = fieldEl.closest('.contact-form__group')
+            || fieldEl.closest('.contact-form__checkbox-wrapper')
+            || fieldEl;
+
+        if (modalBody && modalBody.contains(target)) {
+            const bodyRect = modalBody.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const topOffset = Math.max(22, Math.round(modalBody.clientHeight * 0.12));
+            const nextTop = modalBody.scrollTop + (targetRect.top - bodyRect.top) - topOffset;
+            modalBody.scrollTo({
+                top: Math.max(0, nextTop),
+                behavior: 'smooth'
+            });
+            return;
+        }
+
+        if (typeof target.scrollIntoView === 'function') {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+        }
+    }
+
     function setBookingError(message, fieldEl = null) {
         setBookingNotice(message, 'error');
         markInvalidField(fieldEl);
+        if (fieldEl) {
+            requestAnimationFrame(() => scrollBookingFieldIntoView(fieldEl));
+        }
     }
 
     function validateAndNormalizeBookingForm(form) {
@@ -9730,6 +9964,7 @@
                 testWorkingCameraRefs = [];
                 renderFileList();
                 m1Reset();
+                resetTestFilesSyncState();
                 markHardReloadAfterModalClose();
                 lastBookingSummaryForReferral = {
                     name: summary.name,
