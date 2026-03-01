@@ -415,6 +415,11 @@
             animation-play-state: paused;
         }
 
+        html.modal-is-open,
+        body.modal-is-open {
+            overscroll-behavior: none;
+        }
+
         .background__stripes-overlay {
             mix-blend-mode: overlay;
         }
@@ -834,6 +839,12 @@
             white-space: nowrap;
             flex-wrap: nowrap;
         }
+
+        /* Inverted palette for the checkbox form row (white <-> brown). */
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label,
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label span {
+            color: #5a3d2a !important;
+        }
         
         .contact-form__terms-link {
             color: #ffffff;
@@ -849,6 +860,35 @@
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link {
             display: inline;
+            color: #5a3d2a !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link:hover {
+            color: #5a3d2a !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
+            border-color: rgba(90, 61, 42, 0.9) !important;
+            background: rgba(90, 61, 42, 0.14) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
+            outline-color: rgba(90, 61, 42, 0.72) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox::after {
+            color: #ffffff !important;
+            -webkit-text-stroke: 0.55px #ffffff !important;
+            text-shadow:
+                0.015em 0 #ffffff,
+                -0.015em 0 #ffffff,
+                0 0.015em #ffffff,
+                0 -0.015em #ffffff !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked {
+            background: #5a3d2a !important;
+            border-color: #5a3d2a !important;
         }
 
         .contact-form__terms-word {
@@ -1179,6 +1219,7 @@
             /* Ensure it covers screen */
             inset: 0;
             overflow-y: auto; /* Changed to auto to prevent unnecessary scrollbar */
+            overscroll-behavior: contain;
         }
 
         #termsModal {
@@ -1497,20 +1538,23 @@
             order: 5;
             justify-content: center;
             align-items: center;
-            margin-top: 0.55rem !important;
+            margin-top: 1.3rem !important;
             margin-bottom: 0 !important;
-            padding-bottom: 0;
+            padding-bottom: 0.2rem;
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
             position: sticky;
-            bottom: 0;
+            bottom: -0.92rem;
             width: 100%;
             box-sizing: border-box;
             display: grid;
             justify-items: center;
             align-content: end;
             gap: 0.18rem;
+            padding-bottom: 0.32rem;
+            overflow: hidden;
+            overscroll-behavior: none;
         }
 
         #bookingModal #hearAboutInput {
@@ -1602,6 +1646,8 @@
             align-items: center !important;
             padding-top: var(--booking-modal-vpad);
             padding-bottom: var(--booking-modal-vpad);
+            overscroll-behavior: none;
+            touch-action: pan-y;
         }
 
         #bookingModal[data-state="form"].modal--active {
@@ -1624,7 +1670,7 @@
             min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            overscroll-behavior: contain;
+            overscroll-behavior: none;
             -ms-overflow-style: none;
             scrollbar-width: none;
             padding-bottom: 0;
@@ -1896,7 +1942,7 @@
         #bookingModal .contact-form__checkbox-label {
             font-family: 'Lato', sans-serif !important;
             font-size: var(--booking-form-font-size) !important;
-            font-weight: 700 !important;
+            font-weight: 400 !important;
             line-height: 1.35 !important;
             letter-spacing: 0 !important;
         }
@@ -2067,12 +2113,12 @@
 
         .booking-scroll-cue {
             width: min(100%, 37.5rem);
-            margin: -0.46rem 0 0.18rem 0;
+            margin: -0.14rem 0 0.22rem 0;
             text-align: center;
             pointer-events: none;
             user-select: none;
             line-height: 1;
-            transform: translateY(-0.34rem);
+            transform: translateY(0.08rem);
             position: relative;
             z-index: 3;
             display: none;
@@ -2433,6 +2479,29 @@
         }
 
         .footer__container { margin-bottom: 3.1rem; }
+
+        .footer__official-meta {
+            margin-top: 21rem;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+
+        .footer__official-meta .footer__copyright {
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+
+        .footer__official-meta .footer__copyright:first-child {
+            margin-bottom: 0.42rem !important;
+        }
         
         .footer__contact-link {
             display: block;
@@ -2570,15 +2639,21 @@
         }
         
         .calendar-header {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-rows: auto;
+            column-gap: 0.62rem;
+            row-gap: 0;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.45rem;
             text-align: center;
-            padding: 0 0.6rem;
+            padding: 0;
         }
 
         .calendar-title {
+            grid-column: 2 / 7;
+            grid-row: 1;
+            justify-self: center;
             font-size: 2rem;
             font-weight: 800;
             text-transform: uppercase;
@@ -2613,14 +2688,17 @@
         .calendar-title .cal-year { font-size: 1.98rem; opacity: 0.92; font-weight: 900; letter-spacing: 2px; margin-top: -0.15rem; }
 
         .calendar-nav-btn {
+            grid-row: 1;
+            justify-self: center;
+            align-self: center;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid transparent;
             color: #ffffff;
-            width: 3rem;
-            height: 3rem;
-            min-width: 3rem;
-            min-height: 3rem;
-            flex: 0 0 3rem;
+            width: var(--calendar-day-btn-size, 3rem);
+            height: var(--calendar-day-btn-size, 3rem);
+            min-width: var(--calendar-day-btn-size, 3rem);
+            min-height: var(--calendar-day-btn-size, 3rem);
+            flex: 0 0 var(--calendar-day-btn-size, 3rem);
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.55rem;
@@ -2632,8 +2710,8 @@
             opacity: 0.7;
         }
 
-        #prevBtn { text-indent: -1px; }
-        #nextBtn { text-indent: 1px; }
+        #prevBtn { grid-column: 1; text-indent: -1px; }
+        #nextBtn { grid-column: 7; text-indent: 1px; }
 
         .calendar-nav-btn:hover {
             background: rgba(255, 255, 255, 0.25);
@@ -2644,12 +2722,34 @@
 
         .calendar-nav-btn:disabled,
         .calendar-nav-btn[aria-disabled="true"] {
-            opacity: 0.28;
+            opacity: 0.22;
             cursor: not-allowed;
             pointer-events: none;
             transform: none;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.42);
+            box-shadow: none;
+        }
+
+        #prevBtn:disabled,
+        #prevBtn[aria-disabled="true"] {
+            opacity: 0.24;
+            background: rgba(255, 255, 255, 0.03);
             border-color: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.42);
+            filter: grayscale(1) saturate(0) brightness(0.72);
+        }
+
+        #prevBtn.calendar-nav-btn--muted:disabled,
+        #prevBtn.calendar-nav-btn--muted[aria-disabled="true"],
+        #prevBtn.calendar-nav-btn--muted {
+            opacity: 0.38 !important;
+            background: rgba(255, 255, 255, 0.065) !important;
+            border-color: rgba(255, 255, 255, 0.16) !important;
+            color: rgba(255, 255, 255, 0.68) !important;
+            filter: grayscale(0.35) saturate(0.7) !important;
+            box-shadow: none !important;
         }
 
         /* Calendar Loader Overlay */
@@ -2698,6 +2798,7 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 0.62rem;
+            margin-top: 0.92rem;
             text-align: center;
             min-height: clamp(18rem, 37vh, 24rem);
         }
@@ -5444,7 +5545,8 @@
             }
 
             .booking-row--dob #dobAgePreview {
-                flex: 1 1 100% !important;
+                flex: 1 1 calc(50% - 0.4rem) !important;
+                min-width: 0 !important;
             }
 
             .services-list {
@@ -5469,6 +5571,15 @@
 
             .footer .blur-in-section {
                 margin-top: 8rem !important;
+            }
+
+            .footer__official-meta {
+                margin-top: 9rem;
+            }
+
+            .footer__official-meta .footer__copyright {
+                font-size: 14px !important;
+                line-height: 1.4 !important;
             }
 
             .footer__contact-link {
@@ -5781,7 +5892,7 @@
 
 <div class="layout-container">
     <div class="contact-form fade-in-section">
-        <h2 class="contact-form__outside-title" id="calendarHeaderTitle">NEXT IN MONTH</h2>
+        <h2 class="contact-form__outside-title" id="calendarHeaderTitle">CHOOSE DATE</h2>
         <div id="calendarScaleWrapper" class="calendar-scale-wrapper">
             <div id="calendarScaleInner" class="calendar-scale-inner">
                 <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
@@ -5975,9 +6086,9 @@
 
         <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
     </div>
-    <div class="blur-in-section" style="margin-top: 10rem;">
-        <p class="footer__copyright" style="margin-bottom: 5px;">My only official website:</p>
-        <p class="footer__copyright" style="margin-top: 0; margin-bottom: 0;">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+    <div class="footer__official-meta">
+        <p class="footer__copyright">My only official website:</p>
+        <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -6168,7 +6279,7 @@
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="flex:0.85 1 0; min-width:64px;" required min="1" max="12" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
-                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:1 1 0; min-width:78px; text-align:center;">
+                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:center;">
                     </div>
                 </div>
 
@@ -6808,9 +6919,25 @@
         const isEnabled = Boolean(enabled);
         prevBtn.disabled = !isEnabled;
         prevBtn.setAttribute('aria-disabled', String(!isEnabled));
-        prevBtn.style.visibility = isEnabled ? 'visible' : 'hidden';
+        prevBtn.classList.toggle('calendar-nav-btn--muted', !isEnabled);
+        prevBtn.style.display = 'inline-grid';
+        prevBtn.style.visibility = 'visible';
         prevBtn.style.pointerEvents = isEnabled ? 'auto' : 'none';
-        prevBtn.setAttribute('aria-hidden', String(!isEnabled));
+        prevBtn.setAttribute('aria-hidden', 'false');
+    }
+
+    function syncCalendarNavButtonSize() {
+        const calWrapper = document.getElementById('bookingCalendar');
+        const grid = document.getElementById('calendarGrid');
+        if (!calWrapper || !grid) return;
+
+        const dayEl = grid.querySelector('.cal-day:not(.cal-day--empty)');
+        if (!dayEl) return;
+
+        const size = Math.round(dayEl.getBoundingClientRect().width);
+        if (!Number.isFinite(size) || size <= 0) return;
+
+        calWrapper.style.setProperty('--calendar-day-btn-size', `${size}px`);
     }
 
     function setCalendarVisibleState(isVisible) {
@@ -6968,7 +7095,7 @@
             calGrid.innerHTML = '';
 
             // Update external title
-            headerTitle.textContent = `NEXT IN ${MONTH_NAMES[month].toUpperCase()}`;
+            headerTitle.textContent = 'CHOOSE DATE';
 
             // Build slot map
             const minDate = getMinBookableDate();
@@ -7123,6 +7250,7 @@
                 headerTitle.classList.remove('calendar-title--loading');
                 headerTitle.classList.remove('calendar-title--warning');
             }
+            requestAnimationFrame(syncCalendarNavButtonSize);
             // Smoothly reveal calendar after slots are loaded
             if (calWrapper) {
                 setTimeout(() => {
@@ -7787,6 +7915,49 @@
     }
 
     let intakeNoticeSeen = hasSeenIntakeNotice();
+    let pageScrollLockY = 0;
+
+    function lockPageScroll() {
+        const body = document.body;
+        const html = document.documentElement;
+        if (!body || !html) return;
+        if (body.dataset.pageScrollLocked === '1') return;
+
+        pageScrollLockY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+        body.dataset.pageScrollLocked = '1';
+        body.style.position = 'fixed';
+        body.style.top = `-${pageScrollLockY}px`;
+        body.style.left = '0';
+        body.style.right = '0';
+        body.style.width = '100%';
+        body.style.overflow = 'hidden';
+        html.style.overflow = 'hidden';
+    }
+
+    function unlockPageScroll() {
+        const body = document.body;
+        const html = document.documentElement;
+        if (!body || !html) return;
+        if (body.dataset.pageScrollLocked !== '1') return;
+
+        body.dataset.pageScrollLocked = '0';
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
+        body.style.width = '';
+        body.style.overflow = '';
+        html.style.overflow = '';
+        window.scrollTo(0, pageScrollLockY || 0);
+    }
+
+    function syncGlobalModalScrollLock() {
+        const shouldLock = isAnyModalOpen();
+        if (shouldLock) lockPageScroll();
+        else unlockPageScroll();
+        document.body.classList.toggle('modal-is-open', shouldLock);
+        document.documentElement.classList.toggle('modal-is-open', shouldLock);
+    }
 
     function stageBookingAfterIntake(slot, triggerAttach = false) {
         if (!slot) return;
@@ -7815,8 +7986,7 @@
             markIntakeNoticeSeen();
             intakeNoticeSeen = true;
             modal.classList.add('modal--active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-is-open');
+            syncGlobalModalScrollLock();
         }
     }
 
@@ -7824,8 +7994,7 @@
         const modal = document.getElementById('intakeNoticeModal');
         if (modal) {
             modal.classList.remove('modal--active');
-            document.body.style.overflow = 'auto';
-            document.body.classList.remove('modal-is-open');
+            syncGlobalModalScrollLock();
         }
         if (resetPendingBooking) {
             pendingSlotForBooking = null;
@@ -7839,8 +8008,7 @@
         const modal = document.getElementById('termsModal');
         if (modal) {
             modal.classList.add('modal--active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-is-open');
+            syncGlobalModalScrollLock();
         }
     }
 
@@ -7848,8 +8016,7 @@
         const modal = document.getElementById('termsModal');
         if (modal) {
             modal.classList.remove('modal--active');
-            document.body.style.overflow = 'auto';
-            document.body.classList.remove('modal-is-open');
+            syncGlobalModalScrollLock();
         }
         maybeTriggerHardReloadAfterLastModalClosed();
     }
@@ -7866,6 +8033,7 @@
         initProvinceInputBehavior();
         initFaqSpoilers();
         bindBookingModalOuterScrollProxy();
+        bindBookingModalStickyNoScrollZone();
 // Full page refresh once per day at 00:00 (local browser time).
         scheduleDailyHardReloadAtMidnight();
 
@@ -7988,7 +8156,10 @@
     }
 
     // Re-scale on window resize (orientation change etc.)
-    window.addEventListener('resize', scaleCalendar);
+    window.addEventListener('resize', () => {
+        scaleCalendar();
+        syncCalendarNavButtonSize();
+    });
 
     // Re-scale whenever the calendar content changes (slots load dynamically)
     const _calObserver = new MutationObserver(() => {
@@ -8002,30 +8173,50 @@
     }
 
     function getClockIcon(timeRangeStr) {
-        // Parse start time "10:00 AM" or "10:00 AM - ..."
-        const startTime = timeRangeStr.split(/[-\u2013]/)[0].trim(); // Get "10:00 AM"
-        
-        let hours = 12;
+        const startRaw = String(timeRangeStr || '').split(/[-\u2013]/)[0].trim().toUpperCase();
+        const timeMatch = startRaw.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+
+        let hours24 = 12;
         let minutes = 0;
-        
-        // Robust parsing for "10:00", "10:00 AM", "10 AM", "10"
-        const timeMatch = startTime.match(/(\d+)(?::(\d+))?/);
         if (timeMatch) {
-            hours = parseInt(timeMatch[1]);
-            minutes = timeMatch[2] ? parseInt(timeMatch[2]) : 0;
+            let parsedHour = Number.parseInt(timeMatch[1], 10);
+            const parsedMinute = Number.parseInt(timeMatch[2] || '0', 10);
+            const ampm = String(timeMatch[3] || '').toUpperCase();
+            if (Number.isFinite(parsedHour) && parsedHour >= 0 && parsedHour <= 23) {
+                if (ampm === 'PM' && parsedHour < 12) parsedHour += 12;
+                if (ampm === 'AM' && parsedHour === 12) parsedHour = 0;
+                hours24 = parsedHour;
+            }
+            if (Number.isFinite(parsedMinute) && parsedMinute >= 0 && parsedMinute <= 59) {
+                minutes = parsedMinute;
+            }
         }
-        
-        // Calculate angles
-        // Hour hand: (Hours % 12) * 30deg + Minutes * 0.5deg
-        const hourAngle = ((hours % 12) * 30) + (minutes * 0.5);
-        
-        // Minute hand: Minutes * 6deg
+
+        const hours12 = ((hours24 + 11) % 12) + 1;
+        const displayTime = `${hours12}:${String(minutes).padStart(2, '0')}`;
+        const hourAngle = ((hours24 % 12) * 30) + (minutes * 0.5);
         const minuteAngle = minutes * 6;
 
-        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 100%; height: 100%;">
-  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
-  <line x1="12" y1="12" x2="12" y2="8.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${hourAngle}deg);" />
-  <line x1="12" y1="12" x2="12" y2="6.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="transform-origin: 12px 12px; transform: rotate(${minuteAngle}deg);" />
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="Clock ${displayTime}" style="width:100%;height:100%;">
+  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8" opacity="0.95"/>
+  <circle cx="12" cy="12" r="8.35" fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.45"/>
+  <line x1="12" y1="3.1" x2="12" y2="4.55" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
+  <line x1="20.9" y1="12" x2="19.45" y2="12" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
+  <line x1="12" y1="20.9" x2="12" y2="19.45" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
+  <line x1="3.1" y1="12" x2="4.55" y2="12" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
+  <text x="12" y="5.8" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 2.05px; font-weight: 700; letter-spacing: 0.02em;">XII</text>
+  <text x="18.6" y="12.7" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">III</text>
+  <text x="12" y="18.85" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">VI</text>
+  <text x="5.45" y="12.7" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">IX</text>
+  <g transform="rotate(${hourAngle} 12 12)">
+    <path d="M12 12 L11.38 11.79 L11.56 8.05 C11.7 7.55 12.3 7.55 12.44 8.05 L12.62 11.79 Z" fill="currentColor" opacity="0.96"/>
+  </g>
+  <g transform="rotate(${minuteAngle} 12 12)">
+    <path d="M12 12 L11.38 11.79 L11.56 7.55 C11.7 7.05 12.3 7.05 12.44 7.55 L12.62 11.79 Z" fill="currentColor" opacity="0.94"/>
+  </g>
+  <circle cx="12" cy="12" r="1.18" fill="none" stroke="currentColor" stroke-width="0.62" opacity="0.95"/>
+  <circle cx="12" cy="12" r="0.5" fill="currentColor" opacity="0.98"/>
+  <text x="12" y="22.25" text-anchor="middle" fill="currentColor" opacity="0.82" style="font-family: Georgia, 'Times New Roman', serif; font-size: 2.25px; font-weight: 700; letter-spacing: 0.02em;">${displayTime}</text>
 </svg>`;
     }
 
@@ -8069,34 +8260,172 @@
         });
     }
 
+    function getEventTargetElement(event) {
+        if (!event || !event.target) return null;
+        const target = event.target;
+        if (target instanceof Element) return target;
+        return target.parentElement || null;
+    }
+
+    function normalizeWheelDeltaY(event, fallbackHeight = 0) {
+        if (!event || !Number.isFinite(event.deltaY)) return 0;
+        let deltaY = event.deltaY;
+        if (event.deltaMode === 1) deltaY *= 16;
+        if (event.deltaMode === 2) deltaY *= (fallbackHeight || window.innerHeight || 0);
+        return deltaY;
+    }
+
+    function getScrollableHostWithin(container, startEl) {
+        let current = startEl;
+        while (current && current !== container) {
+            const style = window.getComputedStyle(current);
+            const overflowY = String(style.overflowY || '').toLowerCase();
+            const canScrollY = (overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay');
+            if (canScrollY && current.scrollHeight > current.clientHeight + 1) {
+                return current;
+            }
+            current = current.parentElement;
+        }
+        return container;
+    }
+
+    function canScrollHostByDelta(scrollHost, deltaY) {
+        if (!scrollHost || !Number.isFinite(deltaY) || Math.abs(deltaY) < 0.01) return false;
+        const maxScrollTop = Math.max(0, scrollHost.scrollHeight - scrollHost.clientHeight);
+        if (maxScrollTop <= 0) return false;
+        if (deltaY < 0) return scrollHost.scrollTop > 0.5;
+        if (deltaY > 0) return scrollHost.scrollTop < (maxScrollTop - 0.5);
+        return false;
+    }
+
+    function scrollHostByDelta(scrollHost, deltaY) {
+        if (!scrollHost || !Number.isFinite(deltaY) || Math.abs(deltaY) < 0.01) return false;
+        const maxScrollTop = Math.max(0, scrollHost.scrollHeight - scrollHost.clientHeight);
+        if (maxScrollTop <= 0) return false;
+        const prevTop = scrollHost.scrollTop;
+        const nextTop = Math.max(0, Math.min(maxScrollTop, prevTop + deltaY));
+        if (Math.abs(nextTop - prevTop) < 0.5) return false;
+        scrollHost.scrollTop = nextTop;
+        return true;
+    }
+
     function bindBookingModalOuterScrollProxy() {
         if (!modal || modal.dataset.outerScrollProxyBound === '1') return;
         modal.dataset.outerScrollProxyBound = '1';
+        let lastTouchY = null;
+
         modal.addEventListener('wheel', (event) => {
             if (!modal.classList.contains('modal--active')) return;
-            if (!Number.isFinite(event.deltaY) || Math.abs(event.deltaY) < 0.01) return;
 
             const modalBody = modal.querySelector('.modal__body');
             if (!modalBody) return;
+            const targetEl = getEventTargetElement(event);
+            if (!targetEl) return;
 
-            // Keep native scroll behavior when pointer is already over the form body.
-            if (modalBody.contains(event.target)) return;
+            const deltaY = normalizeWheelDeltaY(event, modalBody.clientHeight);
+            if (Math.abs(deltaY) < 0.01) return;
 
-            const maxScrollTop = Math.max(0, modalBody.scrollHeight - modalBody.clientHeight);
-            if (maxScrollTop <= 0) return;
+            if (modalBody.contains(targetEl)) {
+                const targetHost = getScrollableHostWithin(modalBody, targetEl);
+                if (targetHost !== modalBody) {
+                    if (canScrollHostByDelta(targetHost, deltaY)) return;
 
-            let deltaY = event.deltaY;
-            // Normalize line/page wheel deltas to px-like behavior.
-            if (event.deltaMode === 1) deltaY *= 16;
-            if (event.deltaMode === 2) deltaY *= modalBody.clientHeight;
+                    if (scrollHostByDelta(modalBody, deltaY)) {
+                        if (event.cancelable) event.preventDefault();
+                        return;
+                    }
 
-            const prevTop = modalBody.scrollTop;
-            const nextTop = Math.max(0, Math.min(maxScrollTop, prevTop + deltaY));
-            if (Math.abs(nextTop - prevTop) < 0.5) return;
+                    if (event.cancelable) event.preventDefault();
+                    return;
+                }
 
-            modalBody.scrollTop = nextTop;
+                if (!canScrollHostByDelta(modalBody, deltaY)) {
+                    if (event.cancelable) event.preventDefault();
+                }
+                return;
+            }
+
+            // Scroll modal body when wheel happens on overlay zones outside the body.
+            scrollHostByDelta(modalBody, deltaY);
             if (event.cancelable) event.preventDefault();
         }, { passive: false });
+
+        modal.addEventListener('touchstart', (event) => {
+            if (!modal.classList.contains('modal--active')) return;
+            const touch = event.touches && event.touches[0];
+            const modalBody = modal.querySelector('.modal__body');
+            const targetEl = getEventTargetElement(event);
+            if (!touch || !modalBody || !targetEl || !modalBody.contains(targetEl)) {
+                lastTouchY = null;
+                return;
+            }
+            lastTouchY = touch.clientY;
+        }, { passive: true });
+
+        modal.addEventListener('touchmove', (event) => {
+            if (!modal.classList.contains('modal--active')) return;
+
+            const modalBody = modal.querySelector('.modal__body');
+            const targetEl = getEventTargetElement(event);
+            const touch = event.touches && event.touches[0];
+            if (!modalBody || !targetEl || !modalBody.contains(targetEl) || !touch) {
+                lastTouchY = null;
+                return;
+            }
+
+            if (!Number.isFinite(lastTouchY)) {
+                lastTouchY = touch.clientY;
+                return;
+            }
+
+            const deltaY = lastTouchY - touch.clientY;
+            lastTouchY = touch.clientY;
+            if (Math.abs(deltaY) < 0.01) return;
+
+            const targetHost = getScrollableHostWithin(modalBody, targetEl);
+            if (targetHost !== modalBody) {
+                if (canScrollHostByDelta(targetHost, deltaY)) return;
+
+                if (scrollHostByDelta(modalBody, deltaY)) {
+                    if (event.cancelable) event.preventDefault();
+                    return;
+                }
+
+                if (event.cancelable) event.preventDefault();
+                return;
+            }
+
+            if (!canScrollHostByDelta(modalBody, deltaY)) {
+                if (event.cancelable) event.preventDefault();
+            }
+        }, { passive: false });
+
+        const resetTouchState = () => {
+            lastTouchY = null;
+        };
+        modal.addEventListener('touchend', resetTouchState, { passive: true });
+        modal.addEventListener('touchcancel', resetTouchState, { passive: true });
+    }
+
+    function bindBookingModalStickyNoScrollZone() {
+        if (!modal || modal.dataset.stickyNoScrollZoneBound === '1') return;
+        modal.dataset.stickyNoScrollZoneBound = '1';
+
+        const blockStickyZoneScroll = (event) => {
+            if (!modal.classList.contains('modal--active')) return;
+            if (String(modal.getAttribute('data-state') || '').toLowerCase() !== 'form') return;
+
+            const targetEl = getEventTargetElement(event);
+            if (!targetEl) return;
+            const stickyZone = targetEl.closest('#bookingModal .modal-sticky-actions');
+            if (!stickyZone) return;
+
+            if (event.cancelable) event.preventDefault();
+            event.stopPropagation();
+        };
+
+        modal.addEventListener('wheel', blockStickyZoneScroll, { passive: false });
+        modal.addEventListener('touchmove', blockStickyZoneScroll, { passive: false });
     }
 
     function isTseProbnikBypassReady(form) {
@@ -8345,8 +8674,7 @@
         overlay.setAttribute('aria-hidden', 'false');
         isFormCalendarOverlayActive = true;
 
-        document.body.style.overflow = 'hidden';
-        document.body.classList.add('modal-is-open');
+        syncGlobalModalScrollLock();
 
         if (selectedDate instanceof Date && !Number.isNaN(selectedDate.getTime())) {
             currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
@@ -8380,13 +8708,7 @@
         calendarScaleWrapperHomeParent = null;
         calendarScaleWrapperHomeNextSibling = null;
 
-        if (modal && modal.classList.contains('modal--active')) {
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-is-open');
-        } else if (!document.querySelector('.modal.modal--active') && !isCameraCaptureModalOpen()) {
-            document.body.style.overflow = 'auto';
-            document.body.classList.remove('modal-is-open');
-        }
+        syncGlobalModalScrollLock();
 
         requestAnimationFrame(scaleCalendar);
         maybeTriggerHardReloadAfterLastModalClosed();
@@ -8627,8 +8949,7 @@
                 window.scrollTo(0, 0);
                 modal.classList.add('modal--active');
                 modal.dataset.state = 'form';
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-is-open');
+                syncGlobalModalScrollLock();
                 modal.scrollTop = 0;
                 const modalBody = modal.querySelector('.modal__body');
                 if (modalBody) modalBody.scrollTop = 0;
@@ -8805,8 +9126,7 @@
         closeCameraCaptureModal();
         const isSuccess = modal && modal.dataset.state === 'success';
         if(modal) modal.classList.remove('modal--active');
-        document.body.style.overflow = 'auto';
-        document.body.classList.remove('modal-is-open');
+        syncGlobalModalScrollLock();
         focusCameraButtonOnBookingOpen = false;
         resetBookingRecaptchaUi();
         clearTimeout(cameraButtonGlowTimer);
@@ -9422,6 +9742,7 @@
         }
         stopCameraCaptureStream();
         setCameraStatus('Allow camera access, then press Capture.');
+        syncGlobalModalScrollLock();
         maybeTriggerHardReloadAfterLastModalClosed();
     }
 
@@ -9433,6 +9754,7 @@
 
         cameraCaptureModal.classList.add('camera-capture-modal--active');
         cameraCaptureModal.setAttribute('aria-hidden', 'false');
+        syncGlobalModalScrollLock();
         setCameraStatus('Requesting camera access...');
 
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
