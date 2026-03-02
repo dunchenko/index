@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- <?php /* bootstrap: include __DIR__ . '/inc/init.php'; */ ?> -->
@@ -8,7 +8,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/ https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org https://www.google.com/recaptcha/;">
-    <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs.">
+    <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs province-wide +1 (437) 239-6833.">
     <title>Hanna Dunchenko Paralegal Services Province Wide +1 437 239 6833 | Ontario</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,35 +20,98 @@
     {
       "@context": "https://schema.org",
       "@type": "LegalService",
+      "@id": "https://hannadunchenko.com/#legalservice",
       "name": "Hanna Dunchenko Paralegal Services",
-      "image": "https://hannadunchenko.com/logo.png",
-      "@id": "https://hannadunchenko.com",
       "url": "https://hannadunchenko.com",
-      "telephone": "+14372396833",
+      "image": "https://hannadunchenko.com/logo.png",
+      "description": "Professional paralegal and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Proffesional representation in Toronto, Mississauga, and province-wide +1 (437) 239-6833 online.",
+      "telephone": "+1-437-239-6833",
+      "email": "paralegal@hannadunchenko.com",
+      "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "146 Thirtieth St, Suite 29",
         "addressLocality": "Toronto",
         "addressRegion": "ON",
+        "postalCode": "M8W 3C4",
         "addressCountry": "CA"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 43.6532,
-        "longitude": -79.3832
+        "latitude": 43.5969,
+        "longitude": -79.5459
       },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "10:00",
-        "closes": "17:00"
-      },
-      "description": "Professional paralegal and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Proffesional representation in Toronto, Mississauga, and province-wide online."
+      "hasMap": "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4",
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Ontario"
+        },
+        {
+          "@type": "City",
+          "name": "Toronto"
+        },
+        {
+          "@type": "City",
+          "name": "Mississauga"
+        },
+        {
+          "@type": "City",
+          "name": "Richmond Hill"
+        },
+        {
+          "@type": "City",
+          "name": "London"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "10:00",
+          "closes": "16:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4"
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Traffic Ticket Defense"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Landlord and Tenant Board Representation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "WSIB Representation"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Notary Public Services"
+          }
+        }
+      ]
     }
     </script>
     
@@ -258,6 +321,7 @@
         :root {
             --bg-dark: #bfa792;
             --text-white: #ffffff;
+            --booking-form-rgb: 107, 91, 74;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.15);
             --placeholder-color: rgba(255, 255, 255, 0.6);
@@ -477,11 +541,12 @@
         }
 
         .header__phone-link { 
-            font-size: clamp(1.2rem, 3vw, 1.6rem); 
+            font-size: 1em;
             font-weight: 800; 
             color: #ffffff; 
             text-decoration: none; 
             transition: opacity 0.3s;
+            line-height: inherit;
         }
 
         .header__phone-link:hover { opacity: 0.8; }
@@ -536,35 +601,46 @@
 
         .header__description {
             --h1-fit-scale: 1;
-            font-size: clamp(1.05rem, 3.6vw, 1.35rem);
-            font-weight: 900;
+            font-size: clamp(5.8rem, 18vw, 7.2rem);
+            font-weight: 800;
             color: rgba(255, 255, 255, 0.92);
             margin: 0 auto 2.5rem;
+            width: min(94vw, 41rem);
             max-width: 41rem;
-            line-height: 1.35;
-            padding: 0 1.5rem;
+            line-height: 1.4;
+            padding: 0 clamp(0.8rem, 2.1vw, 1.2rem);
             text-align: center;
-            letter-spacing: 0.06em;
+            letter-spacing: 2px;
             font-family: 'Lato', sans-serif;
-            display: flex;
-            flex-direction: column;
-            gap: 0.45rem;
-            align-items: center;
+            text-transform: uppercase;
+            display: block;
         }
         
         .header__description span {
             display: block;
-            width: max-content;
-            max-width: none;
+            width: 100%;
+            max-width: 100%;
             white-space: nowrap;
             text-wrap: nowrap;
             overflow-wrap: normal;
             word-break: keep-all;
+            text-align: center !important;
+            text-align-last: center !important;
+            text-justify: auto;
+            margin: 0.45rem 0 0;
+        }
+
+        .header__description.is-measuring span::after {
+            content: none;
+        }
+
+        .header__description span::after {
+            content: none;
         }
 
         .header__description-phone {
-            margin-top: clamp(0.08rem, 0.35vw, 0.2rem);
-            transform: translateY(-0.2rem);
+            margin-top: 0;
+            transform: translateY(-0.02rem);
         }
 
         .header__description br {
@@ -1481,12 +1557,12 @@
             padding: clamp(1.9rem, 4.8vh, 2.9rem) 0.65rem 0.72rem;
             background: linear-gradient(
                 to bottom,
-                rgba(107, 91, 74, 0.00) 0%,
-                rgba(107, 91, 74, 0.00) 2%,
-                rgba(107, 91, 74, 0.46) 16%,
-                rgba(107, 91, 74, 0.84) 26%,
-                rgba(107, 91, 74, 1.00) 32%,
-                rgba(107, 91, 74, 1.00) 100%
+                rgba(var(--booking-form-rgb), 0.00) 0%,
+                rgba(var(--booking-form-rgb), 0.00) 2%,
+                rgba(var(--booking-form-rgb), 0.46) 16%,
+                rgba(var(--booking-form-rgb), 0.84) 26%,
+                rgba(var(--booking-form-rgb), 1.00) 32%,
+                rgba(var(--booking-form-rgb), 1.00) 100%
             );
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
@@ -1680,15 +1756,16 @@
             overflow-y: auto;
             overflow-x: hidden;
             overscroll-behavior: none;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            -ms-overflow-style: auto;
+            scrollbar-width: auto;
+            scrollbar-color: auto;
             padding-bottom: 0;
         }
 
         #bookingModal .modal__body::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-            display: none;
+            width: auto;
+            height: auto;
+            display: block;
         }
 
         #bookingModal[data-state="form"] .modal__body {
@@ -1712,11 +1789,11 @@
             pointer-events: none;
             background: linear-gradient(
                 to bottom,
-                rgba(107, 91, 74, 1) 0%,
-                rgba(107, 91, 74, 0.96) 24%,
-                rgba(107, 91, 74, 0.72) 52%,
-                rgba(107, 91, 74, 0.34) 76%,
-                rgba(107, 91, 74, 0) 100%
+                rgba(var(--booking-form-rgb), 1) 0%,
+                rgba(var(--booking-form-rgb), 0.96) 24%,
+                rgba(var(--booking-form-rgb), 0.72) 52%,
+                rgba(var(--booking-form-rgb), 0.34) 76%,
+                rgba(var(--booking-form-rgb), 0) 100%
             );
         }
 
@@ -1823,6 +1900,10 @@
             justify-content: center;
             column-gap: 0.5rem;
             row-gap: 0.35rem;
+        }
+
+        #bookingModal .contact-form__group--deadline {
+            margin-bottom: 0.55rem !important;
         }
 
         #bookingModal .booking-row--deadline .booking-row__deadline-label,
@@ -2142,16 +2223,34 @@
         }
 
         .booking-scroll-cue span {
-            display: inline-block;
-            margin: 0 0.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 0.95rem;
+            height: 0.95rem;
+            margin: 0 0.14rem;
             color: #d8c2ac;
-            font-size: 1.12rem;
-            font-weight: 900;
+            font-size: 0;
             opacity: 0.96;
             text-shadow: 0 1px 0 rgba(50, 36, 24, 0.34), 0 0 8px rgba(235, 214, 188, 0.22);
             animation: bookingScrollChevronRainbow 1.2s cubic-bezier(0.2, 0.65, 0.2, 1) infinite;
             will-change: transform, color, opacity, text-shadow;
             transform-origin: 50% 50%;
+        }
+
+        .booking-scroll-cue span::before {
+            content: "";
+            width: 0.95rem;
+            height: 0.95rem;
+            background-color: currentColor;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            -webkit-mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: 100% 100%;
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
 
         .booking-scroll-cue span:nth-child(2) {
@@ -2165,45 +2264,51 @@
         @keyframes bookingScrollChevronRainbow {
             0% {
                 transform: translateY(-1px) scale(0.97);
-                color: #ead9c8;
-                opacity: 0.58;
-                text-shadow: 0 1px 0 rgba(50, 36, 24, 0.3), 0 0 6px rgba(234, 217, 200, 0.2);
+                color: #ffc2df;
+                opacity: 0.62;
+                text-shadow: 0 0 8px rgba(255, 166, 211, 0.5), 0 1px 0 rgba(72, 45, 61, 0.2);
             }
             15% {
                 transform: translateY(0px) scale(1);
                 color: #ffffff;
                 opacity: 1;
-                text-shadow: 0 0 14px rgba(255, 255, 255, 0.72), 0 1px 0 rgba(50, 36, 24, 0.22);
+                text-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 189, 223, 0.65);
             }
             25% {
                 transform: translateY(1px) scale(1.03);
-                color: #d5bda5;
-                opacity: 1;
-                text-shadow: 0 1px 0 rgba(50, 36, 24, 0.24), 0 0 10px rgba(213, 189, 165, 0.3);
+                color: #ff8fc8;
+                opacity: 0.96;
+                text-shadow: 0 0 12px rgba(255, 143, 200, 0.75), 0 1px 0 rgba(72, 45, 61, 0.18);
             }
             50% {
                 transform: translateY(3px) scale(1.05);
-                color: #bfa792;
+                color: #ffffff;
                 opacity: 1;
-                text-shadow: 0 1px 0 rgba(50, 36, 24, 0.26), 0 0 12px rgba(191, 167, 146, 0.34);
+                text-shadow: 0 0 18px rgba(255, 255, 255, 0.95), 0 0 8px rgba(255, 166, 211, 0.58);
+            }
+            62% {
+                transform: translateY(4px) scale(1.03);
+                color: #ff76bb;
+                opacity: 0.95;
+                text-shadow: 0 0 12px rgba(255, 118, 187, 0.72), 0 1px 0 rgba(72, 45, 61, 0.2);
             }
             75% {
                 transform: translateY(5px) scale(1.02);
-                color: #ae9178;
-                opacity: 0.95;
-                text-shadow: 0 1px 0 rgba(50, 36, 24, 0.28), 0 0 10px rgba(174, 145, 120, 0.32);
+                color: #ffe5f2;
+                opacity: 0.92;
+                text-shadow: 0 0 10px rgba(255, 229, 242, 0.7), 0 1px 0 rgba(72, 45, 61, 0.16);
             }
             88% {
                 transform: translateY(5px) scale(1);
-                color: #fffdf8;
+                color: #ffffff;
                 opacity: 0.98;
-                text-shadow: 0 0 12px rgba(255, 255, 255, 0.62), 0 1px 0 rgba(50, 36, 24, 0.24);
+                text-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 7px rgba(255, 189, 223, 0.62);
             }
             100% {
                 transform: translateY(6px) scale(0.97);
-                color: #8c6f59;
-                opacity: 0.58;
-                text-shadow: 0 1px 0 rgba(50, 36, 24, 0.32), 0 0 6px rgba(140, 111, 89, 0.22);
+                color: #ff9dcd;
+                opacity: 0.62;
+                text-shadow: 0 0 8px rgba(255, 157, 205, 0.52), 0 1px 0 rgba(72, 45, 61, 0.2);
             }
         }
 
@@ -2507,6 +2612,12 @@
 
         .footer__official-meta {
             margin-top: 21rem;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.92);
+            line-height: 1.6;
+            letter-spacing: 0.01em;
             opacity: 1 !important;
             transform: none !important;
             filter: none !important;
@@ -2514,8 +2625,15 @@
         }
 
         .footer__official-meta .footer__copyright {
-            font-size: 14px !important;
-            line-height: 1.5 !important;
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            color: inherit !important;
+            line-height: inherit !important;
+            letter-spacing: inherit !important;
+            white-space: nowrap !important;
+            overflow-wrap: normal !important;
+            word-break: keep-all !important;
             margin-top: 0 !important;
             margin-bottom: 0 !important;
             opacity: 1 !important;
@@ -2533,6 +2651,9 @@
             color: #ffffff; 
             font-size: clamp(1.4rem, 5vw, 1.8rem);
             font-weight: 800;
+            white-space: nowrap;
+            overflow-wrap: normal;
+            word-break: keep-all;
             text-decoration: none;
             margin: 2rem 0 0.6rem;
         }
@@ -3767,7 +3888,9 @@
             position: fixed;
             inset: 0;
             z-index: 22080;
-            background: radial-gradient(120% 100% at 50% 100%, #d4b89a 0%, #8b6f5a 100%);
+            background: rgba(var(--booking-form-rgb), 0.32);
+            backdrop-filter: blur(14px) saturate(120%);
+            -webkit-backdrop-filter: blur(14px) saturate(120%);
             align-items: stretch;
             justify-content: stretch;
             padding: 0;
@@ -3790,7 +3913,7 @@
                 linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, transparent 52%),
                 linear-gradient(33deg, transparent 8%, rgba(255, 255, 255, 0.13) 36%, transparent 74%),
                 linear-gradient(122deg, rgba(255, 255, 255, 0.1) 0%, transparent 64%);
-            opacity: 0.72;
+            opacity: 0.26;
             animation: anim-stripes 42s ease-in-out infinite;
         }
 
@@ -3799,7 +3922,7 @@
                 linear-gradient(158deg, rgba(255, 255, 255, 0.1) 0%, transparent 56%),
                 linear-gradient(18deg, transparent 20%, rgba(255, 255, 255, 0.08) 47%, transparent 82%);
             mix-blend-mode: overlay;
-            opacity: 0.62;
+            opacity: 0.18;
             animation: anim-stripes 55s ease-in-out infinite reverse;
         }
 
@@ -3822,6 +3945,28 @@
             padding: clamp(0.38rem, 1vh, 0.65rem) clamp(0.35rem, 1.6vw, 0.8rem) clamp(0.45rem, 1.2vh, 0.74rem);
             display: flex;
             flex-direction: column;
+        }
+
+        .form-calendar-overlay__panel.form-calendar-overlay__panel--compact {
+            --slots-panel-pad-top: 2.1rem;
+            --slots-panel-pad-x: 1.2rem;
+            --slots-panel-pad-bottom: 1.1rem;
+            --slots-panel-bg-alpha: 0.62;
+            --slots-sticky-alpha-strong: 0.62;
+            --slots-sticky-alpha-mid: 0.56;
+            --slots-sticky-alpha-soft: 0.30;
+            width: min(37.5rem, 96vw);
+            height: auto;
+            max-height: min(82vh, 44rem);
+            margin: auto;
+            border-radius: 1.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(var(--booking-form-rgb), var(--slots-panel-bg-alpha));
+            backdrop-filter: blur(14px) saturate(120%);
+            -webkit-backdrop-filter: blur(14px) saturate(120%);
+            box-shadow: 0 1.3rem 3.1rem rgba(0, 0, 0, 0.5);
+            padding: var(--slots-panel-pad-top) var(--slots-panel-pad-x) var(--slots-panel-pad-bottom);
+            overflow: hidden;
         }
 
         .form-calendar-overlay__header {
@@ -3910,9 +4055,224 @@
             margin: 0;
         }
 
+        .form-calendar-overlay__mount--quick-slots {
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: clamp(1.9rem, 4vh, 2.4rem) clamp(0.45rem, 2vw, 0.9rem) clamp(0.8rem, 2vh, 1.1rem);
+        }
+
+        .form-calendar-overlay__panel--compact .form-calendar-overlay__mount--quick-slots {
+            padding: 0;
+        }
+
+        .form-quick-slots {
+            width: min(100%, 43rem);
+            margin: 0 auto;
+            color: #fff8ef;
+        }
+
+        .form-quick-slots__sticky {
+            position: sticky;
+            top: 0;
+            z-index: 25;
+            margin: calc(-1 * var(--slots-panel-pad-top, 0rem)) calc(-1 * var(--slots-panel-pad-x, 0rem)) 0.65rem;
+            padding: 0.45rem 0.55rem 0.9rem;
+            border-radius: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-strong)) 0%,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-mid)) 46%,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-soft)) 74%,
+                rgba(var(--booking-form-rgb), 0) 100%
+            );
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none;
+            isolation: isolate;
+        }
+
+        .form-quick-slots__sticky::before {
+            content: none;
+        }
+
+        .form-quick-slots__sticky::after {
+            content: none;
+        }
+
+        .form-quick-slots__sticky > * {
+            position: relative;
+            z-index: 3;
+            pointer-events: auto;
+        }
+
+        .form-quick-slots__title {
+            margin: 0 0 0.6rem;
+            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
+            font-weight: 900;
+            line-height: 1.35;
+            text-align: center;
+            letter-spacing: 0.01em;
+            color: #fff8ef;
+            text-shadow: 0 1px 10px rgba(30, 19, 12, 0.34);
+        }
+
+        .form-quick-slots__title--no-hint {
+            margin-bottom: 0;
+        }
+
+        .form-quick-slots__hint {
+            margin: 0;
+            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
+            font-weight: 900;
+            line-height: 1.35;
+            text-align: center;
+            color: rgba(255, 248, 239, 0.92);
+            letter-spacing: 0.01em;
+            text-shadow: 0 1px 10px rgba(30, 19, 12, 0.34);
+        }
+
+        .form-quick-slots__sticky-bottom {
+            position: sticky;
+            bottom: 0;
+            z-index: 25;
+            margin: 0.65rem calc(-1 * var(--slots-panel-pad-x, 0rem)) calc(-1 * var(--slots-panel-pad-bottom, 0rem));
+            padding: clamp(1.1rem, 2.8vh, 1.8rem) 0.55rem 0.45rem;
+            border-radius: 0;
+            background: linear-gradient(
+                to top,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-strong)) 0%,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-mid)) 46%,
+                rgba(var(--booking-form-rgb), var(--slots-sticky-alpha-soft)) 74%,
+                rgba(var(--booking-form-rgb), 0) 100%
+            );
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            pointer-events: none;
+            isolation: isolate;
+        }
+
+        .form-quick-slots__sticky-bottom::before {
+            content: none;
+        }
+
+        .form-quick-slots__sticky-bottom::after {
+            content: none;
+        }
+
+        .form-quick-slots__sticky-bottom > * {
+            position: relative;
+            z-index: 3;
+            pointer-events: auto;
+        }
+
+        .form-quick-slots__sticky-bottom-text {
+            margin: 0;
+            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
+            font-weight: 900;
+            line-height: 1.35;
+            text-align: center;
+            letter-spacing: 0.01em;
+            color: rgba(255, 248, 239, 0.92);
+            text-shadow: 0 1px 10px rgba(30, 19, 12, 0.34);
+        }
+
+        .form-quick-slots__list {
+            display: grid;
+            gap: 0.58rem;
+        }
+
+        .form-quick-slots__skeleton-list {
+            display: grid;
+            gap: 0.58rem;
+        }
+
+        .form-quick-slots__skeleton-item {
+            width: 100%;
+            border: 1px solid rgba(255, 243, 227, 0.42);
+            border-radius: 0.86rem;
+            background: rgba(255, 255, 255, 0.11);
+            padding: 0.72rem 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+
+        .form-quick-slots__skeleton-line {
+            display: block;
+            height: 0.92rem;
+            border-radius: 0.45rem;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.2) 0%,
+                rgba(255, 255, 255, 0.82) 50%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            background-size: 200% 100%;
+            animation: quick-slots-skeleton-shimmer 1.05s linear infinite;
+        }
+
+        .form-quick-slots__skeleton-line--date {
+            width: 9.2rem;
+            max-width: 42%;
+        }
+
+        .form-quick-slots__skeleton-line--time {
+            width: 7.8rem;
+            max-width: 34%;
+        }
+
+        @keyframes quick-slots-skeleton-shimmer {
+            from {
+                background-position: 200% 0;
+            }
+            to {
+                background-position: -200% 0;
+            }
+        }
+
+        .form-quick-slots__item {
+            width: 100%;
+            border: 1px solid rgba(255, 243, 227, 0.42);
+            border-radius: 0.86rem;
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff8ef;
+            padding: 0.72rem 0.8rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+
+        .form-quick-slots__item-date {
+            font-size: 0.9rem;
+            font-weight: 800;
+            opacity: 0.96;
+            white-space: nowrap;
+        }
+
+        .form-quick-slots__item-time {
+            font-size: 1rem;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .form-quick-slots__empty {
+            margin: 0.5rem auto 0;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: rgba(255, 248, 239, 0.92);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .form-calendar-overlay::before,
             .form-calendar-overlay::after {
+                animation: none !important;
+            }
+
+            .form-quick-slots__skeleton-line {
                 animation: none !important;
             }
         }
@@ -4081,11 +4441,13 @@
             transition: max-height 0.36s cubic-bezier(.22, .61, .36, 1), opacity 0.24s ease, visibility 0.24s ease;
         }
 
-        #bookingModal .custom-select--city .custom-select__trigger.has-city-check {
+        #bookingModal .custom-select--city .custom-select__trigger.has-city-check,
+        #bookingModal .custom-select__trigger.has-selection-check {
             padding-right: 2.8rem;
         }
 
-        #bookingModal .custom-select--city .custom-select__trigger.has-city-check::before {
+        #bookingModal .custom-select--city .custom-select__trigger.has-city-check::before,
+        #bookingModal .custom-select__trigger.has-selection-check::before {
             content: none;
         }
 
@@ -4111,19 +4473,26 @@
         }
 
         .custom-option.selected::after {
-            content: '\2713';
+            content: "";
             position: absolute;
-            right: 1.1rem; top: 50%;
+            right: 1.1rem;
+            top: 50%;
             transform: translateY(-50%);
-            color: var(--accent-gold);
+            width: 0.95rem;
+            height: 0.95rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%235a3d2a' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            filter: drop-shadow(0 0 0.12rem rgba(90, 61, 42, 0.24));
         }
 
         #bookingModal #cityCustomSelect .custom-option.selected::after {
-            content: ' \2713';
-            position: static !important;
-            right: auto !important;
-            top: auto !important;
-            transform: none !important;
+            content: "" !important;
+            position: absolute !important;
+            right: 1.1rem !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
         }
 
         .footer-book-btn {
@@ -5183,6 +5552,9 @@
             line-height: 1.6 !important;
             letter-spacing: 0.01em !important;
             text-align: center !important;
+            white-space: nowrap !important;
+            overflow-wrap: normal !important;
+            word-break: keep-all !important;
             width: 100%;
         }
 .footer .blur-in-section {
@@ -5228,6 +5600,16 @@
 
         .layout-container > .faq + .privacy-block--map {
             margin-top: clamp(5rem, 11vw, 7.8rem);
+        }
+
+        .privacy-note {
+            margin: 0;
+            padding: 0.85rem 1rem;
+            border-left: 4px solid rgba(255, 255, 255, 0.9);
+            border-radius: 0.45rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.96);
+            line-height: 1.55;
         }
 
         @media (max-width: 768px) {
@@ -5277,18 +5659,21 @@
             }
 
             .header__description {
-                font-size: clamp(0.95rem, 4.6vw, 1.15rem);
-                padding: 0 clamp(0.5rem, 3.2vw, 0.85rem);
+                font-size: clamp(5rem, 22vw, 6rem);
+                padding: 0 0.85rem;
                 gap: 0.35rem;
             }
 
             .header__description span {
-                width: max-content;
-                max-width: none;
+                width: 100%;
+                max-width: 100%;
                 white-space: nowrap;
                 text-wrap: nowrap;
                 overflow-wrap: normal;
                 word-break: keep-all;
+                text-align: center;
+                text-align-last: center;
+                text-justify: auto;
             }
 
             .header__contact {
@@ -5302,7 +5687,7 @@
             }
 
             .header__phone-link {
-                font-size: clamp(1rem, 4vw, 1.3rem);
+                font-size: 1em;
                 line-height: 1.2;
             }
 
@@ -5438,6 +5823,10 @@
 
             .contact-form__group {
                 margin-bottom: 1.15rem;
+            }
+
+            #bookingModal .contact-form__group--deadline {
+                margin-bottom: 0.3rem !important;
             }
 
             .contact-form__input,
@@ -5603,8 +5992,8 @@
             }
 
             .footer__official-meta .footer__copyright {
-                font-size: 14px !important;
-                line-height: 1.4 !important;
+                font-size: inherit !important;
+                line-height: inherit !important;
             }
 
             .footer__contact-link {
@@ -5723,7 +6112,7 @@
             }
 
             .header__description {
-                padding: 0 clamp(0.6rem, 4vw, 1rem);
+                padding: 0 0.85rem;
             }
         }
 </style>
@@ -5759,14 +6148,8 @@
     <!-- <?php /* template-part: hero-header.php */ ?> -->
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
-    <h1 class="header__description">
-        <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services </span><br>
-        <span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters </span><br>
-        <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London </span><br>
-        <span data-i18n="desc4">Online meetings are available province-wide</span>
-        <span class="header__description-phone">
-            <a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a>
-        </span>
+    <h1 class="header__description" aria-label="Licensed Paralegal and Notary Public Services Traffic Ticket Defense, LTB, WSIB Matters Toronto, Richmond Hill, Mississauga, London Online meetings are available province-wide +1 (437) 239-6833">
+        <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services </span><span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters </span><span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London </span><span data-i18n="desc4">*Online meetings are available province-wide </span><span class="header__description-phone" data-i18n="desc5"><a href="tel:+14372396833" class="header__phone-link dynamic-text">+1 (437) 239-6833</a></span>
     </h1>
 
     <div class="book-btn-wrapper">
@@ -6004,10 +6387,7 @@
     </div>
 
     <div class="privacy-block privacy-block--map fade-in-section">
-        <h3 style="font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; color: #fff;">Privacy Policy</h3>
-        <p><strong>Data Collection:</strong> Personal details you submit (name, phone, email, case summary etc) are gathered through this form.</p>
-        <p style="margin-top: 10px;"><strong>How It's Used:</strong> Your information helps deliver paralegal services, answer your questions, and maintain contact, with your consent.</p>
-        <p style="margin-top: 10px;"><strong>Your Rights:</strong> Request access to or removal of your data by calling <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or emailing <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+        <p class="privacy-note"><strong>Important:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
     </div>
 </div>
 
@@ -6104,7 +6484,7 @@
 <footer class="footer fade-in-section">
     <div class="footer__container">
         
-        <div class="footer__hours" data-i18n="hours">
+        <div class="footer__hours dynamic-text" data-i18n="hours">
             <strong>Hours of Operation:</strong><br>Sunday: Closed<br>Monday - Saturday: 10:00 AM - 4:00 PM
         </div>
         <div style="text-align: center; margin: 2rem 0;">
@@ -6122,11 +6502,11 @@
 </div>
         </div>
 
-        <a href="tel:+14372396833" class="footer__contact-link">+1 (437) 239-6833</a>
+        <a href="tel:+14372396833" class="footer__contact-link dynamic-text">+1 (437) 239-6833</a>
     </div>
     <div class="footer__official-meta">
-        <p class="footer__copyright">My only official website:</p>
-        <p class="footer__copyright">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
+        <p class="footer__copyright dynamic-text">My only official website:</p>
+        <p class="footer__copyright dynamic-text">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
 
@@ -6276,6 +6656,7 @@
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem;">
+                        <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Attach Files</label>
                         <input type="file" id="fileAttachInput" multiple accept="image/*,video/*,.pdf,.doc,.docx" style="display: none;">
                         <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
                         <div class="file-attach__controls" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
@@ -6304,7 +6685,7 @@
                                         </span>
                                     </span>
                                 </button>
-                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Upload files: Images: JPG, PNG. Videos: MOV, MP4. Docs: PDF, DOC, DOCX. Up to 50 files, max 100 MB each, 500 MB total.</p>
+                                <p style="margin: 0; color: var(--text-white); font-size: 0.9rem; line-height: 1.4; text-align: left; flex: 1 1 240px;">Upload files: DOC, JPG, MOV, MP4, PDF, PNG, PST, RTF, TIFF, TXT, XLS, etc. Up to 50 files, max 100 MB each, 500 MB total.</p>
                             </div>
                             <div class="file-attach__list" id="fileAttachList" style="width: 100%;"></div>
                         </div>
@@ -6326,7 +6707,7 @@
                     <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
                 </div>
 
-                <div class="contact-form__group">
+                <div class="contact-form__group contact-form__group--deadline">
                     <div class="booking-row booking-row--deadline" style="align-items:center; justify-content:center; gap:8px;">
                         <label for="deadlineInputMain" class="contact-form__label booking-row__deadline-label" style="color:var(--text-white);">Deadline:</label>
                         <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:center;">
@@ -6373,7 +6754,7 @@
 </div>
 
 <div id="formCalendarOverlay" class="form-calendar-overlay" aria-hidden="true">
-    <div class="form-calendar-overlay__panel">
+    <div id="formCalendarOverlayPanel" class="form-calendar-overlay__panel">
         <button type="button" class="form-calendar-overlay__close" id="formCalendarOverlayCloseBtn" aria-label="Close calendar">&times;</button>
         <div id="formCalendarOverlayMount" class="form-calendar-overlay__mount"></div>
     </div>
@@ -8713,13 +9094,203 @@
         return !!document.querySelector('.modal.modal--active') || isCameraCaptureModalOpen() || isFormCalendarOverlayOpen();
     }
 
+    async function ensureAvailabilityCacheForDateRange(fromDate, toDate) {
+        if (!(fromDate instanceof Date) || Number.isNaN(fromDate.getTime())) return;
+        if (!(toDate instanceof Date) || Number.isNaN(toDate.getTime())) return;
+        const cursor = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
+        const endMonth = new Date(toDate.getFullYear(), toDate.getMonth(), 1);
+        while (cursor <= endMonth) {
+            await fetchMonth(cursor.getFullYear(), cursor.getMonth(), false, false);
+            cursor.setMonth(cursor.getMonth() + 1, 1);
+        }
+    }
+
+    function collectUpcomingFreeSlots(daysAhead = 14) {
+        const minDate = getMinBookableDate();
+        const start = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + Math.max(1, daysAhead - 1));
+        const result = [];
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            const year = d.getFullYear();
+            const month = d.getMonth();
+            const day = d.getDate();
+            const monthKey = getMonthKey(year, month);
+            const monthSlots = Array.isArray(availableSlotsCache[monthKey]) ? availableSlotsCache[monthKey] : [];
+            const daySlots = monthSlots
+                .filter(slot => slot && slot.status !== 'busy' && Number(slot.date) === day)
+                .sort((a, b) => getSlotStartMinutes(a) - getSlotStartMinutes(b));
+            daySlots.forEach(slot => result.push({ slot, dateObj: new Date(year, month, day) }));
+        }
+        return result;
+    }
+
+    function getInclusiveMonthCount(fromDate, toDate) {
+        if (!(fromDate instanceof Date) || Number.isNaN(fromDate.getTime())) return 0;
+        if (!(toDate instanceof Date) || Number.isNaN(toDate.getTime())) return 0;
+        const startMonthIndex = (fromDate.getFullYear() * 12) + fromDate.getMonth();
+        const endMonthIndex = (toDate.getFullYear() * 12) + toDate.getMonth();
+        return Math.max(0, (endMonthIndex - startMonthIndex) + 1);
+    }
+
+    function buildQuickSlotsItemsMarkup(entries) {
+        return entries.map(entry => {
+            const dateLabel = formatDateAsYmd(entry.dateObj);
+            const startText = getSlotStartTime(entry.slot).toUpperCase();
+            const endText = getEndTime(startText).toUpperCase();
+            const payload = encodeURIComponent(JSON.stringify(entry.slot));
+            return `<button type="button" class="form-quick-slots__item" data-quick-slot="${payload}" data-quick-date="${dateLabel}"><span class="form-quick-slots__item-date">${dateLabel}</span><span class="form-quick-slots__item-time">${startText} – ${endText}</span></button>`;
+        }).join('');
+    }
+
+    function buildQuickSlotsSkeletonMarkup(count = 7) {
+        const safeCount = Math.max(3, Math.min(12, Number(count) || 7));
+        const items = [];
+        for (let i = 0; i < safeCount; i += 1) {
+            items.push('<div class="form-quick-slots__skeleton-item" aria-hidden="true"><span class="form-quick-slots__skeleton-line form-quick-slots__skeleton-line--date"></span><span class="form-quick-slots__skeleton-line form-quick-slots__skeleton-line--time"></span></div>');
+        }
+        return items.join('');
+    }
+
+    function bindQuickSlotItemHandlers(rootEl) {
+        if (!rootEl) return;
+        rootEl.querySelectorAll('[data-quick-slot]').forEach(btn => {
+            if (btn.dataset.quickBound === '1') return;
+            btn.dataset.quickBound = '1';
+            btn.addEventListener('click', () => {
+                try {
+                    const slot = JSON.parse(decodeURIComponent(String(btn.getAttribute('data-quick-slot') || '')));
+                    const dateLabel = String(btn.getAttribute('data-quick-date') || '');
+                    const m = dateLabel.match(/^(\d{4})\.(\d{2})\.(\d{2})$/);
+                    if (m) selectedDate = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+                    selectedSlotData = slot;
+                    bookingWithoutSpecificDate = false;
+                    syncBookingModalSlotDisplay(slot);
+                    closeFormCalendarOverlay();
+                    setBookingNotice('Appointment time updated.', 'success');
+                } catch (_) {}
+            });
+        });
+    }
+
+    function renderQuickSlotsOverlayState(mountEl, heading, hintText, entries, options = {}) {
+        if (!mountEl) return;
+        const safeHeading = String(heading || '');
+        const safeHint = String(hintText || '');
+        const safeEntries = Array.isArray(entries) ? entries : [];
+        const loading = !!options.loading;
+        const emptyMessage = String(options.emptyMessage || '');
+        const bottomStickyText = String(options.bottomStickyText || '').trim();
+
+        let bodyMarkup = '';
+        if (safeEntries.length) {
+            bodyMarkup = `<div class="form-quick-slots__list">${buildQuickSlotsItemsMarkup(safeEntries)}</div>`;
+        } else if (loading) {
+            bodyMarkup = `<div class="form-quick-slots__skeleton-list">${buildQuickSlotsSkeletonMarkup(7)}</div>`;
+        } else if (emptyMessage) {
+            bodyMarkup = `<p class="form-quick-slots__empty">${emptyMessage}</p>`;
+        }
+
+        const hintMarkup = safeHint ? `<p class="form-quick-slots__hint">${safeHint}</p>` : '';
+        const titleClass = safeHint ? 'form-quick-slots__title' : 'form-quick-slots__title form-quick-slots__title--no-hint';
+        const bottomStickyMarkup = (bottomStickyText && safeEntries.length)
+            ? `<div class="form-quick-slots__sticky-bottom"><p class="form-quick-slots__sticky-bottom-text">${bottomStickyText}</p></div>`
+            : '';
+
+        mountEl.innerHTML = `<div class="form-quick-slots"><div class="form-quick-slots__sticky"><p class="${titleClass}">${safeHeading}</p>${hintMarkup}</div>${bodyMarkup}${bottomStickyMarkup}</div>`;
+        bindQuickSlotItemHandlers(mountEl);
+    }
+
+    function openFormQuickSlotsOverlay() {
+        if (!modal || !modal.classList.contains('modal--active')) return;
+        const overlay = document.getElementById('formCalendarOverlay');
+        const mount = document.getElementById('formCalendarOverlayMount');
+        const panel = document.getElementById('formCalendarOverlayPanel');
+        const closeBtn = document.getElementById('formCalendarOverlayCloseBtn');
+        if (!overlay || !mount) return;
+        if (overlay.classList.contains('form-calendar-overlay--active')) return;
+
+        const daysAhead = 14;
+        const minDate = getMinBookableDate();
+        const rangeEnd = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + (daysAhead - 1));
+        const totalMonths = Math.max(1, getInclusiveMonthCount(minDate, rangeEnd));
+        const heading = 'Scheduling: all available slots in one place<br>— tap any time below to book.';
+        const bottomHintLabel = 'Available free slots for the next 2 weeks:';
+
+        mount.classList.add('form-calendar-overlay__mount--quick-slots');
+        if (panel) panel.classList.add('form-calendar-overlay__panel--compact');
+        renderQuickSlotsOverlayState(
+            mount,
+            heading,
+            `Loading available slots for the next 2 weeks... (0/${totalMonths})`,
+            [],
+            { loading: true }
+        );
+        if (closeBtn) closeBtn.setAttribute('aria-label', 'Close available slots');
+
+        overlay.classList.add('form-calendar-overlay--active');
+        overlay.setAttribute('aria-hidden', 'false');
+        isFormCalendarOverlayActive = true;
+        syncGlobalModalScrollLock();
+
+        (async () => {
+            try {
+                const cursor = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+                const endMonth = new Date(rangeEnd.getFullYear(), rangeEnd.getMonth(), 1);
+                let processedMonths = 0;
+
+                while (cursor <= endMonth) {
+                    await fetchMonth(cursor.getFullYear(), cursor.getMonth(), false, false);
+                    processedMonths += 1;
+                    if (!overlay.classList.contains('form-calendar-overlay--active')) return;
+
+                    const entries = collectUpcomingFreeSlots(daysAhead);
+                    const isComplete = processedMonths >= totalMonths;
+                    const hint = isComplete
+                        ? ''
+                        : `Loading available slots for the next 2 weeks... (${processedMonths}/${totalMonths})`;
+                    const emptyMessage = (isComplete && !entries.length)
+                        ? 'No free slots found in the next 2 weeks. Please try again later.'
+                        : '';
+
+                    renderQuickSlotsOverlayState(
+                        mount,
+                        heading,
+                        hint,
+                        entries,
+                        {
+                            loading: !isComplete && !entries.length,
+                            emptyMessage,
+                            bottomStickyText: entries.length ? bottomHintLabel : ''
+                        }
+                    );
+
+                    cursor.setMonth(cursor.getMonth() + 1, 1);
+                }
+
+                if (!overlay.classList.contains('form-calendar-overlay--active')) return;
+            } catch (_) {
+                if (!overlay.classList.contains('form-calendar-overlay--active')) return;
+                renderQuickSlotsOverlayState(
+                    mount,
+                    heading,
+                    '',
+                    [],
+                    { emptyMessage: 'Unable to load available slots right now. Please try again.' }
+                );
+            }
+        })();
+    }
+
     function openFormCalendarOverlay() {
         if (!modal || !modal.classList.contains('modal--active')) return;
         const overlay = document.getElementById('formCalendarOverlay');
         const mount = document.getElementById('formCalendarOverlayMount');
         const calendarWrapper = document.getElementById('calendarScaleWrapper');
+        const panel = document.getElementById('formCalendarOverlayPanel');
         if (!overlay || !mount || !calendarWrapper) return;
         if (overlay.classList.contains('form-calendar-overlay--active')) return;
+        mount.classList.remove('form-calendar-overlay__mount--quick-slots');
+        if (panel) panel.classList.remove('form-calendar-overlay__panel--compact');
 
         calendarScaleWrapperHomeParent = calendarWrapper.parentNode;
         calendarScaleWrapperHomeNextSibling = calendarWrapper.nextSibling;
@@ -8744,6 +9315,8 @@
     function closeFormCalendarOverlay() {
         const overlay = document.getElementById('formCalendarOverlay');
         const calendarWrapper = document.getElementById('calendarScaleWrapper');
+        const mount = document.getElementById('formCalendarOverlayMount');
+        const panel = document.getElementById('formCalendarOverlayPanel');
         if (!overlay || !overlay.classList.contains('form-calendar-overlay--active')) return;
 
         overlay.classList.remove('form-calendar-overlay--active');
@@ -8762,6 +9335,13 @@
         }
         calendarScaleWrapperHomeParent = null;
         calendarScaleWrapperHomeNextSibling = null;
+        if (mount) {
+            mount.classList.remove('form-calendar-overlay__mount--quick-slots');
+            if (!mount.querySelector('#calendarScaleWrapper')) {
+                mount.innerHTML = '';
+            }
+        }
+        if (panel) panel.classList.remove('form-calendar-overlay__panel--compact');
 
         syncGlobalModalScrollLock();
 
@@ -9912,7 +10492,7 @@
 
     if (openCalendarBtn) {
         openCalendarBtn.addEventListener('click', () => {
-            openFormCalendarOverlay();
+            openFormQuickSlotsOverlay();
         });
     }
 
@@ -9939,6 +10519,8 @@
     if (formCalendarOverlay) {
         const preventFormCalendarOverlayScroll = (e) => {
             if (!formCalendarOverlay.classList.contains('form-calendar-overlay--active')) return;
+            const quickListHost = e.target && e.target.closest ? e.target.closest('.form-calendar-overlay__mount--quick-slots') : null;
+            if (quickListHost) return;
             if (e.cancelable) e.preventDefault();
         };
         formCalendarOverlay.addEventListener('wheel', preventFormCalendarOverlayScroll, { passive: false });
@@ -11205,6 +11787,8 @@
     window.addEventListener('load', () => {
         // Run UI adjustments and permission requests immediately so they don't cause late layout shifts
         adjustDynamicText();
+        requestAnimationFrame(() => adjustDynamicText());
+        setTimeout(() => adjustDynamicText(), 220);
         
         // Send the initial Page Load event asynchronously to guarantee correct row color
         logEvent("Page Load", window.location.href);
@@ -12232,11 +12816,15 @@
 
         if (selectedOption) {
             const selectedText = selectedOption.textContent.trim();
-            if (selectId === 'cityCustomSelect') {
+            if (selectId === 'cityCustomSelect' || selectId === 'customSelect') {
                 triggerTextEl.textContent = `${selectedText} \u2713`;
-                trigger.classList.add('has-city-check');
+                trigger.classList.add('has-selection-check');
             } else {
+                trigger.classList.remove('has-selection-check');
                 triggerTextEl.textContent = selectedText;
+            }
+            if (selectId === 'cityCustomSelect') {
+                trigger.classList.add('has-city-check');
             }
             if (hiddenInput) {
                 if (selectId === 'provinceCustomSelect') {
@@ -12249,6 +12837,7 @@
         }
 
         triggerTextEl.textContent = trigger.dataset.placeholder || '';
+        trigger.classList.remove('has-selection-check');
         if (selectId === 'cityCustomSelect') {
             trigger.classList.remove('has-city-check');
         }
@@ -12494,12 +13083,16 @@
         if (!heroH1) return;
         const lines = Array.from(heroH1.querySelectorAll('span'));
         if (!lines.length) return;
+        heroH1.classList.add('is-measuring');
 
         lines.forEach(line => {
             line.style.whiteSpace = 'nowrap';
             line.style.textWrap = 'nowrap';
             line.style.overflowWrap = 'normal';
             line.style.wordBreak = 'keep-all';
+            line.style.width = '100%';
+            line.style.textAlign = 'center';
+            line.style.textAlignLast = 'center';
         });
 
         // Reset to CSS-driven size first, then compute a stable pixel fallback for mobile browsers.
@@ -12509,21 +13102,28 @@
         const heroStyle = window.getComputedStyle(heroH1);
         const padLeft = parseFloat(heroStyle.paddingLeft || '0') || 0;
         const padRight = parseFloat(heroStyle.paddingRight || '0') || 0;
+        const minHeroScale = window.innerWidth <= 420 ? 0.1 : 0.16;
         const contentWidth = Math.max(1, heroH1.clientWidth - padLeft - padRight);
         // Keep extra breathing room so text never visually touches screen edges.
         const edgeGap = Math.max(8, Math.min(22, contentWidth * 0.04));
         const availableWidth = Math.max(1, contentWidth - (edgeGap * 2));
-        if (!availableWidth) return;
+        if (!availableWidth) {
+            heroH1.classList.remove('is-measuring');
+            return;
+        }
 
         let maxLineWidth = 0;
         lines.forEach(line => {
             maxLineWidth = Math.max(maxLineWidth, line.scrollWidth);
         });
-        if (!maxLineWidth) return;
+        if (!maxLineWidth) {
+            heroH1.classList.remove('is-measuring');
+            return;
+        }
 
         const ratio = (availableWidth - 2) / maxLineWidth;
-        let scale = Math.max(0.22, Math.min(1, ratio));
-        heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
+        let scale = Math.max(minHeroScale, Math.min(1, ratio));
+        heroH1.style.fontSize = `${Math.max(10, Math.round(baseFontPx * scale))}px`;
 
         let postFitMaxWidth = 0;
         lines.forEach(line => {
@@ -12531,27 +13131,31 @@
         });
         if (postFitMaxWidth > availableWidth + 0.5) {
             const correction = availableWidth / postFitMaxWidth;
-            scale = Math.max(0.22, scale * correction * 0.99);
+            scale = Math.max(minHeroScale, scale * correction * 0.99);
         }
-        heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
+        heroH1.style.fontSize = `${Math.max(10, Math.round(baseFontPx * scale))}px`;
 
         // Final safety pass for very narrow screens / browser rounding differences.
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 10; i++) {
             let overflowWidth = 0;
             lines.forEach(line => {
                 overflowWidth = Math.max(overflowWidth, line.scrollWidth);
             });
             if (overflowWidth <= availableWidth + 0.5) break;
-            const correction = Math.max(0.6, Math.min(0.99, availableWidth / overflowWidth));
-            scale = Math.max(0.22, scale * correction * 0.995);
-            heroH1.style.fontSize = `${(baseFontPx * scale).toFixed(3)}px`;
+            const correction = Math.max(0.45, Math.min(0.99, availableWidth / overflowWidth));
+            scale = Math.max(minHeroScale, scale * correction * 0.99);
+            heroH1.style.fontSize = `${Math.max(10, Math.round(baseFontPx * scale))}px`;
         }
+        heroH1.classList.remove('is-measuring');
     }
 
     // (Load listener consolidated above)
 
     window.addEventListener('resize', adjustDynamicText);
     window.addEventListener('orientationchange', adjustDynamicText);
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', adjustDynamicText);
+    }
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => adjustDynamicText()).catch(() => {});
     }
