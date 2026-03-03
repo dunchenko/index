@@ -2810,13 +2810,14 @@
             border: 1.8px solid rgba(255, 247, 238, 0.52);
             background: transparent;
             filter: blur(11px);
-            opacity: 0.58;
+            opacity: 0;
             box-shadow:
                 0 0 12px rgba(255, 246, 232, 0.36),
                 0 0 22px rgba(255, 235, 214, 0.26),
                 0 0 36px rgba(255, 217, 184, 0.16);
             pointer-events: none;
             z-index: -1;
+            transition: opacity 0.25s ease;
         }
 
         @keyframes calendarAuraPulse {
@@ -2851,6 +2852,9 @@
         }
         .calendar-wrapper.calendar--loaded {
             opacity: 1;
+        }
+        .calendar-wrapper.calendar--loaded::before {
+            opacity: 0.58;
         }
         .calendar-wrapper.calendar--loading {
             background: transparent !important;
@@ -6715,7 +6719,7 @@
     </div>
 
     <div class="privacy-block privacy-block--map fade-in-section">
-        <p class="privacy-note"><strong>Please note:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+        <p class="privacy-note"><strong>Note:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
     </div>
 </div>
 
@@ -7101,7 +7105,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5tIxnzPBiiTdZn4Mmseo5KCIkyBPuNv9JPJ9aeiIameFEueO2WJwS5nbwJUF9BmQadA/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTXSCyqP1DcCqH3LQG0KQ-pvV1aP8l5lep7F2WCbnjDVcSNnAgvcgvCbWeBqafJCKEMA/exec"
     const RECAPTCHA_SITE_KEY = "6LeYZHssAAAAADZpqJwxjGn6nc4GgRAGOaRJY-F_"
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
