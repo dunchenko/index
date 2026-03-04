@@ -5471,9 +5471,9 @@
         }
 
         #bookingModal .file-attach__btn--camera {
-            border-color: rgba(255, 255, 255, 0.94) !important;
-            background: rgba(var(--modal-design-tone-rgb), 0.9) !important;
-            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.96) !important;
+            background: #ffffff !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .file-attach__btn--camera .file-attach__icon {
@@ -5493,19 +5493,19 @@
         #bookingModal .file-attach__btn--camera:hover .file-attach__icon-svg--camera,
         #bookingModal .file-attach__btn--camera:focus-visible .file-attach__icon-svg,
         #bookingModal .file-attach__btn--camera:focus-visible .file-attach__icon-svg--camera {
-            color: #ffffff !important;
-            stroke: #ffffff !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
+            stroke: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .file-attach__btn:hover,
         #bookingModal .file-attach__btn:focus-visible {
-            color: #ffffff !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .file-attach__btn--camera:hover,
         #bookingModal .file-attach__btn--camera:focus-visible {
-            background: rgba(var(--modal-design-tone-rgb), 0.98) !important;
-            border-color: #ffffff !important;
+            background: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.96) !important;
         }
 
         #bookingModal .file-attach__btn--camera:hover .file-attach__icon,
@@ -5513,6 +5513,13 @@
             background: transparent !important;
             border-color: transparent !important;
             box-shadow: none !important;
+        }
+
+        #bookingModal .file-attach__btn--camera .file-attach__icon-svg,
+        #bookingModal .file-attach__btn--camera .file-attach__icon-svg--camera,
+        #bookingModal .file-attach__btn--camera .file-attach__icon-svg--paperclip {
+            color: rgb(var(--modal-design-tone-rgb)) !important;
+            stroke: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over,
@@ -5523,7 +5530,7 @@
         #bookingModal .file-attach__drop-zone-file--drag-over .file-attach__btn,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__btn {
             border-color: rgba(255, 255, 255, 0.92) !important;
-            color: #ffffff !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over .file-attach__title,
@@ -5535,8 +5542,8 @@
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__icon-svg,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__hint,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file p {
-            color: #ffffff !important;
-            stroke: #ffffff !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
+            stroke: rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .final-result-call {
@@ -8253,7 +8260,7 @@
                     <div class="booking-status-slot">
                         <button type="button" id="bookingStatus" aria-live="polite" aria-atomic="true" tabindex="-1" aria-disabled="true"></button>
                     </div>
-                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK NOW</button>
+                    <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK</button>
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
                         <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
                         <label for="agreeTerms" class="contact-form__checkbox-label">
@@ -10799,7 +10806,7 @@
     }
 
     function getConfirmBtnLabel() {
-        return 'BOOK NOW';
+        return 'BOOK';
     }
 
     function setBookingModalWithoutDateDisplay() {
