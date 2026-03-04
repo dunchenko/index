@@ -329,6 +329,23 @@
             --modal-design-sticky-rgb: var(--modal-design-surface-rgb);
             --modal-design-text-rgb: 255, 248, 239;
             --modal-design-border-rgb: 255, 248, 239;
+            --intake-shell-overlay:
+                linear-gradient(215deg, rgba(255, 255, 255, 0.2) 0%, transparent 54%),
+                linear-gradient(326deg, transparent 10%, rgba(255, 255, 255, 0.14) 40%, transparent 78%),
+                linear-gradient(240deg, rgba(255, 255, 255, 0.1) 0%, transparent 66%),
+                rgba(var(--modal-design-overlay-rgb), 0.62);
+            --intake-shell-surface:
+                linear-gradient(214deg, rgba(255, 255, 255, 0.24) 0%, transparent 56%),
+                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.16) 40%, transparent 78%),
+                linear-gradient(238deg, rgba(255, 255, 255, 0.12) 0%, transparent 66%),
+                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.16), rgba(var(--modal-design-tone-rgb), 0.16)),
+                rgb(var(--modal-design-surface-rgb));
+            --intake-shell-border-alpha: 0.44;
+            --intake-shell-shadow:
+                0 1.2rem 3rem rgba(52, 38, 28, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.42);
+            --intake-shell-backdrop: blur(18px) saturate(118%);
+            --intake-shell-overlay-backdrop: blur(16px) saturate(118%);
             --home-bg-static:
                 linear-gradient(146deg, rgba(255, 255, 255, 0.18) 0%, transparent 26%),
                 linear-gradient(146deg, transparent 10%, rgba(255, 255, 255, 0.1) 40%, transparent 78%),
@@ -499,8 +516,10 @@
             75% { transform: translate(-2.5%, -1.5%) scaleX(0.94); }
         }
 
+        html.modal-is-open .background__stripe,
         body.modal-is-open .background__stripe {
-            animation-play-state: paused;
+            animation: none !important;
+            transform: none !important;
         }
 
         /* Freeze all non-modal background animations while any modal/form is open. */
@@ -902,13 +921,12 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            width: 1.34rem;
-            height: 1.34rem;
-            transform: translate(-50%, -52%) rotate(-7deg) scale(0.62);
-            background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3.3 13.2C4.9 13.9 6 15.2 7.3 17.2C10.9 11.6 14.3 7.5 20.2 4.2' stroke='%235a3d2a' stroke-width='3.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.2 11.9C5.7 12.8 6.8 14 7.8 15.8C11.1 10.8 14.8 6.9 20.4 3.8' stroke='%235a3d2a' stroke-opacity='.62' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
+            width: 0.44rem;
+            height: 0.8rem;
+            box-sizing: border-box;
+            border-right: 0.19rem solid transparent;
+            border-bottom: 0.19rem solid transparent;
+            transform: translate(-50%, -58%) rotate(45deg) scale(0.62);
             opacity: 0;
             transition: opacity 0.14s ease, transform 0.14s ease;
         }
@@ -934,8 +952,10 @@
         }
 
         .contact-form__checkbox:checked::after {
+            border-right-color: #5a3d2a;
+            border-bottom-color: #5a3d2a;
             opacity: 1;
-            transform: translate(-50%, -52%) rotate(-7deg) scale(1.07);
+            transform: translate(-50%, -58%) rotate(45deg) scale(1);
         }
 
         .contact-form__checkbox:checked:hover {
@@ -992,22 +1012,29 @@
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
-            border-color: #ffffff !important;
-            background: #ffffff !important;
-            box-shadow: none;
+            border-color: rgba(255, 255, 255, 0.92) !important;
+            background: rgba(var(--modal-design-tone-rgb), 0.86) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                0 0 0 0 rgba(255, 255, 255, 0);
+            transition:
+                border-color 180ms ease,
+                box-shadow 180ms ease,
+                background-color 180ms ease,
+                transform 140ms ease;
         }
 
-        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
-            outline-color: rgba(255, 255, 255, 0.82) !important;
-        }
-
-        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox::after {
-            background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M3.3 13.2C4.9 13.9 6 15.2 7.3 17.2C10.9 11.6 14.3 7.5 20.2 4.2' stroke='%235a3d2a' stroke-width='3.35' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.2 11.9C5.7 12.8 6.8 14 7.8 15.8C11.1 10.8 14.8 6.9 20.4 3.8' stroke='%235a3d2a' stroke-opacity='.62' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\") !important;
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked::after {
+            border-right-color: #ffffff !important;
+            border-bottom-color: #ffffff !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked {
-            background: #ffffff !important;
-            border-color: #ffffff !important;
+            background: rgba(var(--modal-design-tone-rgb), 0.96) !important;
+            border-color: rgba(255, 255, 255, 0.98) !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.2) !important;
         }
 
         /* Terms checkbox must stay flat: no glow/flash that can overlap sticky fades. */
@@ -1016,13 +1043,15 @@
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:active,
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked,
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:hover {
-            box-shadow: none !important;
             filter: none !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
-            outline: 1px solid rgba(255, 255, 255, 0.62) !important;
-            outline-offset: 1px;
+            outline: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                0 0 0 2px rgba(255, 255, 255, 0.56),
+                0 0 0 4px rgba(var(--modal-design-tone-rgb), 0.26) !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms.checkbox-need-tap-flash .contact-form__checkbox {
@@ -1493,13 +1522,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background:
-                linear-gradient(215deg, rgba(255, 255, 255, 0.2) 0%, transparent 54%),
-                linear-gradient(326deg, transparent 10%, rgba(255, 255, 255, 0.14) 40%, transparent 78%),
-                linear-gradient(240deg, rgba(255, 255, 255, 0.1) 0%, transparent 66%),
-                rgba(var(--modal-design-overlay-rgb), 0.62);
-            backdrop-filter: blur(16px) saturate(118%);
-            -webkit-backdrop-filter: blur(16px) saturate(118%);
+            background: var(--intake-shell-overlay);
+            backdrop-filter: var(--intake-shell-overlay-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-overlay-backdrop);
             z-index: 20000; /* Increased to be above top-bar */
             align-items: center;
             justify-content: center;
@@ -1674,13 +1699,8 @@
         }
 
         .modal__content {
-            background:
-                linear-gradient(214deg, rgba(255, 255, 255, 0.24) 0%, transparent 56%),
-                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.16) 40%, transparent 78%),
-                linear-gradient(238deg, rgba(255, 255, 255, 0.12) 0%, transparent 66%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.16), rgba(var(--modal-design-tone-rgb), 0.16)),
-                rgb(var(--modal-design-surface-rgb));
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44);
+            background: var(--intake-shell-surface);
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
             border-radius: 1.5rem;
             padding: 2.5rem;
             width: 100%;
@@ -1691,11 +1711,9 @@
             flex-direction: column;
             
             position: relative;
-            box-shadow:
-                0 1.2rem 3rem rgba(52, 38, 28, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.42);
-            backdrop-filter: blur(18px) saturate(118%);
-            -webkit-backdrop-filter: blur(18px) saturate(118%);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
             animation: modalScaleIn 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             
             /* Ensure it centers if flex alignment fails for some reason */
@@ -1979,6 +1997,9 @@
         }
 
         #bookingModal {
+            --modal-design-surface-rgb: var(--modal-dark-brown-rgb);
+            --modal-design-overlay-rgb: var(--modal-dark-brown-rgb);
+            --modal-design-tone-rgb: var(--modal-dark-brown-rgb);
             --booking-form-rgb: var(--modal-design-surface-rgb);
             --booking-sticky-gradient-rgb: var(--booking-form-rgb);
             --booking-form-font-size: 1.2rem;
@@ -2012,32 +2033,21 @@
             flex-direction: column;
             padding: 2.3rem 2rem 1.6rem;
             max-width: 37.5rem;
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44);
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
             border-radius: 1.5rem;
-            background:
-                linear-gradient(214deg, rgba(255, 255, 255, 0.24) 0%, transparent 56%),
-                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.16) 40%, transparent 78%),
-                linear-gradient(238deg, rgba(255, 255, 255, 0.12) 0%, transparent 66%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.16), rgba(var(--modal-design-tone-rgb), 0.16)),
-                rgb(var(--modal-design-surface-rgb));
-            box-shadow:
-                0 1.2rem 3rem rgba(52, 38, 28, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.42);
-            backdrop-filter: blur(18px) saturate(118%);
-            -webkit-backdrop-filter: blur(18px) saturate(118%);
+            background: var(--intake-shell-surface);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
             position: relative;
             isolation: isolate;
         }
 
         /* Booking modal uses the same visual shell as Intake Notice. */
         #bookingModal {
-            background:
-                linear-gradient(215deg, rgba(255, 255, 255, 0.2) 0%, transparent 54%),
-                linear-gradient(326deg, transparent 10%, rgba(255, 255, 255, 0.14) 40%, transparent 78%),
-                linear-gradient(240deg, rgba(255, 255, 255, 0.1) 0%, transparent 66%),
-                rgba(var(--modal-design-overlay-rgb), 0.62) !important;
-            backdrop-filter: blur(16px) saturate(118%) !important;
-            -webkit-backdrop-filter: blur(16px) saturate(118%) !important;
+            background: var(--intake-shell-overlay) !important;
+            backdrop-filter: var(--intake-shell-overlay-backdrop) !important;
+            -webkit-backdrop-filter: var(--intake-shell-overlay-backdrop) !important;
             isolation: isolate;
         }
 
@@ -2504,7 +2514,15 @@
         #bookingModal .contact-form__textarea {
             background-clip: padding-box;
             -webkit-background-clip: padding-box;
-            box-shadow: none !important;
+            border: 1px solid rgba(255, 255, 255, 0.34) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                0 0 0 0 rgba(255, 255, 255, 0) !important;
+            transition:
+                border-color 220ms ease,
+                box-shadow 220ms ease,
+                background-color 220ms ease,
+                color 220ms ease;
         }
 
         #bookingModal .contact-form__input,
@@ -2519,18 +2537,30 @@
         }
 
         #bookingModal .custom-select__trigger {
-            border: none !important;
-            box-shadow: 0 4px 0 rgba(var(--modal-design-tone-rgb), 0.35) !important;
+            border: 1px solid rgba(255, 255, 255, 0.34) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 4px 0 rgba(var(--modal-design-tone-rgb), 0.35) !important;
+            transition:
+                border-color 220ms ease,
+                box-shadow 220ms ease,
+                background-color 220ms ease,
+                color 220ms ease;
         }
 
         #bookingModal .contact-form__input:focus,
         #bookingModal .contact-form__textarea:focus,
+        #bookingModal .contact-form__input:focus-visible,
+        #bookingModal .contact-form__textarea:focus-visible,
+        #bookingModal .custom-select__trigger:focus-visible,
+        #bookingModal .custom-select.open .custom-select__trigger,
         #bookingModal .contact-form__input--has-content {
             background: #ffffff !important;
             color: rgb(var(--modal-design-tone-rgb)) !important;
             -webkit-text-fill-color: rgb(var(--modal-design-tone-rgb)) !important;
             caret-color: rgb(var(--modal-design-tone-rgb)) !important;
-            box-shadow: inset 0 0 0 1px rgba(var(--modal-design-tone-rgb), 0.18) !important;
+            border-color: rgba(var(--modal-design-tone-rgb), 0.42) !important;
+            box-shadow: inset 0 -2px 0 rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal textarea[name="notes"] {
@@ -2578,12 +2608,30 @@
             letter-spacing: 0.06em !important;
             line-height: 1 !important;
             text-transform: uppercase !important;
+            border: 1px solid rgba(255, 255, 255, 0.96) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.95),
+                0 0 0 1px rgba(var(--modal-design-tone-rgb), 0.12) !important;
+            transition:
+                border-color 220ms ease,
+                box-shadow 220ms ease,
+                background-color 220ms ease,
+                color 220ms ease !important;
         }
 
-        #bookingModal #confirmBookingBtn,
         #bookingModal #confirmBookingBtn:hover,
-        #bookingModal #confirmBookingBtn:active {
-            box-shadow: none !important;
+        #bookingModal #confirmBookingBtn:active,
+        #bookingModal #confirmBookingBtn:focus-visible {
+            border-color: #ffffff !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.98),
+                0 0 0 2px rgba(255, 255, 255, 0.48),
+                0 0 0 4px rgba(var(--modal-design-tone-rgb), 0.24),
+                0 0.45rem 1rem rgba(255, 255, 255, 0.22) !important;
+        }
+
+        #bookingModal #confirmBookingBtn:focus-visible {
+            outline: none !important;
         }
 
         #bookingStatus {
@@ -2687,6 +2735,8 @@
         .booking-scroll-cue.booking-scroll-cue--visible {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
+            cursor: pointer;
         }
 
         .booking-scroll-cue span {
@@ -3235,26 +3285,24 @@
             transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Main page calendar: reuse Intake Notice modal shell design. */
-        .layout-container #bookingCalendar.calendar-wrapper {
+        /* Main page calendar (also reused in booking form overlay). */
+        .layout-container #bookingCalendar.calendar-wrapper,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
             --calendar-glass-surface-rgb: var(--modal-design-surface-rgb);
-            --calendar-glass-tone-rgb: var(--modal-design-tone-rgb);
-            --calendar-glass-border: rgba(var(--modal-design-border-rgb), 0.44);
+            --calendar-glass-tone-rgb: 255, 255, 255;
+            --calendar-glass-border: rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
             --calendar-glass-shadow-rgb: 52, 38, 28;
-            background:
-                linear-gradient(214deg, rgba(255, 255, 255, 0.24) 0%, transparent 56%),
-                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.16) 40%, transparent 78%),
-                linear-gradient(238deg, rgba(255, 255, 255, 0.12) 0%, transparent 66%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.16), rgba(var(--modal-design-tone-rgb), 0.16)),
-                rgb(var(--modal-design-surface-rgb));
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44);
+            background: var(--intake-shell-surface);
+            border: 1px solid var(--calendar-glass-border);
             border-radius: 1.5rem;
             padding: 2.3rem 2rem 1.6rem;
-            box-shadow:
-                0 1.2rem 3rem rgba(52, 38, 28, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.42);
-            backdrop-filter: blur(18px) saturate(118%);
-            -webkit-backdrop-filter: blur(18px) saturate(118%);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper {
+            --calendar-glass-border: rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
         }
 
         .calendar-wrapper::before {
@@ -3300,8 +3348,22 @@
         }
 
         .layout-container #bookingCalendar.calendar-wrapper::before,
-        .layout-container #bookingCalendar.calendar-wrapper::after {
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::before {
             content: none;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper::after,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::after {
+            content: "";
+            position: absolute;
+            inset: 0.3rem;
+            border-radius: calc(1.5rem - 0.3rem);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 26%, rgba(255, 255, 255, 0) 56%),
+                radial-gradient(115% 72% at 50% 108%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 72%);
+            opacity: 0.78;
+            pointer-events: none;
+            z-index: 0;
         }
 
         @keyframes calendarAuraPulse {
@@ -3341,7 +3403,8 @@
             opacity: 0.62;
         }
 
-        .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded::before {
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded::before,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded::before {
             opacity: 0;
         }
         .calendar-wrapper.calendar--loading {
@@ -3410,9 +3473,14 @@
             text-align: center;
             padding: 0.8rem 0.55rem;
             border-radius: 1.45rem;
-            background: transparent;
-            border: none;
-            box-shadow: none;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.08) 52%, rgba(255, 255, 255, 0.03) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.26);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(38, 24, 15, 0.44),
+                0 0.34rem 0.72rem rgba(var(--calendar-glass-shadow-rgb), 0.24);
         }
 
         .calendar-title {
@@ -3457,9 +3525,9 @@
             justify-self: center;
             align-self: center;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.1)),
-                rgba(var(--calendar-glass-surface-rgb), 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.16) 44%, rgba(255, 255, 255, 0.06) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.56);
+            border: 1px solid rgba(255, 255, 255, 0.46);
             color: #ffffff;
             width: var(--calendar-day-btn-size, 3rem);
             height: var(--calendar-day-btn-size, 3rem);
@@ -3476,8 +3544,9 @@
             place-items: center;
             opacity: 0.86;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.35),
-                0 0.35rem 0.8rem rgba(var(--calendar-glass-shadow-rgb), 0.2);
+                inset 0 1px 0 rgba(255, 255, 255, 0.75),
+                inset 0 -1px 0 rgba(40, 26, 17, 0.58),
+                0 0.35rem 0.8rem rgba(var(--calendar-glass-shadow-rgb), 0.32);
         }
 
         #prevBtn { grid-column: 1; text-indent: -1px; }
@@ -3485,41 +3554,41 @@
 
         .calendar-nav-btn:hover {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.16)),
-                rgba(var(--calendar-glass-surface-rgb), 0.24);
-            border-color: rgba(255, 255, 255, 0.42);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.24) 44%, rgba(255, 255, 255, 0.1) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.62);
+            border-color: rgba(255, 255, 255, 0.62);
             transform: translateY(-2px);
             opacity: 1;
         }
 
         .calendar-nav-btn:disabled,
         .calendar-nav-btn[aria-disabled="true"] {
-            opacity: 0.22;
+            opacity: 0.3;
             cursor: not-allowed;
             pointer-events: none;
             transform: none;
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.42);
+            background: rgba(var(--calendar-glass-surface-rgb), 0.42);
+            border-color: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.52);
             box-shadow: none;
         }
 
         #prevBtn:disabled,
         #prevBtn[aria-disabled="true"] {
-            opacity: 0.24;
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.42);
+            opacity: 0.3;
+            background: rgba(var(--calendar-glass-surface-rgb), 0.42);
+            border-color: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.52);
             filter: grayscale(1) saturate(0) brightness(0.72);
         }
 
         #prevBtn.calendar-nav-btn--muted:disabled,
         #prevBtn.calendar-nav-btn--muted[aria-disabled="true"],
         #prevBtn.calendar-nav-btn--muted {
-            opacity: 0.38 !important;
-            background: rgba(255, 255, 255, 0.065) !important;
-            border-color: rgba(255, 255, 255, 0.16) !important;
-            color: rgba(255, 255, 255, 0.68) !important;
+            opacity: 0.45 !important;
+            background: rgba(var(--calendar-glass-surface-rgb), 0.52) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            color: rgba(255, 255, 255, 0.78) !important;
             filter: grayscale(0.35) saturate(0.7) !important;
             box-shadow: none !important;
         }
@@ -3528,19 +3597,22 @@
         #calendarLoaderOverlay {
             position: absolute;
             inset: 0;
-            background: rgba(var(--calendar-glass-surface-rgb), 0.46);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 52%),
+                rgba(var(--calendar-glass-surface-rgb), 0.64);
             display: none;
             flex-direction: column; /* Added to support text below spinner */
             align-items: center;
             justify-content: center;
             z-index: 10;
             border-radius: 2.2rem;
-            backdrop-filter: blur(6px) saturate(130%);
-            -webkit-backdrop-filter: blur(6px) saturate(130%);
+            backdrop-filter: blur(4px) saturate(105%);
+            -webkit-backdrop-filter: blur(4px) saturate(105%);
             gap: 15px; /* Space between spinner and text */
         }
 
-        .layout-container #bookingCalendar #calendarLoaderOverlay {
+        .layout-container #bookingCalendar #calendarLoaderOverlay,
+        .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
             border-radius: 1.5rem;
         }
 
@@ -3578,11 +3650,14 @@
             padding: 0.88rem 0.7rem 0.95rem;
             border-radius: 1.35rem;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
-                rgba(var(--calendar-glass-surface-rgb), 0.16);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
+                rgba(var(--calendar-glass-surface-rgb), 0.54);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             text-align: center;
             min-height: clamp(18rem, 37vh, 24rem);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.54),
+                inset 0 -1px 0 rgba(38, 24, 15, 0.4);
         }
 
         .cal-day-name {
@@ -3604,8 +3679,8 @@
             border-radius: 0.95rem;
             color: rgba(255, 255, 255, 0.86);
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.05)),
-                rgba(var(--calendar-glass-surface-rgb), 0.19);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.14) 44%, rgba(255, 255, 255, 0.03) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.6);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -3613,7 +3688,7 @@
             font-size: clamp(0.98rem, 1.85vw, 1.08rem);
             line-height: 1;
             letter-spacing: 0;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.34);
             font-weight: 700;
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum" 1, "lnum" 1;
@@ -3621,16 +3696,25 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.22),
-                0 0.35rem 0.85rem rgba(var(--calendar-glass-shadow-rgb), 0.16);
+                inset 0 1px 0 rgba(255, 255, 255, 0.62),
+                inset 0 -1px 0 rgba(40, 26, 17, 0.52),
+                0 0.35rem 0.85rem rgba(var(--calendar-glass-shadow-rgb), 0.26);
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08)),
-                rgba(var(--calendar-glass-surface-rgb), 0.22);
-            border-color: rgba(255, 255, 255, 0.35);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.2) 48%, rgba(255, 255, 255, 0.08) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.66);
+            border-color: rgba(255, 255, 255, 0.56);
             transform: translateY(-2px);
+        }
+
+        .cal-day--empty {
+            visibility: hidden;
+            pointer-events: none;
+            border-color: transparent !important;
+            background: transparent !important;
+            box-shadow: none !important;
         }
 
         .cal-day--disabled {
@@ -3650,49 +3734,51 @@
             cursor: pointer;
             pointer-events: auto;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.06)),
-                rgba(var(--calendar-glass-surface-rgb), 0.17);
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                linear-gradient(180deg, rgba(255, 255, 255, 0.44) 0%, rgba(255, 255, 255, 0.14) 44%, rgba(255, 255, 255, 0.05) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.36) !important;
         }
 
         .cal-day--closed:hover {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.1)),
-                rgba(var(--calendar-glass-surface-rgb), 0.22);
-            border-color: rgba(255, 255, 255, 0.36) !important;
+                linear-gradient(180deg, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.24) 48%, rgba(255, 255, 255, 0.1) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.68);
+            border-color: rgba(255, 255, 255, 0.62) !important;
             transform: translateY(-2px);
         }
 
         .cal-day--selected {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9)) !important;
-            color: #2b3949 !important;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.94) 100%) !important;
+            color: rgb(var(--modal-dark-brown-rgb)) !important;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.92);
             box-shadow:
-                0 0.45rem 1rem rgba(var(--calendar-glass-shadow-rgb), 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.75);
+                0 0.45rem 1rem rgba(var(--calendar-glass-shadow-rgb), 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.98),
+                inset 0 -1px 0 rgba(126, 99, 76, 0.28);
             transform: translateY(-1px) scale(1.03);
         }
 
         .cal-day--nearest {
-            border-color: rgba(255, 255, 255, 0.68) !important;
+            border-color: rgba(255, 255, 255, 0.82) !important;
             font-size: clamp(1.04rem, 1.95vw, 1.16rem);
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.28),
-                0 0 0.24rem rgba(197, 228, 255, 0.34);
+                inset 0 1px 0 rgba(255, 255, 255, 0.74),
+                0 0 0.24rem rgba(255, 255, 255, 0.34);
             animation: none;
         }
 
         .cal-day--nearest.cal-day--selected {
             box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.12),
-                0 0 0.28rem rgba(197, 228, 255, 0.44) !important;
+                0 4px 12px rgba(0, 0, 0, 0.16),
+                0 0 0.28rem rgba(255, 255, 255, 0.62) !important;
         }
 
         @keyframes pulseActive {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 0.6rem rgba(224, 112, 32, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(224, 112, 32, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.34); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 0.6rem rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
         .cal-key {
@@ -3716,9 +3802,9 @@
         }
 
         .cal-day--selected .cal-key {
-            color: #2b3949 !important;
+            color: rgb(var(--modal-dark-brown-rgb)) !important;
             opacity: 1;
-            filter: drop-shadow(0 0 0.16rem rgba(67, 103, 136, 0.28));
+            filter: drop-shadow(0 0 0.16rem rgba(126, 98, 74, 0.24));
         }
 
         .cal-key svg {
@@ -3738,17 +3824,17 @@
         
         
         .cal-day--today {
-            border: 0.18rem solid rgba(225, 243, 255, 0.92);
-            box-shadow: 0 0 0.55rem rgba(200, 231, 255, 0.42) !important;
+            border: 0.18rem solid rgba(255, 255, 255, 0.96);
+            box-shadow: 0 0 0.55rem rgba(255, 255, 255, 0.44) !important;
             opacity: 1 !important;
         }
 
         .cal-day--has-slots {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.09)),
-                rgba(var(--calendar-glass-surface-rgb), 0.2);
+                linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.17) 46%, rgba(255, 255, 255, 0.05) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.64);
             opacity: 1 !important;
-            border: 1px solid rgba(255, 255, 255, 0.34);
+            border: 1px solid rgba(255, 255, 255, 0.46);
         }
 
         /* Slots Section */
@@ -3765,8 +3851,10 @@
             margin: 0.2rem 0 0.65rem;
             padding: 0.6rem 0.75rem;
             border-radius: 0.7rem;
-            border: 1px solid rgba(255, 255, 255, 0.38);
-            background: rgba(224, 236, 248, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.44);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.08) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.58);
             color: #ffffff;
             text-align: center;
             font-size: 0.95rem;
@@ -4131,15 +4219,6 @@
         .slot-icon-wrapper {
             display: inline-block;
             line-height: 0;
-        }
-
-        .clock-hand {
-            transform-origin: 50% 50%;
-            transform: rotate(var(--start));
-        }
-
-        .slot-btn--clicked .clock-hand {
-            animation: none;
         }
 
         @keyframes handSweepClick {
@@ -4543,13 +4622,9 @@
             position: fixed;
             inset: 0;
             z-index: 21050;
-            background:
-                linear-gradient(215deg, rgba(255, 255, 255, 0.2) 0%, transparent 54%),
-                linear-gradient(326deg, transparent 10%, rgba(255, 255, 255, 0.14) 40%, transparent 78%),
-                linear-gradient(240deg, rgba(255, 255, 255, 0.1) 0%, transparent 66%),
-                rgba(var(--modal-design-overlay-rgb), 0.62);
-            backdrop-filter: blur(16px) saturate(118%);
-            -webkit-backdrop-filter: blur(16px) saturate(118%);
+            background: var(--intake-shell-overlay);
+            backdrop-filter: var(--intake-shell-overlay-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-overlay-backdrop);
             align-items: center;
             justify-content: center;
             padding: 1rem;
@@ -4564,18 +4639,16 @@
             position: fixed;
             inset: 0;
             z-index: 22080;
-            background:
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.42), rgba(var(--modal-design-tone-rgb), 0.42)),
-                var(--home-bg-static);
-            backdrop-filter: blur(10px) saturate(102%);
-            -webkit-backdrop-filter: blur(10px) saturate(102%);
+            background: var(--intake-shell-overlay);
+            backdrop-filter: var(--intake-shell-overlay-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-overlay-backdrop);
             align-items: stretch;
             justify-content: stretch;
             padding: 0;
             overflow-x: hidden;
             overflow-y: auto;
             overscroll-behavior: contain;
-            touch-action: none;
+            touch-action: pan-y;
         }
 
         .form-calendar-overlay::before,
@@ -4610,19 +4683,23 @@
             max-height: none;
             overflow: visible;
             overscroll-behavior: none;
-            border-radius: 1.2rem;
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.24);
-            background:
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.2), rgba(var(--modal-design-tone-rgb), 0.2)),
-                var(--home-bg-static);
-            box-shadow:
-                0 1.1rem 2.6rem rgba(34, 24, 17, 0.24),
-                inset 0 1px 0 rgba(255, 255, 255, 0.28);
-            backdrop-filter: blur(18px) saturate(108%);
-            -webkit-backdrop-filter: blur(18px) saturate(108%);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
+            background: var(--intake-shell-surface);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
             padding: clamp(0.38rem, 1vh, 0.65rem) clamp(0.35rem, 1.6vw, 0.8rem) clamp(0.45rem, 1.2vh, 0.74rem);
             display: flex;
             flex-direction: column;
+        }
+
+        .form-calendar-overlay:not(.form-calendar-overlay--quick-slots) .form-calendar-overlay__panel {
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
+            background: var(--intake-shell-surface);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
         }
 
         .form-calendar-overlay__panel.form-calendar-overlay__panel--reveal-pending,
@@ -4649,38 +4726,38 @@
         }
 
         .form-calendar-overlay__panel.form-calendar-overlay__panel--compact {
-            --slots-panel-pad-top: 2.1rem;
-            --slots-panel-pad-x: 1.2rem;
-            --slots-panel-pad-bottom: 1.1rem;
-            --slots-panel-bg-alpha: 0.78;
-            --slots-sticky-alpha-strong: 0.985;
-            --slots-sticky-alpha-mid: 0.93;
-            --slots-sticky-alpha-soft: 0.8;
-            width: min(37.5rem, 96vw);
+            width: min(42rem, 100%);
             height: auto;
             max-height: none;
-            margin: auto;
-            border-radius: 1.1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background:
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.24), rgba(var(--modal-design-tone-rgb), 0.24)),
-                var(--home-bg-static);
-            backdrop-filter: blur(18px) saturate(108%);
-            -webkit-backdrop-filter: blur(18px) saturate(108%);
-            box-shadow: 0 1.3rem 3.1rem rgba(0, 0, 0, 0.5);
-            padding: var(--slots-panel-pad-top) var(--slots-panel-pad-x) var(--slots-panel-pad-bottom);
-            overflow: hidden;
+            margin: 0 auto;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
+            background: var(--intake-shell-surface);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
+            box-shadow: var(--intake-shell-shadow);
+            padding: clamp(1rem, 2.6vh, 1.35rem) clamp(0.82rem, 2.8vw, 1.2rem) clamp(0.9rem, 2.5vh, 1.2rem);
+            overflow: visible;
             transition: none;
             isolation: isolate;
         }
 
+        .form-calendar-overlay.form-calendar-overlay--quick-slots {
+            align-items: flex-start;
+            justify-content: center;
+            padding: clamp(0.8rem, 2.8vh, 1.35rem) clamp(0.48rem, 2.6vw, 1.05rem) clamp(1.05rem, 3vh, 1.55rem);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-gutter: stable both-edges;
+        }
+
         .form-calendar-overlay.form-calendar-overlay--quick-slots .form-calendar-overlay__panel.form-calendar-overlay__panel--compact {
-            background:
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.26), rgba(var(--modal-design-tone-rgb), 0.26)),
-                var(--home-bg-static);
-            backdrop-filter: blur(20px) saturate(108%);
-            -webkit-backdrop-filter: blur(20px) saturate(108%);
-            isolation: isolate;
+            width: min(42rem, 100%);
+            margin: 0 auto;
+            max-height: none;
+            overflow: visible;
+            overscroll-behavior: auto;
+            -webkit-overflow-scrolling: auto;
         }
 
         .form-calendar-overlay.form-calendar-overlay--quick-slots .form-calendar-overlay__panel.form-calendar-overlay__panel--compact::before {
@@ -4734,20 +4811,41 @@
             align-items: center;
             justify-content: center;
             border-radius: 999px;
-            border: 1px solid rgba(var(--modal-design-tone-rgb), 0.42);
-            background: rgb(255, 255, 255);
-            color: rgb(var(--modal-design-tone-rgb));
-            font-size: 1.2rem;
-            line-height: 1;
+            border: 1px solid rgba(255, 255, 255, 0.76);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.16));
+            color: #ffffff;
+            font-size: 0;
+            line-height: 0;
             font-weight: 800;
             cursor: pointer;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
                 0 4px 12px rgba(56, 41, 30, 0.28);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            text-shadow: none;
+            backdrop-filter: blur(6px) saturate(112%);
+            -webkit-backdrop-filter: blur(6px) saturate(112%);
+            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.35);
             z-index: 80;
+        }
+
+        .form-calendar-overlay__close::before {
+            content: "\00d7";
+            position: absolute;
+            left: 52%;
+            top: 48%;
+            transform: translate(-50%, -50%);
+            font-size: 1.22rem;
+            line-height: 1;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .form-calendar-overlay.form-calendar-overlay--quick-slots .form-calendar-overlay__close {
+            left: auto;
+            right: clamp(0.58rem, 2.1vw, 0.92rem);
+            top: clamp(0.56rem, 1.7vh, 0.82rem);
+            border-color: rgba(255, 255, 255, 0.82);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.2));
+            color: #ffffff;
         }
 
         .form-calendar-overlay__mount {
@@ -4767,8 +4865,8 @@
 
         .form-calendar-overlay__mount .calendar-scale-wrapper {
             width: 100%;
-            margin: 0;
-            overflow: hidden;
+            margin: 0 auto;
+            overflow: visible;
         }
 
         .form-calendar-overlay__mount .calendar-scale-inner {
@@ -4786,7 +4884,7 @@
         .form-calendar-overlay__mount--quick-slots {
             overflow: visible;
             overscroll-behavior: auto;
-            padding: clamp(1.9rem, 4vh, 2.4rem) clamp(0.45rem, 2vw, 0.9rem) clamp(0.8rem, 2vh, 1.1rem);
+            padding: 0;
         }
 
         .form-calendar-overlay__panel--compact .form-calendar-overlay__mount--quick-slots {
@@ -4794,30 +4892,23 @@
         }
 
         .form-quick-slots {
-            width: min(100%, 43rem);
+            width: min(100%, 40.5rem);
             margin: 0 auto;
             color: rgb(var(--modal-design-text-rgb));
+            display: flex;
+            flex-direction: column;
+            gap: 0.92rem;
         }
 
         .form-quick-slots__sticky {
-            position: sticky;
-            top: 0;
-            z-index: 18;
-            margin: calc(-1 * var(--slots-panel-pad-top, 0rem)) calc(-1 * var(--slots-panel-pad-x, 0rem)) 0.95rem;
-            padding: 0.95rem 0.55rem 0.78rem;
-            border-radius: 0;
-            background:
-                linear-gradient(214deg, rgba(255, 255, 255, 0.14) 0%, transparent 58%),
-                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.1) 40%, transparent 78%),
-                linear-gradient(238deg, rgba(255, 255, 255, 0.06) 0%, transparent 66%),
-                rgba(var(--booking-form-rgb), 0.92);
-            border-bottom: 1px solid rgba(var(--booking-plaque-border-rgb), 0.16);
-            box-shadow: 0 6px 14px rgba(var(--booking-plaque-shadow-rgb), 0.16);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            pointer-events: none;
-            isolation: isolate;
-            transition: background 340ms ease, border-color 340ms ease, box-shadow 340ms ease;
+            position: static;
+            margin: 0;
+            padding: 0 0 0.85rem;
+            border-bottom: 1px solid rgba(var(--booking-plaque-border-rgb), 0.28);
+            background: transparent;
+            box-shadow: none;
+            pointer-events: auto;
+            isolation: auto;
         }
 
         .form-quick-slots__sticky::before {
@@ -4829,21 +4920,21 @@
         }
 
         .form-quick-slots__sticky > * {
-            position: relative;
-            z-index: 3;
+            position: static;
+            z-index: auto;
             pointer-events: auto;
         }
 
         .form-quick-slots__title {
-            margin: 0 0 0.6rem;
-            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
+            margin: 0;
+            padding-right: 2.5rem;
+            font-size: clamp(1.02rem, 3.4vw, 1.22rem);
             font-weight: 900;
             line-height: 1.35;
-            text-align: center;
+            text-align: left;
             letter-spacing: 0.01em;
             color: rgb(var(--modal-design-text-rgb));
-            text-shadow: 0 1px 10px rgba(var(--booking-plaque-shadow-rgb), 0.34);
-            transition: color 280ms ease, text-shadow 280ms ease;
+            text-shadow: 0 1px 9px rgba(var(--booking-plaque-shadow-rgb), 0.22);
         }
 
         .form-quick-slots__title--no-hint {
@@ -4851,46 +4942,48 @@
         }
 
         .form-quick-slots__hint {
-            margin: 0;
-            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
-            font-weight: 900;
-            line-height: 1.35;
-            text-align: center;
-            color: rgba(var(--modal-design-text-rgb), 0.92);
-            letter-spacing: 0.01em;
-            text-shadow: 0 1px 10px rgba(var(--booking-plaque-shadow-rgb), 0.34);
-            transition: color 280ms ease, text-shadow 280ms ease;
+            margin: 0.34rem 0 0;
+            font-size: 0.88rem;
+            font-weight: 700;
+            line-height: 1.45;
+            text-align: left;
+            color: rgba(var(--modal-design-text-rgb), 0.84);
+            letter-spacing: 0.008em;
+            text-shadow: none;
         }
 
         .form-quick-slots__no-date-btn {
             display: block;
-            width: min(100%, 40rem);
-            margin: 0.68rem auto 0;
-            padding: 0.62rem 0.95rem;
-            border: 1px solid rgba(var(--booking-plaque-border-rgb), 0.52);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.13);
+            width: 100%;
+            margin: 0;
+            padding: 0.72rem 0.95rem;
+            border: 1px solid rgba(var(--booking-plaque-border-rgb), 0.46);
+            border-radius: 0.8rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
             color: rgb(var(--modal-design-text-rgb));
-            font-size: clamp(0.92rem, 2.9vw, 1.05rem);
-            font-weight: 900;
-            line-height: 1.25;
+            font-size: clamp(0.9rem, 2.8vw, 1rem);
+            font-weight: 800;
+            line-height: 1.3;
             letter-spacing: 0.01em;
             text-align: center;
             cursor: pointer;
-            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .form-quick-slots__no-date-btn:hover,
         .form-quick-slots__no-date-btn:focus-visible {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(var(--booking-plaque-border-rgb), 0.72);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.12) 100%);
+            border-color: rgba(var(--booking-plaque-border-rgb), 0.7);
             transform: translateY(-1px);
+            box-shadow: 0 0.52rem 1rem rgba(var(--booking-plaque-shadow-rgb), 0.23);
             outline: none;
         }
 
         .form-quick-slots__no-date-below {
             width: 100%;
-            margin: 0.72rem auto 0;
+            margin: 0.15rem 0 0;
+            padding-top: 0.72rem;
+            border-top: 1px solid rgba(var(--booking-plaque-border-rgb), 0.24);
             display: flex;
             justify-content: center;
         }
@@ -4900,27 +4993,7 @@
         }
 
         .form-quick-slots__sticky-bottom {
-            position: sticky;
-            bottom: 0;
-            z-index: 18;
-            margin: 0.65rem calc(-1 * var(--slots-panel-pad-x, 0rem)) calc(-1 * var(--slots-panel-pad-bottom, 0rem));
-            padding: clamp(2.2rem, 5vh, 3.35rem) 0.55rem 1.05rem;
-            min-height: clamp(8.3rem, 19vh, 11.2rem);
-            border-radius: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(var(--booking-form-rgb), 0) 0%,
-                rgba(var(--booking-form-rgb), 0.22) 18%,
-                rgba(var(--booking-form-rgb), 0.46) 36%,
-                rgba(var(--booking-form-rgb), 0.62) 56%,
-                rgba(var(--booking-form-rgb), 0.76) 72%,
-                rgba(var(--booking-form-rgb), 0.86) 100%
-            );
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            pointer-events: none;
-            isolation: isolate;
-            transition: background 340ms ease;
+            display: none;
         }
 
         .form-quick-slots__sticky-bottom::before {
@@ -4937,25 +5010,14 @@
             pointer-events: auto;
         }
 
-        .form-quick-slots__sticky-bottom-text {
-            margin: 0;
-            font-size: clamp(1.02rem, 3.8vw, 1.3rem);
-            font-weight: 900;
-            line-height: 1.35;
-            text-align: center;
-            letter-spacing: 0.01em;
-            color: rgba(var(--modal-design-text-rgb), 0.92);
-            text-shadow: 0 1px 10px rgba(var(--booking-plaque-shadow-rgb), 0.34);
-            transition: color 280ms ease, text-shadow 280ms ease;
-        }
+        .form-quick-slots__sticky-bottom-text { margin: 0; }
 
         .form-quick-slots__list {
             display: grid;
-            gap: 0.58rem;
+            gap: 0.62rem;
             max-height: none;
             overflow: visible;
-            padding-top: 0.12rem;
-            padding-right: 0;
+            padding: 0.1rem 0 0;
         }
 
         .form-quick-slots__skeleton-list {
@@ -4967,10 +5029,12 @@
 
         .form-quick-slots__skeleton-item {
             width: 100%;
-            border: 1px solid rgba(255, 243, 227, 0.42);
-            border-radius: 0.86rem;
-            background: rgba(255, 255, 255, 0.11);
-            padding: 0.72rem 0.8rem;
+            border: 1px solid rgba(var(--booking-plaque-border-rgb), 0.3);
+            border-radius: 0.82rem;
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%),
+                rgba(var(--booking-form-rgb), 0.34);
+            padding: 0.76rem 0.82rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -5011,18 +5075,33 @@
         }
 
         .form-quick-slots__item {
-            width: min(90%, 31.5rem);
-            margin: 0 auto;
-            border: 1px solid rgba(255, 243, 227, 0.42);
-            border-radius: 0.86rem;
-            background: rgba(255, 255, 255, 0.14);
-            color: #fff8ef;
-            padding: 0.72rem 0.8rem;
+            width: 100%;
+            margin: 0;
+            border: 1px solid rgba(var(--booking-plaque-border-rgb), 0.4);
+            border-radius: 0.82rem;
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 100%),
+                rgba(var(--booking-form-rgb), 0.36);
+            color: rgb(var(--modal-design-text-rgb));
+            padding: 0.76rem 0.84rem;
             text-align: left;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.9rem;
+            gap: 0.78rem;
+            cursor: pointer;
+            transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .form-quick-slots__item:hover,
+        .form-quick-slots__item:focus-visible {
+            border-color: rgba(var(--booking-plaque-border-rgb), 0.72);
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 100%),
+                rgba(var(--booking-form-rgb), 0.5);
+            box-shadow: 0 0.55rem 1.1rem rgba(var(--booking-plaque-shadow-rgb), 0.25);
+            transform: translateY(-1px);
+            outline: none;
         }
 
         .form-quick-slots__loading {
@@ -5090,19 +5169,20 @@
         .form-quick-slots__item-date {
             font-size: 0.9rem;
             font-weight: 800;
-            opacity: 0.96;
+            opacity: 0.94;
             white-space: nowrap;
         }
 
         .form-quick-slots__item-time {
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 900;
             white-space: nowrap;
+            letter-spacing: 0.01em;
         }
 
         .form-quick-slots__empty {
-            margin: 0.5rem auto 0;
-            text-align: center;
+            margin: 0.3rem auto 0;
+            text-align: left;
             font-size: 0.95rem;
             font-weight: 700;
             color: rgba(255, 248, 239, 0.92);
@@ -5130,19 +5210,12 @@
 
         .camera-capture__panel {
             width: min(35rem, 96vw);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 248, 239, 0.44);
-            background:
-                linear-gradient(214deg, rgba(255, 255, 255, 0.24) 0%, transparent 56%),
-                linear-gradient(327deg, transparent 10%, rgba(255, 255, 255, 0.16) 40%, transparent 78%),
-                linear-gradient(238deg, rgba(255, 255, 255, 0.12) 0%, transparent 66%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.16), rgba(var(--modal-design-tone-rgb), 0.16)),
-                rgb(var(--modal-design-surface-rgb));
-            box-shadow:
-                0 1.2rem 3rem rgba(52, 38, 28, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.42);
-            backdrop-filter: blur(18px) saturate(118%);
-            -webkit-backdrop-filter: blur(18px) saturate(118%);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(var(--modal-design-border-rgb), var(--intake-shell-border-alpha));
+            background: var(--intake-shell-surface);
+            box-shadow: var(--intake-shell-shadow);
+            backdrop-filter: var(--intake-shell-backdrop);
+            -webkit-backdrop-filter: var(--intake-shell-backdrop);
             padding: 1rem;
         }
 
@@ -5372,8 +5445,10 @@
 
         /* Booking modal controls should always follow active theme variables */
         #bookingModal .custom-select.open .custom-select__trigger {
+            background: #ffffff !important;
             color: rgb(var(--modal-design-tone-rgb)) !important;
-            box-shadow: 0 4px 0 rgba(var(--modal-design-tone-rgb), 0.45) !important;
+            border-color: rgba(var(--modal-design-tone-rgb), 0.42) !important;
+            box-shadow: inset 0 -2px 0 rgb(var(--modal-design-tone-rgb)) !important;
         }
 
         #bookingModal .custom-select.open .custom-select__trigger::after {
@@ -5396,32 +5471,59 @@
         }
 
         #bookingModal .file-attach__btn--camera {
-            border-color: rgb(var(--modal-design-tone-rgb)) !important;
-            background: rgb(var(--modal-design-tone-rgb)) !important;
+            border-color: rgba(255, 255, 255, 0.94) !important;
+            background: rgba(var(--modal-design-tone-rgb), 0.9) !important;
+            color: #ffffff !important;
+        }
+
+        #bookingModal .file-attach__btn--camera .file-attach__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            height: auto;
+            padding: 0;
+            border-radius: 0;
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
         }
 
         #bookingModal .file-attach__btn--camera:hover .file-attach__icon-svg,
         #bookingModal .file-attach__btn--camera:hover .file-attach__icon-svg--camera,
         #bookingModal .file-attach__btn--camera:focus-visible .file-attach__icon-svg,
         #bookingModal .file-attach__btn--camera:focus-visible .file-attach__icon-svg--camera {
-            color: rgb(var(--modal-design-tone-rgb)) !important;
-            stroke: rgb(var(--modal-design-tone-rgb)) !important;
+            color: #ffffff !important;
+            stroke: #ffffff !important;
         }
 
         #bookingModal .file-attach__btn:hover,
         #bookingModal .file-attach__btn:focus-visible {
-            color: rgb(var(--modal-design-tone-rgb)) !important;
+            color: #ffffff !important;
+        }
+
+        #bookingModal .file-attach__btn--camera:hover,
+        #bookingModal .file-attach__btn--camera:focus-visible {
+            background: rgba(var(--modal-design-tone-rgb), 0.98) !important;
+            border-color: #ffffff !important;
+        }
+
+        #bookingModal .file-attach__btn--camera:hover .file-attach__icon,
+        #bookingModal .file-attach__btn--camera:focus-visible .file-attach__icon {
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file {
-            border-color: rgb(var(--modal-design-tone-rgb)) !important;
+            border-color: rgba(255, 255, 255, 0.9) !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over .file-attach__btn,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__btn {
-            border-color: rgb(var(--modal-design-tone-rgb)) !important;
-            color: rgb(var(--modal-design-tone-rgb)) !important;
+            border-color: rgba(255, 255, 255, 0.92) !important;
+            color: #ffffff !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over .file-attach__title,
@@ -5433,8 +5535,8 @@
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__icon-svg,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file .file-attach__hint,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file p {
-            color: rgb(var(--modal-design-tone-rgb)) !important;
-            stroke: rgb(var(--modal-design-tone-rgb)) !important;
+            color: #ffffff !important;
+            stroke: #ffffff !important;
         }
 
         #bookingModal .final-result-call {
@@ -5506,6 +5608,153 @@
         .slot-btn:focus-visible {
             transform: none !important;
             transition: none !important;
+        }
+
+        /* ------------------- SIMPLIFIED CALENDAR SKIN ------------------- */
+        .layout-container #bookingCalendar.calendar-wrapper,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
+            background:
+                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.09), rgba(var(--modal-design-tone-rgb), 0.09)),
+                rgba(var(--modal-design-surface-rgb), 0.56) !important;
+            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44) !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper::before,
+        .layout-container #bookingCalendar.calendar-wrapper::after,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::before,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::after {
+            content: none !important;
+        }
+
+        .calendar-header {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .calendar-nav-btn {
+            background: rgba(255, 255, 255, 0.16) !important;
+            border: 1px solid rgba(255, 255, 255, 0.34) !important;
+            box-shadow: none !important;
+            opacity: 1 !important;
+        }
+
+        .calendar-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.26) !important;
+            transform: none !important;
+        }
+
+        .calendar-grid {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .cal-day {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.26) !important;
+            box-shadow: none !important;
+            color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: none !important;
+        }
+
+        .cal-day--selected {
+            background: rgba(255, 255, 255, 0.24) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.98) !important;
+            font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
+            font-weight: 800 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .cal-day--today {
+            border: 2px solid rgba(255, 255, 255, 0.95) !important;
+            box-shadow: none !important;
+        }
+
+        .cal-day--has-slots {
+            background: rgba(255, 255, 255, 0.16) !important;
+            border-color: rgba(255, 255, 255, 0.34) !important;
+        }
+
+        .cal-day--nearest {
+            border-color: rgba(255, 255, 255, 0.9) !important;
+            color: #ffffff !important;
+            font-size: clamp(0.98rem, 1.85vw, 1.08rem) !important;
+            font-weight: 700 !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.78),
+                0 0 8px rgba(255, 255, 255, 0.55) !important;
+        }
+
+        .cal-day--nearest.cal-day--selected {
+            background: rgba(255, 255, 255, 0.24) !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.98) !important;
+            font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
+            font-weight: 800 !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.98),
+                0 0 10px rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .slots-grid .slot-btn {
+            background: rgba(255, 255, 255, 0.12) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: none !important;
+            border-radius: 2.2rem !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .slots-grid .slot-btn:hover,
+        .slots-grid .slot-btn:focus-visible,
+        .slots-grid .slot-btn:active {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.44) !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .slots-block,
+        .slots-nav {
+            box-shadow: none !important;
+        }
+
+        #calendarLoaderOverlay,
+        .layout-container #bookingCalendar #calendarLoaderOverlay,
+        .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
+            box-shadow: none !important;
+        }
+
+        #slotsDayDisplay {
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 768px) {
+            .layout-container #bookingCalendar.calendar-wrapper,
+            .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
+                padding: 0.95rem 0.78rem 0.95rem !important;
+                border-radius: 1rem !important;
+            }
+
+            .calendar-header,
+            .calendar-grid {
+                border-radius: 0.9rem !important;
+            }
+
+            .slots-grid .slot-btn {
+                border-radius: 1.7rem !important;
+            }
         }
 
         .custom-select__trigger,
@@ -6302,7 +6551,7 @@
             border-bottom: 1px solid var(--glass-border);
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
+            pointer-events: none;
             transition: opacity 0.25s ease, transform 0.25s ease;
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent);
             mask-image: linear-gradient(to bottom, rgba(0,0,0,0.72), transparent);
@@ -6727,12 +6976,14 @@
                 padding: 1.25rem 1rem 1.15rem;
             }
 
-            .layout-container #bookingCalendar.calendar-wrapper {
+            .layout-container #bookingCalendar.calendar-wrapper,
+            .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
                 border-radius: 1.05rem;
                 padding: 1rem 0.85rem 1rem;
             }
 
-            .layout-container #bookingCalendar #calendarLoaderOverlay {
+            .layout-container #bookingCalendar #calendarLoaderOverlay,
+            .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
                 border-radius: 1.05rem;
             }
 
@@ -7670,8 +7921,9 @@
 <!-- ----------------------------------------------------------- -->
 <!-- INTAKE NOTICE MODAL -->
 <!-- ----------------------------------------------------------- -->
-<div id="intakeNoticeModal" class="modal" onclick="if (event.target === this) closeIntakeNoticeModal();">
+<div id="intakeNoticeModal" class="modal" aria-hidden="true" onclick="if (event.target === this) closeIntakeNoticeModal();">
     <div class="modal__content">
+        <button class="modal__close" onclick="closeIntakeNoticeModal()">&times;</button>
         <h2 class="modal__title">Intake Notice</h2>
         <div class="modal__body">
             <h3 class="modal__section-title">Intake Appointment</h3>
@@ -7787,7 +8039,7 @@
 </footer>
 
 <!-- BOOKING MODAL -->
-<div id="bookingModal" class="modal booking-modal--flat" onclick="if (event.target === this) closeBookingModal();">
+<div id="bookingModal" class="modal booking-modal--flat" onclick="handleBookingModalBackdropClick(event)">
     <div class="modal__content" style="max-width: 600px;">
         <h2 class="modal__title" style="text-align: center; margin-top: 10px; margin-bottom: 20px; padding-top: 0; line-height: 1.4;">REQUEST FOR AN APPOINTMENT:<br><span id="modalAppointmentTime" style="display: inline; font-size: 1em; font-weight: 800; margin-top: 0;"></span></h2>
         <div class="modal__body" style="padding-top: 5px; text-align: center;">
@@ -7995,7 +8247,7 @@
                         <p class="recaptcha-wrap__hint">Complete reCAPTCHA only when the form asks for it.</p>
                         <div id="bookingRecaptchaWidget"></div>
                     </div>
-                    <div class="booking-scroll-cue" aria-hidden="true">
+                    <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Go to highlighted field">
                         <span>?</span><span>?</span><span>?</span>
                     </div>
                     <div class="booking-status-slot">
@@ -8100,6 +8352,7 @@
     let calendarCachePersistTimer = null;
     let monthSwitchProgressTimer = null;
     let monthSwitchProgressValue = 0;
+    let monthSwitchProgressDirection = 'forward';
     let monthSwitchProgressRunId = 0;
     const MONTH_SWITCH_PROGRESS_CIRCUMFERENCE = Math.PI * 2 * 48;
     let calendarPrevButtonStateRunId = 0;
@@ -9008,24 +9261,35 @@
         }
     }
 
-    function startMonthSwitchProgressOverlay() {
+    function startMonthSwitchProgressOverlay(direction = 'forward') {
         if (!monthSwitchOverlay || !monthSwitchProgressFill) return 0;
+        monthSwitchProgressDirection = direction === 'backward' ? 'backward' : 'forward';
         monthSwitchProgressRunId += 1;
         const runId = monthSwitchProgressRunId;
         clearMonthSwitchProgressTimer();
-        setMonthSwitchProgress(0);
+        if (monthSwitchProgressDirection === 'backward') {
+            setMonthSwitchProgress(0);
+        } else {
+            setMonthSwitchProgress(100);
+        }
         monthSwitchOverlay.classList.add('month-switch-overlay--active');
         monthSwitchOverlay.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(() => {
             if (runId !== monthSwitchProgressRunId) return;
-            setMonthSwitchProgress(randomBetween(4, 9));
+            if (monthSwitchProgressDirection === 'backward') {
+                setMonthSwitchProgress(randomBetween(4, 9));
+            } else {
+                setMonthSwitchProgress(randomBetween(91, 96));
+            }
         });
         monthSwitchProgressTimer = setInterval(() => {
             if (runId !== monthSwitchProgressRunId) return;
-            const next = Math.min(
-                MONTH_SWITCH_PROGRESS_SOFT_CAP,
-                monthSwitchProgressValue + randomBetween(2, 8)
-            );
+            const next = monthSwitchProgressDirection === 'backward'
+                ? Math.min(
+                    MONTH_SWITCH_PROGRESS_SOFT_CAP,
+                    monthSwitchProgressValue + randomBetween(2, 8)
+                )
+                : Math.max(6, monthSwitchProgressValue - randomBetween(2, 8));
             setMonthSwitchProgress(next);
         }, MONTH_SWITCH_PROGRESS_TICK_MS);
         return runId;
@@ -9035,13 +9299,15 @@
         if (!monthSwitchOverlay || !runId) return;
         if (runId !== monthSwitchProgressRunId) return;
         clearMonthSwitchProgressTimer();
-        setMonthSwitchProgress(100);
+        const finalValue = monthSwitchProgressDirection === 'backward' ? 100 : 0;
+        setMonthSwitchProgress(finalValue);
         setTimeout(() => {
             if (runId !== monthSwitchProgressRunId) return;
             monthSwitchOverlay.classList.remove('month-switch-overlay--active');
             monthSwitchOverlay.setAttribute('aria-hidden', 'true');
-            if (isError) setMonthSwitchProgress(0);
-            else setTimeout(() => setMonthSwitchProgress(0), 40);
+            const resetValue = monthSwitchProgressDirection === 'backward' ? 0 : 100;
+            if (isError) setMonthSwitchProgress(resetValue);
+            else setTimeout(() => setMonthSwitchProgress(resetValue), 40);
         }, isError ? 60 : 140);
     }
 
@@ -9051,46 +9317,60 @@
     function getSlotStartMinutes(slot) {
         if (!slot) return -1;
 
-        const isoRaw = String(slot.iso || '');
-        const isoMatch = isoRaw.match(/T(\d{2}):(\d{2})/);
-        if (isoMatch) {
-            const h = Number(isoMatch[1]);
-            const m = Number(isoMatch[2]);
-            if (Number.isFinite(h) && Number.isFinite(m)) {
-                return h * 60 + m;
+        const tryParseTimeValue = (value) => {
+            const raw = String(value || '')
+                .replace(/[\u00A0\u202F]/g, ' ')
+                .trim();
+            if (!raw) return -1;
+
+            const isoLikeMatch = raw.match(/T(\d{2}):(\d{2})/);
+            if (isoLikeMatch) {
+                const h = Number(isoLikeMatch[1]);
+                const m = Number(isoLikeMatch[2]);
+                if (Number.isFinite(h) && Number.isFinite(m)) return h * 60 + m;
             }
+
+            const firstPart = raw.split(/[-\u2013\u2014]/)[0].trim();
+            let match = firstPart.match(/\b(\d{1,2}):(\d{2})\s*(AM|PM)?\b/i);
+            let hourOnlyAmPm = false;
+            if (!match) {
+                match = firstPart.match(/\b(\d{1,2})\s*(AM|PM)\b/i);
+                hourOnlyAmPm = Boolean(match);
+            }
+            if (!match) return -1;
+
+            let hour = Number(match[1]);
+            const minute = hourOnlyAmPm ? 0 : Number(match[2] || '0');
+            const ampm = hourOnlyAmPm
+                ? String(match[2] || '').toUpperCase()
+                : String(match[3] || '').toUpperCase();
+            if (!Number.isFinite(hour) || !Number.isFinite(minute)) return -1;
+            if (minute < 0 || minute > 59) return -1;
+
+            if (ampm) {
+                if (hour < 1 || hour > 12) return -1;
+                if (ampm === 'PM' && hour < 12) hour += 12;
+                if (ampm === 'AM' && hour === 12) hour = 0;
+            } else if (hour < 0 || hour > 23) {
+                return -1;
+            }
+            return hour * 60 + minute;
+        };
+
+        const structuredCandidates = [
+            slot.iso,
+            slot.start,
+            slot.start_time,
+            slot.startTime,
+            slot.time_start,
+            slot.time
+        ];
+        for (const candidate of structuredCandidates) {
+            const parsed = tryParseTimeValue(candidate);
+            if (parsed >= 0) return parsed;
         }
 
-        const textRaw = String(slot.text || '');
-        const startText = textRaw
-            .split(/[-\u2013\u2014]/)[0]
-            .replace(/[\u00A0\u202F]/g, ' ')
-            .trim();
-        let textMatch = startText.match(/\b(\d{1,2}):(\d{2})\s*(AM|PM)?\b/i);
-        let isHourAmPmOnly = false;
-        if (!textMatch) {
-            textMatch = startText.match(/\b(\d{1,2})\s*(AM|PM)\b/i);
-            isHourAmPmOnly = Boolean(textMatch);
-        }
-        if (!textMatch) return -1;
-
-        let hour = Number(textMatch[1]);
-        const minute = isHourAmPmOnly ? 0 : Number(textMatch[2] || '0');
-        const ampm = isHourAmPmOnly
-            ? String(textMatch[2] || '').toUpperCase()
-            : String(textMatch[3] || '').toUpperCase();
-        if (!Number.isFinite(hour) || !Number.isFinite(minute)) return -1;
-        if (minute < 0 || minute > 59) return -1;
-
-        if (ampm) {
-            if (hour < 1 || hour > 12) return -1;
-            if (ampm === 'PM' && hour < 12) hour += 12;
-            if (ampm === 'AM' && hour === 12) hour = 0;
-        } else if (hour < 0 || hour > 23) {
-            return -1;
-        }
-
-        return hour * 60 + minute;
+        return tryParseTimeValue(slot.text);
     }
 
     function formatOntarioLegalDateLabel(slot, fallbackDate) {
@@ -9215,7 +9495,7 @@
                     return;
                 }
 
-                monthSwitchRunId = startMonthSwitchProgressOverlay();
+                monthSwitchRunId = startMonthSwitchProgressOverlay('backward');
                 const prevAvailable = await findAdjacentAvailableDate(-1);
                 if (!prevAvailable) return;
                 setMonthSwitchProgress(Math.max(monthSwitchProgressValue, 66));
@@ -9239,14 +9519,14 @@
                     return;
                 }
 
-                monthSwitchRunId = startMonthSwitchProgressOverlay();
+                monthSwitchRunId = startMonthSwitchProgressOverlay('forward');
                 const nextAvailable = await findAdjacentAvailableDate(1);
                 if (!nextAvailable) return;
-                setMonthSwitchProgress(Math.max(monthSwitchProgressValue, 66));
+                setMonthSwitchProgress(Math.min(monthSwitchProgressValue, 34));
                 selectedDate = nextAvailable;
                 currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
                 await renderCalendar();
-                setMonthSwitchProgress(100);
+                setMonthSwitchProgress(0);
             } finally {
                 if (monthSwitchRunId) finishMonthSwitchProgressOverlay(monthSwitchRunId);
                 calendarNavInProgress = false;
@@ -9646,98 +9926,175 @@
     let pendingSlotForBooking = null;
     let pendingSlotAttachRequest = false;
     let pendingBookingWithoutSpecificDate = false;
-    const INTAKE_NOTICE_SEEN_STORAGE_KEY = 'hd.intakeNoticeSeen.v3';
-    const INTAKE_NOTICE_SOUND_CANDIDATES = ['11.mp3'];
+    const INTAKE_NOTICE_SEEN_SESSION_KEY = 'hd.intakeNoticeSeen.session.v1';
+    const INTAKE_NOTICE_SOUND_CANDIDATES = ['11.mp3', '22.mp3'];
+    const SUCCESS_SOUND_CANDIDATES = ['22.mp3'];
     let intakeNoticeSound = null;
+    let successSound = null;
     let intakeNoticeSoundUnlockBound = false;
+    let successSoundUnlockBound = false;
+    let intakeNoticeRetryQueued = false;
+    let successSoundRetryQueued = false;
 
-    function createIntakeNoticeSoundInstance() {
-        const src = INTAKE_NOTICE_SOUND_CANDIDATES[0] || '';
-        if (!src) return null;
-        const sound = new Audio(src);
+    function createAudioInstanceFromCandidates(candidates) {
+        const sourceList = Array.isArray(candidates)
+            ? candidates.map(src => String(src || '').trim()).filter(Boolean)
+            : [];
+        if (!sourceList.length) return null;
+
+        const sound = new Audio();
         sound.preload = 'auto';
         sound.volume = 1;
-        if (typeof sound.load === 'function') {
-            try { sound.load(); } catch (_) {}
-        }
+
+        let index = 0;
+        const applyCurrentSource = () => {
+            sound.src = sourceList[index];
+            if (typeof sound.load === 'function') {
+                try { sound.load(); } catch (_) {}
+            }
+        };
+
+        sound.addEventListener('error', () => {
+            if (index >= sourceList.length - 1) return;
+            index += 1;
+            applyCurrentSource();
+        });
+
+        applyCurrentSource();
         return sound;
     }
 
-    function ensureIntakeNoticeSoundInstance() {
-        if (!intakeNoticeSound) {
-            intakeNoticeSound = createIntakeNoticeSoundInstance();
-        }
-        return intakeNoticeSound;
+    function bindOneShotUserGesture(handler) {
+        if (typeof handler !== 'function') return;
+        let called = false;
+        const wrapped = () => {
+            if (called) return;
+            called = true;
+            document.removeEventListener('pointerdown', wrapped, true);
+            document.removeEventListener('touchstart', wrapped, true);
+            document.removeEventListener('keydown', wrapped, true);
+            handler();
+        };
+        document.addEventListener('pointerdown', wrapped, { capture: true, passive: true });
+        document.addEventListener('touchstart', wrapped, { capture: true, passive: true });
+        document.addEventListener('keydown', wrapped, { capture: true });
     }
 
-    function primeIntakeNoticeSoundFromGesture() {
-        const sound = ensureIntakeNoticeSoundInstance();
+    function resetAudioClip(sound) {
         if (!sound) return;
+        try { sound.pause(); } catch (_) {}
+        try { sound.currentTime = 0; } catch (_) {}
+        try { sound.muted = false; } catch (_) {}
+    }
 
+    function primeAudioFromGesture(sound) {
+        if (!sound) return;
         try {
             sound.muted = true;
             const unlockPromise = sound.play();
             if (unlockPromise && typeof unlockPromise.then === 'function') {
                 unlockPromise.then(() => {
-                    sound.pause();
-                    try { sound.currentTime = 0; } catch (_) {}
-                    sound.muted = false;
+                    resetAudioClip(sound);
                 }).catch(() => {
-                    sound.muted = false;
+                    try { sound.muted = false; } catch (_) {}
                 });
             } else {
-                sound.pause();
-                try { sound.currentTime = 0; } catch (_) {}
-                sound.muted = false;
+                resetAudioClip(sound);
             }
         } catch (_) {
-            sound.muted = false;
+            try { sound.muted = false; } catch (_) {}
         }
+    }
+
+    function playAudioClip(sound, onBlocked) {
+        if (!sound) return;
+        resetAudioClip(sound);
+
+        try {
+            const playPromise = sound.play();
+            if (playPromise && typeof playPromise.then === 'function') {
+                playPromise.catch((error) => {
+                    const name = String(error && error.name || '');
+                    const message = String(error && error.message || '');
+                    const blocked = /NotAllowedError|AbortError/i.test(name) || /gesture|autoplay|interrupted|not allowed/i.test(message);
+                    if (blocked && typeof onBlocked === 'function') onBlocked();
+                });
+            }
+        } catch (_) {
+            if (typeof onBlocked === 'function') onBlocked();
+        }
+    }
+
+    function ensureIntakeNoticeSoundInstance() {
+        if (!intakeNoticeSound) {
+            intakeNoticeSound = createAudioInstanceFromCandidates(INTAKE_NOTICE_SOUND_CANDIDATES);
+        }
+        return intakeNoticeSound;
+    }
+
+    function ensureSuccessSoundInstance() {
+        if (!successSound) {
+            successSound = createAudioInstanceFromCandidates(SUCCESS_SOUND_CANDIDATES);
+        }
+        return successSound;
+    }
+
+    function primeIntakeNoticeSoundFromGesture() {
+        primeAudioFromGesture(ensureIntakeNoticeSoundInstance());
+    }
+
+    function primeSuccessSoundFromGesture() {
+        primeAudioFromGesture(ensureSuccessSoundInstance());
     }
 
     function bindIntakeNoticeSoundUnlockHandlers() {
         if (intakeNoticeSoundUnlockBound) return;
         intakeNoticeSoundUnlockBound = true;
-
-        const unlock = () => {
+        bindOneShotUserGesture(() => {
+            intakeNoticeSoundUnlockBound = false;
             primeIntakeNoticeSoundFromGesture();
-            document.removeEventListener('pointerdown', unlock, true);
-            document.removeEventListener('touchstart', unlock, true);
-            document.removeEventListener('keydown', unlock, true);
-        };
+        });
+    }
 
-        document.addEventListener('pointerdown', unlock, { capture: true, passive: true });
-        document.addEventListener('touchstart', unlock, { capture: true, passive: true });
-        document.addEventListener('keydown', unlock, { capture: true, passive: true });
+    function bindSuccessSoundUnlockHandlers() {
+        if (successSoundUnlockBound) return;
+        successSoundUnlockBound = true;
+        bindOneShotUserGesture(() => {
+            successSoundUnlockBound = false;
+            primeSuccessSoundFromGesture();
+        });
+    }
+
+    function queueIntakeNoticeRetryOnGesture() {
+        if (intakeNoticeRetryQueued) return;
+        intakeNoticeRetryQueued = true;
+        bindOneShotUserGesture(() => {
+            intakeNoticeRetryQueued = false;
+            primeIntakeNoticeSoundFromGesture();
+            playIntakeNoticeSound();
+        });
+    }
+
+    function queueSuccessSoundRetryOnGesture() {
+        if (successSoundRetryQueued) return;
+        successSoundRetryQueued = true;
+        bindOneShotUserGesture(() => {
+            successSoundRetryQueued = false;
+            primeSuccessSoundFromGesture();
+            playSuccessSound();
+        });
     }
 
     bindIntakeNoticeSoundUnlockHandlers();
+    bindSuccessSoundUnlockHandlers();
 
     function playIntakeNoticeSound() {
-        const sound = ensureIntakeNoticeSoundInstance();
-        if (!sound) {
-            return;
-        }
-
-        try {
-            sound.pause();
-            try { sound.currentTime = 0; } catch (_) {}
-            sound.muted = false;
-
-            const playPromise = sound.play();
-            if (playPromise && typeof playPromise.then === 'function') {
-                playPromise.catch(() => {
-                    return;
-                });
-            }
-        } catch (_) {
-            return;
-        }
+        playAudioClip(ensureIntakeNoticeSoundInstance(), queueIntakeNoticeRetryOnGesture);
     }
 
     function hasSeenIntakeNotice() {
         try {
-            return window.localStorage.getItem(INTAKE_NOTICE_SEEN_STORAGE_KEY) === '1';
+            return window.sessionStorage.getItem(INTAKE_NOTICE_SEEN_SESSION_KEY) === '1';
         } catch (_) {
             return false;
         }
@@ -9745,7 +10102,7 @@
 
     function markIntakeNoticeSeen() {
         try {
-            window.localStorage.setItem(INTAKE_NOTICE_SEEN_STORAGE_KEY, '1');
+            window.sessionStorage.setItem(INTAKE_NOTICE_SEEN_SESSION_KEY, '1');
         } catch (_) {
             // Ignore storage write failures (private mode / blocked storage).
         }
@@ -9843,7 +10200,9 @@
     function openIntakeNoticeModal() {
         const modal = document.getElementById('intakeNoticeModal');
         if (modal) {
+            modal.style.display = 'flex';
             modal.classList.add('modal--active');
+            modal.setAttribute('aria-hidden', 'false');
             syncGlobalModalScrollLock();
             playIntakeNoticeSound();
         }
@@ -9853,6 +10212,8 @@
         const modal = document.getElementById('intakeNoticeModal');
         if (modal) {
             modal.classList.remove('modal--active');
+            modal.style.display = '';
+            modal.setAttribute('aria-hidden', 'true');
             syncGlobalModalScrollLock();
         }
         if (resetPendingBooking) {
@@ -10062,52 +10423,12 @@
     }
 
     function getClockIcon(slotOrTimeRange) {
-        // Use the slot start time as the single source of truth for hand angles.
-        const sourceSlot = (slotOrTimeRange && typeof slotOrTimeRange === 'object')
-            ? slotOrTimeRange
-            : { text: String(slotOrTimeRange || '') };
-        const startMinutes = getSlotStartMinutes(sourceSlot);
-        let hours24 = 12;
-        let minutes = 0;
-        if (Number.isFinite(startMinutes) && startMinutes >= 0) {
-            hours24 = Math.floor(startMinutes / 60) % 24;
-            minutes = startMinutes % 60;
-        }
-
-        const hours12 = ((hours24 + 11) % 12) + 1;
-        const displayTime = `${hours12}:${String(minutes).padStart(2, '0')}`;
-        const hourAngle = ((hours24 % 12) * 30) + (minutes * 0.5);
-        const minuteAngle = minutes * 6;
-
-        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="Clock ${displayTime}" style="width:100%;height:100%;">
-  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8" opacity="0.95"/>
-  <circle cx="12" cy="12" r="8.35" fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.45"/>
-  <line x1="12" y1="3.1" x2="12" y2="4.55" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
-  <line x1="20.9" y1="12" x2="19.45" y2="12" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
-  <line x1="12" y1="20.9" x2="12" y2="19.45" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
-  <line x1="3.1" y1="12" x2="4.55" y2="12" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
-  <text x="12" y="5.8" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 2.05px; font-weight: 700; letter-spacing: 0.02em;">XII</text>
-  <text x="18.6" y="12.7" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">III</text>
-  <text x="12" y="18.85" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">VI</text>
-  <text x="5.45" y="12.7" text-anchor="middle" fill="currentColor" opacity="0.92" style="font-family: Georgia, 'Times New Roman', serif; font-size: 1.9px; font-weight: 700; letter-spacing: 0.02em;">IX</text>
-  <g transform="rotate(${hourAngle} 12 12)" class="clock-hand hour-hand">
-    <path d="M12 12 L10.95 11.62 L11.1 8.7 L12 7.25 L12.9 8.7 L13.05 11.62 Z" fill="currentColor" opacity="0.99"/>
-    <path d="M12 6.5 L10.8 8.36 L11.56 8.13 L12 8.78 L12.44 8.13 L13.2 8.36 Z" fill="#ffffff" opacity="0.99"/>
-    <path d="M11.5 8.3 L10.9 8.92 L11.56 8.84 Z" fill="#ffffff" opacity="0.92"/>
-    <path d="M12.5 8.3 L13.1 8.92 L12.44 8.84 Z" fill="#ffffff" opacity="0.92"/>
-    <path d="M12 11.72 L12 8.05" stroke="#ffffff" stroke-width="0.36" stroke-linecap="round" opacity="0.6"/>
-  </g>
-  <g transform="rotate(${minuteAngle} 12 12)" class="clock-hand minute-hand">
-    <path d="M12 12 L11.4 11.74 L11.48 7.2 L12 6.02 L12.52 7.2 L12.6 11.74 Z" fill="currentColor" opacity="0.97"/>
-    <path d="M12 5.48 L11.14 6.94 L11.64 6.76 L12 7.26 L12.36 6.76 L12.86 6.94 Z" fill="#ffffff" opacity="0.97"/>
-    <path d="M11.62 6.98 L11.2 7.45 L11.66 7.38 Z" fill="#ffffff" opacity="0.86"/>
-    <path d="M12.38 6.98 L12.8 7.45 L12.34 7.38 Z" fill="#ffffff" opacity="0.86"/>
-    <path d="M12 11.64 L12 6.76" stroke="#ffffff" stroke-width="0.22" stroke-linecap="round" opacity="0.52"/>
-  </g>
-  <circle cx="12" cy="12" r="1.18" fill="none" stroke="currentColor" stroke-width="0.62" opacity="0.95"/>
-  <circle cx="12" cy="12" r="0.5" fill="currentColor" opacity="0.98"/>
-  <text x="12" y="22.25" text-anchor="middle" fill="currentColor" opacity="0.82" style="font-family: Georgia, 'Times New Roman', serif; font-size: 2.25px; font-weight: 700; letter-spacing: 0.02em;">${displayTime}</text>
-</svg>`;
+        /*
+        Clock icon rendering for slot cards is temporarily disabled.
+        Previous implementation (dynamic SVG with Roman numerals and hands by slot start time)
+        is intentionally commented out for now; we may restore/rework it later.
+        */
+        return '';
     }
 
     // Legacy renderCalendar removed - single version above is used
@@ -10123,6 +10444,8 @@
     let bookingWithoutSpecificDate = false;
     const BOOKING_WITHOUT_DATE_LABEL = 'WITHOUT SPECIFIC DATE';
     const BOOKING_WITHOUT_DATE_SUMMARY = 'No specific date (to be scheduled)';
+    const BOOKING_MODAL_BACKDROP_DRAG_PX = 10;
+    const BOOKING_MODAL_BACKDROP_CLICK_WINDOW_MS = 700;
     const modal = document.getElementById('bookingModal');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
@@ -10141,6 +10464,105 @@
     let bookingStatusActionTarget = null;
     let lastBookingFieldEl = null;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
+    let bookingBackdropPointerActive = false;
+    let bookingBackdropPointerId = null;
+    let bookingBackdropStartX = 0;
+    let bookingBackdropStartY = 0;
+    let bookingBackdropMoved = false;
+    let bookingBackdropStartedOnOverlay = false;
+    let bookingBackdropEligibleUntil = 0;
+
+    function getEventClientPoint(event) {
+        if (!event) return null;
+        if (Number.isFinite(event.clientX) && Number.isFinite(event.clientY)) {
+            return { x: event.clientX, y: event.clientY };
+        }
+        const touch = (event.changedTouches && event.changedTouches[0]) || (event.touches && event.touches[0]);
+        if (touch && Number.isFinite(touch.clientX) && Number.isFinite(touch.clientY)) {
+            return { x: touch.clientX, y: touch.clientY };
+        }
+        return null;
+    }
+
+    function matchesBackdropPointer(event) {
+        if (!bookingBackdropPointerActive) return false;
+        if (bookingBackdropPointerId === null) return true;
+        return Number.isFinite(event?.pointerId) && event.pointerId === bookingBackdropPointerId;
+    }
+
+    function resetBookingBackdropPointerState() {
+        bookingBackdropPointerActive = false;
+        bookingBackdropPointerId = null;
+        bookingBackdropStartX = 0;
+        bookingBackdropStartY = 0;
+        bookingBackdropMoved = false;
+        bookingBackdropStartedOnOverlay = false;
+    }
+
+    function updateBookingBackdropMoved(event) {
+        if (!bookingBackdropPointerActive) return;
+        if (!matchesBackdropPointer(event)) return;
+        const point = getEventClientPoint(event);
+        if (!point) return;
+        const dx = point.x - bookingBackdropStartX;
+        const dy = point.y - bookingBackdropStartY;
+        if ((dx * dx + dy * dy) > (BOOKING_MODAL_BACKDROP_DRAG_PX * BOOKING_MODAL_BACKDROP_DRAG_PX)) {
+            bookingBackdropMoved = true;
+        }
+    }
+
+    function onBookingModalBackdropPointerDown(event) {
+        const point = getEventClientPoint(event);
+        if (!point) return;
+        bookingBackdropPointerActive = true;
+        bookingBackdropPointerId = Number.isFinite(event.pointerId) ? event.pointerId : null;
+        bookingBackdropStartX = point.x;
+        bookingBackdropStartY = point.y;
+        bookingBackdropMoved = false;
+        bookingBackdropStartedOnOverlay = !!(modal && event.target === modal);
+        bookingBackdropEligibleUntil = 0;
+    }
+
+    function onBookingModalBackdropPointerMove(event) {
+        updateBookingBackdropMoved(event);
+    }
+
+    function onBookingModalBackdropPointerEnd(event) {
+        if (!bookingBackdropPointerActive) return;
+        if (!matchesBackdropPointer(event)) return;
+        updateBookingBackdropMoved(event);
+        bookingBackdropEligibleUntil = (bookingBackdropStartedOnOverlay && !bookingBackdropMoved)
+            ? (Date.now() + BOOKING_MODAL_BACKDROP_CLICK_WINDOW_MS)
+            : 0;
+        resetBookingBackdropPointerState();
+    }
+
+    function onBookingModalBackdropPointerCancel() {
+        bookingBackdropEligibleUntil = 0;
+        resetBookingBackdropPointerState();
+    }
+
+    function isBookingBackdropClickEligible() {
+        return bookingBackdropEligibleUntil > Date.now();
+    }
+
+    function handleBookingModalBackdropClick(event) {
+        if (!modal || event?.target !== modal) return;
+        if (!isBookingBackdropClickEligible()) {
+            bookingBackdropEligibleUntil = 0;
+            return;
+        }
+        bookingBackdropEligibleUntil = 0;
+        closeBookingModal();
+    }
+
+    if (modal && modal.dataset.backdropGuardBound !== '1') {
+        modal.dataset.backdropGuardBound = '1';
+        modal.addEventListener('pointerdown', onBookingModalBackdropPointerDown, { passive: true });
+        modal.addEventListener('pointermove', onBookingModalBackdropPointerMove, { passive: true });
+        window.addEventListener('pointerup', onBookingModalBackdropPointerEnd, true);
+        window.addEventListener('pointercancel', onBookingModalBackdropPointerCancel, true);
+    }
 
     if (bookingStatus && bookingStatus.dataset.actionBound !== '1') {
         bookingStatus.dataset.actionBound = '1';
@@ -10150,15 +10572,8 @@
             if (!bookingFormEl) return;
             const actionableTarget = resolveBookingActionField(bookingStatusActionTarget);
             if (bookingStatus.classList.contains('status-alert--actionable') && actionableTarget) {
-                if (!isBookingActionFieldSatisfied(actionableTarget)) {
-                    triggerBookingStatusAction();
-                    return;
-                }
-                if (bookingStatus.classList.contains('status-alert--warning') || bookingStatus.classList.contains('status-alert--error')) {
-                    clearBookingError();
-                } else {
-                    setBookingNoticeActionTarget(null);
-                }
+                triggerBookingStatusAction();
+                return;
             }
 
             const sourceField = resolveBookingFieldFromElement(lastBookingFieldEl)
@@ -10178,6 +10593,21 @@
                     target: bookingFormEl
                 });
             }
+        });
+    }
+
+    if (bookingScrollCue && bookingScrollCue.dataset.actionBound !== '1') {
+        bookingScrollCue.dataset.actionBound = '1';
+        bookingScrollCue.addEventListener('click', (event) => {
+            if (!bookingStatus || !bookingStatus.classList.contains('status-alert--actionable')) return;
+            event.preventDefault();
+            triggerBookingStatusAction();
+        });
+        bookingScrollCue.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            if (!bookingStatus || !bookingStatus.classList.contains('status-alert--actionable')) return;
+            event.preventDefault();
+            triggerBookingStatusAction();
         });
     }
 
@@ -10527,6 +10957,8 @@
         const shouldShow = !!visible;
         bookingScrollCue.classList.toggle('booking-scroll-cue--visible', shouldShow);
         bookingScrollCue.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+        bookingScrollCue.setAttribute('aria-disabled', shouldShow ? 'false' : 'true');
+        bookingScrollCue.tabIndex = shouldShow ? 0 : -1;
     }
 
     function syncBookingScrollCueVisibility() {
@@ -10536,6 +10968,7 @@
         }
         const hasActionHint =
             bookingStatus.classList.contains('status-alert--visible') &&
+            bookingStatus.classList.contains('status-alert--actionable') &&
             (bookingStatus.classList.contains('status-alert--warning')
                 || bookingStatus.classList.contains('status-alert--error'));
         setBookingScrollCueVisible(hasActionHint);
@@ -10699,7 +11132,6 @@
         const loading = !!options.loading;
         const emptyMessage = String(options.emptyMessage || '');
         const bottomStickyText = String(options.bottomStickyText || '').trim();
-        const placeNoDateButtonAfterBody = !!options.placeNoDateButtonAfterBody;
         const showNoDateButton = options.showNoDateButton !== false;
 
         let bodyMarkup = '';
@@ -10715,13 +11147,12 @@
         const titleClass = safeHint ? 'form-quick-slots__title' : 'form-quick-slots__title form-quick-slots__title--no-hint';
         const titleMarkup = safeHeading ? `<p class="${titleClass}">${safeHeading}</p>` : '';
         const noDateButtonMarkup = showNoDateButton
-            ? `<button type="button" class="form-quick-slots__no-date-btn" data-quick-no-date="1">I don&apos;t know yet what date to book.</button>`
+            ? `<button type="button" class="form-quick-slots__no-date-btn" data-quick-no-date="1">I don&apos;t know...</button>`
             : '';
-        const stickyNoDateButtonMarkup = placeNoDateButtonAfterBody ? '' : noDateButtonMarkup;
-        const stickyMarkup = (titleMarkup || hintMarkup || stickyNoDateButtonMarkup)
-            ? `<div class="form-quick-slots__sticky">${titleMarkup}${hintMarkup}${stickyNoDateButtonMarkup}</div>`
+        const stickyMarkup = (titleMarkup || hintMarkup)
+            ? `<div class="form-quick-slots__sticky">${titleMarkup}${hintMarkup}</div>`
             : '';
-        const belowNoDateButtonMarkup = (placeNoDateButtonAfterBody && noDateButtonMarkup)
+        const belowNoDateButtonMarkup = noDateButtonMarkup
             ? `<div class="form-quick-slots__no-date-below">${noDateButtonMarkup}</div>`
             : '';
         const bottomStickyMarkup = (bottomStickyText && safeEntries.length)
@@ -10765,7 +11196,7 @@
         const rangeEnd = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + (daysAhead - 1));
         const totalMonths = Math.max(1, getInclusiveMonthCount(minDate, rangeEnd));
         const overlayHeading = 'Select an available appointment slot';
-        const overlayHint = 'Tap a date and time below to apply it to your booking form.';
+        const overlayHint = 'For your convenience, the nearest slots are gathered in one place.';
         const loadingHeading = 'Loading available slots...';
         const bottomHintLabel = '';
         let overlayRevealed = false;
@@ -10789,8 +11220,7 @@
             overlayHint,
             [],
             {
-                loading: true,
-                placeNoDateButtonAfterBody: true
+                loading: true
             }
         );
         if (closeBtn) closeBtn.setAttribute('aria-label', 'Close available slots');
@@ -10827,8 +11257,7 @@
                         {
                             loading: !isComplete && !entries.length,
                             emptyMessage,
-                            bottomStickyText: entries.length ? bottomHintLabel : '',
-                            placeNoDateButtonAfterBody: showLoadingLayout
+                            bottomStickyText: entries.length ? bottomHintLabel : ''
                         }
                     );
                     if (isComplete) {
@@ -10848,8 +11277,7 @@
                     overlayHint,
                     [],
                     {
-                        emptyMessage: 'Unable to load available slots right now. Please try again.',
-                        placeNoDateButtonAfterBody: true
+                        emptyMessage: 'Unable to load available slots right now. Please try again.'
                     }
                 );
                 revealWhenReady();
@@ -12083,10 +12511,17 @@
     }
 
     if (formCalendarOverlay) {
+        const resolveOverlayTargetEl = (event) => {
+            const target = event && event.target ? event.target : null;
+            if (!target) return null;
+            return (target instanceof Element) ? target : (target.parentElement || null);
+        };
+
         const preventFormCalendarOverlayScroll = (e) => {
             if (!formCalendarOverlay.classList.contains('form-calendar-overlay--active')) return;
-            const quickListHost = e.target && e.target.closest ? e.target.closest('.form-calendar-overlay__mount--quick-slots') : null;
-            if (quickListHost) return;
+            const targetEl = resolveOverlayTargetEl(e);
+            const panelHost = targetEl && targetEl.closest ? targetEl.closest('#formCalendarOverlayPanel') : null;
+            if (panelHost) return;
             if (e.cancelable) e.preventDefault();
         };
         formCalendarOverlay.addEventListener('wheel', preventFormCalendarOverlayScroll, { passive: false });
@@ -12654,18 +13089,18 @@
     }
 
     function triggerBookingStatusAction() {
-        const target = bookingStatusActionTarget;
+        const target = resolveBookingActionField(bookingStatusActionTarget);
         if (!target || !document.body.contains(target)) {
             setBookingNoticeActionTarget(null);
             setBookingScrollCueVisible(false);
             return;
         }
         setBookingScrollCueVisible(false);
-        scrollBookingFieldIntoView(target);
-        const focusTarget = getBookingFieldFocusTarget(target);
-        if (focusTarget && document.activeElement === focusTarget) {
+        if (focusBookingField(target)) {
             return;
         }
+        scrollBookingFieldIntoView(target);
+        const focusTarget = getBookingFieldFocusTarget(target);
         if (focusTarget && typeof focusTarget.focus === 'function') {
             requestAnimationFrame(() => {
                 try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
@@ -13383,37 +13818,11 @@
     }
 
     // ------------------------------------------------------------------
-    // AUDIO SYSTEM (Glassy Chimes)
+    // AUDIO SYSTEM (HTML5 clip)
     // ------------------------------------------------------------------
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playTone(freq, type, duration, delay = 0) {
-        if(audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime + delay);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(audioCtx.currentTime + delay);
-        osc.stop(audioCtx.currentTime + delay + duration);
-    }
-
     function playSuccessSound() {
-        playTone(523.25, 'sine', 1.5, 0);   // C5
-        playTone(659.25, 'sine', 1.5, 0.1); // E5
-        playTone(783.99, 'sine', 1.5, 0.2); // G5
-        playTone(1046.50, 'sine', 2.5, 0.3); // C6
+        playAudioClip(ensureSuccessSoundInstance(), queueSuccessSoundRetryOnGesture);
     }
-    
-    document.addEventListener('click', function initAudio() {
-        if(audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        document.removeEventListener('click', initAudio);
-    }, { once: true });
 
     function getEndTime(startTime) {
         try {
