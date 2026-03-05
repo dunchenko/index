@@ -33,7 +33,6 @@
         "streetAddress": "146 Thirtieth St, Suite 29",
         "addressLocality": "Toronto",
         "addressRegion": "ON",
-        "postalCode": "M8W 3C4",
         "addressCountry": "CA"
       },
       "geo": {
@@ -41,7 +40,7 @@
         "latitude": 43.5969,
         "longitude": -79.5459
       },
-      "hasMap": "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4",
+      "hasMap": "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON",
       "areaServed": [
         {
           "@type": "AdministrativeArea",
@@ -80,7 +79,7 @@
         }
       ],
       "sameAs": [
-        "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4"
+        "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON"
       ],
       "makesOffer": [
         {
@@ -381,6 +380,7 @@
             --hero-book-gap-top: clamp(1.15rem, 3.2vw, 1.85rem);
             --hero-book-gap-bottom: clamp(2rem, 5.2vw, 3rem);
             --hero-phone-button-gap: clamp(1.45rem, 4vw, 2.2rem);
+            --calendar-main-max-width: 41rem;
         }
 
         * { 
@@ -3332,11 +3332,11 @@
             --calendar-stripe-dark-rgb: 139, 111, 90;
             --calendar-stripe-text: rgba(255, 247, 238, 0.96);
             background:
-                linear-gradient(212deg, rgba(var(--calendar-stripe-light-rgb), 0.26) 0%, rgba(var(--calendar-stripe-light-rgb), 0.12) 22%, rgba(var(--calendar-stripe-light-rgb), 0.04) 52%, rgba(var(--calendar-stripe-light-rgb), 0) 100%),
+                linear-gradient(12deg, rgba(var(--calendar-stripe-light-rgb), 0.1) 0%, rgba(var(--calendar-stripe-light-rgb), 0.04) 24%, rgba(var(--calendar-stripe-light-rgb), 0) 52%),
                 linear-gradient(342deg, rgba(var(--calendar-glass-tone-rgb), 0.15), rgba(var(--calendar-glass-tone-rgb), 0.08)),
                 rgba(var(--calendar-glass-surface-rgb), 0.08);
-            backdrop-filter: blur(22px) saturate(118%);
-            -webkit-backdrop-filter: blur(22px) saturate(118%);
+            backdrop-filter: blur(18px) saturate(108%);
+            -webkit-backdrop-filter: blur(18px) saturate(108%);
             border: 1px solid var(--calendar-glass-border);
             border-radius: 2.2rem;
             padding: 1.95rem;
@@ -3397,15 +3397,15 @@
             border-radius: 1.6rem;
             background:
                 radial-gradient(
-                    92% 66% at 14% 104%,
-                    rgba(255, 255, 255, 0.34) 0%,
-                    rgba(255, 255, 255, 0.20) 30%,
-                    rgba(255, 255, 255, 0.08) 50%,
-                    rgba(255, 255, 255, 0.00) 72%
+                    34% 16% at 50% 100%,
+                    rgba(255, 249, 240, 0.34) 0%,
+                    rgba(238, 219, 197, 0.18) 36%,
+                    rgba(220, 192, 166, 0.08) 56%,
+                    rgba(255, 255, 255, 0) 72%
                 ),
-                linear-gradient(0deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 58%);
+                linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 52%);
             pointer-events: none;
-            opacity: 0.72;
+            opacity: 0.6;
             z-index: 0;
         }
 
@@ -5689,21 +5689,21 @@
         /* ------------------- SIMPLIFIED CALENDAR SKIN ------------------- */
         .layout-container #bookingCalendar.calendar-wrapper,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-            --calendar-faq-answer-border: rgba(139, 111, 90, 0.42);
+            --calendar-faq-answer-border: rgba(212, 184, 154, 0.58);
             --calendar-faq-answer-bg:
-                linear-gradient(180deg, rgba(212, 184, 154, 0.34) 0%, rgba(191, 167, 146, 0.16) 45%, rgba(139, 111, 90, 0.12) 100%),
-                linear-gradient(0deg, rgba(191, 167, 146, 0.14), rgba(191, 167, 146, 0.14)),
-                rgba(139, 111, 90, 0.34);
+                linear-gradient(180deg, rgba(242, 226, 210, 0.26) 0%, rgba(223, 200, 178, 0.14) 45%, rgba(191, 167, 146, 0.1) 100%),
+                linear-gradient(0deg, rgba(228, 208, 188, 0.1), rgba(228, 208, 188, 0.1)),
+                rgba(191, 167, 146, 0.16);
             --calendar-faq-answer-bg-hover:
-                linear-gradient(180deg, rgba(212, 184, 154, 0.44) 0%, rgba(191, 167, 146, 0.24) 45%, rgba(139, 111, 90, 0.16) 100%),
-                linear-gradient(0deg, rgba(191, 167, 146, 0.2), rgba(191, 167, 146, 0.2)),
-                rgba(139, 111, 90, 0.42);
+                linear-gradient(180deg, rgba(248, 236, 222, 0.34) 0%, rgba(231, 211, 191, 0.2) 45%, rgba(200, 176, 154, 0.13) 100%),
+                linear-gradient(0deg, rgba(236, 219, 201, 0.16), rgba(236, 219, 201, 0.16)),
+                rgba(200, 176, 154, 0.22);
             --calendar-faq-answer-shadow:
-                0 0.22rem 0.68rem rgba(58, 42, 29, 0.2),
-                inset 0 1px 0 rgba(212, 184, 154, 0.34);
+                0 0.22rem 0.68rem rgba(58, 42, 29, 0.14),
+                inset 0 1px 0 rgba(255, 247, 238, 0.54);
             --calendar-faq-answer-shadow-hover:
-                0 0.3rem 0.82rem rgba(58, 42, 29, 0.26),
-                inset 0 1px 0 rgba(212, 184, 154, 0.44);
+                0 0.3rem 0.82rem rgba(58, 42, 29, 0.18),
+                inset 0 1px 0 rgba(255, 250, 244, 0.64);
             --calendar-faq-answer-radius: 1.08rem;
             background: var(--calendar-faq-answer-bg) !important;
             border: 1px solid var(--calendar-faq-answer-border) !important;
@@ -5711,16 +5711,32 @@
             padding: 0.38rem !important;
             min-height: 0 !important;
             box-shadow: var(--calendar-faq-answer-shadow) !important;
-            backdrop-filter: blur(10px) saturate(108%) !important;
-            -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
+            backdrop-filter: blur(16px) saturate(112%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(112%) !important;
             overflow: hidden !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper::before,
-        .layout-container #bookingCalendar.calendar-wrapper::after,
-        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::before,
-        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::after {
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::before {
             content: none !important;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper::after,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper::after {
+            content: "" !important;
+            position: absolute;
+            inset: 0.38rem;
+            border-radius: calc(var(--calendar-faq-answer-radius) - 0.08rem);
+            background:
+                radial-gradient(
+                    32% 14% at 50% 100%,
+                    rgba(255, 246, 235, 0.34) 0%,
+                    rgba(231, 206, 181, 0.2) 38%,
+                    rgba(255, 255, 255, 0) 72%
+                );
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .calendar-header {
@@ -5737,9 +5753,9 @@
             border: 1px solid var(--calendar-faq-answer-border) !important;
             box-shadow: var(--calendar-faq-answer-shadow) !important;
             border-radius: var(--calendar-faq-answer-radius) !important;
-            backdrop-filter: blur(10px) saturate(108%) !important;
-            -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
-            color: rgba(255, 245, 234, 0.97) !important;
+            backdrop-filter: blur(16px) saturate(112%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(112%) !important;
+            color: rgba(255, 251, 246, 0.98) !important;
             opacity: 1 !important;
         }
 
@@ -5750,7 +5766,7 @@
         .slots-grid .slot-btn:focus-visible,
         .slots-grid .slot-btn:active {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            border-color: rgba(139, 111, 90, 0.62) !important;
+            border-color: rgba(212, 184, 154, 0.72) !important;
             box-shadow: var(--calendar-faq-answer-shadow-hover) !important;
             transform: none !important;
         }
@@ -5770,7 +5786,7 @@
         }
 
         .calendar-grid {
-            background: rgba(139, 111, 90, 0.2) !important;
+            background: rgba(236, 219, 201, 0.12) !important;
             border: none !important;
             box-shadow: none !important;
         }
@@ -5952,7 +5968,11 @@
             transition: opacity 0.25s ease;
             pointer-events: none;
             padding: 0 0.4rem;
-            max-width: max-content;
+            width: min(94vw, var(--calendar-main-max-width));
+            max-width: min(94vw, var(--calendar-main-max-width));
+            white-space: normal;
+            text-wrap: balance;
+            overflow-wrap: anywhere;
             text-shadow: 0 0 0.25rem rgba(255, 255, 255, 0.22);
         }
 
@@ -6471,14 +6491,14 @@
             }
             72% {
                 opacity: 0.98;
-                transform: var(--typewriter-fly-base-transform) scale(1.26);
-                filter: blur(0.45px);
+                transform: var(--typewriter-fly-base-transform) scale(1.08);
+                filter: blur(0.3px);
                 text-shadow: 0 0 0.45rem rgba(255, 255, 255, 0.52), 0 0 1.35rem rgba(255, 255, 255, 0.38);
             }
             100% {
                 opacity: 0;
-                transform: var(--typewriter-fly-base-transform) scale(1.6);
-                filter: blur(1.6px);
+                transform: var(--typewriter-fly-base-transform) scale(1.14);
+                filter: blur(0.85px);
                 text-shadow: 0 0 0.65rem rgba(255, 255, 255, 0.64), 0 0 1.75rem rgba(255, 255, 255, 0.48);
             }
         }
@@ -6808,6 +6828,8 @@
 
         #headerBookBtnPreloader {
             overflow: visible;
+            width: clamp(6.8rem, 15vw, 8.4rem);
+            height: clamp(6.8rem, 15vw, 8.4rem);
         }
 
         #headerBookBtnPreloader .book-btn-preloader__text {
@@ -6816,10 +6838,11 @@
             left: 50%;
             transform: translateX(-50%);
             --typewriter-fly-base-transform: translateX(-50%);
-            width: min(92vw, 24rem);
-            font-size: clamp(0.94rem, 2.25vw, 1.12rem);
+            width: min(94vw, var(--calendar-main-max-width));
+            max-width: min(94vw, var(--calendar-main-max-width));
+            font-size: clamp(0.86rem, 2vw, 1rem);
             font-weight: 800;
-            line-height: 1.24;
+            line-height: 1.2;
             letter-spacing: 0.01em;
             white-space: normal;
             pointer-events: none;
@@ -6843,9 +6866,9 @@
         #headerBookBtnPreloader.book-btn-preloader--offline .book-btn-preloader__text {
             top: auto;
             bottom: calc(100% + 0.38rem);
-            width: max-content;
-            max-width: calc(100vw - 1.4rem);
-            white-space: nowrap;
+            width: min(94vw, var(--calendar-main-max-width));
+            max-width: min(94vw, var(--calendar-main-max-width));
+            white-space: normal;
         }
 
         #headerBookBtnPreloader .book-btn-preloader__text--phase-1 {
@@ -8066,13 +8089,13 @@
         <div class="faq__item">
             <h3 class="faq__question">Where is the office?</h3>
             <div class="faq__answer faq__answer--map">
-                <p class="header__content-text" style="margin-bottom: 15px;">146 Thirtieth St, Suite 29, Toronto, ON M8W 3C4</p>
+                <p class="header__content-text" style="margin-bottom: 15px;">146 Thirtieth St, Suite 29, Toronto, ON</p>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; text-align: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; width: 100%;">
                     <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">Tap</span>
-                    <a id="directionsBtn" href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" rel="noopener noreferrer" onclick="return logDirectionsClick(event)" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">directions</a>
+                    <a id="directionsBtn" href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON" target="_blank" rel="noopener noreferrer" onclick="return logDirectionsClick(event)" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">directions</a>
                     <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">to driving</span>
                 </div>
             </div>
@@ -16154,7 +16177,7 @@
 
     // Location static logging
     function openDirectionsTarget(directionsLink) {
-        const targetUrl = directionsLink && directionsLink.href ? directionsLink.href : "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4";
+        const targetUrl = directionsLink && directionsLink.href ? directionsLink.href : "https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON";
         if (directionsLink && directionsLink.target === "_blank") {
             const newTab = window.open(targetUrl, "_blank", "noopener,noreferrer");
             if (!newTab) {
