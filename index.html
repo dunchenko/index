@@ -3323,12 +3323,16 @@
         }
 
         .calendar-wrapper {
-            --calendar-glass-surface-rgb: 255, 255, 255;
-            --calendar-glass-tone-rgb: 255, 248, 240;
-            --calendar-glass-border: rgba(255, 255, 255, 0.28);
-            --calendar-glass-shadow-rgb: 36, 24, 14;
+            --calendar-glass-surface-rgb: 212, 184, 154;
+            --calendar-glass-tone-rgb: 191, 167, 146;
+            --calendar-glass-border: rgba(139, 111, 90, 0.42);
+            --calendar-glass-shadow-rgb: 58, 42, 29;
+            --calendar-stripe-light-rgb: 212, 184, 154;
+            --calendar-stripe-mid-rgb: 191, 167, 146;
+            --calendar-stripe-dark-rgb: 139, 111, 90;
+            --calendar-stripe-text: rgba(255, 247, 238, 0.96);
             background:
-                linear-gradient(212deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.11) 22%, rgba(255, 255, 255, 0.04) 52%, rgba(255, 255, 255, 0) 100%),
+                linear-gradient(212deg, rgba(var(--calendar-stripe-light-rgb), 0.26) 0%, rgba(var(--calendar-stripe-light-rgb), 0.12) 22%, rgba(var(--calendar-stripe-light-rgb), 0.04) 52%, rgba(var(--calendar-stripe-light-rgb), 0) 100%),
                 linear-gradient(342deg, rgba(var(--calendar-glass-tone-rgb), 0.15), rgba(var(--calendar-glass-tone-rgb), 0.08)),
                 rgba(var(--calendar-glass-surface-rgb), 0.08);
             backdrop-filter: blur(22px) saturate(118%);
@@ -3534,15 +3538,15 @@
             align-items: center;
             margin-bottom: 1.45rem;
             text-align: center;
-            padding: 0.8rem 0.55rem;
+            padding: 0.8rem 0.7rem;
             border-radius: 1.45rem;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.08) 52%, rgba(255, 255, 255, 0.03) 100%),
-                rgba(var(--calendar-glass-surface-rgb), 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.26);
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.3) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.12) 52%, rgba(var(--calendar-stripe-dark-rgb), 0.09) 100%),
+                rgba(var(--calendar-glass-surface-rgb), 0.52);
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.42);
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 0 rgba(38, 24, 15, 0.44),
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.48),
+                inset 0 -1px 0 rgba(var(--calendar-stripe-dark-rgb), 0.54),
                 0 0.34rem 0.72rem rgba(var(--calendar-glass-shadow-rgb), 0.24);
         }
 
@@ -3554,7 +3558,7 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: rgba(255, 255, 255, 0.98);
+            color: var(--calendar-stripe-text);
             text-shadow: 0 1px 10px rgba(var(--calendar-glass-shadow-rgb), 0.26);
             line-height: 1.2;
             display: flex;
@@ -3585,18 +3589,19 @@
 
         .calendar-nav-btn {
             grid-row: 1;
-            justify-self: center;
+            justify-self: stretch;
             align-self: center;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.16) 44%, rgba(255, 255, 255, 0.06) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.52) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.2) 44%, rgba(var(--calendar-stripe-dark-rgb), 0.16) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.56);
-            border: 1px solid rgba(255, 255, 255, 0.46);
-            color: #ffffff;
-            width: var(--calendar-day-btn-size, 3rem);
-            height: var(--calendar-day-btn-size, 3rem);
-            min-width: var(--calendar-day-btn-size, 3rem);
-            min-height: var(--calendar-day-btn-size, 3rem);
-            flex: 0 0 var(--calendar-day-btn-size, 3rem);
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.58);
+            color: rgba(255, 248, 240, 0.98);
+            width: 100%;
+            height: auto;
+            min-width: 0;
+            min-height: 0;
+            aspect-ratio: 1 / 1;
+            flex: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.55rem;
@@ -3607,7 +3612,7 @@
             place-items: center;
             opacity: 0.86;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.75),
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.74),
                 inset 0 -1px 0 rgba(40, 26, 17, 0.58),
                 0 0.35rem 0.8rem rgba(var(--calendar-glass-shadow-rgb), 0.32);
         }
@@ -3617,9 +3622,9 @@
 
         .calendar-nav-btn:hover {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.24) 44%, rgba(255, 255, 255, 0.1) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.64) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.28) 44%, rgba(var(--calendar-stripe-dark-rgb), 0.2) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.62);
-            border-color: rgba(255, 255, 255, 0.62);
+            border-color: rgba(var(--calendar-stripe-dark-rgb), 0.74);
             transform: translateY(-2px);
             opacity: 1;
         }
@@ -3713,20 +3718,20 @@
             padding: 0.88rem 0.7rem 0.95rem;
             border-radius: 1.35rem;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.28), rgba(var(--calendar-stripe-mid-rgb), 0.14)),
                 rgba(var(--calendar-glass-surface-rgb), 0.54);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.42);
             text-align: center;
             min-height: clamp(18rem, 37vh, 24rem);
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.54),
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.52),
                 inset 0 -1px 0 rgba(38, 24, 15, 0.4);
         }
 
         .cal-day-name {
             font-family: 'Lato', sans-serif;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 241, 227, 0.9);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -3740,9 +3745,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 0.95rem;
-            color: rgba(255, 255, 255, 0.86);
+            color: rgba(255, 246, 235, 0.94);
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.14) 44%, rgba(255, 255, 255, 0.03) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.5) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.22) 44%, rgba(var(--calendar-stripe-dark-rgb), 0.14) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.6);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3751,7 +3756,7 @@
             font-size: clamp(0.98rem, 1.85vw, 1.08rem);
             line-height: 1;
             letter-spacing: 0;
-            border: 1px solid rgba(255, 255, 255, 0.34);
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.5);
             font-weight: 700;
             font-variant-numeric: tabular-nums;
             font-feature-settings: "tnum" 1, "lnum" 1;
@@ -3759,16 +3764,16 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.62),
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.64),
                 inset 0 -1px 0 rgba(40, 26, 17, 0.52),
                 0 0.35rem 0.85rem rgba(var(--calendar-glass-shadow-rgb), 0.26);
         }
 
         .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.2) 48%, rgba(255, 255, 255, 0.08) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.66) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.28) 48%, rgba(var(--calendar-stripe-dark-rgb), 0.18) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.66);
-            border-color: rgba(255, 255, 255, 0.56);
+            border-color: rgba(var(--calendar-stripe-dark-rgb), 0.7);
             transform: translateY(-2px);
         }
 
@@ -3797,38 +3802,38 @@
             cursor: pointer;
             pointer-events: auto;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.44) 0%, rgba(255, 255, 255, 0.14) 44%, rgba(255, 255, 255, 0.05) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.52) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.22) 44%, rgba(var(--calendar-stripe-dark-rgb), 0.16) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.62);
-            border: 1px solid rgba(255, 255, 255, 0.36) !important;
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.54) !important;
         }
 
         .cal-day--closed:hover {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.24) 48%, rgba(255, 255, 255, 0.1) 100%),
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.7) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.3) 48%, rgba(var(--calendar-stripe-dark-rgb), 0.2) 100%),
                 rgba(var(--calendar-glass-surface-rgb), 0.68);
-            border-color: rgba(255, 255, 255, 0.62) !important;
+            border-color: rgba(var(--calendar-stripe-dark-rgb), 0.72) !important;
             transform: translateY(-2px);
         }
 
         .cal-day--selected {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.94) 100%) !important;
-            color: rgb(var(--modal-dark-brown-rgb)) !important;
+                linear-gradient(180deg, rgba(var(--calendar-stripe-light-rgb), 0.98) 0%, rgba(var(--calendar-stripe-mid-rgb), 0.95) 100%) !important;
+            color: rgba(58, 42, 29, 0.98) !important;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(var(--calendar-stripe-dark-rgb), 0.7);
             box-shadow:
                 0 0.45rem 1rem rgba(var(--calendar-glass-shadow-rgb), 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.98),
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.95),
                 inset 0 -1px 0 rgba(126, 99, 76, 0.28);
             transform: translateY(-1px) scale(1.03);
         }
 
         .cal-day--nearest {
-            border-color: rgba(255, 255, 255, 0.82) !important;
+            border-color: rgba(var(--calendar-stripe-light-rgb), 0.9) !important;
             font-size: clamp(1.04rem, 1.95vw, 1.16rem);
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.74),
-                0 0 0.24rem rgba(255, 255, 255, 0.34);
+                inset 0 1px 0 rgba(var(--calendar-stripe-light-rgb), 0.76),
+                0 0 0.24rem rgba(var(--calendar-stripe-mid-rgb), 0.42);
             animation: none;
         }
 
@@ -5684,21 +5689,21 @@
         /* ------------------- SIMPLIFIED CALENDAR SKIN ------------------- */
         .layout-container #bookingCalendar.calendar-wrapper,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-            --calendar-faq-answer-border: rgba(var(--modal-design-border-rgb), 0.34);
+            --calendar-faq-answer-border: rgba(139, 111, 90, 0.42);
             --calendar-faq-answer-bg:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.02) 100%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.08), rgba(var(--modal-design-tone-rgb), 0.08)),
-                rgba(var(--modal-design-surface-rgb), 0.44);
+                linear-gradient(180deg, rgba(212, 184, 154, 0.34) 0%, rgba(191, 167, 146, 0.16) 45%, rgba(139, 111, 90, 0.12) 100%),
+                linear-gradient(0deg, rgba(191, 167, 146, 0.14), rgba(191, 167, 146, 0.14)),
+                rgba(139, 111, 90, 0.34);
             --calendar-faq-answer-bg-hover:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.04) 100%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.1), rgba(var(--modal-design-tone-rgb), 0.1)),
-                rgba(var(--modal-design-surface-rgb), 0.5);
+                linear-gradient(180deg, rgba(212, 184, 154, 0.44) 0%, rgba(191, 167, 146, 0.24) 45%, rgba(139, 111, 90, 0.16) 100%),
+                linear-gradient(0deg, rgba(191, 167, 146, 0.2), rgba(191, 167, 146, 0.2)),
+                rgba(139, 111, 90, 0.42);
             --calendar-faq-answer-shadow:
-                0 0.22rem 0.68rem rgba(30, 19, 12, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 0.22rem 0.68rem rgba(58, 42, 29, 0.2),
+                inset 0 1px 0 rgba(212, 184, 154, 0.34);
             --calendar-faq-answer-shadow-hover:
-                0 0.3rem 0.82rem rgba(30, 19, 12, 0.14),
-                inset 0 1px 0 rgba(255, 255, 255, 0.26);
+                0 0.3rem 0.82rem rgba(58, 42, 29, 0.26),
+                inset 0 1px 0 rgba(212, 184, 154, 0.44);
             --calendar-faq-answer-radius: 1.08rem;
             background: var(--calendar-faq-answer-bg) !important;
             border: 1px solid var(--calendar-faq-answer-border) !important;
@@ -5734,7 +5739,7 @@
             border-radius: var(--calendar-faq-answer-radius) !important;
             backdrop-filter: blur(10px) saturate(108%) !important;
             -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            color: rgba(255, 245, 234, 0.97) !important;
             opacity: 1 !important;
         }
 
@@ -5745,7 +5750,7 @@
         .slots-grid .slot-btn:focus-visible,
         .slots-grid .slot-btn:active {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            border-color: rgba(var(--modal-design-border-rgb), 0.48) !important;
+            border-color: rgba(139, 111, 90, 0.62) !important;
             box-shadow: var(--calendar-faq-answer-shadow-hover) !important;
             transform: none !important;
         }
@@ -5758,35 +5763,35 @@
         #prevBtn.calendar-nav-btn--muted[aria-disabled="true"] {
             background: var(--calendar-faq-answer-bg) !important;
             border-color: var(--calendar-faq-answer-border) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            color: rgba(255, 245, 234, 0.97) !important;
             box-shadow: var(--calendar-faq-answer-shadow) !important;
             opacity: 0.22 !important;
             filter: none !important;
         }
 
         .calendar-grid {
-            background: rgba(255, 255, 255, 0.06) !important;
+            background: rgba(139, 111, 90, 0.2) !important;
             border: none !important;
             box-shadow: none !important;
         }
 
         .cal-day--selected {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
+            color: rgba(58, 42, 29, 0.98) !important;
+            border: 1px solid rgba(212, 184, 154, 0.8) !important;
             font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                0 0.36rem 0.92rem rgba(30, 19, 12, 0.16),
-                inset 0 1px 0 rgba(255, 255, 255, 0.34) !important;
+                0 0.36rem 0.92rem rgba(58, 42, 29, 0.26),
+                inset 0 1px 0 rgba(212, 184, 154, 0.48) !important;
             transform: none !important;
         }
 
         .cal-day--today {
-            border: 2px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
+            border: 2px solid rgba(212, 184, 154, 0.72) !important;
             box-shadow:
                 var(--calendar-faq-answer-shadow),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+                inset 0 0 0 1px rgba(212, 184, 154, 0.24) !important;
         }
 
         .cal-day--today.cal-day--has-slots,
@@ -5800,13 +5805,13 @@
 
         .cal-day--has-slots {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44) !important;
+            border: 1px solid rgba(191, 167, 146, 0.68) !important;
         }
 
         .cal-day--busy {
             background: var(--calendar-faq-answer-bg) !important;
             border: 1px solid var(--calendar-faq-answer-border) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            color: rgba(255, 245, 234, 0.97) !important;
             box-shadow: var(--calendar-faq-answer-shadow) !important;
             opacity: 0.22 !important;
             filter: none !important;
@@ -5815,24 +5820,24 @@
         }
 
         .cal-day--nearest {
-            border: 4px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
+            border: 4px solid rgba(212, 184, 154, 0.8) !important;
+            color: rgba(255, 247, 238, 0.98) !important;
             font-size: clamp(1.16rem, 2.35vw, 1.34rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                0 0.3rem 0.86rem rgba(30, 19, 12, 0.14),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+                0 0.3rem 0.86rem rgba(58, 42, 29, 0.24),
+                inset 0 1px 0 rgba(212, 184, 154, 0.42) !important;
         }
 
         .cal-day--nearest.cal-day--selected {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
-            border: 4px solid rgba(var(--modal-design-border-rgb), 0.58) !important;
+            color: rgba(58, 42, 29, 0.98) !important;
+            border: 4px solid rgba(212, 184, 154, 0.84) !important;
             font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                0 0.38rem 0.98rem rgba(30, 19, 12, 0.18),
-                inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
+                0 0.38rem 0.98rem rgba(58, 42, 29, 0.28),
+                inset 0 1px 0 rgba(212, 184, 154, 0.5) !important;
         }
 
         .slots-block,
@@ -5847,7 +5852,7 @@
         }
 
         #slotsDayDisplay {
-            color: #ffffff !important;
+            color: rgba(255, 245, 234, 0.98) !important;
         }
 
         @media (max-width: 768px) {
@@ -6153,37 +6158,37 @@
                 0 0 1.8rem rgba(255, 255, 255, 0.24);
             transform: translate3d(0, 0, 0) scale(0.55);
             will-change: transform, opacity, filter;
-            animation: footerEmberRise var(--ember-duration, 2400ms) cubic-bezier(0.22, 0.58, 0.24, 1) forwards;
+            animation: footerEmberRise var(--ember-duration, 4200ms) linear forwards;
         }
 
         @keyframes footerEmberRise {
             0% {
-                transform: translate3d(0, 0, 0) scale(0.38);
+                transform: translate3d(0, 0, 0) scale(0.42);
                 opacity: 0;
                 filter: blur(0);
             }
-            10% {
+            8% {
                 opacity: var(--ember-opacity, 0.92);
             }
-            28% {
-                transform: translate3d(var(--ember-drift-a, 0px), var(--ember-rise-a, -160px), 0) scale(0.6);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.88);
+            25% {
+                transform: translate3d(var(--ember-drift-a, 0px), var(--ember-rise-a, -180px), 0) scale(0.6);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.9);
+                filter: blur(0.01rem);
+            }
+            50% {
+                transform: translate3d(var(--ember-drift-b, 0px), var(--ember-rise-b, -360px), 0) scale(0.52);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.76);
                 filter: blur(0.02rem);
             }
-            56% {
-                transform: translate3d(var(--ember-drift-b, 0px), var(--ember-rise-b, -320px), 0) scale(0.52);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.72);
-                filter: blur(0.03rem);
-            }
-            80% {
-                transform: translate3d(var(--ember-drift-c, 0px), var(--ember-rise-c, -520px), 0) scale(0.42);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.5);
-                filter: blur(0.05rem);
+            75% {
+                transform: translate3d(var(--ember-drift-c, 0px), var(--ember-rise-c, -540px), 0) scale(0.42);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.54);
+                filter: blur(0.04rem);
             }
             100% {
-                transform: translate3d(var(--ember-drift-x, 0px), var(--ember-rise-y, -420px), 0) scale(0.2);
+                transform: translate3d(var(--ember-drift-x, 0px), var(--ember-rise-y, -700px), 0) scale(0.28);
                 opacity: 0;
-                filter: blur(0.07rem);
+                filter: blur(0.06rem);
             }
         }
 
@@ -7113,7 +7118,7 @@
             }
 
             .calendar-header {
-                padding: 0.62rem 0.4rem;
+                padding: 0.62rem 0.45rem;
                 border-radius: 1.12rem;
             }
 
@@ -8066,16 +8071,16 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d378393.2825310128!2d-80.40792372435779!3d43.21332219277207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b362142436423%3A0x6a0532729e2f4772!2s146%20Thirtieth%20St%2C%20Suite%2029%2C%20Toronto%20ON%20M8W%203C4!5e0!3m2!1sen!2sca" class="map-container__iframe" allowfullscreen="" loading="eager"></iframe>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: center; text-align: center; gap: 8px; margin-top: 15px; flex-wrap: wrap; width: 100%;">
-                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">Eh, just tap</span>
-                    <a id="directionsBtn" href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" rel="noopener noreferrer" onclick="return logDirectionsClick(event)" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">Directions</a>
-                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">to start driving</span>
+                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">Tap</span>
+                    <a id="directionsBtn" href="https://www.google.com/maps/dir//146+Thirtieth+St,+Suite+29,+Toronto,+ON+M8W+3C4" target="_blank" rel="noopener noreferrer" onclick="return logDirectionsClick(event)" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); color: #fff; font-weight: 800; border-radius: 50px; text-decoration: none; font-size: 0.9rem; white-space: nowrap; transition: transform 0.2s;">directions</a>
+                    <span style="opacity: 1; font-size: 1.2rem; font-weight: 400; color: rgba(255,255,255,0.92); line-height: 1.6; letter-spacing: 0.01em; display: inline-block;">to driving</span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="privacy-block privacy-block--map fade-in-section">
-        <p class="privacy-note"><strong>Note:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong>.</p>
+        <p class="privacy-note"><strong>Note:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
     </div>
 </div>
 
@@ -8193,7 +8198,6 @@
         <a href="tel:+14372396833" class="footer__contact-link dynamic-text">+1 (437) 239-6833</a>
     </div>
     <div class="footer__official-meta">
-        <p class="footer__copyright footer__copyright--emphasis dynamic-text">My only official website:</p>
         <p class="footer__copyright footer__copyright--emphasis dynamic-text">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
     </div>
 </footer>
@@ -9310,6 +9314,7 @@
 
                 if (isPast || isSunday) {
                     el.classList.add('cal-day--disabled');
+                    if (isSunday) el.classList.add('cal-day--busy');
                 } else if (slotsMap[day]) {
                     const allBusy = slotsMap[day].every(s => s.status === 'busy');
                     if (allBusy) {
@@ -14688,20 +14693,20 @@
 
         const ember = document.createElement('span');
         ember.className = 'footer-ember';
-        const size = 3.2 + Math.random() * 4.6;
-        const rise = 520 + Math.random() * 440;
-        const riseA = rise * (0.24 + Math.random() * 0.07);
-        const riseB = rise * (0.5 + Math.random() * 0.1);
-        const riseC = rise * (0.74 + Math.random() * 0.11);
-        const swaySeed = (Math.random() - 0.5) * 16;
-        const swayAmp = 20 + Math.random() * 44;
+        const size = 3.4 + Math.random() * 4.2;
+        const rise = 620 + Math.random() * 360;
+        const riseA = rise * 0.25;
+        const riseB = rise * 0.5;
+        const riseC = rise * 0.75;
+        const swaySeed = (Math.random() - 0.5) * 12;
+        const swayAmp = 24 + Math.random() * 30;
         const swayDirection = Math.random() < 0.5 ? -1 : 1;
-        const driftA = swaySeed + swayDirection * swayAmp * (0.32 + Math.random() * 0.22);
-        const driftB = swaySeed - swayDirection * swayAmp * (0.2 + Math.random() * 0.24);
-        const driftC = swaySeed + swayDirection * swayAmp * (0.52 + Math.random() * 0.24);
-        const driftX = swaySeed + swayDirection * swayAmp * (0.16 + Math.random() * 0.28) + (Math.random() - 0.5) * 16;
-        const durationMs = 2600 + Math.random() * 2500;
-        const opacity = 0.56 + Math.random() * 0.24;
+        const driftA = swaySeed + swayDirection * swayAmp;
+        const driftB = swaySeed - swayDirection * swayAmp * 0.74;
+        const driftC = swaySeed + swayDirection * swayAmp * 0.56;
+        const driftX = swaySeed - swayDirection * swayAmp * 0.24 + (Math.random() - 0.5) * 10;
+        const durationMs = 4200;
+        const opacity = 0.62 + Math.random() * 0.12;
         const leftPercent = 6 + Math.random() * 88;
 
         ember.style.left = `${leftPercent.toFixed(2)}%`;
@@ -14729,16 +14734,11 @@
         const isLowEndDevice =
             (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
             (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4);
-        const minDelay = isLowEndDevice ? 360 : 220;
-        const maxDelay = isLowEndDevice ? 760 : 520;
-        const tickDelay = Math.floor(minDelay + (Math.random() * (maxDelay - minDelay)));
+        const tickDelay = isLowEndDevice ? 480 : 320;
 
         footerEmberState.timerId = window.setTimeout(() => {
             if (!footerEmberState.active) return;
-            const burstCount = Math.random() < 0.08 ? 2 : 1;
-            for (let i = 0; i < burstCount; i++) {
-                spawnFooterEmber();
-            }
+            spawnFooterEmber();
             scheduleNextFooterEmberTick();
         }, tickDelay);
     }
@@ -16232,5 +16232,6 @@
 
 </body>
 </html>
+
 
 
