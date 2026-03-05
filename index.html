@@ -499,6 +499,7 @@
             z-index: -1; 
             overflow: hidden; 
             background: #bfa792; 
+            transition: filter 220ms ease, transform 220ms ease;
         }
 
         .background__svg {
@@ -542,6 +543,49 @@
             overscroll-behavior: none;
         }
 
+        html.modal-is-open .background {
+            filter: blur(12px);
+            transform: scale(1.03);
+        }
+
+        /* While any modal-like layer is open, hide page chrome and keep only
+           paused SVG background + active overlay layer visible. */
+        html.modal-is-open body > * {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        html.modal-is-open body > .background,
+        html.modal-is-open body > .modal.modal--active,
+        html.modal-is-open body > .camera-capture-modal.camera-capture-modal--active,
+        html.modal-is-open body > .form-calendar-overlay.form-calendar-overlay--active,
+        html.modal-is-open body > .month-switch-overlay.month-switch-overlay--active,
+        html.modal-is-open body > #globalSpinner {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        html.modal-is-open .modal,
+        html.modal-is-open .camera-capture-modal,
+        html.modal-is-open .form-calendar-overlay {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        html.modal-is-open #bookingModal,
+        html.modal-is-open #termsModal,
+        html.modal-is-open #privacyModal,
+        html.modal-is-open #intakeNoticeModal,
+        html.modal-is-open #cameraCaptureModal,
+        html.modal-is-open #formCalendarOverlay {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
         .background__stripes-overlay {
             mix-blend-mode: overlay;
         }
@@ -571,6 +615,7 @@
             margin-bottom: 2rem;
             letter-spacing: -2px;
             line-height: 0.9;
+            color: rgba(var(--site-text-rgb), var(--site-text-alpha));
         }
 
         .header__contact {
@@ -660,7 +705,7 @@
         .header__description {
             font-size: clamp(0.96rem, 2.1vw, 1.28rem);
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.92);
+            color: var(--text-white);
             margin: 0 auto 2.5rem;
             width: min(94vw, 41rem);
             max-width: 41rem;
@@ -1619,6 +1664,12 @@
             color: rgb(var(--modal-design-text-rgb));
             margin-bottom: 2rem;
             font-size: clamp(1.5rem, 6vw, 2.2rem);
+        }
+
+        #termsModal .modal__close,
+        #privacyModal .modal__close {
+            left: auto;
+            right: 1.3rem;
         }
         
         #termsModal .modal__section-title,
@@ -5633,14 +5684,31 @@
         /* ------------------- SIMPLIFIED CALENDAR SKIN ------------------- */
         .layout-container #bookingCalendar.calendar-wrapper,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-            background: transparent !important;
-            border: none !important;
-            border-radius: 0 !important;
-            padding: 0 !important;
+            --calendar-faq-answer-border: rgba(var(--modal-design-border-rgb), 0.34);
+            --calendar-faq-answer-bg:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.02) 100%),
+                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.08), rgba(var(--modal-design-tone-rgb), 0.08)),
+                rgba(var(--modal-design-surface-rgb), 0.44);
+            --calendar-faq-answer-bg-hover:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.04) 100%),
+                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.1), rgba(var(--modal-design-tone-rgb), 0.1)),
+                rgba(var(--modal-design-surface-rgb), 0.5);
+            --calendar-faq-answer-shadow:
+                0 0.22rem 0.68rem rgba(30, 19, 12, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            --calendar-faq-answer-shadow-hover:
+                0 0.3rem 0.82rem rgba(30, 19, 12, 0.14),
+                inset 0 1px 0 rgba(255, 255, 255, 0.26);
+            --calendar-faq-answer-radius: 1.08rem;
+            background: var(--calendar-faq-answer-bg) !important;
+            border: 1px solid var(--calendar-faq-answer-border) !important;
+            border-radius: var(--calendar-faq-answer-radius) !important;
+            padding: 0.38rem !important;
             min-height: 0 !important;
-            box-shadow: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
+            box-shadow: var(--calendar-faq-answer-shadow) !important;
+            backdrop-filter: blur(10px) saturate(108%) !important;
+            -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
+            overflow: hidden !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper::before,
@@ -5656,16 +5724,44 @@
             box-shadow: none !important;
         }
 
-        .calendar-nav-btn {
-            background: rgba(255, 255, 255, 0.16) !important;
-            border: none !important;
-            box-shadow: none !important;
+        .calendar-nav-btn,
+        .slots-nav-arrow,
+        .cal-day,
+        .slots-grid .slot-btn {
+            background: var(--calendar-faq-answer-bg) !important;
+            border: 1px solid var(--calendar-faq-answer-border) !important;
+            box-shadow: var(--calendar-faq-answer-shadow) !important;
+            border-radius: var(--calendar-faq-answer-radius) !important;
+            backdrop-filter: blur(10px) saturate(108%) !important;
+            -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
             opacity: 1 !important;
         }
 
-        .calendar-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.26) !important;
+        .calendar-nav-btn:hover,
+        .slots-nav-arrow:hover,
+        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
+        .slots-grid .slot-btn:hover,
+        .slots-grid .slot-btn:focus-visible,
+        .slots-grid .slot-btn:active {
+            background: var(--calendar-faq-answer-bg-hover) !important;
+            border-color: rgba(var(--modal-design-border-rgb), 0.48) !important;
+            box-shadow: var(--calendar-faq-answer-shadow-hover) !important;
             transform: none !important;
+        }
+
+        /* Back button when unavailable: same tone as Next, only much more transparent. */
+        #prevBtn:disabled,
+        #prevBtn[aria-disabled="true"],
+        #prevBtn.calendar-nav-btn--muted,
+        #prevBtn.calendar-nav-btn--muted:disabled,
+        #prevBtn.calendar-nav-btn--muted[aria-disabled="true"] {
+            background: var(--calendar-faq-answer-bg) !important;
+            border-color: var(--calendar-faq-answer-border) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            box-shadow: var(--calendar-faq-answer-shadow) !important;
+            opacity: 0.22 !important;
+            filter: none !important;
         }
 
         .calendar-grid {
@@ -5674,76 +5770,69 @@
             box-shadow: none !important;
         }
 
-        .cal-day {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: none !important;
-            box-shadow: none !important;
-            color: rgba(255, 255, 255, 0.95) !important;
-        }
-
-        .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled) {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border: none !important;
-            transform: none !important;
-        }
-
         .cal-day--selected {
-            background: rgba(255, 255, 255, 0.24) !important;
-            color: #ffffff !important;
-            border: none !important;
+            background: var(--calendar-faq-answer-bg-hover) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
+            border: 1px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
             font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
             font-weight: 800 !important;
-            box-shadow: none !important;
+            box-shadow:
+                0 0.36rem 0.92rem rgba(30, 19, 12, 0.16),
+                inset 0 1px 0 rgba(255, 255, 255, 0.34) !important;
             transform: none !important;
         }
 
         .cal-day--today {
-            border: none !important;
-            box-shadow: none !important;
+            border: 2px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
+            box-shadow:
+                var(--calendar-faq-answer-shadow),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .cal-day--today.cal-day--has-slots,
+        .cal-day--today.cal-day--selected {
+            border-width: 2px !important;
+        }
+
+        .cal-day--today.cal-day--nearest {
+            border-width: 4px !important;
         }
 
         .cal-day--has-slots {
-            background: rgba(255, 255, 255, 0.16) !important;
-            border: none !important;
+            background: var(--calendar-faq-answer-bg-hover) !important;
+            border: 1px solid rgba(var(--modal-design-border-rgb), 0.44) !important;
+        }
+
+        .cal-day--busy {
+            background: var(--calendar-faq-answer-bg) !important;
+            border: 1px solid var(--calendar-faq-answer-border) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            box-shadow: var(--calendar-faq-answer-shadow) !important;
+            opacity: 0.22 !important;
+            filter: none !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
         }
 
         .cal-day--nearest {
-            border: none !important;
-            color: #ffffff !important;
-            font-size: clamp(0.98rem, 1.85vw, 1.08rem) !important;
-            font-weight: 700 !important;
+            border: 4px solid rgba(var(--modal-design-border-rgb), 0.56) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
+            font-size: clamp(1.16rem, 2.35vw, 1.34rem) !important;
+            font-weight: 800 !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.78),
-                0 0 8px rgba(255, 255, 255, 0.55) !important;
+                0 0.3rem 0.86rem rgba(30, 19, 12, 0.14),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
         }
 
         .cal-day--nearest.cal-day--selected {
-            background: rgba(255, 255, 255, 0.24) !important;
-            color: #ffffff !important;
-            border: none !important;
+            background: var(--calendar-faq-answer-bg-hover) !important;
+            color: rgba(var(--modal-design-text-rgb), 0.99) !important;
+            border: 4px solid rgba(var(--modal-design-border-rgb), 0.58) !important;
             font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.98),
-                0 0 10px rgba(255, 255, 255, 0.7) !important;
-        }
-
-        .slots-grid .slot-btn {
-            background: rgba(255, 255, 255, 0.12) !important;
-            border: none !important;
-            box-shadow: none !important;
-            border-radius: 2.2rem !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-        }
-
-        .slots-grid .slot-btn:hover,
-        .slots-grid .slot-btn:focus-visible,
-        .slots-grid .slot-btn:active {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border: none !important;
-            box-shadow: none !important;
-            transform: none !important;
+                0 0.38rem 0.98rem rgba(30, 19, 12, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
         }
 
         .slots-block,
@@ -5764,8 +5853,8 @@
         @media (max-width: 768px) {
             .layout-container #bookingCalendar.calendar-wrapper,
             .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-                padding: 0 !important;
-                border-radius: 0 !important;
+                padding: 0.3rem !important;
+                border-radius: 1rem !important;
             }
 
             .calendar-header,
@@ -5773,8 +5862,11 @@
                 border-radius: 0.9rem !important;
             }
 
+            .calendar-nav-btn,
+            .slots-nav-arrow,
+            .cal-day,
             .slots-grid .slot-btn {
-                border-radius: 1.7rem !important;
+                border-radius: 1rem !important;
             }
         }
 
@@ -6024,10 +6116,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            height: min(28vh, 17rem);
+            height: min(42vh, 30rem);
             pointer-events: none;
-            overflow: hidden;
-            z-index: 9500;
+            overflow: visible;
+            z-index: 10020;
             opacity: 0;
             transition: opacity 0.35s ease;
         }
@@ -6061,7 +6153,7 @@
                 0 0 1.8rem rgba(255, 255, 255, 0.24);
             transform: translate3d(0, 0, 0) scale(0.55);
             will-change: transform, opacity, filter;
-            animation: footerEmberRise var(--ember-duration, 1700ms) cubic-bezier(0.22, 0.62, 0.26, 1) forwards;
+            animation: footerEmberRise var(--ember-duration, 2400ms) cubic-bezier(0.22, 0.58, 0.24, 1) forwards;
         }
 
         @keyframes footerEmberRise {
@@ -6070,21 +6162,28 @@
                 opacity: 0;
                 filter: blur(0);
             }
-            12% {
+            10% {
                 opacity: var(--ember-opacity, 0.92);
             }
-            46% {
-                transform: translate3d(var(--ember-drift-mid-x, 0px), var(--ember-rise-mid-y, -95px), 0) scale(0.56);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.82);
+            28% {
+                transform: translate3d(var(--ember-drift-a, 0px), var(--ember-rise-a, -160px), 0) scale(0.6);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.88);
                 filter: blur(0.02rem);
             }
-            75% {
-                opacity: calc(var(--ember-opacity, 0.92) * 0.56);
+            56% {
+                transform: translate3d(var(--ember-drift-b, 0px), var(--ember-rise-b, -320px), 0) scale(0.52);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.72);
+                filter: blur(0.03rem);
+            }
+            80% {
+                transform: translate3d(var(--ember-drift-c, 0px), var(--ember-rise-c, -520px), 0) scale(0.42);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.5);
+                filter: blur(0.05rem);
             }
             100% {
-                transform: translate3d(var(--ember-drift-x, 0px), var(--ember-rise-y, -180px), 0) scale(0.2);
+                transform: translate3d(var(--ember-drift-x, 0px), var(--ember-rise-y, -420px), 0) scale(0.2);
                 opacity: 0;
-                filter: blur(0.08rem);
+                filter: blur(0.07rem);
             }
         }
 
@@ -6857,12 +6956,6 @@
             overflow: visible;
             min-height: 11.3rem;
         }
-@media (prefers-reduced-motion: reduce) {
-            #footerEmberLayer {
-                display: none !important;
-            }
-        }
-
         .book-btn-wrapper {
             display: flex;
             flex-direction: column;
@@ -7295,6 +7388,12 @@
                 width: 2rem;
                 height: 2rem;
                 font-size: 1.4rem;
+            }
+
+            #termsModal .modal__close,
+            #privacyModal .modal__close {
+                left: auto;
+                right: 0.65rem;
             }
 
             .contact-form__group {
@@ -7819,13 +7918,13 @@
                 flex: 0 0 1.12rem;
                 width: 1.12rem;
                 height: 1.12rem;
-                border: 2px solid #ffffff;
-                background: #ffffff;
+                border: 2px solid rgba(var(--site-text-rgb), var(--site-text-alpha));
+                background: rgba(var(--site-text-rgb), var(--site-text-alpha));
                 border-radius: 50%;
                 margin-top: 0.16rem;
                 opacity: 1;
                 pointer-events: none;
-                box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.26);
+                box-shadow: 0 0 0 1px rgba(var(--site-text-rgb), 0.26);
             }
 
             .services-list .header__service-item {
@@ -8240,7 +8339,7 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <textarea class="contact-form__textarea" rows="8" maxlength="3000" placeholder="Brief details about your case area..." name="notes" style="text-align: left;"></textarea>
+                    <textarea class="contact-form__textarea" id="brief" rows="8" maxlength="3000" placeholder="Brief details about your case area..." name="notes" style="text-align: left;"></textarea>
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem;">
@@ -8280,6 +8379,11 @@
                     </div>
                 </div>
 
+                <div class="contact-form__group">
+                    <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us?</label>
+                    <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
+                </div>
+
                 <div class="contact-form__group" style="margin-top: 12px;">
                     <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Date of Birth</label>
                     <div class="booking-row booking-row--dob" style="display:flex; gap:10px; justify-content:center; align-items:center;">
@@ -8288,11 +8392,6 @@
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
                         <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:center;">
                     </div>
-                </div>
-
-                <div class="contact-form__group">
-                    <label for="hearAboutInput" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Where did you hear about us?</label>
-                    <textarea id="hearAboutInput" class="contact-form__textarea" name="hear_about" rows="5" maxlength="150" placeholder="(Optional)" autocomplete="off" inputmode="text" spellcheck="false" style="text-align:left;"></textarea>
                 </div>
 
                 <div class="contact-form__group contact-form__group--deadline">
@@ -8361,7 +8460,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTXSCyqP1DcCqH3LQG0KQ-pvV1aP8l5lep7F2WCbnjDVcSNnAgvcgvCbWeBqafJCKEMA/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbws5YJu8acYRUDhi7kx1f0GfELmCJIe_Bl7RpmCqmzzwbVWiCkSp1RcRX-PBMTp4hqu/exec"
     const RECAPTCHA_SITE_KEY = "6LeYZHssAAAAADZpqJwxjGn6nc4GgRAGOaRJY-F_"
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
@@ -10367,6 +10466,15 @@
                 if (field) lastBookingFieldEl = field;
             }, true);
         }
+        if (bookingFormEl && !bookingFormEl.dataset.actionHintSyncBound) {
+            bookingFormEl.dataset.actionHintSyncBound = '1';
+            const syncActionHintOnInput = () => {
+                if (!bookingStatus || !bookingStatus.classList.contains('status-alert--visible')) return;
+                syncBookingScrollCueVisibility();
+            };
+            bookingFormEl.addEventListener('input', syncActionHintOnInput);
+            bookingFormEl.addEventListener('change', syncActionHintOnInput);
+        }
         const bookingNameInputEl = bookingFormEl ? bookingFormEl.querySelector('input[name="name"]') : null;
         if (bookingNameInputEl && !bookingNameInputEl.dataset.xBindP7) {
             bookingNameInputEl.dataset.xBindP7 = '1';
@@ -10526,6 +10634,7 @@
     let bookingRecaptchaWidgetId = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
+    let bookingRecaptchaForceRequired = false;
     let bookingStatusActionTarget = null;
     let lastBookingFieldEl = null;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
@@ -10917,6 +11026,7 @@
     }
 
     function resetBookingRecaptchaUi() {
+        bookingRecaptchaForceRequired = false;
         clearBookingRecaptchaToken();
         setBookingRecaptchaVisible(false);
         if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
@@ -10964,7 +11074,7 @@
     }
 
     async function ensureTseProbnikCaptcha(isTseProbnikSubmission, isLargeAttachmentSubmission = false) {
-        const recaptchaRequired = Boolean(isTseProbnikSubmission || isLargeAttachmentSubmission);
+        const recaptchaRequired = Boolean(bookingRecaptchaForceRequired || isTseProbnikSubmission || isLargeAttachmentSubmission);
         if (!recaptchaRequired) {
             setBookingRecaptchaVisible(false);
             clearBookingRecaptchaToken();
@@ -11053,6 +11163,10 @@
     function resolveLiveBookingActionTarget() {
         const resolvedTarget = resolveBookingActionField(bookingStatusActionTarget);
         if (!resolvedTarget || !document.body.contains(resolvedTarget)) {
+            bookingStatusActionTarget = null;
+            return null;
+        }
+        if (isBookingActionFieldSatisfied(resolvedTarget)) {
             bookingStatusActionTarget = null;
             return null;
         }
@@ -11816,7 +11930,7 @@
                         dob_day: sanitize(formData.get('dob_day')),
                         age: sanitize(formData.get('age')),
                         deadline: sanitize(formData.get('deadline')),
-                        notes: sanitize(formData.get('notes')),
+                        notes: sanitize(formData.get('notes') || formData.get('brief')),
                         agreeTerms: agreeTermsChecked,
                         _timestamp: sanitize(formData.get('_timestamp')),
                         userInfo: getDetailedDeviceInfo(),
@@ -12978,7 +13092,7 @@
                 phone: formData.get('phone') || '',
                 hear_about: formData.get('hear_about') || '',
                 service: formData.get('service') || '',
-                notes: formData.get('notes') || '',
+                notes: formData.get('notes') || formData.get('brief') || '',
                 address_unit: formData.get('address_unit') || '',
                 address_street: formData.get('address_street') || '',
                 address_city: formData.get('address_city') || '',
@@ -13396,15 +13510,26 @@
         if (fieldEl.id === 'bookingRecaptchaWrap' || fieldEl.id === 'bookingRecaptchaWidget') {
             return false;
         }
+        let targetField = null;
         if (typeof fieldEl.matches === 'function' && fieldEl.matches('input, textarea, .custom-select__trigger, .contact-form__checkbox')) {
-            return isBookingFieldFilled(fieldEl);
+            targetField = fieldEl;
+        } else {
+            const focusTarget = getBookingFieldFocusTarget(fieldEl);
+            if (focusTarget && focusTarget !== fieldEl && typeof focusTarget.matches === 'function'
+                && focusTarget.matches('input, textarea, .custom-select__trigger, .contact-form__checkbox')) {
+                targetField = focusTarget;
+            }
         }
-        const focusTarget = getBookingFieldFocusTarget(fieldEl);
-        if (focusTarget && focusTarget !== fieldEl && typeof focusTarget.matches === 'function'
-            && focusTarget.matches('input, textarea, .custom-select__trigger, .contact-form__checkbox')) {
-            return isBookingFieldFilled(focusTarget);
+        if (!targetField) return false;
+        if (targetField instanceof HTMLInputElement && targetField.name === 'address_zip') {
+            const zipRaw = normalizeSingleLine(targetField.value).toUpperCase().replace(/\s+/g, '');
+            const postalPattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\d[ABCEGHJ-NPRSTVWXYZ]\d$/;
+            return postalPattern.test(zipRaw);
         }
-        return false;
+        if (typeof targetField.checkValidity === 'function' && !targetField.checkValidity()) {
+            return false;
+        }
+        return isBookingFieldFilled(targetField);
     }
 
     function focusBookingField(nextField, options = {}) {
@@ -13547,7 +13672,8 @@
         const province = normalizeSingleLine(form.address_province?.value).toUpperCase();
         const zipRaw = normalizeSingleLine(form.address_zip?.value).toUpperCase().replace(/\s+/g, '');
         const deadlineRaw = normalizeSingleLine(form.deadline?.value);
-        const notes = normalizeMultiLine(form.notes?.value);
+        const notesField = form.notes || form.querySelector('textarea[name="notes"], textarea[name="brief"], #brief');
+        const notes = normalizeMultiLine(notesField?.value);
         const serviceInput = document.getElementById('serviceInput');
         const service = normalizeSingleLine(serviceInput?.value);
         const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
@@ -13616,7 +13742,7 @@
         const zip = `${zipRaw.slice(0, 3)} ${zipRaw.slice(3)}`;
 
         if (notes.length > 3000 || /[<>]/.test(notes)) {
-            setBookingError('Brief details are too long or contain invalid characters.', form.notes);
+            setBookingError('Brief details are too long or contain invalid characters.', notesField);
             return false;
         }
 
@@ -13721,12 +13847,12 @@
         if (form.address_zip) form.address_zip.value = zip;
         if (form.deadline) form.deadline.value = deadline;
         if (form.age) form.age.value = ageValue;
-        form.notes.value = notes;
+        if (notesField) notesField.value = notes;
         if (serviceInput) serviceInput.value = service;
         setCustomSelectValue('cityCustomSelect', city);
         setCustomSelectValue('customSelect', service);
         setCustomSelectValue('provinceCustomSelect', province);
-        fitTextareaHeight(form.notes);
+        fitTextareaHeight(notesField);
         return true;
     }
 
@@ -14098,7 +14224,7 @@
             const payloadHearAbout = isTseProbnikQuickSubmit ? tseProbnikDefaults.hearAbout : rawHearAbout;
             const payloadNotes = isTseProbnikQuickSubmit
                 ? tseProbnikDefaults.notes
-                : String(formData.get('notes') || '').trim();
+                : String(formData.get('notes') || formData.get('brief') || '').trim();
             const payloadAddressUnit = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressUnit : rawAddressUnit;
             const payloadAddressStreet = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressStreet : rawAddressStreet;
             const payloadAddressCity = isTseProbnikQuickSubmit ? tseProbnikDefaults.addressCity : rawAddressCity;
@@ -14148,6 +14274,8 @@
                 serviceValue: sanitize(payloadServiceValue),
                 service_value: sanitize(payloadServiceValue),
                 notes: sanitize(payloadNotes),
+                brief: sanitize(payloadNotes),
+                brief_details: sanitize(payloadNotes),
                 dateStr: slotIsoValue,
                 slotText: sanitize(slotTextValue),
                 slot_text: sanitize(slotTextValue),
@@ -14233,6 +14361,7 @@
                 isSuccess = true;
                 playSuccessSound();
                 lastBookingTime = Date.now();
+                bookingRecaptchaForceRequired = false;
                 clearBookingRecaptchaToken();
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
@@ -14262,11 +14391,13 @@
                 logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr || 'UNSPECIFIED'}`);
             } else if (result.error === 'RECAPTCHA_REQUIRED') {
                 const recaptchaWrap = getBookingRecaptchaWrap();
+                bookingRecaptchaForceRequired = true;
                 setBookingRecaptchaVisible(true);
                 setBookingError('Please complete reCAPTCHA before submitting.', recaptchaWrap);
                 return;
             } else if (result.error === 'RECAPTCHA_FAILED') {
                 const recaptchaWrap = getBookingRecaptchaWrap();
+                bookingRecaptchaForceRequired = true;
                 setBookingRecaptchaVisible(true);
                 setBookingError('reCAPTCHA verification failed. Please complete it again.', recaptchaWrap);
                 if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
@@ -14538,7 +14669,6 @@
         const layer = getFooterEmberLayer();
         if (!layer) return false;
         if (document.hidden) return false;
-        if (isReducedMotionPreferred()) return false;
         if (document.documentElement.classList.contains('modal-is-open') || isAnyModalOpen()) return false;
 
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
@@ -14548,7 +14678,7 @@
             document.body ? document.body.scrollHeight || 0 : 0
         );
         const remainingDistance = Math.max(0, docHeight - viewportBottom);
-        const threshold = Math.min(980, Math.max(280, Math.round(window.innerHeight * 0.85)));
+        const threshold = Math.min(1800, Math.max(520, Math.round(window.innerHeight * 1.15)));
         return remainingDistance <= threshold;
     }
 
@@ -14558,20 +14688,31 @@
 
         const ember = document.createElement('span');
         ember.className = 'footer-ember';
-        const size = 3.8 + Math.random() * 5.3;
-        const rise = 150 + Math.random() * 250;
-        const driftX = (Math.random() - 0.5) * 120;
-        const driftMidX = driftX * 0.35 + ((Math.random() - 0.5) * 34);
-        const riseMid = rise * (0.42 + Math.random() * 0.14);
-        const durationMs = 1350 + Math.random() * 2000;
-        const opacity = 0.62 + Math.random() * 0.3;
-        const leftPercent = 4 + Math.random() * 92;
+        const size = 3.2 + Math.random() * 4.6;
+        const rise = 520 + Math.random() * 440;
+        const riseA = rise * (0.24 + Math.random() * 0.07);
+        const riseB = rise * (0.5 + Math.random() * 0.1);
+        const riseC = rise * (0.74 + Math.random() * 0.11);
+        const swaySeed = (Math.random() - 0.5) * 16;
+        const swayAmp = 20 + Math.random() * 44;
+        const swayDirection = Math.random() < 0.5 ? -1 : 1;
+        const driftA = swaySeed + swayDirection * swayAmp * (0.32 + Math.random() * 0.22);
+        const driftB = swaySeed - swayDirection * swayAmp * (0.2 + Math.random() * 0.24);
+        const driftC = swaySeed + swayDirection * swayAmp * (0.52 + Math.random() * 0.24);
+        const driftX = swaySeed + swayDirection * swayAmp * (0.16 + Math.random() * 0.28) + (Math.random() - 0.5) * 16;
+        const durationMs = 2600 + Math.random() * 2500;
+        const opacity = 0.56 + Math.random() * 0.24;
+        const leftPercent = 6 + Math.random() * 88;
 
         ember.style.left = `${leftPercent.toFixed(2)}%`;
         ember.style.setProperty('--ember-size', `${size.toFixed(2)}px`);
         ember.style.setProperty('--ember-rise-y', `${(-rise).toFixed(1)}px`);
-        ember.style.setProperty('--ember-rise-mid-y', `${(-riseMid).toFixed(1)}px`);
-        ember.style.setProperty('--ember-drift-mid-x', `${driftMidX.toFixed(1)}px`);
+        ember.style.setProperty('--ember-rise-a', `${(-riseA).toFixed(1)}px`);
+        ember.style.setProperty('--ember-rise-b', `${(-riseB).toFixed(1)}px`);
+        ember.style.setProperty('--ember-rise-c', `${(-riseC).toFixed(1)}px`);
+        ember.style.setProperty('--ember-drift-a', `${driftA.toFixed(1)}px`);
+        ember.style.setProperty('--ember-drift-b', `${driftB.toFixed(1)}px`);
+        ember.style.setProperty('--ember-drift-c', `${driftC.toFixed(1)}px`);
         ember.style.setProperty('--ember-drift-x', `${driftX.toFixed(1)}px`);
         ember.style.setProperty('--ember-duration', `${Math.round(durationMs)}ms`);
         ember.style.setProperty('--ember-opacity', opacity.toFixed(2));
@@ -14588,13 +14729,13 @@
         const isLowEndDevice =
             (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
             (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4);
-        const minDelay = isLowEndDevice ? 130 : 80;
-        const maxDelay = isLowEndDevice ? 280 : 170;
+        const minDelay = isLowEndDevice ? 360 : 220;
+        const maxDelay = isLowEndDevice ? 760 : 520;
         const tickDelay = Math.floor(minDelay + (Math.random() * (maxDelay - minDelay)));
 
         footerEmberState.timerId = window.setTimeout(() => {
             if (!footerEmberState.active) return;
-            const burstCount = Math.random() < 0.22 ? 2 : 1;
+            const burstCount = Math.random() < 0.08 ? 2 : 1;
             for (let i = 0; i < burstCount; i++) {
                 spawnFooterEmber();
             }
