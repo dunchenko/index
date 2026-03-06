@@ -2027,13 +2027,13 @@
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
-            width: min(100%, 37.5rem);
+            width: min(calc(100% - 1.2rem), 37.5rem);
             margin-left: auto !important;
             margin-right: auto !important;
         }
 
         #bookingModal[data-state="form"] #bookingForm .booking-status-slot {
-            width: min(100%, 37.5rem);
+            width: min(calc(100% - 1.2rem), 37.5rem);
             min-height: clamp(3.3rem, 6.2vh, 4.2rem);
             margin: 0 auto 0.78rem;
             display: flex;
@@ -2342,14 +2342,14 @@
         #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
         #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
         #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
-            width: min(100%, 37.5rem);
+            width: min(calc(100% - 1.2rem), 37.5rem);
             margin-left: auto !important;
             margin-right: auto !important;
         }
 
         #bookingModal.booking-modal--flat .modal-sticky-actions .booking-status-slot,
         #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .booking-status-slot {
-            width: min(100%, 37.5rem);
+            width: min(calc(100% - 1.2rem), 37.5rem);
             min-height: 0;
             margin: 0 auto;
             display: flex;
@@ -2479,6 +2479,20 @@
             min-width: 180px !important;
             max-width: 180px !important;
             margin-bottom: 0 !important;
+        }
+
+        #bookingModal .booking-static-province {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100% !important;
+            min-width: 0 !important;
+            padding-left: 0.65rem !important;
+            padding-right: 0.65rem !important;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: default;
+            user-select: none;
         }
 
         #bookingModal .custom-select--province .custom-select__trigger {
@@ -2815,7 +2829,7 @@
             --booking-cue-rose-brown: var(--booking-cue-primary-rgb);
             --booking-cue-rose-soft: var(--booking-cue-soft-rgb);
             --booking-cue-brown-deep: var(--modal-design-tone-rgb);
-            width: min(calc(100vw - 1.4rem), 37.5rem);
+            width: min(calc(100vw - 2.4rem), 34rem);
             margin: 0;
             text-align: center;
             pointer-events: none;
@@ -3073,7 +3087,7 @@
 
         .final-result-form {
             padding: 0.45rem 0.1rem 0.2rem;
-            text-align: left;
+            text-align: center;
         }
 
         .final-result-form__icon {
@@ -3099,14 +3113,14 @@
             font-size: 1.12rem;
             font-weight: 900;
             margin: 0 0 0.7rem 0;
-            text-align: left;
+            text-align: center;
         }
 
         .final-result-form__lead {
             font-size: 1rem;
             line-height: 1.55;
             margin: 0 0 1rem 0;
-            text-align: left;
+            text-align: center;
         }
 
         .final-result-grid {
@@ -3148,8 +3162,9 @@
         .final-result-warning {
             font-size: 0.94rem;
             line-height: 1.55;
-            margin: 0 0 0.88rem 0;
-            text-align: left;
+            width: min(100%, 37.5rem);
+            margin: 0 auto 0.88rem;
+            text-align: center;
             padding: 0.78rem 0.85rem;
             border-radius: 0.85rem;
             border: 1px solid rgba(255, 255, 255, 0.22);
@@ -7582,18 +7597,34 @@
                 font-size: clamp(1.2rem, 6vw, 2rem) !important;
                 padding: 0.8rem 1.4rem;
                 border-radius: 999px !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
             #bookingModal .contact-form__checkbox-wrapper {
-                justify-content: flex-start;
-                align-items: flex-start;
+                justify-content: center;
+                align-items: center;
                 gap: 0.65rem;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
             #bookingModal .contact-form__checkbox-label {
                 font-size: 0.9rem;
                 line-height: 1.35;
-                text-align: left;
+                text-align: center;
+                justify-content: center;
+            }
+
+            #bookingModal[data-state="form"] #bookingForm .booking-status-slot,
+            #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
+            #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
+                width: min(calc(100% - 1.6rem), 22rem) !important;
+            }
+
+            .booking-scroll-cue {
+                width: min(calc(100vw - 2.8rem), 22rem) !important;
             }
 
             .booking-row--address-main,
@@ -7845,6 +7876,11 @@
             }
 
             #bookingModal .custom-select--province .custom-select__trigger {
+                font-size: 0.98rem !important;
+                text-align: center !important;
+            }
+
+            #bookingModal .booking-static-province {
                 font-size: 0.98rem !important;
                 text-align: center !important;
             }
@@ -8244,7 +8280,7 @@
     </div>
 
     <div class="privacy-block privacy-block--map fade-in-section">
-        <p class="privacy-note"><strong>Note:</strong> To request removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
+        <p class="privacy-note"><strong>Note:</strong> Requests for removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
     </div>
 </div>
 
@@ -8478,26 +8514,7 @@
                             <input type="hidden" name="address_city" id="cityInput" value="">
                         </div>
                         <div class="custom-select-wrapper custom-select-wrapper--province">
-                            <div class="custom-select custom-select--province" id="provinceCustomSelect">
-                                <button class="custom-select__trigger" id="provinceTriggerMain" type="button" aria-label="Province">
-                                    <span>Ontario</span>
-                                </button>
-                                <div class="custom-options">
-                                    <div class="custom-option selected" data-value="Ontario">Ontario</div>
-                                    <div class="custom-option" data-value="Alberta">AB</div>
-                                    <div class="custom-option" data-value="Manitoba">MB</div>
-                                    <div class="custom-option" data-value="Nunavut">NU</div>
-                                    <div class="custom-option" data-value="Quebec">QC</div>
-                                    <div class="custom-option" data-value="Yukon">YT</div>
-                                    <div class="custom-option" data-value="British Columbia">BC</div>
-                                    <div class="custom-option" data-value="New Brunswick">NB</div>
-                                    <div class="custom-option" data-value="Newfoundland and Labrador">NL</div>
-                                    <div class="custom-option" data-value="Northwest Territories">NT</div>
-                                    <div class="custom-option" data-value="Nova Scotia">NS</div>
-                                    <div class="custom-option" data-value="Prince Edward Island">PE</div>
-                                    <div class="custom-option" data-value="Saskatchewan">SK</div>
-                                </div>
-                            </div>
+                            <div class="contact-form__input booking-static-province" id="provinceStaticDisplay" aria-label="Province">Ontario</div>
                             <input id="provinceInputMain" type="hidden" name="address_province" value="Ontario">
                         </div>
                     </div>
@@ -8573,8 +8590,7 @@
 
                 <div class="modal-sticky-actions">
                     <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
-                        <p class="recaptcha-wrap__hint">Complete reCAPTCHA before submitting the form.</p>
-                        <div id="bookingRecaptchaWidget"></div>
+                        <p class="recaptcha-wrap__hint">Protected by Google reCAPTCHA.</p>
                     </div>
                     <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Scroll down to continue the form">
                         <div class="booking-scroll-cue__text">Required: Name, Phone, DOB, Age. Recommended: service, email, address details, brief, deadline, files, and terms.</div>
@@ -8618,20 +8634,16 @@
 </div>
 <script>
     window.__recaptchaApiReady = false;
-    function onRecaptchaApiLoaded() {
-        window.__recaptchaApiReady = true;
-        window.dispatchEvent(new Event('recaptcha-ready'));
-    }
 </script>
-<script async defer src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaApiLoaded&render=explicit"></script>
 
 <script>
     // ------------------------------------------------------------------
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxFjZ5vJGx395DhGIrVYwSLV0fwwT9zb9Euy2lUhKxWPBqKQNPX7UTwcSMAvqjAQDsfig/exec"
-    const RECAPTCHA_SITE_KEY = "6LeYZHssAAAAADZpqJwxjGn6nc4GgRAGOaRJY-F_"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXtSghE-QkhYnbtAaYrcUNCl97TGtR5E5FHkJox0tbGthXKDZwfuNqrpEBspFS-7NWBw/exec"
+    const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
+    const RECAPTCHA_V3_ACTION = 'booking_submit';
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
         'London',
@@ -10807,11 +10819,10 @@
     let focusCameraButtonOnBookingOpen = false;
     let cameraButtonGlowTimer = null;
     let lastBookingSummaryForReferral = null;
-    let bookingRecaptchaWidgetId = null;
+    let bookingRecaptchaApiPromise = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
-    let bookingRecaptchaForceRequired = false;
-    let bookingRecaptchaPendingSubmit = false;
+    let bookingRecaptchaTokenAction = '';
     let bookingStatusActionTarget = null;
     let lastBookingFieldEl = null;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
@@ -10999,7 +11010,7 @@
                 return document.querySelector('#cityCustomSelect .custom-select__trigger');
             }
             if (sourceEl.name === 'address_province') {
-                return document.querySelector('#provinceCustomSelect .custom-select__trigger');
+                return null;
             }
         }
 
@@ -11197,10 +11208,14 @@
     function clearBookingRecaptchaToken() {
         bookingRecaptchaToken = '';
         bookingRecaptchaTokenIssuedAt = 0;
+        bookingRecaptchaTokenAction = '';
     }
 
-    function isBookingRecaptchaTokenFresh() {
-        return Boolean(bookingRecaptchaToken) && (Date.now() - bookingRecaptchaTokenIssuedAt) <= RECAPTCHA_TOKEN_TTL_MS;
+    function isBookingRecaptchaTokenFresh(action = RECAPTCHA_V3_ACTION) {
+        const expectedAction = String(action || '').trim();
+        return Boolean(bookingRecaptchaToken)
+            && (!expectedAction || bookingRecaptchaTokenAction === expectedAction)
+            && (Date.now() - bookingRecaptchaTokenIssuedAt) <= RECAPTCHA_TOKEN_TTL_MS;
     }
 
     function setBookingRecaptchaVisible(visible) {
@@ -11213,60 +11228,70 @@
     }
 
     function resetBookingRecaptchaUi() {
-        bookingRecaptchaForceRequired = false;
-        bookingRecaptchaPendingSubmit = false;
         clearBookingRecaptchaToken();
         setBookingRecaptchaVisible(false);
-        if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
-            try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
-        }
     }
 
-    function waitForRecaptchaApiReady(timeoutMs = 7000) {
-        if (window.__recaptchaApiReady && window.grecaptcha && typeof window.grecaptcha.render === 'function') {
+    function loadBookingRecaptchaApi() {
+        if (window.__recaptchaApiReady && window.grecaptcha && typeof window.grecaptcha.execute === 'function') {
             return Promise.resolve(true);
         }
-        return new Promise((resolve) => {
-            let settled = false;
-            const finish = (value) => {
-                if (settled) return;
-                settled = true;
-                clearTimeout(timer);
-                window.removeEventListener('recaptcha-ready', onReady);
-                resolve(Boolean(value));
+
+        if (bookingRecaptchaApiPromise) {
+            return bookingRecaptchaApiPromise;
+        }
+
+        const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
+        if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
+            return Promise.resolve(false);
+        }
+
+        bookingRecaptchaApiPromise = new Promise((resolve) => {
+            const markReady = () => {
+                if (!window.grecaptcha || typeof window.grecaptcha.ready !== 'function') {
+                    resolve(false);
+                    return;
+                }
+                try {
+                    window.grecaptcha.ready(() => {
+                        const available = typeof window.grecaptcha.execute === 'function';
+                        window.__recaptchaApiReady = available;
+                        resolve(available);
+                    });
+                } catch (err) {
+                    resolve(false);
+                }
             };
-            const onReady = () => {
-                finish(window.grecaptcha && typeof window.grecaptcha.render === 'function');
-            };
-            const timer = setTimeout(() => finish(false), timeoutMs);
-            window.addEventListener('recaptcha-ready', onReady);
+
+            if (window.grecaptcha && typeof window.grecaptcha.execute === 'function') {
+                window.__recaptchaApiReady = true;
+                resolve(true);
+                return;
+            }
+
+            const existingScript = document.getElementById('bookingRecaptchaApiScript');
+            if (existingScript) {
+                existingScript.addEventListener('load', markReady, { once: true });
+                existingScript.addEventListener('error', () => resolve(false), { once: true });
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.id = 'bookingRecaptchaApiScript';
+            script.async = true;
+            script.defer = true;
+            script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
+            script.addEventListener('load', markReady, { once: true });
+            script.addEventListener('error', () => resolve(false), { once: true });
+            document.head.appendChild(script);
         });
     }
 
-    function handleBookingRecaptchaSolved(token) {
-        bookingRecaptchaToken = String(token || '').trim();
-        bookingRecaptchaTokenIssuedAt = bookingRecaptchaToken ? Date.now() : 0;
-        const wrap = getBookingRecaptchaWrap();
-        if (wrap) wrap.classList.remove('field-invalid');
-        if (bookingStatus && /reCAPTCHA/i.test(String(bookingStatus.textContent || ''))) {
-            clearBookingError();
-        }
-        if (bookingRecaptchaPendingSubmit) {
-            bookingRecaptchaPendingSubmit = false;
-            const bookingFormEl = document.getElementById('bookingForm');
-            if (bookingFormEl) {
-                requestAnimationFrame(() => {
-                    if (typeof bookingFormEl.requestSubmit === 'function') {
-                        bookingFormEl.requestSubmit();
-                    } else {
-                        handleBookingSubmit({
-                            preventDefault: () => {},
-                            target: bookingFormEl
-                        });
-                    }
-                });
-            }
-        }
+    function waitForRecaptchaApiReady(timeoutMs = 7000) {
+        return Promise.race([
+            loadBookingRecaptchaApi(),
+            new Promise((resolve) => setTimeout(() => resolve(false), timeoutMs))
+        ]).then((value) => Boolean(value));
     }
 
     function normalizeRecaptchaServerCodes(codes) {
@@ -11289,6 +11314,43 @@
             return 'If reCAPTCHA keeps failing on localhost, add localhost to the allowed domains in Google reCAPTCHA admin.';
         }
         return 'Verify that this domain is allowed for your Google reCAPTCHA site key and that the site key matches the Apps Script secret.';
+    }
+
+    async function acquireBookingRecaptchaToken(action = RECAPTCHA_V3_ACTION) {
+        const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
+        const requestedAction = String(action || RECAPTCHA_V3_ACTION).trim() || RECAPTCHA_V3_ACTION;
+        if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
+            return { success: false, reason: 'site-key-missing' };
+        }
+
+        if (isBookingRecaptchaTokenFresh(requestedAction)) {
+            return { success: true, token: bookingRecaptchaToken, action: bookingRecaptchaTokenAction };
+        }
+
+        const apiReady = await waitForRecaptchaApiReady();
+        if (!apiReady || !window.grecaptcha || typeof window.grecaptcha.execute !== 'function') {
+            return { success: false, reason: 'api-unavailable' };
+        }
+
+        try {
+            const token = await new Promise((resolve, reject) => {
+                window.grecaptcha.ready(() => {
+                    Promise.resolve(window.grecaptcha.execute(siteKey, { action: requestedAction }))
+                        .then(resolve)
+                        .catch(reject);
+                });
+            });
+            bookingRecaptchaToken = String(token || '').trim();
+            bookingRecaptchaTokenIssuedAt = bookingRecaptchaToken ? Date.now() : 0;
+            bookingRecaptchaTokenAction = bookingRecaptchaToken ? requestedAction : '';
+            if (!bookingRecaptchaToken) {
+                return { success: false, reason: 'token-empty' };
+            }
+            return { success: true, token: bookingRecaptchaToken, action: bookingRecaptchaTokenAction };
+        } catch (err) {
+            clearBookingRecaptchaToken();
+            return { success: false, reason: 'execute-failed' };
+        }
     }
 
     function isRecaptchaServerFailureCode(errorCode) {
@@ -11329,96 +11391,49 @@
         return 'reCAPTCHA verification failed. Please complete it again.';
     }
 
-    function handleBookingRecaptchaExpired() {
-        clearBookingRecaptchaToken();
-        bookingRecaptchaPendingSubmit = false;
-    }
-
-    function handleBookingRecaptchaError() {
-        clearBookingRecaptchaToken();
-        bookingRecaptchaPendingSubmit = false;
-        bookingRecaptchaForceRequired = true;
-        const wrap = getBookingRecaptchaWrap();
-        setBookingRecaptchaVisible(true);
-        if (wrap) wrap.classList.add('field-invalid');
-        if (isRecaptchaLocalFilePreview()) {
-            setBookingError(getRecaptchaSetupHintMessage(), wrap);
-            return;
-        }
-        setBookingError(`reCAPTCHA failed to load. Disable VPN/ad blocker and reload the page. ${getRecaptchaSetupHintMessage()}`, wrap);
-    }
-
     async function ensureTseProbnikCaptcha(isTseProbnikSubmission, isLargeAttachmentSubmission = false) {
-        const recaptchaRequired = Boolean(bookingRecaptchaForceRequired || isLargeAttachmentSubmission || !isTseProbnikSubmission);
-        if (!recaptchaRequired) {
-            bookingRecaptchaPendingSubmit = false;
-            setBookingRecaptchaVisible(false);
-            clearBookingRecaptchaToken();
-            return { required: false, passed: true };
-        }
-
-        // Allow offline intake queueing without blocking on reCAPTCHA widget loading.
-        if (navigator.onLine === false) {
-            bookingRecaptchaPendingSubmit = false;
-            setBookingRecaptchaVisible(false);
-            clearBookingRecaptchaToken();
-            return { required: false, passed: true };
-        }
-
-        setBookingRecaptchaVisible(true);
+        void isTseProbnikSubmission;
+        void isLargeAttachmentSubmission;
+        setBookingRecaptchaVisible(false);
         const wrap = getBookingRecaptchaWrap();
         if (wrap) wrap.classList.remove('field-invalid');
-        const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
 
+        if (navigator.onLine === false) {
+            clearBookingRecaptchaToken();
+            return { required: false, passed: true, bypassed: true, reason: 'offline' };
+        }
+
+        const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
         if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
-            setBookingError('reCAPTCHA is not configured. Add your site key first.', wrap);
-            return { required: true, passed: false };
+            clearBookingRecaptchaToken();
+            console.warn('reCAPTCHA v3 site key is missing; continuing in soft mode.');
+            return { required: false, passed: true, bypassed: true, reason: 'site-key-missing' };
         }
 
         if (isRecaptchaLocalFilePreview()) {
-            setBookingError(getRecaptchaSetupHintMessage(), wrap);
-            return { required: true, passed: false };
+            clearBookingRecaptchaToken();
+            console.warn('reCAPTCHA v3 cannot run from a local file preview; continuing in soft mode.');
+            return { required: false, passed: true, bypassed: true, reason: 'local-file-preview' };
         }
 
-        const apiReady = await waitForRecaptchaApiReady();
-        if (!apiReady || !window.grecaptcha || typeof window.grecaptcha.render !== 'function') {
-            setBookingError('reCAPTCHA is loading. Please wait and submit again.', wrap);
-            return { required: true, passed: false };
+        const tokenResult = await acquireBookingRecaptchaToken(RECAPTCHA_V3_ACTION);
+        if (!tokenResult.success) {
+            clearBookingRecaptchaToken();
+            console.warn(`reCAPTCHA v3 token unavailable (${tokenResult.reason || 'unknown'}); continuing in soft mode.`);
+            return { required: false, passed: true, bypassed: true, reason: tokenResult.reason || 'token-unavailable' };
         }
 
-        if (bookingRecaptchaWidgetId === null) {
-            const widgetHost = document.getElementById('bookingRecaptchaWidget');
-            if (!widgetHost) {
-                setBookingError('reCAPTCHA container is missing.', wrap);
-                return { required: true, passed: false };
-            }
-            try {
-                bookingRecaptchaWidgetId = window.grecaptcha.render(widgetHost, {
-                    sitekey: siteKey,
-                    theme: 'light',
-                    size: 'normal',
-                    callback: handleBookingRecaptchaSolved,
-                    'expired-callback': handleBookingRecaptchaExpired,
-                    'error-callback': handleBookingRecaptchaError
-                });
-            } catch (err) {
-                setBookingError('Could not initialize reCAPTCHA. Reload and try again.', wrap);
-                return { required: true, passed: false };
-            }
+        if (bookingStatus && /reCAPTCHA/i.test(String(bookingStatus.textContent || ''))) {
+            clearBookingError();
         }
-
-        if (!isBookingRecaptchaTokenFresh()) {
-            bookingRecaptchaPendingSubmit = true;
-            if (isLargeAttachmentSubmission) {
-                setBookingError('Attached files exceed 30 MB. Complete reCAPTCHA and the form will continue automatically.', wrap);
-            } else {
-                setBookingError('Complete reCAPTCHA and the form will continue automatically.', wrap);
-            }
-            return { required: true, passed: false };
-        }
-
-        bookingRecaptchaPendingSubmit = false;
-        return { required: true, passed: true };
+        return {
+            required: true,
+            passed: true,
+            bypassed: false,
+            reason: '',
+            token: bookingRecaptchaToken,
+            action: bookingRecaptchaTokenAction || RECAPTCHA_V3_ACTION
+        };
     }
 
     function normalizeBookingStatusTone(tone) {
@@ -13572,7 +13587,7 @@
                 address_unit: formData.get('address_unit') || '',
                 address_street: formData.get('address_street') || '',
                 address_city: formData.get('address_city') || '',
-                address_province: formData.get('address_province') || '',
+                address_province: 'Ontario',
                 address_zip: formData.get('address_zip') || '',
                 dob_year: formData.get('dob_year') || '',
                 dob_month: formData.get('dob_month') || '',
@@ -13609,12 +13624,7 @@
                 setCustomSelectValue('cityCustomSelect', data.address_city);
             }
             if (form.address_province) {
-                const provinceValue = normalizeSingleLine(data.address_province || form.address_province.value || 'Ontario');
-                form.address_province.value = provinceValue;
-                if (!setCustomSelectValue('provinceCustomSelect', provinceValue)) {
-                    form.address_province.value = 'Ontario';
-                    setCustomSelectValue('provinceCustomSelect', 'Ontario');
-                }
+                form.address_province.value = 'Ontario';
             }
             if (data.address_zip && form.address_zip) form.address_zip.value = data.address_zip;
             if (data.notes) form.notes.value = data.notes;
@@ -13737,13 +13747,9 @@
         const form = document.getElementById('bookingForm');
         const provinceInput = form?.address_province;
         if (!provinceInput) return;
-
-        const provinceValue = normalizeSingleLine(provinceInput.value || 'Ontario');
-        provinceInput.value = provinceValue || 'Ontario';
-        if (!setCustomSelectValue('provinceCustomSelect', provinceInput.value)) {
-            provinceInput.value = 'Ontario';
-            setCustomSelectValue('provinceCustomSelect', 'Ontario');
-        }
+        provinceInput.value = 'Ontario';
+        const provinceDisplay = document.getElementById('provinceStaticDisplay');
+        if (provinceDisplay) provinceDisplay.textContent = 'Ontario';
     }
 
     function clearBookingError() {
@@ -14293,7 +14299,6 @@
         if (serviceInput) serviceInput.value = service;
         setCustomSelectValue('cityCustomSelect', city);
         setCustomSelectValue('customSelect', service);
-        setCustomSelectValue('provinceCustomSelect', 'Ontario');
         fitTextareaHeight(notesField);
         return true;
     }
@@ -14520,7 +14525,7 @@
         const rawAddressUnit = String(formData.get('address_unit') || '').trim();
         const rawAddressStreet = String(formData.get('address_street') || '').trim();
         const rawAddressCity = String(formData.get('address_city') || '').trim();
-        const rawAddressProvince = String(formData.get('address_province') || '').trim().toUpperCase();
+        const rawAddressProvince = 'Ontario';
         const rawAddressZip = String(formData.get('address_zip') || '').trim().toUpperCase();
         const rawHearAbout = String(formData.get('hear_about') || '').trim();
         const rawDobYear = String(formData.get('dob_year') || '').trim();
@@ -14600,7 +14605,7 @@
             addressUnit: '',
             addressStreet: '100 Test St',
             addressCity: 'Toronto',
-            addressProvince: 'ON',
+            addressProvince: 'Ontario',
             addressZip: 'M1M 1M1',
             dob: '1990-01-01',
             dobYear: '1990',
@@ -14769,6 +14774,14 @@
                 gRecaptchaResponse: sanitize(recaptchaTokenForBooking),
                 recaptcha_token: sanitize(recaptchaTokenForBooking),
                 'g-recaptcha-response': sanitize(recaptchaTokenForBooking),
+                recaptchaAction: RECAPTCHA_V3_ACTION,
+                recaptcha_action: RECAPTCHA_V3_ACTION,
+                recaptchaProvider: 'v3',
+                recaptcha_provider: 'v3',
+                recaptchaBypassed: Boolean(tseProbnikCaptchaState.bypassed),
+                recaptcha_bypassed: Boolean(tseProbnikCaptchaState.bypassed),
+                recaptchaBypassReason: sanitize(tseProbnikCaptchaState.reason || ''),
+                recaptcha_bypass_reason: sanitize(tseProbnikCaptchaState.reason || ''),
                 recaptchaRequired: recaptchaRequiredForBooking,
                 recaptcha_required: recaptchaRequiredForBooking,
                 tseProbnikSubmission: isTseProbnikQuickSubmit,
@@ -14800,8 +14813,6 @@
                 isSuccess = true;
                 playSuccessSound();
                 lastBookingTime = Date.now();
-                bookingRecaptchaForceRequired = false;
-                bookingRecaptchaPendingSubmit = false;
                 clearBookingRecaptchaToken();
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
@@ -14831,13 +14842,8 @@
                 logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr || 'UNSPECIFIED'}`);
             } else if (isRecaptchaServerFailureCode(result.error)) {
                 const recaptchaWrap = getBookingRecaptchaWrap();
-                bookingRecaptchaForceRequired = true;
-                bookingRecaptchaPendingSubmit = false;
                 setBookingRecaptchaVisible(true);
                 setBookingError(resolveRecaptchaServerFailureMessage(result), recaptchaWrap);
-                if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
-                    try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
-                }
                 clearBookingRecaptchaToken();
                 return;
             } else if (result.error === 'SLOT_TAKEN') {
@@ -16274,13 +16280,7 @@
             if (selectId === 'cityCustomSelect') {
                 trigger.classList.add('has-city-check');
             }
-            if (hiddenInput) {
-                if (selectId === 'provinceCustomSelect') {
-                    hiddenInput.value = normalizeSingleLine(selectedOption.getAttribute('data-value') || selectedTextPlain);
-                } else {
-                    hiddenInput.value = selectedTextPlain;
-                }
-            }
+            if (hiddenInput) hiddenInput.value = selectedTextPlain;
             return true;
         }
 
@@ -16510,7 +16510,6 @@
     function initializeCustomSelects() {
         bindCustomSelect('customSelect', 'serviceInput');
         bindCustomSelect('cityCustomSelect', 'cityInput');
-        bindCustomSelect('provinceCustomSelect', 'provinceInputMain');
     }
 
     function adjustDynamicText() {
