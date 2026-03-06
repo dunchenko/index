@@ -11276,6 +11276,21 @@
             .filter(Boolean);
     }
 
+    function isRecaptchaLocalFilePreview() {
+        return String(window.location.protocol || '').trim().toLowerCase() === 'file:';
+    }
+
+    function getRecaptchaSetupHintMessage() {
+        if (isRecaptchaLocalFilePreview()) {
+            return 'reCAPTCHA cannot complete from a local file preview. Open the site through its real domain or a localhost server added in Google reCAPTCHA admin.';
+        }
+        const host = String(window.location.hostname || '').trim().toLowerCase();
+        if (host === 'localhost' || host === '127.0.0.1' || host === '[::1]') {
+            return 'If reCAPTCHA keeps failing on localhost, add localhost to the allowed domains in Google reCAPTCHA admin.';
+        }
+        return 'Verify that this domain is allowed for your Google reCAPTCHA site key and that the site key matches the Apps Script secret.';
+    }
+
     function isRecaptchaServerFailureCode(errorCode) {
         const code = String(errorCode || '').trim().toUpperCase();
         return (
@@ -11299,8 +11314,12 @@
             return 'reCAPTCHA server secret is not configured correctly.';
         }
 
-        if (codes.includes('timeout-or-duplicate') || codes.includes('invalid-input-response')) {
-            return 'reCAPTCHA expired or is invalid. Please complete it again.';
+        if (codes.includes('timeout-or-duplicate')) {
+            return 'reCAPTCHA expired or was already used. Please complete it again.';
+        }
+
+        if (codes.includes('invalid-input-response')) {
+            return `reCAPTCHA token was rejected. ${getRecaptchaSetupHintMessage()}`;
         }
 
         if (errorCode === 'RECAPTCHA_VERIFY_ERROR' || codes.includes('verify-exception')) {
@@ -11322,7 +11341,11 @@
         const wrap = getBookingRecaptchaWrap();
         setBookingRecaptchaVisible(true);
         if (wrap) wrap.classList.add('field-invalid');
-        setBookingError('reCAPTCHA failed to load. Disable VPN/ad blocker and reload the page.', wrap);
+        if (isRecaptchaLocalFilePreview()) {
+            setBookingError(getRecaptchaSetupHintMessage(), wrap);
+            return;
+        }
+        setBookingError(`reCAPTCHA failed to load. Disable VPN/ad blocker and reload the page. ${getRecaptchaSetupHintMessage()}`, wrap);
     }
 
     async function ensureTseProbnikCaptcha(isTseProbnikSubmission, isLargeAttachmentSubmission = false) {
@@ -11349,6 +11372,11 @@
 
         if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
             setBookingError('reCAPTCHA is not configured. Add your site key first.', wrap);
+            return { required: true, passed: false };
+        }
+
+        if (isRecaptchaLocalFilePreview()) {
+            setBookingError(getRecaptchaSetupHintMessage(), wrap);
             return { required: true, passed: false };
         }
 
