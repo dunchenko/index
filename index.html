@@ -8,7 +8,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(self), microphone=(), geolocation=(self)">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com; frame-src https://www.google.com/maps/ https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; connect-src 'self' https://script.google.com/ https://script.googleusercontent.com/ https://www.google-analytics.com https://analytics.google.com https://api.ipify.org https://www.google.com/recaptcha/;">
-    <meta name="description" content="Professional legal advocacy and notary services in Ontario. Specializing in Provincial Offences and Administrative Tribunals. Accessible, expert representation tailored to your needs province-wide +1 (437) 239-6833.">
+    <meta name="description" content="Ontario paralegal and notary public services for traffic tickets, Provincial Offences, LTB, WSIB, HRTO, and Small Claims Court matters. Province-wide consultations +1 (437) 239-6833.">
     <title>Hanna Dunchenko Paralegal Services Province Wide +1 437 239 6833 | Ontario</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23ffffff%22>PS</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
       "name": "Hanna Dunchenko Paralegal Services",
       "url": "https://hannadunchenko.com",
       "image": "https://hannadunchenko.com/logo.png",
-      "description": "Professional paralegal and notary services in Ontario. Specializing in Provincial Offences, LTB, and Traffic Ticket Defense. Proffesional representation in Toronto, Mississauga, and province-wide +1 (437) 239-6833 online.",
+      "description": "Ontario paralegal and notary public services for Provincial Offences, LTB, WSIB, HRTO, and Small Claims Court matters. Professional representation in Toronto, Mississauga, and province-wide online at +1 (437) 239-6833.",
       "telephone": "+1-437-239-6833",
       "email": "paralegal@hannadunchenko.com",
       "priceRange": "$$",
@@ -86,7 +86,7 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Traffic Ticket Defense"
+            "name": "Traffic Tickets and Provincial Offences"
           }
         },
         {
@@ -100,7 +100,7 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "WSIB Representation"
+            "name": "WSIB and WSIAT Appeals"
           }
         },
         {
@@ -108,6 +108,20 @@
           "itemOffered": {
             "@type": "Service",
             "name": "Notary Public Services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Human Rights and Workplace Tribunal Matters"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Small Claims Court Matters"
           }
         }
       ]
@@ -319,6 +333,10 @@
         /* ------------------- CORE STYLES ------------------- */
         :root {
             --bg-dark: #bfa792;
+            --site-bg-light-rgb: 212, 184, 154;
+            --site-bg-mid-rgb: 191, 167, 146;
+            --site-bg-dark-rgb: 139, 111, 90;
+            --site-bg-shadow-rgb: 58, 42, 29;
             --text-white: #ffffff;
             --modal-dark-brown: #5a3d2a;
             --modal-dark-brown-rgb: 90, 61, 42;
@@ -356,15 +374,15 @@
                 radial-gradient(120% 120% at 50% 100%, #D4B89A 0%, #8B6F5A 100%);
             --booking-plaque-border-rgb: 255, 243, 227;
             --booking-plaque-shadow-rgb: 34, 22, 14;
-            --booking-cue-primary-rgb: 112, 227, 57;
-            --booking-cue-soft-rgb: 173, 255, 122;
-            --booking-status-accent-rgb: 111, 227, 57;
-            --booking-status-accent-soft-rgb: 143, 246, 98;
-            --booking-status-error-rgb: 98, 214, 58;
-            --booking-status-success-rgb: 92, 204, 54;
-            --booking-status-success-border-rgb: 170, 255, 126;
-            --booking-status-success-fg-rgb: 244, 255, 238;
-            --booking-status-glow-rgb: 170, 255, 126;
+            --booking-cue-primary-rgb: 141, 106, 78;
+            --booking-cue-soft-rgb: 214, 183, 156;
+            --booking-status-accent-rgb: 141, 106, 78;
+            --booking-status-accent-soft-rgb: 214, 183, 156;
+            --booking-status-error-rgb: 119, 82, 57;
+            --booking-status-success-rgb: 214, 183, 156;
+            --booking-status-success-border-rgb: 166, 129, 98;
+            --booking-status-success-fg-rgb: 90, 61, 42;
+            --booking-status-glow-rgb: 214, 183, 156;
             --booking-form-rgb: var(--modal-design-surface-rgb);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.15);
@@ -1181,18 +1199,18 @@
             display: none;
             margin: 0.2rem 0 0.75rem;
             text-align: center;
-            background: #8eea63;
-            border: 1px solid #cdfab4;
+            background: linear-gradient(180deg, rgba(231, 206, 183, 0.97) 0%, rgba(210, 176, 146, 0.94) 100%);
+            border: 1px solid rgba(122, 86, 60, 0.56);
             border-radius: 0.95rem;
             padding: 0.5rem 0.55rem 0.6rem;
-            box-shadow: 0 0 0.8rem rgba(143, 246, 98, 0.45);
+            box-shadow: 0 0 0.8rem rgba(122, 86, 60, 0.26);
         }
 
         .recaptcha-wrap__hint {
             margin: 0 0 0.5rem 0;
             font-size: 0.85rem;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.97);
+            color: rgba(90, 61, 42, 0.95);
             letter-spacing: 0.02em;
             text-align: center;
             animation: bookingHintSoftPulse 2.2s ease-in-out infinite;
@@ -1298,6 +1316,22 @@
         .faq {
             --faq-inline-pad: clamp(0.06rem, 0.25vw, 0.14rem);
             --faq-answer-indent: 1.62rem;
+            --faq-bubble-border-strong: rgba(var(--site-bg-dark-rgb), 0.56);
+            --faq-bubble-border-soft: rgba(var(--site-bg-dark-rgb), 0.48);
+            --faq-bubble-q-bg:
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.46) 0%, rgba(var(--site-bg-mid-rgb), 0.26) 46%, rgba(var(--site-bg-dark-rgb), 0.18) 100%),
+                linear-gradient(0deg, rgba(var(--site-bg-light-rgb), 0.2), rgba(var(--site-bg-light-rgb), 0.2)),
+                rgba(var(--site-bg-mid-rgb), 0.28);
+            --faq-bubble-a-bg:
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.34) 0%, rgba(var(--site-bg-mid-rgb), 0.2) 46%, rgba(var(--site-bg-dark-rgb), 0.14) 100%),
+                linear-gradient(0deg, rgba(var(--site-bg-mid-rgb), 0.14), rgba(var(--site-bg-mid-rgb), 0.14)),
+                rgba(var(--site-bg-mid-rgb), 0.2);
+            --faq-bubble-shadow-strong:
+                0 0.3rem 0.82rem rgba(var(--site-bg-shadow-rgb), 0.22),
+                inset 0 1px 0 rgba(255, 250, 244, 0.62);
+            --faq-bubble-shadow-soft:
+                0 0.22rem 0.68rem rgba(var(--site-bg-shadow-rgb), 0.16),
+                inset 0 1px 0 rgba(255, 247, 238, 0.5);
             margin-top: 0;
         }
 
@@ -1416,11 +1450,8 @@
         }
 
         #faqSpoiler .faq__question {
-            --faq-q-border: rgba(var(--modal-design-border-rgb), 0.44);
-            --faq-q-bg:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.08) 42%, rgba(255, 255, 255, 0.03) 100%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.09), rgba(var(--modal-design-tone-rgb), 0.09)),
-                rgba(var(--modal-design-surface-rgb), 0.56);
+            --faq-q-border: var(--faq-bubble-border-strong);
+            --faq-q-bg: var(--faq-bubble-q-bg);
             align-self: flex-end;
             width: fit-content;
             max-width: min(88%, 36.5rem);
@@ -1429,18 +1460,16 @@
             border-radius: 1.08rem 1.08rem 0.22rem 1.08rem;
             border: 1px solid var(--faq-q-border);
             background: var(--faq-q-bg);
-            backdrop-filter: blur(10px) saturate(112%);
-            -webkit-backdrop-filter: blur(10px) saturate(112%);
-            color: rgba(var(--modal-design-text-rgb), 0.995);
+            backdrop-filter: blur(12px) saturate(112%);
+            -webkit-backdrop-filter: blur(12px) saturate(112%);
+            color: rgba(255, 251, 246, 0.99);
             font-size: clamp(0.98rem, 2.8vw, 1.08rem);
             font-weight: 800;
             text-transform: none;
             line-height: 1.35;
             letter-spacing: 0.01em;
             cursor: default;
-            box-shadow:
-                0 0.24rem 0.72rem rgba(30, 19, 12, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.28);
+            box-shadow: var(--faq-bubble-shadow-strong);
             user-select: text;
             position: relative;
             isolation: isolate;
@@ -1451,18 +1480,15 @@
         }
 
         #faqSpoiler .faq__question:focus-visible {
-            outline: 1px solid rgba(255, 255, 255, 0.5);
+            outline: 1px solid rgba(var(--site-bg-light-rgb), 0.78);
             outline-offset: 2px;
             border-radius: 1.08rem 1.08rem 0.22rem 1.08rem;
         }
 
         #faqSpoiler .faq__answer,
         #faqSpoiler .faq__item.is-open .faq__answer {
-            --faq-a-border: rgba(var(--modal-design-border-rgb), 0.34);
-            --faq-a-bg:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.02) 100%),
-                linear-gradient(0deg, rgba(var(--modal-design-tone-rgb), 0.08), rgba(var(--modal-design-tone-rgb), 0.08)),
-                rgba(var(--modal-design-surface-rgb), 0.44);
+            --faq-a-border: var(--faq-bubble-border-soft);
+            --faq-a-bg: var(--faq-bubble-a-bg);
             align-self: flex-start;
             width: fit-content;
             max-width: min(90%, 37.5rem);
@@ -1474,13 +1500,11 @@
             border-radius: 1.08rem 1.08rem 1.08rem 0.22rem;
             border: 1px solid var(--faq-a-border);
             background: var(--faq-a-bg);
-            backdrop-filter: blur(10px) saturate(108%);
-            -webkit-backdrop-filter: blur(10px) saturate(108%);
-            color: rgba(var(--modal-design-text-rgb), 0.96) !important;
+            backdrop-filter: blur(12px) saturate(112%);
+            -webkit-backdrop-filter: blur(12px) saturate(112%);
+            color: rgba(255, 247, 238, 0.97) !important;
             line-height: 1.58 !important;
-            box-shadow:
-                0 0.22rem 0.68rem rgba(30, 19, 12, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: var(--faq-bubble-shadow-soft);
             transition: none;
             position: relative;
             isolation: isolate;
@@ -2643,6 +2667,7 @@
             font-weight: 400 !important;
             line-height: 1.6 !important;
             letter-spacing: 0.01em !important;
+            color: rgba(var(--modal-design-tone-rgb), 0.92) !important;
             text-transform: none !important;
         }
 
@@ -2692,7 +2717,7 @@
         }
 
         #bookingStatus {
-            --booking-status-fg: rgba(var(--modal-design-text-rgb), 0.98);
+            --booking-status-fg: rgba(var(--modal-design-tone-rgb), 0.98);
             --booking-status-border: rgba(var(--booking-status-accent-rgb), 0.95);
             --booking-status-bg: rgba(var(--booking-status-accent-soft-rgb), 0.95);
             min-height: 0;
@@ -2749,13 +2774,13 @@
         }
 
         #bookingStatus.status-alert--warning {
-            --booking-status-fg: rgba(var(--modal-design-text-rgb), 0.98);
+            --booking-status-fg: rgba(var(--modal-design-tone-rgb), 0.98);
             --booking-status-border: rgba(var(--booking-status-accent-rgb), 1);
             --booking-status-bg: rgba(var(--booking-status-accent-soft-rgb), 0.95);
         }
 
         #bookingStatus.status-alert--error {
-            --booking-status-fg: rgba(var(--modal-design-text-rgb), 0.98);
+            --booking-status-fg: rgba(var(--modal-design-tone-rgb), 0.98);
             --booking-status-border: rgba(var(--booking-status-error-rgb), 0.98);
             --booking-status-bg: rgba(var(--booking-status-error-rgb), 0.92);
         }
@@ -2891,13 +2916,13 @@
         .custom-select__trigger.field-invalid {
             animation: invalidFieldBorderPulse 0.5s ease-out 1, invalidFieldBorderBreath 1.45s ease-in-out infinite !important;
             box-shadow: none !important;
-            border: 2px solid #67d940 !important;
+            border: 2px solid #8b6f5a !important;
             transform: none !important;
             will-change: auto;
         }
 
         #bookingModal .custom-select__trigger.field-invalid {
-            border: 2px solid #67d940 !important;
+            border: 2px solid #8b6f5a !important;
             box-shadow: none !important;
         }
 
@@ -2921,10 +2946,10 @@
 
         @keyframes invalidFieldBorderBreath {
             0%, 100% {
-                border-color: #67d940;
+                border-color: #8b6f5a;
             }
             50% {
-                border-color: #a8fb7f;
+                border-color: #c9a688;
             }
         }
 
@@ -2934,7 +2959,7 @@
         }
 
         .contact-form__checkbox-wrapper.field-invalid .contact-form__checkbox {
-            border-color: #67d940 !important;
+            border-color: #8b6f5a !important;
             box-shadow: none !important;
             animation: invalidCheckboxBorderBreath 1.95s cubic-bezier(0.42, 0, 0.2, 1) infinite !important;
         }
@@ -2944,18 +2969,18 @@
                 invalidCheckboxBorderBreath 1.95s cubic-bezier(0.42, 0, 0.2, 1) infinite,
                 checkboxNeedTapFlash 2s cubic-bezier(0.42, 0, 0.2, 1) 1 !important;
             box-shadow:
-                0 0 0 0 rgba(111, 227, 57, 0),
-                0 0 0 rgba(111, 227, 57, 0.5);
+                0 0 0 0 rgba(166, 129, 98, 0),
+                0 0 0 rgba(166, 129, 98, 0.5);
             transform-origin: center;
         }
 
         @keyframes invalidCheckboxBorderBreath {
             0%, 100% {
-                border-color: #67d940;
+                border-color: #8b6f5a;
                 transform: scale(1);
             }
             50% {
-                border-color: #a8fb7f;
+                border-color: #c9a688;
                 transform: scale(1.1);
             }
         }
@@ -2965,43 +2990,43 @@
             100% {
                 transform: scale(1);
                 box-shadow:
-                    0 0 0 0 rgba(111, 227, 57, 0),
-                    0 0 0 rgba(111, 227, 57, 0.4);
+                    0 0 0 0 rgba(166, 129, 98, 0),
+                    0 0 0 rgba(166, 129, 98, 0.4);
             }
             38% {
                 transform: scale(1.1);
                 box-shadow:
-                    0 0 0 0.38rem rgba(111, 227, 57, 0.34),
-                    0 0 1.12rem rgba(111, 227, 57, 0.72);
+                    0 0 0 0.38rem rgba(166, 129, 98, 0.34),
+                    0 0 1.12rem rgba(166, 129, 98, 0.72);
             }
             62% {
                 transform: scale(1.14);
                 box-shadow:
-                    0 0 0 0.5rem rgba(111, 227, 57, 0.4),
-                    0 0 1.45rem rgba(111, 227, 57, 0.86);
+                    0 0 0 0.5rem rgba(166, 129, 98, 0.4),
+                    0 0 1.45rem rgba(166, 129, 98, 0.86);
             }
             80% {
                 transform: scale(1.08);
                 box-shadow:
-                    0 0 0 0.28rem rgba(111, 227, 57, 0.18),
-                    0 0 0.95rem rgba(111, 227, 57, 0.42);
+                    0 0 0 0.28rem rgba(166, 129, 98, 0.18),
+                    0 0 0.95rem rgba(166, 129, 98, 0.42);
             }
         }
 
         #bookingRecaptchaWrap.field-invalid {
-            border: 2px solid #67d940;
+            border: 2px solid #8b6f5a;
             border-radius: 0.8rem;
             padding: 0.45rem 0.45rem 0.2rem;
-            background: rgba(111, 227, 57, 0.08);
+            background: rgba(166, 129, 98, 0.12);
             animation: invalidRecaptchaBorderBreath 1.25s ease-in-out infinite;
         }
 
         @keyframes invalidRecaptchaBorderBreath {
             0%, 100% {
-                border-color: #67d940;
+                border-color: #8b6f5a;
             }
             50% {
-                border-color: #a8fb7f;
+                border-color: #c9a688;
             }
         }
 
@@ -3328,13 +3353,13 @@
         }
 
         .calendar-wrapper {
-            --calendar-glass-surface-rgb: 212, 184, 154;
-            --calendar-glass-tone-rgb: 191, 167, 146;
-            --calendar-glass-border: rgba(139, 111, 90, 0.42);
-            --calendar-glass-shadow-rgb: 58, 42, 29;
-            --calendar-stripe-light-rgb: 212, 184, 154;
-            --calendar-stripe-mid-rgb: 191, 167, 146;
-            --calendar-stripe-dark-rgb: 139, 111, 90;
+            --calendar-glass-surface-rgb: var(--site-bg-light-rgb);
+            --calendar-glass-tone-rgb: var(--site-bg-mid-rgb);
+            --calendar-glass-border: rgba(var(--site-bg-dark-rgb), 0.42);
+            --calendar-glass-shadow-rgb: var(--site-bg-shadow-rgb);
+            --calendar-stripe-light-rgb: var(--site-bg-light-rgb);
+            --calendar-stripe-mid-rgb: var(--site-bg-mid-rgb);
+            --calendar-stripe-dark-rgb: var(--site-bg-dark-rgb);
             --calendar-stripe-text: rgba(255, 247, 238, 0.96);
             background:
                 linear-gradient(12deg, rgba(var(--calendar-stripe-light-rgb), 0.1) 0%, rgba(var(--calendar-stripe-light-rgb), 0.04) 24%, rgba(var(--calendar-stripe-light-rgb), 0) 52%),
@@ -4603,6 +4628,7 @@
             letter-spacing: 0.03em;
             line-height: 1.2;
             opacity: 0.9;
+            color: rgba(var(--modal-design-tone-rgb), 0.95);
             text-transform: uppercase;
         }
 
@@ -4866,9 +4892,9 @@
             text-align: center;
             font-size: 0.86rem;
             font-weight: 700;
-            color: rgba(255, 248, 239, 0.9);
+            color: rgba(var(--modal-design-tone-rgb), 0.92);
             letter-spacing: 0.01em;
-            text-shadow: 0 1px 8px rgba(30, 19, 12, 0.28);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
         }
 
         .form-calendar-overlay__close {
@@ -5021,7 +5047,7 @@
             font-weight: 700;
             line-height: 1.45;
             text-align: left;
-            color: rgba(var(--modal-design-text-rgb), 0.84);
+            color: rgba(var(--modal-design-tone-rgb), 0.86);
             letter-spacing: 0.008em;
             text-shadow: none;
         }
@@ -5323,7 +5349,7 @@
             margin: 0.6rem 0 0.7rem;
             font-size: 0.85rem;
             font-weight: 800;
-            color: rgba(255, 248, 239, 0.92);
+            color: rgba(var(--modal-design-tone-rgb), 0.92);
             text-align: center;
             min-height: 1.05rem;
         }
@@ -5694,21 +5720,21 @@
         /* ------------------- SIMPLIFIED CALENDAR SKIN ------------------- */
         .layout-container #bookingCalendar.calendar-wrapper,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-            --calendar-faq-answer-border: rgba(212, 184, 154, 0.58);
+            --calendar-faq-answer-border: rgba(var(--site-bg-dark-rgb), 0.56);
             --calendar-faq-answer-bg:
-                linear-gradient(180deg, rgba(242, 226, 210, 0.26) 0%, rgba(223, 200, 178, 0.14) 45%, rgba(191, 167, 146, 0.1) 100%),
-                linear-gradient(0deg, rgba(228, 208, 188, 0.1), rgba(228, 208, 188, 0.1)),
-                rgba(191, 167, 146, 0.16);
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.34) 0%, rgba(var(--site-bg-mid-rgb), 0.2) 46%, rgba(var(--site-bg-dark-rgb), 0.14) 100%),
+                linear-gradient(0deg, rgba(var(--site-bg-mid-rgb), 0.14), rgba(var(--site-bg-mid-rgb), 0.14)),
+                rgba(var(--site-bg-mid-rgb), 0.2);
             --calendar-faq-answer-bg-hover:
-                linear-gradient(180deg, rgba(248, 236, 222, 0.34) 0%, rgba(231, 211, 191, 0.2) 45%, rgba(200, 176, 154, 0.13) 100%),
-                linear-gradient(0deg, rgba(236, 219, 201, 0.16), rgba(236, 219, 201, 0.16)),
-                rgba(200, 176, 154, 0.22);
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.46) 0%, rgba(var(--site-bg-mid-rgb), 0.26) 46%, rgba(var(--site-bg-dark-rgb), 0.18) 100%),
+                linear-gradient(0deg, rgba(var(--site-bg-light-rgb), 0.2), rgba(var(--site-bg-light-rgb), 0.2)),
+                rgba(var(--site-bg-mid-rgb), 0.28);
             --calendar-faq-answer-shadow:
-                0 0.22rem 0.68rem rgba(58, 42, 29, 0.14),
-                inset 0 1px 0 rgba(255, 247, 238, 0.54);
+                0 0.22rem 0.68rem rgba(var(--site-bg-shadow-rgb), 0.16),
+                inset 0 1px 0 rgba(255, 247, 238, 0.5);
             --calendar-faq-answer-shadow-hover:
-                0 0.3rem 0.82rem rgba(58, 42, 29, 0.18),
-                inset 0 1px 0 rgba(255, 250, 244, 0.64);
+                0 0.3rem 0.82rem rgba(var(--site-bg-shadow-rgb), 0.22),
+                inset 0 1px 0 rgba(255, 250, 244, 0.62);
             --calendar-faq-answer-radius: 1.08rem;
             background: var(--calendar-faq-answer-bg) !important;
             border: 1px solid var(--calendar-faq-answer-border) !important;
@@ -5771,7 +5797,7 @@
         .slots-grid .slot-btn:focus-visible,
         .slots-grid .slot-btn:active {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            border-color: rgba(212, 184, 154, 0.72) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.72) !important;
             box-shadow: var(--calendar-faq-answer-shadow-hover) !important;
             transform: none !important;
         }
@@ -5791,7 +5817,7 @@
         }
 
         .calendar-grid {
-            background: rgba(236, 219, 201, 0.12) !important;
+            background: rgba(var(--site-bg-light-rgb), 0.14) !important;
             border: none !important;
             box-shadow: none !important;
         }
@@ -5799,12 +5825,12 @@
         .cal-day--selected {
             background: var(--calendar-faq-answer-bg-hover) !important;
             color: rgba(58, 42, 29, 0.98) !important;
-            border: 1px solid rgba(212, 184, 154, 0.8) !important;
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.8) !important;
             font-size: clamp(1.34rem, 2.8vw, 1.56rem) !important;
             font-weight: 800 !important;
             box-shadow:
                 0 0.36rem 0.92rem rgba(58, 42, 29, 0.26),
-                inset 0 1px 0 rgba(212, 184, 154, 0.48) !important;
+                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.5) !important;
             transform: none !important;
         }
 
@@ -5826,7 +5852,7 @@
 
         .cal-day--has-slots {
             background: var(--calendar-faq-answer-bg-hover) !important;
-            border: 1px solid rgba(191, 167, 146, 0.68) !important;
+            border: 1px solid rgba(var(--site-bg-mid-rgb), 0.68) !important;
         }
 
         .cal-day--busy {
@@ -5846,8 +5872,8 @@
             font-size: clamp(1.24rem, 2.5vw, 1.44rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                0 0.3rem 0.86rem rgba(126, 94, 68, 0.34),
-                inset 0 1px 0 rgba(212, 184, 154, 0.42) !important;
+                0 0.3rem 0.86rem rgba(var(--site-bg-shadow-rgb), 0.34),
+                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.42) !important;
             animation: nearestCoffeeGlow 1.7s ease-in-out infinite;
         }
 
@@ -5863,22 +5889,22 @@
             font-size: clamp(1.4rem, 2.95vw, 1.62rem) !important;
             font-weight: 800 !important;
             box-shadow:
-                0 0.38rem 0.98rem rgba(126, 94, 68, 0.38),
-                inset 0 1px 0 rgba(212, 184, 154, 0.5) !important;
+                0 0.38rem 0.98rem rgba(var(--site-bg-shadow-rgb), 0.38),
+                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.5) !important;
         }
 
         @keyframes nearestCoffeeGlow {
             0%, 100% {
                 box-shadow:
-                    0 0.3rem 0.86rem rgba(126, 94, 68, 0.32),
-                    0 0 0.24rem rgba(176, 137, 104, 0.28),
-                    inset 0 1px 0 rgba(212, 184, 154, 0.42);
+                    0 0.3rem 0.86rem rgba(var(--site-bg-shadow-rgb), 0.32),
+                    0 0 0.24rem rgba(var(--site-bg-dark-rgb), 0.34),
+                    inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.42);
             }
             50% {
                 box-shadow:
-                    0 0.38rem 1.02rem rgba(126, 94, 68, 0.42),
-                    0 0 0.54rem rgba(176, 137, 104, 0.52),
-                    inset 0 1px 0 rgba(224, 197, 170, 0.58);
+                    0 0.38rem 1.02rem rgba(var(--site-bg-shadow-rgb), 0.42),
+                    0 0 0.54rem rgba(var(--site-bg-dark-rgb), 0.5),
+                    inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.6);
             }
         }
 
@@ -6221,38 +6247,28 @@
                 opacity: 0;
                 filter: blur(0);
             }
-            8% {
+            10% {
                 opacity: var(--ember-opacity, 0.92);
             }
-            20% {
+            25% {
                 transform: translate3d(var(--ember-drift-1, 0px), var(--ember-rise-1, -130px), 0) scale(0.64);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.94);
-                filter: blur(0.008rem);
-            }
-            36% {
-                transform: translate3d(var(--ember-drift-2, 0px), var(--ember-rise-2, -260px), 0) scale(0.59);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.86);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.9);
                 filter: blur(0.014rem);
             }
-            48% {
-                transform: translate3d(var(--ember-drift-3, 0px), var(--ember-rise-3, -390px), 0) scale(0.53);
+            50% {
+                transform: translate3d(var(--ember-drift-2, 0px), var(--ember-rise-2, -260px), 0) scale(0.59);
                 opacity: calc(var(--ember-opacity, 0.92) * 0.74);
-                filter: blur(0.024rem);
+                filter: blur(0.028rem);
             }
-            68% {
-                transform: translate3d(var(--ember-drift-4, 0px), var(--ember-rise-4, -520px), 0) scale(0.46);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.6);
-                filter: blur(0.034rem);
-            }
-            84% {
-                transform: translate3d(var(--ember-drift-5, 0px), var(--ember-rise-5, -650px), 0) scale(0.38);
-                opacity: calc(var(--ember-opacity, 0.92) * 0.42);
-                filter: blur(0.046rem);
+            75% {
+                transform: translate3d(var(--ember-drift-3, 0px), var(--ember-rise-3, -390px), 0) scale(0.53);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.5);
+                filter: blur(0.042rem);
             }
             100% {
-                transform: translate3d(var(--ember-drift-6, 0px), var(--ember-rise-y, -820px), 0) scale(0.3);
+                transform: translate3d(var(--ember-drift-4, 0px), var(--ember-rise-y, -820px), 0) scale(0.42);
                 opacity: 0;
-                filter: blur(0.055rem);
+                filter: blur(0.056rem);
             }
         }
 
@@ -7926,9 +7942,9 @@
     <!-- <?php /* template-part: hero-header.php */ ?> -->
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
     <div class="header__subtitle dynamic-text" data-i18n="subtitle">Paralegal Services</div>
-    <h1 class="header__description" aria-label="Licensed Paralegal and Notary Public Services Traffic Ticket Defense, LTB, WSIB Matters Toronto, Richmond Hill, Mississauga, London Online meetings are available province-wide +1 (437) 239-6833">
+    <h1 class="header__description" aria-label="Licensed Paralegal and Notary Public Services Traffic Tickets, Provincial Offences, LTB, WSIB, HRTO, and Small Claims Court matters Toronto, Richmond Hill, Mississauga, London Online meetings are available province-wide +1 (437) 239-6833">
         <span data-i18n="desc1">Licensed Paralegal &amp; Notary Public Services</span>
-        <span data-i18n="desc2">Traffic Ticket Defense, LTB, WSIB Matters</span>
+        <span data-i18n="desc2">Traffic Tickets, LTB, WSIB, HRTO, Small Claims</span>
         <span data-i18n="desc3">Toronto, Richmond Hill, Mississauga, London</span>
         <span data-i18n="desc4">Online meetings are available province-wide</span>
         <span class="header__description-phone" data-i18n="desc5"><a href="tel:+14372396833" class="header__phone-link">+1 (437) 239-6833</a></span>
@@ -7961,36 +7977,54 @@
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
                     <h3 class="header__content-subheader">Notary Public</h3>
-                    <p class="header__content-text">Serving as a Commissioner of Oaths in Ontario.</p>
-                    <p class="header__content-text">Notarizing affidavits, statutory declarations, and certified true copies. Preparing consent letters for children travelling abroad, invitation letters for visa applications, or various affidavits, ensuring documents are legally valid for use in Ontario and internationally.</p>
-                    <p class="header__content-text">Addressing the search &mdash; where to get documents notarized Ontario &mdash; with flexible appointment-based notary services.</p>
+                    <p class="header__content-text">"Where can I get a document notarized in Ontario?" is the question people ask when they need a notarial appointment for certified true copies, invitation letters, travel consent letters, or formal declarations, and that intake can begin here once you <span class="services-form-link" onclick="return triggerServiceHeaderBook(event)">click the top BOOK button</span>.</p>
+                    <p class="header__content-text">"Do I need a notary for a travel consent letter in Canada?" usually comes up when a parent wants the wording and signing sequence checked before departure, and that can be reviewed here by <span class="services-form-link" onclick="return triggerServiceAgendaCalendar(event)">opening the agenda calendar below</span> and choosing an appointment date.</p>
+                    <p class="header__content-text">"Can an Ontario notary certify a true copy for immigration, school, or international use?" is the kind of document-screening question clients often want answered before they choose a time, and you can start that review here by <span class="services-form-link" onclick="return openBookingModalWithoutDate(event)">creating a request without a date</span>.</p>
                 </div>
             </li>
 
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
-                    <h3 class="header__content-subheader">WSIB &amp; Workplace Injury Claims</h3>
-                    <p class="header__content-text">Guiding clients injured at work and searching for how to appeal a WSIB decision in Ontario.</p>
-                    <p class="header__content-text">Representing injured workers before the Workplace Safety and Insurance Board and the Workplace Safety and Insurance Appeals Tribunal. Assisting with Form 6 Worker&apos;s Report of Injury, Loss of Earnings (LOE) benefits, Return to Work (RTW) disputes and Non-Economic Loss (NEL) claims.</p>
-                    <p class="header__content-text">Answering &mdash; can a paralegal help with my WSIB claim? &mdash; by fighting to ensure recovery is fully supported under the Workplace Safety and Insurance Act.</p>
+                    <h3 class="header__content-subheader">WSIB &amp; WSIAT Appeals</h3>
+                    <p class="header__content-text">"How do I appeal a WSIB decision in Ontario?" is usually a question about entitlement, loss-of-earnings, NEL, return-to-work findings, medical evidence, or missed objection deadlines, and you can bring that file here when you <span class="services-form-link" onclick="return triggerServiceAgendaSlots(event)">go straight to the visible slots in the agenda</span> and pick a consultation time.</p>
+                    <p class="header__content-text">"Why did WSIB cut off my benefits?" is often asked when benefits stop after a medical review, suitability finding, or work transition dispute, and you can start that consultation here by <span class="services-form-link" onclick="return triggerServiceBookingFormCalendarButton(event)">opening the request form and using the calendar button inside it</span>.</p>
+                    <p class="header__content-text">"Can I take my workplace injury matter from WSIB to the WSIAT?" is a specifically Ontario question when the internal appeal has not resolved the case, and you can request that review here by <span class="services-form-link" onclick="return triggerServiceFooterBook(event)">pressing the BOOK button at the bottom of the site</span> and sending the intake.</p>
                 </div>
             </li>
 
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
-                    <h3 class="header__content-subheader">Traffic Ticket Defense</h3>
-                    <p class="header__content-text">In Ontario, licensed paralegals are authorized to represent clients in Provincial Offences Court for matters under the Highway Traffic Act (HTA).</p>
-                    <p class="header__content-text">Assisting those searching for how to fight a traffic ticket in Ontario. Handling speeding tickets, red light camera tickets, stunt driving charges Ontario, careless driving charges, driving with no insurance, and fail to stop for police. Analyzing the officer&apos;s disclosure, challenging evidence, negotiating with prosecutors, and fighting to reduce demerit points, lower fines, and protect your insurance rates.</p>
-                    <p class="header__content-text">Addressing the common question &mdash; do I need a lawyer for a traffic ticket in Ontario? &mdash; with expert defense in traffic court.</p>
+                    <h3 class="header__content-subheader">Traffic Tickets &amp; Provincial Offences</h3>
+                    <p class="header__content-text">"How do I stop my insurance from going up after a traffic ticket in Ontario?" is a common question after a speeding or Highway Traffic Act charge, and the intake starts here when you <span class="services-form-link" onclick="return triggerServiceBookingForm(event)">open the appointment request form</span>.</p>
+                    <p class="header__content-text">"Is it worth fighting a speeding ticket in Ontario?" is usually really a question about early resolution, disclosure, demerit points, and trial strategy, and you can review the available times here by <span class="services-form-link" onclick="return triggerServiceBookingFormCalendar(event)">opening the quick slot picker from the form</span>.</p>
+                    <p class="header__content-text">"Can I fight a careless driving charge or Provincial Offences summons in Ontario?" is the higher-risk version of that problem, so the strongest starting point here is to <span class="services-form-link" onclick="return triggerServiceBookingFormBrief(event)">open the form and put the details into the Brief field</span> before submitting the request.</p>
                 </div>
             </li>
 
             <li>
                 <div class="header__service-item" style="margin-top: 0;">
                     <h3 class="header__content-subheader">Landlord &amp; Tenant Board (LTB)</h3>
-                    <p class="header__content-text">Ontario paralegals are licensed to represent both landlords and tenants before the Landlord and Tenant Board.</p>
-                    <p class="header__content-text">Providing professional advocacy for those searching for paralegal service for eviction or how to fight an N4 notice in Ontario. Handling N4 notices for non-payment of rent, L1 applications to evict a tenant, N12 notices for landlord&apos;s own use, T2 applications for tenant rights, and T6 applications for maintenance issues. Navigating rent arrears, an illegal lockout, above-guideline rent increases, or an Ontario Standard Lease dispute through strategic advocacy under the Residential Tenancies Act.</p>
-                    <p class="header__content-text">Responding to the frequent search &mdash; can a paralegal represent me at the LTB? &mdash; with qualified representation.</p>
+                    <p class="header__content-text">"How do I respond to an N4 notice in Ontario?" is one of the most time-sensitive LTB questions, whether the next step is payment, negotiation, evidence review, or an L1 response, and you can start here by <span class="services-form-link" onclick="return triggerServiceBookingFormService(event)">opening the form and choosing the service from the list</span>.</p>
+                    <p class="header__content-text">"How do I make my landlord complete repairs or restore services in Ontario?" often leads to T2 or T6 issues under the Residential Tenancies Act, and you can bring that matter here by <span class="services-form-link" onclick="return triggerServiceBookingFormName(event)">opening the request form and starting from the name field</span>.</p>
+                    <p class="header__content-text">"Can a landlord get help with an L1, L2, or N12 file in Ontario?" is another Ontario-specific intake question, and you can start that review here by <span class="services-form-link" onclick="return triggerServiceBookingFormEmail(event)">opening the request form and moving straight to the email field</span> before sending it for screening.</p>
+                </div>
+            </li>
+
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">Human Rights &amp; Workplace Tribunal Matters</h3>
+                    <p class="header__content-text">"Can I file a Human Rights application in Ontario for discrimination or harassment at work, in housing, or in services?" is the core HRTO intake question, and if the workplace context matters from the start you can begin here by <span class="services-form-link" onclick="return triggerServiceBookingFormOccupation(event)">opening the form and starting from the Occupation field</span>.</p>
+                    <p class="header__content-text">"What happens if my HRTO matter goes to mandatory mediation?" became an especially important Ontario question for applications received on or after June 1, 2025, and if you need a quick answer you can use the phone entry point by <a href="tel:+14372396833" class="services-form-link">calling +1 (437) 239-6833</a>.</p>
+                    <p class="header__content-text">"Can I get help before filing Form 1, a Response, or mediation materials at the HRTO?" is the intake question for evidence screening, accommodation records, and settlement positioning, and you can reach out here by <a href="mailto:paralegal@hannadunchenko.com" class="services-form-link">emailing paralegal@hannadunchenko.com</a> if the file needs preliminary review before booking.</p>
+                </div>
+            </li>
+
+            <li>
+                <div class="header__service-item" style="margin-top: 0;">
+                    <h3 class="header__content-subheader">Small Claims Court &amp; Civil Matters</h3>
+                    <p class="header__content-text">"Can I sue for unpaid invoices, property damage, or money owed in Ontario Small Claims Court?" is now tied to the court's $50,000 limit, and you can begin that intake here by <span class="services-form-link" onclick="return triggerServiceBookingFormPhone(event)">opening the form and starting from the Phone field</span>.</p>
+                    <p class="header__content-text">"What if I was served with a Plaintiff&apos;s Claim in Ontario?" is the defendant-side version of the same problem, and if the file needs screening before any date is chosen you can <span class="services-form-link" onclick="return openBookingModalWithoutDate(event)">create a request without a date</span>.</p>
+                    <p class="header__content-text">"Can a paralegal help with settlement conference, defence, default judgment, or collection steps in Small Claims Court?" is a very Ontario-specific civil intake question, and if you want the fastest direct contact you can use the phone number in the footer by <a href="tel:+14372396833" class="services-form-link">calling the office</a>.</p>
                 </div>
             </li>
         </ul>
@@ -8344,12 +8378,12 @@
                                 <span>Choose Service</span>
                             </button>
                             <div class="custom-options">
-                                <div class="custom-option" data-value="public-notary">Public Notary Services</div>
-                                <div class="custom-option" data-value="employment">Employment Law</div>
-                                <div class="custom-option" data-value="civil">Civil matter</div>
-                                <div class="custom-option" data-value="road-record-defense">Traffic Ticket Defense</div>
-                                <div class="custom-option" data-value="wsib">WSIB related issue</div>
-                                <div class="custom-option" data-value="ltb">LTB related issue</div>
+                                <div class="custom-option" data-value="public-notary">Notary Public Services</div>
+                                <div class="custom-option" data-value="employment">Human Rights / Workplace Tribunal</div>
+                                <div class="custom-option" data-value="civil">Small Claims / Civil Matter</div>
+                                <div class="custom-option" data-value="road-record-defense">Traffic Ticket / Provincial Offence</div>
+                                <div class="custom-option" data-value="wsib">WSIB / WSIAT Matter</div>
+                                <div class="custom-option" data-value="ltb">LTB Matter</div>
                                 <div class="custom-option" data-value="other">Other</div>
                             </div>
                         </div>
@@ -8432,7 +8466,8 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <textarea class="contact-form__textarea" id="brief" rows="8" maxlength="3000" placeholder="Brief details about your case area..." name="notes" style="text-align: left;"></textarea>
+                    <label for="brief" class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform:none; letter-spacing:0;">Brief</label>
+                    <textarea class="contact-form__textarea" id="brief" rows="8" maxlength="3000" placeholder="Please list the questions you would like to discuss at the consultation, separated by commas (for example: limitation period, evidence package, settlement options)." name="notes" style="text-align: left;"></textarea>
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem;">
@@ -8497,7 +8532,7 @@
 
                 <div class="modal-sticky-actions">
                     <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
-                        <p class="recaptcha-wrap__hint">Complete reCAPTCHA only when the form asks for it.</p>
+                        <p class="recaptcha-wrap__hint">Complete reCAPTCHA before submitting the form.</p>
                         <div id="bookingRecaptchaWidget"></div>
                     </div>
                     <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Go to highlighted field">
@@ -11159,16 +11194,62 @@
         }
     }
 
+    function normalizeRecaptchaServerCodes(codes) {
+        if (!Array.isArray(codes)) return [];
+        return codes
+            .map((value) => String(value || '').trim().toLowerCase())
+            .filter(Boolean);
+    }
+
+    function isRecaptchaServerFailureCode(errorCode) {
+        const code = String(errorCode || '').trim().toUpperCase();
+        return (
+            code === 'RECAPTCHA_REQUIRED' ||
+            code === 'RECAPTCHA_FAILED' ||
+            code === 'RECAPTCHA_SECRET_MISSING' ||
+            code === 'RECAPTCHA_VERIFY_ERROR'
+        );
+    }
+
+    function resolveRecaptchaServerFailureMessage(result) {
+        const errorCode = String(result && result.error ? result.error : '').trim().toUpperCase();
+        const codes = normalizeRecaptchaServerCodes(result && result.codes);
+
+        if (
+            errorCode === 'RECAPTCHA_SECRET_MISSING' ||
+            codes.includes('secret-missing') ||
+            codes.includes('missing-input-secret') ||
+            codes.includes('invalid-input-secret')
+        ) {
+            return 'reCAPTCHA server secret is not configured correctly.';
+        }
+
+        if (codes.includes('timeout-or-duplicate') || codes.includes('invalid-input-response')) {
+            return 'reCAPTCHA expired or is invalid. Please complete it again.';
+        }
+
+        if (errorCode === 'RECAPTCHA_VERIFY_ERROR' || codes.includes('verify-exception')) {
+            return 'reCAPTCHA verification service is temporarily unavailable. Please retry.';
+        }
+
+        return 'reCAPTCHA verification failed. Please complete it again.';
+    }
+
     function handleBookingRecaptchaExpired() {
         clearBookingRecaptchaToken();
     }
 
     function handleBookingRecaptchaError() {
         clearBookingRecaptchaToken();
+        bookingRecaptchaForceRequired = true;
+        const wrap = getBookingRecaptchaWrap();
+        setBookingRecaptchaVisible(true);
+        if (wrap) wrap.classList.add('field-invalid');
+        setBookingError('reCAPTCHA failed to load. Disable VPN/ad blocker and reload the page.', wrap);
     }
 
     async function ensureTseProbnikCaptcha(isTseProbnikSubmission, isLargeAttachmentSubmission = false) {
-        const recaptchaRequired = Boolean(bookingRecaptchaForceRequired || isTseProbnikSubmission || isLargeAttachmentSubmission);
+        const recaptchaRequired = Boolean(bookingRecaptchaForceRequired || isLargeAttachmentSubmission || !isTseProbnikSubmission);
         if (!recaptchaRequired) {
             setBookingRecaptchaVisible(false);
             clearBookingRecaptchaToken();
@@ -11185,8 +11266,9 @@
         setBookingRecaptchaVisible(true);
         const wrap = getBookingRecaptchaWrap();
         if (wrap) wrap.classList.remove('field-invalid');
+        const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
 
-        if (!RECAPTCHA_SITE_KEY || RECAPTCHA_SITE_KEY === 'YOUR_RECAPTCHA_SITE_KEY') {
+        if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
             setBookingError('reCAPTCHA is not configured. Add your site key first.', wrap);
             return { required: true, passed: false };
         }
@@ -11205,7 +11287,7 @@
             }
             try {
                 bookingRecaptchaWidgetId = window.grecaptcha.render(widgetHost, {
-                    sitekey: RECAPTCHA_SITE_KEY,
+                    sitekey: siteKey,
                     theme: 'light',
                     size: 'normal',
                     callback: handleBookingRecaptchaSolved,
@@ -11729,6 +11811,160 @@
         if (!cameraBtn) return false;
         cameraBtn.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
         return true;
+    }
+
+    function preventServiceCtaDefault(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        return false;
+    }
+
+    function triggerServiceHeaderBook(event) {
+        preventServiceCtaDefault(event);
+        const btn = document.getElementById('headerBookBtn');
+        if (btn) {
+            btn.click();
+            return false;
+        }
+        bookNearestSlot('header');
+        return false;
+    }
+
+    function triggerServiceFooterBook(event) {
+        preventServiceCtaDefault(event);
+        const btn = document.getElementById('footerBookBtn');
+        if (btn) {
+            btn.click();
+            return false;
+        }
+        bookNearestSlot();
+        return false;
+    }
+
+    function triggerServiceAgendaCalendar(event) {
+        preventServiceCtaDefault(event);
+        scrollToCalendar();
+        return false;
+    }
+
+    function triggerServiceAgendaSlots(event) {
+        preventServiceCtaDefault(event);
+        scrollToCalendar();
+        setTimeout(() => {
+            const slotsBlock = document.getElementById('slotsBlock');
+            if (slotsBlock) slotsBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 760);
+        return false;
+    }
+
+    function triggerServiceBookingForm(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        return false;
+    }
+
+    function triggerServiceBookingFormCalendar(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        const openOverlay = () => {
+            if (typeof openFormQuickSlotsOverlay === 'function') openFormQuickSlotsOverlay();
+        };
+        if (modal && modal.classList.contains('modal--active')) {
+            openOverlay();
+            return false;
+        }
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(openOverlay, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormCalendarButton(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        const clickCalendarBtn = () => {
+            const btn = document.getElementById('openCalendarBtn');
+            if (btn) {
+                btn.click();
+                return;
+            }
+            if (typeof openFormQuickSlotsOverlay === 'function') openFormQuickSlotsOverlay();
+        };
+        if (modal && modal.classList.contains('modal--active')) {
+            clickCalendarBtn();
+            return false;
+        }
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(clickCalendarBtn, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormBrief(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const briefField = document.getElementById('brief');
+            if (briefField) focusBookingField(briefField, { smooth: true, highlight: true });
+        }, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormService(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const trigger = document.querySelector('#customSelect .custom-select__trigger');
+            if (trigger) focusBookingField(trigger, { smooth: true, highlight: true, openSelect: true });
+        }, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormName(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const nameField = document.querySelector('#bookingForm input[name="name"]');
+            if (nameField) focusBookingField(nameField, { smooth: true, highlight: true });
+        }, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormOccupation(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const occupationField = document.querySelector('#bookingForm input[name="occupation"]');
+            if (occupationField) focusBookingField(occupationField, { smooth: true, highlight: true });
+        }, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormEmail(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const emailField = document.querySelector('#bookingForm input[name="email"]');
+            if (emailField) focusBookingField(emailField, { smooth: true, highlight: true });
+        }, 320);
+        return false;
+    }
+
+    function triggerServiceBookingFormPhone(event) {
+        preventServiceCtaDefault(event);
+        primeIntakeNoticeSoundFromGesture();
+        requestAnimationFrame(() => openBookingModal(null));
+        setTimeout(() => {
+            const phoneField = document.querySelector('#bookingForm input[name="phone"]');
+            if (phoneField) focusBookingField(phoneField, { smooth: true, highlight: true });
+        }, 320);
+        return false;
     }
 
     function openBookingModalWithoutDate(event) {
@@ -14424,6 +14660,7 @@
                 recaptchaToken: sanitize(recaptchaTokenForBooking),
                 gRecaptchaResponse: sanitize(recaptchaTokenForBooking),
                 recaptcha_token: sanitize(recaptchaTokenForBooking),
+                'g-recaptcha-response': sanitize(recaptchaTokenForBooking),
                 recaptchaRequired: recaptchaRequiredForBooking,
                 recaptcha_required: recaptchaRequiredForBooking,
                 tseProbnikSubmission: isTseProbnikQuickSubmit,
@@ -14483,17 +14720,11 @@
                 if (modal) modal.dataset.state = 'success';
 
                 logEvent('Booking Success', `Client: ${bookingData.name} | Slot: ${bookingData.dateStr || 'UNSPECIFIED'}`);
-            } else if (result.error === 'RECAPTCHA_REQUIRED') {
+            } else if (isRecaptchaServerFailureCode(result.error)) {
                 const recaptchaWrap = getBookingRecaptchaWrap();
                 bookingRecaptchaForceRequired = true;
                 setBookingRecaptchaVisible(true);
-                setBookingError('Please complete reCAPTCHA before submitting.', recaptchaWrap);
-                return;
-            } else if (result.error === 'RECAPTCHA_FAILED') {
-                const recaptchaWrap = getBookingRecaptchaWrap();
-                bookingRecaptchaForceRequired = true;
-                setBookingRecaptchaVisible(true);
-                setBookingError('reCAPTCHA verification failed. Please complete it again.', recaptchaWrap);
+                setBookingError(resolveRecaptchaServerFailureMessage(result), recaptchaWrap);
                 if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
                     try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
                 }
@@ -14783,36 +15014,31 @@
         const ember = document.createElement('span');
         ember.className = 'footer-ember';
         const size = 3.2 + Math.random() * 3.9;
-        const rise = 680 + Math.random() * 440;
-        const rise1 = rise * 0.17;
-        const rise2 = rise * 0.33;
-        const rise3 = rise * 0.52;
-        const rise4 = rise * 0.69;
-        const rise5 = rise * 0.85;
-        const swayCycles = 2.05 + Math.random() * 0.75;
+        const isLowEndDevice =
+            (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) ||
+            (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory > 0 && navigator.deviceMemory <= 4);
+        const rise = isLowEndDevice ? 760 : 920;
+        const rise1 = rise * 0.25;
+        const rise2 = rise * 0.5;
+        const rise3 = rise * 0.75;
+        const swayCycles = 1.55 + Math.random() * 0.45;
         const swayPhase = Math.random() * Math.PI * 2;
-        const swayAmp = 12 + Math.random() * 16;
-        const swaySeed = (Math.random() - 0.5) * 5.2;
-        const windLean = (Math.random() - 0.5) * (8 + Math.random() * 9);
-        const microPhase = Math.random() * Math.PI * 2;
-        const microAmp = 0.9 + Math.random() * 1.3;
+        const swayAmp = 8 + Math.random() * 10;
+        const swaySeed = (Math.random() - 0.5) * 4.6;
+        const windLean = (Math.random() - 0.5) * 7.5;
         const driftAt = (t) => {
             const safeT = Math.max(0, Math.min(1, Number(t) || 0));
-            const damp = Math.max(0.25, 1 - safeT * 0.72);
-            const sway = Math.sin(swayPhase + safeT * swayCycles * Math.PI * 2) * swayAmp * damp;
-            const micro = Math.sin(microPhase + safeT * Math.PI * 6) * microAmp * Math.max(0.35, 1 - safeT * 0.55);
-            return swaySeed + (windLean * safeT) + sway + micro;
+            const sway = Math.sin(swayPhase + safeT * swayCycles * Math.PI * 2) * swayAmp;
+            return swaySeed + (windLean * safeT) + sway;
         };
-        const drift1 = driftAt(0.2);
-        const drift2 = driftAt(0.36);
-        const drift3 = driftAt(0.48);
-        const drift4 = driftAt(0.68);
-        const drift5 = driftAt(0.84);
-        const drift6 = driftAt(1);
-        const durationMs = 5200 + Math.random() * 1800;
-        const opacity = 0.58 + Math.random() * 0.12;
+        const drift1 = driftAt(0.25);
+        const drift2 = driftAt(0.5);
+        const drift3 = driftAt(0.75);
+        const drift4 = driftAt(1);
+        const durationMs = isLowEndDevice ? 9300 : 8600;
+        const opacity = 0.62;
         const leftPercent = 6 + Math.random() * 88;
-        const startDelayMs = 45 + Math.random() * 360;
+        const startDelayMs = 0;
 
         ember.style.left = `${leftPercent.toFixed(2)}%`;
         ember.style.setProperty('--ember-size', `${size.toFixed(2)}px`);
@@ -14820,14 +15046,10 @@
         ember.style.setProperty('--ember-rise-1', `${(-rise1).toFixed(1)}px`);
         ember.style.setProperty('--ember-rise-2', `${(-rise2).toFixed(1)}px`);
         ember.style.setProperty('--ember-rise-3', `${(-rise3).toFixed(1)}px`);
-        ember.style.setProperty('--ember-rise-4', `${(-rise4).toFixed(1)}px`);
-        ember.style.setProperty('--ember-rise-5', `${(-rise5).toFixed(1)}px`);
         ember.style.setProperty('--ember-drift-1', `${drift1.toFixed(1)}px`);
         ember.style.setProperty('--ember-drift-2', `${drift2.toFixed(1)}px`);
         ember.style.setProperty('--ember-drift-3', `${drift3.toFixed(1)}px`);
         ember.style.setProperty('--ember-drift-4', `${drift4.toFixed(1)}px`);
-        ember.style.setProperty('--ember-drift-5', `${drift5.toFixed(1)}px`);
-        ember.style.setProperty('--ember-drift-6', `${drift6.toFixed(1)}px`);
         ember.style.setProperty('--ember-duration', `${Math.round(durationMs)}ms`);
         ember.style.setProperty('--ember-delay', `${Math.round(startDelayMs)}ms`);
         ember.style.setProperty('--ember-opacity', opacity.toFixed(2));
