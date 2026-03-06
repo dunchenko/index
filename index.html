@@ -1067,12 +1067,10 @@
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
-            border-color: rgba(212, 184, 154, 0.94) !important;
-            background:
-                linear-gradient(180deg, rgba(212, 184, 154, 0.3) 0%, rgba(139, 111, 90, 0.52) 100%),
-                rgba(var(--modal-design-tone-rgb), 0.82) !important;
+            border-color: rgba(var(--modal-design-tone-rgb), 0.92) !important;
+            background: #ffffff !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 245, 232, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
                 0 0 0 0 rgba(212, 184, 154, 0);
             transition:
                 border-color 180ms ease,
@@ -1087,13 +1085,11 @@
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked {
-            background:
-                linear-gradient(180deg, rgba(212, 184, 154, 0.36) 0%, rgba(139, 111, 90, 0.68) 100%),
-                rgba(var(--modal-design-tone-rgb), 0.95) !important;
-            border-color: rgba(255, 246, 235, 0.96) !important;
+            background: rgb(var(--modal-design-tone-rgb)) !important;
+            border-color: rgb(var(--modal-design-tone-rgb)) !important;
             box-shadow:
-                inset 0 0 0 1px rgba(255, 246, 235, 0.24),
-                0 0 0 1px rgba(212, 184, 154, 0.28) !important;
+                inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+                0 0 0 1px rgba(139, 111, 90, 0.18) !important;
         }
 
         /* Terms checkbox must stay flat: no glow/flash that can overlap sticky fades. */
@@ -1108,9 +1104,9 @@
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
             outline: none !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 246, 235, 0.34),
-                0 0 0 2px rgba(212, 184, 154, 0.72),
-                0 0 0 4px rgba(139, 111, 90, 0.28) !important;
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.72),
+                0 0 0 4px rgba(139, 111, 90, 0.24) !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms.checkbox-need-tap-flash .contact-form__checkbox {
@@ -1283,6 +1279,17 @@
             pointer-events: auto !important;
             touch-action: manipulation;
             white-space: normal;
+        }
+
+        #confirmBookingBtn:disabled,
+        #confirmBookingBtn[aria-disabled="true"] {
+            background: rgba(255, 255, 255, 0.72) !important;
+            border-color: rgba(255, 255, 255, 0.72) !important;
+            color: rgba(var(--modal-design-tone-rgb), 0.62) !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+            box-shadow: none !important;
+            opacity: 0.88;
         }
         
         .contact-form__submit-button:hover { 
@@ -1980,11 +1987,6 @@
             pointer-events: auto !important;
         }
 
-        #bookingModal .modal-sticky-actions .booking-scroll-cue {
-            order: 2;
-            z-index: 2;
-        }
-
         #bookingModal .modal-sticky-actions .booking-status-slot {
             order: 3;
         }
@@ -2003,17 +2005,28 @@
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
+            --booking-sticky-inline-size: min(calc(100% - 1.2rem), 37.5rem);
             position: sticky;
             bottom: 0;
             width: 100%;
             box-sizing: border-box;
             display: grid;
             justify-items: center;
+            place-items: center;
             align-content: end;
             gap: 0.18rem;
             padding-bottom: 0.32rem;
             overflow: visible;
             overscroll-behavior: none;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions > * {
+            width: var(--booking-sticky-inline-size);
+            max-width: 100%;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            justify-self: center !important;
+            align-self: center !important;
         }
 
         #bookingModal #hearAboutInput {
@@ -2024,21 +2037,14 @@
             margin-bottom: 0;
         }
 
-        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #bookingRecaptchaWrap,
-        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
-        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
-            width: min(calc(100% - 1.2rem), 37.5rem);
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-
         #bookingModal[data-state="form"] #bookingForm .booking-status-slot {
-            width: min(calc(100% - 1.2rem), 37.5rem);
+            width: var(--booking-sticky-inline-size);
             min-height: clamp(3.3rem, 6.2vh, 4.2rem);
             margin: 0 auto 0.78rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            justify-self: center;
         }
 
         #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn {
@@ -2345,11 +2351,16 @@
             width: min(calc(100% - 1.2rem), 37.5rem);
             margin-left: auto !important;
             margin-right: auto !important;
+            justify-self: center !important;
+        }
+
+        #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .modal-sticky-actions {
+            --booking-sticky-inline-size: min(calc(100% - 1.2rem), 37.5rem);
         }
 
         #bookingModal.booking-modal--flat .modal-sticky-actions .booking-status-slot,
         #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .booking-status-slot {
-            width: min(calc(100% - 1.2rem), 37.5rem);
+            width: var(--booking-sticky-inline-size);
             min-height: 0;
             margin: 0 auto;
             display: flex;
@@ -2754,6 +2765,8 @@
             width: 100%;
             max-width: min(100%, 37.5rem);
             margin: 0 auto !important;
+            align-self: center;
+            justify-self: center;
             padding: 0;
             border-radius: 0.8rem;
             border: 1px solid transparent;
@@ -2804,13 +2817,13 @@
         }
 
         #bookingStatus.status-alert--warning {
-            --booking-status-fg: rgba(var(--modal-design-tone-rgb), 0.98);
+            --booking-status-fg: rgba(255, 255, 255, 0.98);
             --booking-status-border: rgba(var(--booking-status-accent-rgb), 1);
             --booking-status-bg: rgba(var(--booking-status-accent-soft-rgb), 0.95);
         }
 
         #bookingStatus.status-alert--error {
-            --booking-status-fg: rgba(var(--modal-design-tone-rgb), 0.98);
+            --booking-status-fg: rgba(255, 255, 255, 0.98);
             --booking-status-border: rgba(var(--booking-status-error-rgb), 0.98);
             --booking-status-bg: rgba(var(--booking-status-error-rgb), 0.92);
         }
@@ -2824,148 +2837,6 @@
             outline: 2px solid rgba(255, 255, 255, 0.92);
             outline-offset: 2px;
         }
-
-        .booking-scroll-cue {
-            --booking-cue-rose-brown: var(--booking-cue-primary-rgb);
-            --booking-cue-rose-soft: var(--booking-cue-soft-rgb);
-            --booking-cue-brown-deep: var(--modal-design-tone-rgb);
-            width: min(calc(100vw - 2.4rem), 34rem);
-            margin: 0;
-            text-align: center;
-            pointer-events: none;
-            user-select: none;
-            line-height: 1;
-            transform: translate(-50%, 0.55rem);
-            position: fixed;
-            left: 50%;
-            bottom: max(0.85rem, env(safe-area-inset-bottom));
-            z-index: 24000;
-            display: grid;
-            justify-items: center;
-            gap: 0.45rem;
-            opacity: 0;
-            visibility: hidden;
-            padding: 0.7rem 0.9rem 0.82rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: linear-gradient(180deg, rgba(60, 39, 24, 0.9) 0%, rgba(90, 61, 42, 0.94) 100%);
-            box-shadow: 0 0.9rem 2.2rem rgba(30, 19, 12, 0.3);
-            transition: opacity 220ms ease, visibility 220ms ease, filter 280ms ease, transform 220ms ease;
-        }
-
-        .booking-scroll-cue.booking-scroll-cue--visible {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            cursor: pointer;
-            transform: translate(-50%, 0);
-        }
-
-        .booking-scroll-cue__text {
-            color: rgba(255, 255, 255, 0.97);
-            font-size: 0.85rem;
-            font-weight: 700;
-            line-height: 1.45;
-            letter-spacing: 0.01em;
-            text-wrap: balance;
-        }
-
-        .booking-scroll-cue__chevrons {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .booking-scroll-cue__chevrons span {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 0.95rem;
-            height: 0.95rem;
-            margin: 0 0.14rem;
-            color: rgba(var(--booking-cue-rose-brown), 0.94);
-            font-size: 0;
-            opacity: 0.96;
-            text-shadow: 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.38), 0 0 10px rgba(var(--booking-cue-rose-soft), 0.56);
-            animation: bookingScrollChevronRainbow 1.2s cubic-bezier(0.2, 0.65, 0.2, 1) infinite;
-            will-change: transform, color, opacity, text-shadow;
-            transform-origin: 50% 50%;
-        }
-
-        .booking-scroll-cue__chevrons span::before {
-            content: "";
-            width: 0.95rem;
-            height: 0.95rem;
-            background-color: currentColor;
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            -webkit-mask-size: 100% 100%;
-            mask-repeat: no-repeat;
-            mask-position: center;
-            mask-size: 100% 100%;
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        }
-
-        .booking-scroll-cue__chevrons span:nth-child(2) {
-            animation-delay: 0.16s;
-        }
-
-        .booking-scroll-cue__chevrons span:nth-child(3) {
-            animation-delay: 0.32s;
-        }
-
-        @keyframes bookingScrollChevronRainbow {
-            0% {
-                transform: translateY(-1px) scale(0.97);
-                color: rgba(var(--booking-cue-rose-brown), 0.7);
-                opacity: 0.62;
-                text-shadow: 0 0 8px rgba(var(--booking-cue-rose-soft), 0.42), 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.24);
-            }
-            15% {
-                transform: translateY(0px) scale(1);
-                color: rgba(var(--booking-cue-rose-soft), 0.96);
-                opacity: 1;
-                text-shadow: 0 0 16px rgba(var(--booking-cue-rose-soft), 0.84), 0 0 8px rgba(var(--booking-cue-rose-brown), 0.56);
-            }
-            25% {
-                transform: translateY(1px) scale(1.03);
-                color: rgba(var(--booking-cue-rose-brown), 0.9);
-                opacity: 0.96;
-                text-shadow: 0 0 12px rgba(var(--booking-cue-rose-soft), 0.7), 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.22);
-            }
-            50% {
-                transform: translateY(3px) scale(1.05);
-                color: rgba(var(--booking-cue-rose-soft), 1);
-                opacity: 1;
-                text-shadow: 0 0 18px rgba(var(--booking-cue-rose-soft), 0.9), 0 0 8px rgba(var(--booking-cue-rose-brown), 0.6);
-            }
-            62% {
-                transform: translateY(4px) scale(1.03);
-                color: rgba(var(--booking-cue-rose-brown), 0.92);
-                opacity: 0.95;
-                text-shadow: 0 0 12px rgba(var(--booking-cue-rose-soft), 0.68), 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.24);
-            }
-            75% {
-                transform: translateY(5px) scale(1.02);
-                color: rgba(var(--booking-cue-rose-brown), 0.84);
-                opacity: 0.92;
-                text-shadow: 0 0 10px rgba(var(--booking-cue-rose-soft), 0.6), 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.2);
-            }
-            88% {
-                transform: translateY(5px) scale(1);
-                color: rgba(var(--booking-cue-rose-soft), 0.95);
-                opacity: 0.98;
-                text-shadow: 0 0 16px rgba(var(--booking-cue-rose-soft), 0.84), 0 0 7px rgba(var(--booking-cue-rose-brown), 0.52);
-            }
-            100% {
-                transform: translateY(6px) scale(0.97);
-                color: rgba(var(--booking-cue-rose-brown), 0.72);
-                opacity: 0.62;
-                text-shadow: 0 0 8px rgba(var(--booking-cue-rose-soft), 0.46), 0 1px 0 rgba(var(--booking-cue-brown-deep), 0.24);
-            }
-        }
-
         .contact-form__input.field-invalid,
         .contact-form__textarea.field-invalid,
         .custom-select__trigger.field-invalid {
@@ -4667,7 +4538,7 @@
             font-size: 1.02rem;
             font-weight: 800;
             letter-spacing: 0.03em;
-            text-transform: uppercase;
+            text-transform: none;
             line-height: 1.15;
             display: inline-flex;
             align-items: center;
@@ -7621,10 +7492,12 @@
             #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__checkbox-wrapper,
             #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions .contact-form__submit-button {
                 width: min(calc(100% - 1.6rem), 22rem) !important;
+                justify-self: center !important;
             }
 
-            .booking-scroll-cue {
-                width: min(calc(100vw - 2.8rem), 22rem) !important;
+            #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions {
+                --booking-sticky-inline-size: min(calc(100% - 1.6rem), 22rem);
+                place-items: center;
             }
 
             .booking-row--address-main,
@@ -8469,7 +8342,7 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="tel" class="contact-form__input" placeholder="Phone" name="phone" required maxlength="20" autocomplete="tel" inputmode="tel" spellcheck="false">
+                    <input type="tel" class="contact-form__input" placeholder="Phone (10 digits)" name="phone" required maxlength="18" autocomplete="tel-national" inputmode="numeric" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
@@ -8529,7 +8402,7 @@
                     
                     <!-- File Attachment moved under Brief Case Area -->
                     <div class="file-attach" style="margin-top: 15px; padding: 12px; background: rgba(255, 255, 255, 0.05); border-radius: 0.8rem;">
-                        <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center;">Attach Files</label>
+                        <label class="contact-form__label" style="display:block; margin-bottom:8px; color:var(--text-white); text-align: center; text-transform: none; letter-spacing: 0.01em;">Attach Files</label>
                         <input type="file" id="fileAttachInput" multiple accept="image/*,video/*,.pdf,.doc,.docx" style="display: none;">
                         <input type="file" id="cameraFallbackInput" accept="image/*" capture="environment" style="display: none;">
                         <div class="file-attach__controls" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch;">
@@ -8592,10 +8465,6 @@
                     <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
                         <p class="recaptcha-wrap__hint">Protected by Google reCAPTCHA.</p>
                     </div>
-                    <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Scroll down to continue the form">
-                        <div class="booking-scroll-cue__text">Required: Name, Phone, DOB, Age. Recommended: service, email, address details, brief, deadline, files, and terms.</div>
-                        <div class="booking-scroll-cue__chevrons"><span>?</span><span>?</span><span>?</span></div>
-                    </div>
                     <div class="booking-status-slot">
                         <button type="button" id="bookingStatus" aria-live="polite" aria-atomic="true" tabindex="-1" aria-disabled="true"></button>
                     </div>
@@ -8641,7 +8510,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXtSghE-QkhYnbtAaYrcUNCl97TGtR5E5FHkJox0tbGthXKDZwfuNqrpEBspFS-7NWBw/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyMiBhsuCtP8EoCdf5PV6DNQAKksZbNIY5tRt0b1y12p_Btf5poxgbgrJE9cIQbzlD27Q/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
@@ -10652,16 +10521,11 @@
         if (bookingFormEl && !bookingFormEl.dataset.actionHintSyncBound) {
             bookingFormEl.dataset.actionHintSyncBound = '1';
             const syncActionHintOnInput = () => {
-                syncBookingScrollCueVisibility();
+                updateBookingNoticeActionState();
+                updateBookingSubmitAvailability(bookingFormEl);
             };
             bookingFormEl.addEventListener('input', syncActionHintOnInput);
             bookingFormEl.addEventListener('change', syncActionHintOnInput);
-        }
-        const bookingModalBodyEl = modal ? modal.querySelector('.modal__body') : null;
-        if (bookingModalBodyEl && !bookingModalBodyEl.dataset.scrollCueBound) {
-            bookingModalBodyEl.dataset.scrollCueBound = '1';
-            bookingModalBodyEl.addEventListener('scroll', () => syncBookingScrollCueVisibility(), { passive: true });
-            window.addEventListener('resize', () => syncBookingScrollCueVisibility(), { passive: true });
         }
         const bookingNameInputEl = bookingFormEl ? bookingFormEl.querySelector('input[name="name"]') : null;
         if (bookingNameInputEl && !bookingNameInputEl.dataset.xBindP7) {
@@ -10669,6 +10533,7 @@
             bookingNameInputEl.addEventListener('input', () => m1Queue(320));
             bookingNameInputEl.addEventListener('blur', () => m1Sync());
         }
+        initPhoneInputBehavior();
         const confirmBookingBtnEl = document.getElementById('confirmBookingBtn');
         if (bookingFormEl && confirmBookingBtnEl && !confirmBookingBtnEl.dataset.submitBound) {
             confirmBookingBtnEl.dataset.submitBound = '1';
@@ -10692,8 +10557,11 @@
                 if (termsWrap) termsWrap.classList.remove('field-invalid');
                 if (termsWrap) termsWrap.classList.remove('checkbox-need-tap-flash');
                 if (modalBody) modalBody.scrollTop = modalBody.scrollHeight;
+                updateBookingNoticeActionState();
+                updateBookingSubmitAvailability(bookingFormEl);
             });
         }
+        updateBookingSubmitAvailability(bookingFormEl);
 
         normalizeSlotNotFoundText();
         const preloaderTextObserver = new MutationObserver(() => normalizeSlotNotFoundText());
@@ -10810,7 +10678,6 @@
     const modal = document.getElementById('bookingModal');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
-    const bookingScrollCue = document.querySelector('#bookingModal .booking-scroll-cue');
     const confirmBtn = document.getElementById('confirmBookingBtn');
     const TSE_PROBNIK_HOLD_MS = 8000;
     let tseProbnikModeEnabled = false;
@@ -10955,31 +10822,6 @@
                     target: bookingFormEl
                 });
             }
-        });
-    }
-
-    if (bookingScrollCue && bookingScrollCue.dataset.actionBound !== '1') {
-        bookingScrollCue.dataset.actionBound = '1';
-        bookingScrollCue.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (bookingStatus && bookingStatus.classList.contains('status-alert--actionable')) {
-                triggerBookingStatusAction();
-                return;
-            }
-            const modalBody = modal ? modal.querySelector('.modal__body') : null;
-            if (!modalBody) return;
-            modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
-        });
-        bookingScrollCue.addEventListener('keydown', (event) => {
-            if (event.key !== 'Enter' && event.key !== ' ') return;
-            event.preventDefault();
-            if (bookingStatus && bookingStatus.classList.contains('status-alert--actionable')) {
-                triggerBookingStatusAction();
-                return;
-            }
-            const modalBody = modal ? modal.querySelector('.modal__body') : null;
-            if (!modalBody) return;
-            modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
         });
     }
 
@@ -11447,24 +11289,6 @@
         return text.replace(/\.+$/, '');
     }
 
-    function setBookingScrollCueVisible(visible) {
-        if (!bookingScrollCue) return;
-        const shouldShow = !!visible;
-        bookingScrollCue.classList.toggle('booking-scroll-cue--visible', shouldShow);
-        bookingScrollCue.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
-        bookingScrollCue.setAttribute('aria-disabled', shouldShow ? 'false' : 'true');
-        bookingScrollCue.tabIndex = shouldShow ? 0 : -1;
-    }
-
-    function shouldShowBookingScrollCueForScroll() {
-        if (!modal || !modal.classList.contains('modal--active') || modal.dataset.state !== 'form') return false;
-        const modalBody = modal.querySelector('.modal__body');
-        if (!modalBody) return false;
-        const maxScrollTop = Math.max(0, modalBody.scrollHeight - modalBody.clientHeight);
-        if (maxScrollTop <= 24) return false;
-        return modalBody.scrollTop < (maxScrollTop - 24);
-    }
-
     function resolveLiveBookingActionTarget() {
         const resolvedTarget = resolveBookingActionField(bookingStatusActionTarget);
         if (!resolvedTarget || !document.body.contains(resolvedTarget)) {
@@ -11479,9 +11303,8 @@
         return resolvedTarget;
     }
 
-    function syncBookingScrollCueVisibility() {
+    function updateBookingNoticeActionState() {
         if (!bookingStatus) {
-            setBookingScrollCueVisible(false);
             return;
         }
         const actionTarget = resolveLiveBookingActionTarget();
@@ -11495,12 +11318,6 @@
             bookingStatus.tabIndex = -1;
             bookingStatus.setAttribute('aria-disabled', 'true');
         }
-        const hasActionHint =
-            bookingStatus.classList.contains('status-alert--visible') &&
-            actionable &&
-            (bookingStatus.classList.contains('status-alert--warning')
-                || bookingStatus.classList.contains('status-alert--error'));
-        setBookingScrollCueVisible(hasActionHint || shouldShowBookingScrollCueForScroll());
     }
 
     function setBookingNoticeActionTarget(targetEl = null) {
@@ -11525,7 +11342,7 @@
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
         }
         setBookingNoticeActionTarget(bookingStatus.textContent ? actionTarget : null);
-        syncBookingScrollCueVisibility();
+        updateBookingNoticeActionState();
     }
 
     function setBookingWarning(message, actionTarget = null) {
@@ -12270,7 +12087,6 @@
             document.querySelectorAll('.field-invalid').forEach(el => el.classList.remove('field-invalid'));
             resetBookingRecaptchaUi();
             if(confirmBtn) {
-                confirmBtn.disabled = false;
                 confirmBtn.textContent = getConfirmBtnLabel();
             }
             
@@ -12313,7 +12129,10 @@
                 }, 800);
             }
 
-            requestAnimationFrame(() => syncBookingScrollCueVisibility());
+            requestAnimationFrame(() => {
+                updateBookingNoticeActionState();
+                updateBookingSubmitAvailability(form);
+            });
 
             // Start live testText logging (Debounced on-demand saving)
             const form = document.querySelector('#bookingForm');
@@ -12444,7 +12263,6 @@
         syncGlobalModalScrollLock();
         focusCameraButtonOnBookingOpen = false;
         resetBookingRecaptchaUi();
-        setBookingScrollCueVisible(false);
         clearTimeout(cameraButtonGlowTimer);
         const cameraBtn = document.getElementById('takePhotoBtn');
         bookingWithoutSpecificDate = false;
@@ -13615,7 +13433,10 @@
             if (data.name) form.name.value = data.name;
             if (data.occupation && form.occupation) form.occupation.value = data.occupation;
             if (data.email) form.email.value = data.email;
-            if (data.phone) form.phone.value = data.phone;
+            if (data.phone) {
+                const normalizedPhone = normalizeBookingPhoneValue(data.phone);
+                form.phone.value = normalizedPhone.valid ? normalizedPhone.formatted : data.phone;
+            }
             if (data.hear_about && form.hear_about) form.hear_about.value = data.hear_about;
             if (data.address_unit && form.address_unit) form.address_unit.value = data.address_unit;
             if (data.address_street && form.address_street) form.address_street.value = data.address_street;
@@ -13645,6 +13466,7 @@
             }
 
             initAutoGrowTextareas();
+            updateBookingSubmitAvailability(form);
         } catch (err) {
             console.warn('Could not load form data:', err);
         }
@@ -13699,6 +13521,181 @@
 
     function normalizeMultiLine(value) {
         return String(value || '').replace(/\r\n/g, '\n').replace(/[ \t]+\n/g, '\n').trim();
+    }
+
+    function normalizeBookingPostalCode(value) {
+        const compact = normalizeSingleLine(value).toUpperCase().replace(/\s+/g, '');
+        if (compact.length !== 6) return compact;
+        return `${compact.slice(0, 3)} ${compact.slice(3)}`;
+    }
+
+    function isValidBookingPostalCode(value) {
+        const compact = normalizeSingleLine(value).toUpperCase().replace(/\s+/g, '');
+        const postalPattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\d[ABCEGHJ-NPRSTVWXYZ]\d$/;
+        return postalPattern.test(compact);
+    }
+
+    function normalizeBookingPhoneDigits(value) {
+        let digits = String(value || '').replace(/\D/g, '');
+        if (digits.length === 11 && digits.startsWith('1')) {
+            digits = digits.slice(1);
+        }
+        return digits.slice(0, 10);
+    }
+
+    function formatBookingPhoneDigits(digits) {
+        const normalized = normalizeBookingPhoneDigits(digits);
+        if (normalized.length !== 10) return String(digits || '').trim();
+        const area = normalized.slice(0, 3);
+        const prefix = normalized.slice(3, 6);
+        const line = normalized.slice(6);
+        return `(${area}) ${prefix}-${line}`;
+    }
+
+    function normalizeBookingPhoneValue(rawValue) {
+        const original = normalizeSingleLine(rawValue);
+        const digits = normalizeBookingPhoneDigits(original);
+        const valid = digits.length === 10;
+        return {
+            raw: original,
+            digits,
+            valid,
+            formatted: valid ? formatBookingPhoneDigits(digits) : original
+        };
+    }
+
+    function getBookingRequiredValidationState(form) {
+        if (!form) {
+            return { valid: false, field: null, message: '', zip: '' };
+        }
+
+        const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
+        const termsWrap = form.querySelector('.contact-form__checkbox-wrapper.file-attach__terms')
+            || document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
+
+        const name = normalizeSingleLine(form.name?.value);
+        const occupation = normalizeSingleLine(form.occupation?.value);
+        const phoneNormalized = normalizeBookingPhoneValue(form.phone?.value);
+        const street = normalizeSingleLine(form.address_street?.value);
+        const city = normalizeSingleLine(form.address_city?.value);
+        const zip = normalizeBookingPostalCode(form.address_zip?.value);
+        const ageValue = normalizeSingleLine(form.age?.value);
+        const dobYear = Number.parseInt(String(form.dob_year?.value || '').trim(), 10);
+        const dobMonth = Number.parseInt(String(form.dob_month?.value || '').trim(), 10);
+        const dobDay = Number.parseInt(String(form.dob_day?.value || '').trim(), 10);
+        const currentYear = new Date().getFullYear();
+
+        if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
+            return { valid: false, field: form.name, message: 'Please enter your full name.', zip };
+        }
+        if (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation)) {
+            return { valid: false, field: form.occupation, message: 'Please enter a valid occupation.', zip };
+        }
+        if (!phoneNormalized.valid) {
+            return { valid: false, field: form.phone, message: 'Please enter a 10-digit phone number. You do not need +1, brackets, or dashes.', zip };
+        }
+        if (street.length < 2 || street.length > 150 || /[<>]/.test(street)) {
+            return { valid: false, field: form.address_street, message: 'Please enter a valid street address.', zip };
+        }
+        if (!city || !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+            return { valid: false, field: cityTrigger || form.address_city, message: 'Please choose a city from the Ontario list.', zip };
+        }
+        if (!isValidBookingPostalCode(zip)) {
+            return { valid: false, field: form.address_zip, message: 'Please enter a valid postal code.', zip };
+        }
+        if (!ageValue) {
+            return { valid: false, field: form.age, message: 'Please enter AGE.', zip };
+        }
+        if (!/^\d{1,3}$/.test(ageValue)) {
+            return { valid: false, field: form.age, message: 'Please enter AGE using digits only.', zip };
+        }
+        if (!Number.isInteger(dobYear) || dobYear < 1900 || dobYear > currentYear) {
+            return { valid: false, field: form.dob_year, message: 'Please enter a valid birth year.', zip };
+        }
+        if (!Number.isInteger(dobMonth) || dobMonth < 1 || dobMonth > 12) {
+            return { valid: false, field: form.dob_month, message: 'Please enter a valid birth month.', zip };
+        }
+        const maxDobDays = new Date(dobYear, dobMonth, 0).getDate();
+        if (!Number.isInteger(dobDay) || dobDay < 1 || dobDay > maxDobDays) {
+            return { valid: false, field: form.dob_day, message: 'Please enter a valid birth day.', zip };
+        }
+        const calculatedAge = calculateAgeFromDobParts(dobYear, dobMonth, dobDay);
+        if (calculatedAge === null) {
+            return { valid: false, field: form.dob_day, message: 'Invalid date of birth. Please check the day and month.', zip };
+        }
+        if (Number.parseInt(ageValue, 10) !== calculatedAge) {
+            return { valid: false, field: form.age, message: 'AGE must match date of birth.', zip };
+        }
+        if (calculatedAge < 18) {
+            return { valid: false, field: form.dob_year, message: 'You must be at least 18 years old to book services.', zip };
+        }
+        if (form.agreeTerms?.checked !== true) {
+            return { valid: false, field: termsWrap || form.agreeTerms, message: 'Please agree to Terms and Privacy Policy.', zip };
+        }
+
+        return { valid: true, field: null, message: '', zip };
+    }
+
+    function updateBookingSubmitAvailability(form = document.getElementById('bookingForm')) {
+        if (!confirmBtn) return false;
+        const canSubmit = Boolean(
+            form && (isTseProbnikBypassReady(form) || getBookingRequiredValidationState(form).valid)
+        );
+        confirmBtn.disabled = !canSubmit;
+        confirmBtn.setAttribute('aria-disabled', canSubmit ? 'false' : 'true');
+        confirmBtn.title = canSubmit ? '' : 'Complete all required fields to enable booking.';
+        return canSubmit;
+    }
+
+    function initPhoneInputBehavior() {
+        const form = document.getElementById('bookingForm');
+        const phoneInput = form?.phone;
+        if (!phoneInput || phoneInput.dataset.phoneBehaviorBound === '1') return;
+
+        const syncPhoneValidity = () => {
+            const normalized = normalizeBookingPhoneValue(phoneInput.value);
+            if (!normalized.raw) {
+                phoneInput.setCustomValidity('');
+                return normalized;
+            }
+            phoneInput.setCustomValidity(
+                normalized.valid
+                    ? ''
+                    : 'Please enter a 10-digit phone number. You do not need +1, brackets, or dashes.'
+            );
+            return normalized;
+        };
+
+        const applyPhoneFormatting = () => {
+            const normalized = syncPhoneValidity();
+            if (!normalized.raw) {
+                phoneInput.value = '';
+                return;
+            }
+            if (normalized.valid) {
+                phoneInput.value = normalized.formatted;
+            }
+        };
+
+        phoneInput.addEventListener('input', () => {
+            const rawDigits = String(phoneInput.value || '').replace(/\D/g, '');
+            let nextDigits = rawDigits;
+            if (rawDigits.length > 10 && rawDigits.startsWith('1')) {
+                nextDigits = rawDigits.slice(1);
+            }
+            phoneInput.value = nextDigits.slice(0, 10);
+            syncPhoneValidity();
+        });
+
+        phoneInput.addEventListener('focus', () => {
+            const normalized = normalizeBookingPhoneValue(phoneInput.value);
+            if (normalized.valid) {
+                phoneInput.value = normalized.digits;
+            }
+        });
+        phoneInput.addEventListener('blur', applyPhoneFormatting);
+        phoneInput.dataset.phoneBehaviorBound = '1';
+        applyPhoneFormatting();
     }
 
     function calculateAgeFromDobParts(year, month, day, referenceDate = new Date()) {
@@ -13758,7 +13755,7 @@
             bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
         }
         setBookingNoticeActionTarget(null);
-        syncBookingScrollCueVisibility();
+        updateBookingNoticeActionState();
     }
 
     function isBookingFocusableControl(fieldEl) {
@@ -13964,6 +13961,24 @@
             if (!Number.isInteger(calculatedAge) || calculatedAge < 18) return false;
             return Number.parseInt(ageValue, 10) === calculatedAge;
         }
+        if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'phone') {
+            return normalizeBookingPhoneValue(fieldEl.value).valid;
+        }
+        if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'name') {
+            const nameValue = normalizeSingleLine(fieldEl.value);
+            return nameValue.length >= 2 && nameValue.length <= 80 && !/[<>]/.test(nameValue);
+        }
+        if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'occupation') {
+            const occupationValue = normalizeSingleLine(fieldEl.value);
+            return occupationValue.length >= 2 && occupationValue.length <= 100 && !/[<>]/.test(occupationValue);
+        }
+        if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'address_street') {
+            const streetValue = normalizeSingleLine(fieldEl.value);
+            return streetValue.length >= 2 && streetValue.length <= 150 && !/[<>]/.test(streetValue);
+        }
+        if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'address_zip') {
+            return isValidBookingPostalCode(fieldEl.value);
+        }
         if (typeof fieldEl.matches === 'function' && fieldEl.matches('.custom-select__trigger')) {
             const selectRoot = fieldEl.closest('.custom-select');
             const selectedOption = selectRoot ? selectRoot.querySelector('.custom-option.selected') : null;
@@ -14050,11 +14065,16 @@
         if (!formEl) return [];
         return [
             formEl.querySelector('input[name="name"]'),
+            formEl.querySelector('input[name="occupation"]'),
             formEl.querySelector('input[name="phone"]'),
+            formEl.querySelector('input[name="address_street"]'),
+            formEl.querySelector('#cityCustomSelect .custom-select__trigger'),
+            formEl.querySelector('input[name="address_zip"]'),
             formEl.querySelector('input[name="dob_year"]'),
             formEl.querySelector('input[name="dob_month"]'),
             formEl.querySelector('input[name="dob_day"]'),
-            formEl.querySelector('input[name="age"]')
+            formEl.querySelector('input[name="age"]'),
+            formEl.querySelector('.contact-form__checkbox-wrapper.file-attach__terms')
         ].filter(field => field && document.body.contains(field));
     }
 
@@ -14107,10 +14127,8 @@
         const target = resolveLiveBookingActionTarget();
         if (!target || !document.body.contains(target)) {
             setBookingNoticeActionTarget(null);
-            setBookingScrollCueVisible(false);
             return;
         }
-        setBookingScrollCueVisible(false);
         focusBookingField(target, { smooth: true, highlight: true, openSelect: true });
     }
 
@@ -14137,7 +14155,8 @@
         const name = normalizeSingleLine(form.name?.value);
         const occupation = normalizeSingleLine(form.occupation?.value);
         const email = normalizeSingleLine(form.email?.value).toLowerCase();
-        const phone = normalizeSingleLine(form.phone?.value);
+        const phoneNormalized = normalizeBookingPhoneValue(form.phone?.value);
+        const phone = phoneNormalized.formatted;
         const hearAbout = normalizeSingleLine(form.hear_about?.value);
         const unit = normalizeSingleLine(form.address_unit?.value).toUpperCase();
         const street = normalizeSingleLine(form.address_street?.value);
@@ -14151,12 +14170,13 @@
         const service = normalizeSingleLine(serviceInput?.value);
         const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
         const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
-
-        if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
-            setBookingError('Please enter your full name.', form.name);
+        const requiredState = getBookingRequiredValidationState(form);
+        if (!requiredState.valid) {
+            setBookingError(requiredState.message, requiredState.field);
             return false;
         }
-        if (occupation && (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation))) {
+
+        if (occupation.length > 100 || /[<>]/.test(occupation)) {
             setBookingError('Please enter a valid occupation.', form.occupation);
             return false;
         }
@@ -14167,17 +14187,12 @@
             return false;
         }
 
-        const phoneDigits = phone.replace(/\D/g, '');
-        if (phoneDigits.length < 7 || phoneDigits.length > 20) {
-            setBookingError('Please enter a valid phone number.', form.phone);
-            return false;
-        }
         if (hearAbout && (hearAbout.length > 150 || /[<>]/.test(hearAbout))) {
             setBookingError('Please keep referral source under 150 characters.', form.hear_about);
             return false;
         }
 
-        if (street && (street.length < 2 || street.length > 150 || /[<>]/.test(street))) {
+        if (street.length > 150 || /[<>]/.test(street)) {
             setBookingError('Please enter a valid street address.', form.address_street);
             return false;
         }
@@ -14187,12 +14202,12 @@
             return false;
         }
 
-        if (city && !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+        if (!MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
             setBookingError('Please choose a city from the Ontario list.', cityTrigger || form.address_city);
             return false;
         }
 
-        const zip = zipRaw;
+        const zip = requiredState.zip || normalizeBookingPostalCode(zipRaw);
 
         if (notes.length > 3000 || /[<>]/.test(notes)) {
             setBookingError('Brief details are too long or contain invalid characters.', notesField);
@@ -14207,46 +14222,7 @@
             return false;
         }
 
-        const dobYear = Number(form.dob_year?.value);
-        const dobMonth = Number(form.dob_month?.value);
-        const dobDay = Number(form.dob_day?.value);
         const ageValue = normalizeSingleLine(form.age?.value);
-        if (!ageValue) {
-            setBookingError('Please enter AGE.', form.age);
-            return false;
-        }
-        if (!/^\d{1,3}$/.test(ageValue)) {
-            setBookingError('Please enter AGE using digits only.', form.age);
-            return false;
-        }
-        const enteredAge = Number.parseInt(ageValue, 10);
-        const currentYear = new Date().getFullYear();
-        if (!Number.isInteger(dobYear) || dobYear < 1900 || dobYear > currentYear) {
-            setBookingError('Please enter a valid birth year.', form.dob_year);
-            return false;
-        }
-        if (!Number.isInteger(dobMonth) || dobMonth < 1 || dobMonth > 12) {
-            setBookingError('Please enter a valid birth month.', form.dob_month);
-            return false;
-        }
-        const maxDobDays = new Date(dobYear, dobMonth, 0).getDate();
-        if (!Number.isInteger(dobDay) || dobDay < 1 || dobDay > maxDobDays) {
-            setBookingError('Please enter a valid birth day.', form.dob_day);
-            return false;
-        }
-        const calculatedAge = calculateAgeFromDobParts(dobYear, dobMonth, dobDay);
-        if (calculatedAge === null) {
-            setBookingError('Invalid date of birth. Please check the day and month.', form.dob_day);
-            return false;
-        }
-        if (!Number.isInteger(enteredAge) || enteredAge !== calculatedAge) {
-            setBookingError('AGE must match date of birth.', form.age);
-            return false;
-        }
-        if (calculatedAge < 18) {
-            setBookingError('You must be at least 18 years old to book services.', form.dob_year);
-            return false;
-        }
 
         let deadline = '';
         if (deadlineRaw) {
@@ -14872,8 +14848,8 @@
             setGlobalSpinnerProgress(100);
             setTimeout(() => hideGlobalSpinner(), 220);
             if (!isSuccess && confirmBtn) {
-                confirmBtn.disabled = false;
                 confirmBtn.textContent = getConfirmBtnLabel();
+                updateBookingSubmitAvailability(document.getElementById('bookingForm'));
             }
         }
     }
@@ -16281,6 +16257,8 @@
                 trigger.classList.add('has-city-check');
             }
             if (hiddenInput) hiddenInput.value = selectedTextPlain;
+            updateBookingNoticeActionState();
+            updateBookingSubmitAvailability(document.getElementById('bookingForm'));
             return true;
         }
 
@@ -16291,6 +16269,8 @@
             trigger.classList.remove('has-city-check');
         }
         if (hiddenInput) hiddenInput.value = '';
+        updateBookingNoticeActionState();
+        updateBookingSubmitAvailability(document.getElementById('bookingForm'));
         return false;
     }
 
