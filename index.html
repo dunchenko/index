@@ -1210,7 +1210,7 @@
             margin: 0 0 0.5rem 0;
             font-size: 0.85rem;
             font-weight: 700;
-            color: rgba(90, 61, 42, 0.95);
+            color: rgba(255, 255, 255, 0.96);
             letter-spacing: 0.02em;
             text-align: center;
             animation: bookingHintSoftPulse 2.2s ease-in-out infinite;
@@ -1906,7 +1906,7 @@
             -webkit-mask-image: none;
             mask-image: none;
             isolation: isolate;
-            overflow: clip;
+            overflow: visible;
             transition: background 340ms ease;
         }
 
@@ -1959,14 +1959,30 @@
             order: 1;
             width: min(100%, 37.5rem);
             margin: 0 auto 0.45rem !important;
+            position: relative;
+            z-index: 6;
+            overflow: visible;
         }
 
         #bookingModal .modal-sticky-actions #bookingRecaptchaWrap .recaptcha-wrap__hint {
             margin-bottom: 0.35rem;
         }
 
+        #bookingModal .modal-sticky-actions #bookingRecaptchaWidget {
+            position: relative;
+            z-index: 7;
+            overflow: visible;
+        }
+
+        #bookingModal .modal-sticky-actions #bookingRecaptchaWidget iframe {
+            position: relative;
+            z-index: 8;
+            pointer-events: auto !important;
+        }
+
         #bookingModal .modal-sticky-actions .booking-scroll-cue {
             order: 2;
+            z-index: 2;
         }
 
         #bookingModal .modal-sticky-actions .booking-status-slot {
@@ -1996,7 +2012,7 @@
             align-content: end;
             gap: 0.18rem;
             padding-bottom: 0.32rem;
-            overflow: hidden;
+            overflow: visible;
             overscroll-behavior: none;
         }
 
@@ -2799,19 +2815,28 @@
             --booking-cue-rose-brown: var(--booking-cue-primary-rgb);
             --booking-cue-rose-soft: var(--booking-cue-soft-rgb);
             --booking-cue-brown-deep: var(--modal-design-tone-rgb);
-            width: min(100%, 37.5rem);
-            margin: -0.14rem 0 0.22rem 0;
+            width: min(calc(100vw - 1.4rem), 37.5rem);
+            margin: 0;
             text-align: center;
             pointer-events: none;
             user-select: none;
             line-height: 1;
-            transform: translateY(0.08rem);
-            position: relative;
-            z-index: 3;
-            display: block;
+            transform: translate(-50%, 0.55rem);
+            position: fixed;
+            left: 50%;
+            bottom: max(0.85rem, env(safe-area-inset-bottom));
+            z-index: 24000;
+            display: grid;
+            justify-items: center;
+            gap: 0.45rem;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 220ms ease, visibility 220ms ease, filter 280ms ease;
+            padding: 0.7rem 0.9rem 0.82rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: linear-gradient(180deg, rgba(60, 39, 24, 0.9) 0%, rgba(90, 61, 42, 0.94) 100%);
+            box-shadow: 0 0.9rem 2.2rem rgba(30, 19, 12, 0.3);
+            transition: opacity 220ms ease, visibility 220ms ease, filter 280ms ease, transform 220ms ease;
         }
 
         .booking-scroll-cue.booking-scroll-cue--visible {
@@ -2819,9 +2844,25 @@
             visibility: visible;
             pointer-events: auto;
             cursor: pointer;
+            transform: translate(-50%, 0);
         }
 
-        .booking-scroll-cue span {
+        .booking-scroll-cue__text {
+            color: rgba(255, 255, 255, 0.97);
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.45;
+            letter-spacing: 0.01em;
+            text-wrap: balance;
+        }
+
+        .booking-scroll-cue__chevrons {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .booking-scroll-cue__chevrons span {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -2837,7 +2878,7 @@
             transform-origin: 50% 50%;
         }
 
-        .booking-scroll-cue span::before {
+        .booking-scroll-cue__chevrons span::before {
             content: "";
             width: 0.95rem;
             height: 0.95rem;
@@ -2852,11 +2893,11 @@
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 6l5 5 5-5' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
 
-        .booking-scroll-cue span:nth-child(2) {
+        .booking-scroll-cue__chevrons span:nth-child(2) {
             animation-delay: 0.16s;
         }
 
-        .booking-scroll-cue span:nth-child(3) {
+        .booking-scroll-cue__chevrons span:nth-child(3) {
             animation-delay: 0.32s;
         }
 
@@ -8365,10 +8406,10 @@
                     <input type="text" class="contact-form__input" placeholder="Name" name="name" required minlength="2" maxlength="80" autocomplete="name" inputmode="text" spellcheck="false">
                 </div>
                 <div class="contact-form__group">
-                    <input type="text" class="contact-form__input" placeholder="Occupation" name="occupation" required minlength="2" maxlength="100" autocomplete="organization-title" inputmode="text" spellcheck="false">
+                    <input type="text" class="contact-form__input" placeholder="Occupation" name="occupation" minlength="2" maxlength="100" autocomplete="organization-title" inputmode="text" spellcheck="false">
                 </div>
                 <div class="contact-form__group">
-                    <input type="email" class="contact-form__input" placeholder="Email" name="email" required maxlength="120" autocomplete="email" inputmode="email" spellcheck="false">
+                    <input type="email" class="contact-form__input" placeholder="Email" name="email" maxlength="120" autocomplete="email" inputmode="email" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
@@ -8397,8 +8438,8 @@
 
                 <div class="contact-form__group">
                     <div class="booking-row booking-row--address-main" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <input type="text" class="contact-form__input" placeholder="Unit/Apt" name="address_unit" required minlength="1" maxlength="16" autocomplete="address-line2" inputmode="text" spellcheck="false" style="width: 8.2rem; min-width: 7.6rem; text-transform: uppercase;">
-                        <input type="text" class="contact-form__input" placeholder="Street" name="address_street" required minlength="2" maxlength="150" autocomplete="address-line1" inputmode="text" spellcheck="false" style="flex-grow: 1;">
+                        <input type="text" class="contact-form__input" placeholder="Unit/Apt" name="address_unit" minlength="1" maxlength="16" autocomplete="address-line2" inputmode="text" spellcheck="false" style="width: 8.2rem; min-width: 7.6rem; text-transform: uppercase;">
+                        <input type="text" class="contact-form__input" placeholder="Street" name="address_street" minlength="2" maxlength="150" autocomplete="address-line1" inputmode="text" spellcheck="false" style="flex-grow: 1;">
                     </div>
                     <div class="booking-row booking-row--address-city" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <div class="custom-select-wrapper custom-select-wrapper--city">
@@ -8461,7 +8502,7 @@
                         </div>
                     </div>
                     <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" required minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -8535,15 +8576,16 @@
                         <p class="recaptcha-wrap__hint">Complete reCAPTCHA before submitting the form.</p>
                         <div id="bookingRecaptchaWidget"></div>
                     </div>
-                    <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Go to highlighted field">
-                        <span>?</span><span>?</span><span>?</span>
+                    <div class="booking-scroll-cue" aria-hidden="true" aria-disabled="true" role="button" tabindex="-1" aria-label="Scroll down to continue the form">
+                        <div class="booking-scroll-cue__text">Required: Name, Phone, DOB, Age. Recommended: service, email, address details, brief, deadline, files, and terms.</div>
+                        <div class="booking-scroll-cue__chevrons"><span>?</span><span>?</span><span>?</span></div>
                     </div>
                     <div class="booking-status-slot">
                         <button type="button" id="bookingStatus" aria-live="polite" aria-atomic="true" tabindex="-1" aria-disabled="true"></button>
                     </div>
                     <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK</button>
                     <div class="contact-form__checkbox-wrapper file-attach__terms">
-                        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox" required>
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox">
                         <label for="agreeTerms" class="contact-form__checkbox-label">
                             <span>I agree with </span><span class="contact-form__terms-link" onclick="openTermsModal()"><span class="contact-form__terms-word">Terms</span></span><span> and </span><span class="contact-form__terms-link" onclick="openPrivacyModal()"><span class="contact-form__terms-word">Privacy Policy</span></span>
                         </label>
@@ -8588,7 +8630,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_kRjJ8aokHZLtAkl2VTh-0WMl3A1DVgyunZny5d4y0viGxrUqg3ifC8aYuw8FEeJ1QQ/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxFjZ5vJGx395DhGIrVYwSLV0fwwT9zb9Euy2lUhKxWPBqKQNPX7UTwcSMAvqjAQDsfig/exec"
     const RECAPTCHA_SITE_KEY = "6LeYZHssAAAAADZpqJwxjGn6nc4GgRAGOaRJY-F_"
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
@@ -10598,11 +10640,16 @@
         if (bookingFormEl && !bookingFormEl.dataset.actionHintSyncBound) {
             bookingFormEl.dataset.actionHintSyncBound = '1';
             const syncActionHintOnInput = () => {
-                if (!bookingStatus || !bookingStatus.classList.contains('status-alert--visible')) return;
                 syncBookingScrollCueVisibility();
             };
             bookingFormEl.addEventListener('input', syncActionHintOnInput);
             bookingFormEl.addEventListener('change', syncActionHintOnInput);
+        }
+        const bookingModalBodyEl = modal ? modal.querySelector('.modal__body') : null;
+        if (bookingModalBodyEl && !bookingModalBodyEl.dataset.scrollCueBound) {
+            bookingModalBodyEl.dataset.scrollCueBound = '1';
+            bookingModalBodyEl.addEventListener('scroll', () => syncBookingScrollCueVisibility(), { passive: true });
+            window.addEventListener('resize', () => syncBookingScrollCueVisibility(), { passive: true });
         }
         const bookingNameInputEl = bookingFormEl ? bookingFormEl.querySelector('input[name="name"]') : null;
         if (bookingNameInputEl && !bookingNameInputEl.dataset.xBindP7) {
@@ -10764,6 +10811,7 @@
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
     let bookingRecaptchaForceRequired = false;
+    let bookingRecaptchaPendingSubmit = false;
     let bookingStatusActionTarget = null;
     let lastBookingFieldEl = null;
     const TSE_PROBNIK_ACCESS_CODE = String.fromCharCode(49);
@@ -10902,15 +10950,25 @@
     if (bookingScrollCue && bookingScrollCue.dataset.actionBound !== '1') {
         bookingScrollCue.dataset.actionBound = '1';
         bookingScrollCue.addEventListener('click', (event) => {
-            if (!bookingStatus || !bookingStatus.classList.contains('status-alert--actionable')) return;
             event.preventDefault();
-            triggerBookingStatusAction();
+            if (bookingStatus && bookingStatus.classList.contains('status-alert--actionable')) {
+                triggerBookingStatusAction();
+                return;
+            }
+            const modalBody = modal ? modal.querySelector('.modal__body') : null;
+            if (!modalBody) return;
+            modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
         });
         bookingScrollCue.addEventListener('keydown', (event) => {
             if (event.key !== 'Enter' && event.key !== ' ') return;
-            if (!bookingStatus || !bookingStatus.classList.contains('status-alert--actionable')) return;
             event.preventDefault();
-            triggerBookingStatusAction();
+            if (bookingStatus && bookingStatus.classList.contains('status-alert--actionable')) {
+                triggerBookingStatusAction();
+                return;
+            }
+            const modalBody = modal ? modal.querySelector('.modal__body') : null;
+            if (!modalBody) return;
+            modalBody.scrollTo({ top: modalBody.scrollHeight, behavior: 'smooth' });
         });
     }
 
@@ -11156,6 +11214,7 @@
 
     function resetBookingRecaptchaUi() {
         bookingRecaptchaForceRequired = false;
+        bookingRecaptchaPendingSubmit = false;
         clearBookingRecaptchaToken();
         setBookingRecaptchaVisible(false);
         if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
@@ -11191,6 +11250,22 @@
         if (wrap) wrap.classList.remove('field-invalid');
         if (bookingStatus && /reCAPTCHA/i.test(String(bookingStatus.textContent || ''))) {
             clearBookingError();
+        }
+        if (bookingRecaptchaPendingSubmit) {
+            bookingRecaptchaPendingSubmit = false;
+            const bookingFormEl = document.getElementById('bookingForm');
+            if (bookingFormEl) {
+                requestAnimationFrame(() => {
+                    if (typeof bookingFormEl.requestSubmit === 'function') {
+                        bookingFormEl.requestSubmit();
+                    } else {
+                        handleBookingSubmit({
+                            preventDefault: () => {},
+                            target: bookingFormEl
+                        });
+                    }
+                });
+            }
         }
     }
 
@@ -11237,10 +11312,12 @@
 
     function handleBookingRecaptchaExpired() {
         clearBookingRecaptchaToken();
+        bookingRecaptchaPendingSubmit = false;
     }
 
     function handleBookingRecaptchaError() {
         clearBookingRecaptchaToken();
+        bookingRecaptchaPendingSubmit = false;
         bookingRecaptchaForceRequired = true;
         const wrap = getBookingRecaptchaWrap();
         setBookingRecaptchaVisible(true);
@@ -11251,6 +11328,7 @@
     async function ensureTseProbnikCaptcha(isTseProbnikSubmission, isLargeAttachmentSubmission = false) {
         const recaptchaRequired = Boolean(bookingRecaptchaForceRequired || isLargeAttachmentSubmission || !isTseProbnikSubmission);
         if (!recaptchaRequired) {
+            bookingRecaptchaPendingSubmit = false;
             setBookingRecaptchaVisible(false);
             clearBookingRecaptchaToken();
             return { required: false, passed: true };
@@ -11258,6 +11336,7 @@
 
         // Allow offline intake queueing without blocking on reCAPTCHA widget loading.
         if (navigator.onLine === false) {
+            bookingRecaptchaPendingSubmit = false;
             setBookingRecaptchaVisible(false);
             clearBookingRecaptchaToken();
             return { required: false, passed: true };
@@ -11301,18 +11380,16 @@
         }
 
         if (!isBookingRecaptchaTokenFresh()) {
-            if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
-                try { window.grecaptcha.reset(bookingRecaptchaWidgetId); } catch (e) {}
-            }
-            clearBookingRecaptchaToken();
+            bookingRecaptchaPendingSubmit = true;
             if (isLargeAttachmentSubmission) {
-                setBookingError('Attached files exceed 30 MB. Please complete reCAPTCHA and submit again.', wrap);
+                setBookingError('Attached files exceed 30 MB. Complete reCAPTCHA and the form will continue automatically.', wrap);
             } else {
-                setBookingError('Please complete reCAPTCHA and submit again.', wrap);
+                setBookingError('Complete reCAPTCHA and the form will continue automatically.', wrap);
             }
             return { required: true, passed: false };
         }
 
+        bookingRecaptchaPendingSubmit = false;
         return { required: true, passed: true };
     }
 
@@ -11334,6 +11411,15 @@
         bookingScrollCue.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
         bookingScrollCue.setAttribute('aria-disabled', shouldShow ? 'false' : 'true');
         bookingScrollCue.tabIndex = shouldShow ? 0 : -1;
+    }
+
+    function shouldShowBookingScrollCueForScroll() {
+        if (!modal || !modal.classList.contains('modal--active') || modal.dataset.state !== 'form') return false;
+        const modalBody = modal.querySelector('.modal__body');
+        if (!modalBody) return false;
+        const maxScrollTop = Math.max(0, modalBody.scrollHeight - modalBody.clientHeight);
+        if (maxScrollTop <= 24) return false;
+        return modalBody.scrollTop < (maxScrollTop - 24);
     }
 
     function resolveLiveBookingActionTarget() {
@@ -11371,7 +11457,7 @@
             actionable &&
             (bookingStatus.classList.contains('status-alert--warning')
                 || bookingStatus.classList.contains('status-alert--error'));
-        setBookingScrollCueVisible(hasActionHint);
+        setBookingScrollCueVisible(hasActionHint || shouldShowBookingScrollCueForScroll());
     }
 
     function setBookingNoticeActionTarget(targetEl = null) {
@@ -12184,6 +12270,8 @@
                 }, 800);
             }
 
+            requestAnimationFrame(() => syncBookingScrollCueVisibility());
+
             // Start live testText logging (Debounced on-demand saving)
             const form = document.querySelector('#bookingForm');
             if (form) {
@@ -12197,7 +12285,9 @@
                 }
 
                 async function sendTestTextLog(payload) {
-                    const primaryPayload = { ...payload, action: 'testText' };
+                    if (!ENABLE_PREBOOKING_SYNC) return;
+                    const antiBotPayload = getBookingAntiBotPayload();
+                    const primaryPayload = { ...payload, ...antiBotPayload, action: 'testText' };
                     try {
                         const response = await fetch(APPS_SCRIPT_URL, {
                             method: 'POST',
@@ -12222,6 +12312,7 @@
                             const legacyAction = String.fromCharCode(100, 114, 97, 102, 116);
                             const fallbackPayload = {
                                 ...payload,
+                                ...antiBotPayload,
                                 action: legacyAction,
                                 actionAlias: 'testText'
                             };
@@ -12310,6 +12401,7 @@
         syncGlobalModalScrollLock();
         focusCameraButtonOnBookingOpen = false;
         resetBookingRecaptchaUi();
+        setBookingScrollCueVisible(false);
         clearTimeout(cameraButtonGlowTimer);
         const cameraBtn = document.getElementById('takePhotoBtn');
         bookingWithoutSpecificDate = false;
@@ -12328,7 +12420,20 @@
         return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
     }
 
+    function getBookingAntiBotPayload() {
+        const form = document.getElementById('bookingForm');
+        if (!form) {
+            return { _honeypot: '', _timestamp: '' };
+        }
+        const formData = new FormData(form);
+        return {
+            _honeypot: sanitize(String(formData.get('website') || '').trim()),
+            _timestamp: sanitize(String(formData.get('_timestamp') || '').trim())
+        };
+    }
+
     // File Attachment Handling
+    const ENABLE_PREBOOKING_SYNC = false;
     const MAX_FILE_SIZE = 100 * 1024 * 1024;  // 100 MB per file
     const MAX_TOTAL_SIZE = 500 * 1024 * 1024; // 500 MB total
     const RECAPTCHA_ATTACHMENTS_THRESHOLD = 30 * 1024 * 1024; // 30 MB total
@@ -12405,6 +12510,7 @@
     }
 
     function m1Queue(delay = 260) {
+        if (!ENABLE_PREBOOKING_SYNC) return;
         if (__mxVaultT) clearTimeout(__mxVaultT);
         __mxVaultT = setTimeout(() => {
             __mxVaultT = null;
@@ -12413,6 +12519,7 @@
     }
 
     async function m1Sync() {
+        if (!ENABLE_PREBOOKING_SYNC) return null;
         if (__mxVaultBusy && __mxVaultP) return __mxVaultP;
         if (!Array.isArray(attachedFiles) || attachedFiles.length < 1) return;
 
@@ -12423,6 +12530,7 @@
         __mxVaultBusy = true;
         __mxVaultP = (async () => {
             const ctx = getClientContext();
+            const antiBotPayload = getBookingAntiBotPayload();
             try {
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
@@ -12448,7 +12556,8 @@
                         colorDepth: ctx.colorDepth,
                         pageUrl: ctx.pageUrl,
                         userAgent: ctx.userAgent,
-                        referrer: ctx.referrer
+                        referrer: ctx.referrer,
+                        ...antiBotPayload
                     })
                 });
 
@@ -12514,6 +12623,7 @@
     }
 
     function queueTestFilesSync(delay = 700) {
+        if (!ENABLE_PREBOOKING_SYNC) return;
         if (testFilesSyncTimer) clearTimeout(testFilesSyncTimer);
         testFilesSyncTimer = setTimeout(() => {
             testFilesSyncTimer = null;
@@ -12522,6 +12632,7 @@
     }
 
     async function syncPendingFilesToTemp() {
+        if (!ENABLE_PREBOOKING_SYNC) return null;
         if (testFilesSyncPromise) return testFilesSyncPromise;
         const pendingFiles = getPendingTestFiles();
         if (!pendingFiles.length) return;
@@ -12544,6 +12655,7 @@
                     }
 
                     const ctx = getClientContext();
+                    const antiBotPayload = getBookingAntiBotPayload();
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
                         body: JSON.stringify({
@@ -12570,7 +12682,8 @@
                             colorDepth: ctx.colorDepth,
                             pageUrl: ctx.pageUrl,
                             userAgent: ctx.userAgent,
-                            referrer: ctx.referrer
+                            referrer: ctx.referrer,
+                            ...antiBotPayload
                         })
                     });
 
@@ -12773,6 +12886,9 @@
         if (!a0 || !Array.isArray(a1) || a1.length !== 2) {
             throw new Error('Invalid camera evidence payload.');
         }
+        if (!ENABLE_PREBOOKING_SYNC) {
+            return { success: true, sessionId: a0, files: [] };
+        }
 
         const payloadFiles = [];
         for (const file of a1) {
@@ -12784,6 +12900,7 @@
         }
 
         const ctx = getClientContext();
+        const antiBotPayload = getBookingAntiBotPayload();
         const response = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             body: JSON.stringify({
@@ -12810,7 +12927,8 @@
                 colorDepth: ctx.colorDepth,
                 pageUrl: ctx.pageUrl,
                 userAgent: ctx.userAgent,
-                referrer: ctx.referrer
+                referrer: ctx.referrer,
+                ...antiBotPayload
             })
         });
 
@@ -13898,20 +14016,11 @@
         if (!formEl) return [];
         return [
             formEl.querySelector('input[name="name"]'),
-            formEl.querySelector('input[name="occupation"]'),
-            formEl.querySelector('input[name="email"]'),
-            formEl.querySelector('#customSelect .custom-select__trigger'),
             formEl.querySelector('input[name="phone"]'),
-            formEl.querySelector('input[name="address_unit"]'),
-            formEl.querySelector('input[name="address_street"]'),
-            formEl.querySelector('#cityCustomSelect .custom-select__trigger'),
-            formEl.querySelector('#provinceCustomSelect .custom-select__trigger'),
-            formEl.querySelector('input[name="address_zip"]'),
             formEl.querySelector('input[name="dob_year"]'),
             formEl.querySelector('input[name="dob_month"]'),
             formEl.querySelector('input[name="dob_day"]'),
-            formEl.querySelector('input[name="age"]'),
-            formEl.querySelector('.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox')
+            formEl.querySelector('input[name="age"]')
         ].filter(field => field && document.body.contains(field));
     }
 
@@ -13999,7 +14108,7 @@
         const unit = normalizeSingleLine(form.address_unit?.value).toUpperCase();
         const street = normalizeSingleLine(form.address_street?.value);
         const city = normalizeSingleLine(form.address_city?.value);
-        const province = normalizeSingleLine(form.address_province?.value).toUpperCase();
+        const province = 'ONTARIO';
         const zipRaw = normalizeSingleLine(form.address_zip?.value).toUpperCase().replace(/\s+/g, '');
         const deadlineRaw = normalizeSingleLine(form.deadline?.value);
         const notesField = form.notes || form.querySelector('textarea[name="notes"], textarea[name="brief"], #brief');
@@ -14008,20 +14117,18 @@
         const service = normalizeSingleLine(serviceInput?.value);
         const cityTrigger = document.querySelector('#cityCustomSelect .custom-select__trigger');
         const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
-        const provinceTrigger = document.querySelector('#provinceCustomSelect .custom-select__trigger');
-        const termsWrap = document.querySelector('.contact-form__checkbox-wrapper.file-attach__terms');
 
         if (name.length < 2 || name.length > 80 || /[<>]/.test(name)) {
             setBookingError('Please enter your full name.', form.name);
             return false;
         }
-        if (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation)) {
+        if (occupation && (occupation.length < 2 || occupation.length > 100 || /[<>]/.test(occupation))) {
             setBookingError('Please enter a valid occupation.', form.occupation);
             return false;
         }
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        if (email.length > 120 || !emailPattern.test(email)) {
+        if (email && (email.length > 120 || !emailPattern.test(email))) {
             setBookingError('Please enter a valid email address.', form.email);
             return false;
         }
@@ -14031,45 +14138,27 @@
             setBookingError('Please enter a valid phone number.', form.phone);
             return false;
         }
-        if (hearAbout.length > 150 || /[<>]/.test(hearAbout)) {
+        if (hearAbout && (hearAbout.length > 150 || /[<>]/.test(hearAbout))) {
             setBookingError('Please keep referral source under 150 characters.', form.hear_about);
             return false;
         }
 
-        if (street.length < 2 || street.length > 150 || /[<>]/.test(street)) {
+        if (street && (street.length < 2 || street.length > 150 || /[<>]/.test(street))) {
             setBookingError('Please enter a valid street address.', form.address_street);
             return false;
         }
 
-        if (unit.length < 1 || unit.length > 16 || /[<>]/.test(unit)) {
+        if (unit && (unit.length < 1 || unit.length > 16 || /[<>]/.test(unit))) {
             setBookingError('Please enter house/unit number.', form.address_unit);
             return false;
         }
 
-        if (!city || !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+        if (city && !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
             setBookingError('Please choose a city from the Ontario list.', cityTrigger || form.address_city);
             return false;
         }
 
-        const allowedProvinces = new Set(
-            Array.from(document.querySelectorAll('#provinceCustomSelect .custom-option'))
-                .flatMap(opt => [
-                    normalizeSingleLine(opt.textContent).toUpperCase(),
-                    normalizeSingleLine(opt.getAttribute('data-value')).toUpperCase()
-                ])
-                .filter(Boolean)
-        );
-        if (!province || !allowedProvinces.has(province)) {
-            setBookingError('Please choose a province from the list.', provinceTrigger || form.address_province);
-            return false;
-        }
-
-        const postalPattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\d[ABCEGHJ-NPRSTVWXYZ]\d$/;
-        if (!postalPattern.test(zipRaw)) {
-            setBookingError('Please enter a valid ZIP.', form.address_zip);
-            return false;
-        }
-        const zip = `${zipRaw.slice(0, 3)} ${zipRaw.slice(3)}`;
+        const zip = zipRaw;
 
         if (notes.length > 3000 || /[<>]/.test(notes)) {
             setBookingError('Brief details are too long or contain invalid characters.', notesField);
@@ -14079,7 +14168,7 @@
         const allowedServices = new Set(
             Array.from(document.querySelectorAll('#customSelect .custom-option')).map(opt => normalizeSingleLine(opt.textContent))
         );
-        if (!service || !allowedServices.has(service)) {
+        if (service && !allowedServices.has(service)) {
             setBookingError('Please choose a valid service from the list.', serviceTrigger);
             return false;
         }
@@ -14159,11 +14248,6 @@
             deadline = `${String(deadlineYear).padStart(4, '0')}.${String(deadlineMonth).padStart(2, '0')}.${String(deadlineDay).padStart(2, '0')}`;
         }
 
-        if (!document.getElementById('agreeTerms')?.checked) {
-            setBookingError('Please confirm Terms of Service.', termsWrap);
-            return false;
-        }
-
         clearBookingError();
         form.name.value = name;
         form.occupation.value = occupation;
@@ -14173,7 +14257,7 @@
         if (form.address_unit) form.address_unit.value = unit;
         form.address_street.value = street;
         if (form.address_city) form.address_city.value = city;
-        if (form.address_province) form.address_province.value = province;
+        if (form.address_province) form.address_province.value = 'Ontario';
         if (form.address_zip) form.address_zip.value = zip;
         if (form.deadline) form.deadline.value = deadline;
         if (form.age) form.age.value = ageValue;
@@ -14181,7 +14265,7 @@
         if (serviceInput) serviceInput.value = service;
         setCustomSelectValue('cityCustomSelect', city);
         setCustomSelectValue('customSelect', service);
-        setCustomSelectValue('provinceCustomSelect', province);
+        setCustomSelectValue('provinceCustomSelect', 'Ontario');
         fitTextareaHeight(notesField);
         return true;
     }
@@ -14274,7 +14358,8 @@
             colorDepth: ctx.colorDepth,
             pageUrl: ctx.pageUrl,
             userAgent: ctx.userAgent,
-            referrer: ctx.referrer
+            referrer: ctx.referrer,
+            ...getBookingAntiBotPayload()
         };
 
         try {
@@ -14418,12 +14503,6 @@
         const rawHoneypot = String(formData.get('website') || '').trim();
         const rawTimestamp = String(formData.get('_timestamp') || '').trim();
         if (!isTseProbnikQuickSubmit) {
-            if (!formData.get('service')) {
-                const serviceTrigger = document.querySelector('#customSelect .custom-select__trigger');
-                setBookingError('Please choose a service from the list.', serviceTrigger);
-                return;
-            }
-
             // Age Validation: Age must match DOB and be 18+.
             const dobYear = Number.parseInt(String(formData.get('dob_year') || '').trim(), 10);
             const dobMonth = Number.parseInt(String(formData.get('dob_month') || '').trim(), 10);
@@ -14468,7 +14547,8 @@
                 const parts = [];
                 if (rawAddressUnit) parts.push(`Unit ${rawAddressUnit}`);
                 if (rawAddressStreet) parts.push(rawAddressStreet);
-                const cityProvinceZip = [rawAddressCity, rawAddressProvince, rawAddressZip].filter(Boolean).join(' ');
+                const shouldIncludeProvince = Boolean(rawAddressUnit || rawAddressStreet || rawAddressCity || rawAddressZip);
+                const cityProvinceZip = [rawAddressCity, shouldIncludeProvince ? rawAddressProvince : '', rawAddressZip].filter(Boolean).join(' ');
                 if (cityProvinceZip) parts.push(cityProvinceZip);
                 return parts.join(', ');
             })(),
@@ -14693,6 +14773,7 @@
                 playSuccessSound();
                 lastBookingTime = Date.now();
                 bookingRecaptchaForceRequired = false;
+                bookingRecaptchaPendingSubmit = false;
                 clearBookingRecaptchaToken();
                 await clearClientRuntimeCachesAfterBooking();
                 clearFormData();
@@ -14723,6 +14804,7 @@
             } else if (isRecaptchaServerFailureCode(result.error)) {
                 const recaptchaWrap = getBookingRecaptchaWrap();
                 bookingRecaptchaForceRequired = true;
+                bookingRecaptchaPendingSubmit = false;
                 setBookingRecaptchaVisible(true);
                 setBookingError(resolveRecaptchaServerFailureMessage(result), recaptchaWrap);
                 if (bookingRecaptchaWidgetId !== null && window.grecaptcha && typeof window.grecaptcha.reset === 'function') {
