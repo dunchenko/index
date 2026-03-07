@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- <?php /* bootstrap: include __DIR__ . '/inc/init.php'; */ ?> -->
@@ -2507,8 +2507,8 @@
 
         #bookingStatus.status-alert--warning {
             --booking-status-fg: rgba(255, 255, 255, 0.98);
-            --booking-status-border: rgba(var(--booking-status-accent-rgb), 1);
-            --booking-status-bg: rgba(var(--booking-status-accent-soft-rgb), 0.95);
+            --booking-status-border: #5a3d2a;
+            --booking-status-bg: #5a3d2a;
         }
 
         #bookingStatus.status-alert--error {
@@ -3087,20 +3087,6 @@
             font-size: 1.1rem;
             font-weight: 700;
             transition: all 0.3s ease;
-        }
-        
-        .slot-btn:hover {
-            background: #ffffff;
-            color: #5a3d2a;
-            border-color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Ensure icons inside slot buttons also change color on hover */
-        .slot-btn:hover svg {
-            stroke: #5a3d2a !important;
-            fill: #5a3d2a !important;
         }
         
         /* Slot Hypnotic Animations */
@@ -3837,7 +3823,6 @@
             transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
         }
 
-        .form-quick-slots__item:hover,
         .form-quick-slots__item:focus-visible {
             border-color: rgba(var(--booking-plaque-border-rgb), 0.72);
             background:
@@ -3846,6 +3831,10 @@
             box-shadow: 0 0.55rem 1.1rem rgba(var(--booking-plaque-shadow-rgb), 0.25);
             transform: translateY(-1px);
             outline: none;
+        }
+
+        .form-quick-slots__item:hover {
+            transform: none !important;
         }
 
         .form-quick-slots__loading {
@@ -4359,7 +4348,6 @@
         }
 
         .slot-btn,
-        .slot-btn:hover,
         .slot-btn:focus-visible {
             transform: none !important;
             transition: none !important;
@@ -6148,7 +6136,7 @@
         .contact-form__textarea::placeholder,
         #bookingModal .contact-form__input::placeholder,
         #bookingModal .contact-form__textarea::placeholder {
-            color: rgba(255, 249, 241, 0.9) !important;
+            color: #5a3d2a !important;
             opacity: 1 !important;
         }
 
@@ -6184,8 +6172,8 @@
                 linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.24) 0%, rgba(var(--site-bg-light-rgb), 0.08) 100%),
                 linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, rgba(var(--site-bg-mid-rgb), 0.14) 60%, rgba(var(--site-bg-dark-rgb), 0.18) 100%),
                 rgba(var(--site-bg-dark-rgb), 0.28);
-            --dropdown-trigger-border: rgba(var(--site-bg-light-rgb), 0.38);
-            --dropdown-trigger-border-active: rgba(var(--site-bg-light-rgb), 0.52);
+            --dropdown-trigger-border: rgba(255, 248, 238, 0.3);
+            --dropdown-trigger-border-active: rgba(255, 255, 255, 0.96);
             --dropdown-trigger-shadow:
                 inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.24),
                 0 0.6rem 1.35rem rgba(var(--site-bg-shadow-rgb), 0.2);
@@ -6999,10 +6987,8 @@
         }
 
         .layout-container #bookingCalendar .slots-grid .slot-btn,
-        .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
         .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn,
-        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
             display: grid !important;
             grid-template-columns: 2.92rem minmax(0, 1fr) !important;
@@ -7025,9 +7011,7 @@
                 transform 0.26s ease !important;
         }
 
-        .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
         .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
-        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
             background: var(--apple-cal-surface-hover) !important;
             border-color: var(--apple-cal-border) !important;
@@ -7149,10 +7133,8 @@
             }
 
             .layout-container #bookingCalendar .slots-grid .slot-btn,
-            .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
             .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
             .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn,
-            .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
             .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
                 grid-template-columns: 2.66rem minmax(0, 1fr) !important;
                 min-height: 4.18rem !important;
@@ -7519,9 +7501,7 @@
             transition: opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
         }
 
-        .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
         .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
-        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
             background: transparent !important;
             border-color: var(--calendar-min-border-soft) !important;
@@ -8015,9 +7995,7 @@
             -webkit-backdrop-filter: blur(6px) saturate(106%) !important;
         }
 
-        .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
-        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible {
             background: rgba(255, 255, 255, 0.04) !important;
             border-color: rgba(255, 255, 255, 0.22) !important;
@@ -8560,7 +8538,7 @@
                 </div>
 
                 <div class="contact-form__group">
-                    <input type="tel" class="contact-form__input" placeholder="Phone (10 digits)" name="phone" required maxlength="18" autocomplete="tel-national" inputmode="numeric" spellcheck="false">
+                    <input type="tel" class="contact-form__input" placeholder="Phone" name="phone" required maxlength="18" autocomplete="tel-national" inputmode="numeric" spellcheck="false">
                 </div>
 
                 <div class="contact-form__group">
@@ -8728,7 +8706,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8YC-3BswrOUgdVJQlBOogI4tZci7ozDHjSKUI7ljMXa8y7H47xc8tNe7nsTZ6_FElaw/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMd_M1_l-RykAB1p2v9ONsHMm8w4GX0yBRGa0MphQpq3Pa8jPYHBtHl6YNqAst-zca6A/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
@@ -9627,7 +9605,7 @@
                 if (isSaturday) {
                     el.innerHTML = `<span class="cal-key" aria-hidden="true">${CALENDAR_KEY_SVG}</span>`;
                     el.setAttribute('aria-label', `Saturday ${day}`);
-                    el.title = 'Saturday – call or select to request a key-only slot';
+                    el.title = 'Saturday â€“ call or select to request a key-only slot';
                 } else {
                     el.textContent = day;
                     el.setAttribute('aria-label', `Day ${day}`);
@@ -10419,7 +10397,7 @@
     let pendingSlotAttachRequest = false;
     let pendingBookingWithoutSpecificDate = false;
     const INTAKE_NOTICE_SEEN_SESSION_KEY = 'hd.intakeNoticeSeen.session.v1';
-    const INTAKE_NOTICE_SOUND_CANDIDATES = ['11.mp3', '22.mp3'];
+    const INTAKE_NOTICE_SOUND_CANDIDATES = ['22.mp3'];
     const SUCCESS_SOUND_CANDIDATES = ['22.mp3'];
     let intakeNoticeSound = null;
     let successSound = null;
@@ -12775,10 +12753,23 @@
 
     // closeTermsModal is defined above (single version), removed duplicate here
 
-    // --- Security: sanitize user input before sending ---
+    // Escape only when injecting user-controlled text into HTML markup.
+    function escapeHtmlClient(str) {
+        if (typeof str !== 'string') return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;');
+    }
+
+    // Prepare payload values for transport/storage without HTML entity encoding.
     function sanitize(str) {
         if (typeof str !== 'string') return '';
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+        return str
+            .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+            .trim();
     }
 
     function getBookingAntiBotPayload() {
@@ -14406,6 +14397,13 @@
         return baseOffset;
     }
 
+    function getBookingFieldSlowScrollDuration(distancePx) {
+        const safeDistance = Math.max(0, Number(distancePx) || 0);
+        if (safeDistance <= 40) return 900;
+        if (safeDistance <= 140) return 1250;
+        return Math.min(3200, Math.max(1550, Math.round(1180 + (safeDistance * 0.95))));
+    }
+
     function markInvalidField(fieldEl, options = {}) {
         if (!fieldEl || !fieldEl.classList) return;
         const shouldReplay = options.replay !== false;
@@ -14453,8 +14451,9 @@
             : getBookingFieldScrollTopOffset(fieldEl, scrollHost);
         const targetTop = Math.max(0, Math.round(getElementTopInsideScrollHost(target, scrollHost) - topOffset));
         const currentTop = Math.round(getScrollTopForHost(scrollHost));
+        const scrollDistance = Math.abs(currentTop - targetTop);
 
-        if (Math.abs(currentTop - targetTop) <= 1) {
+        if (scrollDistance <= 1) {
             return Promise.resolve(true);
         }
 
@@ -14463,7 +14462,11 @@
             return Promise.resolve(true);
         }
 
-        return smoothScrollHostTo(scrollHost, targetTop)
+        const parsedDuration = Number(options.durationMs);
+        const durationMs = Number.isFinite(parsedDuration)
+            ? parsedDuration
+            : getBookingFieldSlowScrollDuration(scrollDistance);
+        return smoothScrollHostTo(scrollHost, targetTop, { durationMs })
             .then(() => true)
             .catch(() => {
                 setScrollTopForHost(scrollHost, targetTop, false);
@@ -14702,7 +14705,9 @@
     }
 
     function setBookingError(message, fieldEl = null) {
-        setBookingNotice(message, 'error', fieldEl || null);
+        const safeMessage = normalizeBookingNoticeMessage(message);
+        const isNamePrompt = /please enter your full name/i.test(safeMessage);
+        setBookingNotice(safeMessage, isNamePrompt ? 'warning' : 'error', fieldEl || null);
         markInvalidField(fieldEl);
         if (fieldEl) {
             scheduleBookingFieldAutoScroll(fieldEl);
@@ -14864,7 +14869,7 @@
     function formatFinalFieldValue(value, fallback = 'Not provided') {
         const raw = value == null ? '' : String(value).trim();
         const fallbackRaw = fallback == null ? '' : String(fallback).trim();
-        return sanitize(raw || fallbackRaw || 'Not provided');
+        return escapeHtmlClient(raw || fallbackRaw || 'Not provided');
     }
 
     function formatBookingSubmissionAddress(unit, street, city, province, postalCode) {
@@ -16958,43 +16963,94 @@
         return Math.max(0, Math.round(triggerTopInHost - topOffset));
     }
 
-    function smoothScrollHostTo(scrollHost, targetTop) {
-        return new Promise((resolve) => {
-            const currentTop = getScrollTopForHost(scrollHost);
-            if (Math.abs(currentTop - targetTop) <= 1) {
-                resolve();
+    const activeSmoothScrollByHost = new WeakMap();
+
+    function smoothScrollHostTo(scrollHost, targetTop, options = {}) {
+        const host = scrollHost || document.scrollingElement || document.documentElement;
+        const startTop = getScrollTopForHost(scrollHost);
+        const distance = targetTop - startTop;
+        if (Math.abs(distance) <= 1) {
+            return Promise.resolve();
+        }
+
+        if (isReducedMotionPreferred()) {
+            setScrollTopForHost(scrollHost, targetTop, false);
+            return Promise.resolve();
+        }
+
+        const providedDuration = Number(options.durationMs);
+        const durationMs = Math.max(180, Math.min(3600, Number.isFinite(providedDuration) ? providedDuration : 620));
+        const activeState = host && typeof host === 'object' ? activeSmoothScrollByHost.get(host) : null;
+        if (activeState && Math.abs(activeState.targetTop - targetTop) <= 1) {
+            return activeState.promise;
+        }
+        if (activeState && typeof activeState.cancel === 'function') {
+            activeState.cancel();
+        }
+
+        const easeInOutCubic = (t) => {
+            if (t <= 0) return 0;
+            if (t >= 1) return 1;
+            return t < 0.5
+                ? 4 * t * t * t
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        let rafId = 0;
+        let settled = false;
+        let resolvePromise = null;
+        const promise = new Promise((resolve) => {
+            resolvePromise = resolve;
+        });
+
+        const finish = (snapToTarget = true) => {
+            if (settled) return;
+            settled = true;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = 0;
+            }
+            if (snapToTarget) {
+                setScrollTopForHost(scrollHost, targetTop, false);
+            }
+            if (host && typeof host === 'object') {
+                const trackedState = activeSmoothScrollByHost.get(host);
+                if (trackedState && trackedState.promise === promise) {
+                    activeSmoothScrollByHost.delete(host);
+                }
+            }
+            if (typeof resolvePromise === 'function') {
+                resolvePromise();
+            }
+        };
+
+        const startedAt = performance.now();
+        const tick = (now) => {
+            if (settled) return;
+            const elapsed = now - startedAt;
+            const progress = Math.max(0, Math.min(1, elapsed / durationMs));
+            const easedProgress = easeInOutCubic(progress);
+            const nextTop = Math.round(startTop + (distance * easedProgress));
+            setScrollTopForHost(scrollHost, nextTop, false);
+
+            if (progress >= 1 || Math.abs(getScrollTopForHost(scrollHost) - targetTop) <= 1) {
+                finish(true);
                 return;
             }
 
-            setScrollTopForHost(scrollHost, targetTop, true);
-            const startedAt = performance.now();
-            let lastTop = currentTop;
-            let stillFrames = 0;
+            rafId = requestAnimationFrame(tick);
+        };
 
-            const tick = () => {
-                const nextTop = getScrollTopForHost(scrollHost);
-                if (Math.abs(nextTop - targetTop) <= 2) {
-                    resolve();
-                    return;
-                }
+        if (host && typeof host === 'object') {
+            activeSmoothScrollByHost.set(host, {
+                targetTop,
+                promise,
+                cancel: () => finish(false)
+            });
+        }
 
-                if (Math.abs(nextTop - lastTop) < 0.25) {
-                    stillFrames += 1;
-                } else {
-                    stillFrames = 0;
-                }
-                lastTop = nextTop;
-
-                if ((performance.now() - startedAt) > 850 || stillFrames > 9) {
-                    resolve();
-                    return;
-                }
-
-                requestAnimationFrame(tick);
-            };
-
-            requestAnimationFrame(tick);
-        });
+        rafId = requestAnimationFrame(tick);
+        return promise;
     }
 
     function alignCustomSelectToTopViewport(selectElement, trigger, options = {}) {
