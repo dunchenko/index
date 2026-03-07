@@ -947,11 +947,11 @@
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
-            border-color: rgba(var(--modal-design-tone-rgb), 0.92) !important;
-            background: #ffffff !important;
+            border-color: var(--form-hint-tone) !important;
+            background: var(--form-hint-tone) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                0 0 0 0 rgba(212, 184, 154, 0);
+                inset 0 1px 0 rgba(255, 235, 214, 0.2),
+                0 0 0 0 rgba(var(--modal-design-tone-rgb), 0);
             transition:
                 border-color 180ms ease,
                 box-shadow 180ms ease,
@@ -959,17 +959,27 @@
                 transform 140ms ease;
         }
 
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:hover {
+            background: var(--form-hint-tone-hover) !important;
+            border-color: var(--form-hint-tone-hover) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:active {
+            background: var(--form-hint-tone-hover) !important;
+            border-color: var(--form-hint-tone-hover) !important;
+        }
+
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked::after {
-            border-right-color: rgb(var(--modal-design-tone-rgb)) !important;
-            border-bottom-color: rgb(var(--modal-design-tone-rgb)) !important;
+            border-right-color: #ffe8cf !important;
+            border-bottom-color: #ffe8cf !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked {
-            background: #ffffff !important;
-            border-color: rgba(var(--modal-design-tone-rgb), 0.92) !important;
+            background: var(--form-hint-tone) !important;
+            border-color: var(--form-hint-tone) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                0 0 0 1px rgba(139, 111, 90, 0.16) !important;
+                inset 0 1px 0 rgba(255, 235, 214, 0.2),
+                0 0 0 1px rgba(var(--modal-design-tone-rgb), 0.26) !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked + .contact-form__checkbox-label,
@@ -992,9 +1002,9 @@
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
             outline: none !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                0 0 0 2px rgba(255, 255, 255, 0.72),
-                0 0 0 4px rgba(139, 111, 90, 0.24) !important;
+                inset 0 1px 0 rgba(255, 235, 214, 0.22),
+                0 0 0 2px rgba(255, 237, 218, 0.68),
+                0 0 0 4px rgba(var(--modal-design-tone-rgb), 0.34) !important;
         }
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms.checkbox-need-tap-flash .contact-form__checkbox {
@@ -1002,10 +1012,10 @@
                 bookingCheckboxHypnoticBreath 2.2s cubic-bezier(0.42, 0, 0.2, 1) infinite,
                 bookingCheckboxLightSweep 2.2s ease-in-out infinite !important;
             box-shadow:
-                0 0 0 0 rgba(212, 184, 154, 0),
-                0 0 0 rgba(212, 184, 154, 0.3),
-                0 0 0.22rem rgba(212, 184, 154, 0.24);
-            filter: saturate(1.02);
+                0 0 0 0 rgba(var(--modal-design-tone-rgb), 0),
+                0 0 0 rgba(var(--modal-design-tone-rgb), 0.42),
+                0 0 0.26rem rgba(var(--modal-design-tone-rgb), 0.32);
+            filter: saturate(1.05);
             transform-origin: center;
             will-change: transform, box-shadow, filter;
         }
@@ -1019,15 +1029,15 @@
             0%,
             100% {
                 transform: scale(1);
-                border-color: #D4B89A;
+                border-color: rgba(var(--modal-design-tone-rgb), 0.86);
             }
             38% {
                 transform: scale(1.09);
-                border-color: #E2C9AE;
+                border-color: rgba(var(--modal-design-tone-rgb), 0.96);
             }
             62% {
                 transform: scale(1.12);
-                border-color: #BFA792;
+                border-color: rgba(var(--modal-design-tone-rgb), 0.78);
             }
         }
 
@@ -1035,23 +1045,23 @@
             0%,
             100% {
                 box-shadow:
-                    0 0 0 0 rgba(212, 184, 154, 0),
-                    0 0 0 rgba(212, 184, 154, 0.28),
-                    0 0 0.22rem rgba(212, 184, 154, 0.16);
+                    0 0 0 0 rgba(var(--modal-design-tone-rgb), 0),
+                    0 0 0 rgba(var(--modal-design-tone-rgb), 0.3),
+                    0 0 0.26rem rgba(var(--modal-design-tone-rgb), 0.2);
                 filter: saturate(1.03) brightness(1);
             }
             40% {
                 box-shadow:
-                    0 0 0 0.3rem rgba(212, 184, 154, 0.22),
-                    0 0 1rem rgba(212, 184, 154, 0.44),
-                    0 0 1.8rem rgba(191, 167, 146, 0.34);
+                    0 0 0 0.3rem rgba(var(--modal-design-tone-rgb), 0.24),
+                    0 0 1rem rgba(var(--modal-design-tone-rgb), 0.46),
+                    0 0 1.8rem rgba(var(--modal-design-tone-rgb), 0.32);
                 filter: saturate(1.05) brightness(1.04);
             }
             70% {
                 box-shadow:
-                    0 0 0 0.45rem rgba(212, 184, 154, 0.18),
-                    0 0 1.25rem rgba(191, 167, 146, 0.42),
-                    0 0 2rem rgba(139, 111, 90, 0.26);
+                    0 0 0 0.45rem rgba(var(--modal-design-tone-rgb), 0.2),
+                    0 0 1.25rem rgba(var(--modal-design-tone-rgb), 0.38),
+                    0 0 2rem rgba(var(--modal-design-tone-rgb), 0.28);
                 filter: saturate(1.04) brightness(1.02);
             }
         }
@@ -2217,6 +2227,12 @@
             text-align: center !important;
         }
 
+        #bookingModal #dobAgePreview,
+        #bookingModal #dobAgePreview::placeholder {
+            text-align: center !important;
+            text-align-last: center !important;
+        }
+
         #bookingModal .booking-row--address-city {
             width: 100%;
             align-items: center;
@@ -2295,6 +2311,10 @@
             min-width: 180px !important;
             max-width: 180px !important;
             margin-left: 0 !important;
+            text-align: center !important;
+        }
+
+        #bookingModal .booking-row--province-zip input[name="address_zip"]::placeholder {
             text-align: center !important;
         }
 
@@ -2914,8 +2934,8 @@
         .calendar-wrapper.calendar--loading .slots-nav,
         .calendar-wrapper.calendar--loading .slots-block,
         .calendar-wrapper.calendar--loading .loading-separator {
-            opacity: 0.42 !important;
-            visibility: visible;
+            opacity: 0 !important;
+            visibility: hidden !important;
             pointer-events: none;
         }
         
@@ -4264,7 +4284,7 @@
 
         #bookingModal .file-attach__drop-zone-file--drag-over,
         #bookingModal .file-attach.file-attach--drag-over .file-attach__drop-zone-file {
-            border-color: rgba(255, 255, 255, 0.9) !important;
+            border-color: var(--booking-attach-copy-color) !important;
         }
 
         #bookingModal .file-attach__drop-zone-file--drag-over .file-attach__btn,
@@ -4660,6 +4680,17 @@
             filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.72)) drop-shadow(0 0 28px rgba(255, 255, 255, 0.44));
         }
 
+        #globalSpinner.global-spinner--hypnotic .global-spinner__glow {
+            stroke: #ffffff;
+            transition: stroke-dashoffset 0.95s linear;
+            transform-origin: 60px 60px;
+            animation: globalSpinnerHypnoticSlowPulse 4.8s ease-in-out infinite;
+            filter:
+                drop-shadow(0 0 16px rgba(255, 255, 255, 0.78))
+                drop-shadow(0 0 34px rgba(255, 255, 255, 0.52))
+                drop-shadow(0 0 54px rgba(255, 255, 255, 0.24));
+        }
+
         .global-spinner--hypnotic .global-spinner__value {
             color: #ffffff;
             text-shadow: 0 0 12px rgba(255, 255, 255, 0.82), 0 0 26px rgba(255, 255, 255, 0.4);
@@ -4686,6 +4717,23 @@
             50% {
                 transform: scale(1.045);
                 filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.96)) drop-shadow(0 0 38px rgba(255, 255, 255, 0.5));
+            }
+        }
+
+        @keyframes globalSpinnerHypnoticSlowPulse {
+            0%, 100% {
+                transform: scale(0.992);
+                filter:
+                    drop-shadow(0 0 12px rgba(255, 255, 255, 0.58))
+                    drop-shadow(0 0 24px rgba(255, 255, 255, 0.38))
+                    drop-shadow(0 0 40px rgba(255, 255, 255, 0.18));
+            }
+            50% {
+                transform: scale(1.026);
+                filter:
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.96))
+                    drop-shadow(0 0 42px rgba(255, 255, 255, 0.62))
+                    drop-shadow(0 0 66px rgba(255, 255, 255, 0.28));
             }
         }
 
@@ -5279,12 +5327,46 @@
 
         .privacy-note {
             margin: 0;
-            padding: 0.85rem 1rem;
-            border-left: 4px solid rgba(255, 255, 255, 0.9);
-            border-radius: 0.45rem;
-            background: rgba(255, 255, 255, 0.08);
+            padding: 0;
+            border: 0;
+            border-left: 0;
+            border-radius: 0;
+            background: transparent;
             color: rgba(255, 255, 255, 0.96);
             line-height: 1.55;
+            text-align: center;
+        }
+
+        .layout-container > .privacy-block--full-viewport-note {
+            width: 100vw;
+            max-width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            padding-left: clamp(0.9rem, 4vw, 2rem);
+            padding-right: clamp(0.9rem, 4vw, 2rem);
+            text-align: center;
+        }
+
+        .layout-container > .privacy-block--full-viewport-note .privacy-note {
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center !important;
+            text-align-last: center !important;
+            text-wrap: balance;
+        }
+
+        .footer__privacy-note-block {
+            width: 100%;
+            margin: 0.8rem auto 0.4rem;
+            padding: 0 0.8rem;
+            text-align: center;
+        }
+
+        .footer__privacy-note-block .privacy-note {
+            max-width: min(100%, 48rem);
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {
@@ -6001,33 +6083,38 @@
             color: inherit !important;
             text-shadow: inherit !important;
         }
-        /* Modal + form palette aligned to striped background */
+        /* Modal + form palette with clean gradients (no stripe pattern) */
         :root {
             --modal-design-surface-rgb: var(--site-bg-mid-rgb);
             --modal-design-overlay-rgb: var(--site-bg-mid-rgb);
             --modal-design-tone-rgb: var(--site-bg-dark-rgb);
-            --modal-design-border-rgb: 255, 245, 232;
+            --modal-design-border-rgb: var(--site-bg-light-rgb);
+            --modal-design-text-rgb: 255, 248, 239;
             --intake-shell-overlay:
-                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.18) 0%, transparent 24%),
-                linear-gradient(326deg, transparent 12%, rgba(var(--site-bg-light-rgb), 0.12) 42%, transparent 78%),
-                linear-gradient(58deg, rgba(var(--site-bg-dark-rgb), 0.12) 0%, transparent 34%),
-                rgba(var(--modal-design-overlay-rgb), 0.58);
+                linear-gradient(146deg, rgba(255, 255, 255, 0.2) 0%, transparent 26%),
+                linear-gradient(146deg, transparent 10%, rgba(255, 255, 255, 0.12) 40%, transparent 78%),
+                linear-gradient(58deg, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+                rgba(var(--modal-design-overlay-rgb), 0.56);
             --intake-shell-surface:
-                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.22) 0%, transparent 28%),
-                linear-gradient(326deg, transparent 10%, rgba(var(--site-bg-light-rgb), 0.15) 42%, transparent 78%),
-                linear-gradient(58deg, rgba(var(--site-bg-mid-rgb), 0.12) 0%, transparent 34%),
-                linear-gradient(0deg, rgba(var(--site-bg-dark-rgb), 0.16), rgba(var(--site-bg-dark-rgb), 0.16)),
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.22) 0%, rgba(var(--site-bg-light-rgb), 0.06) 36%, transparent 72%),
+                linear-gradient(146deg, transparent 10%, rgba(var(--site-bg-light-rgb), 0.14) 40%, transparent 78%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.1) 0%, transparent 32%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.2) 0%, rgba(var(--site-bg-dark-rgb), 0.28) 100%),
                 rgb(var(--modal-design-surface-rgb));
             --intake-shell-shadow:
-                0 1.2rem 3rem rgba(var(--site-bg-shadow-rgb), 0.38),
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.24);
+                0 1.24rem 2.72rem rgba(var(--site-bg-shadow-rgb), 0.38),
+                0 0.2rem 0.52rem rgba(var(--site-bg-shadow-rgb), 0.16);
             --booking-form-rgb: var(--site-bg-mid-rgb);
-            --glass-bg: rgba(var(--site-bg-light-rgb), 0.12);
-            --glass-border: rgba(var(--site-bg-light-rgb), 0.22);
-            --input-bg: rgba(var(--site-bg-dark-rgb), 0.18);
-            --placeholder-color: rgba(255, 246, 236, 0.72);
+            --glass-bg: rgba(var(--site-bg-light-rgb), 0.16);
+            --glass-border: rgba(var(--site-bg-light-rgb), 0.3);
+            --input-bg: rgba(var(--site-bg-dark-rgb), 0.3);
+            --placeholder-color: rgba(245, 226, 203, 0.92);
             --accent-gold: #8b6f5a;
             --accent-hover: #d4b89a;
+            --form-hint-tone: rgba(var(--modal-design-tone-rgb), 0.86);
+            --form-hint-tone-hover: rgba(var(--modal-design-tone-rgb), 0.94);
+            --book-main-tone: var(--form-hint-tone);
+            --book-main-tone-hover: var(--form-hint-tone-hover);
         }
 
         #bookingModal,
@@ -6040,6 +6127,31 @@
             --booking-form-rgb: var(--modal-design-surface-rgb);
         }
 
+        #bookingModal .modal__content,
+        #intakeNoticeModal .modal__content,
+        #termsModal .modal__content,
+        #privacyModal .modal__content {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        #bookingModal .modal__content::before,
+        #intakeNoticeModal .modal__content::before,
+        #termsModal .modal__content::before,
+        #privacyModal .modal__content::before {
+            content: none !important;
+            display: none !important;
+        }
+
+        #bookingModal .modal__content > *,
+        #intakeNoticeModal .modal__content > *,
+        #termsModal .modal__content > *,
+        #privacyModal .modal__content > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .modal__content,
         #bookingModal .modal__content,
         #intakeNoticeModal .modal__content,
@@ -6049,10 +6161,10 @@
         .form-calendar-overlay:not(.form-calendar-overlay--quick-slots) .form-calendar-overlay__panel,
         .form-calendar-overlay__panel.form-calendar-overlay__panel--compact {
             background: var(--intake-shell-surface) !important;
-            border-color: rgba(var(--site-bg-light-rgb), 0.28) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.22) !important;
             box-shadow:
-                0 1.2rem 3rem rgba(var(--site-bg-shadow-rgb), 0.34),
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.22) !important;
+                0 1.08rem 2.6rem rgba(var(--site-bg-shadow-rgb), 0.3),
+                0 0.24rem 0.62rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
             backdrop-filter: blur(18px) saturate(118%) !important;
             -webkit-backdrop-filter: blur(18px) saturate(118%) !important;
         }
@@ -6060,10 +6172,9 @@
         .modal__close {
             background:
                 linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.42), rgba(var(--site-bg-mid-rgb), 0.22)) !important;
-            border-color: rgba(var(--site-bg-light-rgb), 0.72) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.58) !important;
             box-shadow:
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.34),
-                0 4px 12px rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+                0 4px 12px rgba(var(--site-bg-shadow-rgb), 0.2) !important;
             text-shadow: none !important;
             color: rgb(var(--modal-design-tone-rgb)) !important;
         }
@@ -6071,8 +6182,81 @@
         .modal__close:hover {
             background:
                 linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.5), rgba(var(--site-bg-mid-rgb), 0.28)) !important;
-            border-color: rgba(var(--site-bg-light-rgb), 0.84) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.7) !important;
         }
+
+        #bookingModal .modal__title,
+        #intakeNoticeModal .modal__title,
+        #termsModal .modal__title,
+        #privacyModal .modal__title,
+        #bookingModal .modal__section-title,
+        #intakeNoticeModal .modal__section-title,
+        #termsModal .modal__section-title,
+        #privacyModal .modal__section-title {
+            color: rgba(255, 246, 234, 0.98) !important;
+            text-shadow: 0 1px 12px rgba(var(--site-bg-shadow-rgb), 0.18) !important;
+            border-bottom-color: rgba(var(--site-bg-light-rgb), 0.36) !important;
+        }
+
+        #bookingModal .modal__text,
+        #intakeNoticeModal .modal__text,
+        #termsModal .modal__text,
+        #privacyModal .modal__text {
+            color: rgba(255, 244, 231, 0.95) !important;
+            text-shadow: 0 1px 8px rgba(var(--site-bg-shadow-rgb), 0.12) !important;
+        }
+
+        #bookingModal .contact-form__group {
+            background:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, rgba(var(--site-bg-light-rgb), 0.06) 34%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.1) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.18) 0%, rgba(var(--site-bg-dark-rgb), 0.28) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.2);
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.32);
+            border-radius: 1rem;
+            padding: 0.72rem;
+            box-shadow:
+                0 0.38rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.16);
+        }
+
+        #bookingModal .contact-form__group .contact-form__input,
+        #bookingModal .contact-form__group .contact-form__textarea,
+        #bookingModal .contact-form__group .custom-select__trigger {
+            margin: 0 !important;
+        }
+
+        #bookingModal #bookingForm > .contact-form__group:first-child > div[onclick*="openCalendarBtn"],
+        #bookingModal .file-attach {
+            --booking-attach-copy-color: rgba(255, 251, 246, 0.96);
+            background:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.16) 0%, rgba(var(--site-bg-light-rgb), 0.04) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.18) !important;
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.22) !important;
+            box-shadow:
+                0 0.4rem 0.94rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
+        }
+
+        #bookingModal .file-attach__drop-zone {
+            background:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.14) 0%, rgba(var(--site-bg-light-rgb), 0.03) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.16) !important;
+            color: var(--booking-attach-copy-color) !important;
+            border-color: currentColor !important;
+            box-shadow: 0 0.24rem 0.7rem rgba(var(--site-bg-shadow-rgb), 0.12);
+        }
+
+        #bookingModal .file-attach__drop-zone:hover,
+        #bookingModal .file-attach__drop-zone:focus-visible {
+            border-color: currentColor !important;
+            background:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, rgba(var(--site-bg-light-rgb), 0.06) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.18) !important;
+        }
+
+        #bookingModal .file-attach__drop-zone p {
+            color: inherit !important;
+        }
+
         .contact-form__label,
         .contact-form__checkbox-label,
         .contact-form__terms-link,
@@ -6091,14 +6275,15 @@
         #bookingModal .contact-form__textarea,
         #bookingModal .custom-select__trigger {
             background:
-                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.14) 0%, rgba(var(--site-bg-mid-rgb), 0.08) 100%),
-                rgba(var(--site-bg-dark-rgb), 0.26) !important;
-            border-color: rgba(255, 248, 238, 0.3) !important;
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.24) 0%, rgba(var(--site-bg-light-rgb), 0.08) 34%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.1) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.2) 0%, rgba(var(--site-bg-dark-rgb), 0.32) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.28) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.34) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.12),
-                0 0.3rem 0.8rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
-            color: rgba(255, 251, 246, 0.98) !important;
-            -webkit-text-fill-color: rgba(255, 251, 246, 0.98) !important;
+                0 0.4rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.2) !important;
+            color: rgba(255, 247, 236, 0.98) !important;
+            -webkit-text-fill-color: rgba(255, 247, 236, 0.98) !important;
         }
 
         .contact-form__input:focus,
@@ -6114,15 +6299,18 @@
         #bookingModal .contact-form__input--has-content,
         #bookingModal .custom-select__trigger.contact-form__input--has-content {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.995) 0%, rgba(255, 252, 247, 0.98) 100%) !important;
-            color: rgb(var(--modal-design-tone-rgb)) !important;
-            -webkit-text-fill-color: rgb(var(--modal-design-tone-rgb)) !important;
-            caret-color: rgb(var(--modal-design-tone-rgb)) !important;
-            border-color: rgba(255, 255, 255, 0.96) !important;
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.28) 0%, rgba(var(--site-bg-light-rgb), 0.1) 36%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.12) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.22) 0%, rgba(var(--site-bg-dark-rgb), 0.34) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.3) !important;
+            color: rgba(255, 248, 239, 0.99) !important;
+            -webkit-text-fill-color: rgba(255, 248, 239, 0.99) !important;
+            caret-color: rgba(255, 248, 239, 0.99) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.48) !important;
             box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.68),
-                0 0.75rem 1.5rem rgba(var(--site-bg-shadow-rgb), 0.16),
-                inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0 0 1px rgba(var(--site-bg-light-rgb), 0.2),
+                0 0.65rem 1.35rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
         }
 
         .custom-select__trigger.contact-form__input--has-content::after,
@@ -6136,16 +6324,93 @@
         .contact-form__textarea::placeholder,
         #bookingModal .contact-form__input::placeholder,
         #bookingModal .contact-form__textarea::placeholder {
-            color: #5a3d2a !important;
+            color: rgba(245, 226, 203, 0.88) !important;
             opacity: 1 !important;
+        }
+
+        #bookingModal .contact-form__input:focus::placeholder,
+        #bookingModal .contact-form__textarea:focus::placeholder,
+        #bookingModal .custom-select__trigger.contact-form__input--has-content::placeholder {
+            color: rgba(108, 76, 50, 0.62) !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn,
+        #bookingModal .contact-form__submit-button,
+        #headerBookBtn,
+        #footerBookBtn,
+        #intakeNoticeModal .intake-notice-modal__ok {
+            background: var(--form-hint-tone) !important;
+            border: 1px solid var(--form-hint-tone) !important;
+            color: rgba(255, 247, 236, 0.99) !important;
+            box-shadow:
+                0 0.66rem 1.36rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn:hover,
+        #bookingModal .contact-form__submit-button:hover,
+        #headerBookBtn:hover,
+        #footerBookBtn:hover,
+        #intakeNoticeModal .intake-notice-modal__ok:hover {
+            background: var(--form-hint-tone-hover) !important;
+            border-color: var(--form-hint-tone-hover) !important;
+            color: #fff9f1 !important;
+            transform: translateY(-1px);
+            box-shadow:
+                0 0.78rem 1.58rem rgba(var(--site-bg-shadow-rgb), 0.26) !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn {
+            background: var(--form-hint-tone) !important;
+            border-color: var(--form-hint-tone) !important;
+            color: #fff6ea !important;
+            text-shadow: 0 1px 0 rgba(var(--modal-design-tone-rgb), 0.35);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 229, 203, 0.26),
+                0 0.92rem 1.9rem rgba(var(--modal-design-tone-rgb), 0.42) !important;
+            animation: none !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn:hover,
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn:focus-visible,
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn:active {
+            background: var(--form-hint-tone-hover) !important;
+            border-color: var(--form-hint-tone-hover) !important;
+            color: #fff9f2 !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 235, 212, 0.3),
+                0 1.05rem 2.08rem rgba(var(--modal-design-tone-rgb), 0.5) !important;
+        }
+
+        #bookingModal[data-state="form"] #bookingForm .modal-sticky-actions #confirmBookingBtn:disabled,
+        #bookingModal .contact-form__submit-button:disabled,
+        #headerBookBtn:disabled,
+        #footerBookBtn:disabled {
+            background: rgba(219, 195, 170, 0.74) !important;
+            border-color: rgba(219, 195, 170, 0.76) !important;
+            color: rgba(91, 67, 47, 0.56) !important;
+            box-shadow: none !important;
+        }
+
+        #headerBookBtn #headerBookBtnText,
+        #headerBookBtn #headerBookBtnText span,
+        #footerBookBtn #footerBookBtnText,
+        #footerBookBtn #footerBookBtnText span {
+            color: rgba(255, 247, 236, 0.99) !important;
+            text-shadow: none !important;
+        }
+
+        #headerBookBtn:hover #headerBookBtnText,
+        #headerBookBtn:hover #headerBookBtnText span,
+        #footerBookBtn:hover #footerBookBtnText,
+        #footerBookBtn:hover #footerBookBtnText span {
+            color: #fff9f1 !important;
         }
 
         .custom-options {
             background: var(--intake-shell-surface) !important;
-            border: 1px solid rgba(var(--site-bg-light-rgb), 0.24) !important;
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.2) !important;
             box-shadow:
-                0 1rem 2rem rgba(var(--site-bg-shadow-rgb), 0.22),
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.16) !important;
+                0 0.95rem 1.9rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
             backdrop-filter: blur(16px) saturate(116%) !important;
             -webkit-backdrop-filter: blur(16px) saturate(116%) !important;
         }
@@ -6172,22 +6437,19 @@
                 linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.24) 0%, rgba(var(--site-bg-light-rgb), 0.08) 100%),
                 linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, rgba(var(--site-bg-mid-rgb), 0.14) 60%, rgba(var(--site-bg-dark-rgb), 0.18) 100%),
                 rgba(var(--site-bg-dark-rgb), 0.28);
-            --dropdown-trigger-border: rgba(255, 248, 238, 0.3);
-            --dropdown-trigger-border-active: rgba(255, 255, 255, 0.96);
+            --dropdown-trigger-border: rgba(255, 242, 226, 0.24);
+            --dropdown-trigger-border-active: rgba(255, 242, 226, 0.58);
             --dropdown-trigger-shadow:
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.24),
-                0 0.6rem 1.35rem rgba(var(--site-bg-shadow-rgb), 0.2);
+                0 0.54rem 1.2rem rgba(var(--site-bg-shadow-rgb), 0.2);
             --dropdown-trigger-shadow-active:
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.28),
-                0 0.7rem 1.5rem rgba(var(--site-bg-shadow-rgb), 0.24);
+                0 0.66rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.24);
             --dropdown-panel-bg:
                 linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.3) 0%, rgba(var(--site-bg-light-rgb), 0.12) 100%),
                 linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.34) 0%, rgba(var(--site-bg-mid-rgb), 0.3) 60%, rgba(var(--site-bg-dark-rgb), 0.34) 100%),
                 rgba(var(--site-bg-dark-rgb), 0.76);
-            --dropdown-panel-border: rgba(var(--site-bg-light-rgb), 0.44);
+            --dropdown-panel-border: rgba(var(--site-bg-light-rgb), 0.32);
             --dropdown-panel-shadow:
-                inset 0 1px 0 rgba(var(--site-bg-light-rgb), 0.26),
-                0 1rem 2rem rgba(var(--site-bg-shadow-rgb), 0.3);
+                0 0.95rem 1.9rem rgba(var(--site-bg-shadow-rgb), 0.28);
             --dropdown-option-text: rgba(255, 247, 236, 0.98);
             --dropdown-placeholder: rgba(243, 226, 207, 0.95);
             --dropdown-option-hover-bg:
@@ -6333,8 +6595,7 @@
         #bookingModal #cityCustomSelect .custom-options {
             box-shadow:
                 0 1.4rem 2.8rem rgba(var(--site-bg-shadow-rgb), 0.34),
-                0 0.52rem 1.2rem rgba(var(--site-bg-shadow-rgb), 0.22),
-                inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+                0 0.52rem 1.2rem rgba(var(--site-bg-shadow-rgb), 0.22) !important;
         }
 
         /* Make city dropdown visibly larger */
@@ -6441,20 +6702,39 @@
             color: rgba(255, 251, 246, 0.98) !important;
         }
 
-        /* Final white close buttons for Terms and Privacy modals */
+        /* Terms/Privacy close buttons aligned with striped background palette */
         #termsModal .modal__close,
         #privacyModal .modal__close {
+            position: absolute !important;
+            inset: clamp(0.65rem, 2.1vw, 1.2rem) clamp(0.65rem, 2.1vw, 1.2rem) auto auto !important;
+            left: auto !important;
+            right: clamp(0.65rem, 2.1vw, 1.2rem) !important;
+            top: clamp(0.65rem, 2.1vw, 1.2rem) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 2.2rem;
+            height: 2.2rem;
+            display: grid;
+            place-items: center;
+            font-size: 1.38rem;
+            line-height: 1 !important;
+            font-weight: 900;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14)) !important;
-            border-color: rgba(255, 255, 255, 0.84) !important;
-            color: #ffffff !important;
-            text-shadow: 0 0 0.65rem rgba(255, 255, 255, 0.34) !important;
+                radial-gradient(120% 120% at 32% 18%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 52%),
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.62) 0%, rgba(var(--site-bg-mid-rgb), 0.34) 100%) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.74) !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
+            text-shadow: none !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.48),
-                0 0.5rem 1rem rgba(var(--site-bg-shadow-rgb), 0.2),
-                0 0 1rem rgba(255, 255, 255, 0.08) !important;
+                inset 0 1px 0 rgba(255, 255, 255, 0.78),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+                0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.34),
+                0 0.12rem 0.28rem rgba(var(--site-bg-shadow-rgb), 0.22) !important;
             backdrop-filter: blur(8px) saturate(112%) !important;
             -webkit-backdrop-filter: blur(8px) saturate(112%) !important;
+            transform: none !important;
         }
 
         #termsModal .modal__close:hover,
@@ -6462,13 +6742,29 @@
         #privacyModal .modal__close:hover,
         #privacyModal .modal__close:focus-visible {
             background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.2)) !important;
-            border-color: rgba(255, 255, 255, 0.96) !important;
-            color: #ffffff !important;
+                radial-gradient(120% 120% at 34% 16%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 54%),
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.68) 0%, rgba(var(--site-bg-mid-rgb), 0.38) 100%) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.82) !important;
+            color: rgb(var(--modal-design-tone-rgb)) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.56),
-                0 0.6rem 1.15rem rgba(var(--site-bg-shadow-rgb), 0.22),
-                0 0 1.2rem rgba(255, 255, 255, 0.14) !important;
+                inset 0 1px 0 rgba(255, 255, 255, 0.86),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.26),
+                0 0.66rem 1.28rem rgba(var(--site-bg-shadow-rgb), 0.38),
+                0 0.16rem 0.32rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+            transform: scale(1.02) !important;
+        }
+
+        #termsModal .modal__close:active,
+        #privacyModal .modal__close:active {
+            background:
+                radial-gradient(120% 120% at 34% 16%, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0) 54%),
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.56) 0%, rgba(var(--site-bg-mid-rgb), 0.32) 100%) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.76) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.66),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.22),
+                0 0.48rem 0.98rem rgba(var(--site-bg-shadow-rgb), 0.3) !important;
+            transform: scale(0.99) !important;
         }
 
         /* Calendar icon primitives used by JS-rendered slot SVG and key marker */
@@ -6477,13 +6773,26 @@
             place-items: center;
             width: 100%;
             height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            color: #ffffff !important;
         }
 
         .cal-key-img {
-            width: 2.6rem;
-            height: 2.6rem;
+            width: clamp(1.8rem, 72%, 2.7rem) !important;
+            height: auto !important;
+            max-width: 92% !important;
+            max-height: 92% !important;
             display: block;
-            filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
+            object-fit: contain;
+            filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.42));
+            overflow: visible;
+        }
+
+        .layout-container #bookingCalendar .cal-day.cal-day--saturday-key,
+        .form-calendar-overlay__mount #bookingCalendar .cal-day.cal-day--saturday-key {
+            overflow: hidden !important;
+            z-index: 2 !important;
         }
 
         .layout-container #bookingCalendar .slot-clock,
@@ -7187,10 +7496,15 @@
         /* ------------------- MINIMAL CALENDAR THEME (SITE-ALIGNED) ------------------- */
         .layout-container #bookingCalendar.calendar-wrapper,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
-            --calendar-min-bg: rgba(255, 255, 255, 0.06);
-            --calendar-min-bg-strong: rgba(255, 255, 255, 0.14);
-            --calendar-min-border: rgba(255, 255, 255, 0.28);
-            --calendar-min-border-soft: rgba(255, 255, 255, 0.18);
+            --calendar-min-bg:
+                radial-gradient(128% 120% at 0% 0%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 58%),
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.15) 0%, rgba(var(--site-bg-mid-rgb), 0.1) 52%, rgba(var(--site-bg-dark-rgb), 0.2) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.2);
+            --calendar-min-bg-strong:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.26) 0%, rgba(var(--site-bg-mid-rgb), 0.14) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.24);
+            --calendar-min-border: rgba(255, 236, 214, 0.34);
+            --calendar-min-border-soft: rgba(var(--site-bg-light-rgb), 0.24);
             --calendar-min-ink: rgba(255, 255, 255, 0.96);
             --calendar-min-ink-muted: rgba(255, 255, 255, 0.68);
             --calendar-min-accent: rgba(var(--modal-design-tone-rgb), 0.94);
@@ -7198,7 +7512,9 @@
             background: var(--calendar-min-bg) !important;
             border: 1px solid var(--calendar-min-border) !important;
             border-radius: 1rem !important;
-            box-shadow: 0 0.7rem 1.9rem rgba(var(--site-bg-shadow-rgb), 0.2) !important;
+            box-shadow:
+                0 1.15rem 2.5rem rgba(var(--site-bg-shadow-rgb), 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
             padding: 0.9rem !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -7221,10 +7537,14 @@
         .form-calendar-overlay__mount #bookingCalendar .calendar-grid,
         .form-calendar-overlay__mount #bookingCalendar .slots-nav,
         .form-calendar-overlay__mount #bookingCalendar .slots-block {
-            background: rgba(255, 255, 255, 0.04) !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.16) 0%, rgba(var(--site-bg-mid-rgb), 0.08) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.16) !important;
             border: 1px solid var(--calendar-min-border-soft) !important;
             border-radius: 0.85rem !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                0 0.36rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.1) !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
         }
@@ -7292,10 +7612,14 @@
             width: var(--calendar-day-btn-size, 2.76rem) !important;
             height: var(--calendar-day-btn-size, 2.76rem) !important;
             border-radius: 0.66rem !important;
-            border: 1px solid var(--calendar-min-border-soft) !important;
-            background: transparent !important;
+            border: 1px solid var(--calendar-min-border) !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.18) 0%, rgba(var(--site-bg-mid-rgb), 0.08) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.2) !important;
             color: var(--calendar-min-ink) !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.16),
+                0 0.3rem 0.75rem rgba(var(--site-bg-shadow-rgb), 0.12) !important;
             transform: none !important;
             transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
         }
@@ -7305,10 +7629,12 @@
         .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:hover,
         .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:focus-visible {
             background: var(--calendar-min-bg-strong) !important;
-            border-color: var(--calendar-min-border) !important;
+            border-color: rgba(255, 236, 214, 0.52) !important;
             color: #ffffff !important;
             transform: none !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                0 0.42rem 0.94rem rgba(var(--site-bg-shadow-rgb), 0.16) !important;
         }
 
         .layout-container #bookingCalendar .calendar-nav-btn:disabled,
@@ -7325,8 +7651,8 @@
         .form-calendar-overlay__mount #bookingCalendar #prevBtn.calendar-nav-btn--muted,
         .form-calendar-overlay__mount #bookingCalendar #prevBtn.calendar-nav-btn--muted:disabled,
         .form-calendar-overlay__mount #bookingCalendar #prevBtn.calendar-nav-btn--muted[aria-disabled="true"] {
-            background: transparent !important;
-            border-color: rgba(255, 255, 255, 0.12) !important;
+            background: rgba(var(--site-bg-dark-rgb), 0.18) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.14) !important;
             color: rgba(255, 255, 255, 0.38) !important;
             opacity: 0.72 !important;
             box-shadow: none !important;
@@ -7355,8 +7681,12 @@
             place-items: center !important;
             border-radius: 0.66rem !important;
             border: 1px solid var(--calendar-min-border-soft) !important;
-            background: transparent !important;
-            box-shadow: none !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.12) 0%, rgba(var(--site-bg-mid-rgb), 0.06) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.14) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 0.22rem 0.62rem rgba(var(--site-bg-shadow-rgb), 0.08) !important;
             color: var(--calendar-min-ink) !important;
             font-size: 0.95rem !important;
             font-weight: 700 !important;
@@ -7384,9 +7714,11 @@
         .form-calendar-overlay__mount #bookingCalendar .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
         .form-calendar-overlay__mount #bookingCalendar .cal-day:focus-visible:not(.cal-day--empty):not(.cal-day--disabled) {
             background: var(--calendar-min-bg-strong) !important;
-            border-color: var(--calendar-min-border) !important;
+            border-color: rgba(255, 236, 214, 0.48) !important;
             color: #ffffff !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0.34rem 0.76rem rgba(var(--site-bg-shadow-rgb), 0.12) !important;
             transform: none !important;
         }
 
@@ -7395,7 +7727,9 @@
             background: var(--calendar-min-accent) !important;
             border-color: var(--calendar-min-accent) !important;
             color: #ffffff !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 243, 226, 0.24),
+                0 0.48rem 0.96rem rgba(var(--site-bg-shadow-rgb), 0.18) !important;
             transform: none !important;
         }
 
@@ -7408,14 +7742,18 @@
         .layout-container #bookingCalendar .cal-day--closed,
         .form-calendar-overlay__mount #bookingCalendar .cal-day--has-slots,
         .form-calendar-overlay__mount #bookingCalendar .cal-day--closed {
-            background: rgba(255, 255, 255, 0.08) !important;
-            border-color: var(--calendar-min-border-soft) !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.16) 0%, rgba(var(--site-bg-mid-rgb), 0.08) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.16) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.3) !important;
         }
 
         .layout-container #bookingCalendar .cal-day--nearest,
         .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest {
-            border-color: rgba(255, 255, 255, 0.56) !important;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22) !important;
+            border-color: rgba(255, 236, 214, 0.62) !important;
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 236, 214, 0.28),
+                0 0.42rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
             animation: none !important;
         }
 
@@ -7423,24 +7761,33 @@
         .layout-container #bookingCalendar .cal-day--disabled,
         .form-calendar-overlay__mount #bookingCalendar .cal-day--busy,
         .form-calendar-overlay__mount #bookingCalendar .cal-day--disabled {
-            background: transparent !important;
-            border-color: rgba(255, 255, 255, 0.12) !important;
+            background: rgba(var(--site-bg-dark-rgb), 0.14) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.12) !important;
             color: rgba(255, 255, 255, 0.36) !important;
             box-shadow: none !important;
             opacity: 0.62 !important;
             transform: none !important;
         }
 
+        .layout-container #bookingCalendar .cal-day--disabled:not(.cal-day--sunday),
+        .form-calendar-overlay__mount #bookingCalendar .cal-day--disabled:not(.cal-day--sunday) {
+            border-radius: 999px !important;
+        }
+
         .layout-container #bookingCalendar .slots-nav,
         .form-calendar-overlay__mount #bookingCalendar .slots-nav {
             margin: 1.08rem 0 0.74rem !important;
-            padding: 0 !important;
+            padding: 0.4rem 0.58rem !important;
             min-height: 2.68rem !important;
             display: grid !important;
             place-items: center !important;
-            background: transparent !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.3) 0%, rgba(var(--site-bg-mid-rgb), 0.2) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.42) !important;
             border: none !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0.26rem 0.62rem rgba(var(--site-bg-shadow-rgb), 0.18) !important;
         }
 
         .layout-container #bookingCalendar #slotsDayDisplay,
@@ -7467,9 +7814,13 @@
         .layout-container #bookingCalendar .slots-block,
         .form-calendar-overlay__mount #bookingCalendar .slots-block {
             padding: 0 0 0.5rem !important;
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.12) 0%, rgba(var(--site-bg-mid-rgb), 0.06) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.14) !important;
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.24) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 0.26rem 0.62rem rgba(var(--site-bg-shadow-rgb), 0.08) !important;
         }
 
         .layout-container #bookingCalendar .slots-grid,
@@ -7490,25 +7841,41 @@
             min-height: 6.4rem !important;
             padding: 0.92rem 1.04rem !important;
             border-radius: 0.72rem !important;
-            background: transparent !important;
-            border: 1px solid var(--calendar-min-border-soft) !important;
-            box-shadow: none !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.42) 0%, rgba(var(--site-bg-mid-rgb), 0.26) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.5) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0.42rem 0.92rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
             color: var(--calendar-min-ink) !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
             transform: none !important;
             opacity: 1 !important;
-            transition: opacity 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+            transition: opacity 0.18s ease, background 0.18s ease, color 0.18s ease !important;
         }
 
         .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
-            background: transparent !important;
-            border-color: var(--calendar-min-border-soft) !important;
-            box-shadow: none !important;
-            color: inherit !important;
+            background: var(--calendar-min-bg-strong) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0.46rem 0.96rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+            color: #ffffff !important;
             opacity: 1 !important;
             transform: none !important;
+        }
+
+        .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover {
+            background: var(--calendar-min-bg-strong) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0.46rem 0.96rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+            color: #ffffff !important;
         }
 
         .layout-container #bookingCalendar .slots-grid .slot-btn:active,
@@ -7516,9 +7883,11 @@
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:active,
         .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked {
             background: var(--calendar-min-accent-soft) !important;
-            border-color: var(--calendar-min-accent-soft) !important;
+            border: none !important;
             color: #ffffff !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 243, 226, 0.24),
+                0 0.48rem 0.98rem rgba(var(--site-bg-shadow-rgb), 0.16) !important;
             transform: none !important;
         }
 
@@ -7580,7 +7949,7 @@
         .layout-container #bookingCalendar #calendarLoaderOverlay,
         .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
             background: rgba(var(--modal-design-tone-rgb), 0.16) !important;
-            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            border: 0 !important;
             border-radius: 0.85rem !important;
             box-shadow: none !important;
             backdrop-filter: blur(2px) !important;
@@ -7594,9 +7963,11 @@
         }
 
         .cal-key-img {
-            width: clamp(2.4rem, 78%, 3.95rem);
-            height: clamp(2.4rem, 78%, 3.95rem);
-            filter: brightness(0) invert(1) !important;
+            width: clamp(1.8rem, 72%, 2.7rem) !important;
+            height: auto !important;
+            max-width: 92% !important;
+            max-height: 92% !important;
+            filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4)) !important;
         }
 
         @media (max-width: 768px) {
@@ -7688,10 +8059,12 @@
         .layout-container #faqSpoiler .faq__item.is-open .faq__answer {
             border: 1px solid var(--faq-cal-border-soft) !important;
             background: var(--faq-cal-bg) !important;
-            box-shadow: none !important;
+            box-shadow:
+                0 0.34rem 0.84rem rgba(var(--site-bg-shadow-rgb), 0.12),
+                0 0.08rem 0.2rem rgba(var(--site-bg-shadow-rgb), 0.06) !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
-            transition: background 0.18s ease, border-color 0.18s ease !important;
+            transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease !important;
         }
 
         .layout-container #faqSpoiler .faq__question {
@@ -7712,6 +8085,9 @@
         .layout-container #faqSpoiler .faq__question:hover {
             background: var(--faq-cal-bg-strong) !important;
             border-color: var(--faq-cal-border) !important;
+            box-shadow:
+                0 0.46rem 1.02rem rgba(var(--site-bg-shadow-rgb), 0.16),
+                0 0.14rem 0.3rem rgba(var(--site-bg-shadow-rgb), 0.08) !important;
             transform: none !important;
         }
 
@@ -7735,6 +8111,9 @@
         .layout-container #faqSpoiler .faq__item.is-open .faq__answer:hover {
             background: var(--faq-cal-bg-strong) !important;
             border-color: var(--faq-cal-border) !important;
+            box-shadow:
+                0 0.46rem 1.02rem rgba(var(--site-bg-shadow-rgb), 0.16),
+                0 0.14rem 0.3rem rgba(var(--site-bg-shadow-rgb), 0.08) !important;
             transform: none !important;
         }
 
@@ -7949,19 +8328,54 @@
             }
         }
 
-        /* Apply blurred dropdown-like design only after dynamic calendar load */
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading {
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            filter: none !important;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading::before,
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading::after,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading::before,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading::after {
+            opacity: 0 !important;
+            animation: none !important;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .calendar-header,
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .calendar-grid,
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .slots-nav,
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .slots-block,
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .loading-separator,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .calendar-header,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .calendar-grid,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .slots-nav,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .slots-block,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .loading-separator {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            pointer-events: none !important;
+        }
+
+        /* Keep the same framed gradient style after dynamic calendar load */
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded {
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%),
-                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.16) 0%, rgba(var(--site-bg-mid-rgb), 0.12) 60%, rgba(var(--site-bg-dark-rgb), 0.16) 100%),
-                rgba(var(--site-bg-dark-rgb), 0.34) !important;
-            border: 1px solid rgba(255, 248, 238, 0.28) !important;
+            background: var(--calendar-min-bg) !important;
+            border: 1px solid var(--calendar-min-border) !important;
             box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.12),
-                0 1rem 2rem rgba(var(--site-bg-shadow-rgb), 0.2) !important;
-            backdrop-filter: blur(14px) saturate(112%) !important;
-            -webkit-backdrop-filter: blur(14px) saturate(112%) !important;
+                0 1.15rem 2.5rem rgba(var(--site-bg-shadow-rgb), 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-header,
@@ -7972,37 +8386,406 @@
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-grid,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-nav,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-block {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border-color: rgba(255, 255, 255, 0.24) !important;
-            backdrop-filter: blur(8px) saturate(108%) !important;
-            -webkit-backdrop-filter: blur(8px) saturate(108%) !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.16) 0%, rgba(var(--site-bg-mid-rgb), 0.08) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.16) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.24) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.14),
+                0 0.36rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.1) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-nav,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-nav {
-            background: transparent !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.3) 0%, rgba(var(--site-bg-mid-rgb), 0.2) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.42) !important;
             border: none !important;
-            box-shadow: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0.26rem 0.62rem rgba(var(--site-bg-shadow-rgb), 0.22) !important;
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border-color: rgba(255, 255, 255, 0.22) !important;
-            backdrop-filter: blur(6px) saturate(106%) !important;
-            -webkit-backdrop-filter: blur(6px) saturate(106%) !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.42) 0%, rgba(var(--site-bg-mid-rgb), 0.26) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.5) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0.42rem 0.92rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
 
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border-color: rgba(255, 255, 255, 0.22) !important;
-            color: inherit !important;
+            background: var(--calendar-min-bg-strong) !important;
+            border: none !important;
+            color: #ffffff !important;
             opacity: 1 !important;
             transform: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0.46rem 0.96rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+        }
+
+        /* Remove glitchy slot underlays/frames and heading frame in slots section */
+        .layout-container #bookingCalendar .slots-nav,
+        .form-calendar-overlay__mount #bookingCalendar .slots-nav,
+        .layout-container #bookingCalendar .slots-block,
+        .form-calendar-overlay__mount #bookingCalendar .slots-block {
+            background: transparent !important;
+            border: 0 !important;
             box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .layout-container #bookingCalendar .slots-block,
+        .form-calendar-overlay__mount #bookingCalendar .slots-block {
+            padding: 0 !important;
+            min-height: 0 !important;
+        }
+
+        .layout-container #bookingCalendar .slots-grid .slot-btn,
+        .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
+        .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
+        .layout-container #bookingCalendar .slots-grid .slot-btn:active,
+        .layout-container #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:active,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked {
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .layout-container #bookingCalendar .slots-grid .slot-btn::before,
+        .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn::before {
+            content: none !important;
+        }
+
+        /* Single shared frame for "Pick a time..." + slots */
+        .layout-container #bookingCalendar .slots-shell,
+        .form-calendar-overlay__mount #bookingCalendar .slots-shell {
+            margin: 1.02rem 0 0.74rem !important;
+            padding: 0.44rem 0.58rem 0.56rem !important;
+            border: 1px solid rgba(var(--site-bg-light-rgb), 0.3) !important;
+            border-radius: 0.86rem !important;
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.22) 0%, rgba(var(--site-bg-mid-rgb), 0.12) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.28) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0.36rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
+        .layout-container #bookingCalendar .slots-shell .slots-nav,
+        .form-calendar-overlay__mount #bookingCalendar .slots-shell .slots-nav {
+            margin: 0 0 0.34rem !important;
+            padding: 0.3rem 0.4rem !important;
+            min-height: 2.44rem !important;
+        }
+
+        .layout-container #bookingCalendar .slots-shell .slots-block,
+        .form-calendar-overlay__mount #bookingCalendar .slots-shell .slots-block {
+            margin: 0 !important;
+            padding: 0 0 0.22rem !important;
+        }
+
+        .layout-container #bookingCalendar.calendar-wrapper.calendar--loading .slots-shell,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading .slots-shell {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            background: transparent !important;
+            border-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        /* Calendar palette lock: same tone family as site animated background */
+        .layout-container #bookingCalendar.calendar-wrapper,
+        .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
+            --calendar-min-bg:
+                radial-gradient(128% 120% at 0% 0%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0) 58%),
+                linear-gradient(180deg, rgba(var(--site-bg-light-rgb), 0.34) 0%, rgba(var(--site-bg-mid-rgb), 0.26) 52%, rgba(var(--site-bg-dark-rgb), 0.5) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.52);
+            --calendar-min-bg-strong:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.46) 0%, rgba(var(--site-bg-mid-rgb), 0.3) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.58);
+            --calendar-min-border: rgba(var(--site-bg-light-rgb), 0.52);
+            --calendar-min-border-soft: rgba(var(--site-bg-light-rgb), 0.38);
+            --calendar-min-ink: rgba(255, 250, 244, 0.98);
+            --calendar-min-ink-muted: rgba(255, 236, 214, 0.74);
+            --calendar-min-accent: rgba(var(--site-bg-dark-rgb), 0.96);
+            --calendar-min-accent-soft: rgba(var(--site-bg-dark-rgb), 0.86);
+            background: var(--calendar-min-bg) !important;
+            border-color: var(--calendar-min-border) !important;
+            box-shadow:
+                0 1.18rem 2.56rem rgba(var(--site-bg-shadow-rgb), 0.36),
+                inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+        }
+
+        .layout-container #bookingCalendar .calendar-header,
+        .layout-container #bookingCalendar .calendar-grid,
+        .form-calendar-overlay__mount #bookingCalendar .calendar-header,
+        .form-calendar-overlay__mount #bookingCalendar .calendar-grid {
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.3) 0%, rgba(var(--site-bg-mid-rgb), 0.2) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.42) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.38) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                0 0.38rem 0.92rem rgba(var(--site-bg-shadow-rgb), 0.16) !important;
+        }
+
+        .layout-container #bookingCalendar .slots-shell,
+        .form-calendar-overlay__mount #bookingCalendar .slots-shell {
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.32) 0%, rgba(var(--site-bg-mid-rgb), 0.22) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.44) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.4) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.22),
+                0 0.42rem 0.98rem rgba(var(--site-bg-shadow-rgb), 0.18) !important;
+        }
+
+        .layout-container #bookingCalendar .calendar-nav-btn,
+        .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn {
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.28) 0%, rgba(var(--site-bg-mid-rgb), 0.18) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.36) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.48) !important;
+            color: var(--calendar-min-ink) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0.34rem 0.8rem rgba(var(--site-bg-shadow-rgb), 0.18) !important;
+        }
+
+        .layout-container #bookingCalendar .calendar-nav-btn:hover,
+        .layout-container #bookingCalendar .calendar-nav-btn:focus-visible,
+        .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:hover,
+        .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:focus-visible {
+            background: var(--calendar-min-bg-strong) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.56) !important;
+        }
+
+        .layout-container #bookingCalendar .cal-day:not(.cal-day--empty):not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy),
+        .form-calendar-overlay__mount #bookingCalendar .cal-day:not(.cal-day--empty):not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy) {
+            background:
+                linear-gradient(145deg, rgba(var(--site-bg-light-rgb), 0.26) 0%, rgba(var(--site-bg-mid-rgb), 0.16) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.36) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.42) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                0 0.24rem 0.64rem rgba(var(--site-bg-shadow-rgb), 0.14) !important;
+        }
+
+        .layout-container #bookingCalendar .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
+        .layout-container #bookingCalendar .cal-day:focus-visible:not(.cal-day--empty):not(.cal-day--disabled),
+        .form-calendar-overlay__mount #bookingCalendar .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
+        .form-calendar-overlay__mount #bookingCalendar .cal-day:focus-visible:not(.cal-day--empty):not(.cal-day--disabled) {
+            background: var(--calendar-min-bg-strong) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.58) !important;
+        }
+
+        .layout-container #bookingCalendar .cal-day--selected,
+        .form-calendar-overlay__mount #bookingCalendar .cal-day--selected {
+            background: var(--calendar-min-accent) !important;
+            border-color: var(--calendar-min-accent) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 244, 232, 0.24),
+                0 0.48rem 0.98rem rgba(var(--site-bg-shadow-rgb), 0.2) !important;
+        }
+
+        /* Keep caret at the left edge while centered placeholders remain centered */
+        #bookingModal #deadlineInputMain,
+        #bookingModal #dobAgePreview,
+        #bookingModal input[name="address_zip"] {
+            text-align: left !important;
+            text-align-last: left !important;
+            padding-left: 0.95rem !important;
+            padding-right: 0.95rem !important;
+        }
+
+        #bookingModal #deadlineInputMain::placeholder,
+        #bookingModal #dobAgePreview::placeholder,
+        #bookingModal input[name="address_zip"]::placeholder {
+            text-align: center !important;
+            text-align-last: center !important;
+        }
+
+        /* Final booking-form palette lock: match modal surface/element tones */
+        #bookingModal {
+            --form-surface-bg:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, rgba(var(--site-bg-light-rgb), 0.06) 36%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.1) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--modal-design-surface-rgb), 0.24) 0%, rgba(var(--modal-design-tone-rgb), 0.3) 100%),
+                rgba(var(--modal-design-tone-rgb), 0.18);
+            --form-control-bg:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.24) 0%, rgba(var(--site-bg-light-rgb), 0.08) 34%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.12) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--modal-design-surface-rgb), 0.24) 0%, rgba(var(--modal-design-tone-rgb), 0.34) 100%),
+                rgba(var(--modal-design-tone-rgb), 0.26);
+            --form-control-bg-active:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.28) 0%, rgba(var(--site-bg-light-rgb), 0.1) 36%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.14) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--modal-design-surface-rgb), 0.26) 0%, rgba(var(--modal-design-tone-rgb), 0.38) 100%),
+                rgba(var(--modal-design-tone-rgb), 0.32);
+            --form-control-border: rgba(var(--modal-design-border-rgb), 0.34);
+            --form-control-border-active: rgba(var(--modal-design-border-rgb), 0.56);
+            --form-control-text: rgba(var(--modal-design-text-rgb), 0.98);
+            --form-control-placeholder: rgba(var(--modal-design-text-rgb), 0.72);
+        }
+
+        #bookingModal .contact-form__group,
+        #bookingModal #bookingForm > .contact-form__group:first-child > div[onclick*="openCalendarBtn"],
+        #bookingModal .file-attach {
+            background: var(--form-surface-bg) !important;
+            border: 1px solid rgba(var(--modal-design-border-rgb), 0.3) !important;
+            box-shadow:
+                0 0.4rem 0.94rem rgba(var(--site-bg-shadow-rgb), 0.16) !important;
+        }
+
+        #bookingModal .contact-form__input,
+        #bookingModal .contact-form__textarea,
+        #bookingModal .custom-select__trigger,
+        #bookingModal .booking-static-province {
+            background: var(--form-control-bg) !important;
+            border-color: var(--form-control-border) !important;
+            color: var(--form-control-text) !important;
+            -webkit-text-fill-color: var(--form-control-text) !important;
+            box-shadow:
+                0 0.4rem 0.9rem rgba(var(--site-bg-shadow-rgb), 0.2) !important;
+        }
+
+        #bookingModal .contact-form__input:focus,
+        #bookingModal .contact-form__textarea:focus,
+        #bookingModal .contact-form__input:focus-visible,
+        #bookingModal .contact-form__textarea:focus-visible,
+        #bookingModal .custom-select__trigger:focus-visible,
+        #bookingModal .custom-select.open .custom-select__trigger,
+        #bookingModal .contact-form__input--has-content,
+        #bookingModal .custom-select__trigger.contact-form__input--has-content {
+            background: var(--form-control-bg-active) !important;
+            border-color: var(--form-control-border-active) !important;
+            color: var(--form-control-text) !important;
+            -webkit-text-fill-color: var(--form-control-text) !important;
+            caret-color: rgba(var(--modal-design-text-rgb), 0.98) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.24),
+                0 0 0 1px rgba(var(--modal-design-border-rgb), 0.22),
+                0 0.65rem 1.35rem rgba(var(--site-bg-shadow-rgb), 0.24) !important;
+        }
+
+        #bookingModal .contact-form__input::placeholder,
+        #bookingModal .contact-form__textarea::placeholder {
+            color: var(--form-control-placeholder) !important;
+            opacity: 1 !important;
+        }
+
+        #bookingModal .contact-form__input:focus::placeholder,
+        #bookingModal .contact-form__textarea:focus::placeholder {
+            color: rgba(var(--modal-design-text-rgb), 0.56) !important;
+        }
+
+        #bookingModal .custom-select {
+            --dropdown-trigger-bg: var(--form-control-bg);
+            --dropdown-trigger-bg-active: var(--form-control-bg-active);
+            --dropdown-trigger-border: var(--form-control-border);
+            --dropdown-trigger-border-active: var(--form-control-border-active);
+            --dropdown-panel-bg: var(--intake-shell-surface);
+            --dropdown-panel-border: rgba(var(--modal-design-border-rgb), 0.34);
+            --dropdown-option-text: rgba(var(--modal-design-text-rgb), 0.98);
+            --dropdown-placeholder: rgba(var(--modal-design-text-rgb), 0.72);
+            --dropdown-option-hover-bg: rgba(var(--site-bg-light-rgb), 0.16);
+            --dropdown-option-selected-bg: rgba(var(--site-bg-light-rgb), 0.22);
+            --dropdown-option-selected-text: rgba(var(--modal-design-text-rgb), 0.99);
+        }
+
+        /* Main-page background palette lock for booking form + checkbox */
+        #bookingModal {
+            --form-surface-bg:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.3) 0%, rgba(var(--site-bg-light-rgb), 0.12) 36%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.18) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.3) 0%, rgba(var(--site-bg-dark-rgb), 0.44) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.34);
+            --form-control-bg:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.34) 0%, rgba(var(--site-bg-light-rgb), 0.14) 34%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.2) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.32) 0%, rgba(var(--site-bg-dark-rgb), 0.48) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.4);
+            --form-control-bg-active:
+                linear-gradient(146deg, rgba(var(--site-bg-light-rgb), 0.38) 0%, rgba(var(--site-bg-light-rgb), 0.18) 36%, transparent 74%),
+                linear-gradient(58deg, rgba(var(--site-bg-light-rgb), 0.22) 0%, transparent 30%),
+                linear-gradient(180deg, rgba(var(--site-bg-mid-rgb), 0.36) 0%, rgba(var(--site-bg-dark-rgb), 0.54) 100%),
+                rgba(var(--site-bg-dark-rgb), 0.46);
+            --form-control-border: rgba(var(--site-bg-light-rgb), 0.42);
+            --form-control-border-active: rgba(var(--site-bg-light-rgb), 0.62);
+            --form-control-text: rgba(255, 248, 240, 0.99);
+            --form-control-placeholder: rgba(255, 241, 226, 0.76);
+            --form-checkbox-tone: rgba(var(--site-bg-dark-rgb), 0.92);
+            --form-checkbox-tone-hover: rgba(var(--site-bg-dark-rgb), 0.98);
+            --form-checkbox-check: rgba(255, 244, 232, 0.98);
+        }
+
+        /* Keep BOOK buttons synced with main-page BOOK color */
+        #headerBookBtn,
+        #footerBookBtn,
+        #bookingModal #confirmBookingBtn:not(:disabled):not([aria-disabled="true"]) {
+            background: var(--book-main-tone) !important;
+            border-color: var(--book-main-tone) !important;
+        }
+
+        #headerBookBtn:hover,
+        #headerBookBtn:focus-visible,
+        #footerBookBtn:hover,
+        #footerBookBtn:focus-visible,
+        #bookingModal #confirmBookingBtn:not(:disabled):not([aria-disabled="true"]):hover,
+        #bookingModal #confirmBookingBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
+        #bookingModal #confirmBookingBtn:not(:disabled):not([aria-disabled="true"]):active {
+            background: var(--book-main-tone-hover) !important;
+            border-color: var(--book-main-tone-hover) !important;
+        }
+
+        /* Terms checkbox follows main background tones, independent from BOOK button */
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox,
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked {
+            background: var(--form-checkbox-tone) !important;
+            border-color: var(--form-checkbox-tone) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 241, 226, 0.18),
+                0 0 0 1px rgba(var(--site-bg-light-rgb), 0.16) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:hover,
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:active {
+            background: var(--form-checkbox-tone-hover) !important;
+            border-color: var(--form-checkbox-tone-hover) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked::after {
+            border-right-color: var(--form-checkbox-check) !important;
+            border-bottom-color: var(--form-checkbox-check) !important;
+        }
+
+        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:focus-visible {
+            box-shadow:
+                inset 0 1px 0 rgba(255, 241, 226, 0.18),
+                0 0 0 2px rgba(255, 245, 232, 0.62),
+                0 0 0 4px rgba(var(--site-bg-shadow-rgb), 0.34) !important;
         }
 
         /* Header hint shown with the first spark burst on BOOK button */
@@ -8288,14 +9071,16 @@
                     <div id="loadingSeparator" class="loading-separator"></div>
                     <!-- Day grid -->
                     <div class="calendar-grid" id="calendarGrid"></div>
-                    <!-- Slot label -->
-                    <div class="slots-nav" id="slotsNav">
-                        <span id="slotsDayDisplay"></span>
-                    </div>
-                    <!-- Slots -->
-                    <div class="slots-block" id="slotsBlock">
-                        <div class="slots-container" id="slotsContainer">
-                            <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
+                    <div class="slots-shell" id="slotsShell">
+                        <!-- Slot label -->
+                        <div class="slots-nav" id="slotsNav">
+                            <span id="slotsDayDisplay"></span>
+                        </div>
+                        <!-- Slots -->
+                        <div class="slots-block" id="slotsBlock">
+                            <div class="slots-container" id="slotsContainer">
+                                <div class="slots-grid" id="slotsGrid" style="grid-template-columns:1fr;"></div>
+                            </div>
                         </div>
                     </div>
                 </div><!-- /calendar-wrapper -->
@@ -8350,9 +9135,6 @@
         </div>
     </div>
 
-    <div class="privacy-block privacy-block--map fade-in-section">
-        <p class="privacy-note"><strong>Note:</strong> Requests for removal of your personal data, call <a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
-    </div>
 </div>
 
 <!-- ----------------------------------------------------------- -->
@@ -8467,6 +9249,9 @@
         </div>
 
         <a href="tel:+14372396833" class="footer__contact-link dynamic-text">+1 (437) 239-6833</a>
+        <div class="footer__privacy-note-block">
+            <p class="privacy-note"><strong>Note:</strong> Requests for removal of your personal data, call:<br><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email: <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
+        </div>
     </div>
     <div class="footer__official-meta">
         <p class="footer__copyright footer__copyright--emphasis dynamic-text">&copy; <span id="currentYear"></span> Hanna Dunchenko Paralegal Services</p>
@@ -8588,7 +9373,7 @@
                         </div>
                     </div>
                     <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: left; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -8645,14 +9430,14 @@
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="flex:0.85 1 0; min-width:64px;" required min="1" max="12" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
-                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:center;">
+                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:left;">
                     </div>
                 </div>
 
                 <div class="contact-form__group contact-form__group--deadline">
                     <div class="booking-row booking-row--deadline" style="align-items:center; justify-content:center; gap:8px;">
                         <label for="deadlineInputMain" class="contact-form__label booking-row__deadline-label" style="color:var(--text-white);">Deadline:</label>
-                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:center;">
+                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:left;">
                         <span class="contact-form__label booking-row__deadline-optional" style="color:var(--text-white);">(Optional)</span>
                     </div>
                 </div>
@@ -8706,7 +9491,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMd_M1_l-RykAB1p2v9ONsHMm8w4GX0yBRGa0MphQpq3Pa8jPYHBtHl6YNqAst-zca6A/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby70d54AJ1KEPzmyNf3-5egmsLwKHsrktB3MQsxWU0o_DwXx3w_eyGSGTkQWjRLOgy1/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
@@ -8787,7 +9572,7 @@
     const MONTH_SWITCH_PROGRESS_TICK_MS = 120;
     const MONTH_SWITCH_PROGRESS_SOFT_CAP = 94;
     const CALENDAR_LOAD_FAILURE_TEXT = 'SLOT NOT FOUND';
-    const CALENDAR_KEY_SVG = `<img src="key.svg" alt="" class="cal-key-img" loading="lazy">`;
+    const CALENDAR_KEY_SVG = `<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNzMxLjE5MTQgOTU3LjQ1NDgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI3MzEuMTkxNCA5NTcuNDU0OCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBkPSJNNDU1LjQyMzUsNjYuMTQyNGMtNTQuNjE2MiwxNy4wNTE4LTk5LjM5MTgsNTkuMjk5OC0xMjQuODEyMywxMDkuOTQ0NGMtMTkuMjA3MSwzOC44MDYtMjAuMjA1Nyw4My4wMjA3LTE5LjI3NjMsMTI1LjM2ODkNCgljLTgxLjMwNTQtMjIuNTI2My0xNzUuMDE1NiwyMi4zOTE3LTIxMC4xODcxLDk4Ljc4OTdjLTkuMjc4MywyMC4xNTM5LTguMzY0NCwyMC4yNDMzLTExLjg0OTYsNDAuMzY4OA0KCWMtNC44Mzc1LDI3LjkzNDEtNC4yMDgzLDM3LjA1LTIuMjA0Miw1NS45NjljMS40MzU3LDIyLjI4MjMsNy4zMDI3LDM4LjUxMTEsNy4zMDI3LDM4LjUxMTENCgljMTguOTQ5Miw1OC41MjcsNjkuNzIyNywxMDUuOTkzMiwxMjkuNzUxNSwxMjAuMDAzM2MyOS40MTY0LDcuMjI3Niw2MC4xOTMsNS40ODA0LDg5Ljg0MTIsMC40OTA4DQoJYy0xMC4wMDk2LDQ5LjA2NjQsMC42NTEsMTAxLjU2NTMsMjYuOTkzNiwxNDMuOTQ3NWM0MC4wOTUxLDY5LjgzMTksMTI0LjI5MDQsMTA5LjQ4MjcsMjAzLjcxNjUsMTAwLjM3NTkNCgljNTkuNTY5Ny01LjAxNjcsMTE0LjQzMTYtMzkuMjY3OCwxNDguNDMwOS04OC4wMmM0My44NjQ5LTU5Ljk3OTIsNDkuMzExNS0xNDMuNDUxNywxOS41MzgyLTIxMC43MTc3DQoJYy05LjgzMTYtMjIuOTk0My0yNi4xMTc2LTQyLjI1MzktNDIuNDI5Ny02MC44NjE3YzI4LjA5NTMsOC40NzQyLDUxLjc1NTksMjYuODU5MSw3OC44MzExLDM3Ljc4NjkNCgljMTUuMDEzNC0xMi45OTM3LDMxLjEyMjQtMjQuNzY0NSw0NS41MDA2LTM4LjU4MDRjMy43MjcyLDguOTQ0OSwzLjg0ODMsMTguOTcxMSw3Ljg4ODksMjcuNzQ5Nw0KCWMxMC4wODY4LDE2LjgwMzksMjkuMjUyMiwyOS4yMjEzLDQ5LjM1MTYsMjcuMDYzYzMwLjIxMDMtMC41NTI3LDU3LjMyNy0yOS40NDE4LDUyLjUyMTUtNjAuMDc3Mw0KCWM1My4yMjE5LDIuODI1NiwxMDYuNTU4NywxLjYwMDIsMTU5LjgzODQsMi4xNDc3YzM2OS4yNTcyLDEuNDkwMiw3MzguNTQ3LDIuNDAxLDExMDcuODE4LDMuNTY1Mg0KCWMxLjI1MTUsMTQuODU2NSwyLjE1MTYsMjkuODQ1OS0wLjY4Niw0NC41NTQzYy01MC40MTA2LTAuODE5NS0xMDAuODM4Ni0wLjg0MzctMTUxLjIzMTctMC4zNjQ4DQoJYy0wLjUzMTYsMjUuNTIwOC0xLjQyMzIsNTEuMDY2NywwLjQyMjksNzYuNTMwNGMxMi43MjU4LDUuNDY2LDI2LjAwNzcsOS41OTQyLDM5LjMwODMsMTMuNDY4MQ0KCWMyLjkwMjEsMTAuMDQ5LDIuMzc3OSwyMC42NjE2LDAuNzM5LDMwLjgxMDhjLTEzLjY0NzMsMy41ODU5LTI2LjU1MTksOS41Mzg1LTQwLjM2NDMsMTIuMzA1NA0KCWMtMC4yNDM4LDU4LjY3MzEtMy40MDUsMTE3LjQ0MDYtMC44NzI3LDE3Ni4wNjQ0YzQ0LjU2NzUsMC4zNjA1LDg5LjIxMTgtMS44MTEzLDEzMy43Njc1LDAuOTY4DQoJYzIuMzYxMS00MS43NDcsMS4zOTU1LTgzLjU4NzIsMC42ODYzLTEyNS4zNzMyYzIwLjAyNTYtMi42OTQ3LDQwLjI3NDksMC40MDY2LDYwLjQyMDctMS42MTA1DQoJYzIuMTk3OCw0MS4zOTM0LTAuNzgxNyw4My4wNzU0LTAuNjcyNCwxMjQuNTQxOGMzNS45NzM5LDIuOTA4Myw3Mi4wODUyLDIuMDg4OSwxMDguMTYxMSwwLjc2NjUNCgljMi40Mjc1LTQxLjMxODYtMS4xMTAxLTgyLjc2MzEsMi4xMTA2LTEyNC4xMDA1YzE4LjY5MDctMC42MTY2LDM3LjQ0NTgsMC4yMDYyLDU2LjIxMTItMC4zNzkyDQoJYzYuNTIzNCw0MS4zMDg1LTAuNzIzNCw4My4zOTY0LDMuMTExMywxMjQuOTY0MmM0NC4yMzE3LDEuNzU1NCw4OC41Mzg2LTAuMDY4LDEzMi44MTQ3LDEuMjg2OQ0KCWMzLjA0NDktNTguMzYyOCwxLjI4Mi0xMTYuODIzNywxLjMyNDctMTc1LjI2NjNjLTEzLjUyODEtNC4wMzg2LTI2LjQ5NDQtOS44NDkyLTQwLjMyNzktMTIuNTY3MQ0KCWMtMi40Ni0xMC40NDA3LTEuMTg5NS0yMS4yMTM5LDAuNDk2Ni0zMS43MjY5YzEzLjE2OTItMy4xOTE1LDI1Ljg1OTEtOC4wODIyLDM4LjgwOTYtMTIuMzQxNQ0KCWMzLjc5MTMtOS44MjkzLDAuNDIwNy0yMC4zODcxLDEuMDQxNS0zMC42NDU1Yy0xLjA5ODYtMTUuNzcsMC4xMTQtMzEuNTIwMiwxLjU0NzEtNDcuMjEzMw0KCWMtNi4wNTA1LTAuODQyLTEyLjIzNTQtMS4wMjQ2LTE4LjIxMTItMC43ODg4Yy00NS4wMzMsMS43NjU5LTkwLjExNTctMC4yOTEyLTEzNS4xNjM4LDEuMjU5Mg0KCWMtMS4zMzUyLTEzLjk4NDYtMC4zMzI4LTI4LjA5NTYtMC44ODA0LTQyLjE3MTFjNDguOTYzOS0zLjM3NTMsOTguMDk3Ny0wLjE1NjQsMTQ3LjExNTUtMC42ODQNCgljLTAuMTIwMS03LjQyNzItMC42MzgyLTE0Ljg2MzItMC4zMzI1LTIyLjM5MjZjMi44NTY0LTUuMTA4MSw4LjU3NjktMS43NTI2LDExLjY4MDcsMS4zNTE3DQoJYzkuNTM2OSw5Ljk0ODIsMTkuMTQzNiwyMC45MDE2LDMyLjczNTQsMjUuMzMzMWMzMS42MTQ3LDExLjgzODYsNjkuMjM1NC01LjY1MzcsODMuNzMxNC0zNS4zOTY0DQoJYzE0Ljg4NDUtMzAuMzgyOSwxLjQ3NjgtNzEuMDMxMy0yOC4xNTg0LTg3LjA4NjhjLTIwLjg4NzctOS4xNTY5LTQ2LjUxNzYtMTEuNzc1My02Ni43NDc2LDAuNDI3Mg0KCWMtMTIuNzIzMSw2LjQ4MS0xNy40MDIzLDI1LjMyNDctMzMuNjg5OSwyNC42OTA0Yy0wLjMwODMtOC41Njk2LDIuNTU5My0xNy4xNDM1LDAuODA0Mi0yNS43NTYzDQoJYy01MzUuMzY1LTIuOTQ4MS0xMDcwLjcwOTYsMy4xOTg1LTE2MDYuMDQ1NS0wLjM2NTJjNC45OTA1LTQxLjMxNjctNDUuNzU0OS03Mi4zMjUxLTgxLjI4OTYtNTMuMzg5Nw0KCWMtMTcuNDUyMSw5LjU5LTI1LjEzNywyOS4zMjg2LTI5Ljc0ODQsNDcuNTg5NmMtMTUuNzQ5MS0xMi4wNzc5LTMwLjk2MzYtMjQuNzcwMS00NS42NzY2LTM4LjAzOTINCgljLTI2LjIxNjYsMTIuNzk5Ni01MC42ODcsMjkuNDEyMi03OC41MzM4LDM4LjQ5OTNjMTMuMjQ0OS0xNS41Nzc5LDI3LjA4Mi0zMC45NDQxLDM2LjYzNy00OS4yMjQ1DQoJYzMwLjI2NzgtNTIuNTcxMywzMS4yNzAxLTExNy45NzUzLDEyLjg3OTUtMTc0LjY5OThjLTEzLjkwNTgtNDIuMDk0MS00My42OTUyLTc3Ljk5MTYtODAuNjc0LTEwMi4wNTQyDQoJQzU4Ni4wMDI3LDU2LjA3LDUxNi4zNzgxLDQ2LjgwNzEsNDU1LjQyMzUsNjYuMTQyNHogTTU5MC4zODU5LDE1Mi42NDQ5YzM1Ljg1OCwyMS45NzUsNjEuNzQ4Miw2MC45NTkzLDY0LjgwMTMsMTAzLjIzMTYNCgljNC44MTYsNDcuODg4NS0xOS43MTcyLDk3LjI4MDgtNjAuMzA3MywxMjIuOTIxNWMtMTQuOTQ4MSw5Ljc3NjYtMzEuOTg2NSwxNS45ODExLTQ5LjM5NjksMTkuNDMxNw0KCWMtMy45MTk2LDEuMjQ4LTEwLjY5NDYsMC44ODk2LTEwLjMxNzYsNi44MTk0Yy0wLjcyNTUsOS43OTYyLDIuMjQ1OCwxOS44MDQ3LTEuMjA4NiwyOS4yODYNCgljLTEwLjY3MDEsMC4yMDE5LTE1LjQzNTctMTAuNjkyMi0yMi4wNTY4LTE3LjEyNWMtMTIuMDYtMTQuNTcyOS0zNC4yMDUyLTE2LjM4NzEtNTAuMzg0OS04LjIyMDgNCgljLTIxLjA5NzUsOS41OTE0LTMyLjUwMDMsMzIuNDQwNi0zNS42Mjc3LDU0LjM4ODNjLTQuMzgxNiwyNy43NzQxLDIuMTgzNSw1OS44MzkxLDI0LjczNTUsNzguMzczNg0KCWMxNy4xNzA5LDE0Ljg2NjQsNDUuOTE0NiwxNS4wMjk0LDYxLjkzOTctMS41NzE4YzUuODYzNS02LjUwOSwxMC4zNDQ0LTE3LjgzMDQsMjAuNzg5OS0xNy4xMTQ2DQoJYzQuNTE0MiwxMC45MTE2LDAuODQ4NiwyMi41MzcxLDAuODAwNCwzMy43NjYxYzI4LjM5MTQsNC45NTMsNTcuMDQ5LDE0Ljc1OTYsNzcuNzgzMiwzNS42OTQzDQoJYzQ4LjkyNCw0Mi42ODY1LDU3LjM0MjMsMTIzLjA5OTQsMTcuNzY1NiwxNzQuNjk0OGMtMjIuOTI1NSwzMS4wMTU1LTU4Ljc3ODgsNTMuMTQ5Ny05Ny42MDI4LDU1Ljk2Mw0KCWMtMzMuMTExNywzLjQ2MTktNjYuOTAxLTcuNDY3Ni05My4wMzY0LTI3LjcwMWMtMzUuNjcyOS0yOC4xMjQxLTU2LjI5NDctNzQuOTExOS01MS4wMDk4LTEyMC4yOTE2DQoJYzMuMDUyMi0zMS44MzI5LDIwLjUyNy02MC4yNjY4LDQyLjAzMjYtODMuMTY5OGMtMjMuOTg0Ni0yMC45NjEzLTQ3LjcwMzYtNDIuMjY1Ni03MS42NTQ0LTYzLjI2NTINCgljLTE5LjY3ODksMjQuMjU1OC00NS41ODQsNDYuNzA3NC03Ny44MjgzLDUwLjE4MTNjLTU1LjU5MTYsNS42NDE2LTExMS4wOTkyLTQxLjM4NjgtMTEzLjQyMy05Ny41MzUNCgljLTEuODQwNi0zOC44NTU3LDIyLjA4MjMtNzYuNzk4OCw1Ny4xMDQ5LTkzLjI0NGMyOS4yMjM4LTE0LjcwNTcsNjYuMDExMi0xNC42MzM2LDk0LjMwMiwyLjM0NTYNCgljMTUuODAxLDguNjgxMiwyOC4wMTczLDIyLjM3NjgsMzguMzEwMiwzNi45NjQ0YzI2LjAxMTYtMTguODQ5NSw0OC40MjkxLTQyLjE0MSw3My42ODQ5LTYxLjk4NDgNCgljLTIyLjAxNTUtMjQuMzExNC0zOC40NTkyLTU0LjY0MTItNDIuMDE2MS04Ny41NjYyYy04LjEzODYtNjUuNTI0Myw0My4zNDktMTMwLjA3ODEsMTA3LjI0MDctMTQxLjk2NDYNCglDNTI3LjkwNDcsMTI5LjM0ODIsNTYyLjQ0NjgsMTM1LjUzMjMsNTkwLjM4NTksMTUyLjY0NDl6Ii8+DQo8L3N2Zz4NCg==" alt="" class="cal-key-img" loading="lazy" decoding="async">`;
     const SLOT_CLOCK_SOURCE_FILE = 'clocks.svg';
     const SLOT_CLOCK_MARK_PATH_COUNT = 13;
     const SLOT_CLOCK_FILE_FALLBACK_MARKS = [
@@ -9407,7 +10192,10 @@
         const calWrapper = document.getElementById('bookingCalendar');
         if (calGrid) calGrid.innerHTML = '';
         if (slotsGrid) slotsGrid.innerHTML = '';
-        if (slotsBlock) slotsBlock.style.display = 'none';
+        if (slotsBlock) {
+            slotsBlock.style.display = 'none';
+            slotsBlock.style.removeProperty('min-height');
+        }
         if (slotsDayDisplay) slotsDayDisplay.textContent = '';
         setCalendarPrevButtonEnabled(false);
         setCalendarVisibleState(false);
@@ -9473,6 +10261,7 @@
         calGrid.innerHTML = '';
         slotsGrid.innerHTML = '';
         slotsBlock.style.display = 'none';
+        slotsBlock.style.removeProperty('min-height');
         slotsDayDisplay.textContent = '';
         if (calWrapper) calWrapper.classList.add('calendar--loading');
         if (headerTitle) {
@@ -9602,7 +10391,10 @@
                 const isSaturday = date.getDay() === 6;
                 const isToday  = date.getTime() === torNow.getTime();
 
+                if (isSunday) el.classList.add('cal-day--sunday');
+
                 if (isSaturday) {
+                    el.classList.add('cal-day--saturday-key');
                     el.innerHTML = `<span class="cal-key" aria-hidden="true">${CALENDAR_KEY_SVG}</span>`;
                     el.setAttribute('aria-label', `Saturday ${day}`);
                     el.title = 'Saturday â€“ call or select to request a key-only slot';
@@ -9655,7 +10447,7 @@
 
         if (!autoSelected) {
             slotsDayDisplay.textContent = nearestDay && absoluteNearestDate
-                    ? `Pick a time for ${formatDayLabel(absoluteNearestDate)}`
+                    ? `Pick a time for ${formatDayLabel(absoluteNearestDate)}:`
                     : 'No available slots available right now.';
         }
 
@@ -9901,7 +10693,7 @@
         slotsDayDisplay.textContent = visibleSlots.length
             ? (isSaturdaySelected
                 ? 'BY CALL ONLY:'
-                : `Pick a time for ${formatDayLabel(nearestAvailableLabelDate)}`)
+                : `Pick a time for ${formatDayLabel(nearestAvailableLabelDate)}:`)
             : 'No available slots for this day.';
         slotsDayDisplay.style.opacity = '1';
 
@@ -9935,6 +10727,7 @@
         });
 
         slotsBlock.style.display = visibleSlots.length ? 'block' : 'none';
+        slotsBlock.style.minHeight = visibleSlots.length ? '0' : '';
         if (!visibleSlots.length) {
             slotsGrid.innerHTML = '';
             refreshCalendarPrevButtonState().catch(() => setCalendarPrevButtonEnabled(false));
@@ -10026,6 +10819,54 @@
         return String(navigator.platform || "Unknown");
     }
 
+    function detectBrowserLabel() {
+        const ua = String(navigator.userAgent || "");
+        try {
+            const uaData = navigator.userAgentData;
+            if (uaData && Array.isArray(uaData.brands) && uaData.brands.length) {
+                const brands = uaData.brands
+                    .map((item) => ({
+                        brand: String(item && item.brand ? item.brand : "").trim(),
+                        version: String(item && item.version ? item.version : "").trim()
+                    }))
+                    .filter((item) => item.brand && !/not.?a.?brand/i.test(item.brand));
+                if (brands.length) {
+                    const aliases = [
+                        { rx: /edge/i, label: "Microsoft Edge" },
+                        { rx: /brave/i, label: "Brave" },
+                        { rx: /opera/i, label: "Opera" },
+                        { rx: /samsung/i, label: "Samsung Internet" },
+                        { rx: /firefox/i, label: "Firefox" },
+                        { rx: /chrome/i, label: "Google Chrome" },
+                        { rx: /safari/i, label: "Safari" }
+                    ];
+                    for (const alias of aliases) {
+                        const match = brands.find((item) => alias.rx.test(item.brand));
+                        if (match) {
+                            const major = (match.version.match(/^\d+/) || [match.version || ""])[0];
+                            return `${alias.label}${major ? " " + major : ""}`;
+                        }
+                    }
+                    const preferred = brands.find((item) => !/chromium/i.test(item.brand)) || brands[0];
+                    if (preferred) {
+                        const major = (preferred.version.match(/^\d+/) || [preferred.version || ""])[0];
+                        return `${preferred.brand}${major ? " " + major : ""}`;
+                    }
+                }
+            }
+        } catch (e) {}
+
+        if (/Edg\/([\d.]+)/i.test(ua)) return `Microsoft Edge ${RegExp.$1}`;
+        if (/OPR\/([\d.]+)/i.test(ua)) return `Opera ${RegExp.$1}`;
+        if (/SamsungBrowser\/([\d.]+)/i.test(ua)) return `Samsung Internet ${RegExp.$1}`;
+        if (/Firefox\/([\d.]+)/i.test(ua)) return `Firefox ${RegExp.$1}`;
+        if (/CriOS\/([\d.]+)/i.test(ua)) return `Chrome iOS ${RegExp.$1}`;
+        if (/Chrome\/([\d.]+)/i.test(ua) && !/Edg|OPR|SamsungBrowser|Vivaldi|YaBrowser/i.test(ua)) return `Google Chrome ${RegExp.$1}`;
+        if (/Version\/([\d.]+).*Safari/i.test(ua) && !/Chrome|CriOS|Edg|OPR/i.test(ua)) return `Safari ${RegExp.$1}`;
+        if (/Safari\/([\d.]+)/i.test(ua) && !/Chrome|CriOS|Edg|OPR/i.test(ua)) return `Safari ${RegExp.$1}`;
+        return "Unknown browser";
+    }
+
     function detectDeviceModel() {
         const normalizeModel = (value) => String(value || "").replace(/\s+/g, " ").trim();
         try {
@@ -10085,11 +10926,13 @@
         const cores = Number.isFinite(navigator.hardwareConcurrency) ? navigator.hardwareConcurrency : "";
         const memoryGB = Number.isFinite(navigator.deviceMemory) ? navigator.deviceMemory : "";
         const timezone = String((Intl.DateTimeFormat().resolvedOptions() || {}).timeZone || "");
+        const browser = detectBrowserLabel();
         return {
             countryCode: userCountryCode || "CA",
             ip: userIP || "Unknown",
             lang: String(navigator.language || ""),
             os: detectOsLabel(),
+            browser: browser,
             deviceModel: detectDeviceModel(),
             city: extractCityFromTimezone(timezone),
             screenResolution: `${window.screen.width}x${window.screen.height}`,
@@ -10123,7 +10966,7 @@
 
     function getDetailedDeviceInfo() {
         const ctx = getClientContext();
-        return `${ctx.countryCode}:${ctx.ip} | City: ${ctx.city || "n/a"} | Model: ${ctx.deviceModel || "n/a"} | Lang: ${ctx.lang} | OS: ${ctx.os} | Res: ${ctx.screenResolution} | Viewport: ${ctx.viewport} | TZ: ${ctx.timezone} | Cores: ${ctx.cores || "n/a"} | Mem: ${ctx.memoryGB || "n/a"}GB | Net: ${ctx.network}`;
+        return `${ctx.countryCode}:${ctx.ip} | City: ${ctx.city || "n/a"} | Model: ${ctx.deviceModel || "n/a"} | Lang: ${ctx.lang} | OS: ${ctx.os} | Browser: ${ctx.browser || "n/a"} | Res: ${ctx.screenResolution} | Viewport: ${ctx.viewport} | TZ: ${ctx.timezone} | Cores: ${ctx.cores || "n/a"} | Mem: ${ctx.memoryGB || "n/a"}GB | Net: ${ctx.network}`;
     }
 
     function getFingerprint() {
@@ -10161,6 +11004,7 @@
                     ip: ctx.ip,
                     lang: ctx.lang,
                     os: ctx.os,
+                    browser: ctx.browser,
                     deviceModel: ctx.deviceModel,
                     screenResolution: ctx.screenResolution,
                     viewport: ctx.viewport,
@@ -10397,8 +11241,9 @@
     let pendingSlotAttachRequest = false;
     let pendingBookingWithoutSpecificDate = false;
     const INTAKE_NOTICE_SEEN_SESSION_KEY = 'hd.intakeNoticeSeen.session.v1';
-    const INTAKE_NOTICE_SOUND_CANDIDATES = ['22.mp3'];
-    const SUCCESS_SOUND_CANDIDATES = ['22.mp3'];
+    const EMBEDDED_SHARED_MP3 = 'data:audio/mpeg;base64,SUQzAwAAAABTQFRZRVIAAAAGAAAAMjAyMgBUREFUAAAABgAAADA4MDEAVElNRQAAAAYAAAAxOTQxAFBSSVYAACGGAABYTVAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgOS4xLWMwMDMgNzkuOTY5MGE4NywgMjAyNS8wMy8wNi0xOToxMjowMyAgICAgICAgIj4KIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICAgeG1sbnM6eG1wRE09Imh0dHA6Ly9ucy5hZG9iZS5jb20veG1wLzEuMC9EeW5hbWljTWVkaWEvIgogICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICAgeG1sbnM6Y3JlYXRvckF0b209Imh0dHA6Ly9ucy5hZG9iZS5jb20vY3JlYXRvckF0b20vMS4wLyIKICAgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpjNjQxMmU1ZS1kMjAyLTgxNDgtYWI3Ny1lNzEwNzc5ZjY3ZjgiCiAgIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6YzY0MTJlNWUtZDIwMi04MTQ4LWFiNzctZTcxMDc3OWY2N2Y4IgogICB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MTI0N2VkNGYtYjRjMC1mZTQ3LWI5YmMtMzgwNmJiZGVlZDczIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI2LTAzLTA0VDAzOjI4OjQ2KzAyOjAwIgogICB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wMy0wNFQwMzoyODo0NiswMjowMCIKICAgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQcmVtaWVyZSBQcm8gQ0MgMjAxNy4xIChXaW5kb3dzKSIKICAgeG1wOkNyZWF0ZURhdGU9IjIwMjItMDEtMDhUMTk6NDE6MzErMDI6MDAiCiAgIHhtcERNOmF1ZGlvU2FtcGxlUmF0ZT0iLTEiCiAgIHhtcERNOmF1ZGlvU2FtcGxlVHlwZT0iMTZJbnQiCiAgIHhtcERNOmF1ZGlvQ2hhbm5lbFR5cGU9IlN0ZXJlbyIKICAgeG1wRE06c3RhcnRUaW1lU2NhbGU9IjMwMDAwIgogICB4bXBETTpzdGFydFRpbWVTYW1wbGVTaXplPSIxMDAxIgogICB4bXBETTpwYXJ0T2ZDb21waWxhdGlvbj0iZmFsc2UiCiAgIGRjOmZvcm1hdD0iYXVkaW8vbXBlZyI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJlNzJjY2RhNi0xMjIxLTQwNGYtYjkxNS03OGIyMDAwMDAwODAiCiAgICAgIHN0RXZ0OndoZW49IjIwMjItMDEtMDhUMTk6NDI6MDErMDI6MDAiCiAgICAgIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFByZW1pZXJlIFBybyBDQyAyMDE3LjEgKFdpbmRvd3MpIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIi8+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249ImNyZWF0ZWQiCiAgICAgIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6NmU1OWJlZTctZWNjOC03OTQxLWIwY2MtM2RjNmQwODMyZjE1IgogICAgICBzdEV2dDp3aGVuPSIyMDIyLTAxLTA4VDE5OjQyOjAxKzAyOjAwIgogICAgICBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQcmVtaWVyZSBQcm8gQ0MgMjAxNy4xIChXaW5kb3dzKSIvPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJzYXZlZCIKICAgICAgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoxOWZlNmRjZi05ODZlLTU2NDctOWIzNy1mYmYyMDcwZmM2MGEiCiAgICAgIHN0RXZ0OndoZW49IjIwMjItMDEtMDhUMTk6NDI6MDErMDI6MDAiCiAgICAgIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFByZW1pZXJlIFBybyBDQyAyMDE3LjEgKFdpbmRvd3MpIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIi8+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjYwNmJjYmNkLWExMzEtYzA0Mi04NWQzLThhZjU5Y2QzYzQ3NyIKICAgICAgc3RFdnQ6d2hlbj0iMjAyMi0wMS0wOFQxOTo0MjowMSswMjowMCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUHJlbWllcmUgUHJvIENDIDIwMTcuMSAoV2luZG93cykiCiAgICAgIHN0RXZ0OmNoYW5nZWQ9Ii9tZXRhZGF0YSIvPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJzYXZlZCIKICAgICAgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDozYzg5ZmEwNC04OGI4LTcxNDgtYmY1Yi0yZjg1MzVhYTJkZGYiCiAgICAgIHN0RXZ0OndoZW49IjIwMjYtMDMtMDNUMTg6NDA6MDUrMDI6MDAiCiAgICAgIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIEF1ZGl0aW9uIDI2LjAgKFdpbmRvd3MpIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvbWV0YWRhdGEiLz4KICAgICA8cmRmOmxpCiAgICAgIHN0RXZ0OmFjdGlvbj0iY29udmVydGVkIgogICAgICBzdEV2dDpwYXJhbWV0ZXJzPSJmcm9tIE1QMyB0byBhdWRpby9tcGVnIi8+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmRhM2U5ZDFkLTAxNmEtNzY0NS05ZmZlLWE5ODVkZDE0YjVjNiIKICAgICAgc3RFdnQ6d2hlbj0iMjAyNi0wMy0wM1QxODo0MDowNSswMjowMCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgQXVkaXRpb24gMjYuMCAoV2luZG93cykiCiAgICAgIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4KICAgICA8cmRmOmxpCiAgICAgIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiCiAgICAgIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MzZiNDAyMmQtYmQ0YS0yYjQxLWEzNDQtMTVhZGY5NzM5ZTBmIgogICAgICBzdEV2dDp3aGVuPSIyMDI2LTAzLTA0VDAzOjI4OjQ2KzAyOjAwIgogICAgICBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBBdWRpdGlvbiAyNi4wIChXaW5kb3dzKSIKICAgICAgc3RFdnQ6Y2hhbmdlZD0iL21ldGFkYXRhIi8+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmM2NDEyZTVlLWQyMDItODE0OC1hYjc3LWU3MTA3NzlmNjdmOCIKICAgICAgc3RFdnQ6d2hlbj0iMjAyNi0wMy0wNFQwMzoyODo0NiswMjowMCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgQXVkaXRpb24gMjYuMCAoV2luZG93cykiCiAgICAgIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogICA8eG1wTU06SW5ncmVkaWVudHM+CiAgICA8cmRmOkJhZz4KICAgICA8cmRmOmxpCiAgICAgIHN0UmVmOmluc3RhbmNlSUQ9ImQ3NTVmNGY5LTY4MmQtNmI0MC0yZGQ4LTdiY2QwMDAwMDBlOCIKICAgICAgc3RSZWY6ZG9jdW1lbnRJRD0iMGZlY2IzYWMtZDZkNi0zNjdmLTk1MGMtMGU5MjAwMDAwMGJiIgogICAgICBzdFJlZjpmcm9tUGFydD0idGltZTo1ODczNjM3MzY5NjAwZjI1NDAxNjAwMDAwMGQxNjAxOTAxMTAwODAwZjI1NDAxNjAwMDAwMCIKICAgICAgc3RSZWY6dG9QYXJ0PSJ0aW1lOjBkMTYwMTkwMTEwMDgwMGYyNTQwMTYwMDAwMDAiCiAgICAgIHN0UmVmOmZpbGVQYXRoPSJTZXJ2aWNlIGJlbGwgaG90ZWwgYmVsbCByZXN0YXVyYW50IGJlbGwgc3RlcmVvIHNvdW5kIGVmZmVjdCBIUSA5NmtIei5tcDQiCiAgICAgIHN0UmVmOm1hc2tNYXJrZXJzPSJOb25lIi8+CiAgICAgPHJkZjpsaQogICAgICBzdFJlZjppbnN0YW5jZUlEPSJkNzU1ZjRmOS02ODJkLTZiNDAtMmRkOC03YmNkMDAwMDAwZTgiCiAgICAgIHN0UmVmOmRvY3VtZW50SUQ9IjBmZWNiM2FjLWQ2ZDYtMzY3Zi05NTBjLTBlOTIwMDAwMDBiYiIKICAgICAgc3RSZWY6ZnJvbVBhcnQ9InRpbWU6NTg3MzYzNzM2OTYwMGYyNTQwMTYwMDAwMDBkMTYwMTkwMTEwMDgwMGYyNTQwMTYwMDAwMDAiCiAgICAgIHN0UmVmOnRvUGFydD0idGltZTowZDE2MDE5MDExMDA4MDBmMjU0MDE2MDAwMDAwIgogICAgICBzdFJlZjpmaWxlUGF0aD0iU2VydmljZSBiZWxsIGhvdGVsIGJlbGwgcmVzdGF1cmFudCBiZWxsIHN0ZXJlbyBzb3VuZCBlZmZlY3QgSFEgOTZrSHoubXA0IgogICAgICBzdFJlZjptYXNrTWFya2Vycz0iTm9uZSIvPgogICAgPC9yZGY6QmFnPgogICA8L3htcE1NOkluZ3JlZGllbnRzPgogICA8eG1wTU06UGFudHJ5PgogICAgPHJkZjpCYWc+CiAgICAgPHJkZjpsaT4KICAgICAgPHJkZjpEZXNjcmlwdGlvbgogICAgICAgeG1wOkNyZWF0ZURhdGU9IjIwMTctMTAtMDdUMDU6Mjk6MDJaIgogICAgICAgeG1wOk1vZGlmeURhdGU9IjIwMjItMDEtMDhUMTg6NDU6MDMrMDI6MDAiCiAgICAgICB4bXA6TWV0YWRhdGFEYXRlPSIyMDIyLTAxLTA4VDE4OjQ1OjAzKzAyOjAwIgogICAgICAgeG1wTU06SW5zdGFuY2VJRD0iZDc1NWY0ZjktNjgyZC02YjQwLTJkZDgtN2JjZDAwMDAwMGU4IgogICAgICAgeG1wTU06RG9jdW1lbnRJRD0iMGZlY2IzYWMtZDZkNi0zNjdmLTk1MGMtMGU5MjAwMDAwMGJiIgogICAgICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOmQ2YzQzNzk0LTViNGEtZTA0ZS1hNjk0LWI2M2U2MDBkOTRkNCI+CiAgICAgIDx4bXBETTpkdXJhdGlvbgogICAgICAgeG1wRE06dmFsdWU9IjkwNDA0NTciCiAgICAgICB4bXBETTpzY2FsZT0iMS85MDAwMCIvPgogICAgICA8eG1wTU06SGlzdG9yeT4KICAgICAgIDxyZGY6U2VxPgogICAgICAgIDxyZGY6bGkKICAgICAgICAgc3RFdnQ6YWN0aW9uPSJzYXZlZCIKICAgICAgICAgc3RFdnQ6aW5zdGFuY2VJRD0iZDc1NWY0ZjktNjgyZC02YjQwLTJkZDgtN2JjZDAwMDAwMGU4IgogICAgICAgICBzdEV2dDp3aGVuPSIyMDIyLTAxLTA4VDE4OjQ1OjAzKzAyOjAwIgogICAgICAgICBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQcmVtaWVyZSBQcm8gQ0MgMjAxNy4xIChXaW5kb3dzKSIKICAgICAgICAgc3RFdnQ6Y2hhbmdlZD0iLyIvPgogICAgICAgPC9yZGY6U2VxPgogICAgICA8L3htcE1NOkhpc3Rvcnk+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICAgIDwvcmRmOmxpPgogICAgPC9yZGY6QmFnPgogICA8L3htcE1NOlBhbnRyeT4KICAgPHhtcE1NOkRlcml2ZWRGcm9tCiAgICBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM2YjQwMjJkLWJkNGEtMmI0MS1hMzQ0LTE1YWRmOTczOWUwZiIKICAgIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6ZGEzZTlkMWQtMDE2YS03NjQ1LTlmZmUtYTk4NWRkMTRiNWM2IgogICAgc3RSZWY6b3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjEyNDdlZDRmLWI0YzAtZmU0Ny1iOWJjLTM4MDZiYmRlZWQ3MyIvPgogICA8eG1wRE06cHJvamVjdFJlZgogICAgeG1wRE06dHlwZT0ibW92aWUiLz4KICAgPHhtcERNOmR1cmF0aW9uCiAgICB4bXBETTp2YWx1ZT0iMTg5IgogICAgeG1wRE06c2NhbGU9IjEwMDEvMzAwMDAiLz4KICAgPHhtcERNOnN0YXJ0VGltZWNvZGUKICAgIHhtcERNOnRpbWVGb3JtYXQ9IjI5OTdEcm9wVGltZWNvZGUiCiAgICB4bXBETTp0aW1lVmFsdWU9IjAwOzAwOzAwOzAwIi8+CiAgIDx4bXBETTphbHRUaW1lY29kZQogICAgeG1wRE06dGltZVZhbHVlPSIwMDswMDswMDswMCIKICAgIHhtcERNOnRpbWVGb3JtYXQ9IjI5OTdEcm9wVGltZWNvZGUiLz4KICAgPHhtcERNOlRyYWNrcz4KICAgIDxyZGY6QmFnPgogICAgIDxyZGY6bGkKICAgICAgeG1wRE06dHJhY2tOYW1lPSJDdWVQb2ludCBNYXJrZXJzIgogICAgICB4bXBETTp0cmFja1R5cGU9IkN1ZSIKICAgICAgeG1wRE06ZnJhbWVSYXRlPSJmNDQxMDAiLz4KICAgICA8cmRmOmxpCiAgICAgIHhtcERNOnRyYWNrTmFtZT0iQ0QgVHJhY2sgTWFya2VycyIKICAgICAgeG1wRE06dHJhY2tUeXBlPSJUcmFjayIKICAgICAgeG1wRE06ZnJhbWVSYXRlPSJmNDQxMDAiLz4KICAgICA8cmRmOmxpCiAgICAgIHhtcERNOnRyYWNrTmFtZT0iU3ViY2xpcCBNYXJrZXJzIgogICAgICB4bXBETTp0cmFja1R5cGU9IkluT3V0IgogICAgICB4bXBETTpmcmFtZVJhdGU9ImY0NDEwMCIvPgogICAgPC9yZGY6QmFnPgogICA8L3htcERNOlRyYWNrcz4KICAgPGNyZWF0b3JBdG9tOndpbmRvd3NBdG9tCiAgICBjcmVhdG9yQXRvbTpleHRlbnNpb249Ii5wcnByb2oiCiAgICBjcmVhdG9yQXRvbTppbnZvY2F0aW9uRmxhZ3M9Ii9MIgogICAgY3JlYXRvckF0b206dW5jUHJvamVjdFBhdGg9IlxcP1xGOlxCZW4gMVzQmtGA0LjRgdGC0LjQvdGLXHRyYXAucHJwcm9qIi8+CiAgIDxjcmVhdG9yQXRvbTptYWNBdG9tCiAgICBjcmVhdG9yQXRvbTphcHBsaWNhdGlvbkNvZGU9IjEzNDc0NDk0NTUiCiAgICBjcmVhdG9yQXRvbTppbnZvY2F0aW9uQXBwbGVFdmVudD0iMTEyOTQ2ODAxOCIvPgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgIAo8P3hwYWNrZXQgZW5kPSJ3Ij8+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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Xir7+pWecTzhxVkybn2+2bum7JuFqe65Y/uXzTKttRv6mb779VWWIHWdUWVptiCQERT8CxTuHWKyfLudi/T8tZZWrObvp/bGxU29ebtE3JcTdXc7WjuBwGhUPl2zbEO5qg0JZeCexNntdDHutr6axWJTerdRXVsv5pvB9k3DYjuqim3D4niemzM3bu5N7P7jlHDMyPy6//NoRP8S3gcMAMesAKjUDhgpmVgBapVkdtrutSN0IaM3s3sXYoqbku67efpppd72neU+XtmpfE1TjznHJ4dD4e+a7mXOY+mHDSLUYdg6uuqquQ/Go8+nr9nz9Xi7XYQk2UBHhfyqRMD2CxbXLo7/zYkgnj8TSjtiRDmjz49BmlI7JBENR1wpajV6JkNKTM0XZkyf3mJyzg3kjZ0+7L6h0pr3dLG8GzK7/sENr7p67JPo3Ew7YcH+L/QOMbZvTz8f/9G5oVLPrq2PJ91JvY7z/X/10z6//+hs//NoZIcUvgVzL8isAaGcDvsfj1ECRO74bbv2TL7/////v/r7ZVbKviX8v/+Onu6jYQY/rPLBLBThTPSADAYaez57QQmnyKfmOWD+YOg52f8wyxi8VfEIxQsK5Ofwtj8nAJz3b/x0sIUL4Cz/8lEW42FkKf/37qiCuLZb8xjNrNZiIkKlFNIDZ59rK7pMmFnMJM893Hiiucael6HdT2P/1J3M5nbjEdOUw05fyn////vvvnp9+ZYy04WDqkY5VmiIe7w9AVbLW0sGtbMNYVt4vB1utXrLWj65//NoZB0POflnjue0ABPD7uJdxmgClRLpqIyLY2XY/VZJRInlJGzpJfX1GJqp2dE1RLy9zFkUUkq0Tf+k6KLI//R+k5kbIPZaVFFSSTqR/60WrRpWRZYU5K2VslWiyP////////r/79JJJKtWYgaQvx9FuyZu4R5CABicvlLmfMu24df/aq/9RsdE9BLCNOSJeJYki9//rr/+jLxi9K7LNVrOoTrvS/v///1s3Uj9H///+r////////////S//yYQWlZroYkS3uYAJaN4dq4xETrc9y9i4q9P//NoZBcNEfdjPj1taRWL7rJaeCMq4u7S9prZU/mCADqz5O0ec81q+Mknc2vhzWetzMsemySLoGxkTSgU0WNCgHZxNBft//qdZBtui1diVrOP/////8Jy///////////////gLIQ+sS2248AcuELffY3qzyPFxemPC3jPtXVbV//5PR4rZ4MTkdJNiqUigRIxcmSyQYirGQuMUPGuW///onCSv9bepL/////8n2//////////////6AEcFY9VMmtudsnUgAARejDUcIQ7vsWinY60MlpZ7mZ4//NoZBsNsfVbLykRDRXz7qZcgyeDCqDChKmjucNGTdpVM0NjBFPopLVQWU0F0GWn3WQ43IoXi6bCvx1Ev//7OcK7Opa2RsqRJiyYnnV36tP///mQW/IL//////////////0gxaDOZtDltoOjHMgB9WdMTVSSk1JOp1PX/1hq4H4qBk5WMyqjqt9X//6mF9ChqXzkpFQIQaEwrxKy3//9R00R0nWp9Do//////jMv//////////////zELVg9rscVVWZ4+l1uVwsALxOug7GaBNF82QKJOl8a//NoZBgOMfVjf0ENlxOb7qZeaCUqjESZyTLKKSjM+qjRDHw+p/WkzCVUJQCg/H2x419pzPnoS/EOL2KS7vuLnlO9Zb//v5sv1a6yCitqzZlH1n3VRN0Op3//6xZ/9l6Lf/3o2fv///+////+M4RyJYBTQBxIAA/0lKNKan/3VQR9QNkShZ5ZTmR4i5cMi0akwQwvkgTpDyVGMj+f///lq39SNlMvbev+q6///Fbf//////////////GgFduUo223esvaoAARVf7iEeL2uimwz2ysae6f5+TN//NoZBsMYfVjLyHtexM7/pW8aCkqEu1P81o8pl4wxlVEbt1973xSn3/TWJY2cU3WskklVU43iNl2DE0F/////+6TqV2dG6lUl02of/+oRh///////////////PBrTzkFAGDAhv3RQ/trdlrdfwUorMHQWdQk6SxIEUHcXR3FE2LzDNi5IrJ///9Se/9//////+YiEP///////////Wv//s5MgYEqDor0kTli27ZOSdKgALV/w0+TzjZjMDUpe05Xv2/8AmB01bcemanUUerTdnnQ3i4njaiv//NoZC4MKfdbLy2NwRCb7qJaUCXGE+taMMu4+mpAyeYC6h+G7////+gfMnSScydWtdS/qS//8Kc9//////////////1C4AvayAxABJBwEN/t+n//A6Hx6MtUS6vqm///x8JQsjEWSAhGwrlBkSgsBOgy/////nBWhs3/////////////9SwHWDlVUkJbbTZLkqAAW+jydmoYazmI6Mcb+gDwELrIm8XbBt4KUY+vT7jGzeu169yoZT+52c1EdpK/sD6UR1kPG3/63///poMgm/a6DIpn0EP///NoZE0MNfdXLymQiRGT6qpeaZuC/8zD5Tdv/////////////+H8Ck1YAoABgF5uNA/6dX//+HsdV/////Rf4x9JoWUcNGnnDoj3//1N1//WuktNO2n1fUkh//1iKZ/6DNW6////////////1BJwy0BABW5L0oAPf7t/9S1Mivmok4NTt9bosipKZJLuikyedePiw7DL367hPYNY06Gqy50obY0kmsY0QPV/of//6H/39X//+ssBIIf/////////////9QRgOy6wBRDg48+AKgwo90iCaMSn//NoZGgLEfdTLjXxsxPr7oh8A2j6+rdaVf/fzIrTMTpfKaRdI5FJcd4QcGFv/X0lof///1LX19Sv/9VYbampH9lP/////////1un//0CyCCOCgk41SogSCwWydJgwN/obp507eq+oGw+VZuPhzzSd+4PoWY7gzze1oUGtN/F9caSq/x3cR9vK1hviSk/TJPBOzgrgXGX+t3L6H//8z3f2qTsqmh///nQBXlX/ZB1f////////+tL//qCNAcrXAALRMA/////6gnYmhiieSlJHVa3//WeN2Vr//NoZIIM9fdNLynziQ9T7pUYaCPGWmyZqiXUECakbFUR5p////5wZ5X//////////////SApSq0AMUCycGAQN//t/1+yYOUU2+I0IkExOZRmqKlXQFYLS2egmhXqrNTBZVYkxNf+il//+tRg1dfdzJ0WW7///s8gYGoRB4i4fetj6l83Ug3////////6v/9SZwJ3ARNi+0osARs0LPP/6gJgpNmqPSizb/6l/9X1lygXjJA+ZIok8Yl2Gekt/////V9/em/71//1oGYYDPf9Fe9v///////9//NoZKAMGfk+3zQ0kpJr6oB8A+jnSqlv//zEAV6MmqoA26eOhUf/4M4GMudZ3r2xaT31a+GxltDg+/+sZvQ+Ep//jVc1zSza+VLDDTxiEYguNSfpNRJFn///M0lMzVrpFxlyyav///0BOxUf/rdkNn///1Jt////1f//qCYCsALacLBYPUCPgcnNzJIxI6aejRpoIWW2r9Xy4YscUYH3MD5qmPYesNJZ//u7//6P/u2p/ZP//1icH/19/////////11r//7JgGTDtmbaAJmAIR3PAJoGQ3Q1//NoZLgL1fVSPwHzexM76ox+A2b6XqOJuk7FI6yZhQQM9nyIKLr0y8xspyOeIZIEsOVyxxcIMBo/fQJ5v//1mV97UUElqq0f//oOXBZ4GAzh65OTtz6CZ08kqft////////9Jl//8wBr2DChfQEiQBrnzoBR/4fA3Iya6yI+s/66qn/p8nGhyHlSg2Hosj48G0EOCMc//1ff/6v/6mf///6DZv///////////v//4SwTAOHAYQ1aRGgEsw31LRS933a6ST0VJaXH0MF+6N9NFItrLhEhSZQD//NoZM8Myfk4LgG0e5Bz6qB+AtTm4gWNOh2ZGsqnv//tI1bpV0tKTyDqNv//qSYyJkc4DBDWDExMmCDmpac/zhQLiFP////////6/+q+iXxzACV0A0eCfKjJlA2oAFAGEQjH/r5IOyrsjditrCT////q+ybLdJNjd0jiBFYTPhQI3b/sr//Wi//o////rRIOEyJuYtV7dmr////////7Wv+1fagOWBgOYKkyob1FNdUIC2YHBP///9V0DAAAGFmyLm6aadBBBF0Kaf2ooJ1HECmITh7hpuf6//NoZOoN4gMwLgKVfBSMAmR+BmjkqBkTijpMF8Y8zC1YcEX3revc3//66qZSQQs7V1myHO601//poToy4z4GfsgscGmixfOGRopIwLRdJ4rpJt////////+r+6dBM3QIwUoATSCmUfBIFA8cN3Cx4lAY50WeAkcKAHAykGb/f1oMyv1fTTN1MiZma2NyIEyL0h4Qiw2AiFv///1KQdJ26//1pp3//0EQHBCaLn/ppv/////////X/qtqaspB4QdXHWV1pmbKkY1Hw/iTk/lq/f4KAQQnmA4B//NoZOsQFf80PqDQABX0AnA/QKAAQPYMFkfmaY9CyOmggHbIqGJ5wl05w+xqSiB5NzRCit0kiLkwMmQMZtA0QOtMTVzV1lEg6BFyGEE6iCJU1WIMzlxZuidJwmlK+5OIWegyZ8lifNUmNECcFxlxk9SGgxuVafU8wJh1IGBoye9MiA+Sv//Jke9XT+xTGmzF8qUEFMtNM7//ywWv1IIb76hqDYdk03TOGJqXzAyOnyXXJ8CgAZA0idNjMABgSAKDhMJU5e9XKyweGv+TkgGHPzBBp1sreblw//NoZNUW0gtfL8jEACObxwb/hWpC+Sn1unYzSPkg37WrTQQni+rx9f4miU/TWk1v6Y+iVlMkDQTgyGEKCd9PZNSugmuxqap83WmdHuXyAnTtW+6Y9hEXQdP/AL4Uo9y6OM2kuS73RNzaz0Emf///1lvZN0GQWmS5w0UyZfEOEOPBzT+sPWQ4dmdohlY1dr9dbtdmyQBFU0ybRvPVXYiRocsTMKmx8SRFc4eMdWKIilBjlqjqkVUanLNU8t9HZlXRbY6prlUzZwQHaYTFp3Sc48zbo8z2I0HK//NoRFMQKgWDj8ecAyBUCv5fmDgCnmlznQedybHLVZrKIqgWWpho1MQbIBorIo9W6+IV//ikv////4mL///o///4mfa/7fzCyS+7y13S9lAAJS/DA4st7sE00u1Vzp7Pe84VGGHSw9ygmEg25bKtNNmjWxyHMp9VGqqLjGaaaOsqtVzqDQxUOdSZnqEJ9E6HHZ2s6d5miHDyFi80ocppc2h3bOFO5tSJk6JwjEk5zXNpVOVf/+Ol/////Exb//8TN//+JmVS365a252AMC1RvvXrejx5P13H//NoZBMNBfllL+fEARTj7rpdyJgCrJTEu/iJWv9Y+xcpFSNSME1b3ZczNaKqNFmrUt1PozVJZdRWjZ3czKKI/kkl/+/pGOi96VkjdbL/9ej///0RNhk//////////++pF///pE0EOE+mtSlltzQA6cCCMAWhABsc6mnPNw8qrMx1P89IyGbR//////LznSKmBsTxkUUzUmSCi2ymMRH//60v/62//////KP//////////+r//9EhoNJgsYnoui47dU5b02IAV02/nUuosV92qtMPILJGtGrn//NoZBoNIfdXLz10l5R0AqJeEymCFf/9ZJyKvV7/fdLEtfnhRrqSuuf30ceg9d8OM5DhCIKHhHJJQH8HUWkhf/7+o2/6nQqS9f////7A38ln/vf////////////0AF0gLJD8nA5ILQXJwwKADGiXcBARmGMf7zLqrfAG/63SlVtb+n8OmLTzJXWlYnacglDOkJ//+s9b+r//////1CkP+ePLZv///////////7GwGAAhSuWl51piy3Uy2+SiMC+i2/8+ZZIM0ut1tAkYr4piBBn//wZg6oNo//NoZCIPSf9XLz2TlxKz/qZYUCfius5f11MmPoLOruw9ehrtnbf/bWKdimOxlGu9mF09HYLRacFAS8Q5SbOmt7HVJs3Vb/dp9TVzi62U9bMl9v/9kxDSu3///9dSOp1t/////q///RCBwMs7ZwsQQBYQcVWzn56P6r//gPhseSkxcuR/+6f//mlhADMaDAocPSYKQKohgnyoff/7XmK/T3OM//8Ztv/////////////9aAeuFbMlnUHHLCnJizv0cnIjkS88gNkrJUi8wJQaHtXShOT7zKUa//NoZCALaf9TLCk0lxLT/p5cO+mCaZknCNy2d1fpKvBQqKkwUGpL6jPsmkSh9v///b/vR//////uYAPBFR//////////////9ACogGJjdWcIFgEDAnDzxP8HLDVf++34oGUu3////s3GhnWhKSiqLT1SKo4Kk0nRvf//3///t////+sbx///1N6m//////9alKut//+4aSFJx7naLlstLcvMwButnURIF0qphtDJU5Fe3qBseOK318Wu9pSb2vqsXev/WD6/1rXGN9qVLFRwgtqGkJUDMd6y//NoZDwMTf9VLinziRDr7qZcaCUq3xupf///9bKRdJ/W/60f//+pYNDrV//////////////mJLhWqXOECgARgDmBg3+XjRH//q0y4BSpf0jpZL5eQImTJaJ4hw6RZlYxP////6//////9RDm/9ardba///////////mQJ8C9a0HJJQ5LzIHAN+sDM57IdWTRw5G//yiRG3C96X2/xWr7cl2+9/X/3tSbFp/BQtXz6rHfLl1ddsjjaVHpRXKCL1//7f/69Du+rp0EFs/r//5kA4YSTf6P//////NoZFkM8f9PLwn0exAj7qZeUCFG/////R3//6SwvyC1VLnABAAFqBxYKB/zf//+oLQFpCPyEhKEvp6Ll0xNEEy4xuZkyUKiW//r//+3//+///46//7q////////////xygrawnBBCprgmHA2/rYw9Tv/Wv0gmgUzdddTqRRlBI+ZHCGjOmrZePsmFibj2d0Y92dzZQ8OCw3H3/////r//U6P///uahYuNl/9L/////////Ssgtf//WBEOC1F+cAEcdEzR/xZpOH0VJum/9L/b+zdboqomRc//NoZHQLaf9NLzUUwRJz/oR8CCgaNC4XTAqExLAZT/+tNe3///+37//+oxC+Bs39rfq////////+r/6mSRKQGElAizLfMQWADZgEKHu11rTWzOj//pFEoAL6GQ/JZ8VFSLqWhmr7//2b8/FRSIH0PDswWUHkQhCpv/////Vb//9SX/3dA+WhxgZKKYLA8nHWgtPt/////////69XbUtSVGal4Y0BZPgMXUixqkajWYAwAUTDP////7iUhJzA6o+ilRRYwSRUePzhPIyMDzf/7v//1///6P////NoZJINKgE4zk0VlxCz7oR8gCkqqUOMqn///////////q6P/+pMwAwrIETI1YsAC34HiML6R4PZExP/roMhf1v9dBZcMSZemvU6LWskgmaOGOhQC3////6ehf+n71Kf/+udG4BmbA6C+k1m69v////////7IW//dNIsgYZaCL6YO8pAAyWhURhfsLLFRf7I1UKfrf6dAzLhdJk/TXoosy3NjyydOGsO6Jr/////TZSH+1XR0kX//1mAGDVEUTbtqd6G3///////+uvf/9VRiATZAtxVyk0A//NoRKkKjf84PwQUDBTkAoR+CCgaGPYCHF8wI8Jh8TucW6LqZHdqX29lGyKJfEVFAMepI2WjSRZjpmcMFBMCltf////6v/of//9bKMSaDoQaIsLqSeWpkj+7/////////+r//oJmAvwaMsA5kkwX0zQpHgBAJhaKh04WaJFH////9L1MzKdd0VJG7QzwKx7/+nf///b7q/b//rWo0AiGigo17b//////////rr7X6lKqWKYBhNpAKA4mzQnFk8gECAcDAG9uv//1OxkU3AtgMkuJvrNHcuqW//NoZMQL4gE2PgQVDBL79mh+BOr5i///mJq6PrMU9QQ6hdAsER+CYbZ/////1/v6ku///1IpEVCxIDKxKBYVDymZpGKLs/f/////////V1fpL3c0IeBgJ0gMI0mCyjKRokHAIJAAPRC5I0TdBTq/////0k2XeeM2Wbm0SwKP/9lL//6lf+v9dVf/9log0Amv/////////////+oxAqiFELblEeGAfVaimKwBhMkBjYhqjB2b///QQMCLk2UkX7a0kmsiaJsZgQBYMGh56q7r///6zL/1IN/Z//NoZNwMqgEyPkk1wBAz6nheBCj7v/vSNCDjgA2CfALCAZMghcMzJBlO//////////+vq3SUutI0OAYcJYFmSRAtu5SLSo4GCQCgILUtSY+AFhsH8KJgYG6CP//6dBRgRcmykz/daKD6j01SBAMQYHW0v///9an/6m9ddBbf/Y2LRJC5QNBjYFBIQqBomcQbf/////////pV2/e9OcTJQZ0DC9XC/4xhuXzQ3LTVAJxgBB+sLUYBWiNlNLM8aDBTKUinszaVdTE0kUCKETDRgy+eQoVP90zi//NoRPkM/gMoGgQVGpmkBlxeCCoYMpmQIAuRAuutkVa5o///9H/6Df//3ZaiHj4CYHA0g5wDgWOYdMzhmSd6G9f////////67+tS92WxTKApMDBk5AKF4yh9M0L55mAIDoeEegAWD2ik7sr///11ovrey3stG6zqUIhIGCg9//f////0///+vRMi6BgMIDsSNVf//////////uikv13dSKaZMF8ggGOUgBZcETPGCZQNp80n/J///vB/W1RlMLtwUG0EZt0kK3SW1T/te9I2qNSOEBiVXYvI//NoZO0OegMsLgMVcpUEAlxcBCrhMpdJzWkkcKJcAXJYUFBfOXSTQRUipSv//zJD1K////ol4vENHUIiA8bBB3gMPg4QFQLpPk6PDoHWrVXr////////UuhW91JMlUmkfIiXx0DvAwZ4wNbgMNWEXHyTgtZCIZTAQSgAf////rLADWeN3v3WvXUugdMFhAaB1VS0f/dtlf/3/9r/u3/9SayeAxjMn0nRVf//////////9fvek1SCRFwM9YB9k2MUnJQ3vQpv//9tS5fQHscAWFgfj6APrC3g//NoZOgQ7gMiBAd1c5NEAlgegCkphSNLgz5TZHX/QbVS6aZksvO1FFa+zTBjpuVAKjNBwgSTIcsyPrWcdOk+v/6nSkVb6q6//d6+y6LGI5JNDMha8BgMCaBnlQWBh0AiBIAQ5JcICM8KWJwxMS86y0y23///////+pOx99/vLGpjrVJjcs0y8kezAC7za0FQwAJPE3gTLc29uzUqkedQkWJUDBwkE0Nj6aKKK1///9bW/7OzoqQLhNhE4AWiKC0npIVPRVd//////+1X84YHSBDiDUgMVooF//NoZNYTRgsaAFLdvhqr/jwICCoZgMJQNkzhqap//////////uhpa0XZSaBogZmhcEchbgDMeUADWAXVidDAmw6jx+4t66m/2t/WmkkRQRMDAIGAyBOAMigwqjQHaPQ5q0DNMzZVWvTqUXSudJgZccwckM6BscMC0btdnXWlOrQKxFTUDCC/CiIYgR9EwUmZkwmeNi2tJlf/zAnk1PoKegs36036/1JMpM1WTghcLsAwMgFA1gAxChPwGgOCCZFxyBPJMnGWa7Wbf//////1fqaibq/V/C7N//NoZJQWegsYAFbd6BisBkAIoCvhYTNqbzvSxrTHQcAZjZNZxqBI0BDCWhvUWAHczVSe7LCP////11nADXJJnki8tTpf////tZqkbIqTLyYNNAVmmJMsyrpKWv1////3OMkXSODZQMJiMGx0liSVQSR//////////7UUEWppoHzrJF4ho5QFAGBiETgMlEcZUMERFCSZPPUerACPnvfN5L9Y25h71KDOZwBTjW3cpJ+JXHSuzPr+tWZFZZqslBQ5FC4gzO6SCFSbpMxiPwNCWCxwHoyRdSSS//NoZEAR0gcexAd1cpQ8BkQIoCvF2Y4TyTP//5o/uv2f//9NpcKY4A64BA2A5rggMbBANvFmEAJMihEGZjSo9V////////+9HWyVk5qp0TQio5wNJGCODhoJDyfLwa8ljZzJYn////pHzIi4EDAo59luyNf///1v/1q6C2cJ2ARlTNTLSpOytf/qqMjAY4DHQbDey6W9b//////////9f/XQW7mZiRcDGRuBbgkGMDyYukTyihggDncaZ/TC2RZLD1FhjTd////SNS63tdaOvRJpg9IHIR7I//NoRCMLMf8kCgNVchjb/kwUCCoZPt///91f////3olAsiuA1BoGNWiHQkMKZ00Ni3q///////////RrqUyOfYogYXOILGM4UnnZkccQeykTIUiBg0cgSDpPGqpet///9JEutqqTv3dlGKYESqI2PpKQXdrf//91f//6v/eicRGOCEGgLO0MnGUNyfND5bVUqrV/////////peupt6JkajDAxYQwRf4iBJlEwFPJTSQg+omxXAwOBhI7gMD8jCVKZcN1q///UYFw0ODmEyT61P21alrOMTYC//NoZCkOWgMiCQQVDA/MAlRQgCkoxRChZLRsuhVTMz6n///Zn/////W60SaGNAqCAN5S4A4jDhNjEvHSRTRZHff////////6697r52ZGqSJDgMCBEBsTE4T9hITVJCQIDL////+iASEI7Vf/q0IRWA5KpbN/9X///////9dU+KFBAdIKtJkXf///////////7/1HC+BinoF4Jw8qR1RAt////qbK7EsVBjgchc1As9drSv0qF3rSmj3+onikQIc0gIWZE/lc3+u6lrQmSJWAQNQofS6YU6Fe//NoZDoPhf8eBAtVcpAUAlQYBCjgUiudd///Tf+p7tv//12Y+OQLGAYBAO2ncCygDexjCGE2RxNLzff/////////f1Kps1HMUVDqC1AE0kMEzPF4P6TSAsSupEAjNb/////V/19TumtMJrAWMvQ1/3darf//////+vdRHAY4QKtjZ1f////////////r7FgAECC6EzZUpNUIIPm6imGQAMJpIAIIDvLBclxv///1l429k9mqUy5NmACRGCh0M7Kfdf///sn/////dnMCBizADQqBqxagFE8R//NoZEAMsf8iCQQVDJD7/kgQiCso4QMnycJsvvW+//////////r63stBtjMxGeAwQTgGNcOa1IWmsLBL////2Rm4DeG2y1o/9rM7qWESYDhayLKWzf1f/+//////6DwGjEMGYt///////////+v/UovChQEpUBpmjnIJokc9alRNKAHsEn69Zkc1vz396XPyacpGrA87U3cyXb/2/9E9+r2bMkVFkIRqFC6cSqdvX///pv/////RdI6TAr4IAcAJCAFgAMeVEDcqEsm6l/b////////6//7r//NoZFkMdf8lKQc1cg7b6lAwoCnFnR9AJMgEpsz4+UCDD////+oFBheRUtVv/////q7KsXYQNAcFOPX///6jQXoGMDkTQTRV/////////////fZwMMxBS6CsQQYk4AH229Kdbft/ZW+g6BhXXAoK9Erl96fv+nXQ9v/OGv/+70iJAYCIoLKk1OGqCK0tP///YuP///1f9I1NTIhohMBAAgbr1IGKAGHzFEoGJNDaOPS22/////////r3spt03TMkSsAAtACucQFzzimm2mv///+q1QDZiQoq//NoZH0OWgEdEAt1co7z/kgAmCksfYJzAWAl1qf/////////9SmQYSwBCIsE6YJu3///////////b/6RqBk8YIspPLXOOrp////1pJIFctCZgFsAXXiiE+YnB/RW3///qN/6H+6JSBMiD4hMmyLqTQVe/X//zf/UykiiRcUUAoDgcWYAKJoPoPRZI4lSCmT22/////////919Sk9OpMwKI/AQeAAViIaTRo4+T+RP///9U2pGoIio0UmX/////92t3rQQhDKFFLzpsrV//9SZoPkDPlxWp53//NoZJEM1gEcAFAV8JAT8kgIoCnH3/////////////rYvgYryBJCUC+OGS/pBgCBHyhyWsvLywzuPSk8CbYt1Bsxy/O4P/9//1f//TL4C4rBRYmTL22q///2///2ZX9VTMbkUFbgAAoDVKoAUNggGOYTBPkwaNQXU29f////////X7fXSWmiWSgASrgJM4zskRp9Sv////UkkXgMqVGKp2Uzv//////r1nEAn2IOl0K3VdSv/XnXGfA3gIQ81RTWv////////////r1clADaYXJNE2aeP/wC//NoZK0NIgMeygd1chBEAjwAoCnEmEPKz8rv35f7yXvacLw/Y39ipXmNL/69v/W3+tbIaCnQOgOE4OQJs1S////9N/+3+v/92mBHjoAeAwMLSMAYBjkEXmhXJdaqt9/////////qVb6u6C0FlACCaAsZjcwZzFsQQf///++dAwgQbbKW6/////+26lbqnDMJRhDzVOt9//+vUXxTAMKGGgXzSv/////////////rQIeCeUUvPpVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVLdji//NoZMYMof8gxgc1co+T6kgwoCnFAWxMKB862JS75etaiNAXVilTLZTt/+yv/b/+1bouVQoQb////9X1//+//7JIjqAxGAR8Z0du3////3rf2V/V//RQ//6AJphPxb////2dAvBYuaG6D7///////pOZhDSBwcyPP663r/+jdQ6wAU5Fyq5+7/////////////7EWAwi0HGyoTZYBd0VVC8uP0ZWpA+7TC25w02AxdCh14nLHxqqQsv3XrVr/SP/opTJa0lJpkMJ9EBgDgtgSXmrnFmDMzoo//NoZMYJifUvKwQ0DY9z7kQAoCnFae1f/Rb9X/9vQ7KWsxKpEhwBsQBwdA4/UQLOUFgkLkHQP4xwzTUkHWf262////9//9fWu7tvotZl2G4DSSA20WbHnQK9KqReGVAoFBJTM1ZkO/////3Xat2Ui5xEEKUBQnlcirKSWikkt1dX///////9TTcmBkgNdQFxnUUErP///////////q2v0TFZiBnd4LW0jhyZupVMQRbvtAHsx8Hg/XXodNK/t6XOkcA6AccjajW3/1N/6tf6v6lhMwcC//7n//NoZP8QLgMUUAd1chSL/jQABWj4zvLRff+fnkIH/9GgS4HLoc8qLTUt+r////9C1/9/6v9v/+tYWWDCT///77UjEyIaH5AYKVQAw2HJUamxq3rtvWgodIQIUKPAxPrZdLdXdv/////7f9VnPFceAtmBqYtgWMYnAi5FzApprqQ+3////////+rbfvWxfHwBhdjAWRhBzUqJlA2WTCIGREdl/bT01pXp4w4YMADYfw3IEQXciHIfeCWVNt/r/9X6Sa9BBNNE3RJ8HAhBQogxCeMElrUsz3X///NoROwKAfUrL0wz4hf8BjQAqCsoX/09rf/Xqq+/VUyR0Xgf8AwAwGMdCQGCYAwl4sA5hPjgGQO6622q//q/3//9X/qrWqpaFSbIsggbKUBgHGQCwyBb1Gh8lCtpG5mdY+BUOB9zQv2t/////q9JtlLg1QgKH83NDdda3oJ1er//////r/e6jNQy4GEKhx5MF9kF1f//////////93rX02Lo6gQgwXDF1SaBZPFaAbMgCAIIfo3XKfZ/Du/SxJgJg8GHKrzduUsqyt/3//t/66WrLAJnAGA5//NoZP8QlgEUVRd2cpP8AjQABWj5I8UHXui9S9f//U7+r/+//0kVmRRI4L4gGOECQJHOKjGqisrf/////t/W/3qf/t/r6rrBMKDAMSsx3H/+v14ljTTMBJ6mcx4ObWdUuqWVVrX///7f/f6ZKAgIYOjpUPGtN0UKq2d+rb/q/+v/1/9JkTIlRngaAUB9dAGBpDp88bEkp7//////////X9VXSZSzx0wAgjAo4DYuXIx6Fw1EoAjBA+70vtfutk6/5uOLBjmcMZv5G7eFv2//1f9/6l+9VIh4//NoRO0MgfcbGgd1cpi7/jAADurkCaQKDaDspN0kq/7////U3s693/9I2YnhzQFwAHMtAs6GibLUYovvtv///+962+1X+36/9f+UAFmgcYA+RDf//1/XlynhhVczqjCFttIfp6SN7r/////1JNUuhdwKlMKTE3QLrspDqqs9S//7///1/+qZGxqTQrUG1gM9NQBgtCqNkzIok690qkN////////9f//8+RUDCJGBz0JNEuLH56lMQU1FMy4xMDBVEtiyANpsCB7Jnyylml8tbylLSjk8EzoF//NoROkMWfUbFgtUcpkEAjAALurlo93Jnb//3/r9VX/6ZwzEBAdhQXdL/Utf/Vf999X/3/+pmSQSEFQPy0BywZMnEDpxBWn////9a/1e//+vX//SZzUIRwUspoITj////+pNRFQMcXIiZn1st///////XuYhOgDyboqp0fr//sovgCDhDiq61ps/////////////90goDB1pTu51CYCwKMC+1uiXbSnWm5Vjj7kAIMbwgxUCmdxCYjcYvP9lVWf9uy3q91VK7ObmJDgCCsCzkJZA0PINL6nd//NoZNsMHgEhKwc0cg97/jgAoCnErVWb1N9a/t71fu6n/6CClGIxgDwGBuCtgBC8QEIeZlwg49paqktrt9X//7Krq/rrv6XXX/7KuowAiIgc3SutUlF+P////qRLxaJcF7iBjE3SdaH6kOpMsGAIcAL30zZJbU1pKdSq2////////2c4ZG4GFJCACzStJD/////////////YpgKCQqCLS2lFDafT9F/0X6aUydS0w7sfatCimF2PVnV///9Gv1oor3WzqSIgBgFIBQFEkWTqZvRRQWhVv//t//NoZP8Pxf8WuguVcpKr/jAAmCko/////2NjI6OUOSCYYAw/CgCgUOlAwNjEkXZa9/9///t+3+r///V/ZB0AEiwHDAzss5C5UGYlALAI4/R7LnUvyPH7MugU87Rd17qLVWtkv/1/+rX/+17OZBbsHN0xSZJqtVWy///+r/6u3/smkdKRDQagADDrKDGxTVPolp61//////2v/b0aP1/t/RUYgmDwohWVYsaVFICIG3163729atjMTLwCoNKsxMDg9pEbp4pP22Sr/9f/Q/Vrru6azVIa4REw//NoRPkNNf8UABdVcph8Ajo0DmrkFnqUEU0KanU2t1KQf/+gr//179dXrUak6XiIhgYBAfA1e/QDjSIBFQwJ0mitrXW9X/b3/+11ff/Vv/St/9THC+CQHBRomFJiOdf//X9XrnzpkaADFYThPJJIKs2pX////910qRPBCWAWjZXLx9mnVXe9u23///dRgUxlgEzBmi0eoMyf//+//t//////1eupM1BukC1pNPMXTEFNRTMuMTAJx2IA+mwYB8PFlsJ0d+/+/RQsPgK83yn89UObf0uv7f3s//NoZPAO3gEUpReVchPMAiwAqCngrt/WiuAsJAoTTRF/2/e3/72+3Z/7Vf/onzUVsBoYGhQRkiboqOmfb1f///7b+/ru+tf///6lhfsHEF6pz////Wi5qZE6DwCBZiarSd7/pKTWQw6CF4D+RBi6tFCnVZ13f///////+u50pDhAXJifT5opSn////////////6vmQBCIFmyF5jWAuhnZ0t1NVNDUux9qZkis46GDAOIMDhphMMSyLSazp7J/9a+9bqS9qbrTu6DoFohwJrIHRQpjmGZ2rWe//NoZOUL0f8fKwc1chKb/jAAmCkodJWzf/sv/v/W7fe3rSQMimL4VuA4KAdFtAGMAQF1YuAdBPkUJw66ujb9X6vrrf66frWv/X6tmt6tdSj7JkNCZLAsySeRWxKcRTY49meGfOJ/5gt621f//X+3X60nWTRQBCNgWjxPlpBK7up3dGy9///////369EuCygMKAkQ4xM03XV/////r///////9ZgACKAWET8bepxMQU1FMy4xMDCqqqoW+SMBxkLPHssmQ0eDnfhtceAAcA8hEzRBZzt/Q1Xd//NoZP8Qtf8QAB+VcpOb7iwABmrh//q71/zigQ6Bi1N/t77////6/r//1qlIO6A6aLNMluzvq7f77//vv//v/////WLNEChzSRgL44FA9yLnfUuXPfcM4cCXEcIXew3c0tX//V/9u1Va0akjJg4oKhVN6v2//+n//+u//9dEsB/QMlvGdOXZz+r/////70t+i3T/6v//4NRIOIqqFo5qfms/6OpmnIk7KjQoEzGt3MZBlW6Zl8tf7JFF/67f/9HWylVXaZGxDhjwADkAowSaJ9AuppupbpVt//NoROIKFfUhLgZ0fBVb7kJWDijkRV7dtloof//6qH0FpWk0URlhLwEiQDb0yAxiBhCpVJsniKkRukhUy2V0fRX9vW9/9v6/f+v6mQZSKmXOpFMCpRBQ4ntzJv///9SloF8YwBjIITzJuhRX/qWx5EEwsFI8bl5runZBVVS//////2/1fSOlIWaBgIZjhPM63f////q//////9f67stMpA1FwcEb5tcJ//+zbeu5Yo2uFpzhq85UDQgceG4AdPFVd1qbosr+yv6K1pIpLUktkDYxKQBCyCiQ//NoZP8QQgEQAAuVchL77iwAgCsoIMbFpy7SPIp1Ld0qr999bs23/7f6tmZZxai8QUgQYlA6SKQofRBxUQMTAwQe9Tuv9Ve2pf1v669X/21dWur9+pVcvgQJoIiCySMyTMpRptgTwYsff3V21vb76VAzAqC2pfI/XXr/L+U/4GgGTA9UV3Qd7P/b///V//3//5kiOoBAAiSk////v//XX/+pvrTfvt//8LVGzkxBTUUzLjEwMKqqqqpOV2MGSISCRP7Np1229Xv5kB0CWR6Nyyn9d/w6P/+U//NoZPQPtf8QAB91chKT7jpUgGksPwr//9e/2//v////+ongFU3/6X6vvf/t7dv6v//VX//8do2iHn///Ja2MahlLYxDMMrAndrYVpTZf9fr//Zn/v1pugxTAiUAdLR0GR5FF1LVRWhbUvv1d7f//3/+62QL5FAsvA1UhwFBOMgRdNAvm6X3+vV////////9/6amogRHYbyk8ZRVEcBrmrbZLqrItNlvhH4g0sQAIzLBjOwKQ3a4/kNvpgfRTrq1WbXb/Ze9Ja0EmdBRssjBXQKmoBgujmJl//NoROIITfUzLzQtlxiz7igADurk5qFNdkFVsv/U7aS2+y9W/7Jf+xkcI0lA/MGgkAxHTAHAYY8ghcNyoSCe93/r/026v3+r/+/3/Tq+27nQaEUPdKjpIPo0lf//b6lLQZZZAJCQcGikpS+qv////tvobIpFgN2CkyLx11O19lL22//t+v0yyWByQNIjIuYIMh2///X+r//r+////6r9jABcwIYbGFaFQgBECBure+hnWZ9ZtWmiLxCIDM9yzVAFp2PcYa6h/1UP/sitTaeu288nL4ABoC5N//NoZP8QEfkQoBeVcpOD7igAqCngzzqqSUvVV2+39W/uu79dS1122fqRY+TJFgaAMDRLVAODpBjp80Ni2g96//3t//2/+/+tO1l/t/XpgkISJiOSnjiIzwPIWE2RZav//9v+pl9WqcrNgTBYKSIi5UUfZ1ouq6D3///////+1c0OlkUMAKJFJoGimv/////////7f//61hagPA+XD1lMQU0ZDKMPyzyntdb8blPSKHinkIZu5T52Le76v/2991fR9nUiix0uA1cBUuZ0FrTT3b/7/6//6/9X//NoZPMN4fUUdh91chJz7igABOrh9db0EyYFngeg0ChcqG5fUiiuvt+ur3/9f+p/unepa7+lv//ti1kIKtBAokbLJ+8jevLx1XiCwZpvoObw5T0+FP2/7f/++/+rezuE6QMmGyzdJFlLfWvU+1X1fV/V7s1bXV/7uySyDAe5gFCRVTutF6lV6v/r6tf1/Xvb/////VsiES4ecwP6YDXYsptLsSul6UV7dDPNJBoAbtYG/gCZsvmZU+u0m6v9T1K6ur1/d3W5iYEaBgM9BckcRoV3QTdJJBSt//NoRPoLvfUWpgdUchgD7jF0Dqjl1qf3///qft19Nale6loF80GPAQDgNbowA4mCPxwEUL5cLl1N6m2213/9q6m/f/X9v6TNV9faCAQg4Dnkzx+ZKjscAbgCgkD1t3zKaj/d1oLBtiRF1o9V/1/7eu76//64RBhS1Zf/t/1/+237V132//1O4PDdn/+r7d+uv/+rV9l/////+Q4YlUxBTXQar6sl9dy9+z1o7HGqjAGMYxQxQCmJvpLL8OVFq22t62/utS23rQrU70GQSIeAsWALA84YpGy1//NoZP8PYfkQUBd1chIb6kJeDSD4JoMzP//e6t///7a9f6VE4UxaAQg0DATtBsOMgdNzQ+V3Sftt///Xur69X91Xf/v/6vTTCINCgGNJ6eef7mc2KBTAKVh9zQ+kgt9///6//TfW/WdLQNWIK+kJxJns11r1////V/+//6lIIuLMAy4oglVdS///1f/t+r/X/////ZQdAF1n2JSqHAgQfo9mtte1F+vL96RslMqjI0LV5yxXklzrq0Nn/+zepJtSDszWMSLAQFALOcgpdRTRXdmSs96/+/9v//NoZPsOQfcSUBeVcpML7igACChMV6/0P/de5igRgGTkoF7iZNjc+iefaqtd/q+/29X1v9q9qv/t21LV+sQjL7IMRUgBhR+155tyMVznhfvS5lp+7j/L3WMLsk1dq/21/t29//ugUAHGoKGguGyCG7+rTe2r9vbdlN//Wl+l3oKMw/gGNEYGqiCminPHn29f6v/X7f/V9XX6tn1//14WpBgDaFZMQU1FMy4xMDCqqg5G/BoOPB9C1tbd2s6Ml8u7l2YUXLEygLlFPP8v9o76l//2+vt/XRTR//NoRP8M/fUSsQtVcpi77i4sDmrkAe4Dg3SR/aq1uylbf99v9fp7//ual4igHJcg4SWzyC1JK12VvtZqmWuqv/62XZ9TXr127MrV//9xeiBrNmX+mimaEOAYZCfFstNFvX/+uv/q7dla5mXAhjgTpGyr69S0Wemr9f/b//6//9WXR+AyBIZpn7f//a///+39v7f/X6/qSRIaHAtpDXNf9f03qnqlryBr4LmD7doEjp5iO0qb9W1v7qr9SKt1Ottm1ymBUKD+5WNE1quq9+rV6/9X/X9Xfb72//NoZOwMkfUbGgt0chLj6igACCgQpTxsMoGRwNtLAaLksT6zAzT1q/de616qtdavU31rv9f/Xst/au3quyiyN9GlzIEkMyHe96VftJXRe/d08UacTZCkm1CT09SS7dV/t+vVV+2zepLUmWCChDeBFNMzdJnUpaatarr2r+v6v/t//9qrG5EA5MDpIQULjwXzdAzT/tr9v/9X+l+vpKb+rq/+vVinhQVrA3I1PtRC3f1NajMqY2QhYdsBg8LNVgqdnorZNlpuuu9nf339V10dqbqWznFIE2AA//NoRP8NRfcQABdUcpk77ilqFqjkhgonyRKJoXj7rQSrWt3X0VPf9XZa37N21UF12vdTUFuXy4TYEAEBh+DAHAgVuOYgZoFRNSkd6t+9deyuq/XW9dqkq/qdXUul9lK+y9VAyHJBgNGGk7mo60wJYRIGxu+a088vz1XDCZXQ/Vf3v/+tf//qXUE9CvO3//T/+//2/qn//oRgIl0/9v/0////9ev/f///GYoqDba56e852RutDaW3OO2WsNtbgkgSbdSMTbdKAxpq3Xsy/V9l1NU1JN1rupNn//NoZPMQufUOABeVcg/j6kZeDJT4LJQAelgokiYZJE0RWx1cyayTbNtr36vrfV96lvejWp7ILPGCyUD2QMfw0BgCkuiZrNiXVU/em9Taquyv7K32Ve/b/fstWmun6n9R5yUBgJFz30w4yjAMhWNZZd7rfn3dR0AgUKs9XbVrW/f/9X/9vrMAm9B143Wlb+tdvV////v///rkYCCGif///t///q/fr6/7d//+mQ0YNUxBTUUzLjEwMFVVVVUWXszr7+//jWpX2WyYjegYlf6i7ZtWqX2r3rb+//NoZPAQBfUOAB91cpGT6jIyDSL4/Xttb7so8AuXBls3MTLdrJ6uuqr6+3/2/ur/QXupmcio9gaZgCwokTczUijZX//3t/er////7a26/V6c3IVlCSWWFIg4HC8++ilk/ifROD5AivEenGs71f1/1Vf6//vvBrYeXVb/+3/97f+v///9FwMzhhN/U3+6/////+7/bbXV//9UoDfVBmdL/XVXNREWjE7qNuAW7NsqTfwFLh24vKHjumt/r1t7+tv2WydDfWmUi+AtEBHDIoo4o3RY62i1XXUv//NoRN8LZfcSAAt0chHL6kY+DSbgb//9Cq+u9Cr3dNkUTcqEHEGAe2MBaALeRBRuTCloLroLUh6rd79b7Ltqs/qRUr7bb61pK/ordS18SoHAiC95Zm41AE4OMX2/dUdveQ7MmiF/hsuu9v7L/9emvZv/60qQSZg5cbJrT/+v/v196lerd/X//9czAKAtr//U/f6//6r9//+v////FiQVTBIoZsB9bJ1lq1M3zXMY0+ojADLMozsCcWmxyjOKdVu2j+7qrrteyl9S7oIIHUgKFAFkk6aS1Ouk//NoZP8PgfUOABd0cpJj6jW0DRr4tbJ1o/qZrf3/9vpMn/UtfQMTQWeBipNhgs0Pm9M3Vamij/bXZ7V9DRup99Fe/pLQ/qfV/9XrF8JkQ+OU25wdBBRVcjPnzHxH2ZajABBM6qjV93RX1/r+1e30/1pmQTfhRM31/ed/rb////r//tHgAIQhxn/fv9l/a/Vf133V/f7/1//9BeKFTEFNRTMuMTAwVVVVCkgAMh9fZtvfb2/VqTzADV+AyI/dS5nMYVf/V1f/X/s2pE8A8uDuRXOJpqospVdl//NoZPsOZfUStRd1cpL77jI0DRT4et9lNs//Xfv+r91at0UlECBrWFiNXd0W7f///+3/rrr/2+v//+mWzHQMBAKhEH3Ps+ut3Vna70/O5TrCGbzBlx+5ZUzmMLt7Pr/+6K971K+3SNAH5AcPKyGqkpu2hv329X9/+2vX6kv0XMRngadBZR1J6J7sz9/+h///9///+2rr1/TEgGEiTEEAkPY9NtOl963Sc1mJQ69QWAzS+U2wDT6hFyZgKmTR12Vunvt/X1r01NUmtViYI0EzAVlmRimkpS9S//NoRPMLJfUUxQtUchd76imSFqjl+67NX90FP0FN97f62dDT1daJePEGDFIHB8giSjJHlJqNt9fV69qlsu1H/X9DrszNrd9ezPqf012bWnDyCrF+lu6QqBihtm98nb08tu9MpAWEHUj+/1bL//RtX/6CjNAIH4XGTZ3/16v//b9X////6YEAhur/v9t0/6l//X//t1f12//+Ok8qTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqoCmgaSiwX72p5mXWrLRt/TxBMsxKPBR/DlPT2K//NoZP0PMfUOoB90chGr6jGUDCjgfNNqtfSZurpdtSD/qUui9Z0BxIHbk6a3ouzVVVVepezMr20rUF6P/a3b1Ipnh6A2A8LzPJJuteu9d//+1fa1bI6am3rdJmdG7p+2iv/+vG4W39vvuAkoFgtEkHJ1osp9V/ASLf9P6f9u1//+yQR5WX//ZfUr/t+/////+xA3f/dZ6v2/t/9dEDT6bTzb60Q/Wud2MwM5KKxs0sCupZs9HY9Bdk86LvbUpPfdqlv1alWXdCyrKOkwBEiA5nGakaey1rvv//NoZN8NufcWygt0cg06fk5eCqLsvdtXr/2ukqp29qKV3XrdJdA2QJkVoBllPBfQnygiigaLWr9e1lrV6F9m6qv2u1alK9S3VX0Km9eyaq9hEC23q+e1+eWt8a1WflZsOJ9SSQ26v//7v//67m4J5yLLc2SrszIr7W9X1e3/7fSV9f+mdK4ZdG2tP+hX/9v/b///79ff6va2y/F7y0pMQU1FMy4xMDAYIpyz76y6dlvsbdmSQGMAoxXIDEgKcOGJRL4c4lduzoVevpK+y9krXZJ1OxwqACgI//NoZP8PefcOAR91chIr6iQADijhHMtI1c0atI7supWvsp2007+vb190Hbsruq6STpGJGBqIGElWGqS8m56bsitdF/vo9VV//sl91d6C+tFn/1KoaS2V7KFOAjeur3w5CiSXKpma93DIut9wZQkZCrV+1vf6v/1L/+1cIF4tlbqb/1////96qX///wyZBP///7Vf/v///////+deTEFNRTMuMTAwqqoBmAcWHtemvbWzN6Fx7YizqmaKRuwuWXLtzva39L+rf72v/UszBJqDD5mkkvXb9VX///NoZPQPGfMOVAuVcg/D6jWUC+jg//+yv2/6q9FIxGOAxhQRsa1C7KJ3iqe/dt6FbNAr/sDo+1U/+mR0VFq016XOqcl6LmWp2MK9Bkt3bo0trJevr9vequkyJSWCUwEZ9IzTPJX9V/qdX/3Wpn+r7brSaqinqqopEVE3AZiYCgIiKVSLdle3//+pf1f62t33/1VXf2rVSSF4aBrvHp16lqdOpuZtqZNFqCBDB9ihgkDwaU0AUJieB9nycJM/Se2p13W+21bI+tk1Lspq0UaRwmgKJAR9jMpM//NoRPQKNUUUxQs0chmb6iAAFqjkmaVorQra6KFO+ybVdm+tt2qf1JXuy+k1kVMQohUD7jgcdHekg5xC3VetDqOin97M9bMe2+u7q60votJlaL2Rt3VFNmMDw4bUdh5P2/q/a3pq1kEBHhoPZd1+/9y/n59+jmUAlXByBdFS1sprsvf/////1L//9peDUB7Qf/+2//119nr/+3t9X/31/+TJbFffTEFNRTMuMTAwVVVVVVVVVVVVEXwLWy6bzy298im1jfii9xNiTylWS+VzEG101pVfemir//NoZP8Q2fcMAFaKnpFL6iQAiGksfvZfq9qkdSmcmAsiB5o2QTSrWrXe/v3repf0qrr6ldfbX+vWozOCngcqyHHkUL51BzdGpSvfr9W9T/3t6v/apuqu26//+4/Hl4Ctdt1cAljEjkBc0d3YGn00/cRAgq/9utF9f9Ptf+3VwlYi2r/1W//b/V//7f/qqNRQRU/Z7/m9FGz6f/yaAYQkBhS9NdLuhN9T/VmpQp+EkEWumdXvs8Xt/er9fdepu2r1KYzCcUHEnMlV7bbv9Juqyma//9Wl//1p//NoZOQNgfUQpAtUcg7qgkZeCWS8ZiKcAuyI4uih92jY2qtlspbUdrL0cUTlHXgETOZU3JA22lMntctPetMzUAkoADN4CgEAyjC/Z5qQ+lrp/ra1bVMtaC+yC3ZyiCFkDNbmlNNqnupetrfX++v337K6X6l2UpplUUxKgMjqF8YqQN2Z9W///39fqe70V/7N2X9296tf1rj8SCkzpioSBJV1pa9G2nd/vpEQHeDdgHVvATqBzx2Fwmx0GByx1/LcnZCOpzMuGzaSBt0F4zPSSrdTrunat9X9//NoRP8LdUMStgt0chor7hwALujkq61O/stTKt1K1datadEyOk0GQQNjTCzJPLsfrZCmh3Uluq61empen1atVdroNZ/t9V2et26du0oFpzLb0hDGZ8q3+qK/e9YU4iUKkitrt/f6vv2fqr/9SncGkUHVCqiiktSlK9df66///vr/+r1/ScyAqCJ5rf/v+v/V//rV//7P/+77VdEttwvVTEFNRTMuMTAwVVVVVVVVVVVVVQgjvqt9GOStWX2RdyqCWfEgKY7+mUBblRneMPWp84t6S63VXZfo//NoZP0O1fcOVFA0lpMj6iTIDijg0tVtTWUn9yyWBYgRpkzA+6CkN9dCg3Seuq60XRfvUprei+/0dKybKUZl0c4CbgHBiRSTZGzJv/rddX7Mpa9TK61qe9akq2tXs/U1HXbr9qsyLXapEPEPEOAN9x+P1e6xyzIjPd4vkX/8sj//z8h/4CwRhz/sOf92rt/z/3bIo36Ov6O9mv/STEFNRSMBsfVqq2qvRqurfahHMDG4G+7gKmxSg7zpME25lW9J3r3/77Pqqf7XdA+iAudB34vrZT/W9mjc//NoZOkPTfcOVAt0cgyhYl8eCFS8RVuan1oSy8/k79mW3ROGIngDdtA6Qrsy1IaqV1u2grQZlMyrddddt2ftZarKb/W39X+y9I94au/90tVt6+t88ougDwoplfVPd/j+6Bqs9T7wMvA0jguAat6S6rLX/0dXS11rq99l//dSveglSDGJba/b/bv6/6//dla6P61/XV97+/6qJ9GmTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqgHoSDCg+nbPO62ak7rU2VWajKexkEoBlZ/bW+0u//NoZPsN2fcQZVA04hQD6iAAgGksL217qrs669mrXRbtovWpbqTnQQHwpqaYKqXsr6/2bqp6loak9PrZrOpv6vWgYlASMAyGPs4t0E319nsvtr63f+v29ak7MvX9qq27f/95ozxDN8FfqLntFg3MJllW/i/ATT9f6f2v/1/6aNFUNX//V///79SlW6///6hGm/1f777/j/0u/qTVTEFNRTMuMTAwVRWIRqDGcyX2RSqifVubXbj/o8Gb0QGeGvyyxL4xgkvXf161LUvb9anWrU6ta2WWAQBQ//NoZOANdfUSugt0cg3iglb+Cdr0U7Mgp1dNbdep69fV/W9OrVQ/6vQ6DoUDEUMBoHgnI1SZTMj7rW33V767v2r7ddXttv+3/171brWaIknjpdl6y+PrtukNyBpIOl74+la7/71P7/t+jsz3cJMQeQRs+2yNX1X/V/+y7e/tq227U5ZC3Jdp+/e/t/v///+n+rVVr9W21HV7oH3VTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVGurkAckFotL5//NoZPUNyfUQtRd0chKD7iAAC+jk9vmnt5/rSJkBMQ0E/1av6//19X/91NiDhDP//qX9l//q32/bf//7AS8s9dCOipXvrerQ2yuJlkv9D//ZTa9am0K6iwQwAuQEB+/r/U+Uuz/yMxAQCBWFSCCb7Kr6uqvt37rS/+u3226SttT5kHwFZlr71bf/b716uyWrbU3S//+37/bqPqrVB0PRVZNs8ytaZ68Kk26AhBTJvMzkHWJD8XlkTtoUHd1LUtt//+lbd1rZF6BsYg1og72g7u1nrZbXr6nV//NoZMwITUElLwZtchM77iAAiGkQVSv6NlXbe96r+igmzV1PrTKAhGBuFYbWTjooJn0FVqU7W6fr1U01IJbq7PqV6kV9BOzUOyVTKZTf9Ox01++ir/79kaNjQBVhgH2Rdn2R301z/4Uecr5EZJIGh8KlTyplWrd2b6ur+p/vf1+326+qplrTRDQjU9X6dVvKVFi2pz9/bRi4irTWwGtaTEELcj9e2j+dJWZ3eoW8pTPSZTY7XgNpL9l83WgmqbJmHr3rq6rKSWhqtfdbIqdNkzqQCHILemNk//NoZP8PGfUMABd0chM6iiAAkGksVI71s3dNn6nf0VL0aqqT7X91Voq/WjQRSKYfgBGsMoXyiQyBUkhWg4YSYquU6nAKmvuFghWludTJ3BEapWn/b79lqv7ITImgAdHgbLVV3fn5c8vP+PWqSYSJgyUau1XWlUv19uh7vdlf9/2rf/+o6FzpuNs37ex/sYvqFv+9aKEj6yJlGZbVTEFNRTMuMTAwVVVVVVVVVVVVVVUhNh7uxj03rllVW2vqhsQakoYjeAIYduUUl+WVEbPbV9TPR19kFoe///NoZPoOoUMMACNUchIKgiAAaGks6l1mAJlQUZKSUil7269VXfbUkytdS9kq0X69+/0q0UXHyBlWouFJTTShepl9yQosQ6rXY9SktpNlam5DwKdToiVVfWursu26m11JuovAG4qdFP9y/P/fmclmd5M9AJDQqVZJm0vU3t///7fr/ur6/qmAkRssBmqv5HantWj/z9G9a1oVfnalTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVV6GUmDbq66krvvTpdscrM8wU60yn17pZYq0GTrezb9Btq+y19l//NoZOsM+UMQVQt0chGyhiCggGksqq1qv0E0QKqQYLSumpCvrVv/da/+9S/Xt3evqq9a1VsXwM0GEmQWtxsgw6+fdJFrKqGtZNO097C85shz8WDzYLaz5VLtToLNgABA7jVbpLb9Wv+//7M2vqtUmGchUigtTLq7fe9r/9b+zVdXat/V/a2UQ+cJc33W9d3x5JaNV22qvJ9aHV1KTEFNRaoSAQkld1V3WtdLfU9W7F0yKIugmBwnAQQgkYwc8vsT5symROiL9Efju2oSK+bIjMBaeFH7uzaT//NoZOgMdUMSZhc0chHyfiAACCjAOkpT9dHWrdetDdbOlW9q1VXU1laSF7tqTQTFcAz5QOYVyEyJbnk/Ucxx899aSd45zT9fj/uw7zP3qkdXA3sX/jWl4pMH5yv6rdE6TAc4eEjX/7/V1foa0Lafe61NcV0GRkWZ1VbXdX99X27dVur396/9fxDD91ExrR9H79iT/62m26GMq0m6TEFNRaqqqgwvL71tU3XXfvaLPEx29IoQnGeYaU708IHhuagu6kpSnTSUztu7rW2+60Xt6LrWzJqMllgC//NoZPoPRUMMZVQ0lpDagiAAAGg0DcFGyZ9Bd3dW7IO6K7+7K1Jv9kL3Vf9192bTZT3PqFfAhRFlly6j7lXiTfJRaLeywqAP82/J2Ijlfk/1dgFv7dz5DFGLObtfMUdAoAnbuq07TX2+vmkxYGC5ulEo2a/6at//9daVoBS61tP/v9V//S/23T6P/+q0ACOer6v9m31d1p7/6EyNTEFNRTMuMTAwVTIzK6b2ZC7OrdNfXfWfUdQI0JgAAhlAYJAQ+TRj5qgI+SEoCSrnZyc/cpT5GYARWh2l//NoZPgPsU0KUCNUco+KfimSPQ+gMpbV/1p911KXXqfdC92XQUqvamu6VftqrcxKQGGbDuGi25R9bbWpn4BvIFKMYsgtF5o4NUCjHC4yHFCpwkWGqGFQl6tO9Cte+6e3RUYg08ibKRa/L+X2/r5Q/JGqYUIFQqkkFd2v6v3/t9O9f6v/60fvMxQ5mi/v+iqi1nRNUJWVxXxXdZQqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//NoZPUOOUEOVVQ0lhGahiFgkGksqhJbrQJLRKLK/N9cFq7nL3QBvwaQfQ1fX9vV+vX9lVbMh1Q4Z/////0/65mu3qv//sAXLfb/xb+3/V/5epexWgIC84u73NvETOy3IuGeC3nHXW31/qZ6+3Q9df73rw0QKfVJqa/ou2n///f72tuvV3v/2RUHwDmf8f+2xC6esqpD9WxdxC9NEgEd9VNtCadwn79LdtHLb6w0KApjvyZgDu1Q6lsqvo3QUtBWq6N3dqloLZGqtGup61LRRY8kAiOG1KdJ//NoZMIHuUElLwYKfBH6fiDoCGgYXrZarXqsq9V9rspSKF1vWt0aqS1uvZSbKZVa2RWaDngZYaHPKiSak0Uk7o6+29JJrs7tWilTUvRdJm9F6O61MghrRV9S3qpLVft0Gtn1LSjk8Pos+n0WucSSPixdaBBDD966vV9v/t/2/imBVf///0/nvX3b17///wO7r+y3u7mtk92j/r/7FQtzMwr2m8Tt781xA2852PvoW7NUrzawNMx14blkB1UDOgtpxF3dfoJp90E6lIPbNa61orYjgTeiPC6X//NoZP8RWgUKUSN0cg4ifjo0DIr4FoMYJnlutnQWu73RrRszLutVdSK1pu/q0WWynd2WefUgbom5SABlDIG6p9pjMCw2lL7A67sF//a422iGHxpoeEvGeMqF2ZJN16+5mhUjUrEuElncdKPWvZfrdALqh2sfodWr2v/3rXV//dd4RDAxUg93Zvpt/Tr////pbX2/ngtf9Xm+muW6/d/7lR31FHpMQU1FMy4xMDCqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqonfwujz58+//NoZP4RRU8IACN0co/ifiVqDQ74mLnCipzl/+1YCMDIEeLtdGh/Wv67Kff/29fVg143n//1evvV1bfura+tX//86DVmvw5ORHepqKPOhUgxzpjqWrfR0/QEM9Yb0euvTtUkXQEBTGYJVP/7f+pl/6H6ndmWEA4FsKFa9/f+n33/Trrr6N/RNaNqgGDhzpR1bP/1XC/TR5Or3xdVTApBvqGmurS7q6+a73qG1WqRtAQZ3gGhADB4hFI3LNbJlytDdN91pMupVSVBPRWmyu/W4EJoXkyDIbrW//NoZMoJZUEaygcxcBCifiFADRT4rSutNqkXRZTJU9l0kXWzOzNdDRVddndV1KdJNI4fYngMUWEyFxItrOXf6LH1UuTP0q++4JnlL8at7VguHhM59eG+d828mDzglvc2tX3LzfdEKHBoNWWfO//7fr/0OtRvSCKgrFF7/vbfre39f3X/V///r3iz13f9XTf17qHqQmshq2Md2KkFhEQbu5rndJ7mLm9Z6jGJjapYGRtM9mQdUr+nL03DU0zmqkEtSlLTZl0Fr2VRXuykV1O1dkpSAopBYZak//NoZP4QJUEKUSN0cpAafijqCeb0p6NNqlrZF0dSFKy06lW7voba9nRWnZep002rUapksBjwgmBsrbqRu3bZmavZDU6mU6a6mdnovd0VqnMlyXBzJ5Ef2b4C/YYAT//pgJKkENZdrmWc3ywdbpqDFBPULdfq6vV/6/9vr4RYD0/6qqj6J7/1+1HT/Z9O3/pgAaTxZnbFf/9fb7a96kxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqCksdAckDgkj7WdTOrUgkz0kKTXbTMB1gLLw38uJp//NoZP8Q4bEKFSN0co8afioqDMr408B/qiQzdXVMj+bZAfZsBvFD/+3vq66901KQ9loaGpbbf//WB1T9ptRImwkqdKF5Vl7jTT7imHVE3UTMEEvjupASQW5ea5SPP5UmcxQC5RILUqro9bfV+vWr7ts7K/RCOgrlTK96//t16USv37Uf/7n/qmERbx3WUbvzlsZ3JlUvl/Ve38nRTEFNRTMuMTAwVRtIdRktrvTrSMXRR1rWyT1M9RkiWyqKCA2kACX4bJ9ZkY09mbdbppqX+yM/dJSn1spm//NoZOEL3UEdL1AtlhGChiFgDM74fWpjoTWhQygtBns7p0GrQN1v6Knos66eqptmpfQuiym39VLRKQNeESRdn/6cNtTnnNSf//S0vl0TLOpkutQlqtnOImGy0yXCdB9aH85eaaWUPQrzlzOzLzPW/qaACO29J1kzf/6///puEaCm9X/T7af1/2/9n////H+/X65b3u1L//db1dlKHtJ03pLdPsbJLTZ2W11OZFNhqgkCAMJvwDCAIFJkMYvk5N1pOZU1oOpVJ9da2oK0OmkylnrvpXAQzBzw//NoZPUQGeUOtlJj5I36fi2SCeT09SMWoOqtFugy6qnZNaa3UyqLLqSZFZvpUGTQSo6zVGipBBkKKRDQMKVExPoOm6lMz4Ryadl/fN+eZU1F8LIlt5yt1/rvb51/B1a5/ToM2QouANw0RYyAha6dHot4OW2kF/xRndX2Vve+v3qX//7qXqWEfA8qF//1+rKunrrrt9PT/+l7hMd6t1NjNOq2sLPGJAN3HIFVVI911+mExV5Mr9tLp0/nFa40dmXNBNuLJyrU5ZUrx7TpLspK7syj72W6kKO1//NoZP8SKeMIAFaDnpFygiDCDNT4X1dbKW7zIIWg+DIrVXvW9dN2Xf3dW9O97szmiNaanepl01LfTqstdkgFIjfY7v+r8L9M2iu/9zfW1M/A31V7CgtgC/X+FH9FOMcq3o8YKZcc4K4srnadd79VanT7AGE3tKsr69fLWVy/L3CcIt//9v//XVf7VN+r//zN3/3//te69nZvU5v6qhIAzH1D1C6vVQrdpLJWNr1KGAB0HIfsRBLYLtedg+2hWnVU6qmSSqNDbsqkqzKeigky6Tl41rAexBjA//NoZOsO2UMMBQ9Tco4ifjY0UGEs+aIInWsizspG61JJpV3O1ILp3UhQU7KVos2io2e9alsp1s6DucLAGPQDssglWiaJ4//2OOdl6jmLJwuJYDaXiylYDhi3mo5nexZQX9mt7mPEoEYT0brT3ovpshUUAHFiRyabdFtqivpnf279K9lhHwUSaPZrPf+f59PRrffyKvSm3p3vI4Cmlnvo0zHyVvKfeWp+yWU45zraQIHNysrS0bPTqRrd9S3RZ0UicFlgbgaCosUQi5mYEqjZd1KVTVoMpBr+//NoZP4RhVMIVCN0cpHafiFgPMugu6mWq6d6r66YFD4MNLZSqDMi+uZCCiU0iQTmhpMtoViGaSYgmd69rbUVEaBSpdu9Tp1oId3dS2qRspBvU6C2WretSj1o0f6P+Xw6LcdZYXXzUFp00jpEWUSAe78paxnz1SUURAwI9/T/RW1/sSn/+2wTkIFoq/v0Pr///1//3//5HDf2bmqfbs0a6sbf9zcez7JMQU1FMy4xMDCqqqqqEhgAfju/n5sRTt6j7URXyvxtR1N4CUwKDojcs58xap1I162Z//NoZO0QEZ8MdVAz4o7SfilyCWbwbPRt+mp63ez1tWpbJA3qDOVa1Iab799lprv1oJ2Zlr2dl6NrVbrUi1V3XWpZSAIENJTVnCT3Gh/JsLKZaaEzmDLXdlgYjnizLwGPQpKA4gax3mGeHA2242W2q8KPJK/l6+ET/3/97e396Jt6pKmDBb///2/7fp/////K/3/0+6r03N23fuTVTEFNRVVVMZR4Y5a3rLPLHe/5z7vd/hvefP3qtD6xDk4hNQzeHLk3EKi7HmEWHb6FFtJmBEhmTpe01vIy//NoZOcOmUEMqBtzcg2KflceCVT0lBCJB2lkGVqqSQaknRuyCNl0aSLqqU1bVppJVKW1V3tdey1LbScxAsmGCbVaq0anUrrZWjaynax91NSoNpLXqdJRuqpB0ltZ0UqCTKUaU4vffjEjjhDo1UjrcgDUQef57vqeXpc34SHv+v/t/rTRv/+kEMa/0//r//1P/XY3/76HP+xvW2LqJhUYauk9GRzymdXapEImzWmYkgyYjWgZFjVXeo1kzXRXTUi6WttHrupJGmpSDU2WiydlJhIuDqLLfZWt//NoZPkRxdMIVGh0louRXj5cCVrYTqU6kNBdJBloKZbN3XU7vtstBNfXSpNRbsmopgYQWV2dPtbrpoIug9mVsurVU9VBlsdbVSrRebu7vVZB01JUGUm9ZwIOtb/hU4IqQAgwvO9ontrp6JcSABg0OZHb7p0sn0a+3Wu/vQyjBHiaS+vWpe9bf9vRX+z/9r7av+jk8Gve2pmjT9Ce7tcmogpvvVVMQU1FMy4xMDBVVVVVVVVVCcZ8Lo5/P6tSkLs66PoV1+swIeBhEoIi5OF9ajtC6foBzYCM//NoZP8Q6d0KZRd0cpDKfiFICqbY/eTb515BcY0GHb/9aDKrU611I7O37dmVXd7P+v+s4GDjL19FSmv2ZOld7L7+pSCFWp7P9T5jbc2N9QdqYM9d7jZJ9MSHIIgNu+PM95Zsqg1rcRsOxJbft/72Xof7+2r9EI0JO33q9P/TVf6dvT29NPX8Fr/77l9XUYVdyaFL4pYaM+/Qtp16QboVp10nZkEtG1J1PRTMiikTIXyAxcngBjkOaXlk8TJqfqa6CmbWio1QsnT3VtUySl0aG7scJQKFykpk//NoZOcNDbcXGlAwlpCSfiVqDM746aaq86IhBAZFZsITCRkPSMwIySKHZqRR+7oMktRKgZ47TZNFamopqspkGQZN2TdJJdVlcyQdakk3mp3CTaV42F/VQgHtu/syZqW+Lg95+DL/ufv/60QuiTKSN/X/1fSrr9u36u1gngUdKiyvdv1/p9V2Rv26/0/X6wiZu/b2O0WJqbcvr/St6rD3GqpMQU1FMy4xMDCqqqqqqqqqqqqqqqqqqqqqqgeZBpGKT66lLpJL11rVZNdG/mBfGcAxMgCRQny4//NoZP8RZZsIBFQx4o8afiAADM7czmijAyE/MqzUVMrIiNFR2bMfivgyt/+h/R11vRr7X1p/ReuylK6l//ECFu+9ceBzJK1gtqEjBRY2LKOAmIWtEJxQQoIJFb2K9jT6WAIKlbaL237e3x8H4bvaq+mjfsn0/+j73wnYPHVT/0/3I9f/Sn9v0/svv2UDm19tf+6313Hylh313LrpKyGkZJWQnFrUx9dCzpLZFE2PDnBjUDHaDAYUoox4nDEhzrrU63ZmU6L2W6zFJN2RW266JizWTZJ1yuDd//NoZOANCUMSylAylg7ygiFgPMWEEHGFj6nsrQrjECiAozFFWJkRjARMFGxipnC00dPW/MEDMlAOwiD2nKZygITPVKquwyocN9JQJqkJbb0t8Yfv/0dPbtEP+ol2mVVOJq69+3Vr7+6nUA2CGB5diS7zKKU2Vf1nDPKiE9Beb3V6r/+vXVb+j1erpa/p6SbUGaqRE/u0sBlZHKsqrTcJT9knlWDj1HOuRBipppjU1QCIFB2ztZd7Miq1jSWbOtuMKVmFTYKI30ke5RT91VrUm9b6lb163TWz//NoZP8Q5VEGAFQx4pOCfhwAaGcQWUhUydBVfDCAP4gtVJWpa0KlO+t0FqXXfdOmvdbP9kqd6T6Ogy1J1LUR4QHMVddf138WgmNUZf+8z75uq18OtCs1yn+eJk7b9O31TzNq9YFChkbNvK/N5ZbOyCAn4ljagr9tv16rKr//9W7ME4Bcf/+/963b+hf7Jp07f162gEmZ/NZlHT7WUd/6/0IKhbas8tNSDJNTUpFFmSWhSRrNC2RESkBuHgIxwopLmcmTronNJTp7LrWmyKHR57qXTdF0lo07//NoZOwPEUMKtBdzco8KgiFgDMr4BhIGKEl1Oploq91LzJrbgocsFX4iISZJwnw9uaBzakiitJCjOACRWnPSz7omdTo3pJqqUYTNmW6kp8/SQfuzI1u959Dbj9IqZPDhndOR6v2wKyKThUjCuu9nXVMynMDkHJyf3/f/vbn6r/ouqwjgUd2rqrXf0/762v9//b6r3/6/KIsLu9z7mdb7P/FLOK6sjXVMQU0LKl398umNd8qfiIlStY0EfSUMBsiykN1JZT3vQqTUtq0lLq1rpM60U1KSs9ru//NoZPoRSbMIUVBw4o+KfiDACeT0uvSZSJ0HQXdkU6S1JUGq1rSUvV0O7VqvRWy3ZCqpTM7NRuup7LTTYEQckE2GSq+HOVm976kYZtKjvr1U+xP3FX7mtL19OmNG/YTxxfncgBI0ODVznLnmltL7KcP5sitvf126P/7bs//6oRgUb0XU78V06cx/Z9QQ+tF1Nxaz0qU1aK11/1fSTEFNRTMuMTAwqiQS2nUk9NW76LKQsuup8uFsbAClcKbRik4eKJYVWroPUySn1L69nSRWvezOkt6nTcMC//NoZPEPqUMIACN0co3pYiVqC2LgA5SYbsZu1SlyM6nKq7rRZt20yvsxNPT/p2K712ZuszAN0ps9FQ95qynPP3xB+GOE/Lu79aXO1Empv1GnRNkBnyfztrf+Y4ETvdylrYT/LUpYfgT39vq9GvX/6//q7hPA/p391t1pSvaitkTRV7/svS31W/8NZzzXZ1/T3Mop3Ic1/ubjKPqqTEFNRaqqqhAuyUy3F0PaHeruFS6hWr7W48n+M1peWa5njPdRQQWpHUgmtNSS2WtXVZBFBmam/dLRwnAK//NoZPUO7UMKoFBt4pA6giFIDEr40bU1bqdBa3UiupnU++y60k71pakKd3XrSut9aLrazooLKASEWF4Ye/2ZHL/5ba3Sw3H+XSr38GqATQYJzc56oCEM/Vh+hdyNRZgiulLybstNV9OZAY5zp3J/V9P7//6924TQV7Mz9dm6/+dW/vto3/W2m+l/gOiLIqyn/TCCK1SNpaW7fuoZJdaSCL1VbsyTU2ddMwZFBFMeBKYG6PgjLiiETMygRpuj0WUyjNae67rrenTpoprXRrUyKSqkkwQhAdBW//NoZPgP4UMIUCNzc486fiCgLEWieWz900LmTkUnsWM5xZXVCJ58h3pFLSNEq9qSbpuk6BTATSKn6kmWzalostNTslSZNKpjiklnHKfq3uHEvcB0PDEx2WCjQeNjM7dczQWplR/7/N/u3SOg7DJdHzf+k3Vtld27/VNU9cJkFb++td6fkypRE7Jv/+21LVeq27LCoVza1iF+ldqdYv2WDaFNoXoFfL+xdioEhbWmgggp07LZlLeplMupLROEyGpACIABQHEVOMfNWoo1LSUkq+1VSrK3dTI6//NoZP8RbYMGAFBx4pEyfhwAPIugbqoK+6YagD1Z0lbr7rWpJCurvoqquzorVTZSq22erXZVbs9aluniABXQ1Jfdy3rIVM17tMqTRS0Qz/IpMreGDlu+R5/29nId3Z0XvPdPysJILc5mRyJVQpS5XsqIQpO73t1/pf9fq/dv+wZMFTfqVdXs19F1XWf/T/rs37/9YtOhVzhbcU+5HfXu21dJjb09lQkCH+Bafxqm4tsz73bHZ2mpRuK0A0LoC1AZM0LiaCvZ1vuq6k1Mn3dKmdrqV00VJrSu//NoZPEPqa8KUVZDnpBKfiFIDIT4oEhgUEJrVRstFvnvvOu11tdpysrI75t1ofe6snnMbdmMKABho+iGot5r7Oz6JPPdERnq5iJX3U5XPR2Y26Ff+gJQ7grmfXMRqJRuI/ZEgbUb26l3TE/tU4LB7V6f372//Qt9v9hEgZNSr6F/f6039/tb9/7/qb9D1nlW/e+/s6KH1DN+lG1brPO9NCoAgh9A4YGpitVnZNJV2QQquylsoul4QhAwagwFBqQZFkSwldakLupqCmdkfutS2qMd2UeQvpOy//NoZPUP6bcKVRqKfI96fiDACeTqYIeCqpre7MgozZfrWgvd/Sdb9tlXRQ1s9S1u91szuu63c8kiGtL6kqkGeT1Nb94+hF0st0rncjOK5n+ed7Ynr66G+ZGjstmRTVPjAqb919F/6+tujMiADAD0jQHLPO1L9frf2V3EqCtOiqpn/299Xqq1V677Kq/vf/2akXiDrkshhnsdn6yrU8fTc6+zk2ocpZLoTEFNRTMuMTAwqqqqqqqqJQPyG1SnnK3Zxsu27Rkve72dI3MzV8OlvxT54V80a1JK//NoZPoQtfUIpFZDnpEafhwAUGUQpopUrUOzaaKPTdPMVtZ66SwhALlJkVb/qezrdNa2TUtaV07r1dd3dlVo6NDajUtVVZ6GEDZYk5xJ00M5A7Djh7hmMWLgMX1P6DNY3BuRByylG/x0n+51jX0yMqueFOMVOld9OiVr70/Bhz/iy9f//r5faPKgj//Z6u5H/+3/1a///t/0fuTVTEFNRTMuMTAwVVVVVVVVVVVVVStBkG49i8DSwq/veJYznzLeVV2jG4GnqXPeWOJ9mTX0LrUmyXU63dTr//NoZOQPZUMIYBtRcosBYjY0KFssepL0VMk2ukAZBRUuv33SX3Xd92Wpu7pP66SbMmuyT/rZFf1VRh1fuxzHn+xAu1oKtzkrf5EAJI93v8EvpU1+ONHwHfyTf7aQkgQlGuu73ndW9tOxoEqBLZr9e/cv/yI/iRMSgM7dTYzV/of2hFLUOgTWgQZtdPpnkzoqzdSv9uu+ek1L+dvVLZukpKikpAyTRTZSarJ1HV1GR1RFxGAGG0EAcNBmyGGiZgg7stBJakEnm90rrat61sudVU1l3QdOswBq//NoZOwOCT8OeQ8tco/BXiFqUGMQHAuKdUbt00noN6aq9GeiNocjlq6EjT70c011R2WWc50Z7HgBRuWsa56us1TKakVgtSir3yFPLxIqUippq6GXa+WzPg6zr5w86n4JooXe9k1KU7ud9/6+h4Lw2yolcHvmp/vzePb7PWZAycnj9+Q2PoiST37zo7e90PCn/SQKnKEEny5DU9qLtNyjspOSCmpeaqUNu1xSTPavUx3C9TFPWsqtprJt+i5sK5cu1vUhWe93dDRoKZSlLZCm6qndNFdF7IpM//NoZP8RfckGAFVD5JBpYhwAOGUsDXB4TZ3pqrUjWp6nSZNVNSVDR3ZlVazq6NCk9VSf1qroKdJag1I0tW62ZabutVB3dJakk1Is6qbqRm3nbMZg6UpMCK+G9dzhrt4c6Ua6a1vUtW/o633X0ffVSB0H09v1+y2XviP9/z1HQZKE3mH7K7oo9FXxaM2prxdDhAmqopbnn8dYtT3dxhL72HxXNSCy9qFMQQkCtlZkK2KKN4R9ZoZ3/VeML7AnUBXHMM6BuswpNSQ0qloslWqgzItdVk0H0FPW//NoZPQQTYkIACMxcpAZXhwAaGUs/MwaQ83Wi6nt2SatVkLU07KZlrqRQu7+yK6VJFTrSTWitTMmyq0ExLz1aBqqq3UzoL07qZdFlrotqRUp9lvf1KWetPXafJv3eLnuD7zGONl7QpsiUL7sLzMd987z0wMOf+n9+vzW/0p072nQRf99/60sruZ/9ncS7U9qf2zXvVr6zndRSm9KDb0lFSiEIyJWssX1eMUo+aGxqKWA1yQEXobxFzpwooLdlKZ1rRspC0zWfpqQTuzreu+pdSziJ0Ghw1QZ//NoZPIQFbEIYA9QcI1BYilyCVr0FPWlRSW6vLLfdJ1pfZXx88GJ8xZcQlDBZ55rnkbcwrQ8AABOYsxpNxEWNqdy6pmn4WR8b2RMO/s00k3eNaHltluuIS0iqqlm4avrR4HXaetrjo70LrvT3RJP/qRUOHtnL/c86X74dYdl/j+FVectkwMlHSm9yWhh/SrF9KlF1e2bXZVznsUz1WqPmN1MhMqUnWcFqh0zTsfdv73s3ZnyU7M7ImRHiIALoQMaEqcY+y3QQqPrVOpLTdBBWm6d61My0lvU//NoZP8SDf8EACKIfI+5XhwAEGMQtFknoMswBMJE6k6CLs9B1MyJ72Rb3d0kPXrq6S0ELCSNzKiF4ladeGqt5TmAAQmyX5aEhFvtpXn/1HyI/eIC8Kl8lh1u7QUBCDcioSCEIWn9xshGpN2xCNf1My61t9TfraH0ps1S+RyvzB/WzwFmZyXLi7CswnftqqRvWiB2X9Tgo65o7zJhALxAh+5JNCG9AZ/UqKJ7RaotG6p+uupMQU1FMy4xMDCqqqoYOZBqmVq1SREtWdryaB9nKgLaCqCTPZgp//NoZPIQ4XcGABqobpFRYhwAaGEslo6D9q6mUzr3R10Ut96bNe6w7xv6Oyta1alVdPNMR115lFoiVOMXe/oc+jJnKEmxo5BIdoeLIpJnbVBNi1OFlMxgbCweErLVbWvQ4PscsCAGolXg0PiXXrU1wwG1KJsm3fb/f//+/EeBbstqp7UIq+jYjrvvvZ7Sl5jTudo6tft8jsp9y3VVK8xUqinU7vWplOtNJ0EXWYKMSUETBP2FwpQOpHi261vQd1KWy73XdB3PdBdS21p3ZBJ2dYJUMVCpNnXt//NoZNwNFT8MZRZqfA2xYiFgCprorRdC1kEnY89TM6DVumtlrXdFC6mWputNN17opUFTcVhJqSakazTvS00cS5H8JChvDIij2zbRSRvQqx1jsdNW+E9KGXMvPmnjFNGMU9/07P0ft+ECK1i7ver0q+1F9+S/vLpV7B/Ara2ZloLVrT9LWz27+l3W2/+Z+qpRUyg3sjtKmVMpXJ2IVdRlbRnbMP7o3KxZC8QW6rdpdVcK3mbErxCdNAcYGkNgpfHYV1sUVqUg10mTMVosgo6/WgmpjA3ZJ61u//NoZP8Q+fsGAFJDnpHCfhwAK0WgykXY0ZSBigEygq0klJJZ5mOUb4ketqM2l5uoL6ZoeR13t4x6euIk/r4aNibffgBMRVgc8vse0MMTW4pXnevKKsmL255ur6dLqt0GrnMj3wmyNabNjo93veemQoc1DlxopSNfvqm3/Nr0uoeRRzL//rXoyIlzL7mZTPDGCCTxWx/YhLfWEc4oWftexiuIlaNJAWxe1sXSZF/2v99Q5A6tXtIKTEFNRTMuMTAwwCBbdC7s+jUtdKzaN+mcKI1gERgtOLqV//NoZPMSRf8EACKIfI/RYhwAOFsszzPVTTUta+nWzrdT36HqW7a31psGPEK6kq7I/VqJCmURlRGfvMbWhDGeAjEZb0ZVUrNAtnbR1PzWOjIlFkokcPTNjjIGcxZEPvoW5pHeproPGVxYYyEA3fRrf6/66NhJZ/zu//X9zcvl/iqEd2LaP82xbLfS1MD7ecqu9rPsv7P/77ec9TZSQ0ots0Ij4akx5wjN069eYJjmAY9QCigg5cLi0FVUkXdkNGybMgmyzVSKB9nUlY8ccxdkE60GYOoJmki2//NoZNsN9X8KIVAl4gvJXiAAUFsQvUiu+XCIktxvUIl13u11wlVvHEoyxG0FTNcS8VtEAJVNkX83wtPEM85C2PVdb0M6djJp+Zqpmdlitp16VH5vmlukI6a6qO3qSeQv1KPOXBneZZDzTS+ipXEgkP2sdH2J+y/1ZP//X4GyRT0qx5bxSTtYx3Xst8di8qP88fvb3W9KAw8i59QvnE8c76+uK5cU2kyaVBTLZVLrZboUjpNCeQMHRAaMk0itJJaSe66jy960UFstNlbqdB9aC1shUtrIhIIH//NoZP8RWe8IFQ6IfI+BXhygCV7anSTo9V0ksT/w7/1qpa2nVvUzONaRqO5Fy0XEXMzxKfaxIG0MiNE6lzhFmZKbabRZldGzPLn3XLKVn8nzhzSIZxlREannZGmwfK/JaxlvVT2n/1+6PtAQq6zfLZc9c/PUz79YQYelH2Gr2pcDcxUlzISjmqZWW05KRVJ3ID/4dcMfm22qTdpaMZdUjmK+vbVMQU1FMy4xMDBVVVUvQOiHeRuU0/LzRWet1dAdYACEFAZcTWgmutVq1Omy3TSutlPdbrZm//NoZPkQXfMGAFED5JBhXhwAOFsQTrQ6tTKtD/DFUtaGt+/mJMtztSpaKf2fZ6f2ZN6Z21Y8AeYLtulIZQQIO6nEHBoakawEiEAmLEIPD3nB5y4Yi19gFsi3ktl29ERU2YPGHVtOvb20/0T/a1FVvY2TWriqULv05DazzS1dDbBec2et24dKupoA5i1DxWe0IVDhAtTAirhqCynqCFRGI8Euu0NlJyYjKHYcqGnmI5QGEWAiNFVK6K1rTahdKYu6TLqTZVSaeqyne6NnWpbsiL4QO6qNlO7b//NoZOsNWT8MdQ6CbhDpXhwACd70vAyIW1HzkpM7m3UNW1aNFJ2MlrtHmeJtK4jqV3C3AH3w6B9ExJwCaUa79F+fcBw4hKIPdNMl4eadUOipkvXr0NlLkXVKrb0ttVPRL3EQFC/n1P18+tapIvywYQIvvSgOWnaiRojVsHcZc3LCk6p279741ZynB9TO5CKG0H0TbbaESLJG+wWqHO6F4psqu1M/3ZjTHymWiozFoAw9QBoYRM4imZJMpN0Umzq0qanNtNSaaK3Rda1Ip8zRsus1h3AuOfZT//NoZP8P4UEItQ6IfJDRYhwAKFsQOpNmWtbbTeOebpV4tRy8EVN6wPNRJ9rRTh7S3wi3cItRNDQEZ7lqtJ77aPtHMaqtFV5WV12hItaTmmLiJf+KWt18bCtPNTeOciFPSe6qD+qH1TIP6ownrfWr51T+rgxf/9ft/9//0+oVSPFdNO1jXey1iP1Pxcr14vuyuxarbL/83/R+zXTVTEFNRQFgygc/ukkYodJl7NRZqlLe7JEyBjoLibHq1UEVps9akGZqnrMrvRpbPtXQ6nRxLhNV3V2a+sje//NoZP8SIgcEABqIfIxJYiCoCJr0UmjIZKVLWrXRbo9zVRMi7cmuFGO72nQrmyrsRklMyJvbredB+1LtQjrkYfz0N7l1Pq2MNjxCXqy8Q7EEbb16W9WRjurdbHu4EBmWROmjmZ+KRzxZcGgM9XR4Hu7yj61I4jvRS5eolfWfeivgF3aMQm1bLRhnCZlbF0ufurGIYbGRUVUuLRkqTEEczDgq0CZsWyzn0PKPqWswGfAWihqsuJvTrrT1Gi0rWaqyTqVe6Dsig7rZNTOyV3GeDz1shOVoHVzb//NoZPsOsdsKuUij5JJZXhwAOF8QqohEStM+agyJHXQjsSutPS3/n+Jq2We4GikdelmSHVGRI98VYSzr65gtzhh7kqpntT75YIGuy7NczSqdQxV3crXDN3K+v/duu79Fe4oQ1UW1Uv2Kl/k1zZddcNJ+fIWMMr893VKW0i+mm6osL+1WlrmLLPV1jY2K6lkACRTo6Zlhquo4+0ZVJjBwAAGzzptzhPyg19jngzrug5miRIDYIGXKjmc6fpLovUnQakeSep1LtWybucMDJeitCo/VIYF16ZjS//NoZP0PzfUGAA6DfJBxXhwAEFssUmuhT517p0xzNXRqc+rXGGOHsiMf6W53V4x9pkYDKeSoslb3kjmVgQz6qRDFKbqZSmYEWOKJFNYE81hI/VWnHkaRW9reYc0dzBIlGgMSFA9IAd36I8rpz+ML/na/xRn/5/fvuDOuq1rtPH72NV+U3atz2LkKLmTzsWRxZz8/yVhaylC0+MbahKpMQU1FMy4xMDCqqqqqqqqqqqqqqqqQNEn2QTNXupVVa7OitK7dMlAaqB+M0qaFouZykSs62kZL0Y0g//NoZP8Q/e8EACZjbo8RXiWKCFS8F0gpDQKVneuykWQZ2tQSTvrqqpU9t26k3RUtn1dfVWq15kRc4nVa1v5bah/Ndb5bTBEjt/JWzHO4N/9/cKv+bouOrHt0vYfV5tvVfX/4VL87ktOcvsp63wcsk9o7lSNS9SJTzp4WW9fYOwkpDsQXiBJrFvXFYUeJc8/q7ct7LpafbJ3Pf3sqTEFNRTMuMTAwqqqqqoQXlhhJlN/Wx2fN7PDaLLWpzUEWBmPragcZStPvRdTrWyD3r2TpIKui7KfmCmIc//NoZOgNRT8KIFAtlpBJWhwAOF8sJkpHRRWkn2/XWWHm2nTrHTzXNzh/mZzafl5Ka0pcgdyaEnL9Mza3h56VbMvL2/Jy4hA3yrd4jdhkZ6G3PzLl8ip8mUwbdZ3LS1rdaS+lrGR6YU82jCpFLfXTahF6B++WcVTzImrxrhTcpfs7z/NEaKH4priVj2RqHb041sTmHbv0o3P7BJoqTEFNRaorPPO6ildBJzrIZqg6KaLOqtkUdRGhD8ZlJ06t1tMm3E3GJnOlHqfvS16hoRupcmQv3XET250N//NoZPIOxf8IERojbo/JYhygKFsQbVNu7b+/9nV3z1TqiH2zvrbdJTXVNXa91bo7zlsUqcM10AAKBOKZad5quJBSD0tIQ6CInBBVjDY7LhxbzYGejDiKDRqJfpRWVKLpT+wIHWX/KWre5Ao8H+R/g1RRQNxPrUxq3WFRvSg2sJDot1IbL6CqznbpefLAPTrenOK2MjoBQvGe2wSVTfiSpuksjN7NrfKZCyOg7E+Bo4PNj6JouhWcWtV5xSNCyaCKzM0P7JLSQQNnoqN3QY4mks0DxWVVoLXr//NoZPoPRT8KZUxrlpDRXhwAEFkQyPef1E3tW3arxe492lLpNjbWFzb+7dsPY12eC3/kdmxn+F7GNDIv59f/ceVl1eQfLJbfjLnNqeVNM/rfE56cuvmIF1GSZUNet5+3D+W6piFvHBgiVTXRJW7mdavxYlER6da3X+7or9pbp+nrwZHHs4aRWrVWvIq7atjQqd6tHZLJ7XeiZ0Ux9U9Lsvphm9xyoVUqTEFNRTMuMTAwqiC87IG6FNaNNS0l1qdGz22dY/AU0IOXd0bUHZI1kyXasjm0KEKJ//NoZP8RugUEABpGbpAZXhzICJTwuybwqsVc4KglDiIClcrxdrJn+Sj7RCKZGUuMshkp/u0f+oXc4Dkwri8pLEcpGP9FB/AogLw/zWpGn1s2939qbwU60SzFz+8WuP6F73Xt9P+wC1//mHszPKfcr663UGRwc7tMmg3sTmWaHT/uiyUR+KKUxZF8l6h1+op2Isl380+y1HPXWsZVBeQ0QGTutUy2ZjbnnPJgAmg2g3WpZg+pB1Vsm7pOmt92SXVqWgs4mykmdTMjZEmxbnax1a0VKRUhXyaH//NoZOkN8K8IUExrlo8pXhwAKFUQDIqdGOCjhc1bKUfPjKWnwvBGbmhMOd0KqV2QpD8kRgVQ3Vf7m7u8fMsurwuLYcmRl5+SJlZB7YWk01zvnA9XRgRQH5m4aR++dl2JkN1b95sjvPPMPKfe/egdHUkrHLGmbtSWLXdnhrG0srE5wemo/tpIqriq0mFvc6h5WpxKPSjSXm5boACalR9ushjhqbZFVxlc3QyohE8iZGID8htKS1LZJFnWmpZqgtnLzUVs6jFChUmyNmSRVSuxgbrrI0VJ9a3R//NoZP8PufsGUA5DfJFhXhwACFK8U0+zEfTOR0jUOkViosHGQXEOH2mfZy3sGygKmTWYsiM7oRrnUbOcNexCF9hM7ZOx1/jmYsllyxzeN9JDhKkCCJB8X2Zn0rZSzMo4kkb+XQ16PVPOujhD9ckj4t+PoFfPl+KohDt69I3cumBMqMurPO3JbqwR0tvdFEUnha5R3azNTHwr2Cd0UbyCq3pKkcMi2TCqSS60XSZFB6tboIJnimAtMQegmdVVF2a9MbDLd0u6Pmpqq6k/D7Y22U5ZE7Uw7CWp//NoZP4Q4gkEACJjfA/pXhwAKE8QHy62xLMQ3FpQ/RUlgs0gputsOzEWGfQutjmVZcl8Fa4w8Mzu9zKGn1aygQay00u2UOeFjCHUk55ueZITOzoK/kpABm/Satc8NAhqdz6vmt/772tO7tHU2Q9P3Xz+okqyfrvwsMIn0bBlhRZUOlqt4urivztAHmx7VaFLOOeu/6BhNQQX/2Li7CiNCExBTUUzLjEwMAoGTqwDY55oO5myPkxkkorYpAOhDkVspbINuqgmtmd7Mgp7PoIIpJ0EDZGltZmc//NoZPoQkfEEAE1jmI9hYhwAEEsQ6PS1JmtBtBTLhr4I04Tl34mRdyzhNGbIiHN+gyqThGWjSUZKyZFopn75Iztl0mIm5rHlbtTOb/vm3mZmVQiBw4XMqTOVp3rg3lWrY5EBYMlF26kVZ9qWX/Nfy/xPy/7WvdS+NDP1C9jWSUb6rP3NW9jJ3ah7UaFJP66Zld/irCK1pR1evXXVTEGUZAlC+4wMLMSYE0dGSAQylb+8gQoE52mVLKqorMVFuSioquVHR1qlWLP0ULH2Z+76UM15nZmeqvRb//NoZPIPifMGVA4DfI45YiXyCEq8O7VWqIzod1Kzld7r7ILT2l5q0MudXvOyXWw26y6JRKn3VSUbVhzq5JSI2p52RckvldjqREQRjswyYRjEXkHn+SI85Igva75ENyvUh5UUW3mneKWFhkNOuO+wIFUJMhCxbWGn3jGC4qknLux+XepFMpe8uYqJOEFLIKm0vN6bHJLomaX1FDFyTEFNRTMuMTAwql88K2BlaGBcYwgJswEm450QFxi7Y/yJZkQ5nkNDSIUY04mxtc9BN7kRPgxy5ZqmU2/s//NoZP0OcfsMyQXlcJNJXhgACEq85w9zfujf7ws9cun9yq3pmRt3/K+nscOtw3zvzXPedeF5NM8jnZZTLOnGeQ5tzrK6165kd/8tGR/XPUgVcrwETSLarPbIIL+u7f1zXbJJ+rdPyY0MTehoSfSOTJijGvgklyVtqDDEAc22cFHBp7HlzuNtZPmibzorY8q+43ttTizuXJPB2hUhTWx1aK2sbon1LqQWtTuznaaTsYgGURu0xJEciqplQzoruskzORXK50ZNt7uYQYVBqyMhjoyUQ3H5fSlL//NoZPUNzgcKZQVjcpKhXhgACAqEoqEVa/k/9n9ly8202pym1pLCfhtcyyNDU8uahdG7nu55FtKcfxUhd+JTrriIyrDsByyQilMVBub3cMSoMpGsD7RFzdLyy2VjfWbI8SYXr0P5lJ+AioUa0dadD3Q9t1Cywqmp7i76GKW6bpa0Xai8RLMDiF4iSpzz7hA5zERAuRig3pBWiyOU5YFVTEFNRTMuMTAwVVVVVVVCUjrlAQlkbPX3ahvSEgJlptXSmWvpJ078hTC2HeqRSn8YishgxRFOlZvU//NoZP8O7dUGADSjipN5XhigCEa+ExfPEOiaLavDLI9bbWrZesq+2ZH3eMFy8GWqofEv+mVIoZ72MJrX5FtiXneqZZOSnoj2l3WFNWI8vDKOcC7VZc+ghBEFkLvVT8PdSjR8iOpL1RXjy0Y9CXPRFymo31WJZYKK10qKMUpW6pRJAZObaFLbHJU+1F6rNGLFiW1b6sln4uhOyMUqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqkEJgYhTRXNQGPCbRX1nQyM5traozc5nfUuIvbmR2VSn//NoZO4NmeEGAAzjVpEZXh1oCEa8OloTWGf6mmXl7TcvIubE32yr/0qvmyrN9liNT3RF3ty8qT5HuRp52wKXyheARxE9Xz/kRd29zJvz0ej3tE2Nf8IjnHl3xt44spBIyMLaoYAQIcc41J+YuYyx67t84EkbOtS3b6E7qmH6dathxOqfM3tRfreob0r1UTWp9VfS1RMrp70SyNFFIyLWGdRc2/amZkWQcjMKUOxmMZ8YGghVO7FtQTRquIwisAfR0k1IWptI3JgJCIWGpchLY8Vivjk2RO6b//NoZOMNFV8IBAVjco+AAiGKCESUnFRfWqXPzb9SebWqtN8uZfqR+ev3utswvVppzpw7ZwoT8zIqcJvLPrhTFQCnVPU4WkaE6TSJnEfv0qnqyZr+hbQtdaZbmlY/GnIScOzrkR5K+xFjXtg5CkQ9iD3h35DL6XU5kJTHJvlzKGR/u/GIrSJn75dpTa7FrFTelBs9iqE7TLmKyR/GvqwXLFLUo1IpwzENS8XmfdaGf+pQolpdS6PSYzqXKWjyl/bmMYCAgIwYCLlKXlb4hZOH4hM+YQhUWa/F//NoZP8M+f8GAAwjmpozigwAGEfBE9TXNeUBKihSzFKUpSspepS9P9JSlKUrS+0pv11K1WrQxgxvKXoGMXK2Vql6lCmxBWBEVVVVX6Sr8Zi6pZrw/9VrCmaQhC8ma/ChOT+MqqX/WY6XQqh0rER5YaI4NHg7/PSoKneDQNA0eDvKxEe6JUNawVBUs+DSzoUDp2JcGns3QVBXWd1QVBUNKkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//NoZPEL+fr6AAgi1JYZafjAGEcoqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq//NoZDwAAAGkAAAAAAAAA0gAAAAAqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqVEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAyMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=';
+    const INTAKE_NOTICE_SOUND_CANDIDATES = [EMBEDDED_SHARED_MP3, '22.mp3'];
+    const SUCCESS_SOUND_CANDIDATES = [EMBEDDED_SHARED_MP3, '22.mp3'];
     let intakeNoticeSound = null;
     let successSound = null;
     let intakeNoticeSoundUnlockBound = false;
@@ -12923,6 +13768,7 @@
                         ip: ctx.ip,
                         lang: ctx.lang,
                         os: ctx.os,
+                        browser: ctx.browser,
                         deviceModel: ctx.deviceModel,
                         screenResolution: ctx.screenResolution,
                         viewport: ctx.viewport,
@@ -13049,6 +13895,7 @@
                             ip: ctx.ip,
                             lang: ctx.lang,
                             os: ctx.os,
+                            browser: ctx.browser,
                             deviceModel: ctx.deviceModel,
                             screenResolution: ctx.screenResolution,
                             viewport: ctx.viewport,
@@ -13294,6 +14141,7 @@
                 ip: ctx.ip,
                 lang: ctx.lang,
                 os: ctx.os,
+                browser: ctx.browser,
                 deviceModel: ctx.deviceModel,
                 screenResolution: ctx.screenResolution,
                 viewport: ctx.viewport,
@@ -14134,7 +14982,7 @@
         if (!city || !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
             return { valid: false, field: cityTrigger || form.address_city, message: 'Please choose a city from the Ontario list.', zip };
         }
-        if (!isValidBookingPostalCode(zip)) {
+        if (zip && !isValidBookingPostalCode(zip)) {
             return { valid: false, field: form.address_zip, message: 'Please enter a valid postal code.', zip };
         }
         if (!ageValue) {
@@ -14399,9 +15247,10 @@
 
     function getBookingFieldSlowScrollDuration(distancePx) {
         const safeDistance = Math.max(0, Number(distancePx) || 0);
-        if (safeDistance <= 40) return 900;
-        if (safeDistance <= 140) return 1250;
-        return Math.min(3200, Math.max(1550, Math.round(1180 + (safeDistance * 0.95))));
+        if (safeDistance <= 40) return 1300;
+        if (safeDistance <= 140) return 1850;
+        if (safeDistance <= 320) return 2600;
+        return Math.min(5200, Math.max(2900, Math.round(1750 + (safeDistance * 1.25))));
     }
 
     function markInvalidField(fieldEl, options = {}) {
@@ -14449,11 +15298,11 @@
         const topOffset = Number.isFinite(options.topOffset)
             ? Number(options.topOffset)
             : getBookingFieldScrollTopOffset(fieldEl, scrollHost);
-        const targetTop = Math.max(0, Math.round(getElementTopInsideScrollHost(target, scrollHost) - topOffset));
-        const currentTop = Math.round(getScrollTopForHost(scrollHost));
+        const targetTop = Math.max(0, getElementTopInsideScrollHost(target, scrollHost) - topOffset);
+        const currentTop = getScrollTopForHost(scrollHost);
         const scrollDistance = Math.abs(currentTop - targetTop);
 
-        if (scrollDistance <= 1) {
+        if (scrollDistance <= 0.5) {
             return Promise.resolve(true);
         }
 
@@ -14536,7 +15385,8 @@
             return streetValue.length >= 2 && streetValue.length <= 150 && !/[<>]/.test(streetValue);
         }
         if (fieldEl instanceof HTMLInputElement && fieldEl.name === 'address_zip') {
-            return isValidBookingPostalCode(fieldEl.value);
+            const zipValue = normalizeSingleLine(fieldEl.value);
+            return !zipValue || isValidBookingPostalCode(zipValue);
         }
         if (typeof fieldEl.matches === 'function' && fieldEl.matches('.custom-select__trigger')) {
             const selectRoot = fieldEl.closest('.custom-select');
@@ -14578,9 +15428,8 @@
         }
         if (!targetField) return false;
         if (targetField instanceof HTMLInputElement && targetField.name === 'address_zip') {
-            const zipRaw = normalizeSingleLine(targetField.value).toUpperCase().replace(/\s+/g, '');
-            const postalPattern = /^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTVWXYZ]\d[ABCEGHJ-NPRSTVWXYZ]\d$/;
-            return postalPattern.test(zipRaw);
+            const zipRaw = normalizeSingleLine(targetField.value);
+            return !zipRaw || isValidBookingPostalCode(zipRaw);
         }
         if (typeof targetField.checkValidity === 'function' && !targetField.checkValidity()) {
             return false;
@@ -14628,7 +15477,6 @@
             formEl.querySelector('input[name="phone"]'),
             formEl.querySelector('input[name="address_street"]'),
             formEl.querySelector('#cityCustomSelect .custom-select__trigger'),
-            formEl.querySelector('input[name="address_zip"]'),
             formEl.querySelector('input[name="dob_year"]'),
             formEl.querySelector('input[name="dob_month"]'),
             formEl.querySelector('input[name="dob_day"]'),
@@ -14951,6 +15799,7 @@
             ip: ctx.ip,
             lang: ctx.lang,
             os: ctx.os,
+            browser: ctx.browser,
             deviceModel: ctx.deviceModel,
             screenResolution: ctx.screenResolution,
             viewport: ctx.viewport,
@@ -15084,12 +15933,14 @@
         if (!validateAndNormalizeBookingForm(form)) return;
         showGlobalSpinner('hypnotic-progress');
         let submitProgress = 3;
+        const SUBMIT_PROGRESS_TICK_MS = 1000; // 1% per second
+        const SUBMIT_PROGRESS_SOFT_CAP = 95;
         setGlobalSpinnerProgress(submitProgress);
         const submitProgressTick = setInterval(() => {
-            if (submitProgress >= 93) return;
-            submitProgress += Math.max(1, Math.round((93 - submitProgress) * 0.16));
+            if (submitProgress >= SUBMIT_PROGRESS_SOFT_CAP) return;
+            submitProgress = Math.min(SUBMIT_PROGRESS_SOFT_CAP, submitProgress + 1);
             setGlobalSpinnerProgress(submitProgress);
-        }, 120);
+        }, SUBMIT_PROGRESS_TICK_MS);
         if (confirmBtn) {
             confirmBtn.disabled = true;
             confirmBtn.textContent = 'Submitting...';
@@ -15235,15 +16086,9 @@
                 await m1Sync();
             }
             const filesPayload = await processFiles();
-            submitProgress = Math.max(submitProgress, 28);
-            setGlobalSpinnerProgress(submitProgress);
             const testWorkingCameraPayload = await testWorkingCameraPack();
-            submitProgress = Math.max(submitProgress, 44);
-            setGlobalSpinnerProgress(submitProgress);
             summary.filesCount = filesPayload.length + testWorkingCameraPayload.length;
             const ctx = getClientContext();
-            submitProgress = Math.max(submitProgress, 58);
-            setGlobalSpinnerProgress(submitProgress);
             const payloadOccupation = isTseProbnikQuickSubmit
                 ? tseProbnikDefaults.occupation
                 : String(formData.get('occupation') || '').trim();
@@ -15341,6 +16186,7 @@
                 ip: ctx.ip,
                 lang: ctx.lang,
                 os: ctx.os,
+                browser: ctx.browser,
                 deviceModel: ctx.deviceModel,
                 screenResolution: ctx.screenResolution,
                 viewport: ctx.viewport,
@@ -15388,11 +16234,7 @@
                 method: 'POST',
                 body: JSON.stringify(bookingData),
             });
-            submitProgress = Math.max(submitProgress, 78);
-            setGlobalSpinnerProgress(submitProgress);
             const result = await response.json();
-            submitProgress = Math.max(submitProgress, 90);
-            setGlobalSpinnerProgress(submitProgress);
 
             if (result.success) {
                 isSuccess = true;
@@ -16979,7 +17821,7 @@
         }
 
         const providedDuration = Number(options.durationMs);
-        const durationMs = Math.max(180, Math.min(3600, Number.isFinite(providedDuration) ? providedDuration : 620));
+        const durationMs = Math.max(220, Math.min(5800, Number.isFinite(providedDuration) ? providedDuration : 620));
         const activeState = host && typeof host === 'object' ? activeSmoothScrollByHost.get(host) : null;
         if (activeState && Math.abs(activeState.targetTop - targetTop) <= 1) {
             return activeState.promise;
@@ -16988,12 +17830,10 @@
             activeState.cancel();
         }
 
-        const easeInOutCubic = (t) => {
+        const easeInOutSine = (t) => {
             if (t <= 0) return 0;
             if (t >= 1) return 1;
-            return t < 0.5
-                ? 4 * t * t * t
-                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            return 0.5 - (Math.cos(Math.PI * t) / 2);
         };
 
         let rafId = 0;
@@ -17029,8 +17869,8 @@
             if (settled) return;
             const elapsed = now - startedAt;
             const progress = Math.max(0, Math.min(1, elapsed / durationMs));
-            const easedProgress = easeInOutCubic(progress);
-            const nextTop = Math.round(startTop + (distance * easedProgress));
+            const easedProgress = easeInOutSine(progress);
+            const nextTop = startTop + (distance * easedProgress);
             setScrollTopForHost(scrollHost, nextTop, false);
 
             if (progress >= 1 || Math.abs(getScrollTopForHost(scrollHost) - targetTop) <= 1) {
@@ -17333,6 +18173,8 @@
 
 </body>
 </html>
+
+
 
 
 
