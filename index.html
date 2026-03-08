@@ -1299,6 +1299,16 @@
             box-shadow: 0 0 0.8rem rgba(122, 86, 60, 0.26);
         }
 
+        /* v3 runs without a visible widget: keep wrapper fully neutral */
+        #bookingRecaptchaWrap {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            min-height: 0 !important;
+        }
+
         .recaptcha-wrap__hint {
             margin: 0 0 0.5rem 0;
             font-size: 0.85rem;
@@ -2642,6 +2652,7 @@
             line-height: 1.2 !important;
             letter-spacing: 0.02em !important;
             text-align: center;
+            white-space: pre-line;
             display: none;
             opacity: 1;
             transform: none;
@@ -2857,6 +2868,28 @@
             line-height: 1.55;
             margin: 0 0 1rem 0;
             text-align: center;
+        }
+
+        .final-result-form__appointment-title {
+            width: min(100%, 37.5rem);
+            margin: 0 auto 0.35rem;
+            font-size: clamp(1.05rem, 3.2vw, 1.36rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            line-height: 1.2;
+            text-align: center;
+            color: rgba(var(--modal-design-text-rgb), 0.98);
+        }
+
+        .final-result-form__appointment-message {
+            width: min(100%, 37.5rem);
+            margin: 0 auto 1rem;
+            font-size: clamp(1rem, 3vw, 1.18rem);
+            font-weight: 800;
+            line-height: 1.35;
+            text-align: left;
+            color: rgba(var(--modal-design-text-rgb), 0.98);
         }
 
         .final-result-warning {
@@ -4842,15 +4875,13 @@
             display: none;
             width: 100%;
             max-width: 24rem;
-            padding: 0.92rem 1rem 0.96rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.24);
-            background: rgba(13, 10, 7, 0.38);
-            box-shadow:
-                0 1rem 2.4rem rgba(0, 0, 0, 0.28),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 0;
+            border-radius: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             text-align: center;
         }
 
@@ -4864,10 +4895,10 @@
         .global-spinner__error-code {
             margin: 0;
             color: #ffffff;
-            font-family: "Courier New", monospace;
+            font-family: 'Lato', sans-serif;
             font-size: clamp(1rem, 3vw, 1.16rem);
-            font-weight: 700;
-            letter-spacing: 0.22rem;
+            font-weight: 900;
+            letter-spacing: 0.1rem;
             line-height: 1.18;
             text-transform: uppercase;
             text-shadow:
@@ -4878,8 +4909,9 @@
         .global-spinner__error-text {
             margin: 0;
             color: rgba(255, 255, 255, 0.96);
+            font-family: 'Lato', sans-serif;
             font-size: clamp(0.92rem, 2.8vw, 1rem);
-            font-weight: 700;
+            font-weight: 900;
             line-height: 1.42;
             text-shadow: 0 0 12px rgba(255, 255, 255, 0.22);
         }
@@ -4921,6 +4953,11 @@
             stroke: #ffffff;
             animation: globalSpinnerHypnotic 1.05s ease-in-out infinite;
             filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.72)) drop-shadow(0 0 28px rgba(255, 255, 255, 0.44));
+        }
+
+        .global-spinner--hypnotic .global-spinner__ring-wrap {
+            transform-origin: 50% 50%;
+            animation: globalSpinnerRingHypnoticZoom 2.25s cubic-bezier(0.42, 0, 0.2, 1) infinite;
         }
 
         #globalSpinner.global-spinner--hypnotic .global-spinner__glow {
@@ -4977,6 +5014,15 @@
                     drop-shadow(0 0 20px rgba(255, 255, 255, 0.96))
                     drop-shadow(0 0 42px rgba(255, 255, 255, 0.62))
                     drop-shadow(0 0 66px rgba(255, 255, 255, 0.28));
+            }
+        }
+
+        @keyframes globalSpinnerRingHypnoticZoom {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.14);
             }
         }
 
@@ -8860,12 +8906,12 @@
             stroke: none !important;
         }
 
-        /* Keep caret at the left edge while centered placeholders remain centered */
+        /* Keep deadline, age and ZIP visually centered in the field */
         #bookingModal #deadlineInputMain,
         #bookingModal #dobAgePreview,
         #bookingModal input[name="address_zip"] {
-            text-align: left !important;
-            text-align-last: left !important;
+            text-align: center !important;
+            text-align-last: center !important;
             padding-left: 0.95rem !important;
             padding-right: 0.95rem !important;
         }
@@ -11489,17 +11535,18 @@
         -webkit-text-fill-color: var(--booking-warm-ink-strong) !important;
     }
 
-    /* Reverse palette for booking helper buttons: calendar, paperclip, camera. */
+    /* Match helper buttons to BOOK button style in booking form. */
     #bookingModal #openCalendarBtn,
     #bookingModal #attachFilesBtn,
     #bookingModal #takePhotoBtn {
-        background: rgb(90, 61, 42) !important;
-        border: 1px solid rgba(255, 255, 255, 0.9) !important;
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
+        background: var(--modal-lock-button-bg) !important;
+        border: 1px solid rgba(var(--site-bg-light-rgb), 0.74) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+        transform: none !important;
         box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),
-            0 0.34rem 0.92rem rgba(58, 41, 27, 0.32) !important;
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
     }
 
     #bookingModal #openCalendarBtn:hover,
@@ -11508,14 +11555,14 @@
     #bookingModal #attachFilesBtn:focus-visible,
     #bookingModal #takePhotoBtn:hover,
     #bookingModal #takePhotoBtn:focus-visible {
-        background: rgb(116, 82, 58) !important;
-        border-color: rgba(255, 255, 255, 0.95) !important;
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
+        background: var(--modal-lock-button-bg-hover) !important;
+        border-color: rgba(var(--site-bg-light-rgb), 0.82) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+        transform: none !important;
         box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.24),
-            0 0 0 0.16rem rgba(255, 255, 255, 0.12),
-            0 0.52rem 1.2rem rgba(58, 41, 27, 0.38) !important;
+            inset 0 1px 0 rgba(255, 255, 255, 0.86),
+            0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
     }
 
     #bookingModal #openCalendarBtn .file-attach__title,
@@ -11527,31 +11574,28 @@
     #bookingModal #openCalendarBtn .file-attach__icon-svg,
     #bookingModal #attachFilesBtn .file-attach__icon-svg,
     #bookingModal #takePhotoBtn .file-attach__icon-svg {
-        color: #ffffff !important;
-        stroke: #ffffff !important;
+        color: var(--modal-lock-button-text) !important;
+        stroke: var(--modal-lock-button-text) !important;
         fill: none !important;
+        filter: none !important;
+        transform: translateZ(0);
     }
 
     @keyframes paperclipPulseLift {
         0% {
             transform: translateY(0) rotate(0deg) scale(1);
-            filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
         }
         30% {
             transform: translateY(-1px) rotate(-8deg) scale(1.07);
-            filter: drop-shadow(0 0 0.34rem rgba(255, 255, 255, 0.4));
         }
         55% {
             transform: translateY(0) rotate(7deg) scale(1.04);
-            filter: drop-shadow(0 0 0.22rem rgba(255, 255, 255, 0.3));
         }
         80% {
             transform: translateY(-1px) rotate(-4deg) scale(1.05);
-            filter: drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.34));
         }
         100% {
             transform: translateY(0) rotate(0deg) scale(1);
-            filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
         }
     }
 
@@ -12107,7 +12151,7 @@
                         </div>
                     </div>
                     <div class="booking-row booking-row--address-secondary booking-row--province-zip" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
-                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: left; caret-color: #ffffff;">
+                        <input type="text" class="contact-form__input" placeholder="ZIP" name="address_zip" minlength="6" maxlength="7" autocomplete="postal-code" inputmode="text" spellcheck="false" style="text-transform: uppercase; text-align: center; caret-color: #ffffff;">
                     </div>
                 </div>
 
@@ -12164,21 +12208,19 @@
                         <input type="number" class="contact-form__input" placeholder="YYYY" name="dob_year" style="flex:1.45 1 0; min-width:96px;" required min="1900" max="2100" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="MM" name="dob_month" style="flex:0.85 1 0; min-width:64px;" required min="1" max="12" step="1" inputmode="numeric">
                         <input type="number" class="contact-form__input" placeholder="DD" name="dob_day" style="flex:0.85 1 0; min-width:64px;" required min="1" max="31" step="1" inputmode="numeric">
-                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:left;">
+                        <input type="text" class="contact-form__input" id="dobAgePreview" name="age" placeholder="(AGE)" aria-label="Age" inputmode="numeric" maxlength="3" required style="flex:0.85 1 0; min-width:64px; text-align:center;">
                     </div>
                 </div>
 
                 <div class="contact-form__group contact-form__group--deadline">
                     <div class="booking-row booking-row--deadline" style="align-items:center; justify-content:center; gap:8px;">
                         <label for="deadlineInputMain" class="contact-form__label booking-row__deadline-label" style="color:var(--text-white);">Deadline:</label>
-                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:left;">
+                        <input id="deadlineInputMain" type="text" class="contact-form__input" name="deadline" placeholder="YYYY.MM.DD" maxlength="120" inputmode="text" spellcheck="false" style="flex:0 0 180px; width:180px; min-width:180px; text-align:center;">
                         <span class="contact-form__label booking-row__deadline-optional" style="color:var(--text-white);">(Optional)</span>
                     </div>
                 </div>
 
-                <div id="bookingRecaptchaWrap" class="recaptcha-wrap">
-                    <p class="recaptcha-wrap__hint">Protected by Google reCAPTCHA.</p>
-                </div>
+                <div id="bookingRecaptchaWrap" class="recaptcha-wrap"></div>
                 <!-- moved status slot below reCAPTCHA so hints sit directly above the BOOK button -->
                 <div class="booking-status-slot" style="margin:0 0 0.5rem;">
                     <button type="button" id="bookingStatus" aria-live="polite" aria-atomic="true" tabindex="-1" aria-disabled="true"></button>
@@ -12224,7 +12266,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxI3I4i6MSvOWmSoN7puPjQ0JJglZQu2z9SVEOlXIHI23vELrEuP1pQeHfyqLSL4pAYLw/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyeNkrGKethgj-stHSdLiGAnmU7HnQbcXRS__AhO2ihf710HIYC6QatDNciJ8vYRP2KYQ/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
@@ -18734,6 +18776,8 @@
                 </div>
                 <p class="final-result-form__hello">Thank you, ${formatFinalFieldValue(summary.name, 'Client')}.</p>
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
+                <p class="final-result-form__appointment-title">${escapeHtmlClient(reminderCopy.title)}</p>
+                <p class="final-result-form__appointment-message">${escapeHtmlClient(reminderCopy.message)}</p>
 
                 <p class="final-result-warning final-result-warning--left">
                     <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed paralegal or lawyer right away.
@@ -18741,8 +18785,7 @@
                 <p class="final-result-warning final-result-warning--left">
                     Please call during business hours to confirm your details and next steps.
                 </p>
-                <p class="final-result-reminder">${escapeHtmlClient(reminderCopy.finalModalLine)}</p>
-                <div class="final-result-actions modal-sticky-actions">
+                <div class="final-result-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="closeBookingModal()" class="contact-form__submit-button final-result-done">Done</button>
                 </div>
@@ -18771,7 +18814,7 @@
                     Pending queue: <strong>${safeQueueSize} ${queueLabel}</strong>.
                 </p>
                 <p class="final-result-reminder">${escapeHtmlClient(reminderCopy.finalModalLine)}</p>
-                <div class="final-result-actions modal-sticky-actions">
+                <div class="final-result-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="closeBookingModal()" class="contact-form__submit-button final-result-done">Done</button>
                 </div>
@@ -18824,12 +18867,13 @@
         if (!validateAndNormalizeBookingForm(form)) return;
         showGlobalSpinner('hypnotic-progress');
         let submitProgress = 3;
-        const SUBMIT_PROGRESS_TICK_MS = 1000; // 1% per second
+        const SUBMIT_PROGRESS_TICK_MS = 1000; // 5% per second
+        const SUBMIT_PROGRESS_STEP = 5;
         const SUBMIT_PROGRESS_SOFT_CAP = 95;
         setGlobalSpinnerProgress(submitProgress);
         const submitProgressTick = setInterval(() => {
             if (submitProgress >= SUBMIT_PROGRESS_SOFT_CAP) return;
-            submitProgress = Math.min(SUBMIT_PROGRESS_SOFT_CAP, submitProgress + 1);
+            submitProgress = Math.min(SUBMIT_PROGRESS_SOFT_CAP, submitProgress + SUBMIT_PROGRESS_STEP);
             setGlobalSpinnerProgress(submitProgress);
         }, SUBMIT_PROGRESS_TICK_MS);
         if (confirmBtn) {
@@ -19404,7 +19448,7 @@
             surface: baseEntry.surface || 'frontend',
             heading: `Error: ${baseEntry.code}`,
             instruction,
-            statusText: `Error: ${baseEntry.code}. ${instruction}`
+            statusText: `Error: ${baseEntry.code}\n${instruction}`
         };
     }
 
