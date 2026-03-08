@@ -664,12 +664,17 @@
             display: block;
             width: 100%;
             margin: 0;
-            font-size: clamp(1.5rem, 5.6vw, 2.4rem);
+            font-size: clamp(3.6rem, 16vw, 10rem);
             font-weight: 900;
-            letter-spacing: 0.42rem;
+            letter-spacing: 0.9rem;
             text-transform: uppercase;
             line-height: 1;
             text-align: center;
+            text-shadow:
+                0 0 0.55rem rgba(255, 245, 228, 0.78),
+                0 0 1.4rem rgba(255, 245, 228, 0.54),
+                0 0 2.6rem rgba(255, 245, 228, 0.34);
+            animation: postSuccessBrandGlow 2.15s ease-in-out infinite;
         }
 
         .post-success-screen__title {
@@ -767,9 +772,29 @@
             }
         }
 
+        @keyframes postSuccessBrandGlow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.94;
+                text-shadow:
+                    0 0 0.45rem rgba(255, 245, 228, 0.72),
+                    0 0 1.2rem rgba(255, 245, 228, 0.48),
+                    0 0 2.1rem rgba(255, 245, 228, 0.28);
+            }
+            50% {
+                transform: scale(1.06);
+                opacity: 1;
+                text-shadow:
+                    0 0 0.75rem rgba(255, 255, 255, 0.9),
+                    0 0 1.8rem rgba(255, 250, 240, 0.72),
+                    0 0 3.2rem rgba(255, 245, 228, 0.48);
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .post-success-screen::before,
             .post-success-screen::after,
+            .post-success-screen__brand,
             .post-success-screen__title,
             .post-success-screen__message,
             .post-success-screen__reminder,
@@ -2888,6 +2913,7 @@
             font-size: clamp(1rem, 3vw, 1.18rem);
             font-weight: 800;
             line-height: 1.35;
+            white-space: pre-line;
             text-align: left;
             color: rgba(var(--modal-design-text-rgb), 0.98);
         }
@@ -11651,9 +11677,6 @@
 <div id="postSuccessScreen" class="post-success-screen" aria-hidden="true">
     <div class="post-success-screen__content">
         <p class="post-success-screen__brand">HDPS</p>
-        <p id="postSuccessTitle" class="post-success-screen__title">Request Received</p>
-        <p id="postSuccessMessage" class="post-success-screen__message">Your appointment reminder is ready.</p>
-        <p id="postSuccessReminder" class="post-success-screen__reminder">Please prepare all required documents before your appointment.</p>
         <a href="tel:+14372396833" class="post-success-screen__phone">+1 (437) 239-6833</a>
     </div>
 </div>
@@ -14357,6 +14380,7 @@
         initializeCustomSelects();
         initTseProbnikGesture();
         bindPostSuccessScreenDismiss();
+        bindIdleScreensaver();
         initPerformanceHealthMonitor();
         attachFormAutoSave();
         initAutoGrowTextareas();
@@ -14697,6 +14721,10 @@
     let bookingBackdropEligibleUntil = 0;
     let postSuccessTransitionTimer = 0;
     const POST_SUCCESS_TRANSITION_DELAY_MS = 60000;
+    const IDLE_SCREENSAVER_DELAY_MS = 120000;
+    let idleScreensaverTimer = 0;
+    let idleScreensaverBound = false;
+    let postSuccessScreenMode = 'flow';
 
     function formatTime24To12(hourValue, minuteValue) {
         const hourNum = Number(hourValue);
@@ -14789,9 +14817,10 @@
         }, POST_SUCCESS_TRANSITION_DELAY_MS);
     }
 
-    function showPostSuccessScreen() {
+    function showPostSuccessScreen(mode = 'flow') {
         if (!postSuccessScreen) return;
         clearPostSuccessTransitionTimer();
+        postSuccessScreenMode = (String(mode).toLowerCase() === 'idle') ? 'idle' : 'flow';
         syncPostSuccessScreenCopy();
         window.scrollTo(0, 0);
         postSuccessScreen.classList.add('post-success-screen--active');
@@ -14807,7 +14836,67 @@
         postSuccessScreen.setAttribute('aria-hidden', 'true');
         document.documentElement.classList.remove('post-success-screen-active');
         document.body.classList.remove('post-success-screen-active');
+        postSuccessScreenMode = 'flow';
         maybeTriggerHardReloadAfterLastModalClosed();
+    }
+
+    function clearIdleScreensaverTimer() {
+        if (!idleScreensaverTimer) return;
+        clearTimeout(idleScreensaverTimer);
+        idleScreensaverTimer = 0;
+    }
+
+    function isIdleScreensaverSuppressed() {
+        const hasActiveModal = Boolean(document.querySelector('.modal.modal--active'));
+        const cameraActive = Boolean(document.querySelector('.camera-capture-modal.camera-capture-modal--active'));
+        const calendarOverlayActive = Boolean(document.querySelector('.form-calendar-overlay.form-calendar-overlay--active'));
+        const spinner = document.getElementById('globalSpinner');
+        const spinnerVisible = Boolean(spinner && spinner.style.display && spinner.style.display !== 'none');
+        return hasActiveModal || cameraActive || calendarOverlayActive || spinnerVisible;
+    }
+
+    function scheduleIdleScreensaver() {
+        clearIdleScreensaverTimer();
+        idleScreensaverTimer = window.setTimeout(() => {
+            idleScreensaverTimer = 0;
+            if (document.hidden) return;
+            if (document.documentElement.classList.contains('post-success-screen-active')) return;
+            if (isIdleScreensaverSuppressed()) {
+                scheduleIdleScreensaver();
+                return;
+            }
+            showPostSuccessScreen('idle');
+        }, IDLE_SCREENSAVER_DELAY_MS);
+    }
+
+    function bindIdleScreensaver() {
+        if (idleScreensaverBound) return;
+        idleScreensaverBound = true;
+
+        const onActivity = () => {
+            if (document.documentElement.classList.contains('post-success-screen-active') && postSuccessScreenMode === 'idle') {
+                hidePostSuccessScreen();
+            }
+            scheduleIdleScreensaver();
+        };
+
+        const passiveOpts = { passive: true };
+        window.addEventListener('pointermove', onActivity, passiveOpts);
+        window.addEventListener('pointerdown', onActivity, passiveOpts);
+        window.addEventListener('wheel', onActivity, passiveOpts);
+        window.addEventListener('touchstart', onActivity, passiveOpts);
+        window.addEventListener('keydown', onActivity, passiveOpts);
+        window.addEventListener('scroll', onActivity, passiveOpts);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearIdleScreensaverTimer();
+                return;
+            }
+            onActivity();
+        });
+
+        scheduleIdleScreensaver();
     }
 
     function bindPostSuccessScreenDismiss() {
@@ -18767,6 +18856,7 @@
 
     function buildFinalResultMarkup(summary) {
         const reminderCopy = buildAppointmentReminderCopy(summary);
+        const finalModalMessage = String(reminderCopy.message || '').replace(/\s+at\s+/i, '\nat ');
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
@@ -18777,7 +18867,7 @@
                 <p class="final-result-form__hello">Thank you, ${formatFinalFieldValue(summary.name, 'Client')}.</p>
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
                 <p class="final-result-form__appointment-title">${escapeHtmlClient(reminderCopy.title)}</p>
-                <p class="final-result-form__appointment-message">${escapeHtmlClient(reminderCopy.message)}</p>
+                <p class="final-result-form__appointment-message">${escapeHtmlClient(finalModalMessage)}</p>
 
                 <p class="final-result-warning final-result-warning--left">
                     <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed paralegal or lawyer right away.
