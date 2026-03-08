@@ -664,17 +664,29 @@
             display: block;
             width: 100%;
             margin: 0;
-            font-size: clamp(3.6rem, 16vw, 10rem);
+            font-size: clamp(1.8rem, 7.4vw, 4.6rem);
             font-weight: 900;
-            letter-spacing: 0.9rem;
+            letter-spacing: 0.28rem;
             text-transform: uppercase;
-            line-height: 1;
+            line-height: 1.06;
             text-align: center;
             text-shadow:
                 0 0 0.55rem rgba(255, 245, 228, 0.78),
                 0 0 1.4rem rgba(255, 245, 228, 0.54),
                 0 0 2.6rem rgba(255, 245, 228, 0.34);
             animation: postSuccessBrandGlow 2.15s ease-in-out infinite;
+        }
+
+        .post-success-screen__brand-main,
+        .post-success-screen__brand-sub {
+            display: block;
+            width: 100%;
+        }
+
+        .post-success-screen__brand-sub {
+            margin-top: 0.22rem;
+            font-size: clamp(1.02rem, 3.5vw, 1.76rem);
+            letter-spacing: 0.18rem;
         }
 
         .post-success-screen__title {
@@ -4983,14 +4995,14 @@
 
         .global-spinner--hypnotic .global-spinner__ring-wrap {
             transform-origin: 50% 50%;
-            animation: globalSpinnerRingHypnoticZoom 2.25s cubic-bezier(0.42, 0, 0.2, 1) infinite;
+            animation: globalSpinnerRingHypnoticZoom 1.85s cubic-bezier(0.42, 0, 0.2, 1) infinite;
         }
 
         #globalSpinner.global-spinner--hypnotic .global-spinner__glow {
             stroke: #ffffff;
             transition: stroke-dashoffset 0.95s linear;
             transform-origin: 60px 60px;
-            animation: globalSpinnerHypnoticSlowPulse 4.8s ease-in-out infinite;
+            animation: globalSpinnerHypnoticSlowPulse 1.85s ease-in-out infinite;
             filter:
                 drop-shadow(0 0 16px rgba(255, 255, 255, 0.78))
                 drop-shadow(0 0 34px rgba(255, 255, 255, 0.52))
@@ -5028,27 +5040,29 @@
 
         @keyframes globalSpinnerHypnoticSlowPulse {
             0%, 100% {
-                transform: scale(0.992);
+                transform: scale(0.9);
+                stroke-width: 10;
                 filter:
-                    drop-shadow(0 0 12px rgba(255, 255, 255, 0.58))
-                    drop-shadow(0 0 24px rgba(255, 255, 255, 0.38))
-                    drop-shadow(0 0 40px rgba(255, 255, 255, 0.18));
+                    drop-shadow(0 0 10px rgba(255, 255, 255, 0.52))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.32))
+                    drop-shadow(0 0 32px rgba(255, 255, 255, 0.16));
             }
             50% {
-                transform: scale(1.026);
+                transform: scale(1.16);
+                stroke-width: 13.8;
                 filter:
-                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.96))
-                    drop-shadow(0 0 42px rgba(255, 255, 255, 0.62))
-                    drop-shadow(0 0 66px rgba(255, 255, 255, 0.28));
+                    drop-shadow(0 0 22px rgba(255, 255, 255, 0.96))
+                    drop-shadow(0 0 46px rgba(255, 255, 255, 0.64))
+                    drop-shadow(0 0 70px rgba(255, 255, 255, 0.32));
             }
         }
 
         @keyframes globalSpinnerRingHypnoticZoom {
             0%, 100% {
-                transform: scale(1);
+                transform: scale(0.92);
             }
             50% {
-                transform: scale(1.14);
+                transform: scale(1.24);
             }
         }
 
@@ -9360,6 +9374,7 @@
                 min-height: 1.2rem;
                 font-size: clamp(0.88rem, 2.7vw, 0.98rem);
             }
+
         }
 
         /* 2026-03: Full palette refresh for booking calendar + intake form */
@@ -11451,14 +11466,21 @@
     /* Keep status hint close to BOOK without sticky-era dead space. */
     #bookingModal[data-state="form"] #bookingForm .booking-status-slot,
     #bookingModal.booking-modal--flat[data-state="form"] #bookingForm .booking-status-slot {
-        min-height: 0 !important;
-        margin: 0.45rem auto 0.55rem !important;
-        align-items: center !important;
+        min-height: clamp(3.3rem, 6.2vh, 4.2rem) !important;
+        height: clamp(3.3rem, 6.2vh, 4.2rem) !important;
+        margin: 3rem auto 0.78rem !important;
+        align-items: flex-end !important;
+        justify-content: center !important;
     }
 
     #bookingModal #bookingStatus.status-alert--visible {
         animation: none !important;
         transform: none !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
     }
 
     /* Force readable BOOK label on the real booking form button in every state. */
@@ -11676,11 +11698,13 @@
 
 <div id="postSuccessScreen" class="post-success-screen" aria-hidden="true">
     <div class="post-success-screen__content">
-        <p class="post-success-screen__brand">HDPS</p>
+        <p class="post-success-screen__brand">
+            <span class="post-success-screen__brand-main">HANNA DUNCHENKO</span>
+            <span class="post-success-screen__brand-sub">PARALEGAL SERVICES</span>
+        </p>
         <a href="tel:+14372396833" class="post-success-screen__phone">+1 (437) 239-6833</a>
     </div>
 </div>
-
 <header class="header fade-in-section">
     <!-- <?php /* template-part: hero-header.php */ ?> -->
     <div class="header__title dynamic-text" data-i18n="name">Hanna&nbsp;Dunchenko</div>
@@ -18855,8 +18879,6 @@
     }
 
     function buildFinalResultMarkup(summary) {
-        const reminderCopy = buildAppointmentReminderCopy(summary);
-        const finalModalMessage = String(reminderCopy.message || '').replace(/\s+at\s+/i, '\nat ');
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
@@ -18866,8 +18888,6 @@
                 </div>
                 <p class="final-result-form__hello">Thank you, ${formatFinalFieldValue(summary.name, 'Client')}.</p>
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
-                <p class="final-result-form__appointment-title">${escapeHtmlClient(reminderCopy.title)}</p>
-                <p class="final-result-form__appointment-message">${escapeHtmlClient(finalModalMessage)}</p>
 
                 <p class="final-result-warning final-result-warning--left">
                     <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed paralegal or lawyer right away.
@@ -20081,7 +20101,7 @@
     let headerNearestHintFirstSparkTriggered = false;
     let headerSparkIntroHintShown = false;
     let headerTypewriterSessionPlayed = false;
-    const HEADER_SPARK_INTRO_TEXT = 'Tap to book automatically:';
+    const HEADER_SPARK_INTRO_TEXT = '';
 
     function hasHeaderTypewriterSessionPlayed() {
         try {
@@ -20212,6 +20232,7 @@
     }
 
     function revealHeaderSparkIntroHint() {
+        if (!normalizeSingleLine(HEADER_SPARK_INTRO_TEXT)) return;
         if (headerSparkIntroHintShown) return;
         const hintEl = document.getElementById('headerSparkIntroHint');
         if (!hintEl) return;
