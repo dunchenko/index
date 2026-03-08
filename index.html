@@ -610,6 +610,31 @@
             visibility: hidden;
             pointer-events: none;
             transition: opacity 300ms ease, visibility 300ms ease;
+            overflow: hidden;
+        }
+
+        .post-success-screen::before,
+        .post-success-screen::after {
+            content: '';
+            position: absolute;
+            inset: -20%;
+            pointer-events: none;
+        }
+
+        .post-success-screen::before {
+            background:
+                radial-gradient(circle at 22% 28%, rgba(255, 246, 230, 0.44) 0%, rgba(255, 246, 230, 0) 46%),
+                radial-gradient(circle at 78% 74%, rgba(233, 198, 164, 0.34) 0%, rgba(233, 198, 164, 0) 52%);
+            filter: blur(10px) saturate(118%);
+            animation: postSuccessAurora 13s ease-in-out infinite alternate;
+        }
+
+        .post-success-screen::after {
+            background:
+                conic-gradient(from 140deg at 50% 50%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 24%, rgba(255, 255, 255, 0.08) 46%, rgba(255, 255, 255, 0) 72%, rgba(255, 255, 255, 0.08));
+            opacity: 0.35;
+            mix-blend-mode: screen;
+            animation: postSuccessSheen 8.5s linear infinite;
         }
 
         .post-success-screen--active {
@@ -631,6 +656,8 @@
             text-shadow:
                 0 0.38rem 1.6rem rgba(58, 41, 27, 0.3),
                 0 0.06rem 0.12rem rgba(255, 255, 255, 0.35);
+            position: relative;
+            z-index: 1;
         }
 
         .post-success-screen__brand {
@@ -645,6 +672,46 @@
             text-align: center;
         }
 
+        .post-success-screen__title {
+            margin: 0.35rem 0 0;
+            font-size: clamp(1.05rem, 3.5vw, 1.42rem);
+            font-weight: 800;
+            letter-spacing: 0.13rem;
+            text-transform: uppercase;
+            opacity: 0.95;
+            animation: postSuccessLineIn 720ms cubic-bezier(0.2, 1, 0.32, 1) 120ms both;
+        }
+
+        .post-success-screen__message {
+            margin: 0;
+            font-size: clamp(1rem, 4vw, 1.42rem);
+            font-weight: 800;
+            letter-spacing: 0.02rem;
+            line-height: 1.3;
+            background: linear-gradient(92deg, rgba(255, 255, 255, 0.92), rgba(255, 236, 208, 1), rgba(255, 255, 255, 0.92));
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            animation:
+                postSuccessLineIn 840ms cubic-bezier(0.2, 1, 0.32, 1) 240ms both,
+                postSuccessGradientFlow 4.8s ease-in-out infinite;
+        }
+
+        .post-success-screen__reminder {
+            margin: 0.18rem 0 0.08rem;
+            width: min(100%, 34rem);
+            padding: 0.78rem 0.92rem;
+            border-radius: 0.92rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.12);
+            font-size: clamp(0.88rem, 3.3vw, 1.02rem);
+            line-height: 1.4;
+            font-weight: 700;
+            animation: postSuccessLineIn 980ms cubic-bezier(0.2, 1, 0.32, 1) 360ms both;
+        }
+
         .post-success-screen__phone {
             display: block;
             margin: 0;
@@ -654,6 +721,61 @@
             line-height: 1.06;
             color: inherit;
             text-decoration: none;
+            animation: postSuccessLineIn 1120ms cubic-bezier(0.2, 1, 0.32, 1) 520ms both;
+        }
+
+        @keyframes postSuccessAurora {
+            0% {
+                transform: translate3d(-4%, -2%, 0) scale(1);
+            }
+            100% {
+                transform: translate3d(4%, 3%, 0) scale(1.08);
+            }
+        }
+
+        @keyframes postSuccessSheen {
+            0% {
+                transform: rotate(0deg) scale(1.06);
+            }
+            100% {
+                transform: rotate(360deg) scale(1.06);
+            }
+        }
+
+        @keyframes postSuccessGradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes postSuccessLineIn {
+            0% {
+                opacity: 0;
+                transform: translateY(14px) scale(0.985);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .post-success-screen::before,
+            .post-success-screen::after,
+            .post-success-screen__title,
+            .post-success-screen__message,
+            .post-success-screen__reminder,
+            .post-success-screen__phone {
+                animation: none !important;
+            }
         }
         
         /* Block: header */
@@ -2753,6 +2875,19 @@
             text-align: left;
         }
 
+        .final-result-reminder {
+            font-size: 0.96rem;
+            line-height: 1.5;
+            width: min(100%, 37.5rem);
+            margin: 0 auto 0.9rem;
+            text-align: left;
+            padding: 0.84rem 0.9rem;
+            border-radius: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.13);
+            font-weight: 700;
+        }
+
         
 
         .final-result-referral__status--success {
@@ -2772,6 +2907,13 @@
             flex-direction: column;
             gap: 0.75rem;
             margin-top: 1.1rem;
+            width: min(100%, 37.5rem);
+            margin-left: auto;
+            margin-right: auto;
+            align-items: stretch;
+            justify-content: stretch;
+            position: relative;
+            z-index: 2;
         }
 
         .final-result-call {
@@ -2813,6 +2955,13 @@
         #bookingModal .contact-form__submit-button.final-result-done:active,
         #bookingModal .contact-form__submit-button.final-result-done:focus-visible {
             box-shadow: none !important;
+        }
+
+        #bookingModal[data-state="success"] .final-result-actions {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
         }
 
         @media (max-width: 650px) {
@@ -11340,6 +11489,77 @@
         -webkit-text-fill-color: var(--booking-warm-ink-strong) !important;
     }
 
+    /* Reverse palette for booking helper buttons: calendar, paperclip, camera. */
+    #bookingModal #openCalendarBtn,
+    #bookingModal #attachFilesBtn,
+    #bookingModal #takePhotoBtn {
+        background: rgb(90, 61, 42) !important;
+        border: 1px solid rgba(255, 255, 255, 0.9) !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 0.34rem 0.92rem rgba(58, 41, 27, 0.32) !important;
+    }
+
+    #bookingModal #openCalendarBtn:hover,
+    #bookingModal #openCalendarBtn:focus-visible,
+    #bookingModal #attachFilesBtn:hover,
+    #bookingModal #attachFilesBtn:focus-visible,
+    #bookingModal #takePhotoBtn:hover,
+    #bookingModal #takePhotoBtn:focus-visible {
+        background: rgb(116, 82, 58) !important;
+        border-color: rgba(255, 255, 255, 0.95) !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.24),
+            0 0 0 0.16rem rgba(255, 255, 255, 0.12),
+            0 0.52rem 1.2rem rgba(58, 41, 27, 0.38) !important;
+    }
+
+    #bookingModal #openCalendarBtn .file-attach__title,
+    #bookingModal #attachFilesBtn .file-attach__title,
+    #bookingModal #takePhotoBtn .file-attach__title,
+    #bookingModal #openCalendarBtn .file-attach__icon,
+    #bookingModal #attachFilesBtn .file-attach__icon,
+    #bookingModal #takePhotoBtn .file-attach__icon,
+    #bookingModal #openCalendarBtn .file-attach__icon-svg,
+    #bookingModal #attachFilesBtn .file-attach__icon-svg,
+    #bookingModal #takePhotoBtn .file-attach__icon-svg {
+        color: #ffffff !important;
+        stroke: #ffffff !important;
+        fill: none !important;
+    }
+
+    @keyframes paperclipPulseLift {
+        0% {
+            transform: translateY(0) rotate(0deg) scale(1);
+            filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+        }
+        30% {
+            transform: translateY(-1px) rotate(-8deg) scale(1.07);
+            filter: drop-shadow(0 0 0.34rem rgba(255, 255, 255, 0.4));
+        }
+        55% {
+            transform: translateY(0) rotate(7deg) scale(1.04);
+            filter: drop-shadow(0 0 0.22rem rgba(255, 255, 255, 0.3));
+        }
+        80% {
+            transform: translateY(-1px) rotate(-4deg) scale(1.05);
+            filter: drop-shadow(0 0 0.3rem rgba(255, 255, 255, 0.34));
+        }
+        100% {
+            transform: translateY(0) rotate(0deg) scale(1);
+            filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+        }
+    }
+
+    #bookingModal #attachFilesBtn .file-attach__icon-svg--paperclip {
+        transform-origin: 50% 50%;
+        animation: paperclipPulseLift 1.8s cubic-bezier(0.42, 0, 0.2, 1) infinite !important;
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .layout-container #bookingCalendar .calendar-nav-btn,
         .layout-container #bookingCalendar .cal-day,
@@ -11348,8 +11568,10 @@
         .form-calendar-overlay__mount #bookingCalendar .cal-day,
         .form-calendar-overlay__mount #bookingCalendar .slot-btn,
         #bookingModal .custom-select__trigger,
-        #bookingModal .custom-option {
+        #bookingModal .custom-option,
+        #bookingModal #attachFilesBtn .file-attach__icon-svg--paperclip {
             transition: none !important;
+            animation: none !important;
         }
     }
 </style>
@@ -11385,6 +11607,9 @@
 <div id="postSuccessScreen" class="post-success-screen" aria-hidden="true">
     <div class="post-success-screen__content">
         <p class="post-success-screen__brand">HDPS</p>
+        <p id="postSuccessTitle" class="post-success-screen__title">Request Received</p>
+        <p id="postSuccessMessage" class="post-success-screen__message">Your appointment reminder is ready.</p>
+        <p id="postSuccessReminder" class="post-success-screen__reminder">Please prepare all required documents before your appointment.</p>
         <a href="tel:+14372396833" class="post-success-screen__phone">+1 (437) 239-6833</a>
     </div>
 </div>
@@ -14373,6 +14598,9 @@
     const BOOKING_MODAL_BACKDROP_CLICK_WINDOW_MS = 700;
     const modal = document.getElementById('bookingModal');
     const postSuccessScreen = document.getElementById('postSuccessScreen');
+    const postSuccessTitleEl = document.getElementById('postSuccessTitle');
+    const postSuccessMessageEl = document.getElementById('postSuccessMessage');
+    const postSuccessReminderEl = document.getElementById('postSuccessReminder');
     const bookingTimeDisplay = document.getElementById('bookingTimeDisplay');
     const bookingStatus = document.getElementById('bookingStatus');
     // inline sound generator for warning hints - short percussive click
@@ -14407,6 +14635,7 @@
     let focusCameraButtonOnBookingOpen = false;
     let cameraButtonGlowTimer = null;
     let lastBookingSummaryForReferral = null;
+    let lastSuccessfulBookingSummary = null;
     let bookingRecaptchaApiPromise = null;
     let bookingRecaptchaToken = '';
     let bookingRecaptchaTokenIssuedAt = 0;
@@ -14425,7 +14654,83 @@
     let bookingBackdropStartedOnOverlay = false;
     let bookingBackdropEligibleUntil = 0;
     let postSuccessTransitionTimer = 0;
-    const POST_SUCCESS_TRANSITION_DELAY_MS = 6000;
+    const POST_SUCCESS_TRANSITION_DELAY_MS = 60000;
+
+    function formatTime24To12(hourValue, minuteValue) {
+        const hourNum = Number(hourValue);
+        const minuteNum = Number(minuteValue);
+        if (!Number.isFinite(hourNum) || !Number.isFinite(minuteNum)) return '';
+        const normalizedHour = ((hourNum % 24) + 24) % 24;
+        const safeMinute = Math.max(0, Math.min(59, Math.trunc(minuteNum)));
+        const suffix = normalizedHour >= 12 ? 'PM' : 'AM';
+        const hour12 = normalizedHour % 12 || 12;
+        return `${hour12}:${String(safeMinute).padStart(2, '0')} ${suffix}`;
+    }
+
+    function normalizeSummaryAppointmentDate(summary) {
+        const rawDate = String(summary?.dateStr || '').trim();
+        if (!rawDate) return '';
+        return formatFinalDate(rawDate);
+    }
+
+    function normalizeSummaryAppointmentTime(summary) {
+        const rawSlotText = String(summary?.slotText || '').trim();
+        const meridiemMatch = rawSlotText.match(/(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+        if (meridiemMatch && meridiemMatch[1]) {
+            return meridiemMatch[1].replace(/\s+/g, ' ').toUpperCase();
+        }
+        const plainMatch = rawSlotText.match(/\b(\d{1,2}):(\d{2})\b/);
+        if (plainMatch) {
+            return formatTime24To12(plainMatch[1], plainMatch[2]);
+        }
+
+        const rawDate = String(summary?.dateStr || '').trim();
+        const isoTime = rawDate.match(/T(\d{2}):(\d{2})/);
+        if (isoTime) {
+            return formatTime24To12(isoTime[1], isoTime[2]);
+        }
+        return '';
+    }
+
+    function buildAppointmentReminderCopy(summary) {
+        const dateLabel = normalizeSummaryAppointmentDate(summary);
+        const timeLabel = normalizeSummaryAppointmentTime(summary);
+        const hasSpecificSlot = Boolean(dateLabel && timeLabel);
+
+        if (hasSpecificSlot) {
+            return {
+                title: 'Appointment Confirmed',
+                message: `Don\u2019t forget: your appointment is on ${dateLabel} at ${timeLabel}.`,
+                reminder: 'Please prepare all documents before arrival.',
+                finalModalLine: `Don\u2019t forget: your appointment is on ${dateLabel}, at ${timeLabel}. Please prepare all documents.`
+            };
+        }
+
+        if (dateLabel) {
+            return {
+                title: 'Appointment Confirmed',
+                message: `Don\u2019t forget: your appointment date is ${dateLabel}.`,
+                reminder: 'The exact time will be confirmed by phone. Please prepare all documents.',
+                finalModalLine: `Don\u2019t forget: your appointment is on ${dateLabel}. The exact time will be confirmed by phone. Please prepare all documents.`
+            };
+        }
+
+        return {
+            title: 'Request Received',
+            message: 'Don\u2019t forget: your appointment date and time will be confirmed by phone.',
+            reminder: 'Please prepare all documents in advance.',
+            finalModalLine: 'Don\u2019t forget: your appointment date and time will be confirmed by phone. Please prepare all documents.'
+        };
+    }
+
+    function syncPostSuccessScreenCopy() {
+        if (!postSuccessScreen) return;
+        const sourceSummary = lastSuccessfulBookingSummary || lastBookingSummaryForReferral || null;
+        const copy = buildAppointmentReminderCopy(sourceSummary);
+        if (postSuccessTitleEl) postSuccessTitleEl.textContent = copy.title;
+        if (postSuccessMessageEl) postSuccessMessageEl.textContent = copy.message;
+        if (postSuccessReminderEl) postSuccessReminderEl.textContent = copy.reminder;
+    }
 
     function clearPostSuccessTransitionTimer() {
         if (!postSuccessTransitionTimer) return;
@@ -14445,6 +14750,7 @@
     function showPostSuccessScreen() {
         if (!postSuccessScreen) return;
         clearPostSuccessTransitionTimer();
+        syncPostSuccessScreenCopy();
         window.scrollTo(0, 0);
         postSuccessScreen.classList.add('post-success-screen--active');
         postSuccessScreen.setAttribute('aria-hidden', 'false');
@@ -18418,6 +18724,7 @@
     }
 
     function buildFinalResultMarkup(summary) {
+        const reminderCopy = buildAppointmentReminderCopy(summary);
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
@@ -18434,6 +18741,7 @@
                 <p class="final-result-warning final-result-warning--left">
                     Please call during business hours to confirm your details and next steps.
                 </p>
+                <p class="final-result-reminder">${escapeHtmlClient(reminderCopy.finalModalLine)}</p>
                 <div class="final-result-actions modal-sticky-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="closeBookingModal()" class="contact-form__submit-button final-result-done">Done</button>
@@ -18443,6 +18751,7 @@
     }
 
     function buildQueuedResultMarkup(summary, queueSize = 1) {
+        const reminderCopy = buildAppointmentReminderCopy(summary);
         const safeQueueSize = Math.max(1, Number(queueSize) || 1);
         const queueLabel = safeQueueSize === 1 ? 'request' : 'requests';
         return `
@@ -18461,6 +18770,7 @@
                 <p class="final-result-warning">
                     Pending queue: <strong>${safeQueueSize} ${queueLabel}</strong>.
                 </p>
+                <p class="final-result-reminder">${escapeHtmlClient(reminderCopy.finalModalLine)}</p>
                 <div class="final-result-actions modal-sticky-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
                     <button type="button" onclick="closeBookingModal()" class="contact-form__submit-button final-result-done">Done</button>
@@ -18839,13 +19149,19 @@
                 m1Reset();
                 resetTestFilesSyncState();
                 markHardReloadAfterModalClose();
+                lastSuccessfulBookingSummary = {
+                    name: summary.name,
+                    dateStr: summary.dateStr,
+                    slotText: summary.slotText
+                };
                 lastBookingSummaryForReferral = {
                     name: summary.name,
                     email: summary.email,
                     phone: summary.phone,
                     service: summary.service,
                     deadline: summary.deadline,
-                    dateStr: summary.dateStr
+                    dateStr: summary.dateStr,
+                    slotText: summary.slotText
                 };
 
                 const modalBody = document.querySelector('#bookingModal .modal__body');
