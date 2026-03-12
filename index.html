@@ -213,9 +213,11 @@
                 if (jumpedOnce) return;
                 jumpedOnce = true;
                 setTimeout(() => {
-                    // Unlock resolved typewriter as soon as button is visible.
-                    // First particle flash is triggered later by typewriter completion (+1s).
-                    dispatchHeaderNearestHintUnlock(0);
+                    // Unlock resolved hint immediately only when the typewriter intro
+                    // has already been played for this session.
+                    if (typeof headerTypewriterSessionPlayed !== 'undefined' && headerTypewriterSessionPlayed) {
+                        dispatchHeaderNearestHintUnlock(0);
+                    }
                 }, 400); // slightly faster to avoid visible delay
             }
             const observer = new MutationObserver(() => {
@@ -10166,6 +10168,44 @@
 
         .header-nearest-slot-hint.header-nearest-slot-hint--loading-exit {
             animation: headerNearestHintLoadingExit 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .header-nearest-slot-hint__dots {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.22rem;
+            margin-left: 0.3rem;
+            vertical-align: baseline;
+        }
+
+        .header-nearest-slot-hint__dot {
+            width: 0.32rem;
+            height: 0.32rem;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.55;
+            animation: headerHintDotJump 1.1s ease-in-out infinite;
+        }
+
+        .header-nearest-slot-hint__dot:nth-child(2) {
+            animation-delay: 0.16s;
+        }
+
+        .header-nearest-slot-hint__dot:nth-child(3) {
+            animation-delay: 0.32s;
+        }
+
+        @keyframes headerHintDotJump {
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.55;
+            }
+
+            45% {
+                transform: translateY(-0.42rem);
+                opacity: 1;
+            }
         }
 
         @keyframes headerNearestHintLoadingExit {
@@ -22372,7 +22412,7 @@
 
         const HEADER_TYPEWRITER_LOADING_SEQUENCE = [
             'Hello!',
-            'Connecting to the calendar to load court schedule...'
+            'Searching for the nearest appointment'
         ];
         const HEADER_TYPEWRITER_SESSION_ONCE_KEY = 'hd_header_typewriter_session_once_v1';
         const HEADER_NEAREST_HINT_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
@@ -22442,6 +22482,21 @@
         }
 
         headerTypewriterSessionPlayed = hasHeaderTypewriterSessionPlayed();
+        headerNearestHintResolvedTypingUnlocked = headerTypewriterSessionPlayed;
+
+        function setHeaderNearestHintDotsActive(hintEl, active) {
+            if (!hintEl) return;
+            const existing = hintEl.querySelector('.header-nearest-slot-hint__dots');
+            if (!active) {
+                if (existing) existing.remove();
+                return;
+            }
+            if (existing) return;
+            const dots = document.createElement('span');
+            dots.className = 'header-nearest-slot-hint__dots';
+            dots.innerHTML = '<span class="header-nearest-slot-hint__dot"></span><span class="header-nearest-slot-hint__dot"></span><span class="header-nearest-slot-hint__dot"></span>';
+            hintEl.appendChild(dots);
+        }
 
         function scheduleHeaderHelloAfterBlur() {
             if (headerHelloDelayDone || headerHelloDelayTimer) return;
@@ -22480,6 +22535,9 @@
                 hintEl.classList.remove('header-nearest-slot-hint--typing');
                 hintEl.classList.remove('typewriter-fly-to-viewer');
                 hintEl.classList.remove('header-nearest-slot-hint--loading-exit');
+            }
+            if (hintEl) {
+                setHeaderNearestHintDotsActive(hintEl, false);
             }
             if (!preserveText && hintEl) {
                 hintEl.textContent = '';
@@ -22855,6 +22913,7 @@
         function startHeaderNearestHintLoadingSequence(hintEl) {
             if (!hintEl) return;
             headerNearestHintQueuedAfterLoadingText = '';
+            setHeaderNearestHintDotsActive(hintEl, false);
             if (headerTypewriterSessionPlayed) {
                 clearHeaderNearestHintTypewriter({ preserveText: true });
                 headerNearestHintTypewriterActive = false;
@@ -22865,6 +22924,8 @@
                 headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                 hintEl.classList.remove('header-nearest-slot-hint--typing');
                 hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                setHeaderNearestHintDotsActive(hintEl, true);
+                dispatchHeaderNearestHintUnlock(0);
                 startHeaderNearestHintLoadingHold(hintEl);
                 return;
             }
@@ -22947,6 +23008,8 @@
                     markHeaderTypewriterSessionPlayed();
                     headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                     hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                    setHeaderNearestHintDotsActive(hintEl, true);
+                    dispatchHeaderNearestHintUnlock(0);
                     startHeaderNearestHintLoadingHold(hintEl);
                     return;
                 }
@@ -22994,6 +23057,7 @@
             if (headerTypewriterSessionPlayed) {
                 clearHeaderNearestHintTypewriter({ preserveText: true });
                 hintEl.classList.remove('header-nearest-slot-hint--typing');
+                setHeaderNearestHintDotsActive(hintEl, false);
                 hintEl.textContent = finalText;
                 headerNearestHintLoadingTypedOnce = true;
                 headerNearestHintLastRenderedText = finalText;
@@ -23062,6 +23126,24 @@
                 scheduleHeaderHelloAfterBlur();
                 return;
             }
+            if (
+                !isLoadingText &&
+                !headerTypewriterSessionPlayed &&
+                !headerNearestHintLoadingTypedOnce &&
+                !headerNearestHintHelloLockActive &&
+                nextText
+            ) {
+                if (headerNearestHintDeferredText !== nextText) {
+                    headerNearestHintDeferredText = nextText;
+                }
+                if (headerHelloDelayDone) {
+                    setHeaderNearestSlotHint(HEADER_NEAREST_HINT_LOADING_TEXT);
+                } else {
+                    headerHelloDeferred = true;
+                    scheduleHeaderHelloAfterBlur();
+                }
+                return;
+            }
             if (!isLoadingText && headerNearestHintHelloLockActive) {
                 headerNearestHintDeferredText = nextText;
                 return;
@@ -23087,6 +23169,9 @@
             }
             if (!hintEl) return;
             hintEl.classList.toggle('header-nearest-slot-hint--visible', Boolean(nextText));
+            if (!isLoadingText) {
+                setHeaderNearestHintDotsActive(hintEl, false);
+            }
 
             if (!nextText) {
                 headerNearestHintHelloLockActive = false;
@@ -23111,6 +23196,7 @@
                 if (headerNearestHintLoadingTypedOnce) {
                     hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                     headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                    setHeaderNearestHintDotsActive(hintEl, true);
                     startHeaderNearestHintLoadingHold(hintEl);
                     return;
                 }
