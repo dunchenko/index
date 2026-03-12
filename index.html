@@ -10173,17 +10173,20 @@
         .header-nearest-slot-hint__dots {
             display: inline-flex;
             align-items: center;
-            gap: 0.22rem;
-            margin-left: 0.3rem;
-            vertical-align: baseline;
+            gap: 0.15rem;
+            margin-left: 0.18rem;
+            vertical-align: text-bottom;
+            line-height: 1;
+            position: relative;
+            top: 0.04rem;
         }
 
         .header-nearest-slot-hint__dot {
-            width: 0.32rem;
-            height: 0.32rem;
+            width: 0.22rem;
+            height: 0.22rem;
             border-radius: 50%;
             background: currentColor;
-            opacity: 0.55;
+            opacity: 0.65;
             animation: headerHintDotJump 1.1s ease-in-out infinite;
         }
 
@@ -14529,6 +14532,7 @@
         let calendarAutoRefreshQueued = false;
         let calendarAutoRefreshLastAt = 0;
         let calendarFetchFailedForRender = false;
+        let calendarSlotLoadInProgress = false;
         let dailyMidnightReloadTimer = null;
         let isFormCalendarOverlayActive = false;
         let calendarScaleWrapperHomeParent = null;
@@ -15249,6 +15253,7 @@
             const renderToken = ++calendarRenderToken;
             const calWrapper = document.getElementById('bookingCalendar');
             calendarFetchFailedForRender = false;
+            calendarSlotLoadInProgress = true;
             setCalendarVisibleState(true);
 
             // Show spinner
@@ -15481,7 +15486,9 @@
                         }
                     });
                 }
+                calendarSlotLoadInProgress = false;
             } catch (error) {
+                calendarSlotLoadInProgress = false;
                 if (renderToken !== calendarRenderToken) return;
                 logSanitizedPublicError('CALENDAR_RENDER_FAILED', 'calendar_render');
                 showCalendarLoadFailureFallback();
@@ -23191,6 +23198,15 @@
                     headerNearestHintTypewriterActive &&
                     headerNearestHintTypewriterTargetText === HEADER_NEAREST_HINT_LOADING_FINAL_TEXT
                 ) {
+                    return;
+                }
+                if (calendarSlotLoadInProgress) {
+                    clearHeaderNearestHintTypewriter();
+                    hintEl.classList.remove('header-nearest-slot-hint--typing');
+                    hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                    headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                    setHeaderNearestHintDotsActive(hintEl, true);
+                    dispatchHeaderNearestHintUnlock(0);
                     return;
                 }
                 if (headerNearestHintLoadingTypedOnce) {
