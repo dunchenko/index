@@ -1554,7 +1554,7 @@
     text-align: center;
     line-height: 1.25;
     font-weight: 900;
-    font-size: 12px !important;
+    font-size: 13px !important;
     letter-spacing: 0.01em;
     font-family: 'Lato', sans-serif !important;
 }
@@ -1563,7 +1563,7 @@
     text-align: center;
     line-height: 1.25;
     font-weight: 900;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.01em;
     font-family: 'Lato', sans-serif;
 }
@@ -3659,7 +3659,7 @@
             font-weight: 700;
             transition: all 0.3s ease;
         }
-        
+
         /* Slot Hypnotic Animations */
         .slot-btn--hypnotic {
             border-color: rgba(255, 255, 255, 0.4);
@@ -8808,6 +8808,12 @@
                 padding: 0.72rem 0.8rem !important;
                 border-radius: 0.82rem 0.82rem 0.4rem 0.82rem !important;
             }
+
+            .layout-container #faqSpoiler .faq__answer--map,
+            .layout-container #faqSpoiler .faq__item.is-open .faq__answer--map {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
         }
 
         /* ------------------- BOOK BUTTONS (2X SIZE) ------------------- */
@@ -10842,6 +10848,13 @@
             text-shadow: 0 1px 10px rgba(var(--site-bg-shadow-rgb), 0.2) !important;
         }
 
+        #bookingModal .modal__title,
+        #bookingModal #modalAppointmentTime,
+        #bookingModal #modalAppointmentTime strong {
+            color: var(--booking-warm-ink) !important;
+            -webkit-text-fill-color: var(--booking-warm-ink) !important;
+        }
+
         #bookingModal .recaptcha-wrap__hint,
         #bookingModal .booking-row__deadline-optional {
             color: var(--modal-lock-ink-muted) !important;
@@ -11315,6 +11328,14 @@
         -webkit-text-fill-color: var(--booking-warm-ink) !important;
         text-shadow: none !important;
     }
+
+        #bookingModal .modal__title,
+        #bookingModal .modal__title *,
+        #bookingModal #modalAppointmentTime,
+        #bookingModal #modalAppointmentTime * {
+            color: var(--booking-warm-ink) !important;
+            -webkit-text-fill-color: var(--booking-warm-ink) !important;
+        }
 
     #bookingModal .recaptcha-wrap__hint,
     #bookingModal .booking-row__deadline-optional,
@@ -11955,26 +11976,26 @@
     .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
     .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn,
     .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible {
-        background: var(--booking-warm-input) !important;
-        border: 1px solid var(--booking-warm-border) !important;
-        border-radius: 0.95rem !important;
-        color: var(--booking-warm-ink) !important;
-        -webkit-text-fill-color: var(--booking-warm-ink) !important;
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.68),
-            0 0.46rem 1rem rgba(90, 66, 47, 0.08) !important;
+        background: #5a3d2a !important;
+        border: 1px solid #5a3d2a !important;
+        border-radius: 999px !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        box-shadow: none !important;
+        font-size: 0.9rem !important;
+        font-weight: 800 !important;
+        min-height: 3rem !important;
     }
 
     .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
     .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
     .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
     .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible {
-        background: var(--booking-warm-input-hover) !important;
-        border-color: var(--booking-warm-border-strong) !important;
-        box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.8),
-            0 0 0 0.18rem rgba(184, 146, 111, 0.12),
-            0 0.62rem 1.2rem rgba(90, 66, 47, 0.12) !important;
+        background: #ffffff !important;
+        border-color: #ffffff !important;
+        color: #5a3d2a !important;
+        -webkit-text-fill-color: #5a3d2a !important;
+        box-shadow: none !important;
     }
 
     .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:active,
@@ -12435,13 +12456,11 @@
     .layout-container #bookingCalendar .slots-shell,
     .layout-container #bookingCalendar .calendar-nav-btn,
     .layout-container #bookingCalendar .cal-day,
-    .layout-container #bookingCalendar .slots-grid .slot-btn,
     .form-calendar-overlay__mount #bookingCalendar .calendar-header,
     .form-calendar-overlay__mount #bookingCalendar .calendar-grid,
     .form-calendar-overlay__mount #bookingCalendar .slots-shell,
     .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn,
-    .form-calendar-overlay__mount #bookingCalendar .cal-day,
-    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn {
+    .form-calendar-overlay__mount #bookingCalendar .cal-day {
         background-image: none !important;
         background-color: var(--calendar-frame-panel-strong) !important;
     }
@@ -12608,7 +12627,7 @@
         text-align: center !important;
         line-height: 1.35 !important;
         font-weight: 900 !important;
-        font-size: 12px !important;
+        font-size: 13px !important;
         letter-spacing: 0.01em !important;
         font-family: 'Lato', sans-serif !important;
         width: 100% !important;
@@ -12634,32 +12653,21 @@
         line-height: 1.35 !important;
     }
 
-<<<<<<< ours
-    /* Main-page BOOK buttons: keep original look but add opaque base */
+    /* Main-page BOOK buttons: keep modal-lock palette and glow. */
     #headerBookBtn:not(:disabled):not([aria-disabled="true"]),
     #footerBookBtn:not(:disabled):not([aria-disabled="true"]) {
         opacity: 1 !important;
-        background: var(--modal-lock-button-bg), rgb(var(--site-bg-dark-rgb)) !important;
+        background: var(--modal-lock-button-bg) !important;
         color: var(--modal-lock-button-text) !important;
         -webkit-text-fill-color: var(--modal-lock-button-text) !important;
-=======
-    /* Main-page BOOK buttons: solid (non-transparent) + responsive sizing */
-    #headerBookBtn:not(:disabled):not([aria-disabled="true"]),
-    #footerBookBtn:not(:disabled):not([aria-disabled="true"]) {
-        opacity: 1 !important;
-        background: #6b4d37 !important;
-        background-image: none !important;
-        border: 1px solid #6b4d37 !important;
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
-        padding: clamp(0.75rem, 2.2vw, 1.05rem) clamp(1.6rem, 5vw, 2.8rem) !important;
-        font-size: clamp(0.95rem, 2.6vw, 1.25rem) !important;
-        min-width: min(90vw, 18rem);
-        max-width: 100%;
+        border: none !important;
         box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.16),
-            0 0.55rem 1.2rem rgba(40, 26, 18, 0.28) !important;
->>>>>>> theirs
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
     }
 
     #headerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
@@ -12668,25 +12676,89 @@
     #footerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
     #footerBookBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
     #footerBookBtn:not(:disabled):not([aria-disabled="true"]):active {
-<<<<<<< ours
-        background: var(--modal-lock-button-bg-hover), rgb(var(--site-bg-dark-rgb)) !important;
+        background: var(--modal-lock-button-bg-hover) !important;
         color: var(--modal-lock-button-text) !important;
         -webkit-text-fill-color: var(--modal-lock-button-text) !important;
-=======
-        background: #7a5a42 !important;
-        background-image: none !important;
-        border-color: #7a5a42 !important;
-        color: #ffffff !important;
-        -webkit-text-fill-color: #ffffff !important;
->>>>>>> theirs
+        border: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.86),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.26),
+            0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
     }
 
     #headerBookBtn #headerBookBtnText,
     #headerBookBtn #headerBookBtnText span,
     #footerBookBtn #footerBookBtnText,
     #footerBookBtn #footerBookBtnText span {
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+        text-shadow: none !important;
+        letter-spacing: 0.06em !important;
+    }
+
+    /* Slots under the calendar: match BOOK button styling after calendar load. */
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible {
+        background: #5a3d2a !important;
+        border: 1px solid #5a3d2a !important;
+        border-radius: 999px !important;
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        font-size: 0.9rem !important;
+        font-weight: 800 !important;
+        min-height: 3rem !important;
+    }
+
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:active,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn.slot-btn--clicked,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:active,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn.slot-btn--clicked {
+        background: #ffffff !important;
+        border-color: #ffffff !important;
+        color: #5a3d2a !important;
+        -webkit-text-fill-color: #5a3d2a !important;
+        box-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-time,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-time .slot-time-main,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-date-legal,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-time,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-time .slot-time-main,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn .slot-date-legal {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-time,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-time .slot-time-main,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-date-legal,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-time,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-time .slot-time-main,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-date-legal,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-time,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-time .slot-time-main,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:hover .slot-date-legal,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-time,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-time .slot-time-main,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-grid .slot-btn:focus-visible .slot-date-legal {
+        color: #5a3d2a !important;
+        -webkit-text-fill-color: #5a3d2a !important;
+    }
+
+    .layout-container #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked::after,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235A3D2A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7.2'/%3E%3C/svg%3E") !important;
+        opacity: 0.9 !important;
     }
 </style>
 </head>
