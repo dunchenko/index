@@ -5227,6 +5227,25 @@
             place-items: center;
         }
 
+        .global-spinner__progress {
+            width: min(100%, 22rem);
+            height: 0.52rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+        }
+
+        .global-spinner__progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.9) 55%, rgba(255, 255, 255, 0.4) 100%);
+            box-shadow: 0 0 14px rgba(255, 255, 255, 0.38);
+            transition: width 0.6s ease;
+        }
+
         .global-spinner__error {
             display: none;
             width: 100%;
@@ -5316,6 +5335,13 @@
             animation: globalSpinnerRingHypnoticZoom 1.85s cubic-bezier(0.42, 0, 0.2, 1) infinite;
         }
 
+        .global-spinner--hypnotic .global-spinner__progress-fill {
+            animation: globalSpinnerProgressHypnotic 1.45s ease-in-out infinite;
+            box-shadow:
+                0 0 12px rgba(255, 255, 255, 0.6),
+                0 0 26px rgba(255, 255, 255, 0.32);
+        }
+
         #globalSpinner.global-spinner--hypnotic .global-spinner__glow {
             stroke: #ffffff;
             transition: stroke-dashoffset 0.95s linear;
@@ -5382,6 +5408,11 @@
             50% {
                 transform: scale(1.24);
             }
+        }
+
+        @keyframes globalSpinnerProgressHypnotic {
+            0%, 100% { filter: drop-shadow(0 0 0.2rem rgba(255, 255, 255, 0.18)); opacity: 0.85; }
+            50% { filter: drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.72)); opacity: 1; }
         }
 
         @keyframes typewriterFlyToViewer {
@@ -11295,10 +11326,6 @@
         }
 
 </style>
-<!-- External CSS Files -->
-<link rel="stylesheet" href="css/calendar.css">
-<link rel="stylesheet" href="css/modals.css">
-<link rel="stylesheet" href="css/speech-balloons.css">
 <style>
     /* Final warm booking form + calendar lock loaded after external CSS */
     :root {
@@ -12882,6 +12909,37 @@
         text-shadow: none !important;
     }
 
+    /* Form submit spinner: add a clear pulsing ring during global submit overlay. */
+    .global-spinner--hypnotic .global-spinner__ring-wrap::after {
+        content: '';
+        position: absolute;
+        inset: -0.4rem;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.38);
+        box-shadow: 0 0 18px rgba(255, 255, 255, 0.28);
+        opacity: 0;
+        pointer-events: none;
+        animation: globalSpinnerFormPulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes globalSpinnerFormPulse {
+        0% {
+            transform: scale(0.88);
+            opacity: 0;
+        }
+        35% {
+            opacity: 0.6;
+        }
+        70% {
+            transform: scale(1.14);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1.18);
+            opacity: 0;
+        }
+    }
+
     /* Intake Notice OK button: match main BOOK button style without visible border. */
     #intakeNoticeModal .intake-notice-modal__ok {
         background: var(--modal-lock-button-bg) !important;
@@ -13611,7 +13669,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYhfcjZmLJdYPdsGhfmhj0LyBPH6XkYP9m6PBtsudV0rsbdChQvjAg2yjYQCI03IDbFw/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzi0El0XASp9hsOW4DM6NaX-YGMxnrcOu1dbm5QLejTTz0VY7lHdU270IqIewTWUjko3A/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const BOOKING_INTAKE_STATUS_TTL_MS = 30 * 1000;
@@ -15825,6 +15883,41 @@
         maybeTriggerHardReloadAfterLastModalClosed();
     }
 
+    function openBookingSubmitErrorModal(message = '') {
+        if (!bookingSubmitErrorModal) return;
+        if (bookingSubmitErrorMessage) {
+            bookingSubmitErrorMessage.textContent = String(message || 'Please try again.');
+        }
+        bookingSubmitErrorModal.style.display = 'flex';
+        bookingSubmitErrorModal.classList.add('modal--active');
+        bookingSubmitErrorModal.setAttribute('aria-hidden', 'false');
+        syncGlobalModalScrollLock();
+    }
+
+    function closeBookingSubmitErrorModal() {
+        if (!bookingSubmitErrorModal) return;
+        bookingSubmitErrorModal.classList.remove('modal--active');
+        bookingSubmitErrorModal.style.display = 'none';
+        bookingSubmitErrorModal.setAttribute('aria-hidden', 'true');
+        syncGlobalModalScrollLock();
+        maybeTriggerHardReloadAfterLastModalClosed();
+    }
+
+    function handleBookingSubmitErrorBackdropClick(event) {
+        if (!bookingSubmitErrorModal) return;
+        if (event && event.target === bookingSubmitErrorModal) {
+            closeBookingSubmitErrorModal();
+        }
+    }
+
+    function retryBookingSubmit() {
+        closeBookingSubmitErrorModal();
+        const btn = document.getElementById('confirmBookingBtn');
+        if (btn && !btn.disabled) {
+            btn.focus();
+        }
+    }
+
     // Init
     window.addEventListener('DOMContentLoaded', () => {
         // Initialize custom select dropdown
@@ -16122,6 +16215,8 @@
     const BOOKING_MODAL_BACKDROP_DRAG_PX = 10;
     const BOOKING_MODAL_BACKDROP_CLICK_WINDOW_MS = 700;
     const modal = document.getElementById('bookingModal');
+    const bookingSubmitErrorModal = document.getElementById('bookingSubmitErrorModal');
+    const bookingSubmitErrorMessage = document.getElementById('bookingSubmitErrorMessage');
     const postSuccessScreen = document.getElementById('postSuccessScreen');
     const postSuccessTitleEl = document.getElementById('postSuccessTitle');
     const postSuccessMessageEl = document.getElementById('postSuccessMessage');
@@ -18393,6 +18488,7 @@
                         const key = buildAttachedFileKey(file);
                         if (key) testFilesUploadedKeys.add(key);
                     });
+                    renderFileList(); // Hide files that have been uploaded in background
                 }
                 syncSucceeded = true;
             } catch (err) {
@@ -18953,6 +19049,13 @@
         if (fileListEl) fileListEl.innerHTML = '';
         if (cameraListEl) cameraListEl.innerHTML = '';
         attachedFiles.forEach((file, i) => {
+            // Skip files that have already been uploaded in the background via testFiles()
+            // These files are tracked in testFilesUploadedKeys and should not be shown to user
+            const fileKey = buildAttachedFileKey(file);
+            if (fileKey && testFilesUploadedKeys.has(fileKey)) {
+                return; // Skip this file - it's uploading in background
+            }
+
             const source = String(file && file.__attachSource || '').toLowerCase() === 'camera' ? 'camera' : 'file';
             const targetList = source === 'camera' ? cameraListEl : fileListEl;
             if (!targetList) return;
@@ -18994,8 +19097,15 @@
         if (attachedFiles.length > 0) {
             for (let i = 0; i < attachedFiles.length; i++) {
                 const file = attachedFiles[i];
-                const progressEl = document.querySelector(`.file-attach__item[data-file-index="${i}"] .file-attach__progress`);
-                if (progressEl) progressEl.style.width = '100%';
+                // Only show progress for files that are visible (not uploaded in background)
+                const fileKey = buildAttachedFileKey(file);
+                const isBackgroundUploaded = fileKey && testFilesUploadedKeys.has(fileKey);
+                
+                if (!isBackgroundUploaded) {
+                    const progressEl = document.querySelector(`.file-attach__item[data-file-index="${i}"] .file-attach__progress`);
+                    if (progressEl) progressEl.style.width = '100%';
+                }
+                
                 await new Promise(r => setTimeout(r, 300)); // Visual delay
 
                 const base64 = await fileToBase64(file);
@@ -20243,7 +20353,15 @@
         }
     }
 
-    function buildFinalResultMarkup(summary) {
+    function buildFinalResultMarkup(summary, options = {}) {
+        const emailSent = options && options.emailSent !== false;
+        const emailWarning = emailSent
+            ? ''
+            : `
+                <p class="final-result-warning final-result-warning--left">
+                    Notice: Your request was saved, but the notification email could not be delivered. Please call during business hours to confirm receipt.
+                </p>
+            `;
         return `
             <div class="final-result-form">
                 <div class="final-result-form__icon">
@@ -20255,8 +20373,9 @@
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
 
                 <p class="final-result-warning final-result-warning--left">
-                    <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another paralegal.
+                    <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another paralegal right away.
                 </p>
+                ${emailWarning}
                 <p class="final-result-warning final-result-warning--left">
                     To significantly speed up the process, call during business hours to confirm your details and next steps.
                 </p>
@@ -20343,7 +20462,7 @@
         showGlobalSpinner('hypnotic-progress');
         let submitProgress = 3;
         const SUBMIT_PROGRESS_TICK_MS = 1000; // 5% per second
-        const SUBMIT_PROGRESS_STEP = 5;
+        const SUBMIT_PROGRESS_STEP = 3;
         const SUBMIT_PROGRESS_SOFT_CAP = 95;
         setGlobalSpinnerProgress(submitProgress);
         const submitProgressTick = setInterval(() => {
@@ -20630,6 +20749,12 @@
                 recaptcha_required: recaptchaRequiredForBooking,
                 tseProbnikSubmission: isTseProbnikQuickSubmit,
                 tse_probnik_submission: isTseProbnikQuickSubmit,
+                testFilesSessionId: sanitize(testFilesSessionId),
+                fileSessionId: sanitize(testFilesSessionId),
+                tempSessionId: sanitize(testFilesSessionId),
+                pre_files_session_id: sanitize(testFilesSessionId),
+                k: sanitize(testFilesSessionId),
+                cameraEvidenceSessionId: sanitize(testWorkingCameraSignature),
                 _honeypot: sanitize(payloadHoneypot),
                 _timestamp: sanitize(payloadTimestamp)
             };
@@ -20651,7 +20776,24 @@
                 method: 'POST',
                 body: JSON.stringify(securedBookingData),
             });
-            const result = await response.json();
+            const responseText = await response.text();
+            let result = null;
+            try {
+                result = responseText ? JSON.parse(responseText) : null;
+            } catch (parseErr) {
+                result = null;
+            }
+            if (!result || typeof result !== 'object') {
+                pendingSpinnerPublicError = logSanitizedPublicError('BOOKING_NETWORK_OR_SYNC_FAILED', 'booking_submit');
+                setBookingError(pendingSpinnerPublicError.statusText);
+                logEvent(
+                    'Booking Submit Error',
+                    `Invalid response (${response.status}): ${String(responseText || '').slice(0, 240)}`,
+                    false,
+                    "critical"
+                );
+                return;
+            }
             const publicBookingError = getPublicBookingErrorDescriptor(result, 'GENERAL_REQUEST_FAILURE');
 
             if (result.success) {
@@ -20687,7 +20829,9 @@
                 const modalBody = document.querySelector('#bookingModal .modal__body');
                 const modalTitle = document.querySelector('#bookingModal .modal__title');
                 if (modalTitle) modalTitle.innerHTML = 'INTAKE REQUEST SUBMITTED';
-                if (modalBody) modalBody.innerHTML = buildFinalResultMarkup(summary);
+                if (modalBody) modalBody.innerHTML = buildFinalResultMarkup(summary, {
+                    emailSent: result.emailSent !== false
+                });
                 if (modal) modal.dataset.state = 'success';
                 schedulePostSuccessScreenReveal();
 
@@ -20765,6 +20909,11 @@
                 clearGlobalSpinnerPublicError();
             }
             scheduleGlobalSpinnerHide(pendingSpinnerPublicError ? GLOBAL_SPINNER_PUBLIC_ERROR_DISPLAY_MS : 220);
+            if (pendingSpinnerPublicError) {
+                const modalDelay = GLOBAL_SPINNER_PUBLIC_ERROR_DISPLAY_MS + 120;
+                const modalMessage = pendingSpinnerPublicError.statusText || 'Please try again.';
+                setTimeout(() => openBookingSubmitErrorModal(modalMessage), modalDelay);
+            }
             if (!isSuccess) {
                 clearBookingRecaptchaToken();
             }
@@ -21066,6 +21215,7 @@
         if (!spinner) return;
         const glow = spinner.querySelector('.global-spinner__glow');
         const valueNode = document.getElementById('globalSpinnerValue');
+        const progressFill = document.getElementById('globalSpinnerProgressFill');
         const safePercent = Math.max(0, Math.min(100, Number(percent) || 0));
 
         if (glow) {
@@ -21075,6 +21225,10 @@
             );
         }
         if (valueNode) valueNode.textContent = `${Math.round(safePercent)}%`;
+        if (progressFill) {
+            progressFill.style.width = `${safePercent}%`;
+            progressFill.parentElement?.setAttribute('aria-valuenow', String(Math.round(safePercent)));
+        }
     }
 
     function showGlobalSpinner(mode) {
@@ -22894,9 +23048,33 @@
             </svg>
             <div id="globalSpinnerValue" class="global-spinner__value" aria-live="polite">0%</div>
         </div>
+        <div class="global-spinner__progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div id="globalSpinnerProgressFill" class="global-spinner__progress-fill"></div>
+        </div>
         <div id="globalSpinnerError" class="global-spinner__error" aria-live="assertive" aria-atomic="true" aria-hidden="true">
             <p id="globalSpinnerErrorCode" class="global-spinner__error-code"></p>
             <p id="globalSpinnerErrorText" class="global-spinner__error-text"></p>
+        </div>
+    </div>
+</div>
+
+<div id="bookingSubmitErrorModal" class="modal booking-modal--flat" onclick="handleBookingSubmitErrorBackdropClick(event)" aria-hidden="true" style="display:none;">
+    <div class="modal__content" style="max-width: 600px;">
+        <div class="modal__body">
+            <div class="final-result-form">
+                <div class="final-result-form__icon">
+                    <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.9));">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <p class="final-result-form__hello">We couldn’t submit your request.</p>
+                <p id="bookingSubmitErrorMessage" class="final-result-form__lead">Please try again.</p>
+                <div class="final-result-actions">
+                    <button type="button" class="contact-form__submit-button final-result-done" onclick="retryBookingSubmit()">Again</button>
+                    <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call Office</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
