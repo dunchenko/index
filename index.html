@@ -3300,22 +3300,26 @@
             align-items: center;
             justify-content: center;
             font-weight: 900 !important;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.06em;
             min-height: 3.6rem;
             padding: 1.02rem 2rem !important;
-            border: 2px solid #5a3d2a !important;
+            border: 1px solid #5a3d2a !important;
+            border-radius: 999px !important;
+            text-transform: uppercase !important;
             box-shadow: none !important;
         }
 
         .final-result-done {
             width: 100%;
             margin: 0 !important;
-            background: rgba(255,255,255,0.16) !important;
-            border: 2px solid rgba(255,255,255,0.45) !important;
-            color: #fff !important;
-            font-weight: 900 !important;
+            background: #5a3d2a !important;
+            border: 1px solid #5a3d2a !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
             min-height: 3.6rem;
             padding: 1.02rem 2rem !important;
+            border-radius: 999px !important;
+            text-transform: uppercase !important;
             box-shadow: none !important;
         }
 
@@ -11022,7 +11026,11 @@
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:hover,
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:active {
             background: var(--modal-lock-button-bg) !important;
-            border-color: rgba(var(--site-bg-light-rgb), 0.76) !important;
+            border-color: rgba(var(--site-bg-light-rgb), 0.74) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.78),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+                0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
         }
 
         #bookingModal .contact-form__checkbox:checked::after,
@@ -12194,15 +12202,16 @@
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
-        font-size: 0.78rem !important;
+        font-size: 0.85rem !important;
         line-height: 1.2 !important;
-        letter-spacing: 0.16em !important;
+        letter-spacing: 1px !important;
         text-transform: uppercase !important;
-        font-weight: 700 !important;
+        font-weight: 800 !important;
         color: var(--calendar-frame-ink-muted) !important;
         -webkit-text-fill-color: var(--calendar-frame-ink-muted) !important;
-        opacity: 0.92 !important;
+        opacity: 1 !important;
         text-align: center !important;
+        text-shadow: none !important;
     }
 
     .layout-container #bookingCalendar .slots-shell,
@@ -12823,15 +12832,54 @@
         box-shadow: none !important;
     }
 
-    /* Calendar loader placeholder should be colorless. */
+    /* Calendar loader placeholder: orange glass without a visible frame. */
     .layout-container #bookingCalendar #calendarLoaderOverlay,
     .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
-        background: transparent !important;
-        background-image: none !important;
-        border-color: transparent !important;
+        inset: 0 !important;
+        border-radius: inherit !important;
+        background: linear-gradient(160deg, rgba(232, 210, 186, 0.68) 0%, rgba(191, 156, 120, 0.52) 100%) !important;
+        border: none !important;
         box-shadow: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
+        backdrop-filter: blur(10px) saturate(115%) !important;
+        -webkit-backdrop-filter: blur(10px) saturate(115%) !important;
+    }
+
+    /* Booking form BOOK button: no hover style changes, only slight scale. */
+    #bookingModal #confirmBookingBtn {
+        background: var(--modal-lock-button-bg) !important;
+        border: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+        transition: none !important;
+    }
+
+    #bookingModal #confirmBookingBtn:hover,
+    #bookingModal #confirmBookingBtn:focus-visible,
+    #bookingModal #confirmBookingBtn:active {
+        background: var(--modal-lock-button-bg) !important;
+        border: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+        transform: none !important;
+    }
+
+    /* Footer copyright: match "Hours of Operation:" styling on all screens. */
+    .footer__hours strong {
+        font-weight: 700 !important;
+        letter-spacing: 0.01em !important;
+    }
+
+    .footer__copyright,
+    .footer__official-meta .footer__copyright,
+    .footer__official-meta .footer__copyright--emphasis {
+        font-weight: 700 !important;
+        letter-spacing: 0.01em !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+        text-shadow: none !important;
     }
 
     /* Intake Notice OK button: match main BOOK button style without visible border. */
@@ -12862,6 +12910,54 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.86),
             inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.26),
             0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
+    }
+
+    /* Final result buttons: match Intake Notice OK button style. */
+    #bookingModal .final-result-call,
+    #bookingModal .final-result-done {
+        background: #5a3d2a !important;
+        border-color: #5a3d2a !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        border-radius: 999px !important;
+        text-transform: uppercase !important;
+        font-weight: 800 !important;
+    }
+
+    #bookingModal .final-result-call:hover,
+    #bookingModal .final-result-call:focus-visible,
+    #bookingModal .final-result-done:hover,
+    #bookingModal .final-result-done:focus-visible,
+    #bookingModal .final-result-done:active {
+        background: #ffffff !important;
+        border-color: #ffffff !important;
+        color: #5a3d2a !important;
+        -webkit-text-fill-color: #5a3d2a !important;
+    }
+
+    /* Checked checkbox: match BOOK outline and do not change on hover. */
+    #bookingModal .contact-form__checkbox:checked,
+    #bookingModal .contact-form__checkbox:checked:hover,
+    #bookingModal .contact-form__checkbox:checked:active,
+    #bookingModal .contact-form__checkbox:checked:focus-visible,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:hover,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:active,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked:focus-visible {
+        background: var(--modal-lock-button-bg) !important;
+        border: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    #bookingModal .contact-form__checkbox:checked::after,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox:checked::after {
+        border-right-color: #fffaf3 !important;
+        border-bottom-color: #fffaf3 !important;
     }
 </style>
 </head>
@@ -13069,7 +13165,7 @@
 
 <div class="layout-container">
     <div class="contact-form fade-in-section">
-        <h2 class="contact-form__outside-title" id="calendarHeaderTitle">AGENDA</h2>
+        <h2 class="contact-form__outside-title" id="calendarHeaderTitle">NEXT</h2>
         <div id="calendarScaleWrapper" class="calendar-scale-wrapper">
             <div id="calendarScaleInner" class="calendar-scale-inner">
                 <div class="calendar-wrapper fade-in-section" id="bookingCalendar">
@@ -13271,7 +13367,7 @@
         </div>
 
         <div class="footer__privacy-note-block">
-            <p class="privacy-note">To request deletion of your personal information, please contact by:<br>Phone: <a href="tel:+14372396833">+1 (437) 239-6833</a> or Email: <a href="mailto:paralegal@hannadunchenko.com">paralegal@hannadunchenko.com</a>.</p>
+            <p class="privacy-note">Please contact if you need your personal information deleted by:<br>Phone: <a href="tel:+14372396833">+1 (437) 239-6833</a> or Email: <a href="mailto:paralegal@hannadunchenko.com">paralegal@hannadunchenko.com</a>.</p>
         </div>
     </div>
     <div class="footer__official-meta">
@@ -13515,7 +13611,7 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg1qvRXuwGy_Sy58nYnEeoUCsbohQYP8EvXpBRyKjKBFGfl8sE3VQ1_RMDZYP6C8ZX7Q/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYhfcjZmLJdYPdsGhfmhj0LyBPH6XkYP9m6PBtsudV0rsbdChQvjAg2yjYQCI03IDbFw/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
     const BOOKING_INTAKE_STATUS_TTL_MS = 30 * 1000;
@@ -14339,7 +14435,7 @@
             calGrid.innerHTML = '';
 
             // Update external title
-            headerTitle.textContent = 'AGENDA';
+            headerTitle.textContent = 'NEXT';
 
             // Build slot map
             const minDate = getMinBookableDate();
@@ -19314,10 +19410,10 @@
             return { valid: false, field: form.address_zip, message: 'Please enter a valid postal code.', zip };
         }
         if (!ageValue) {
-            return { valid: false, field: form.age, message: 'Please enter AGE.', zip };
+            return { valid: false, field: form.age, message: 'Please enter your AGE.', zip };
         }
         if (!/^\d{1,3}$/.test(ageValue)) {
-            return { valid: false, field: form.age, message: 'Please enter AGE using digits only.', zip };
+            return { valid: false, field: form.age, message: 'Please enter your AGE using digits only.', zip };
         }
         if (!Number.isInteger(dobYear) || dobYear < 1900 || dobYear > currentYear) {
             return { valid: false, field: form.dob_year, message: 'Please enter a valid birth year.', zip };
@@ -20159,10 +20255,10 @@
                 <p class="final-result-form__lead">Your intake request was submitted successfully!</p>
 
                 <p class="final-result-warning final-result-warning--left">
-                    <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another licensed paralegal or lawyer right away.
+                    <strong>Note:</strong> Submitting this form does not create a paralegal-client relationship, does not constitute legal advice, and does not confirm that representation has been accepted. This intake form is for preliminary review. If your matter is time-sensitive and you cannot reach us promptly, please do not wait and contact another paralegal.
                 </p>
                 <p class="final-result-warning final-result-warning--left">
-                    Please call during business hours to confirm your details and next steps.
+                    To significantly speed up the process, call during business hours to confirm your details and next steps.
                 </p>
                 <div class="final-result-actions">
                     <a href="tel:+14372396833" class="contact-form__submit-button final-result-call">Call +1 (437) 239-6833</a>
@@ -20303,11 +20399,11 @@
             const dobMonth = Number.parseInt(String(formData.get('dob_month') || '').trim(), 10);
             const dobDay = Number.parseInt(String(formData.get('dob_day') || '').trim(), 10);
             if (!rawAge) {
-                setBookingError('Please enter AGE.', form.age);
+                setBookingError('Please enter your AGE.', form.age);
                 return;
             }
             if (!/^\d{1,3}$/.test(rawAge)) {
-                setBookingError('Please enter AGE using digits only.', form.age);
+                setBookingError('Please enter your AGE using digits only.', form.age);
                 return;
             }
             const enteredAge = Number.parseInt(rawAge, 10);
@@ -21369,6 +21465,10 @@
     let headerNearestHintDeferredText = null;
     let headerNearestHintLoadingHoldUntil = 0;
     let headerNearestHintLoadingHoldTimer = null;
+    let headerHelloDeferred = false;
+    let headerHelloDelayDone = false;
+    let headerHelloDelayTimer = null;
+    const HEADER_HELLO_BLUR_DELAY_MS = 1700;
     const HEADER_PRELOADER_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
     const HEADER_PRELOADER_SEARCH_TEXT =
         HEADER_PRELOADER_LOADING_SEQUENCE[HEADER_PRELOADER_LOADING_SEQUENCE.length - 1];
@@ -21403,6 +21503,28 @@
     }
 
     headerTypewriterSessionPlayed = hasHeaderTypewriterSessionPlayed();
+
+    function scheduleHeaderHelloAfterBlur() {
+        if (headerHelloDelayDone || headerHelloDelayTimer) return;
+        const start = () => {
+            if (headerHelloDelayDone || headerHelloDelayTimer) return;
+            headerHelloDelayTimer = setTimeout(() => {
+                headerHelloDelayDone = true;
+                headerHelloDelayTimer = null;
+                if (headerHelloDeferred) {
+                    headerHelloDeferred = false;
+                    setHeaderNearestSlotHint(HEADER_NEAREST_HINT_LOADING_TEXT);
+                }
+            }, HEADER_HELLO_BLUR_DELAY_MS);
+        };
+        if (document.readyState === 'complete') {
+            start();
+        } else {
+            window.addEventListener('load', start, { once: true });
+        }
+    }
+
+    scheduleHeaderHelloAfterBlur();
 
     function clearHeaderNearestHintTypewriter(options = {}) {
         const preserveText = !!(options && options.preserveText);
@@ -21996,6 +22118,11 @@
         const hintEl = document.getElementById('headerNearestSlotHint');
         const nextText = String(message || '').trim();
         const isLoadingText = nextText === HEADER_NEAREST_HINT_LOADING_TEXT;
+        if (isLoadingText && !headerTypewriterSessionPlayed && !headerHelloDelayDone) {
+            headerHelloDeferred = true;
+            scheduleHeaderHelloAfterBlur();
+            return;
+        }
         if (!isLoadingText && headerNearestHintHelloLockActive) {
             headerNearestHintDeferredText = nextText;
             return;
