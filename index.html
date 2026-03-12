@@ -13395,6 +13395,33 @@
             animation: globalSpinnerFormPulse 1.6s ease-in-out infinite;
         }
 
+        /* Submit overlay: remove linear bar + halo, keep a single smooth ring fill. */
+        #globalSpinner.global-spinner--hypnotic .global-spinner__progress {
+            display: none;
+        }
+
+        #globalSpinner.global-spinner--hypnotic .global-spinner__track {
+            stroke: transparent;
+        }
+
+        #globalSpinner.global-spinner--hypnotic .global-spinner__glow {
+            animation: none !important;
+            filter: none !important;
+            transition: stroke-dashoffset 1000ms linear;
+        }
+
+        #globalSpinner.global-spinner--hypnotic .global-spinner__ring-wrap {
+            animation: none !important;
+            transform: none !important;
+        }
+
+        #globalSpinner.global-spinner--hypnotic .global-spinner__ring-wrap::after {
+            content: none !important;
+            animation: none !important;
+            box-shadow: none !important;
+            border: 0 !important;
+        }
+
         @keyframes globalSpinnerFormPulse {
             0% {
                 transform: scale(0.88);
@@ -17475,6 +17502,7 @@
                 script.addEventListener('error', () => resolve(false), { once: true });
                 document.head.appendChild(script);
             });
+            return bookingRecaptchaApiPromise;
         }
 
         function waitForRecaptchaApiReady(timeoutMs = 7000) {
@@ -17751,7 +17779,7 @@
             const intakeStatus = await fetchBookingIntakeStatus(forceRefresh);
             if (intakeStatus && intakeStatus.enabled === false) {
                 setBookingIntakeUiState(false, getBookingIntakeDisabledMessage(intakeStatus));
-                setBookingError(getBookingIntakeDisabledMessage(intakeStatus));
+                setBookingError(getBookingIntakeDisabledMessage(intakeStatus), null, { sticky: true });
                 return false;
             }
             setBookingIntakeUiState(true);
@@ -17775,7 +17803,7 @@
                 clearBookingRecaptchaToken();
                 const descriptor = logSanitizedPublicError('RECAPTCHA_SITE_KEY_MISSING', 'recaptcha_v3');
                 setBookingRecaptchaVisible(true);
-                setBookingError(descriptor.statusText, wrap);
+                setBookingError(descriptor.statusText, wrap, { sticky: true });
                 return { required: true, passed: false, bypassed: false, reason: 'site-key-missing' };
             }
 
@@ -17783,7 +17811,7 @@
                 clearBookingRecaptchaToken();
                 const descriptor = logSanitizedPublicError('RECAPTCHA_LOCAL_PREVIEW_UNSUPPORTED', 'recaptcha_v3');
                 setBookingRecaptchaVisible(true);
-                setBookingError(descriptor.statusText, wrap);
+                setBookingError(descriptor.statusText, wrap, { sticky: true });
                 return { required: true, passed: false, bypassed: false, reason: 'local-file-preview' };
             }
 
@@ -17792,7 +17820,7 @@
                 clearBookingRecaptchaToken();
                 const descriptor = logSanitizedPublicError('RECAPTCHA_TOKEN_UNAVAILABLE', 'recaptcha_v3');
                 setBookingRecaptchaVisible(true);
-                setBookingError(descriptor.statusText, wrap);
+                setBookingError(descriptor.statusText, wrap, { sticky: true });
                 return { required: true, passed: false, bypassed: false, reason: tokenResult.reason || 'token-unavailable' };
             }
 
@@ -17818,6 +17846,19 @@
         function normalizeBookingNoticeMessage(message) {
             const text = String(message || '').trim();
             return text.replace(/\.+$/, '');
+        }
+
+        function isBookingStatusSticky() {
+            return Boolean(bookingStatus && bookingStatus.dataset && bookingStatus.dataset.sticky === '1');
+        }
+
+        function setBookingStatusSticky(value) {
+            if (!bookingStatus || !bookingStatus.dataset) return;
+            if (value) {
+                bookingStatus.dataset.sticky = '1';
+            } else {
+                delete bookingStatus.dataset.sticky;
+            }
         }
 
         function resolveLiveBookingActionTarget() {
@@ -17868,6 +17909,9 @@
             if (!bookingStatus) return;
             const safeTone = normalizeBookingStatusTone(tone);
             const safeMessage = normalizeBookingNoticeMessage(message);
+            if (safeTone !== 'error' || !safeMessage) {
+                setBookingStatusSticky(false);
+            }
             bookingStatus.innerHTML = escapeHtmlClient(safeMessage).replace(/\n/g, '<br>');
             bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
             if (safeMessage) {
@@ -20290,16 +20334,21 @@
             const intakeEnabled = !(bookingIntakeStatusCache && bookingIntakeStatusCache.enabled === false);
             const intakeMessage = intakeEnabled ? '' : getBookingIntakeDisabledMessage();
             setBookingIntakeUiState(intakeEnabled, intakeMessage);
-            enforceNameHint(form ? form.querySelector('input[name=\"name\"]') : null);
+            const statusSticky = isBookingStatusSticky();
+            if (!statusSticky) {
+                enforceNameHint(form ? form.querySelector('input[name=\"name\"]') : null);
+            }
             const requiredState = form ? getBookingRequiredValidationState(form) : null;
             const canSubmit = Boolean(
                 intakeEnabled &&
                 form &&
                 (isTseProbnikBypassReady(form) || (requiredState && requiredState.valid))
             );
-            syncBookingStatusHint(form, requiredState);
-            if (canSubmit) {
-                maybeShowPendingAutoAssignedNotice(form);
+            if (!statusSticky) {
+                syncBookingStatusHint(form, requiredState);
+                if (canSubmit) {
+                    maybeShowPendingAutoAssignedNotice(form);
+                }
             }
             // Keep BOOK clickable while the form is incomplete so click can highlight
             // and scroll to the first missing field; disable only when intake is paused.
@@ -20396,6 +20445,7 @@
                 bookingStatus.textContent = '';
                 bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
             }
+            setBookingStatusSticky(false);
             setBookingNoticeActionTarget(null);
             updateBookingNoticeActionState();
         }
@@ -20820,9 +20870,11 @@
             setTimeout(attemptScroll, 60);
         }
 
-        function setBookingError(message, fieldEl = null) {
+        function setBookingError(message, fieldEl = null, options = {}) {
             const safeMessage = normalizeBookingNoticeMessage(message);
             const isNamePrompt = /please enter your full name/i.test(safeMessage);
+            const sticky = options && options.sticky === true;
+            setBookingStatusSticky(sticky);
             setBookingNotice(safeMessage, isNamePrompt ? 'warning' : 'error', fieldEl || null);
             markInvalidField(fieldEl);
             if (fieldEl) {
@@ -21518,7 +21570,7 @@
                 }
                 if (!result || typeof result !== 'object') {
                     pendingSpinnerPublicError = logSanitizedPublicError('BOOKING_NETWORK_OR_SYNC_FAILED', 'booking_submit');
-                    setBookingError(pendingSpinnerPublicError.statusText);
+                    setBookingError(pendingSpinnerPublicError.statusText, null, { sticky: true });
                     logEvent(
                         'Booking Submit Error',
                         `Invalid response (${response.status}): ${String(responseText || '').slice(0, 240)}`,
@@ -21572,20 +21624,20 @@
                 } else if (publicBookingError && result && result.retryNearestSlot === true) {
                     logSanitizedPublicError(publicBookingError, 'booking_submit');
                     clearBookingRecaptchaToken();
-                    setBookingError(publicBookingError.statusText);
+                    setBookingError(publicBookingError.statusText, null, { sticky: true });
                     bookNearestSlot();
                     return;
                 } else if (publicBookingError) {
                     logSanitizedPublicError(publicBookingError, 'booking_submit');
                     pendingSpinnerPublicError = publicBookingError;
                     clearBookingRecaptchaToken();
-                    setBookingError(publicBookingError.statusText);
+                    setBookingError(publicBookingError.statusText, null, { sticky: true });
                     return;
                 } else if (isRecaptchaServerFailureCode(result.error)) {
                     const recaptchaWrap = getBookingRecaptchaWrap();
                     pendingSpinnerPublicError = logSanitizedPublicError('BOOKING_RECAPTCHA_VERIFY_UNAVAILABLE', 'booking_submit');
                     setBookingRecaptchaVisible(true);
-                    setBookingError(pendingSpinnerPublicError.statusText, recaptchaWrap);
+                    setBookingError(pendingSpinnerPublicError.statusText, recaptchaWrap, { sticky: true });
                     clearBookingRecaptchaToken();
                     return;
                 } else if (String(result.code || '').trim().toUpperCase() === 'BOOKING_INTAKE_DISABLED') {
@@ -21595,17 +21647,17 @@
                         reason: getBookingIntakeDisabledMessage(result)
                     };
                     bookingIntakeStatusFetchedAt = Date.now();
-                    setBookingError(pendingSpinnerPublicError.statusText);
+                    setBookingError(pendingSpinnerPublicError.statusText, null, { sticky: true });
                     updateBookingSubmitAvailability(document.getElementById('bookingForm'));
                     return;
                 } else if (result.error === 'SLOT_TAKEN') {
                     const slotTakenDescriptor = logSanitizedPublicError('BOOKING_SLOT_CONFLICT', 'booking_submit');
-                    setBookingError(slotTakenDescriptor.statusText);
+                    setBookingError(slotTakenDescriptor.statusText, null, { sticky: true });
                     bookNearestSlot();
                     return;
                 } else {
                     pendingSpinnerPublicError = logSanitizedPublicError('GENERAL_REQUEST_FAILURE', 'booking_submit');
-                    setBookingError(pendingSpinnerPublicError.statusText);
+                    setBookingError(pendingSpinnerPublicError.statusText, null, { sticky: true });
                     logEvent(
                         'Booking Submit Error',
                         `Unexpected response: ${String(result && (result.error || result.code || 'UNKNOWN_ERROR'))}`,
@@ -21622,7 +21674,7 @@
                         return;
                     }
                     pendingSpinnerPublicError = logSanitizedPublicError('BOOKING_OFFLINE_QUEUE_SAVE_FAILED', 'booking_submit');
-                    setBookingError(pendingSpinnerPublicError.statusText);
+                    setBookingError(pendingSpinnerPublicError.statusText, null, { sticky: true });
                     logEvent('Booking Queue Error', queuedOutcome.error || 'QUEUE_SAVE_FAILED', false, 'critical');
                     return;
                 }
@@ -21631,7 +21683,7 @@
                 } else {
                     pendingSpinnerPublicError = logSanitizedPublicError('GENERAL_REQUEST_FAILURE', 'booking_submit');
                 }
-                setBookingError(pendingSpinnerPublicError.statusText);
+                setBookingError(pendingSpinnerPublicError.statusText, null, { sticky: true });
                 logEvent('Booking Submit Error', String(err && err.message ? err.message : err), false, "critical");
             } finally {
                 clearInterval(submitProgressTick);
