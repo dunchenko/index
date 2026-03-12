@@ -1077,13 +1077,13 @@
             overflow-y: hidden;
         }
 
-        .contact-form__checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+.contact-form__checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
 
         .contact-form__checkbox {
             width: 1.55rem;
@@ -1148,11 +1148,11 @@
             transform: scale(1.03);
         }
 
-        .contact-form__checkbox-label {
-            font-size: 1.08rem;
-            font-weight: 900;
-            cursor: pointer;
-            font-family: 'Lato', sans-serif !important;
+.contact-form__checkbox-label {
+    font-size: 1.08rem;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif !important;
             letter-spacing: 0.01em;
             color: #ffffff;
             display: flex;
@@ -1160,11 +1160,60 @@
             gap: 0.5rem;
         }
 
-        #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
-            gap: 0.3rem;
-            white-space: nowrap;
-            flex-wrap: nowrap;
-        }
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        text-align: center;
+        width: min(100%, 32rem);
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+    }
+
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.25;
+        font-size: 12px !important;
+        font-weight: 900;
+        letter-spacing: 0.01em;
+    }
+
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
+        margin-top: 0.1rem;
+    }
+
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer {
+        margin: 0;
+        text-align: center;
+        line-height: 1.25;
+        font-weight: 900;
+        font-size: 12px !important;
+        letter-spacing: 0.01em;
+        font-family: 'Lato', sans-serif !important;
+    }
+
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain {
+        font-size: 12px !important;
+        letter-spacing: 0.01em !important;
+    }
 
         /* High-contrast palette for terms/disclaimer row on dark modal background. */
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label,
@@ -1173,17 +1222,134 @@
             text-shadow: none;
         }
         
-        .contact-form__terms-link {
-            color: #ffffff;
-            text-decoration: none;
-            cursor: pointer;
-            transition: none;
-            font-weight: 900;
-            font-size: 1.02em;
-            display: flex;
-            align-items: center;
-            text-shadow: none;
-        }
+.contact-form__terms-link {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: none;
+    font-weight: 900;
+    font-size: 1.02em;
+    display: flex;
+    align-items: center;
+    text-shadow: none;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    text-align: center;
+    width: min(100%, 32rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    font-size: 12px !important;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
+    margin-top: 0.1rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer {
+    margin: 0;
+    text-align: center;
+    line-height: 1.25;
+    font-weight: 900;
+    font-size: 12px !important;
+    letter-spacing: 0.01em;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain {
+    font-size: 12px !important;
+    letter-spacing: 0.01em !important;
+}
+
+/* Final override to keep terms block centered and consistent on all viewports */
+.contact-form__checkbox-wrapper.file-attach__terms {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 32rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.3rem !important;
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
+    margin-top: 0.1rem !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer {
+    margin: 0 !important;
+    text-align: center !important;
+    line-height: 1.35 !important;
+    font-weight: 900 !important;
+    font-size: 12px !important;
+    letter-spacing: 0.01em !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain {
+    font-size: 12px !important;
+    letter-spacing: 0.01em !important;
+    text-align: center !important;
+}
 
         #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link {
             display: inline;
@@ -1339,10 +1505,75 @@
             font-weight: 400 !important;
         }
 
-        .contact-form__terms-link:hover {
-            color: #ffffff;
-            text-shadow: none;
-        }
+.contact-form__terms-link:hover {
+    color: #ffffff;
+    text-shadow: none;
+}
+
+/* Global terms/disclaimer layout (desktop style applied everywhere) */
+.contact-form__checkbox-wrapper.file-attach__terms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    text-align: center;
+    width: min(100%, 32rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    font-size: 12px !important;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox {
+    margin-top: 0.1rem;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer {
+    margin: 0;
+    text-align: center;
+    line-height: 1.25;
+    font-weight: 900;
+    font-size: 12px !important;
+    letter-spacing: 0.01em;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.contact-form__terms-disclaimer {
+    text-align: center;
+    line-height: 1.25;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    font-family: 'Lato', sans-serif;
+}
+
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+.contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain {
+    font-size: 12px !important;
+    letter-spacing: 0.01em !important;
+}
 
         .faq-google-form-link {
             color: #ffffff !important;
@@ -1390,6 +1621,37 @@
         @keyframes bookingHintSoftPulse {
             0%, 100% { opacity: 0.92; }
             50% { opacity: 1; }
+        }
+
+        .grecaptcha-badge {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        .recaptcha-disclosure {
+            margin: 0.65rem 0 0.35rem;
+            font-family: 'Lato', sans-serif !important;
+            font-size: 1.08rem !important;
+            font-weight: 900 !important;
+            line-height: 1.35 !important;
+            letter-spacing: 0.01em !important;
+            color: rgba(255, 246, 235, 0.98) !important;
+            -webkit-text-fill-color: rgba(255, 246, 235, 0.98) !important;
+            text-align: center;
+            text-shadow: none !important;
+        }
+
+        .recaptcha-disclosure a {
+            color: inherit !important;
+            -webkit-text-fill-color: inherit !important;
+            text-decoration: none;
+            font-weight: inherit !important;
+        }
+
+        .recaptcha-disclosure a:hover {
+            color: inherit !important;
+            -webkit-text-fill-color: inherit !important;
         }
 
         
@@ -1978,7 +2240,7 @@
             padding: 0 0.3rem;
         }
 
-        /* Sticky modal action area anchored to viewport bottom while modal body scrolls */
+        /*
         .modal-sticky-actions {
             display: none !important;
         }
@@ -1987,7 +2249,6 @@
             display: none !important;
         }
 
-        /* Center glow in booking sticky area (form CTA + terms checkbox). */
         #bookingModal[data-state="form"] .modal-sticky-actions::before {
             content: "";
             position: absolute;
@@ -2004,17 +2265,14 @@
             opacity: 0.82;
         }
 
-        /* Keep side overlays disabled to avoid edge seams on some devices. */
         #bookingModal[data-state="form"] .modal-sticky-actions::after {
             content: none;
         }
 
-        /* Decorative sticky layer must not block taps on underlying content */
         #bookingModal[data-state="form"] .modal-sticky-actions {
             pointer-events: none;
         }
 
-        /* Keep actual controls clickable */
         #bookingModal[data-state="form"] .modal-sticky-actions > * {
             position: relative;
             z-index: 3;
@@ -2033,14 +2291,6 @@
             z-index: 6;
             overflow: visible;
         }
-
-        #bookingModal .modal-sticky-actions #bookingRecaptchaWrap .recaptcha-wrap__hint {
-            margin-bottom: 0.35rem;
-        }
-
-        
-
-        
 
         #bookingModal .modal-sticky-actions .booking-status-slot {
             order: 3;
@@ -2083,6 +2333,7 @@
             justify-self: center !important;
             align-self: center !important;
         }
+        */ 
 
         #bookingModal #hearAboutInput {
             margin-bottom: 0;
@@ -2727,7 +2978,7 @@
             font-weight: 900 !important;
             line-height: 1.2 !important;
             letter-spacing: 0.02em !important;
-            text-align: center;
+            text-align: center !important;
             white-space: pre-line;
             display: none;
             opacity: 1;
@@ -2740,7 +2991,10 @@
         }
 
         #bookingStatus.status-alert--visible {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 0.78rem 0.95rem;
             border-color: var(--booking-status-border);
             background: var(--booking-status-bg);
@@ -2965,7 +3219,7 @@
             font-weight: 800;
             line-height: 1.35;
             white-space: pre-line;
-            text-align: left;
+            text-align: center;
             color: rgba(var(--modal-design-text-rgb), 0.98);
         }
 
@@ -6086,13 +6340,17 @@
                 margin-right: auto !important;
             }
 
-            #bookingModal .contact-form__checkbox-wrapper {
-                justify-content: center;
-                align-items: center;
-                gap: 0.65rem;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
+        #bookingModal .contact-form__checkbox-wrapper {
+            justify-content: center;
+            align-items: center;
+            gap: 0.65rem;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            width: min(100%, 32rem) !important;
+            text-align: center;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
 
             #bookingModal .contact-form__checkbox-label {
                 font-size: 0.9rem;
@@ -8721,11 +8979,13 @@
 
         .layout-container #bookingCalendar.calendar-wrapper.calendar--loading,
         .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loading {
-            background: transparent !important;
-            border-color: transparent !important;
-            box-shadow: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
+            background: var(--calendar-frame-bg) !important;
+            border: 1px solid var(--calendar-frame-border) !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0.84rem 1.9rem rgba(87, 62, 40, 0.22) !important;
+            backdrop-filter: blur(16px) saturate(135%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(135%) !important;
             filter: none !important;
         }
 
@@ -9423,11 +9683,34 @@
             text-transform: none;
             text-shadow: none;
             line-height: 1.2;
+            --typewriter-fly-base-transform: translateY(0);
         }
 
         .header-nearest-slot-hint.header-nearest-slot-hint--visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .header-nearest-slot-hint.header-nearest-slot-hint--loading-exit {
+            animation: headerNearestHintLoadingExit 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes headerNearestHintLoadingExit {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+            65% {
+                opacity: 0.98;
+                transform: translateY(-0.01rem) scale(1.045);
+                filter: blur(0.2px);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-0.03rem) scale(1.08);
+                filter: blur(0.55px);
+            }
         }
 
         @media (max-width: 768px) {
@@ -10768,6 +11051,48 @@
                 0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
         }
 
+        /* Main-page BOOK buttons: match Intake Notice button style (no border). */
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]),
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]) {
+            background: var(--modal-lock-button-bg) !important;
+            color: var(--modal-lock-button-text) !important;
+            -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.78),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+                0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]):active,
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]):active {
+            background: var(--modal-lock-button-bg-hover) !important;
+            color: var(--modal-lock-button-text) !important;
+            -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+            border: none !important;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.86),
+                inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.26),
+                0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
+        }
+
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]) #headerBookBtnText,
+        #headerBookBtn:not(:disabled):not([aria-disabled="true"]) #headerBookBtnText span,
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]) #footerBookBtnText,
+        #footerBookBtn:not(:disabled):not([aria-disabled="true"]) #footerBookBtnText span {
+            color: var(--modal-lock-button-text) !important;
+            -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+            text-shadow: none !important;
+            letter-spacing: 0.06em !important;
+        }
+
         #bookingModal #bookingStatus {
             background: var(--modal-lock-panel-bg) !important;
             border-color: var(--modal-lock-border) !important;
@@ -11546,8 +11871,8 @@
         transform: none !important;
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 0.72rem !important;
+        justify-content: center !important;
+        gap: 0.4rem !important;
         min-height: 3.2rem !important;
         padding: 0.72rem 0.85rem !important;
         border: 1px solid rgba(255, 248, 239, 0.42) !important;
@@ -11556,8 +11881,8 @@
         box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.28),
             0 0.44rem 1rem rgba(90, 66, 47, 0.16) !important;
-        text-align: left !important;
-        white-space: normal !important;
+        text-align: center !important;
+        white-space: pre-line !important;
         line-height: 1.35 !important;
         font-weight: 800 !important;
     }
@@ -11791,6 +12116,423 @@
         }
     }
 
+    /* Static heading between calendar grid and slots list. */
+    .layout-container #bookingCalendar .slots-nav,
+    .form-calendar-overlay__mount #bookingCalendar .slots-nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0.18rem 0 0.58rem !important;
+        padding: 0 !important;
+        min-height: 1.2rem !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar #slotsDayDisplay,
+    .form-calendar-overlay__mount #bookingCalendar #slotsDayDisplay {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 0.78rem !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.16em !important;
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+        color: var(--calendar-frame-ink-muted) !important;
+        -webkit-text-fill-color: var(--calendar-frame-ink-muted) !important;
+        opacity: 0.92 !important;
+        text-align: center !important;
+    }
+
+    .layout-container #bookingCalendar .slots-shell,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell {
+        margin: 0.74rem 0 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        background-image: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Unified glass calendar skin for all visible calendar elements. */
+    .layout-container #bookingCalendar.calendar-wrapper,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper {
+        --calendar-frame-bg: rgba(255, 246, 235, 0.16);
+        --calendar-frame-panel: rgba(255, 248, 238, 0.14);
+        --calendar-frame-panel-strong: rgba(255, 249, 239, 0.2);
+        --calendar-frame-border: rgba(255, 242, 226, 0.34);
+        --calendar-frame-border-strong: rgba(255, 241, 223, 0.52);
+        --calendar-frame-ink: rgba(73, 53, 36, 0.96);
+        --calendar-frame-ink-muted: rgba(102, 77, 57, 0.74);
+        --calendar-frame-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.42),
+            0 0.7rem 1.5rem rgba(87, 62, 40, 0.16);
+        --calendar-frame-shadow-strong:
+            inset 0 1px 0 rgba(255, 255, 255, 0.54),
+            0 0.9rem 1.9rem rgba(87, 62, 40, 0.24);
+        background: var(--calendar-frame-bg) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 1.12rem !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 0.84rem 1.9rem rgba(87, 62, 40, 0.22) !important;
+        backdrop-filter: blur(16px) saturate(135%) !important;
+        -webkit-backdrop-filter: blur(16px) saturate(135%) !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-header,
+    .layout-container #bookingCalendar .calendar-grid,
+    .layout-container #bookingCalendar .slots-shell,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-header,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-grid,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-header,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-grid,
+    .form-calendar-overlay__mount #bookingCalendar .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-header,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .calendar-grid,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell {
+        background: var(--calendar-frame-panel) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 1rem !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+        backdrop-filter: blur(12px) saturate(126%) !important;
+        -webkit-backdrop-filter: blur(12px) saturate(126%) !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-header,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-header {
+        padding: 0.62rem 0.7rem !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-grid,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-grid {
+        padding: 0.62rem !important;
+    }
+
+    .layout-container #bookingCalendar .slots-shell,
+    .layout-container #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar.calendar-wrapper.calendar--loaded .slots-shell {
+        margin: 0.84rem 0 0.3rem !important;
+        padding: 0.56rem !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 1rem !important;
+        background: var(--calendar-frame-panel) !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+    }
+
+    .layout-container #bookingCalendar .slots-block,
+    .layout-container #bookingCalendar .slots-shell .slots-block,
+    .form-calendar-overlay__mount #bookingCalendar .slots-block,
+    .form-calendar-overlay__mount #bookingCalendar .slots-shell .slots-block {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-title,
+    .layout-container #bookingCalendar .calendar-title span,
+    .layout-container #bookingCalendar .cal-day-name,
+    .layout-container #bookingCalendar .cal-day,
+    .layout-container #bookingCalendar .slot-time,
+    .layout-container #bookingCalendar .slot-time .slot-time-main,
+    .layout-container #bookingCalendar .slot-date-legal,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-title,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-title span,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day-name,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day,
+    .form-calendar-overlay__mount #bookingCalendar .slot-time,
+    .form-calendar-overlay__mount #bookingCalendar .slot-time .slot-time-main,
+    .form-calendar-overlay__mount #bookingCalendar .slot-date-legal {
+        color: var(--calendar-frame-ink) !important;
+        -webkit-text-fill-color: var(--calendar-frame-ink) !important;
+        text-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day-name,
+    .layout-container #bookingCalendar .slot-date-legal,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day-name,
+    .form-calendar-overlay__mount #bookingCalendar .slot-date-legal {
+        color: var(--calendar-frame-ink-muted) !important;
+        -webkit-text-fill-color: var(--calendar-frame-ink-muted) !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-nav-btn,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn {
+        background: var(--calendar-frame-panel-strong) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 0.86rem !important;
+        color: var(--calendar-frame-ink) !important;
+        -webkit-text-fill-color: var(--calendar-frame-ink) !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-nav-btn:hover,
+    .layout-container #bookingCalendar .calendar-nav-btn:focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:hover,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:focus-visible {
+        background: rgba(255, 250, 242, 0.28) !important;
+        border-color: var(--calendar-frame-border-strong) !important;
+        box-shadow: var(--calendar-frame-shadow-strong) !important;
+        outline: none !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-nav-btn:disabled,
+    .layout-container #bookingCalendar .calendar-nav-btn[aria-disabled="true"],
+    .layout-container #bookingCalendar #prevBtn.calendar-nav-btn--muted,
+    .layout-container #bookingCalendar #prevBtn.calendar-nav-btn--muted:disabled,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn:disabled,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn[aria-disabled="true"],
+    .form-calendar-overlay__mount #bookingCalendar #prevBtn.calendar-nav-btn--muted,
+    .form-calendar-overlay__mount #bookingCalendar #prevBtn.calendar-nav-btn--muted:disabled {
+        background: rgba(255, 248, 238, 0.08) !important;
+        border-color: rgba(255, 240, 224, 0.18) !important;
+        color: rgba(102, 77, 57, 0.56) !important;
+        -webkit-text-fill-color: rgba(102, 77, 57, 0.56) !important;
+        box-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day {
+        border-radius: 0.86rem !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day:not(.cal-day--empty):not(.cal-day--disabled):not(.cal-day--busy),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day:not(.cal-day--empty):not(.cal-day--disabled):not(.cal-day--busy) {
+        background: var(--calendar-frame-panel-strong) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
+    .layout-container #bookingCalendar .cal-day:focus-visible:not(.cal-day--empty):not(.cal-day--disabled),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day:hover:not(.cal-day--empty):not(.cal-day--disabled),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day:focus-visible:not(.cal-day--empty):not(.cal-day--disabled) {
+        background: rgba(255, 250, 242, 0.28) !important;
+        border-color: var(--calendar-frame-border-strong) !important;
+        box-shadow: var(--calendar-frame-shadow-strong) !important;
+        transform: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day--selected,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--selected {
+        background: rgba(255, 249, 238, 0.34) !important;
+        border-color: var(--calendar-frame-border-strong) !important;
+        color: rgba(64, 45, 30, 0.98) !important;
+        -webkit-text-fill-color: rgba(64, 45, 30, 0.98) !important;
+        box-shadow: var(--calendar-frame-shadow-strong) !important;
+        transform: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day--today:not(.cal-day--selected),
+    .layout-container #bookingCalendar .cal-day--nearest:not(.cal-day--selected),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--today:not(.cal-day--selected),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest:not(.cal-day--selected) {
+        border-color: var(--calendar-frame-border-strong) !important;
+        box-shadow:
+            inset 0 0 0 1px rgba(173, 143, 113, 0.22),
+            var(--calendar-frame-shadow) !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day--busy,
+    .layout-container #bookingCalendar .cal-day--disabled,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--busy,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--disabled {
+        background: rgba(255, 248, 238, 0.07) !important;
+        border: 1px solid rgba(255, 240, 224, 0.18) !important;
+        color: rgba(102, 77, 57, 0.5) !important;
+        -webkit-text-fill-color: rgba(102, 77, 57, 0.5) !important;
+        box-shadow: none !important;
+    }
+
+    .layout-container #bookingCalendar .slots-grid .slot-btn,
+    .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
+        background: var(--calendar-frame-panel-strong) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 1rem !important;
+        color: var(--calendar-frame-ink) !important;
+        -webkit-text-fill-color: var(--calendar-frame-ink) !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+    }
+
+    .layout-container #bookingCalendar .slots-grid .slot-btn:hover,
+    .layout-container #bookingCalendar .slots-grid .slot-btn:focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:hover,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:focus-visible {
+        background: rgba(255, 250, 242, 0.28) !important;
+        border-color: var(--calendar-frame-border-strong) !important;
+        box-shadow: var(--calendar-frame-shadow-strong) !important;
+    }
+
+    .layout-container #bookingCalendar .slots-grid .slot-btn:active,
+    .layout-container #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn:active,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn.slot-btn--clicked {
+        background: rgba(255, 249, 238, 0.34) !important;
+        border-color: var(--calendar-frame-border-strong) !important;
+        color: rgba(64, 45, 30, 0.98) !important;
+        -webkit-text-fill-color: rgba(64, 45, 30, 0.98) !important;
+    }
+
+    .layout-container #bookingCalendar .slot-icon-wrapper,
+    .form-calendar-overlay__mount #bookingCalendar .slot-icon-wrapper {
+        background: rgba(255, 249, 240, 0.24) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        border-radius: 0.8rem !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.42),
+            0 0.28rem 0.68rem rgba(87, 62, 40, 0.12) !important;
+        backdrop-filter: blur(8px) saturate(122%) !important;
+        -webkit-backdrop-filter: blur(8px) saturate(122%) !important;
+    }
+
+    /* Hard lock against late network style overrides: keep one corner style everywhere. */
+    .layout-container #bookingCalendar .cal-day,
+    .layout-container #bookingCalendar .cal-day--empty,
+    .layout-container #bookingCalendar .cal-day--disabled,
+    .layout-container #bookingCalendar .cal-day--busy,
+    .layout-container #bookingCalendar .cal-day--has-slots,
+    .layout-container #bookingCalendar .cal-day--closed,
+    .layout-container #bookingCalendar .cal-day--today,
+    .layout-container #bookingCalendar .cal-day--nearest,
+    .layout-container #bookingCalendar .cal-day--selected,
+    .layout-container #bookingCalendar .cal-day.cal-day--saturday-key,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--empty,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--disabled,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--busy,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--has-slots,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--closed,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--today,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--selected,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day.cal-day--saturday-key {
+        border-radius: 0.86rem !important;
+        clip-path: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day::before,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* Final anti-white lock for calendar surfaces (after all network/state styles). */
+    .layout-container #bookingCalendar .calendar-header,
+    .layout-container #bookingCalendar .calendar-grid,
+    .layout-container #bookingCalendar .slots-shell,
+    .layout-container #bookingCalendar .calendar-nav-btn,
+    .layout-container #bookingCalendar .cal-day,
+    .layout-container #bookingCalendar .slots-grid .slot-btn,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-header,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-grid,
+    .form-calendar-overlay__mount #bookingCalendar .slots-shell,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-nav-btn,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day,
+    .form-calendar-overlay__mount #bookingCalendar .slots-grid .slot-btn {
+        background-image: none !important;
+        background-color: var(--calendar-frame-panel-strong) !important;
+    }
+
+    .layout-container #bookingCalendar .calendar-grid,
+    .form-calendar-overlay__mount #bookingCalendar .calendar-grid {
+        background-color: var(--calendar-frame-panel) !important;
+    }
+
+    /* Keep loader frame visually identical to loaded calendar frame. */
+    .layout-container #bookingCalendar #calendarLoaderOverlay,
+    .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
+        inset: 0.62rem !important;
+        border-radius: 1rem !important;
+        background: var(--calendar-frame-panel) !important;
+        border: 1px solid var(--calendar-frame-border) !important;
+        box-shadow: var(--calendar-frame-shadow) !important;
+        backdrop-filter: blur(12px) saturate(126%) !important;
+        -webkit-backdrop-filter: blur(12px) saturate(126%) !important;
+    }
+
+    #calendarHeaderTitle {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-shadow: 0 1px 10px rgba(var(--site-text-shadow-rgb), var(--site-text-shadow-alpha)) !important;
+        font-size: 2.8rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 1px !important;
+        line-height: 1.2 !important;
+        text-transform: uppercase !important;
+        text-align: center !important;
+    }
+
+    /* Match reCAPTCHA disclosure text style to the "I agree ..." row above it. */
+    #bookingModal {
+        --booking-terms-font-size: clamp(0.58rem, 1.6vw, 0.92rem);
+        --booking-terms-letter-spacing: 0;
+    }
+
+    #bookingModal .contact-form__checkbox-label {
+        font-size: var(--booking-terms-font-size) !important;
+        letter-spacing: var(--booking-terms-letter-spacing) !important;
+        white-space: normal;
+        text-wrap: pretty;
+    }
+
+    #bookingModal .recaptcha-disclosure {
+        font-family: 'Lato', sans-serif !important;
+        font-size: var(--booking-terms-font-size) !important;
+        font-weight: 900 !important;
+        line-height: 1.35 !important;
+        letter-spacing: var(--booking-terms-letter-spacing) !important;
+        color: var(--booking-warm-ink) !important;
+        -webkit-text-fill-color: var(--booking-warm-ink) !important;
+        text-shadow: none !important;
+        white-space: nowrap;
+        text-wrap: nowrap;
+    }
+
+    #bookingModal .recaptcha-disclosure * {
+        font-family: 'Lato', sans-serif !important;
+        font-size: var(--booking-terms-font-size) !important;
+        line-height: 1.35 !important;
+        letter-spacing: var(--booking-terms-letter-spacing) !important;
+        color: var(--booking-warm-ink) !important;
+        -webkit-text-fill-color: var(--booking-warm-ink) !important;
+        text-shadow: none !important;
+        white-space: nowrap;
+        text-wrap: nowrap;
+    }
+
+    #bookingModal .recaptcha-disclosure a {
+        text-decoration: none !important;
+    }
+
+    #bookingModal .booking-status-slot,
+    #bookingModal #bookingStatus {
+        text-align: center !important;
+    }
+
+    @media (max-width: 768px) {
+        #bookingModal {
+            --booking-terms-font-size: clamp(0.56rem, 2.8vw, 0.82rem);
+        }
+
+        #bookingModal .recaptcha-disclosure,
+        #bookingModal .recaptcha-disclosure * {
+            line-height: 1.35 !important;
+        }
+    }
+
     @media (max-width: 420px) {
         #bookingModal .modal__content,
         #bookingModal.booking-modal--flat .modal__content,
@@ -11813,6 +12555,138 @@
             transition: none !important;
             animation: none !important;
         }
+    }
+
+    /* FINAL OVERRIDE: keep terms block centered and uniform on all viewports */
+    .contact-form__checkbox-wrapper.file-attach__terms,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 32rem !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 1.2rem !important;
+        padding-right: 1.2rem !important;
+    }
+
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.55rem !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__checkbox-label {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.3rem !important;
+        flex-wrap: wrap !important;
+        white-space: normal !important;
+        text-align: center !important;
+        line-height: 1.35 !important;
+        font-size: 12px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.01em !important;
+    }
+
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-disclaimer {
+        margin: 0 !important;
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+        line-height: 1.35 !important;
+        font-weight: 900 !important;
+        font-size: 12px !important;
+        letter-spacing: 0.01em !important;
+        font-family: 'Lato', sans-serif !important;
+        width: 100% !important;
+    }
+
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+    .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-link .contact-form__terms-word,
+    #bookingModal .contact-form__checkbox-wrapper.file-attach__terms .contact-form__terms-plain {
+        font-size: 12px !important;
+        letter-spacing: 0.01em !important;
+        text-align: center !important;
+    }
+
+    .contact-form__terms-disclaimer {
+        width: 100% !important;
+        max-width: 32rem !important;
+        margin: 0 auto !important;
+        display: block !important;
+        text-align: center !important;
+        line-height: 1.35 !important;
+    }
+
+<<<<<<< ours
+    /* Main-page BOOK buttons: keep original look but add opaque base */
+    #headerBookBtn:not(:disabled):not([aria-disabled="true"]),
+    #footerBookBtn:not(:disabled):not([aria-disabled="true"]) {
+        opacity: 1 !important;
+        background: var(--modal-lock-button-bg), rgb(var(--site-bg-dark-rgb)) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+=======
+    /* Main-page BOOK buttons: solid (non-transparent) + responsive sizing */
+    #headerBookBtn:not(:disabled):not([aria-disabled="true"]),
+    #footerBookBtn:not(:disabled):not([aria-disabled="true"]) {
+        opacity: 1 !important;
+        background: #6b4d37 !important;
+        background-image: none !important;
+        border: 1px solid #6b4d37 !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        padding: clamp(0.75rem, 2.2vw, 1.05rem) clamp(1.6rem, 5vw, 2.8rem) !important;
+        font-size: clamp(0.95rem, 2.6vw, 1.25rem) !important;
+        min-width: min(90vw, 18rem);
+        max-width: 100%;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.16),
+            0 0.55rem 1.2rem rgba(40, 26, 18, 0.28) !important;
+>>>>>>> theirs
+    }
+
+    #headerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
+    #headerBookBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
+    #headerBookBtn:not(:disabled):not([aria-disabled="true"]):active,
+    #footerBookBtn:not(:disabled):not([aria-disabled="true"]):hover,
+    #footerBookBtn:not(:disabled):not([aria-disabled="true"]):focus-visible,
+    #footerBookBtn:not(:disabled):not([aria-disabled="true"]):active {
+<<<<<<< ours
+        background: var(--modal-lock-button-bg-hover), rgb(var(--site-bg-dark-rgb)) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+=======
+        background: #7a5a42 !important;
+        background-image: none !important;
+        border-color: #7a5a42 !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+>>>>>>> theirs
+    }
+
+    #headerBookBtn #headerBookBtnText,
+    #headerBookBtn #headerBookBtnText span,
+    #footerBookBtn #footerBookBtnText,
+    #footerBookBtn #footerBookBtnText span {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
     }
 </style>
 </head>
@@ -12047,7 +12921,7 @@
                     <div class="slots-shell" id="slotsShell">
                         <!-- Slot label -->
                         <div class="slots-nav" id="slotsNav">
-                            <span id="slotsDayDisplay"></span>
+                            <span id="slotsDayDisplay">Choose Time</span>
                         </div>
                         <!-- Slots -->
                         <div class="slots-block" id="slotsBlock">
@@ -12222,7 +13096,7 @@
         </div>
 
         <div class="footer__privacy-note-block">
-            <p class="privacy-note"><strong>Note:</strong> Requests for removal of personal data, call:<br><a href="tel:+14372396833" style="color: #ffffff; text-decoration: none; font-weight: 400; white-space: nowrap; display: inline-block;">+1&nbsp;(437)&nbsp;239-6833</a> or email: <strong><a href="mailto:paralegal@hannadunchenko.com" style="color: #ffffff; text-decoration: none;">paralegal@hannadunchenko.com</a></strong></p>
+            <p class="privacy-note">To request deletion of your personal information, please contact by:<br>Phone: <a href="tel:+14372396833">+1 (437) 239-6833</a> or Email: <a href="mailto:paralegal@hannadunchenko.com">paralegal@hannadunchenko.com</a>.</p>
         </div>
     </div>
     <div class="footer__official-meta">
@@ -12421,10 +13295,16 @@
                 </div>
                 <button type="submit" class="contact-form__submit-button" id="confirmBookingBtn">BOOK</button>
                 <div class="contact-form__checkbox-wrapper file-attach__terms">
-                    <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox">
-                    <label for="agreeTerms" class="contact-form__checkbox-label">
-                        <span class="contact-form__terms-plain">I agree with </span><span class="contact-form__terms-link" onclick="openTermsModal()"><span class="contact-form__terms-word">Terms</span></span><span class="contact-form__terms-plain"> and </span><span class="contact-form__terms-link" onclick="openPrivacyModal()"><span class="contact-form__terms-word">Privacy Policy</span></span>
-                    </label>
+                    <div class="contact-form__terms-row">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="contact-form__checkbox">
+                        <label for="agreeTerms" class="contact-form__checkbox-label">
+                            <span class="contact-form__terms-plain">I agree with </span><span class="contact-form__terms-link" onclick="openTermsModal()"><span class="contact-form__terms-word">Terms</span></span><span class="contact-form__terms-plain"> and </span><span class="contact-form__terms-link" onclick="openPrivacyModal()"><span class="contact-form__terms-word">Policy.</span></span>
+                        </label>
+                    </div>
+                    <p class="contact-form__terms-disclaimer">
+                        <span class="contact-form__terms-plain">This site is protected by reCAPTCHA</span><br>
+                        <span class="contact-form__terms-plain">and the Google </span><a class="contact-form__terms-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"><span class="contact-form__terms-word">Privacy Policy</span></a><span class="contact-form__terms-plain"> and </span><a class="contact-form__terms-link" href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer"><span class="contact-form__terms-word">Terms of Service</span></a><span class="contact-form__terms-plain"> apply.</span>
+                    </p>
                 </div>
             </form>
         </div>
@@ -12460,10 +13340,9 @@
     // GAZCONFIGURATION
     // ------------------------------------------------------------------
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyic7tJHWs8UdNBKNWGU5AzqCh24nFfK3UGss_nxMtMxZM8ZcwVFpq08NSKL7-cv1XzVw/exec"
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwg1qvRXuwGy_Sy58nYnEeoUCsbohQYP8EvXpBRyKjKBFGfl8sE3VQ1_RMDZYP6C8ZX7Q/exec"
     const RECAPTCHA_SITE_KEY = "6LegfYEsAAAAAO01bdFVQCqndXer9EO9NBTVhsKT"
     const RECAPTCHA_V3_ACTION = 'booking_submit';
-    const RECAPTCHA_TOKEN_TTL_MS = 2 * 60 * 1000;
     const BOOKING_INTAKE_STATUS_TTL_MS = 30 * 1000;
     const MAJOR_ON_CITIES_NEAR_LONDON = new Set([
         'London',
@@ -12541,6 +13420,7 @@
     const MONTH_SWITCH_PROGRESS_TICK_MS = 120;
     const MONTH_SWITCH_PROGRESS_SOFT_CAP = 94;
     const CALENDAR_LOAD_FAILURE_TEXT = 'SLOT NOT FOUND';
+    const CALENDAR_SLOTS_LABEL = 'Choose Time';
     const CALENDAR_KEY_SVG = `<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNzMxLjE5MTQgOTU3LjQ1NDgiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI3MzEuMTkxNCA5NTcuNDU0OCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBkPSJNNDU1LjQyMzUsNjYuMTQyNGMtNTQuNjE2MiwxNy4wNTE4LTk5LjM5MTgsNTkuMjk5OC0xMjQuODEyMywxMDkuOTQ0NGMtMTkuMjA3MSwzOC44MDYtMjAuMjA1Nyw4My4wMjA3LTE5LjI3NjMsMTI1LjM2ODkNCgljLTgxLjMwNTQtMjIuNTI2My0xNzUuMDE1NiwyMi4zOTE3LTIxMC4xODcxLDk4Ljc4OTdjLTkuMjc4MywyMC4xNTM5LTguMzY0NCwyMC4yNDMzLTExLjg0OTYsNDAuMzY4OA0KCWMtNC44Mzc1LDI3LjkzNDEtNC4yMDgzLDM3LjA1LTIuMjA0Miw1NS45NjljMS40MzU3LDIyLjI4MjMsNy4zMDI3LDM4LjUxMTEsNy4zMDI3LDM4LjUxMTENCgljMTguOTQ5Miw1OC41MjcsNjkuNzIyNywxMDUuOTkzMiwxMjkuNzUxNSwxMjAuMDAzM2MyOS40MTY0LDcuMjI3Niw2MC4xOTMsNS40ODA0LDg5Ljg0MTIsMC40OTA4DQoJYy0xMC4wMDk2LDQ5LjA2NjQsMC42NTEsMTAxLjU2NTMsMjYuOTkzNiwxNDMuOTQ3NWM0MC4wOTUxLDY5LjgzMTksMTI0LjI5MDQsMTA5LjQ4MjcsMjAzLjcxNjUsMTAwLjM3NTkNCgljNTkuNTY5Ny01LjAxNjcsMTE0LjQzMTYtMzkuMjY3OCwxNDguNDMwOS04OC4wMmM0My44NjQ5LTU5Ljk3OTIsNDkuMzExNS0xNDMuNDUxNywxOS41MzgyLTIxMC43MTc3DQoJYy05LjgzMTYtMjIuOTk0My0yNi4xMTc2LTQyLjI1MzktNDIuNDI5Ny02MC44NjE3YzI4LjA5NTMsOC40NzQyLDUxLjc1NTksMjYuODU5MSw3OC44MzExLDM3Ljc4NjkNCgljMTUuMDEzNC0xMi45OTM3LDMxLjEyMjQtMjQuNzY0NSw0NS41MDA2LTM4LjU4MDRjMy43MjcyLDguOTQ0OSwzLjg0ODMsMTguOTcxMSw3Ljg4ODksMjcuNzQ5Nw0KCWMxMC4wODY4LDE2LjgwMzksMjkuMjUyMiwyOS4yMjEzLDQ5LjM1MTYsMjcuMDYzYzMwLjIxMDMtMC41NTI3LDU3LjMyNy0yOS40NDE4LDUyLjUyMTUtNjAuMDc3Mw0KCWM1My4yMjE5LDIuODI1NiwxMDYuNTU4NywxLjYwMDIsMTU5LjgzODQsMi4xNDc3YzM2OS4yNTcyLDEuNDkwMiw3MzguNTQ3LDIuNDAxLDExMDcuODE4LDMuNTY1Mg0KCWMxLjI1MTUsMTQuODU2NSwyLjE1MTYsMjkuODQ1OS0wLjY4Niw0NC41NTQzYy01MC40MTA2LTAuODE5NS0xMDAuODM4Ni0wLjg0MzctMTUxLjIzMTctMC4zNjQ4DQoJYy0wLjUzMTYsMjUuNTIwOC0xLjQyMzIsNTEuMDY2NywwLjQyMjksNzYuNTMwNGMxMi43MjU4LDUuNDY2LDI2LjAwNzcsOS41OTQyLDM5LjMwODMsMTMuNDY4MQ0KCWMyLjkwMjEsMTAuMDQ5LDIuMzc3OSwyMC42NjE2LDAuNzM5LDMwLjgxMDhjLTEzLjY0NzMsMy41ODU5LTI2LjU1MTksOS41Mzg1LTQwLjM2NDMsMTIuMzA1NA0KCWMtMC4yNDM4LDU4LjY3MzEtMy40MDUsMTE3LjQ0MDYtMC44NzI3LDE3Ni4wNjQ0YzQ0LjU2NzUsMC4zNjA1LDg5LjIxMTgtMS44MTEzLDEzMy43Njc1LDAuOTY4DQoJYzIuMzYxMS00MS43NDcsMS4zOTU1LTgzLjU4NzIsMC42ODYzLTEyNS4zNzMyYzIwLjAyNTYtMi42OTQ3LDQwLjI3NDksMC40MDY2LDYwLjQyMDctMS42MTA1DQoJYzIuMTk3OCw0MS4zOTM0LTAuNzgxNyw4My4wNzU0LTAuNjcyNCwxMjQuNTQxOGMzNS45NzM5LDIuOTA4Myw3Mi4wODUyLDIuMDg4OSwxMDguMTYxMSwwLjc2NjUNCgljMi40Mjc1LTQxLjMxODYtMS4xMTAxLTgyLjc2MzEsMi4xMTA2LTEyNC4xMDA1YzE4LjY5MDctMC42MTY2LDM3LjQ0NTgsMC4yMDYyLDU2LjIxMTItMC4zNzkyDQoJYzYuNTIzNCw0MS4zMDg1LTAuNzIzNCw4My4zOTY0LDMuMTExMywxMjQuOTY0MmM0NC4yMzE3LDEuNzU1NCw4OC41Mzg2LTAuMDY4LDEzMi44MTQ3LDEuMjg2OQ0KCWMzLjA0NDktNTguMzYyOCwxLjI4Mi0xMTYuODIzNywxLjMyNDctMTc1LjI2NjNjLTEzLjUyODEtNC4wMzg2LTI2LjQ5NDQtOS44NDkyLTQwLjMyNzktMTIuNTY3MQ0KCWMtMi40Ni0xMC40NDA3LTEuMTg5NS0yMS4yMTM5LDAuNDk2Ni0zMS43MjY5YzEzLjE2OTItMy4xOTE1LDI1Ljg1OTEtOC4wODIyLDM4LjgwOTYtMTIuMzQxNQ0KCWMzLjc5MTMtOS44MjkzLDAuNDIwNy0yMC4zODcxLDEuMDQxNS0zMC42NDU1Yy0xLjA5ODYtMTUuNzcsMC4xMTQtMzEuNTIwMiwxLjU0NzEtNDcuMjEzMw0KCWMtNi4wNTA1LTAuODQyLTEyLjIzNTQtMS4wMjQ2LTE4LjIxMTItMC43ODg4Yy00NS4wMzMsMS43NjU5LTkwLjExNTctMC4yOTEyLTEzNS4xNjM4LDEuMjU5Mg0KCWMtMS4zMzUyLTEzLjk4NDYtMC4zMzI4LTI4LjA5NTYtMC44ODA0LTQyLjE3MTFjNDguOTYzOS0zLjM3NTMsOTguMDk3Ny0wLjE1NjQsMTQ3LjExNTUtMC42ODQNCgljLTAuMTIwMS03LjQyNzItMC42MzgyLTE0Ljg2MzItMC4zMzI1LTIyLjM5MjZjMi44NTY0LTUuMTA4MSw4LjU3NjktMS43NTI2LDExLjY4MDcsMS4zNTE3DQoJYzkuNTM2OSw5Ljk0ODIsMTkuMTQzNiwyMC45MDE2LDMyLjczNTQsMjUuMzMzMWMzMS42MTQ3LDExLjgzODYsNjkuMjM1NC01LjY1MzcsODMuNzMxNC0zNS4zOTY0DQoJYzE0Ljg4NDUtMzAuMzgyOSwxLjQ3NjgtNzEuMDMxMy0yOC4xNTg0LTg3LjA4NjhjLTIwLjg4NzctOS4xNTY5LTQ2LjUxNzYtMTEuNzc1My02Ni43NDc2LDAuNDI3Mg0KCWMtMTIuNzIzMSw2LjQ4MS0xNy40MDIzLDI1LjMyNDctMzMuNjg5OSwyNC42OTA0Yy0wLjMwODMtOC41Njk2LDIuNTU5My0xNy4xNDM1LDAuODA0Mi0yNS43NTYzDQoJYy01MzUuMzY1LTIuOTQ4MS0xMDcwLjcwOTYsMy4xOTg1LTE2MDYuMDQ1NS0wLjM2NTJjNC45OTA1LTQxLjMxNjctNDUuNzU0OS03Mi4zMjUxLTgxLjI4OTYtNTMuMzg5Nw0KCWMtMTcuNDUyMSw5LjU5LTI1LjEzNywyOS4zMjg2LTI5Ljc0ODQsNDcuNTg5NmMtMTUuNzQ5MS0xMi4wNzc5LTMwLjk2MzYtMjQuNzcwMS00NS42NzY2LTM4LjAzOTINCgljLTI2LjIxNjYsMTIuNzk5Ni01MC42ODcsMjkuNDEyMi03OC41MzM4LDM4LjQ5OTNjMTMuMjQ0OS0xNS41Nzc5LDI3LjA4Mi0zMC45NDQxLDM2LjYzNy00OS4yMjQ1DQoJYzMwLjI2NzgtNTIuNTcxMywzMS4yNzAxLTExNy45NzUzLDEyLjg3OTUtMTc0LjY5OThjLTEzLjkwNTgtNDIuMDk0MS00My42OTUyLTc3Ljk5MTYtODAuNjc0LTEwMi4wNTQyDQoJQzU4Ni4wMDI3LDU2LjA3LDUxNi4zNzgxLDQ2LjgwNzEsNDU1LjQyMzUsNjYuMTQyNHogTTU5MC4zODU5LDE1Mi42NDQ5YzM1Ljg1OCwyMS45NzUsNjEuNzQ4Miw2MC45NTkzLDY0LjgwMTMsMTAzLjIzMTYNCgljNC44MTYsNDcuODg4NS0xOS43MTcyLDk3LjI4MDgtNjAuMzA3MywxMjIuOTIxNWMtMTQuOTQ4MSw5Ljc3NjYtMzEuOTg2NSwxNS45ODExLTQ5LjM5NjksMTkuNDMxNw0KCWMtMy45MTk2LDEuMjQ4LTEwLjY5NDYsMC44ODk2LTEwLjMxNzYsNi44MTk0Yy0wLjcyNTUsOS43OTYyLDIuMjQ1OCwxOS44MDQ3LTEuMjA4NiwyOS4yODYNCgljLTEwLjY3MDEsMC4yMDE5LTE1LjQzNTctMTAuNjkyMi0yMi4wNTY4LTE3LjEyNWMtMTIuMDYtMTQuNTcyOS0zNC4yMDUyLTE2LjM4NzEtNTAuMzg0OS04LjIyMDgNCgljLTIxLjA5NzUsOS41OTE0LTMyLjUwMDMsMzIuNDQwNi0zNS42Mjc3LDU0LjM4ODNjLTQuMzgxNiwyNy43NzQxLDIuMTgzNSw1OS44MzkxLDI0LjczNTUsNzguMzczNg0KCWMxNy4xNzA5LDE0Ljg2NjQsNDUuOTE0NiwxNS4wMjk0LDYxLjkzOTctMS41NzE4YzUuODYzNS02LjUwOSwxMC4zNDQ0LTE3LjgzMDQsMjAuNzg5OS0xNy4xMTQ2DQoJYzQuNTE0MiwxMC45MTE2LDAuODQ4NiwyMi41MzcxLDAuODAwNCwzMy43NjYxYzI4LjM5MTQsNC45NTMsNTcuMDQ5LDE0Ljc1OTYsNzcuNzgzMiwzNS42OTQzDQoJYzQ4LjkyNCw0Mi42ODY1LDU3LjM0MjMsMTIzLjA5OTQsMTcuNzY1NiwxNzQuNjk0OGMtMjIuOTI1NSwzMS4wMTU1LTU4Ljc3ODgsNTMuMTQ5Ny05Ny42MDI4LDU1Ljk2Mw0KCWMtMzMuMTExNywzLjQ2MTktNjYuOTAxLTcuNDY3Ni05My4wMzY0LTI3LjcwMWMtMzUuNjcyOS0yOC4xMjQxLTU2LjI5NDctNzQuOTExOS01MS4wMDk4LTEyMC4yOTE2DQoJYzMuMDUyMi0zMS44MzI5LDIwLjUyNy02MC4yNjY4LDQyLjAzMjYtODMuMTY5OGMtMjMuOTg0Ni0yMC45NjEzLTQ3LjcwMzYtNDIuMjY1Ni03MS42NTQ0LTYzLjI2NTINCgljLTE5LjY3ODksMjQuMjU1OC00NS41ODQsNDYuNzA3NC03Ny44MjgzLDUwLjE4MTNjLTU1LjU5MTYsNS42NDE2LTExMS4wOTkyLTQxLjM4NjgtMTEzLjQyMy05Ny41MzUNCgljLTEuODQwNi0zOC44NTU3LDIyLjA4MjMtNzYuNzk4OCw1Ny4xMDQ5LTkzLjI0NGMyOS4yMjM4LTE0LjcwNTcsNjYuMDExMi0xNC42MzM2LDk0LjMwMiwyLjM0NTYNCgljMTUuODAxLDguNjgxMiwyOC4wMTczLDIyLjM3NjgsMzguMzEwMiwzNi45NjQ0YzI2LjAxMTYtMTguODQ5NSw0OC40MjkxLTQyLjE0MSw3My42ODQ5LTYxLjk4NDgNCgljLTIyLjAxNTUtMjQuMzExNC0zOC40NTkyLTU0LjY0MTItNDIuMDE2MS04Ny41NjYyYy04LjEzODYtNjUuNTI0Myw0My4zNDktMTMwLjA3ODEsMTA3LjI0MDctMTQxLjk2NDYNCglDNTI3LjkwNDcsMTI5LjM0ODIsNTYyLjQ0NjgsMTM1LjUzMjMsNTkwLjM4NTksMTUyLjY0NDl6Ii8+DQo8L3N2Zz4NCg==" alt="" class="cal-key-img" loading="lazy" decoding="async">`;
     const SLOT_CLOCK_SOURCE_FILE = 'clocks.svg';
     const SLOT_CLOCK_MARK_PATH_COUNT = 13;
@@ -13102,6 +13982,26 @@
         calWrapper.style.setProperty('--calendar-day-btn-size', `${size}px`);
     }
 
+    function enforceCalendarFramedCorners() {
+        const root = document.getElementById('bookingCalendar');
+        if (!root) return;
+
+        const applyCorner = (selector, radius) => {
+            root.querySelectorAll(selector).forEach((el) => {
+                if (!(el instanceof HTMLElement)) return;
+                el.style.setProperty('border-radius', radius, 'important');
+                el.style.setProperty('clip-path', 'none', 'important');
+            });
+        };
+
+        applyCorner('.calendar-header, .calendar-grid, .slots-shell, .slots-block, .slot-btn', '1rem');
+        applyCorner('.calendar-nav-btn', '0.86rem');
+        applyCorner(
+            '.cal-day, .cal-day--empty, .cal-day--disabled, .cal-day--busy, .cal-day--has-slots, .cal-day--closed, .cal-day--today, .cal-day--nearest, .cal-day--selected, .cal-day--saturday-key',
+            '0.86rem'
+        );
+    }
+
     function setCalendarVisibleState(isVisible) {
         const shouldShow = Boolean(isVisible);
         const titleEl = document.getElementById('calendarHeaderTitle');
@@ -13165,7 +14065,7 @@
             slotsBlock.style.display = 'none';
             slotsBlock.style.removeProperty('min-height');
         }
-        if (slotsDayDisplay) slotsDayDisplay.textContent = '';
+        if (slotsDayDisplay) slotsDayDisplay.textContent = CALENDAR_SLOTS_LABEL;
         setCalendarPrevButtonEnabled(false);
         setCalendarVisibleState(false);
 
@@ -13231,7 +14131,7 @@
         slotsGrid.innerHTML = '';
         slotsBlock.style.display = 'none';
         slotsBlock.style.removeProperty('min-height');
-        slotsDayDisplay.textContent = '';
+        slotsDayDisplay.textContent = CALENDAR_SLOTS_LABEL;
         if (calWrapper) calWrapper.classList.add('calendar--loading');
         if (headerTitle) {
             headerTitle.classList.remove('calendar-title--warning');
@@ -13414,10 +14314,10 @@
                 calGrid.appendChild(el);
             }
 
+            requestAnimationFrame(enforceCalendarFramedCorners);
+
         if (!autoSelected) {
-            slotsDayDisplay.textContent = nearestDay && absoluteNearestDate
-                    ? `Pick a time for ${formatDayLabel(absoluteNearestDate)}:`
-                    : 'No available slots available right now.';
+            slotsDayDisplay.textContent = CALENDAR_SLOTS_LABEL;
         }
 
             setCalendarLoaderState('hidden');
@@ -13657,13 +14557,7 @@
         const visibleSlots = (isSaturdaySelected && !free.length)
             ? buildSaturdayPhoneOnlySlots(selectedDate)
             : free;
-        // Label
-        const nearestAvailableLabelDate = absoluteNearestDate || selectedDate;
-        slotsDayDisplay.textContent = visibleSlots.length
-            ? (isSaturdaySelected
-                ? 'BY CALL ONLY:'
-                : `Pick a time for ${formatDayLabel(nearestAvailableLabelDate)}:`)
-            : 'No available slots for this day.';
+        slotsDayDisplay.textContent = CALENDAR_SLOTS_LABEL;
         slotsDayDisplay.style.opacity = '1';
 
         // Build slot buttons
@@ -13694,6 +14588,8 @@
             };
             slotsGrid.appendChild(btn);
         });
+
+        requestAnimationFrame(enforceCalendarFramedCorners);
 
         slotsBlock.style.display = visibleSlots.length ? 'block' : 'none';
         slotsBlock.style.minHeight = visibleSlots.length ? '0' : '';
@@ -14211,6 +15107,7 @@
     let pendingSlotAttachRequest = false;
     let pendingBookingWithoutSpecificDate = false;
     let shouldAutoAssignNearestSlotForPendingNoDateBooking = false;
+    let pendingAutoAssignedNoticeMessage = '';
     // const INTAKE_NOTICE_SEEN_SESSION_KEY = 'hd.intakeNoticeSeen.session.v1';
     const INTAKE_NOTICE_SOUND_CANDIDATES = ['ding.mp3'];
     const SUCCESS_SOUND_CANDIDATES = ['dingding.mp3'];
@@ -14466,6 +15363,78 @@
         openIntakeNoticeModal();
     }
 
+    function formatAutoAssignedDateLabel(dateObj) {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return '';
+        return dateObj.toLocaleDateString('en-US', {
+            month: 'long',
+            day: '2-digit',
+            year: 'numeric'
+        });
+    }
+
+    function formatAutoAssignedTimeRange(slot) {
+        const startMinutes = getSlotStartMinutes(slot);
+        if (!Number.isFinite(startMinutes) || startMinutes < 0) return '';
+        const startHour = Math.floor(startMinutes / 60);
+        const startMinute = startMinutes % 60;
+        const startLabel = new Date(2000, 0, 1, startHour, startMinute).toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+        const endLabel = getEndTime(startLabel);
+        return `${startLabel} \u2013 ${endLabel}`;
+    }
+
+    function enforceNameHint(nameInput = document.querySelector('#bookingForm input[name=\"name\"]')) {
+        if (!nameInput) return;
+        const currentName = normalizeSingleLine(nameInput.value);
+        if (!currentName) {
+            nameInput.classList.add('field-invalid');
+            setBookingNotice('Please enter your full name.', 'warning', nameInput);
+        } else if (bookingStatus && /please enter your full name/i.test(String(bookingStatus.textContent || ''))) {
+            clearBookingError();
+            nameInput.classList.remove('field-invalid');
+        }
+    }
+
+    function syncBookingStatusHint(form = document.getElementById('bookingForm'), requiredState = null) {
+        if (!bookingStatus || !form) return;
+        if (bookingStatus.classList.contains('status-alert--error')) return;
+        const state = requiredState || getBookingRequiredValidationState(form);
+        if (!state) return;
+        if (!state.valid) {
+            const hintMessage = state.message || 'Please complete all required fields.';
+            setBookingNotice(hintMessage, 'warning', state.field || null);
+            return;
+        }
+        const slotForHint = selectedSlotData || pendingSlotForBooking || nearestSlotData || null;
+        const dateForHint = (selectedDate instanceof Date && !Number.isNaN(selectedDate.getTime()))
+            ? selectedDate
+            : null;
+        setBookingNotice(buildAutoAssignedSlotNotice(dateForHint, slotForHint), 'success');
+    }
+
+    function buildAutoAssignedSlotNotice(dateObj, slot) {
+        const dateLabel = formatAutoAssignedDateLabel(dateObj);
+        const timeLabel = formatAutoAssignedTimeRange(slot);
+        if (!dateLabel || !timeLabel) return 'Your appointment is being:\nTo be scheduled.';
+        return `Your appointment is being:\n${dateLabel}, ${timeLabel}`;
+    }
+
+    function canShowAutoAssignedNotice(form = document.getElementById('bookingForm')) {
+        const state = getBookingRequiredValidationState(form);
+        return Boolean(state && state.valid);
+    }
+
+    function maybeShowPendingAutoAssignedNotice(form = document.getElementById('bookingForm')) {
+        if (!pendingAutoAssignedNoticeMessage) return;
+        if (canShowAutoAssignedNotice(form)) {
+            setBookingNotice(pendingAutoAssignedNoticeMessage, 'success');
+            pendingAutoAssignedNoticeMessage = '';
+        }
+    }
+
     function tryAutoAssignNearestSlotForPendingNoDateBooking() {
         if (!shouldAutoAssignNearestSlotForPendingNoDateBooking) return false;
         if (!(absoluteNearestDate instanceof Date) || !nearestSlotData) return false;
@@ -14486,7 +15455,14 @@
             selectedSlotData = nearestSlotData;
             bookingWithoutSpecificDate = false;
             syncBookingModalSlotDisplay(nearestSlotData);
-            setBookingNotice('Appointment time selected automatically after schedule load.', 'success');
+            const noticeMessage = buildAutoAssignedSlotNotice(selectedDate, nearestSlotData);
+            const bookingForm = document.getElementById('bookingForm');
+            if (canShowAutoAssignedNotice(bookingForm)) {
+                pendingAutoAssignedNoticeMessage = '';
+                setBookingNotice(noticeMessage, 'success');
+            } else {
+                pendingAutoAssignedNoticeMessage = noticeMessage;
+            }
             shouldAutoAssignNearestSlotForPendingNoDateBooking = false;
             return true;
         }
@@ -14662,7 +15638,15 @@
                 if (modalBody) modalBody.scrollTop = modalBody.scrollHeight;
                 updateBookingNoticeActionState();
                 updateBookingSubmitAvailability(bookingFormEl);
+                maybeShowPendingAutoAssignedNotice(bookingFormEl);
             });
+        }
+        const nameInputEl = bookingFormEl ? bookingFormEl.querySelector('input[name=\"name\"]') : null;
+        if (nameInputEl && !nameInputEl.dataset.nameHintBound) {
+            const syncNameHint = () => enforceNameHint(nameInputEl);
+            ['input', 'change', 'blur'].forEach(evt => nameInputEl.addEventListener(evt, syncNameHint));
+            nameInputEl.dataset.nameHintBound = '1';
+            syncNameHint();
         }
         updateBookingSubmitAvailability(bookingFormEl);
 
@@ -14880,10 +15864,6 @@
     let lastBookingSummaryForReferral = null;
     let lastSuccessfulBookingSummary = null;
     let bookingRecaptchaApiPromise = null;
-    let bookingRecaptchaToken = '';
-    let bookingRecaptchaTokenIssuedAt = 0;
-    let bookingRecaptchaTokenAction = '';
-    const publicRecaptchaTokenCache = new Map();
     let bookingIntakeStatusCache = null;
     let bookingIntakeStatusFetchedAt = 0;
     let bookingStatusActionTarget = null;
@@ -15319,54 +16299,11 @@
     }
 
     function clearBookingRecaptchaToken() {
-        bookingRecaptchaToken = '';
-        bookingRecaptchaTokenIssuedAt = 0;
-        bookingRecaptchaTokenAction = '';
+        // reCAPTCHA v3 tokens are one-time; no client-side token caching.
     }
 
     function normalizeProtectedRecaptchaAction(action = RECAPTCHA_V3_ACTION) {
         return String(action || RECAPTCHA_V3_ACTION).trim() || RECAPTCHA_V3_ACTION;
-    }
-
-    function prunePublicRecaptchaTokenCache() {
-        const now = Date.now();
-        publicRecaptchaTokenCache.forEach((entry, key) => {
-            if (!entry || !entry.token || (now - Number(entry.issuedAt || 0)) > RECAPTCHA_TOKEN_TTL_MS) {
-                publicRecaptchaTokenCache.delete(key);
-            }
-        });
-    }
-
-    function getCachedPublicRecaptchaToken(action = RECAPTCHA_V3_ACTION) {
-        prunePublicRecaptchaTokenCache();
-        const normalizedAction = normalizeProtectedRecaptchaAction(action);
-        const entry = publicRecaptchaTokenCache.get(normalizedAction);
-        if (!entry || !entry.token) return null;
-        return {
-            token: String(entry.token || '').trim(),
-            action: normalizedAction,
-            issuedAt: Number(entry.issuedAt || 0)
-        };
-    }
-
-    function rememberPublicRecaptchaToken(action, token) {
-        const normalizedAction = normalizeProtectedRecaptchaAction(action);
-        const safeToken = String(token || '').trim();
-        if (!safeToken) return null;
-        const entry = {
-            token: safeToken,
-            action: normalizedAction,
-            issuedAt: Date.now()
-        };
-        publicRecaptchaTokenCache.set(normalizedAction, entry);
-        return entry;
-    }
-
-    function isBookingRecaptchaTokenFresh(action = RECAPTCHA_V3_ACTION) {
-        const expectedAction = String(action || '').trim();
-        return Boolean(bookingRecaptchaToken)
-            && (!expectedAction || bookingRecaptchaTokenAction === expectedAction)
-            && (Date.now() - bookingRecaptchaTokenIssuedAt) <= RECAPTCHA_TOKEN_TTL_MS;
     }
 
     function setBookingRecaptchaVisible(visible) {
@@ -15467,26 +16404,11 @@
         return 'Verify that this domain is allowed for your Google reCAPTCHA site key and that the site key matches the Apps Script secret.';
     }
 
-    async function acquireProtectedRecaptchaToken(action = RECAPTCHA_V3_ACTION, options = {}) {
+    async function acquireProtectedRecaptchaToken(action = RECAPTCHA_V3_ACTION) {
         const siteKey = String(RECAPTCHA_SITE_KEY || '').trim();
         const requestedAction = normalizeProtectedRecaptchaAction(action);
-        const persistBooking = options && options.persistBooking === true;
         if (!siteKey || siteKey === 'YOUR_RECAPTCHA_SITE_KEY') {
             return { success: false, reason: 'site-key-missing' };
-        }
-
-        if (persistBooking && isBookingRecaptchaTokenFresh(requestedAction)) {
-            return { success: true, token: bookingRecaptchaToken, action: bookingRecaptchaTokenAction };
-        }
-
-        const cachedEntry = getCachedPublicRecaptchaToken(requestedAction);
-        if (cachedEntry && cachedEntry.token) {
-            if (persistBooking || requestedAction === RECAPTCHA_V3_ACTION) {
-                bookingRecaptchaToken = cachedEntry.token;
-                bookingRecaptchaTokenIssuedAt = cachedEntry.issuedAt;
-                bookingRecaptchaTokenAction = requestedAction;
-            }
-            return { success: true, token: cachedEntry.token, action: requestedAction };
         }
 
         const apiReady = await waitForRecaptchaApiReady();
@@ -15506,23 +16428,15 @@
             if (!safeToken) {
                 return { success: false, reason: 'token-empty' };
             }
-            const entry = rememberPublicRecaptchaToken(requestedAction, safeToken);
-            if (persistBooking || requestedAction === RECAPTCHA_V3_ACTION) {
-                bookingRecaptchaToken = safeToken;
-                bookingRecaptchaTokenIssuedAt = entry ? entry.issuedAt : Date.now();
-                bookingRecaptchaTokenAction = requestedAction;
-            }
             return { success: true, token: safeToken, action: requestedAction };
         } catch (err) {
-            if (persistBooking || requestedAction === RECAPTCHA_V3_ACTION) {
-                clearBookingRecaptchaToken();
-            }
+            clearBookingRecaptchaToken();
             return { success: false, reason: 'execute-failed' };
         }
     }
 
     async function acquireBookingRecaptchaToken(action = RECAPTCHA_V3_ACTION) {
-        return acquireProtectedRecaptchaToken(action, { persistBooking: true });
+        return acquireProtectedRecaptchaToken(action);
     }
 
     function makePublicRequestNonce(action = 'request') {
@@ -15604,9 +16518,7 @@
             throw new Error(getRecaptchaSetupHintMessage());
         }
 
-        const tokenResult = await acquireProtectedRecaptchaToken(normalizedAction, {
-            persistBooking: options.persistBooking === true
-        });
+        const tokenResult = await acquireProtectedRecaptchaToken(normalizedAction);
         if (!tokenResult.success) {
             throw new Error(getProtectedRequestAcquireFailureMessage(tokenResult.reason, normalizedAction));
         }
@@ -15790,8 +16702,8 @@
             passed: true,
             bypassed: false,
             reason: '',
-            token: bookingRecaptchaToken,
-            action: bookingRecaptchaTokenAction || RECAPTCHA_V3_ACTION
+            token: String(tokenResult.token || ''),
+            action: String(tokenResult.action || RECAPTCHA_V3_ACTION)
         };
     }
 
@@ -15853,12 +16765,13 @@
     function setBookingNotice(message, tone = 'success', actionTarget = null) {
         if (!bookingStatus) return;
         const safeTone = normalizeBookingStatusTone(tone);
-        bookingStatus.textContent = normalizeBookingNoticeMessage(message);
+        const safeMessage = normalizeBookingNoticeMessage(message);
+        bookingStatus.innerHTML = escapeHtmlClient(safeMessage).replace(/\n/g, '<br>');
         bookingStatus.classList.remove('status-alert--visible', 'status-alert--success', 'status-alert--warning', 'status-alert--error', 'status-alert--actionable');
-        if (bookingStatus.textContent) {
+        if (safeMessage) {
             bookingStatus.classList.add(`status-alert--${safeTone}`, 'status-alert--visible');
         }
-        setBookingNoticeActionTarget(bookingStatus.textContent ? actionTarget : null);
+        setBookingNoticeActionTarget(safeMessage ? actionTarget : null);
         updateBookingNoticeActionState();
     }
 
@@ -17949,8 +18862,7 @@
                 try {
                     const securedPayload = await appendProtectedPublicRequestSecurity(
                         item.payload,
-                        RECAPTCHA_V3_ACTION,
-                        { persistBooking: true }
+                        RECAPTCHA_V3_ACTION
                     );
                     const response = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
@@ -18214,10 +19126,10 @@
         if (!phoneNormalized.valid) {
             return { valid: false, field: form.phone, message: `Please enter a phone number (up to ${BOOKING_PHONE_MAX_CHARS} characters).`, zip };
         }
-        if (street.length < 2 || street.length > 150 || /[<>]/.test(street)) {
+        if (street && (street.length < 2 || street.length > 150 || /[<>]/.test(street))) {
             return { valid: false, field: form.address_street, message: 'Please enter a valid street address.', zip };
         }
-        if (!city || !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+        if (city && !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
             return { valid: false, field: cityTrigger || form.address_city, message: 'Please choose a city from the Ontario list.', zip };
         }
         if (zip && !isValidBookingPostalCode(zip)) {
@@ -18261,11 +19173,17 @@
         const intakeEnabled = !(bookingIntakeStatusCache && bookingIntakeStatusCache.enabled === false);
         const intakeMessage = intakeEnabled ? '' : getBookingIntakeDisabledMessage();
         setBookingIntakeUiState(intakeEnabled, intakeMessage);
+        enforceNameHint(form ? form.querySelector('input[name=\"name\"]') : null);
+        const requiredState = form ? getBookingRequiredValidationState(form) : null;
         const canSubmit = Boolean(
             intakeEnabled &&
             form &&
-            (isTseProbnikBypassReady(form) || getBookingRequiredValidationState(form).valid)
+            (isTseProbnikBypassReady(form) || (requiredState && requiredState.valid))
         );
+        syncBookingStatusHint(form, requiredState);
+        if (canSubmit) {
+            maybeShowPendingAutoAssignedNotice(form);
+        }
         // Keep BOOK clickable while the form is incomplete so click can highlight
         // and scroll to the first missing field; disable only when intake is paused.
         confirmBtn.disabled = !intakeEnabled;
@@ -18847,7 +19765,7 @@
             return false;
         }
 
-        if (street.length > 150 || /[<>]/.test(street)) {
+        if (street && (street.length > 150 || /[<>]/.test(street))) {
             setBookingError('Please enter a valid street address.', form.address_street);
             return false;
         }
@@ -18857,7 +19775,7 @@
             return false;
         }
 
-        if (!MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
+        if (city && !MAJOR_ON_CITIES_NEAR_LONDON.has(city)) {
             setBookingError('Please choose a city from the Ontario list.', cityTrigger || form.address_city);
             return false;
         }
@@ -19295,7 +20213,9 @@
             return;
         }
         const recaptchaRequiredForBooking = tseProbnikCaptchaState.required;
-        const recaptchaTokenForBooking = recaptchaRequiredForBooking ? bookingRecaptchaToken : '';
+        const recaptchaTokenForBooking = recaptchaRequiredForBooking
+            ? String(tseProbnikCaptchaState.token || '').trim()
+            : '';
 
         let isSuccess = false;
         let bookingData = null;
@@ -19451,8 +20371,7 @@
 
             const securedBookingData = await appendProtectedPublicRequestSecurity(
                 bookingData,
-                RECAPTCHA_V3_ACTION,
-                { persistBooking: true }
+                RECAPTCHA_V3_ACTION
             );
             const response = await fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
@@ -19572,6 +20491,9 @@
                 clearGlobalSpinnerPublicError();
             }
             scheduleGlobalSpinnerHide(pendingSpinnerPublicError ? GLOBAL_SPINNER_PUBLIC_ERROR_DISPLAY_MS : 220);
+            if (!isSuccess) {
+                clearBookingRecaptchaToken();
+            }
             if (!isSuccess && confirmBtn) {
                 confirmBtn.textContent = getConfirmBtnLabel();
                 updateBookingSubmitAvailability(document.getElementById('bookingForm'));
@@ -20251,6 +21173,8 @@
     const TYPEWRITER_PHASE_HIDDEN_PAUSE_MS = 500;
     const TYPEWRITER_PHASE_FLYOUT_MS = 260;
     const TYPEWRITER_HELLO_VISIBLE_PAUSE_MS = 2500;
+    const HEADER_NEAREST_HINT_LOADING_STABLE_PAUSE_MS = 2400;
+    const HEADER_NEAREST_HINT_LOADING_EXIT_ANIMATION_MS = 340;
     let headerNearestHintTypewriterTimer = null;
     let headerNearestHintTypewriterToken = 0;
     let headerNearestHintTypewriterActive = false;
@@ -20259,8 +21183,11 @@
     let headerNearestHintLastRenderedText = '';
     let headerNearestHintResolvedTypingUnlocked = false;
     let headerNearestHintQueuedResolvedText = '';
+    let headerNearestHintQueuedAfterLoadingText = '';
     let headerNearestHintHelloLockActive = false;
     let headerNearestHintDeferredText = null;
+    let headerNearestHintLoadingHoldUntil = 0;
+    let headerNearestHintLoadingHoldTimer = null;
     const HEADER_PRELOADER_LOADING_SEQUENCE = HEADER_TYPEWRITER_LOADING_SEQUENCE;
     const HEADER_PRELOADER_SEARCH_TEXT =
         HEADER_PRELOADER_LOADING_SEQUENCE[HEADER_PRELOADER_LOADING_SEQUENCE.length - 1];
@@ -20303,15 +21230,79 @@
             headerNearestHintTypewriterTimer = null;
         }
         const hintEl = document.getElementById('headerNearestSlotHint');
+        if (hintEl && hintEl.__headerNearestLoadingExitTimer) {
+            clearTimeout(hintEl.__headerNearestLoadingExitTimer);
+            hintEl.__headerNearestLoadingExitTimer = null;
+        }
         if (hintEl && hintEl.classList) {
             hintEl.classList.remove('header-nearest-slot-hint--typing');
             hintEl.classList.remove('typewriter-fly-to-viewer');
+            hintEl.classList.remove('header-nearest-slot-hint--loading-exit');
         }
         if (!preserveText && hintEl) {
             hintEl.textContent = '';
         }
         headerNearestHintTypewriterActive = false;
         headerNearestHintTypewriterTargetText = '';
+    }
+
+    function clearHeaderNearestHintLoadingHold() {
+        if (headerNearestHintLoadingHoldTimer) {
+            clearTimeout(headerNearestHintLoadingHoldTimer);
+            headerNearestHintLoadingHoldTimer = null;
+        }
+        headerNearestHintLoadingHoldUntil = 0;
+    }
+
+    function isHeaderNearestHintLoadingTransitionLocked() {
+        const isLoadingTypewriterActive = headerNearestHintTypewriterActive
+            && headerNearestHintTypewriterTargetText === HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+        const now = Date.now();
+        const isLoadingHoldActive = headerNearestHintLoadingHoldUntil > now;
+        if (!isLoadingHoldActive && headerNearestHintLoadingHoldUntil) {
+            headerNearestHintLoadingHoldUntil = 0;
+        }
+        return isLoadingTypewriterActive || isLoadingHoldActive;
+    }
+
+    function flushHeaderNearestHintQueuedAfterLoading(hintEl) {
+        const queuedText = String(headerNearestHintQueuedAfterLoadingText || '').trim();
+        if (!queuedText) return;
+        headerNearestHintQueuedAfterLoadingText = '';
+        setHeaderNearestSlotHint(queuedText);
+    }
+
+    function flushHeaderNearestHintQueuedResolved(hintEl) {
+        const queued = String(headerNearestHintQueuedResolvedText || '').trim();
+        if (!queued) return;
+        if (!headerNearestHintResolvedTypingUnlocked) return;
+        if (!hintEl) return;
+        if (isHeaderNearestHintLoadingTransitionLocked()) return;
+        headerNearestHintQueuedResolvedText = '';
+        hintEl.classList.add('header-nearest-slot-hint--visible');
+        if (
+            (headerNearestHintTypewriterActive && headerNearestHintTypewriterTargetText === queued) ||
+            (!headerNearestHintTypewriterActive && headerNearestHintLastRenderedText === queued)
+        ) {
+            return;
+        }
+        startHeaderNearestHintTypewriter(hintEl, queued);
+    }
+
+    function startHeaderNearestHintLoadingHold(hintEl) {
+        if (!hintEl) return;
+        clearHeaderNearestHintLoadingHold();
+        headerNearestHintLoadingHoldUntil = Date.now() + HEADER_NEAREST_HINT_LOADING_STABLE_PAUSE_MS;
+        headerNearestHintLoadingHoldTimer = setTimeout(() => {
+            headerNearestHintLoadingHoldTimer = null;
+            headerNearestHintLoadingHoldUntil = 0;
+            const liveHintEl = (hintEl && hintEl.isConnected)
+                ? hintEl
+                : document.getElementById('headerNearestSlotHint');
+            if (!liveHintEl) return;
+            flushHeaderNearestHintQueuedAfterLoading(liveHintEl);
+            flushHeaderNearestHintQueuedResolved(liveHintEl);
+        }, HEADER_NEAREST_HINT_LOADING_STABLE_PAUSE_MS);
     }
 
     function clearHeaderPreloaderSearchTypewriter(options = {}) {
@@ -20621,6 +21612,7 @@
 
     function startHeaderNearestHintLoadingSequence(hintEl) {
         if (!hintEl) return;
+        headerNearestHintQueuedAfterLoadingText = '';
         if (headerTypewriterSessionPlayed) {
             clearHeaderNearestHintTypewriter({ preserveText: true });
             headerNearestHintTypewriterActive = false;
@@ -20631,8 +21623,10 @@
             headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
             hintEl.classList.remove('header-nearest-slot-hint--typing');
             hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+            startHeaderNearestHintLoadingHold(hintEl);
             return;
         }
+        clearHeaderNearestHintLoadingHold();
         clearHeaderNearestHintTypewriter();
         headerNearestHintTypewriterToken += 1;
         const runToken = headerNearestHintTypewriterToken;
@@ -20669,8 +21663,9 @@
                     if (headerNearestHintDeferredText !== null) {
                         const deferredAfterHello = headerNearestHintDeferredText;
                         headerNearestHintDeferredText = null;
-                        setHeaderNearestSlotHint(deferredAfterHello);
-                        return;
+                        if (String(deferredAfterHello || '').trim()) {
+                            headerNearestHintQueuedAfterLoadingText = String(deferredAfterHello || '').trim();
+                        }
                     }
                 }
                 if (hintEl.classList) {
@@ -20710,6 +21705,7 @@
                 markHeaderTypewriterSessionPlayed();
                 headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                 hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                startHeaderNearestHintLoadingHold(hintEl);
                 return;
             }
 
@@ -20732,19 +21728,24 @@
         ) {
             clearHeaderNearestHintTypewriter({ preserveText: true });
             hintEl.classList.remove('header-nearest-slot-hint--typing');
-            if (hintEl.classList) {
-                hintEl.classList.remove('typewriter-fly-to-viewer');
-                void hintEl.offsetWidth;
-                hintEl.classList.add('typewriter-fly-to-viewer');
+            if (hintEl.__headerNearestLoadingExitTimer) {
+                clearTimeout(hintEl.__headerNearestLoadingExitTimer);
+                hintEl.__headerNearestLoadingExitTimer = null;
             }
-            setTimeout(() => {
+            if (hintEl.classList) {
+                hintEl.classList.remove('header-nearest-slot-hint--loading-exit');
+                void hintEl.offsetWidth;
+                hintEl.classList.add('header-nearest-slot-hint--loading-exit');
+            }
+            hintEl.__headerNearestLoadingExitTimer = setTimeout(() => {
                 if (!hintEl || !hintEl.isConnected) return;
                 if (hintEl.classList) {
-                    hintEl.classList.remove('typewriter-fly-to-viewer');
+                    hintEl.classList.remove('header-nearest-slot-hint--loading-exit');
                 }
                 hintEl.textContent = '';
+                hintEl.__headerNearestLoadingExitTimer = null;
                 startHeaderNearestHintTypewriter(hintEl, finalText, true);
-            }, TYPEWRITER_PHASE_FLYOUT_MS + TYPEWRITER_PHASE_HIDDEN_PAUSE_MS);
+            }, HEADER_NEAREST_HINT_LOADING_EXIT_ANIMATION_MS + TYPEWRITER_PHASE_HIDDEN_PAUSE_MS);
             return;
         }
 
@@ -20818,6 +21819,10 @@
             headerNearestHintDeferredText = nextText;
             return;
         }
+        if (nextText && !isLoadingText && isHeaderNearestHintLoadingTransitionLocked()) {
+            headerNearestHintQueuedAfterLoadingText = nextText;
+            return;
+        }
         const noSlotWrap = document.getElementById('headerNoSlotNotice');
         const noSlotText = document.getElementById('headerNoSlotNoticeText');
         const isUnavailable = /^\*?Nearest appointment:\s*unavailable/i.test(nextText);
@@ -20840,8 +21845,10 @@
             headerNearestHintHelloLockActive = false;
             headerNearestHintDeferredText = null;
             clearHeaderNearestHintTypewriter();
+            clearHeaderNearestHintLoadingHold();
             headerNearestHintLoadingTypedOnce = false;
             headerNearestHintQueuedResolvedText = '';
+            headerNearestHintQueuedAfterLoadingText = '';
             headerNearestHintLastRenderedText = '';
             hintEl.textContent = '';
             return;
@@ -20857,6 +21864,7 @@
             if (headerNearestHintLoadingTypedOnce) {
                 hintEl.textContent = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
                 headerNearestHintLastRenderedText = HEADER_NEAREST_HINT_LOADING_FINAL_TEXT;
+                startHeaderNearestHintLoadingHold(hintEl);
                 return;
             }
             startHeaderNearestHintLoadingSequence(hintEl);
@@ -20886,19 +21894,9 @@
 
     window.addEventListener(HEADER_NEAREST_HINT_UNLOCK_EVENT, () => {
         headerNearestHintResolvedTypingUnlocked = true;
-        const queued = String(headerNearestHintQueuedResolvedText || '').trim();
-        if (!queued) return;
         const hintEl = document.getElementById('headerNearestSlotHint');
         if (!hintEl) return;
-        headerNearestHintQueuedResolvedText = '';
-        hintEl.classList.add('header-nearest-slot-hint--visible');
-        if (
-            (headerNearestHintTypewriterActive && headerNearestHintTypewriterTargetText === queued) ||
-            (!headerNearestHintTypewriterActive && headerNearestHintLastRenderedText === queued)
-        ) {
-            return;
-        }
-        startHeaderNearestHintTypewriter(hintEl, queued);
+        flushHeaderNearestHintQueuedResolved(hintEl);
     });
 
     function renderHeaderBookBtnText(targetEl, dayShort, dayDate, timeStr) {
