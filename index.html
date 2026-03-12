@@ -994,7 +994,7 @@
             line-height: 1.2 !important;
             text-transform: uppercase;
             color: #ffffff !important;
-            text-shadow: 0 1px 10px rgba(var(--site-text-shadow-rgb), var(--site-text-shadow-alpha)) !important;
+            text-shadow: 0 1px 8px rgba(var(--site-bg-shadow-rgb), 0.12) !important;
             text-align: center;
         }
         #calendarHeaderTitle.calendar-title--hidden {
@@ -1581,6 +1581,18 @@
             align-items: center;
             white-space: nowrap;
             font-weight: 700;
+            text-decoration: underline !important;
+            text-underline-offset: 0.12em;
+            text-decoration-thickness: 2px;
+            background: none !important;
+            border: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            outline: none !important;
+            border-radius: 0 !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
         }
 
         .faq-google-form-link:hover {
@@ -5031,19 +5043,27 @@
                 opacity: var(--ember-start-opacity, 0);
             }
             8% {
-                transform: translate3d(0, calc(var(--ember-rise-y, -720px) * 0.08), 0) scale(0.97);
+                transform: translate3d(calc(var(--ember-drift, 0px) * 0.25), calc(var(--ember-rise-y, -720px) * 0.08), 0) scale(0.97);
                 opacity: var(--ember-entry-opacity, var(--ember-opacity, 0.92));
             }
+            35% {
+                transform: translate3d(calc(var(--ember-drift, 0px) * -0.2), calc(var(--ember-rise-y, -720px) * 0.35), 0) scale(0.82);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.74);
+            }
             60% {
-                transform: translate3d(0, calc(var(--ember-rise-y, -720px) * 0.6), 0) scale(0.68);
+                transform: translate3d(calc(var(--ember-drift, 0px) * 0.18), calc(var(--ember-rise-y, -720px) * 0.6), 0) scale(0.68);
                 opacity: calc(var(--ember-opacity, 0.92) * 0.54);
             }
+            75% {
+                transform: translate3d(calc(var(--ember-drift, 0px) * -0.12), calc(var(--ember-rise-y, -720px) * 0.78), 0) scale(0.46);
+                opacity: calc(var(--ember-opacity, 0.92) * 0.32);
+            }
             90% {
-                transform: translate3d(0, calc(var(--ember-rise-y, -720px) * 0.9), 0) scale(0.3);
+                transform: translate3d(calc(var(--ember-drift, 0px) * 0.08), calc(var(--ember-rise-y, -720px) * 0.9), 0) scale(0.3);
                 opacity: 0;
             }
             100% {
-                transform: translate3d(0, var(--ember-rise-y, -720px), 0) scale(0.18);
+                transform: translate3d(calc(var(--ember-drift, 0px) * 0.04), var(--ember-rise-y, -720px), 0) scale(0.18);
                 opacity: 0;
             }
         }
@@ -11360,6 +11380,24 @@
             0 0.7rem 1.5rem var(--booking-warm-shadow-soft) !important;
     }
 
+    .confirm-later-btn {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 0.15rem;
+        cursor: pointer;
+        box-shadow: none !important;
+        outline: none !important;
+        border-radius: 0 !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+    }
+
     #bookingModal .contact-form__input,
     #bookingModal .contact-form__textarea,
     #bookingModal .custom-select__trigger,
@@ -12485,7 +12523,7 @@
     #calendarHeaderTitle {
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
-        text-shadow: 0 1px 10px rgba(var(--site-text-shadow-rgb), var(--site-text-shadow-alpha)) !important;
+        text-shadow: 0 1px 8px rgba(var(--site-bg-shadow-rgb), 0.12) !important;
         font-size: 2.8rem !important;
         font-weight: 800 !important;
         letter-spacing: 1px !important;
@@ -12760,6 +12798,71 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235A3D2A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7.2'/%3E%3C/svg%3E") !important;
         opacity: 0.9 !important;
     }
+
+    /* Nearest available day: match BOOK button styling. */
+    .layout-container #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy),
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy) {
+        background: #5a3d2a !important;
+        border-color: #5a3d2a !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    .layout-container #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy):hover,
+    .layout-container #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy):focus-visible,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy):hover,
+    .form-calendar-overlay__mount #bookingCalendar .cal-day--nearest:not(.cal-day--selected):not(.cal-day--disabled):not(.cal-day--busy):focus-visible {
+        background: #ffffff !important;
+        border-color: #ffffff !important;
+        color: #5a3d2a !important;
+        -webkit-text-fill-color: #5a3d2a !important;
+        box-shadow: none !important;
+    }
+
+    /* Calendar loader placeholder should be colorless. */
+    .layout-container #bookingCalendar #calendarLoaderOverlay,
+    .form-calendar-overlay__mount #bookingCalendar #calendarLoaderOverlay {
+        background: transparent !important;
+        background-image: none !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Intake Notice OK button: match main BOOK button style without visible border. */
+    #intakeNoticeModal .intake-notice-modal__ok {
+        background: var(--modal-lock-button-bg) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.24),
+            0 0.56rem 1.18rem rgba(var(--site-bg-shadow-rgb), 0.28) !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.06em !important;
+        text-transform: uppercase !important;
+    }
+
+    #intakeNoticeModal .intake-notice-modal__ok:hover,
+    #intakeNoticeModal .intake-notice-modal__ok:focus-visible,
+    #intakeNoticeModal .intake-notice-modal__ok:active {
+        background: var(--modal-lock-button-bg-hover) !important;
+        color: var(--modal-lock-button-text) !important;
+        -webkit-text-fill-color: var(--modal-lock-button-text) !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.86),
+            inset 0 -1px 0 rgba(var(--site-bg-shadow-rgb), 0.26),
+            0 0.7rem 1.34rem rgba(var(--site-bg-shadow-rgb), 0.34) !important;
+    }
 </style>
 </head>
 
@@ -13026,15 +13129,15 @@
         <div class="faq__item">
             <h3 class="faq__question">What if I do not know the date yet?</h3>
             <div class="faq__answer">
-                <p>No problem, there is an option to submit the booking form without specifying an exact date by using the special calendar icon in the form.</p>
-                <p>The appointment date will then be discussed in more detail later by phone or email.</p>
+                <p>Feel free to submit the booking form without an exact date using the calendar icon.</p>
+                <p>We'll discuss the appointment date later by phone or email, if you click: <a href="#" class="confirm-later-btn contact-form__terms-link faq-google-form-link" onclick="return openBookingModalWithoutDate(event)">Confirm Later</a></p>
             </div>
         </div>
 
         <div class="faq__item">
             <h3 class="faq__question">Was there an earlier way to register?</h3>
             <div class="faq__answer">
-                The prior registration process remains accessible at its original URL and existing links will continue to direct users to the original intake: <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" class="contact-form__terms-link faq-google-form-link">Google Form</a>
+                        The prior registration process remains accessible at its old URL and existing links will continue to direct users to the old intake: <a href="https://docs.google.com/forms/d/1brLzvNv2tR9jDvG4Z9vUZLvzzpgZHmOhHPZ7_x8g8Qo" target="_blank" rel="noopener noreferrer" class="contact-form__terms-link faq-google-form-link">Google Form</a>
             </div>
         </div>
 
@@ -15472,8 +15575,11 @@
 
     function syncBookingStatusHint(form = document.getElementById('bookingForm'), requiredState = null) {
         if (!bookingStatus || !form) return;
-        if (bookingStatus.classList.contains('status-alert--error')) return;
         const state = requiredState || getBookingRequiredValidationState(form);
+        if (bookingStatus.classList.contains('status-alert--error')) {
+            if (!state || !state.valid) return;
+            bookingStatus.classList.remove('status-alert--error');
+        }
         if (!state) return;
         if (!state.valid) {
             const hintMessage = state.message || 'Please complete all required fields.';
@@ -19196,7 +19302,7 @@
             return { valid: false, field: form.occupation, message: 'Please enter a valid occupation.', zip };
         }
         if (!phoneNormalized.valid) {
-            return { valid: false, field: form.phone, message: `Please enter a phone number (up to ${BOOKING_PHONE_MAX_CHARS} characters).`, zip };
+            return { valid: false, field: form.phone, message: 'Please enter a phone number.', zip };
         }
         if (street && (street.length < 2 || street.length > 150 || /[<>]/.test(street))) {
             return { valid: false, field: form.address_street, message: 'Please enter a valid street address.', zip };
@@ -21104,6 +21210,8 @@
         const entryOpacity = opacity * (0.72 + Math.random() * 0.22);
         const leftPercent = 6 + Math.random() * 88;
         const startDelayMs = 0;
+        const maxDrift = footerEmberState.isLowEndDevice ? 8 : 12;
+        const drift = (Math.random() * 2 - 1) * maxDrift;
 
         ember.style.left = `${leftPercent.toFixed(2)}%`;
         ember.style.setProperty('--ember-size', `${size.toFixed(2)}px`);
@@ -21113,6 +21221,7 @@
         ember.style.setProperty('--ember-opacity', opacity.toFixed(2));
         ember.style.setProperty('--ember-start-opacity', startOpacity.toFixed(2));
         ember.style.setProperty('--ember-entry-opacity', entryOpacity.toFixed(2));
+        ember.style.setProperty('--ember-drift', `${drift.toFixed(1)}px`);
 
         layer.appendChild(ember);
         ember.addEventListener('animationend', () => {
